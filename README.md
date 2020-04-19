@@ -31,9 +31,8 @@ Research, incept and build on the existing system to allow their extensive colle
 - 🚦**TBC**
 Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
 # Documents and repositories: 
-Google drive: https://bit.ly/34ha4dK 
-- Team email: bahamas-marine-mammal-research-organization@thoughtworks.com 
-If you do not have access to any of the above, email siva.subramanian@thoughtworks.com 
+[Google drive](https://bit.ly/34ha4dK)
+... If you do not have access to any of the above, email siva.subramanian@thoughtworks.com or james.brown@thoughtworks.com
 ## Primary Contacts:
 - Charlotte Dunn, PhD (BMMRO):  cdunn@bahamaswhales.org
 - Thomas Brown, client Product Owner (BMMRO): motnworb@hotmail.com
