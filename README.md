@@ -21,7 +21,7 @@ Bahamas Marine Mammal Research Organization (BMMRO) works on finding marine mamm
 - ✅**As-is inforgraphic**
 Gather information about the current “as-is” technology and processes being used
 - 🚦**HUDS** (Habitat Use Data Sheet)
-Build an application to improve the data gathered about habitats whilst researchers are on boat surveys. By the end of this milestone, they should be using a browser based UI to gather data for habitats from commercial personal devices (smart phones, pads, laptops), it should be stored securely on the cloud and accessible to export for use in their current R based analytics workflow
+Build an application to improve the data gathered about habitats whilst researchers are on boat surveys. By the end of this milestone, they should be using a browser based UI (PWA?) to gather data for habitats from typical cosumer devices (smart phones, pads, laptops), it should be stored securely on the cloud and accessible to export for use in their current R based analytics workflow
 - 🚦**ESDS** (Encounter Sighting Data Sheet)
 This will extend the application to enable capturing encounter data when marine wildlife is sighted on boat trips
 - 🚦**Data Migration Tool**
