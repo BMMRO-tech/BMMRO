@@ -27,7 +27,7 @@ This will extend the application to enable capturing encounter data when marine 
 - 🚦**Data Migration Tool**
 This will provide a tool to migrate data from their current MS Access database to the new data store. It should be idempotent to allow for multiple migrations without data corruption or duplication and thus allowing old and new world to co-exist
 - 🚦**Media Link**
-Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data to be linked in a meaningful way to the HUDS and ESDS data. Look for opportunities to improve the gathering of this data along the way
+Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data can be linked, in a meaningful way, to the HUDS and ESDS data. Look for opportunities to improve the gathering of this data along the way
 - 🚦**TBC**
 Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
 # Documents and repositories: 
