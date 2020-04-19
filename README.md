@@ -7,9 +7,9 @@ Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull but 
 - Instagram: 	[@BMMRO](https://twitter.com/BMMRO)
 - [Publications](https://bit.ly/35cssEW)
 ## Goals
-- Develop BMMRO’s technical infrastructure:
 - Build software to enable and improve scientistific research at BMMRO
 - Be a technical consultant to BMMRO
+- Be proud of your contribution
 
 ## Onboarding Pathway
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
