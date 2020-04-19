@@ -1,6 +1,6 @@
 # Bahamas Marine Mammal Research Organization (BMMRO)
 ## Overview
-Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. 
+Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. This page is here because we believe technology can help them better than it currently is. Join us...
 - Website:	 http://www.bahamaswhales.org/home.aspx
 - Facebook: 	www.facebook.com/BMMRO
 - Twitter: 	[@BMMRO](https://www.instagram.com/bmmro/)
