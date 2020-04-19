@@ -34,9 +34,8 @@ Potential future work could be further app improvements, more accessible or soph
 [Google drive](https://bit.ly/34ha4dK)
 ... If you do not have access to any of the above, email siva.subramanian@thoughtworks.com or james.brown@thoughtworks.com
 ## Primary Contacts:
+- James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
 - Charlotte Dunn, PhD (BMMRO):  cdunn@bahamaswhales.org
 - Thomas Brown, client Product Owner (BMMRO): motnworb@hotmail.com
-- James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
 - Siva Subramanian, Technical Lead (TW): siva.subramanian@thoughtworks.com 
-- Team: bahamas-marine-mammal-research-organization@thoughtworks.com 
-
+- Team: bahamas-marine-mammal-research-organization@thoughtworks.com
