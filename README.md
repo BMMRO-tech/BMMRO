@@ -1,15 +1,26 @@
 # Bahamas Marine Mammal Research Organization (BMMRO)
+
 ## Overview
-Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. This page is here because we believe technology can help them better than it currently is. Join us...
+Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull, but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. This page is here because we believe technology can help them better than it currently is. Join us...
+
+## About them
 - Website:	 http://www.bahamaswhales.org/home.aspx
 - Facebook: 	www.facebook.com/BMMRO
 - Twitter: 	[@BMMRO](https://www.instagram.com/bmmro/)
 - Instagram: 	[@BMMRO](https://twitter.com/BMMRO)
 - [Publications](https://bit.ly/35cssEW)
-## Goals
-- Build software to enable and improve scientistific research at BMMRO
+
+## About us
+We are passionate about technology. We understand that the system that protects us, doesnt protect all. We are a subsystem within a system that reaches out to correct the problems caused by the system, which we are part of. Its complicated.
+
+## Mission
+- Build software to enable and improve BMMRO's mission
 - Be a technical consultant to BMMRO
-- Be proud of your contribution
+
+## Philosophy
+- Thin vertical slices
+- Add automated tests, if it builds we ship it
+- ... (suggest more)
 
 ## Onboarding Pathway
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
@@ -30,9 +41,11 @@ This will provide a tool to migrate data from their current MS Access database t
 Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data can be linked, in a meaningful way, to the HUDS and ESDS data. Look for opportunities to improve the gathering of this data along the way
 - 🚦**TBC**
 Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
+
 # Documents and repositories: 
 [Google drive](https://bit.ly/34ha4dK)
 ... If you do not have access to any of the above, email siva.subramanian@thoughtworks.com or james.brown@thoughtworks.com
+
 ## Primary Contacts:
 - James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
 - Charlotte Dunn, PhD (BMMRO):  cdunn@bahamaswhales.org
