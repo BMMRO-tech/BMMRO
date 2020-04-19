@@ -13,7 +13,7 @@ Bahamas Marine Mammal Research Organization (BMMRO) works on finding marine mamm
 
 ## Onboarding Pathway
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
-- [Current “As Is” infographic](https://drive.google.com/file/d/1Cob8oF9hLknCDUxH1o_vrxo2F7cY0VXh/view?usp=sharing)
+- [Current “As Is” infographic](As%20Is%20InfoGraphic.png)
 - [Kanban board](https://trello.com/b/QE40tnJu/bmmro-kanban)
 
 ## Milestones
