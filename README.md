@@ -25,6 +25,8 @@ We are passionate about technology. We understand that the system that protects 
 ## Onboarding Pathway
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
 - [Current “As Is” infographic](As%20Is%20InfoGraphic.png)
+- [Habitiat Use Data Sheet, example of the most frequently used form on boat excurtions](HabitatUseDataSheet.JPG)
+- [Encounter Sighting Data Sheet](EncounterSightingDataSheet.JPG)
 - [Kanban board](https://trello.com/b/QE40tnJu/bmmro-kanban)
 
 ## Milestones
