@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/core";
 
 import Layout from "./components/Layout";
 import Input from "./components/Input";
+import Button from "./components/Button";
 
 const fields = [
   { name: "date", label: "Date" },
@@ -12,11 +13,21 @@ const fields = [
 ];
 
 const App = () => {
+  const styles = {
+    inputContainer: css`
+      margin-bottom: 15px;
+    `,
+  };
+  
   return (
     <Layout>
       <h1>Hello BMMRO</h1>
       <Formik
-        initialValues={{ [fields[0].name]: "", [fields[1].name]: "", [fields[2].name]: "" }}
+        initialValues={{
+          [fields[0].name]: "",
+          [fields[1].name]: "",
+          [fields[2].name]: "",
+        }}
         validate={(values) => {
           const errors = {};
           const errorMessage = "Required";
@@ -35,12 +46,8 @@ const App = () => {
       >
         {({ handleChange, handleBlur, touched, values, errors }) => (
           <Form>
-            {fields.map(({name, label}) => (
-              <div
-                css={css`
-                  margin-bottom: 15px;
-                `}
-              >
+            {fields.map(({ name, label }) => (
+              <div css={styles.inputContainer}>
                 <Input
                   type="text"
                   name={name}
@@ -53,7 +60,7 @@ const App = () => {
                 />
               </div>
             ))}
-            <button type="submit">Submit</button>
+            <Button type="submit">Submit</Button>
           </Form>
         )}
       </Formik>
