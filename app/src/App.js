@@ -1,9 +1,10 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Layout from "./components/Layout";
 
 const App = () => {
   return (
-    <main style={{background: 'lightblue'}}>
+    <Layout>
       <h1>Hello BMMRO</h1>
       <Formik
         initialValues={{ date: '', encSeqNo: '', species: '' }}
@@ -34,8 +35,8 @@ const App = () => {
           Submit
         </button>
       </Form>
-    </Formik>
-    </main>);
+    </Formik></Layout>
+    );
 };
 
 export default App;
