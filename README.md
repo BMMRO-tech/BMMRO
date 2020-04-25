@@ -48,6 +48,10 @@ Potential future work could be further app improvements, more accessible or soph
 [Google drive](https://bit.ly/34ha4dK)
 ... If you do not have access to any of the above, email siva.subramanian@thoughtworks.com or james.brown@thoughtworks.com
 
+# Inspiration
+- https://www.flukebook.org/
+- https://patternradio.withgoogle.com/
+
 ## Primary Contacts:
 - James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
 - Charlotte Dunn, PhD (BMMRO):  cdunn@bahamaswhales.org
