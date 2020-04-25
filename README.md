@@ -1,3 +1,4 @@
+![alt text](./logo_v1.png "Fluke! error...")
 # Bahamas Marine Mammal Research Organization (BMMRO)
 
 ## Overview
