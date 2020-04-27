@@ -43,7 +43,10 @@ const HabitatUseForm = () => {
       {({ handleChange, handleBlur, touched, values, errors }) => (
         <Form>
           {fields.map(({ name, label }) => (
-            <div css={styles.inputContainer}>
+            <div
+              key={`habitat-use-form-field-${name}`}
+              css={styles.inputContainer}
+            >
               <Input
                 type="text"
                 name={name}
