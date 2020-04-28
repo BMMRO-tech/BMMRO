@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/core";
 
 import Input from "./Input";
 import Button from "./Button";
+import { datastore } from "../datastore/datastore";
 
 const fields = [
   { name: "date", label: "Date" },
@@ -38,7 +39,10 @@ const HabitatUseForm = () => {
         }
         return errors;
       }}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => {
+        console.log(values);
+        datastore.recordHabitatUse(values);
+      }}
     >
       {({ handleChange, handleBlur, touched, values, errors }) => (
         <Form>
