@@ -4,7 +4,7 @@ jest.mock("firebase");
 
 describe("Datastore with firestore", () => {
   it("should add expected data to habitat use collection", () => {
-    const firestore = {
+    const firestoreMock = {
       collection: jest
         .fn()
         .mockReturnValue({
@@ -12,11 +12,11 @@ describe("Datastore with firestore", () => {
         }),
     };
 
-    const datastore = new Datastore(firestore);
+    const datastore = new Datastore(firestoreMock);
 
-    datastore.recordHabitatUse({ value1: "123" });
+    datastore.createHabitatUse({ value1: "123" });
 
-    expect(firestore.collection).toHaveBeenCalledTimes(1);
-    expect(firestore.collection().add).toHaveBeenCalledWith({ value1: "123" });
+    expect(firestoreMock.collection).toHaveBeenCalledTimes(1);
+    expect(firestoreMock.collection().add).toHaveBeenCalledWith({ value1: "123" });
   });
 });

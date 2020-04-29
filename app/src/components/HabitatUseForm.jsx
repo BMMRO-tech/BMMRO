@@ -39,9 +39,9 @@ const HabitatUseForm = () => {
         }
         return errors;
       }}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         console.log(values);
-        datastore.recordHabitatUse(values);
+        await datastore.createHabitatUse(values);
       }}
     >
       {({ handleChange, handleBlur, touched, values, errors }) => (

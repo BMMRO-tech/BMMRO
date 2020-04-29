@@ -1,6 +1,16 @@
 import firebase from "firebase";
 import { COLLECTION_NAMES } from "./collectionNames";
 
+export class Datastore {
+  constructor(firestore) {
+    this.firestore = firestore;
+  }
+
+  async createHabitatUse(values) {
+    await this.firestore.collection(COLLECTION_NAMES.habitatUse).add(values);
+  }
+}
+
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -9,16 +19,6 @@ const config = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
-
-export class Datastore {
-  constructor(datastore) {
-    this.datastore = datastore;
-  }
-
-  recordHabitatUse(values) {
-    return this.datastore.collection(COLLECTION_NAMES.habitatUse).add(values);
-  }
-}
 
 const initFirestore = (config) => {
   firebase.initializeApp(config);
