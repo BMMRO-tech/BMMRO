@@ -8,6 +8,7 @@ const Input = ({
   type,
   name,
   label,
+  placeholder,
   onChange,
   onBlur,
   touched,
@@ -38,6 +39,7 @@ const Input = ({
         css={styles.input}
         type={type}
         name={name}
+        placeholder={placeholder}
         id={name}
         onChange={onChange}
         onBlur={onBlur}

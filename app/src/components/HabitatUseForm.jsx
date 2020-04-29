@@ -7,9 +7,9 @@ import Button from "./Button";
 import { datastore } from "../datastore/datastore";
 
 const fields = [
-  { name: "date", label: "Date" },
-  { name: "encSeqNo", label: "Enc Seq #" },
-  { name: "species", label: "Species" },
+  { name: "date", label: "Date", placeholder: "mm/dd/yyyy" },
+  { name: "encSeqNo", label: "Enc Seq #", placeholder: "1" },
+  { name: "species", label: "Species", placeholder: "whale" },
 ];
 
 const HabitatUseForm = () => {
@@ -39,14 +39,22 @@ const HabitatUseForm = () => {
         }
         return errors;
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { setSubmitting }) => {
         console.log(values);
         await datastore.createHabitatUse(values);
+        setSubmitting(false);
       }}
     >
-      {({ handleChange, handleBlur, touched, values, errors }) => (
+      {({
+        handleChange,
+        handleBlur,
+        isSubmitting,
+        touched,
+        values,
+        errors,
+      }) => (
         <Form>
-          {fields.map(({ name, label }) => (
+          {fields.map(({ name, label, placeholder }) => (
             <div
               key={`habitat-use-form-field-${name}`}
               css={styles.inputContainer}
@@ -55,6 +63,7 @@ const HabitatUseForm = () => {
                 type="text"
                 name={name}
                 label={label}
+                placeholder={placeholder}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 touched={touched[name]}
@@ -63,7 +72,9 @@ const HabitatUseForm = () => {
               />
             </div>
           ))}
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            Submit
+          </Button>
         </Form>
       )}
     </Formik>
