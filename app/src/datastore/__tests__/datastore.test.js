@@ -29,6 +29,6 @@ describe("Datastore with firestore", () => {
 
     const datastore = new Datastore(firestoreMock);
 
-    await expect(datastore.createHabitatUse("123")).rejects.toThrow(new Error("Error in createHabitatUse: mango"));
+    await expect(datastore.createHabitatUse("123")).rejects.toThrow(new Error("in createHabitatUse: mango"));
   });
 });

@@ -11,7 +11,7 @@ export class Datastore {
       const result = await this.firestore.collection(COLLECTION_NAMES.habitatUse).add(values);
       return result.id;
     } catch (e) {
-      throw new Error("Error in createHabitatUse: " + e.message);
+      throw new Error("in createHabitatUse: " + e.message);
     }
   }
 }
