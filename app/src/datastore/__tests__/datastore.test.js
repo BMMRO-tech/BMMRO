@@ -13,10 +13,11 @@ describe("Datastore with firestore", () => {
 
     const datastore = new Datastore(firestoreMock);
 
-    await datastore.createHabitatUse({ value1: "123" });
+    const result = await datastore.createHabitatUse({ value1: "123" });
 
     expect(firestoreMock.collection).toHaveBeenCalledTimes(1);
     expect(firestoreMock.collection().add).toHaveBeenCalledWith({ value1: "123" });
+    expect(result).toEqual("abc123");
   });
 
   it("should throw exception", async () => {
@@ -28,8 +29,6 @@ describe("Datastore with firestore", () => {
 
     const datastore = new Datastore(firestoreMock);
 
-    const result = await datastore.createHabitatUse("123");
-
-    expect(result).toEqual(new Error("Firebase error in createHabitiUse: mango"));
+    await expect(datastore.createHabitatUse("123")).rejects.toThrow(new Error("Error in createHabitatUse: mango"));
   });
 });

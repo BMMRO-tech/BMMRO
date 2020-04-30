@@ -6,9 +6,13 @@ export class Datastore {
     this.firestore = firestore;
   }
 
-  createHabitatUse(values) {
-    return this.firestore.collection(COLLECTION_NAMES.habitatUse).add(values)
-      .then(() => { }, (e) => { return new Error("Firebase error in createHabitiUse: " + e.message) });
+  async createHabitatUse(values) {
+    try {
+      const result = await this.firestore.collection(COLLECTION_NAMES.habitatUse).add(values);
+      return result.id;
+    } catch (e) {
+      throw new Error("Error in createHabitatUse: " + e.message);
+    }
   }
 }
 
