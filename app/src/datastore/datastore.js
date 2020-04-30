@@ -6,8 +6,9 @@ export class Datastore {
     this.firestore = firestore;
   }
 
-  async createHabitatUse(values) {
-    await this.firestore.collection(COLLECTION_NAMES.habitatUse).add(values);
+  createHabitatUse(values) {
+    return this.firestore.collection(COLLECTION_NAMES.habitatUse).add(values)
+      .then(() => { }, (e) => { return new Error("Firebase error in createHabitiUse: " + e.message) });
   }
 }
 

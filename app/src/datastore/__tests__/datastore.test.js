@@ -3,20 +3,33 @@ import { Datastore } from "../datastore";
 jest.mock("firebase");
 
 describe("Datastore with firestore", () => {
-  it("should add expected data to habitat use collection", () => {
+
+  it("should add expected data to habitat use collection", async () => {
     const firestoreMock = {
-      collection: jest
-        .fn()
-        .mockReturnValue({
-          add: jest.fn().mockResolvedValue({ id: "abc123" }),
-        }),
+      collection: jest.fn().mockReturnValue({
+        add: jest.fn().mockResolvedValue({ id: "abc123" }),
+      })
     };
 
     const datastore = new Datastore(firestoreMock);
 
-    datastore.createHabitatUse({ value1: "123" });
+    await datastore.createHabitatUse({ value1: "123" });
 
     expect(firestoreMock.collection).toHaveBeenCalledTimes(1);
     expect(firestoreMock.collection().add).toHaveBeenCalledWith({ value1: "123" });
+  });
+
+  it("should throw exception", async () => {
+    const firestoreMock = {
+      collection: jest.fn().mockReturnValue({
+        add: jest.fn().mockRejectedValue(new Error("mango")),
+      }),
+    };
+
+    const datastore = new Datastore(firestoreMock);
+
+    const result = await datastore.createHabitatUse("123");
+
+    expect(result).toEqual(new Error("Firebase error in createHabitiUse: mango"));
   });
 });
