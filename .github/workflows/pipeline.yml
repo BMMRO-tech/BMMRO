@@ -1,0 +1,21 @@
+name: BMMRO Frontend Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      APP_DIR: ./app
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: Install dependencies
+        run: npm install
+        working-directory: ${{env.APP_DIR}}
+      - name: Run tests
+        working-directory: ${{env.APP_DIR}}
+        run: npm test
