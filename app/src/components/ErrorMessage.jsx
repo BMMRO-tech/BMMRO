@@ -2,10 +2,10 @@
 import { css, jsx } from "@emotion/core";
 import colors from "../materials/colors";
 
-const ErrorMessage = ({ text }) => {
+const ErrorMessage = ({ text, isInline = false }) => {
     const styles = {
         error: css`
-          margin-top: 15px;
+          display: ${isInline ? "inline" : "block"};
           color: ${colors.red};
         `,
     };

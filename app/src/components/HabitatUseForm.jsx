@@ -18,7 +18,10 @@ const HabitatUseForm = () => {
   const [generalError, setError] = useState(null);
 
   const styles = {
-    inputContainer: css`
+    inputFieldContainer: css`
+      margin-bottom: 15px;
+    `,
+    formContainer: css`
       margin-bottom: 15px;
     `,
   };
@@ -62,32 +65,34 @@ const HabitatUseForm = () => {
           values,
           errors,
         }) => (
-            <Form>
-              {fields.map(({ name, label, placeholder }) => (
-                <div
-                  key={`habitat-use-form-field-${name}`}
-                  css={styles.inputContainer}
-                >
-                  <Input
-                    type="text"
-                    name={name}
-                    label={label}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    touched={touched[name]}
-                    value={values[name]}
-                    error={errors[name]}
-                  />
-                </div>
-              ))}
-              <Button type="submit" disabled={isSubmitting}>
-                Submit
-          </Button>
-            </Form>
+            <div css={styles.formContainer}>
+              <Form>
+                {fields.map(({ name, label, placeholder }) => (
+                  <div
+                    key={`habitat-use-form-field-${name}`}
+                    css={styles.inputFieldContainer}
+                  >
+                    <Input
+                      type="text"
+                      name={name}
+                      label={label}
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      touched={touched[name]}
+                      value={values[name]}
+                      error={errors[name]}
+                    />
+                  </div>
+                ))}
+                <Button type="submit" disabled={isSubmitting}>
+                  Submit
+              </Button>
+              </Form>
+            </div>
           )}
       </Formik>
-      {generalError && <ErrorMessage text={generalError} />}
+      {!!generalError && <ErrorMessage text={generalError} />}
     </React.Fragment>
   );
 };

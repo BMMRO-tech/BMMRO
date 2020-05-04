@@ -3,6 +3,7 @@ import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
 
 import colors from "../materials/colors";
+import ErrorMessage from "./ErrorMessage";
 
 const Input = ({
   type,
@@ -21,13 +22,10 @@ const Input = ({
       padding-bottom: 5px;
     `,
     input: css`
+      margin-right: 5px;
       padding: 5px;
       font-size: 15px;
       border: 1px solid ${colors.darkBlue};
-    `,
-    error: css`
-      padding-left: 5px;
-      color: ${colors.red};
     `,
   };
   return (
@@ -45,7 +43,7 @@ const Input = ({
         onBlur={onBlur}
         value={value}
       />
-      {!!error && !!touched && <span css={styles.error}>{error}</span>}
+      {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
     </Fragment>
   );
 };
