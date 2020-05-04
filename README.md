@@ -28,7 +28,7 @@ We are passionate about technology. We understand that the system that protects 
 - [Current “As Is” infographic](As%20Is%20InfoGraphic.png)
 - [Habitiat Use Data Sheet, example of the most frequently used form on boat excurtions](HabitatUseDataSheet.JPG)
 - [Encounter Sighting Data Sheet](EncounterSightingDataSheet.JPG)
-- [Kanban board](https://trello.com/b/QE40tnJu/bmmro-kanban)
+- [Kanban board](https://github.com/JBJamesBrownJB/BMMRO/projects/1)
 
 ## Milestones
 - ✅**Inception**
