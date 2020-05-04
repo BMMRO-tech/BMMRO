@@ -17,5 +17,8 @@ jobs:
         run: npm install
         working-directory: ${{env.APP_DIR}}
       - name: Run tests
-        working-directory: ${{env.APP_DIR}}
         run: npm test
+        working-directory: ${{env.APP_DIR}}
+      - name: Build production bundle
+        run: npm run build
+        working-directory: ${{env.APP_DIR}}
