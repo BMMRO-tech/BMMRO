@@ -91,6 +91,7 @@ typings/
 
 # Logs
 npm-debug.log*
+firebase-debug.log*
 
 # dependencies
 /app/node_modules
@@ -102,6 +103,12 @@ npm-debug.log*
 
 # production
 /app/build
+
+# Firebase cache
+.firebase/
+
+# Firebase config
+.firebaserc
 
 # misc
 .DS_Store
