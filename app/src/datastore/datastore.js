@@ -24,7 +24,24 @@ const config = {
 
 const initFirestore = (config) => {
   firebase.initializeApp(config);
-  return firebase.firestore();
+  const firestore = firebase.firestore();
+  
+  (async () => {
+    try {
+      await firestore.enablePersistence();
+      console.log("Firebase persitence enabled"); 
+    } catch(err) {
+      if (err.code === "failed-precondition") {
+        console.log("Failed firestore preconditions");
+      } else if (err.code === "unimplemented") {
+        console.log("Firestore not supported");
+      } else {
+        console.log("Unknown error enabling firestore persitence");
+      }
+    }
+  })();
+
+  return firestore;
 };
 
 export const datastore = new Datastore(initFirestore(config));
