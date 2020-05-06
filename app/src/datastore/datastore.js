@@ -19,18 +19,18 @@ export class Datastore {
 }
 
 const config = {
-  projectId: process.env.REACT_APP_PROJECT_ID
+  projectId: process.env.REACT_APP_PROJECT_ID,
 };
 
 const initFirestore = (config) => {
   firebase.initializeApp(config);
   const firestore = firebase.firestore();
-  
+
   (async () => {
     try {
       await firestore.enablePersistence();
-      console.log("Firebase persitence enabled"); 
-    } catch(err) {
+      console.log("Firebase persitence enabled");
+    } catch (err) {
       if (err.code === "failed-precondition") {
         console.log("Failed firestore preconditions");
       } else if (err.code === "unimplemented") {
