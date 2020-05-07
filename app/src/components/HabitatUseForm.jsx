@@ -9,9 +9,9 @@ import { datastore } from "../datastore/datastore";
 import ErrorMessage from "./ErrorMessage";
 
 const fields = [
-  { name: "date", label: "Date", placeholder: "mm/dd/yyyy" },
-  { name: "encSeqNo", label: "Enc Seq #", placeholder: "1" },
-  { name: "species", label: "Species", placeholder: "whale" },
+  { name: "date", label: "Date", placeholder: "mm/dd/yyyy", type: "date" },
+  { name: "encSeqNo", label: "Enc Seq #", placeholder: "1", type: "number" },
+  { name: "species", label: "Species", placeholder: "whale", type: "text" },
 ];
 
 const HabitatUseForm = () => {
@@ -68,32 +68,32 @@ const HabitatUseForm = () => {
           values,
           errors,
         }) => (
-          <div css={styles.formContainer}>
-            <Form>
-              {fields.map(({ name, label, placeholder }) => (
-                <div
-                  key={`habitat-use-form-field-${name}`}
-                  css={styles.inputFieldContainer}
-                >
-                  <Input
-                    type="text"
-                    name={name}
-                    label={label}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    touched={touched[name]}
-                    value={values[name]}
-                    error={errors[name]}
-                  />
-                </div>
-              ))}
-              <Button type="submit" disabled={isSubmitting}>
-                Submit
+            <div css={styles.formContainer}>
+              <Form>
+                {fields.map(({ name, label, placeholder, type }) => (
+                  <div
+                    key={`habitat-use-form-field-${name}`}
+                    css={styles.inputFieldContainer}
+                  >
+                    <Input
+                      type={type}
+                      name={name}
+                      label={label}
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      touched={touched[name]}
+                      value={values[name]}
+                      error={errors[name]}
+                    />
+                  </div>
+                ))}
+                <Button type="submit" disabled={isSubmitting}>
+                  Submit
               </Button>
-            </Form>
-          </div>
-        )}
+              </Form>
+            </div>
+          )}
       </Formik>
       {!!generalError && <ErrorMessage text={generalError} />}
       {!!successMessage && <div>{successMessage}</div>}
