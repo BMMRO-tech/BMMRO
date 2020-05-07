@@ -16,6 +16,17 @@ export class Datastore {
       throw new Error("in createHabitatUse: " + e.message);
     }
   }
+
+  listenForPendingHabitatUseWrites(callback) {
+    this.firestore
+      .collection(COLLECTION_NAMES.habitatUse)
+      .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
+        const result = querySnapshot.docs.filter(
+          (doc) => doc.metadata.hasPendingWrites
+        );
+        callback(result);
+      });
+  }
 }
 
 const config = {

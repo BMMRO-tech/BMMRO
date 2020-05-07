@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Input from "./Input";
 import Button from "./Button";
 import { datastore } from "../datastore/datastore";
-import ErrorMessage from "./ErrorMessage";
 
 const fields = [
   { name: "date", label: "Date", placeholder: "mm/dd/yyyy", type: "date" },
@@ -20,8 +19,12 @@ const isoDateToday = () => {
 };
 
 const HabitatUseForm = () => {
-  const [generalError, setGeneralError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [pendingUpdates, setPendingUpdates] = useState(null);
+
+  useEffect(() => {
+    datastore.listenForPendingHabitatUseWrites(setPendingUpdates);
+  }, []);
 
   const styles = {
     inputFieldContainer: css`
@@ -58,14 +61,9 @@ const HabitatUseForm = () => {
           }
           return errors;
         }}
-        onSubmit={async (values, { setSubmitting }) => {
-          console.log(values);
-          try {
-            await datastore.createHabitatUse(values);
-            setSuccessMessage("Form submitted successfully");
-          } catch (e) {
-            setGeneralError("Error submitting the form");
-          }
+        onSubmit={(values, { setSubmitting }) => {
+          datastore.createHabitatUse(values);
+          setSuccessMessage("Reading added");
           setSubmitting(false);
         }}
       >
@@ -104,8 +102,10 @@ const HabitatUseForm = () => {
           </div>
         )}
       </Formik>
-      {!!generalError && <ErrorMessage text={generalError} />}
       {!!successMessage && <div>{successMessage}</div>}
+      {!!pendingUpdates && (
+        <div>Number of pending updates: {pendingUpdates.length}</div>
+      )}
     </React.Fragment>
   );
 };
