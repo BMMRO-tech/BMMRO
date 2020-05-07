@@ -14,6 +14,10 @@ const fields = [
   { name: "species", label: "Species", placeholder: "whale", type: "text" },
 ];
 
+const isoDateToday = () => {
+  return new Date().toISOString().split('T')[0];
+}
+
 const HabitatUseForm = () => {
   const [generalError, setGeneralError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -31,7 +35,7 @@ const HabitatUseForm = () => {
       <h1>Habitat Use Form</h1>
       <Formik
         initialValues={{
-          [fields[0].name]: "",
+          [fields[0].name]: isoDateToday(),
           [fields[1].name]: "",
           [fields[2].name]: "",
         }}
