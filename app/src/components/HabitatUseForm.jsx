@@ -12,11 +12,12 @@ const fields = [
   { name: "date", label: "Date", placeholder: "mm/dd/yyyy", type: "date" },
   { name: "encSeqNo", label: "Enc Seq #", placeholder: "1", type: "number" },
   { name: "species", label: "Species", placeholder: "whale", type: "text" },
+  { name: "time", label: "Time", placeholder: "12:00", type: "time" },
 ];
 
 const isoDateToday = () => {
-  return new Date().toISOString().split('T')[0];
-}
+  return new Date().toISOString().split("T")[0];
+};
 
 const HabitatUseForm = () => {
   const [generalError, setGeneralError] = useState(null);
@@ -38,6 +39,10 @@ const HabitatUseForm = () => {
           [fields[0].name]: isoDateToday(),
           [fields[1].name]: "",
           [fields[2].name]: "",
+          [fields[3].name]: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
         }}
         validate={(values) => {
           const errors = {};
@@ -72,32 +77,32 @@ const HabitatUseForm = () => {
           values,
           errors,
         }) => (
-            <div css={styles.formContainer}>
-              <Form>
-                {fields.map(({ name, label, placeholder, type }) => (
-                  <div
-                    key={`habitat-use-form-field-${name}`}
-                    css={styles.inputFieldContainer}
-                  >
-                    <Input
-                      type={type}
-                      name={name}
-                      label={label}
-                      placeholder={placeholder}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      touched={touched[name]}
-                      value={values[name]}
-                      error={errors[name]}
-                    />
-                  </div>
-                ))}
-                <Button type="submit" disabled={isSubmitting}>
-                  Submit
+          <div css={styles.formContainer}>
+            <Form>
+              {fields.map(({ name, label, placeholder, type }) => (
+                <div
+                  key={`habitat-use-form-field-${name}`}
+                  css={styles.inputFieldContainer}
+                >
+                  <Input
+                    type={type}
+                    name={name}
+                    label={label}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    touched={touched[name]}
+                    value={values[name]}
+                    error={errors[name]}
+                  />
+                </div>
+              ))}
+              <Button type="submit" disabled={isSubmitting}>
+                Submit
               </Button>
-              </Form>
-            </div>
-          )}
+            </Form>
+          </div>
+        )}
       </Formik>
       {!!generalError && <ErrorMessage text={generalError} />}
       {!!successMessage && <div>{successMessage}</div>}
