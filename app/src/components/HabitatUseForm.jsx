@@ -49,6 +49,8 @@ const HabitatUseForm = () => {
           }),
           [fields[4].name]: latitude || "",
           [fields[5].name]: longitude || "",
+          [fields[6].name]: "",
+          [fields[7].name]: "",
         }}
         validate={(values) => {
           const errors = {};

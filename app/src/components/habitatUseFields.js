@@ -41,4 +41,18 @@ export const fields = [
     type: "text",
     required: true,
   },
+  {
+    name: "waterDepth",
+    label: "Water Depth",
+    placeholder: "1",
+    type: "number",
+    required: true,
+  },
+  {
+    name: "waterTemp",
+    label: "Water Temp",
+    placeholder: "1",
+    type: "number",
+    required: true,
+  },
 ];
