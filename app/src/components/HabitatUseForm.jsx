@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, useContext } from "react";
 
+import { fields } from "./habitatUseFields";
+import { usePosition } from "../position/usePosition";
+import { DatastoreContext } from "../App";
 import Input from "./Input";
 import Button from "./Button";
 import RecordSummaryList from "./RecordSummaryList";
-import { datastore } from "../datastore/datastore";
-import { usePosition } from "../position/usePosition";
-import { fields } from "./habitatUseFields";
 
 const isoDateToday = () => {
   return new Date().toISOString().split("T")[0];
@@ -18,10 +18,11 @@ const HabitatUseForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [pendingRecords, setPendingRecords] = useState([]);
   const { latitude, longitude } = usePosition();
+  const datastore = useContext(DatastoreContext);
 
   useEffect(() => {
     datastore.listenForPendingHabitatUseRecords(setPendingRecords);
-  }, []);
+  }, [datastore]);
 
   const styles = {
     inputFieldContainer: css`

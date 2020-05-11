@@ -1,7 +1,5 @@
 import { Datastore } from "../datastore";
 
-jest.mock("firebase");
-
 describe("Datastore with firestore", () => {
   it("should add expected data to habitat use collection", async () => {
     const firestoreMock = {

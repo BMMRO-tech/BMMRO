@@ -30,11 +30,11 @@ export class Datastore {
   }
 }
 
-const config = {
+export const config = {
   projectId: process.env.REACT_APP_PROJECT_ID,
 };
 
-const initFirestore = (config) => {
+export const initFirestore = (config) => {
   firebase.initializeApp(config);
   const firestore = firebase.firestore();
 
@@ -55,5 +55,3 @@ const initFirestore = (config) => {
 
   return firestore;
 };
-
-export const datastore = new Datastore(initFirestore(config));
