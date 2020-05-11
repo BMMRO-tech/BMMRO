@@ -17,14 +17,14 @@ export class Datastore {
     }
   }
 
-  listenForPendingHabitatUseWrites(callback) {
+  listenForPendingHabitatUseRecords(saveRecords) {
     this.firestore
       .collection(COLLECTION_NAMES.habitatUse)
       .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
-        const result = querySnapshot.docs.filter(
-          (doc) => doc.metadata.hasPendingWrites
-        );
-        callback(result);
+        const records = querySnapshot.docs
+          .filter((doc) => doc.metadata.hasPendingWrites)
+          .map((doc) => doc.data());
+        saveRecords(records);
       });
   }
 }

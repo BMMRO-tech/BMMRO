@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 
 import Input from "./Input";
 import Button from "./Button";
+import RecordSummaryList from "./RecordSummaryList";
 import { datastore } from "../datastore/datastore";
 import { usePosition } from "../position/usePosition";
 
@@ -23,11 +24,11 @@ const isoDateToday = () => {
 
 const HabitatUseForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
-  const [pendingUpdates, setPendingUpdates] = useState(null);
+  const [pendingRecords, setPendingRecords] = useState([]);
   const { latitude, longitude } = usePosition();
 
   useEffect(() => {
-    datastore.listenForPendingHabitatUseWrites(setPendingUpdates);
+    datastore.listenForPendingHabitatUseRecords(setPendingRecords);
   }, []);
 
   const styles = {
@@ -37,9 +38,12 @@ const HabitatUseForm = () => {
     formContainer: css`
       margin-bottom: 15px;
     `,
+    recordSummaryList: css`
+      margin-top: 45px;
+    `,
   };
   return (
-    <React.Fragment>
+    <Fragment>
       <h1>Habitat Use Form</h1>
       <Formik
         enableReinitialize={true}
@@ -88,38 +92,43 @@ const HabitatUseForm = () => {
           values,
           errors,
         }) => (
-            <div css={styles.formContainer}>
-              <Form>
-                {fields.map(({ name, label, placeholder, type }) => (
-                  <div
-                    key={`habitat-use-form-field-${name}`}
-                    css={styles.inputFieldContainer}
-                  >
-                    <Input
-                      type={type}
-                      name={name}
-                      label={label}
-                      placeholder={placeholder}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      touched={touched[name]}
-                      value={values[name]}
-                      error={errors[name]}
-                    />
-                  </div>
-                ))}
-                <Button type="submit" disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          )}
+          <div css={styles.formContainer}>
+            <Form>
+              {fields.map(({ name, label, placeholder, type }) => (
+                <div
+                  key={`habitat-use-form-field-${name}`}
+                  css={styles.inputFieldContainer}
+                >
+                  <Input
+                    type={type}
+                    name={name}
+                    label={label}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    touched={touched[name]}
+                    value={values[name]}
+                    error={errors[name]}
+                  />
+                </div>
+              ))}
+              <Button type="submit" disabled={isSubmitting}>
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )}
       </Formik>
       {!!successMessage && <div>{successMessage}</div>}
-      {!!pendingUpdates && (
-        <div>Number of pending updates: {pendingUpdates.length}</div>
+      {!!pendingRecords.length && (
+        <div css={styles.recordSummaryList}>
+          <RecordSummaryList
+            title="List of pending records"
+            records={pendingRecords}
+          />
+        </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };
 
