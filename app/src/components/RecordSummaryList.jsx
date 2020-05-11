@@ -29,19 +29,23 @@ const RecordSummaryList = ({ title, records }) => {
     <Fragment>
       <h2>{title}</h2>
       <table>
-        <tr css={styles.tableHeader}>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Enc Seq #</th>
-        </tr>
-        {records.map((record, i) => (
-          <RecordSummary
-            key={`record-summary-${i}`}
-            date={record.date}
-            time={record.time}
-            encSeqNo={record.encSeqNo}
-          />
-        ))}
+        <thead css={styles.tableHeader}>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Enc Seq #</th>
+          </tr>
+        </thead>
+        <tbody>
+          {records.map((record, i) => (
+            <RecordSummary
+              key={`record-summary-${i}`}
+              date={record.date}
+              time={record.time}
+              encSeqNo={record.encSeqNo}
+            />
+          ))}
+        </tbody>
       </table>
     </Fragment>
   );

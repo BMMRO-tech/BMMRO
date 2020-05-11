@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const usePosition = () => {
   const [position, setPosition] = useState({});
@@ -18,11 +18,11 @@ export const usePosition = () => {
   useEffect(() => {
     const geo = navigator.geolocation;
     if (!geo) {
-      setError('Geolocation is not supported');
+      setError("Geolocation is not supported");
       return;
     }
     return geo.getCurrentPosition(onChange, onError);
   }, []);
 
   return { ...position, error };
-}
+};
