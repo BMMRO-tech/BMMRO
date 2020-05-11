@@ -8,15 +8,7 @@ import Button from "./Button";
 import RecordSummaryList from "./RecordSummaryList";
 import { datastore } from "../datastore/datastore";
 import { usePosition } from "../position/usePosition";
-
-const fields = [
-  { name: "date", label: "Date", placeholder: "mm/dd/yyyy", type: "date" },
-  { name: "encSeqNo", label: "Enc Seq #", placeholder: "1", type: "number" },
-  { name: "species", label: "Species", placeholder: "whale", type: "text" },
-  { name: "time", label: "Time", placeholder: "12:00", type: "time" },
-  { name: "latitude", label: "Lat", placeholder: "lat", type: "text" },
-  { name: "longitude", label: "Long", placeholder: "long", type: "text" },
-];
+import { fields } from "./habitatUseFields";
 
 const isoDateToday = () => {
   return new Date().toISOString().split("T")[0];
@@ -61,21 +53,13 @@ const HabitatUseForm = () => {
         validate={(values) => {
           const errors = {};
           const errorMessage = "Required";
-          if (!values.date) {
-            errors.date = errorMessage;
-          }
-          if (!values.encSeqNo) {
-            errors.encSeqNo = errorMessage;
-          }
-          if (!values.species) {
-            errors.species = errorMessage;
-          }
-          if (!values.latitude) {
-            errors.latitude = errorMessage;
-          }
-          if (!values.longitude) {
-            errors.longitude = errorMessage;
-          }
+
+          fields.forEach((field) => {
+            if (!values[field.name] && field.required) {
+              errors[field.name] = errorMessage;
+            }
+          });
+
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
