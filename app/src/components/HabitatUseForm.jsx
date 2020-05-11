@@ -6,11 +6,7 @@ import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import { datastore } from "../datastore/datastore";
-<<<<<<< HEAD
-=======
-import ErrorMessage from "./ErrorMessage";
 import { usePosition } from "../position/usePosition";
->>>>>>> c365ab9... [#9] Add auto-filling of latitude and longitude.
 
 const fields = [
   { name: "date", label: "Date", placeholder: "mm/dd/yyyy", type: "date" },
@@ -29,10 +25,10 @@ const HabitatUseForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [pendingUpdates, setPendingUpdates] = useState(null);
   const { latitude, longitude } = usePosition();
+
   useEffect(() => {
     datastore.listenForPendingHabitatUseWrites(setPendingUpdates);
   }, []);
-
 
   const styles = {
     inputFieldContainer: css`
