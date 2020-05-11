@@ -6,12 +6,19 @@ import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import { datastore } from "../datastore/datastore";
+<<<<<<< HEAD
+=======
+import ErrorMessage from "./ErrorMessage";
+import { usePosition } from "../position/usePosition";
+>>>>>>> c365ab9... [#9] Add auto-filling of latitude and longitude.
 
 const fields = [
   { name: "date", label: "Date", placeholder: "mm/dd/yyyy", type: "date" },
   { name: "encSeqNo", label: "Enc Seq #", placeholder: "1", type: "number" },
   { name: "species", label: "Species", placeholder: "whale", type: "text" },
   { name: "time", label: "Time", placeholder: "12:00", type: "time" },
+  { name: "latitude", label: "Lat", placeholder: "lat", type: "text" },
+  { name: "longitude", label: "Long", placeholder: "long", type: "text" },
 ];
 
 const isoDateToday = () => {
@@ -21,10 +28,11 @@ const isoDateToday = () => {
 const HabitatUseForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [pendingUpdates, setPendingUpdates] = useState(null);
-
+  const { latitude, longitude } = usePosition();
   useEffect(() => {
     datastore.listenForPendingHabitatUseWrites(setPendingUpdates);
   }, []);
+
 
   const styles = {
     inputFieldContainer: css`
@@ -38,6 +46,7 @@ const HabitatUseForm = () => {
     <React.Fragment>
       <h1>Habitat Use Form</h1>
       <Formik
+        enableReinitialize={true}
         initialValues={{
           [fields[0].name]: isoDateToday(),
           [fields[1].name]: "",
@@ -46,6 +55,8 @@ const HabitatUseForm = () => {
             hour: "2-digit",
             minute: "2-digit",
           }),
+          [fields[4].name]: latitude || "",
+          [fields[5].name]: longitude || "",
         }}
         validate={(values) => {
           const errors = {};
@@ -58,6 +69,12 @@ const HabitatUseForm = () => {
           }
           if (!values.species) {
             errors.species = errorMessage;
+          }
+          if (!values.latitude) {
+            errors.latitude = errorMessage;
+          }
+          if (!values.longitude) {
+            errors.longitude = errorMessage;
           }
           return errors;
         }}
@@ -75,32 +92,32 @@ const HabitatUseForm = () => {
           values,
           errors,
         }) => (
-          <div css={styles.formContainer}>
-            <Form>
-              {fields.map(({ name, label, placeholder, type }) => (
-                <div
-                  key={`habitat-use-form-field-${name}`}
-                  css={styles.inputFieldContainer}
-                >
-                  <Input
-                    type={type}
-                    name={name}
-                    label={label}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    touched={touched[name]}
-                    value={values[name]}
-                    error={errors[name]}
-                  />
-                </div>
-              ))}
-              <Button type="submit" disabled={isSubmitting}>
-                Submit
-              </Button>
-            </Form>
-          </div>
-        )}
+            <div css={styles.formContainer}>
+              <Form>
+                {fields.map(({ name, label, placeholder, type }) => (
+                  <div
+                    key={`habitat-use-form-field-${name}`}
+                    css={styles.inputFieldContainer}
+                  >
+                    <Input
+                      type={type}
+                      name={name}
+                      label={label}
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      touched={touched[name]}
+                      value={values[name]}
+                      error={errors[name]}
+                    />
+                  </div>
+                ))}
+                <Button type="submit" disabled={isSubmitting}>
+                  Submit
+                </Button>
+              </Form>
+            </div>
+          )}
       </Formik>
       {!!successMessage && <div>{successMessage}</div>}
       {!!pendingUpdates && (
