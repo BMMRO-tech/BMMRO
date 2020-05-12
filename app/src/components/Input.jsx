@@ -22,10 +22,11 @@ const Input = ({
       padding-bottom: 5px;
     `,
     input: css`
+      width: 70%;
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
-      border: 1px solid ${colors.darkBlue};
+      border: 1px solid ${colors.lightBlue};
     `,
   };
   return (

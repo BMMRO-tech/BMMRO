@@ -12,11 +12,14 @@ const Layout = ({ children }) => {
         margin: 0;
         font-family: Verdana, Geneva, sans-serif;
         background-color: ${colors.white};
+        color: ${colors.darkBlue};
+      }
+      * {
         box-sizing: border-box;
       }
     `,
     container: css`
-      max-width: 750px;
+      max-width: 740px;
       margin: 0 auto;
       padding: 10px;
     `,

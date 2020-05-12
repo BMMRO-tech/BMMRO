@@ -26,7 +26,12 @@ const HabitatUseForm = () => {
       margin-bottom: 15px;
     `,
     formContainer: css`
-      margin-bottom: 15px;
+      margin-bottom: 10px;
+
+      @media (min-width: 500px) {
+        display: grid;
+        grid-template-columns: 50% 50%;
+      }
     `,
     recordSummaryList: css`
       margin-top: 45px;
@@ -76,8 +81,8 @@ const HabitatUseForm = () => {
           values,
           errors,
         }) => (
-          <div css={styles.formContainer}>
-            <Form>
+          <Form>
+            <div css={styles.formContainer}>
               {fields.map(({ name, label, placeholder, type, options }) => (
                 <div
                   key={`habitat-use-form-field-${name}`}
@@ -110,11 +115,11 @@ const HabitatUseForm = () => {
                   )}
                 </div>
               ))}
-              <Button type="submit" disabled={isSubmitting}>
-                Submit
-              </Button>
-            </Form>
-          </div>
+            </div>
+            <Button type="submit" disabled={isSubmitting}>
+              Submit
+            </Button>
+          </Form>
         )}
       </Formik>
       {!!successMessage && <div>{successMessage}</div>}
