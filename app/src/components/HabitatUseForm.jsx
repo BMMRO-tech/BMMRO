@@ -91,6 +91,8 @@ const HabitatUseForm = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       options={options}
+                      touched={touched[name]}
+                      value={values[name]}
                       error={errors[name]}
                     />
                   ) : (

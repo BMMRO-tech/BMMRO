@@ -5,7 +5,16 @@ import { Fragment } from "react";
 import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
-const Select = ({ name, label, onChange, onBlur, options, error }) => {
+const Select = ({
+  name,
+  label,
+  onChange,
+  onBlur,
+  options,
+  touched,
+  value,
+  error,
+}) => {
   const styles = {
     label: css`
       display: block;
@@ -26,6 +35,7 @@ const Select = ({ name, label, onChange, onBlur, options, error }) => {
       <select
         css={styles.input}
         name={name}
+        value={value}
         id={name}
         onChange={onChange}
         onBlur={onBlur}
@@ -41,7 +51,7 @@ const Select = ({ name, label, onChange, onBlur, options, error }) => {
           );
         })}
       </select>
-      {!!error && <ErrorMessage text={error} isInline={true} />}
+      {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
     </Fragment>
   );
 };
