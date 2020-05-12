@@ -11,10 +11,6 @@ import Button from "./Button";
 import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
 
-const isoDateToday = () => {
-  return new Date().toISOString().split("T")[0];
-};
-
 const HabitatUseForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [pendingRecords, setPendingRecords] = useState([]);
@@ -41,21 +37,19 @@ const HabitatUseForm = () => {
       <h1>Habitat Use Form</h1>
       <Formik
         enableReinitialize={true}
-        initialValues={{
-          [fields[0].name]: isoDateToday(),
-          [fields[1].name]: "",
-          [fields[2].name]: "",
-          [fields[3].name]: new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          [fields[4].name]: latitude || "",
-          [fields[5].name]: longitude || "",
-          [fields[6].name]: "",
-          [fields[7].name]: "",
-          directionOfTravel: "",
-          numberOfBoats: "",
-        }}
+        initialValues={(function () {
+          const initValues = {};
+
+          fields.forEach((field) => {
+            initValues[field.name] = field.initialValue
+              ? field.initialValue()
+              : "";
+          });
+          initValues["latitude"] = latitude || "";
+          initValues["longitude"] = longitude || "";
+
+          return initValues;
+        })()}
         validate={(values) => {
           const errors = {};
           const errorMessage = "Required";

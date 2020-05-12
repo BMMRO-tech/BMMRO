@@ -1,3 +1,7 @@
+const isoDateToday = () => {
+  return new Date().toISOString().split("T")[0];
+};
+
 export const fields = [
   {
     name: "date",
@@ -5,6 +9,9 @@ export const fields = [
     placeholder: "mm/dd/yyyy",
     type: "date",
     required: true,
+    initialValue: () => {
+      return isoDateToday();
+    },
   },
   {
     name: "encSeqNo",
@@ -26,6 +33,12 @@ export const fields = [
     placeholder: "12:00",
     type: "time",
     required: true,
+    initialValue: () => {
+      return new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    },
   },
   {
     name: "latitude",
