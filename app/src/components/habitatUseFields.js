@@ -55,4 +55,19 @@ export const fields = [
     type: "number",
     required: true,
   },
+  {
+    name: "bottomSubstrate",
+    label: "Bottom Substrate",
+    options: [
+      "ROCK",
+      "RUBBLE",
+      "CORAL",
+      "SAND",
+      "SILT/MUD",
+      "SEAGRASS",
+      "UNKNOWN",
+    ],
+    type: "select",
+    required: true,
+  },
 ];

@@ -8,6 +8,7 @@ import { usePosition } from "../position/usePosition";
 import { DatastoreContext } from "../App";
 import Input from "./Input";
 import Button from "./Button";
+import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
 
 const isoDateToday = () => {
@@ -81,22 +82,35 @@ const HabitatUseForm = () => {
         }) => (
           <div css={styles.formContainer}>
             <Form>
-              {fields.map(({ name, label, placeholder, type }) => (
+              {fields.map(({ name, label, placeholder, type, options }) => (
                 <div
                   key={`habitat-use-form-field-${name}`}
                   css={styles.inputFieldContainer}
                 >
-                  <Input
-                    type={type}
-                    name={name}
-                    label={label}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    touched={touched[name]}
-                    value={values[name]}
-                    error={errors[name]}
-                  />
+                  {type === "select" ? (
+                    <Select
+                      type={type}
+                      name={name}
+                      label={label}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      touched={touched[name]}
+                      options={options}
+                      error={errors[name]}
+                    />
+                  ) : (
+                    <Input
+                      type={type}
+                      name={name}
+                      label={label}
+                      placeholder={placeholder}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      touched={touched[name]}
+                      value={values[name]}
+                      error={errors[name]}
+                    />
+                  )}
                 </div>
               ))}
               <Button type="submit" disabled={isSubmitting}>
