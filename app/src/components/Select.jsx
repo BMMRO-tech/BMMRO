@@ -26,6 +26,7 @@ const Select = ({
       padding: 5px;
       font-size: 15px;
       background: ${colors.white};
+      border-radius: 0;
       border: 1px solid ${colors.lightBlue};
     `,
   };
