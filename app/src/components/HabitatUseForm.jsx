@@ -53,6 +53,8 @@ const HabitatUseForm = () => {
           [fields[5].name]: longitude || "",
           [fields[6].name]: "",
           [fields[7].name]: "",
+          directionOfTravel: "",
+          numberOfBoats: "",
         }}
         validate={(values) => {
           const errors = {};
@@ -94,7 +96,6 @@ const HabitatUseForm = () => {
                       label={label}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      touched={touched[name]}
                       options={options}
                       error={errors[name]}
                     />

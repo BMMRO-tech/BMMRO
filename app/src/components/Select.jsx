@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
-const Select = ({ name, label, onChange, onBlur, touched, options, error }) => {
+const Select = ({ name, label, onChange, onBlur, options, error }) => {
   const styles = {
     label: css`
       display: block;
@@ -41,7 +41,7 @@ const Select = ({ name, label, onChange, onBlur, touched, options, error }) => {
           );
         })}
       </select>
-      {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
+      {!!error && <ErrorMessage text={error} isInline={true} />}
     </Fragment>
   );
 };
