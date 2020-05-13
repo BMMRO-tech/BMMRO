@@ -1,4 +1,41 @@
-## Available Scripts
+## Stack
+* [ReactJS](https://create-react-app.dev/docs/getting-started/) (create-react-app)
+* [Emotion](https://emotion.sh/docs/introduction) (styling)
+* [Formik](https://jaredpalmer.com/formik/docs/overview) (Form Management)
+* [Jest](https://jestjs.io/docs/en/getting-started) (Testing)
+* [Prettier](https://prettier.io/docs/en/index.html) (Code Formatting)
+
+* Google Firebase 
+  * [Cloud Firestore](https://firebase.google.com/docs/firestore) (Database)
+  * [Firebase Hosting](https://firebase.google.com/docs/hosting) (Website hosting)
+* [Github Actions](https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions) (Deployment/CI) - Github secrets are used to store Cloud Firestore Project ID and Firebase deployment token.
+
+## Offline Support
+Offline support is a key requirement as researchers will be using this app while out at sea with no internet connection. In order to ensure this the following decisions were made:
+* Enabling offline persistance in firebase.
+* Ensuring the app can be accessed offline as a Progressive Web App (PWA).
+
+The app will recognise when the device is offline and save the data locally. Once the device is back online the data will automatically be uploaded to Firestore.
+
+Limitations of this method include:
+* The app must be loaded on the users device before going offline.
+* Not all browsers support offline persistence (only supported on Chrome, Safari and Firefox).
+* Persistence can only be enabled in one browser tab at a time.
+* As progressive web apps are aggressively cached the user may be presented with an old version of the app.
+* PWA installation popup is not reliable and user may need to do extra work to install to home screen.
+* PWA installation is not supported on Chrome in iOS.
+* App need to be open to upload data once back online.
+
+## Testing Strategy
+Since forms are the core component of the application we intend to test their functionality and validation extensively. The firebase datastore has been decoupled from the react application allowing it to be unit tested.
+
+## Milestones for Habitat Use form
+* [User Testing](https://github.com/BMMRO-tech/BMMRO/milestone/2) - This is our first milestone allowing the application to be tested by real users in real conditions.
+* [Production](https://github.com/BMMRO-tech/BMMRO/milestone/1) - The initial release of the application. The tasks included in this milestone are required to be complete before we can safely recommend for this system to replace the paper form.
+
+## Running and Building the app
+
+To run the app in development mode a .env file is required with REACT_APP_PROJECT_ID set.
 
 In the project directory, you can run:
 
