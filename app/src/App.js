@@ -7,6 +7,7 @@ import HabitatUseForm from "./components/HabitatUseForm";
 import { config, initFirestore, Datastore } from "./datastore/datastore";
 
 const datastore = new Datastore(initFirestore(config));
+datastore.enableOfflineStorage();
 export const DatastoreContext = createContext(datastore);
 
 const App = () => {

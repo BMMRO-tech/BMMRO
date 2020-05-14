@@ -1,9 +1,25 @@
-import { Datastore } from "../datastore";
+import { Datastore, DatastoreError } from "../datastore";
+import { DatastoreErrorType } from "../constants";
+
+class FirebaseErrorMock extends Error {
+  constructor(code) {
+    super("Firebase Error Mock");
+    this.code = code;
+  }
+}
 
 describe("Datastore with firestore", () => {
-  const buildDatastoreMock = (mock) => {
+  const buildDatastoreMock = ({
+    add = "",
+    onSnapshot = "",
+    enablePersistence = "",
+  }) => {
     const firestoreMock = {
-      collection: jest.fn().mockReturnValue(mock),
+      collection: jest.fn().mockReturnValue({
+        add,
+        onSnapshot,
+      }),
+      enablePersistence,
     };
 
     return new Datastore(firestoreMock);
@@ -20,7 +36,7 @@ describe("Datastore with firestore", () => {
       expect(actual).toEqual("abc123");
     });
 
-    it("should throw exception", async () => {
+    it("should throw exception when create habitat use fails", async () => {
       const collectionReturnMock = {
         add: jest.fn().mockRejectedValue(new Error("mango")),
       };
@@ -94,6 +110,45 @@ describe("Datastore with firestore", () => {
       const expectedRecords = [];
 
       expect(actualRecords).toStrictEqual(expectedRecords);
+    });
+  });
+
+  describe("enableOfflineStorage", () => {
+    it("should throw 'DatastoreError' with code MULTIPLE_TABS when user has app open in multiple tabs", async () => {
+      const collectionReturnMock = {
+        enablePersistence: jest
+          .fn()
+          .mockRejectedValue(new FirebaseErrorMock("failed-precondition")),
+      };
+      const datastore = buildDatastoreMock(collectionReturnMock);
+
+      await expect(datastore.enableOfflineStorage()).rejects.toThrow(
+        new DatastoreError(DatastoreErrorType.MULTIPLE_TABS)
+      );
+    });
+
+    it("should throw 'DatastoreError' with code BROWSER_NOT_SUPPORTED when Firestore offline storage is not implemented", async () => {
+      const collectionReturnMock = {
+        enablePersistence: jest
+          .fn()
+          .mockRejectedValue(new FirebaseErrorMock("unimplemented")),
+      };
+      const datastore = buildDatastoreMock(collectionReturnMock);
+
+      await expect(datastore.enableOfflineStorage()).rejects.toThrow(
+        new DatastoreError(DatastoreErrorType.BROWSER_NOT_SUPPORTED)
+      );
+    });
+
+    it("should throw 'DatastoreError' with code UNKNOWN when Firebase responds with unrecognised error", async () => {
+      const collectionReturnMock = {
+        enablePersistence: jest.fn().mockRejectedValue(new Error()),
+      };
+      const datastore = buildDatastoreMock(collectionReturnMock);
+
+      await expect(datastore.enableOfflineStorage()).rejects.toThrow(
+        new DatastoreError(DatastoreErrorType.UNKNOWN)
+      );
     });
   });
 });

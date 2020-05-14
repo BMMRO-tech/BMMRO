@@ -1,6 +1,13 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { COLLECTION_NAMES } from "./collectionNames";
+import { CollectionNames, DatastoreErrorType } from "./constants";
+
+export class DatastoreError extends Error {
+  constructor(errorType) {
+    super(errorType);
+    this.name = "DatastoreError";
+  }
+}
 
 export class Datastore {
   constructor(firestore) {
@@ -10,7 +17,7 @@ export class Datastore {
   async createHabitatUse(values) {
     try {
       const result = await this.firestore
-        .collection(COLLECTION_NAMES.habitatUse)
+        .collection(CollectionNames.HABITAT_USE)
         .add(values);
       return result.id;
     } catch (e) {
@@ -20,13 +27,27 @@ export class Datastore {
 
   listenForPendingHabitatUseRecords(saveRecords) {
     this.firestore
-      .collection(COLLECTION_NAMES.habitatUse)
+      .collection(CollectionNames.HABITAT_USE)
       .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
         const records = querySnapshot.docs
           .filter((doc) => doc.metadata.hasPendingWrites)
           .map((doc) => doc.data());
         saveRecords(records);
       });
+  }
+
+  async enableOfflineStorage() {
+    try {
+      await this.firestore.enablePersistence();
+    } catch (err) {
+      if (err.code === "failed-precondition") {
+        throw new DatastoreError(DatastoreErrorType.MULTIPLE_TABS);
+      } else if (err.code === "unimplemented") {
+        throw new DatastoreError(DatastoreErrorType.BROWSER_NOT_SUPPORTED);
+      } else {
+        throw new DatastoreError(DatastoreErrorType.UNKNOWN);
+      }
+    }
   }
 }
 
@@ -36,22 +57,5 @@ export const config = {
 
 export const initFirestore = (config) => {
   firebase.initializeApp(config);
-  const firestore = firebase.firestore();
-
-  (async () => {
-    try {
-      await firestore.enablePersistence();
-      console.log("Firebase persitence enabled");
-    } catch (err) {
-      if (err.code === "failed-precondition") {
-        console.log("Failed firestore preconditions");
-      } else if (err.code === "unimplemented") {
-        console.log("Firestore not supported");
-      } else {
-        console.log("Unknown error enabling firestore persitence");
-      }
-    }
-  })();
-
-  return firestore;
+  return firebase.firestore();
 };
