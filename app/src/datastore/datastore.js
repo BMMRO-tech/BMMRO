@@ -21,7 +21,7 @@ export class Datastore {
         .add(values);
       return result.id;
     } catch (e) {
-      throw new Error("in createHabitatUse: " + e.message);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_ENTRY);
     }
   }
 
@@ -45,7 +45,7 @@ export class Datastore {
       } else if (err.code === "unimplemented") {
         throw new DatastoreError(DatastoreErrorType.BROWSER_NOT_SUPPORTED);
       } else {
-        throw new DatastoreError(DatastoreErrorType.UNKNOWN);
+        throw new DatastoreError(DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT);
       }
     }
   }

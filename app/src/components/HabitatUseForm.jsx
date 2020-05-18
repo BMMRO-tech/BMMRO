@@ -18,7 +18,9 @@ const HabitatUseForm = () => {
   const datastore = useContext(DatastoreContext);
 
   useEffect(() => {
-    datastore.listenForPendingHabitatUseRecords(setPendingRecords);
+    if (!!datastore) {
+      datastore.listenForPendingHabitatUseRecords(setPendingRecords);
+    }
   }, [datastore]);
 
   const styles = {

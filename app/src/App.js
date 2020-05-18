@@ -1,22 +1,37 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { createContext } from "react";
-import { Router } from "@reach/router";
+import { createContext, useEffect, useState } from "react";
+import { Router, navigate } from "@reach/router";
 
 import Landing from "./pages/Landing";
-import { config, initFirestore, Datastore } from "./datastore/datastore";
+import Error from "./pages/Error";
 import HabitatUse from "./pages/HabitatUse";
+import { config, initFirestore, Datastore } from "./datastore/datastore";
 
-const datastore = new Datastore(initFirestore(config));
-datastore.enableOfflineStorage();
-export const DatastoreContext = createContext(datastore);
+export const DatastoreContext = createContext();
 
 const App = () => {
+  const [datastore, setDatastore] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const firestore = new Datastore(initFirestore(config));
+
+        await firestore.enableOfflineStorage();
+        setDatastore(firestore);
+      } catch (e) {
+        navigate("/error", { state: { error: e.message } });
+      }
+    })();
+  }, []);
+
   return (
     <DatastoreContext.Provider value={datastore}>
       <Router>
         <Landing path="/" />
         <HabitatUse path="/habitat" />
+        <Error path="/error" />
       </Router>
     </DatastoreContext.Provider>
   );

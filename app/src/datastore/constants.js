@@ -3,7 +3,8 @@ export const CollectionNames = {
 };
 
 export const DatastoreErrorType = {
-  UNKNOWN: 1,
+  UNKNOWN_OFFLINE_SUPPORT: 1,
   MULTIPLE_TABS: 2,
   BROWSER_NOT_SUPPORTED: 3,
+  COLLECTION_ENTRY: 4,
 };

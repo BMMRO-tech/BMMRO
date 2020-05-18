@@ -36,14 +36,14 @@ describe("Datastore with firestore", () => {
       expect(actual).toEqual("abc123");
     });
 
-    it("should throw exception when create habitat use fails", async () => {
+    it("should throw 'DatastoreError' with code COLLECTION_ENTRY when create habitat use fails", async () => {
       const collectionReturnMock = {
         add: jest.fn().mockRejectedValue(new Error("mango")),
       };
       const datastore = buildDatastoreMock(collectionReturnMock);
 
       await expect(datastore.createHabitatUse("123")).rejects.toThrow(
-        new Error("in createHabitatUse: mango")
+        new DatastoreError(DatastoreErrorType.COLLECTION_ENTRY)
       );
     });
   });
@@ -140,14 +140,14 @@ describe("Datastore with firestore", () => {
       );
     });
 
-    it("should throw 'DatastoreError' with code UNKNOWN when Firebase responds with unrecognised error", async () => {
+    it("should throw 'DatastoreError' with code UNKNOWN_OFFLINE_SUPPORT when Firebase responds with unrecognised error", async () => {
       const collectionReturnMock = {
         enablePersistence: jest.fn().mockRejectedValue(new Error()),
       };
       const datastore = buildDatastoreMock(collectionReturnMock);
 
       await expect(datastore.enableOfflineStorage()).rejects.toThrow(
-        new DatastoreError(DatastoreErrorType.UNKNOWN)
+        new DatastoreError(DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT)
       );
     });
   });
