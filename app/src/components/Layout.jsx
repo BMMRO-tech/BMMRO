@@ -4,8 +4,13 @@ import { Global, css, jsx } from "@emotion/core";
 
 import colors from "../materials/colors";
 import Header from "./Header";
+import { useContext } from "react";
+import { DatastoreContext } from "../App";
+import Error from "../pages/Error";
 
 const Layout = ({ children }) => {
+  const { error } = useContext(DatastoreContext);
+
   const styles = {
     global: css`
       body {
@@ -29,7 +34,9 @@ const Layout = ({ children }) => {
       <Global styles={styles.global} />
       <Header />
       <main>
-        <div css={styles.container}>{children}</div>
+        <div css={styles.container}>
+          {!!error ? <Error type={error} /> : children}
+        </div>
       </main>
     </Fragment>
   );

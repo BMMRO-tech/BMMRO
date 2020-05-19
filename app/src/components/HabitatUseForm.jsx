@@ -15,7 +15,7 @@ const HabitatUseForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [pendingRecords, setPendingRecords] = useState([]);
   const { latitude, longitude } = usePosition();
-  const datastore = useContext(DatastoreContext);
+  const { datastore } = useContext(DatastoreContext);
 
   useEffect(() => {
     if (!!datastore) {
