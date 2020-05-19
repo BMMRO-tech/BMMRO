@@ -56,6 +56,10 @@ export const config = {
 };
 
 export const initFirestore = (config) => {
-  firebase.initializeApp(config);
-  return firebase.firestore();
+  try {
+    firebase.initializeApp(config);
+    return firebase.firestore();
+  } catch (e) {
+    throw new DatastoreError(DatastoreErrorType.INITIALIZATION);
+  }
 };

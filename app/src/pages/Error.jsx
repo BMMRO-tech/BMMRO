@@ -8,11 +8,13 @@ import { DatastoreErrorType } from "../datastore/constants";
 const Error = ({ type }) => {
   const message = {
     [DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT]:
-      "Unknown error. Please try refreshing the app.",
+      "Unknown error. Please hit the 'Refresh' button below.",
     [DatastoreErrorType.MULTIPLE_TABS]:
       "The app is open in multiple tabs. Please close other tabs to enable offline storage and hit the 'Refresh' button below.",
     [DatastoreErrorType.BROWSER_NOT_SUPPORTED]:
       "Your current browser is not supported. Please open the app in Chrome, Safari or Firefox.",
+    [DatastoreErrorType.INITIALIZATION]:
+      "Connection to the database could not be established. Please hit the 'Refresh' button below.",
   };
 
   return (
