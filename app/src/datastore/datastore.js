@@ -25,15 +25,19 @@ export class Datastore {
     }
   }
 
-  listenForPendingHabitatUseRecords(saveRecords) {
-    this.firestore
-      .collection(CollectionNames.HABITAT_USE)
-      .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
-        const records = querySnapshot.docs
-          .filter((doc) => doc.metadata.hasPendingWrites)
-          .map((doc) => doc.data());
-        saveRecords(records);
-      });
+  subscribeToPendingHabitatUseRecords(saveRecords) {
+    try {
+      this.firestore
+        .collection(CollectionNames.HABITAT_USE)
+        .onSnapshot({ includeMetadataChanges: true }, (querySnapshot) => {
+          const records = querySnapshot.docs
+            .filter((doc) => doc.metadata.hasPendingWrites)
+            .map((doc) => doc.data());
+          saveRecords(records);
+        });
+    } catch (e) {
+      throw new DatastoreError(DatastoreErrorType.UPDATES_SUBSCRIPTION);
+    }
   }
 
   async enableOfflineStorage() {

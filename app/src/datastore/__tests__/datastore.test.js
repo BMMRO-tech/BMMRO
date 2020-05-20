@@ -1,4 +1,4 @@
-import { Datastore, DatastoreError } from "../datastore";
+import { Datastore, DatastoreError, initFirestore } from "../datastore";
 import { DatastoreErrorType } from "../constants";
 
 class FirebaseErrorMock extends Error {
@@ -73,7 +73,7 @@ describe("Datastore with firestore", () => {
       const saveRecords = (data) => {
         actualRecords = data;
       };
-      datastore.listenForPendingHabitatUseRecords(saveRecords);
+      datastore.subscribeToPendingHabitatUseRecords(saveRecords);
 
       const expectedRecords = [
         {
@@ -105,11 +105,36 @@ describe("Datastore with firestore", () => {
       const saveRecords = (data) => {
         actualRecords = data;
       };
-      datastore.listenForPendingHabitatUseRecords(saveRecords);
+      datastore.subscribeToPendingHabitatUseRecords(saveRecords);
 
       const expectedRecords = [];
 
       expect(actualRecords).toStrictEqual(expectedRecords);
+    });
+    it("should throw 'DatastoreError' with code UPDATES_SUBSCRIPTION when subscribing to updates fails", () => {
+      const collectionReturnMock = {
+        onSnapshot: jest.fn(({}, success) =>
+          success({
+            docs: [
+              {
+                metadata: {
+                  hasPendingWrites: false,
+                },
+              },
+            ],
+          })
+        ),
+      };
+
+      const datastore = buildDatastoreMock(collectionReturnMock);
+
+      const saveRecords = () => {
+        throw new Error();
+      };
+
+      expect(() =>
+        datastore.subscribeToPendingHabitatUseRecords(saveRecords)
+      ).toThrow(new DatastoreError(DatastoreErrorType.UPDATES_SUBSCRIPTION));
     });
   });
 
@@ -150,5 +175,18 @@ describe("Datastore with firestore", () => {
         new DatastoreError(DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT)
       );
     });
+  });
+});
+
+describe("initFirestore", () => {
+  jest.mock("firebase", () => ({
+    initializeApp: () => new Error(),
+    firestore: () => {},
+  }));
+
+  it("should throw 'DatastoreError' with code INITIALIZATION when Firebase initialization fails", () => {
+    expect(() => initFirestore({})).toThrow(
+      new DatastoreError(DatastoreErrorType.INITIALIZATION)
+    );
   });
 });

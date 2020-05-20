@@ -12,14 +12,18 @@ import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
 
 const HabitatUseForm = () => {
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [submitMessage, setSubmitMessage] = useState(null);
   const [pendingRecords, setPendingRecords] = useState([]);
   const { latitude, longitude } = usePosition();
   const { datastore } = useContext(DatastoreContext);
 
   useEffect(() => {
     if (!!datastore) {
-      datastore.listenForPendingHabitatUseRecords(setPendingRecords);
+      try {
+        datastore.subscribeToPendingHabitatUseRecords(setPendingRecords);
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, [datastore]);
 
@@ -69,10 +73,23 @@ const HabitatUseForm = () => {
 
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          datastore.createHabitatUse(values);
-          setSuccessMessage("Reading added");
-          setSubmitting(false);
+        onSubmit={async (values, { setSubmitting }) => {
+          const online = window.navigator.onLine;
+
+          if (online) {
+            try {
+              await datastore.createHabitatUse(values);
+              setSubmitMessage("Reading uploaded");
+              setSubmitting(false);
+            } catch (e) {
+              setSubmitMessage("Failed to upload!");
+              setSubmitting(false);
+            }
+          } else {
+            datastore.createHabitatUse(values);
+            setSubmitMessage("Reading stored locally");
+            setSubmitting(false);
+          }
         }}
       >
         {({
@@ -124,7 +141,7 @@ const HabitatUseForm = () => {
           </Form>
         )}
       </Formik>
-      {!!successMessage && <div>{successMessage}</div>}
+      {!!submitMessage && <div>{submitMessage}</div>}
       {!!pendingRecords.length && (
         <div css={styles.recordSummaryList}>
           <RecordSummaryList
