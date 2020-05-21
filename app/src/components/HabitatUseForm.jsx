@@ -7,8 +7,9 @@ import { fields } from "./habitatUseFields";
 import { usePosition } from "../position/usePosition";
 import { DatastoreContext } from "../App";
 import Input from "./Input";
-import Button from "./Button";
 import Select from "./Select";
+import TextArea from "./TextArea";
+import Button from "./Button";
 import RecordSummaryList from "./RecordSummaryList";
 
 const HabitatUseForm = () => {
@@ -102,38 +103,34 @@ const HabitatUseForm = () => {
         }) => (
           <Form>
             <div css={styles.formContainer}>
-              {fields.map(({ name, label, placeholder, type, options }) => (
-                <div
-                  key={`habitat-use-form-field-${name}`}
-                  css={styles.inputFieldContainer}
-                >
-                  {type === "select" ? (
-                    <Select
-                      type={type}
-                      name={name}
-                      label={label}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      options={options}
-                      touched={touched[name]}
-                      value={values[name]}
-                      error={errors[name]}
-                    />
-                  ) : (
-                    <Input
-                      type={type}
-                      name={name}
-                      label={label}
-                      placeholder={placeholder}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      touched={touched[name]}
-                      value={values[name]}
-                      error={errors[name]}
-                    />
-                  )}
-                </div>
-              ))}
+              {fields.map(({ name, label, placeholder, type, options }) => {
+                const config = {
+                  type: type,
+                  name: name,
+                  label: label,
+                  onChange: handleChange,
+                  onBlur: handleBlur,
+                  options: options,
+                  placeholder: placeholder,
+                  touched: touched[name],
+                  value: values[name],
+                  error: errors[name],
+                };
+                return (
+                  <div
+                    key={`habitat-use-form-field-${name}`}
+                    css={styles.inputFieldContainer}
+                  >
+                    {type === "select" ? (
+                      <Select config={config} />
+                    ) : type === "textarea" ? (
+                      <TextArea config={config} />
+                    ) : (
+                      <Input config={config} />
+                    )}
+                  </div>
+                );
+              })}
             </div>
             <Button type="submit" disabled={isSubmitting}>
               Submit

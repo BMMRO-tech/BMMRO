@@ -6,15 +6,17 @@ import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
 const Input = ({
-  type,
-  name,
-  label,
-  placeholder,
-  onChange,
-  onBlur,
-  touched,
-  value,
-  error,
+  config: {
+    type,
+    name,
+    label,
+    placeholder,
+    onChange,
+    onBlur,
+    touched,
+    value,
+    error,
+  },
 }) => {
   const styles = {
     label: css`

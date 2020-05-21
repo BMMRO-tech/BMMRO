@@ -5,8 +5,18 @@ import { Fragment } from "react";
 import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
-const Select = ({
-  config: { name, label, onChange, onBlur, options, touched, value, error },
+const TextArea = ({
+  config: {
+    type,
+    name,
+    label,
+    placeholder,
+    onChange,
+    onBlur,
+    touched,
+    value,
+    error,
+  },
 }) => {
   const styles = {
     label: css`
@@ -18,8 +28,6 @@ const Select = ({
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
-      background: ${colors.white};
-      border-radius: 0;
       border: 1px solid ${colors.lightBlue};
     `,
   };
@@ -28,28 +36,19 @@ const Select = ({
       <label css={styles.label} htmlFor={name}>
         {label}
       </label>
-      <select
+      <textarea
         css={styles.input}
+        type={type}
         name={name}
-        value={value}
+        placeholder={placeholder}
         id={name}
         onChange={onChange}
         onBlur={onBlur}
-      >
-        <option key="none" value="">
-          -- Please select option --
-        </option>
-        {options.map((option) => {
-          return (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          );
-        })}
-      </select>
+        value={value}
+      />
       {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
     </Fragment>
   );
 };
 
-export default Select;
+export default TextArea;
