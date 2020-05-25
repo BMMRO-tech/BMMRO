@@ -6,11 +6,10 @@ import { useState, useEffect, Fragment, useContext } from "react";
 import { fields } from "./habitatUseFields";
 import { usePosition } from "../position/usePosition";
 import { DatastoreContext } from "../App";
-import Input from "./Input";
-import Select from "./Select";
-import TextArea from "./TextArea";
 import Button from "./Button";
+import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
+import Input from "./Input";
 
 const HabitatUseForm = () => {
   const [submitMessage, setSubmitMessage] = useState(null);
@@ -62,18 +61,6 @@ const HabitatUseForm = () => {
 
           return initValues;
         })()}
-        validate={(values) => {
-          const errors = {};
-          const errorMessage = "Required";
-
-          fields.forEach((field) => {
-            if (!values[field.name] && field.required) {
-              errors[field.name] = errorMessage;
-            }
-          });
-
-          return errors;
-        }}
         onSubmit={async (values, { setSubmitting }) => {
           const online = window.navigator.onLine;
 
@@ -103,34 +90,35 @@ const HabitatUseForm = () => {
         }) => (
           <Form>
             <div css={styles.formContainer}>
-              {fields.map(({ name, label, placeholder, type, options }) => {
-                const config = {
-                  type: type,
-                  name: name,
-                  label: label,
-                  onChange: handleChange,
-                  onBlur: handleBlur,
-                  options: options,
-                  placeholder: placeholder,
-                  touched: touched[name],
-                  value: values[name],
-                  error: errors[name],
-                };
-                return (
-                  <div
-                    key={`habitat-use-form-field-${name}`}
-                    css={styles.inputFieldContainer}
-                  >
-                    {type === "select" ? (
-                      <Select config={config} />
-                    ) : type === "textarea" ? (
-                      <TextArea config={config} />
-                    ) : (
-                      <Input config={config} />
-                    )}
-                  </div>
-                );
-              })}
+              {fields.map(
+                ({ name, label, placeholder, type, options, validate }) => {
+                  const config = {
+                    type: type,
+                    name: name,
+                    label: label,
+                    onChange: handleChange,
+                    onBlur: handleBlur,
+                    options: options,
+                    placeholder: placeholder,
+                    touched: touched[name],
+                    value: values[name],
+                    error: errors[name],
+                    validate: validate,
+                  };
+                  return (
+                    <div
+                      key={`habitat-use-form-field-${name}`}
+                      css={styles.inputFieldContainer}
+                    >
+                      {type === "select" ? (
+                        <Select config={config} />
+                      ) : (
+                        <Input config={config} />
+                      )}
+                    </div>
+                  );
+                }
+              )}
             </div>
             <Button type="submit" disabled={isSubmitting}>
               Submit

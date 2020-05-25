@@ -4,19 +4,10 @@ import { Fragment } from "react";
 
 import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
+import { Field } from "formik";
 
 const Input = ({
-  config: {
-    type,
-    name,
-    label,
-    placeholder,
-    onChange,
-    onBlur,
-    touched,
-    value,
-    error,
-  },
+  config: { type, name, label, placeholder, touched, value, error, validate },
 }) => {
   const styles = {
     label: css`
@@ -36,15 +27,15 @@ const Input = ({
       <label css={styles.label} htmlFor={name}>
         {label}
       </label>
-      <input
+      <Field
+        as={type === "textarea" ? type : null}
         css={styles.input}
         type={type}
         name={name}
         placeholder={placeholder}
         id={name}
-        onChange={onChange}
-        onBlur={onBlur}
         value={value}
+        validate={() => (!value ? "Required" : null)}
       />
       {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
     </Fragment>

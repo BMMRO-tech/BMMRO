@@ -52,7 +52,6 @@ export const fields = [
     label: "Species",
     placeholder: "Manatee",
     type: "text",
-    required: true,
   },
   {
     name: "waterDepth",
