@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import colors from "../materials/colors";
 
-const ErrorMessage = ({ text, isInline = false }) => {
+const ErrorMessage = ({ text, testId, isInline = false }) => {
   const styles = {
     error: css`
       display: ${isInline ? "inline" : "block"};
@@ -10,7 +10,11 @@ const ErrorMessage = ({ text, isInline = false }) => {
     `,
   };
 
-  return <div css={styles.error}>{text}</div>;
+  return (
+    <div data-testid={testId} css={styles.error}>
+      {text}
+    </div>
+  );
 };
 
 export default ErrorMessage;

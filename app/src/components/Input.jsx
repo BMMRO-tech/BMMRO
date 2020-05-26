@@ -34,10 +34,13 @@ const Input = ({
         name={name}
         placeholder={placeholder}
         id={name}
+        data-testid={name}
         value={value}
         validate={() => (!value ? "Required" : null)}
       />
-      {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
+      {!!error && !!touched && (
+        <ErrorMessage testId={`error-${name}`} text={error} isInline={true} />
+      )}
     </Fragment>
   );
 };
