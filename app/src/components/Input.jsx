@@ -36,7 +36,7 @@ const Input = ({
         id={name}
         data-testid={name}
         value={value}
-        validate={() => (!value ? "Required" : null)}
+        validate={validate}
       />
       {!!error && !!touched && (
         <ErrorMessage testId={`error-${name}`} text={error} isInline={true} />

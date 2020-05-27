@@ -2,6 +2,12 @@ const isoDateToday = () => {
   return new Date().toISOString().split("T")[0];
 };
 
+const validateField = (value, min, max) => {
+  if (!value) return "Required";
+  else if (value < min || value > max)
+    return `Input value should be between ${min} and ${max}`;
+};
+
 export const fields = [
   {
     name: "numberOfAnimals",
@@ -9,6 +15,7 @@ export const fields = [
     placeholder: "4",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 99),
   },
   {
     name: "numberOfCalves",
@@ -16,6 +23,7 @@ export const fields = [
     placeholder: "4",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 99),
   },
   {
     name: "species",
@@ -67,6 +75,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 999),
   },
   {
     name: "directionOfTravel",
@@ -95,6 +104,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 9999),
   },
   {
     name: "waterTemp",
@@ -102,6 +112,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 15, 40),
   },
   {
     name: "bottomSubstrate",
@@ -159,6 +170,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 9999),
   },
   {
     name: "bearing",
@@ -166,6 +178,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 360),
   },
   {
     name: "aspect",
@@ -173,6 +186,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 360),
   },
   {
     name: "groupCohesion",
@@ -194,6 +208,7 @@ export const fields = [
     placeholder: "11",
     type: "number",
     required: true,
+    validate: (value) => validateField(value, 0, 99),
   },
   {
     name: "endTime",
@@ -231,6 +246,7 @@ export const fields = [
     placeholder: "53.012",
     type: "text",
     required: true,
+    validate: (value) => validateField(value, -90, 90),
   },
   {
     name: "longitude",
@@ -238,5 +254,6 @@ export const fields = [
     placeholder: "-68.356",
     type: "text",
     required: true,
+    validate: (value) => validateField(value, -180, 180),
   },
 ];
