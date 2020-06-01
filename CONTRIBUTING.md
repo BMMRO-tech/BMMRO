@@ -34,7 +34,7 @@ We use GitHub issues to track enhancement suggestions. Please make sure you prov
 - Explain why this enhancement would be useful
 
 ## Code of Conduct
-This project and everyone participating in it is governed by the Code of Conduct. By participating, you are expected to uphold this code. 
+This project and everyone participating in it is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. 
 Please report unacceptable behavior [here](bahamas-marine-mammal-research-organization@thoughtworks.com)
 
 ## License
