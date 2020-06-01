@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 
 import colors from "../materials/colors";
 
-const Button = ({ type, disabled, children, onClick }) => {
+const Button = ({ type, disabled, children, testId }) => {
   const styles = css`
     background: ${colors.darkBlue};
     border: none;
@@ -16,7 +16,7 @@ const Button = ({ type, disabled, children, onClick }) => {
     }
   `;
   return (
-    <button css={styles} type={type} disabled={disabled} onClick={onClick}>
+    <button css={styles} type={type} disabled={disabled} data-testid={testId}>
       {children}
     </button>
   );

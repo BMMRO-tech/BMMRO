@@ -13,3 +13,7 @@ export const validateField = (value, min, max) => {
       rule: max,
     };
 };
+
+export const isEmpty = (value) => {
+  if (!value) return { type: FormErrorType.EMPTY };
+};

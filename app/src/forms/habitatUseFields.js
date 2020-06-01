@@ -1,4 +1,4 @@
-import { validateField } from "./validation";
+import { validateField, isEmpty } from "./validation";
 
 const isoDateToday = () => {
   return new Date().toISOString().split("T")[0];
@@ -64,6 +64,7 @@ export const fields = [
       "Unknown balaenopterid",
     ],
     type: "select",
+    validate: (value) => isEmpty(value),
   },
   {
     name: "numberOfBoats",
@@ -79,6 +80,7 @@ export const fields = [
     options: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "comments",
@@ -93,6 +95,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "waterDepth",
@@ -124,6 +127,7 @@ export const fields = [
     ],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "cloudCover",
@@ -131,6 +135,7 @@ export const fields = [
     options: ["< 25%", "25% - 50%", "50% - 75%", "> 75%"],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "beaufortSeaState",
@@ -138,6 +143,7 @@ export const fields = [
     options: [0, 1, 2, 3, 4, 5],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "tideState",
@@ -145,6 +151,7 @@ export const fields = [
     options: ["High", "Ebb", "Low", "Flood", "Slack"],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "behaviour",
@@ -152,6 +159,7 @@ export const fields = [
     options: ["Rest", "Feed", "Social", "Travel", "Milling"],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "swellWaveHeight",
@@ -159,6 +167,7 @@ export const fields = [
     options: ["0", "1", "2", "3", "4", "5", "6+"],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "distance",
@@ -190,6 +199,7 @@ export const fields = [
     options: ["Tight", "Moderate", "Loose"],
     type: "select",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "groupComposition",
@@ -197,6 +207,7 @@ export const fields = [
     placeholder: "SM",
     type: "text",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "surfaceBout",
@@ -212,6 +223,7 @@ export const fields = [
     placeholder: "12:00",
     type: "time",
     required: true,
+    validate: (value) => isEmpty(value),
   },
   {
     name: "date",
@@ -222,6 +234,7 @@ export const fields = [
     initialValue: () => {
       return isoDateToday();
     },
+    validate: (value) => isEmpty(value),
   },
   {
     name: "startTime",
@@ -235,6 +248,7 @@ export const fields = [
         minute: "2-digit",
       });
     },
+    validate: (value) => isEmpty(value),
   },
   {
     name: "latitude",

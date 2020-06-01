@@ -5,8 +5,61 @@ import HabitatUseForm from "../HabitatUseForm";
 import { DatastoreContext } from "../../App";
 
 describe("Habitat Use Form validation", () => {
+  describe("Empty validation", () => {
+    const requiredFields = [
+      "numberOfAnimals",
+      "numberOfCalves",
+      "species",
+      "numberOfBoats",
+      "directionOfTravel",
+      "encSeqNo",
+      "waterDepth",
+      "waterTemp",
+      "bottomSubstrate",
+      "cloudCover",
+      "beaufortSeaState",
+      "tideState",
+      "behaviour",
+      "swellWaveHeight",
+      "distance",
+      "bearing",
+      "aspect",
+      "groupCohesion",
+      "groupComposition",
+      "surfaceBout",
+      "endTime",
+      "latitude",
+      "longitude",
+    ];
+    let habitatUseForm;
+    beforeEach(async () => {
+      habitatUseForm = render(
+        <DatastoreContext.Provider value={{}}>
+          <HabitatUseForm />
+        </DatastoreContext.Provider>
+      );
+    });
+
+    requiredFields.forEach((testCase) => {
+      it(`${testCase} should display an error when input is empty`, async () => {
+        const input = habitatUseForm.queryByTestId(testCase);
+        await wait(async () => {
+          if (testCase === "date" || testCase === "startTime") {
+            await user.type(input, "");
+          } else {
+            user.click(input);
+          }
+          user.tab();
+        });
+
+        const error = habitatUseForm.queryByTestId(`error-empty-${testCase}`);
+        expect(error).toBeInTheDocument();
+      });
+    });
+  });
+
   describe("MinMax validation", () => {
-    const numberValidationCases = [
+    const testCases = [
       { minValue: 0, maxValue: 99, id: "numberOfAnimals" },
       { minValue: 0, maxValue: 99, id: "numberOfCalves" },
       { minValue: 0, maxValue: 999, id: "numberOfBoats" },
@@ -20,7 +73,7 @@ describe("Habitat Use Form validation", () => {
       { minValue: -180, maxValue: 180, id: "longitude" },
     ];
 
-    numberValidationCases.forEach((testCase) => {
+    testCases.forEach((testCase) => {
       describe(`${testCase.id}`, () => {
         let habitatUseForm;
         let input;
@@ -48,18 +101,6 @@ describe("Habitat Use Form validation", () => {
 
           expect(error).not.toBeInTheDocument();
           expect(input.value).toBe(inputValue);
-        });
-
-        it("should display an error when input is empty", async () => {
-          await wait(async () => {
-            user.click(input);
-            user.tab();
-          });
-          const error = habitatUseForm.queryByTestId(
-            `error-empty-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
         });
 
         it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {

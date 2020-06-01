@@ -120,7 +120,11 @@ const HabitatUseForm = () => {
                 }
               )}
             </div>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button
+              testId="submit-button"
+              type="submit"
+              disabled={isSubmitting}
+            >
               Submit
             </Button>
           </Form>

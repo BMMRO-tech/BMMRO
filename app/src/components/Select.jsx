@@ -44,6 +44,7 @@ const Select = ({
         name={name}
         value={value}
         id={name}
+        data-testid={name}
         onChange={onChange}
         onBlur={onBlur}
         validate={validate}
@@ -60,7 +61,13 @@ const Select = ({
           );
         })}
       </Field>
-      {!!error && !!touched && <ErrorMessage error={error} isInline={true} />}
+      {!!error && !!touched && (
+        <ErrorMessage
+          testId={`error-${error.type}-${name}`}
+          error={error}
+          isInline={true}
+        />
+      )}
     </Fragment>
   );
 };
