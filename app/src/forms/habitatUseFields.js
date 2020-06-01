@@ -1,11 +1,7 @@
+import { validateField } from "./validation";
+
 const isoDateToday = () => {
   return new Date().toISOString().split("T")[0];
-};
-
-const validateField = (value, min, max) => {
-  if (!value) return "Required";
-  else if (value < min || value > max)
-    return `Input value should be between ${min} and ${max}`;
 };
 
 export const fields = [

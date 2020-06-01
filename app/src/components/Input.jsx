@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
+import { Field } from "formik";
 
 import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
-import { Field } from "formik";
 
 const Input = ({
   config: { type, name, label, placeholder, touched, value, error, validate },
@@ -39,7 +39,11 @@ const Input = ({
         validate={validate}
       />
       {!!error && !!touched && (
-        <ErrorMessage testId={`error-${name}`} text={error} isInline={true} />
+        <ErrorMessage
+          testId={`error-${error.type}-${name}`}
+          error={error}
+          isInline={true}
+        />
       )}
     </Fragment>
   );

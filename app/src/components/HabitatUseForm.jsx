@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { useState, useEffect, Fragment, useContext } from "react";
 
-import { fields } from "./habitatUseFields";
+import { fields } from "../forms/habitatUseFields";
 import { usePosition } from "../position/usePosition";
 import { DatastoreContext } from "../App";
 import Button from "./Button";

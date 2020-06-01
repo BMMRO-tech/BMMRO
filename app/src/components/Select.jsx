@@ -1,12 +1,23 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
+import { Field } from "formik";
 
 import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
 const Select = ({
-  config: { name, label, onChange, onBlur, options, touched, value, error },
+  config: {
+    name,
+    label,
+    onChange,
+    onBlur,
+    options,
+    touched,
+    value,
+    error,
+    validate,
+  },
 }) => {
   const styles = {
     label: css`
@@ -28,13 +39,15 @@ const Select = ({
       <label css={styles.label} htmlFor={name}>
         {label}
       </label>
-      <select
+      <Field
         css={styles.input}
         name={name}
         value={value}
         id={name}
         onChange={onChange}
         onBlur={onBlur}
+        validate={validate}
+        as="select"
       >
         <option key="none" value="">
           -- Please select option --
@@ -46,8 +59,8 @@ const Select = ({
             </option>
           );
         })}
-      </select>
-      {!!error && !!touched && <ErrorMessage text={error} isInline={true} />}
+      </Field>
+      {!!error && !!touched && <ErrorMessage error={error} isInline={true} />}
     </Fragment>
   );
 };

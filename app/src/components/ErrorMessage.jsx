@@ -1,8 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import colors from "../materials/colors";
+import { FormErrorType } from "../forms/constants";
 
-const ErrorMessage = ({ text, testId, isInline = false }) => {
+const ErrorMessage = ({ error, testId, isInline = false }) => {
+  const message = {
+    [FormErrorType.EMPTY]: "Required",
+    [FormErrorType.MIN_VALUE]: `Value must be greater than or equal to ${error.rule}`,
+    [FormErrorType.MAX_VALUE]: `Value must be less than or equal to ${error.rule}`,
+  };
+
   const styles = {
     error: css`
       display: ${isInline ? "inline" : "block"};
@@ -12,7 +19,7 @@ const ErrorMessage = ({ text, testId, isInline = false }) => {
 
   return (
     <div data-testid={testId} css={styles.error}>
-      {text}
+      {message[error.type]}
     </div>
   );
 };
