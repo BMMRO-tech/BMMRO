@@ -1,12 +1,13 @@
 import React from "react";
-import { render, wait } from "@testing-library/react";
+import { render, wait, fireEvent, cleanup } from "@testing-library/react/pure";
 import user from "@testing-library/user-event";
+
 import HabitatUseForm from "../HabitatUseForm";
 import { DatastoreContext } from "../../App";
 
 describe("Habitat Use Form validation", () => {
   describe("Empty validation", () => {
-    const requiredFields = [
+    const testCases = [
       "numberOfAnimals",
       "numberOfCalves",
       "species",
@@ -28,30 +29,38 @@ describe("Habitat Use Form validation", () => {
       "groupComposition",
       "surfaceBout",
       "endTime",
+      "startTime",
+      "date",
       "latitude",
       "longitude",
     ];
+
     let habitatUseForm;
-    beforeEach(async () => {
+
+    beforeAll(async () => {
       habitatUseForm = render(
         <DatastoreContext.Provider value={{}}>
           <HabitatUseForm />
         </DatastoreContext.Provider>
       );
+
+      const startTime = habitatUseForm.queryByTestId("startTime");
+      const date = habitatUseForm.queryByTestId("date");
+      const submitButton = habitatUseForm.queryByTestId("submit-button");
+
+      await wait(async () => {
+        fireEvent.change(startTime, { target: { value: null } });
+        fireEvent.change(date, { target: { value: null } });
+        user.click(submitButton);
+      });
     });
 
-    requiredFields.forEach((testCase) => {
-      it(`${testCase} should display an error when input is empty`, async () => {
-        const input = habitatUseForm.queryByTestId(testCase);
-        await wait(async () => {
-          if (testCase === "date" || testCase === "startTime") {
-            await user.type(input, "");
-          } else {
-            user.click(input);
-          }
-          user.tab();
-        });
+    afterAll(() => {
+      cleanup();
+    });
 
+    testCases.forEach((testCase) => {
+      it(`${testCase} should display an error when input is empty`, async () => {
         const error = habitatUseForm.queryByTestId(`error-empty-${testCase}`);
         expect(error).toBeInTheDocument();
       });
@@ -73,10 +82,14 @@ describe("Habitat Use Form validation", () => {
       { minValue: -180, maxValue: 180, id: "longitude" },
     ];
 
+    afterEach(() => {
+      cleanup();
+    });
+
     testCases.forEach((testCase) => {
       describe(`${testCase.id}`, () => {
         let habitatUseForm;
-        let input;
+        let inputField;
 
         beforeEach(() => {
           habitatUseForm = render(
@@ -85,30 +98,30 @@ describe("Habitat Use Form validation", () => {
             </DatastoreContext.Provider>
           );
 
-          input = habitatUseForm.queryByTestId(testCase.id);
+          inputField = habitatUseForm.queryByTestId(testCase.id);
         });
 
         it(`should output no error when value is between ${testCase.minValue}-${testCase.maxValue}`, async () => {
           const inputValue = (testCase.maxValue - 1).toString();
 
           await wait(async () => {
-            user.click(input);
-            await user.type(input, inputValue);
+            user.click(inputField);
+            await user.type(inputField, inputValue);
             user.tab();
           });
 
           const error = habitatUseForm.queryByTestId(`error-${testCase.id}`);
 
           expect(error).not.toBeInTheDocument();
-          expect(input.value).toBe(inputValue);
+          expect(inputField.value).toBe(inputValue);
         });
 
         it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {
           const inputValue = (testCase.minValue - 10).toString();
 
           await wait(async () => {
-            user.click(input);
-            await user.type(input, inputValue);
+            user.click(inputField);
+            await user.type(inputField, inputValue);
             user.tab();
           });
 
@@ -123,8 +136,8 @@ describe("Habitat Use Form validation", () => {
           const inputValue = (testCase.maxValue + 10).toString();
 
           await wait(async () => {
-            user.click(input);
-            await user.type(input, inputValue);
+            user.click(inputField);
+            await user.type(inputField, inputValue);
             user.tab();
           });
 
