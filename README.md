@@ -1,6 +1,6 @@
 ![alt text](./logo_v1.png "Fluke! error...")
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 # Bahamas Marine Mammal Research Organization (BMMRO)
 
@@ -50,7 +50,7 @@ Potential future work could be further app improvements, more accessible or soph
 
 # Documents and repositories: 
 [Google drive](https://bit.ly/34ha4dK)
-... If you do not have access to any of the above, email siva.subramanian@thoughtworks.com or james.brown@thoughtworks.com
+... If you do not have access to any of the above, email oktawia.kata@thoughtworks.com or james.brown@thoughtworks.com
 
 # Inspiration
 - https://www.flukebook.org/
@@ -60,7 +60,7 @@ Potential future work could be further app improvements, more accessible or soph
 - James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
 - Charlotte Dunn, PhD (BMMRO):  cdunn@bahamaswhales.org
 - Thomas Brown, client Product Owner (BMMRO): motnworb@hotmail.com
-- Siva Subramanian, Technical Lead (TW): siva.subramanian@thoughtworks.com 
+- Oktawia Kata, Technical Lead (TW): oktawia.kata@thoughtworks.com 
 - Team: bahamas-marine-mammal-research-organization@thoughtworks.com
 
 ## Contributors ✨
@@ -78,6 +78,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/jfgreen"><img src="https://avatars0.githubusercontent.com/u/1288679?v=4" width="100px;" alt=""/><br /><sub><b>James Green</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=jfgreen" title="Code">💻</a> <a href="#infra-jfgreen" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     <td align="center"><a href="http://oktawiakata.com"><img src="https://avatars0.githubusercontent.com/u/18549395?v=4" width="100px;" alt=""/><br /><sub><b>Oktawia Kata</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=aiwatko" title="Code">💻</a> <a href="#projectManagement-aiwatko" title="Project Management">📆</a></td>
     <td align="center"><a href="https://github.com/peersmg"><img src="https://avatars3.githubusercontent.com/u/10050347?v=4" width="100px;" alt=""/><br /><sub><b>Matthew Peers</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=peersmg" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sivsubra-tw"><img src="https://avatars3.githubusercontent.com/u/55848659?v=4" width="100px;" alt=""/><br /><sub><b>Siva Subramanian</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=sivsubra-tw" title="Code">💻</a></td>
   </tr>
 </table>
 
