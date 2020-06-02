@@ -15,7 +15,7 @@
 
 Offline support is a key requirement as researchers will be using this app while out at sea with no internet connection. In order to ensure this the following decisions were made:
 
-- Enabling offline persistance in firebase.
+- Enabling offline persistence in firebase.
 - Ensuring the app can be accessed offline as a Progressive Web App (PWA).
 
 The app will recognise when the device is offline and save the data locally. Once the device is back online the data will automatically be uploaded to Firestore.
