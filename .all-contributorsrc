@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "JBJamesBrownJB",
+      "name": "James Brown",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1058300?v=4",
+      "profile": "http://www.bogwell.co.uk",
+      "contributions": [
+        "code",
+        "projectManagement"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "BMMRO",
+  "projectOwner": "BMMRO-tech",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
