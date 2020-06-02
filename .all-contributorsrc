@@ -52,6 +52,15 @@
         "code",
         "projectManagement"
       ]
+    },
+    {
+      "login": "peersmg",
+      "name": "Matthew Peers",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/10050347?v=4",
+      "profile": "https://github.com/peersmg",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
