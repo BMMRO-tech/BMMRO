@@ -1,6 +1,6 @@
 ![alt text](./logo_v1.png "Fluke! error...")
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 # Bahamas Marine Mammal Research Organization (BMMRO)
 
@@ -74,6 +74,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://www.bogwell.co.uk"><img src="https://avatars0.githubusercontent.com/u/1058300?v=4" width="100px;" alt=""/><br /><sub><b>James Brown</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=JBJamesBrownJB" title="Code">💻</a> <a href="#projectManagement-JBJamesBrownJB" title="Project Management">📆</a></td>
     <td align="center"><a href="https://github.com/gazeddyw"><img src="https://avatars3.githubusercontent.com/u/6126744?v=4" width="100px;" alt=""/><br /><sub><b>Gareth Williams</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=gazeddyw" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/dsobkow"><img src="https://avatars1.githubusercontent.com/u/38005641?v=4" width="100px;" alt=""/><br /><sub><b>Dorota Sobkow</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=dsobkow" title="Code">💻</a></td>
   </tr>
 </table>
 
