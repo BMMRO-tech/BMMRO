@@ -1,11 +1,21 @@
 import React from "react";
 import { render, wait, fireEvent, cleanup } from "@testing-library/react/pure";
 import user from "@testing-library/user-event";
+import { addDays, format } from "date-fns";
 
 import HabitatUseForm from "../HabitatUseForm";
 import { DatastoreContext } from "../../App";
+import { DATE_FORMAT } from "../../forms/constants";
 
 describe("Habitat Use Form validation", () => {
+  const insertInputAndBlur = async (inputField, value) => {
+    await wait(async () => {
+      user.click(inputField);
+      await user.type(inputField, value);
+      user.tab();
+    });
+  };
+
   describe("Empty validation", () => {
     const testCases = [
       "numberOfAnimals",
@@ -67,7 +77,7 @@ describe("Habitat Use Form validation", () => {
     });
   });
 
-  describe("MinMax validation", () => {
+  describe("Min and max value validation", () => {
     const testCases = [
       { minValue: 0, maxValue: 99, id: "numberOfAnimals" },
       { minValue: 0, maxValue: 99, id: "numberOfCalves" },
@@ -81,10 +91,6 @@ describe("Habitat Use Form validation", () => {
       { minValue: -90, maxValue: 90, id: "latitude" },
       { minValue: -180, maxValue: 180, id: "longitude" },
     ];
-
-    afterEach(() => {
-      cleanup();
-    });
 
     testCases.forEach((testCase) => {
       describe(`${testCase.id}`, () => {
@@ -101,30 +107,20 @@ describe("Habitat Use Form validation", () => {
           inputField = habitatUseForm.queryByTestId(testCase.id);
         });
 
-        it(`should output no error when value is between ${testCase.minValue}-${testCase.maxValue}`, async () => {
-          const inputValue = (testCase.maxValue - 1).toString();
+        afterEach(() => cleanup());
 
-          await wait(async () => {
-            user.click(inputField);
-            await user.type(inputField, inputValue);
-            user.tab();
-          });
-
+        it(`should display no error when value is between ${testCase.minValue}-${testCase.maxValue}`, async () => {
+          const value = (testCase.maxValue - 1).toString();
+          await insertInputAndBlur(inputField, value);
           const error = habitatUseForm.queryByTestId(`error-${testCase.id}`);
 
           expect(error).not.toBeInTheDocument();
-          expect(inputField.value).toBe(inputValue);
+          expect(inputField.value).toBe(value);
         });
 
         it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {
-          const inputValue = (testCase.minValue - 10).toString();
-
-          await wait(async () => {
-            user.click(inputField);
-            await user.type(inputField, inputValue);
-            user.tab();
-          });
-
+          const value = (testCase.minValue - 10).toString();
+          await insertInputAndBlur(inputField, value);
           const error = habitatUseForm.queryByTestId(
             `error-min-value-${testCase.id}`
           );
@@ -133,14 +129,8 @@ describe("Habitat Use Form validation", () => {
         });
 
         it(`should display an error when input number is above maximum value of ${testCase.maxValue}`, async () => {
-          const inputValue = (testCase.maxValue + 10).toString();
-
-          await wait(async () => {
-            user.click(inputField);
-            await user.type(inputField, inputValue);
-            user.tab();
-          });
-
+          const value = (testCase.maxValue + 10).toString();
+          await insertInputAndBlur(inputField, value);
           const error = habitatUseForm.queryByTestId(
             `error-max-value-${testCase.id}`
           );
@@ -148,6 +138,59 @@ describe("Habitat Use Form validation", () => {
           expect(error).toBeInTheDocument();
         });
       });
+    });
+  });
+
+  describe("Date validation", () => {
+    let habitatUseForm;
+    let inputField;
+
+    beforeEach(() => {
+      habitatUseForm = render(
+        <DatastoreContext.Provider value={{}}>
+          <HabitatUseForm />
+        </DatastoreContext.Provider>
+      );
+      inputField = habitatUseForm.queryByTestId("date");
+    });
+
+    afterEach(() => cleanup());
+
+    it("should display no error when date value is the current day or in the past", async () => {
+      await insertInputAndBlur(inputField, "05/05/2020");
+      const errorMaxDate = habitatUseForm.queryByTestId("error-max-date-date");
+      const errorInvalid = habitatUseForm.queryByTestId(
+        "error-invalid-date-format-date"
+      );
+
+      expect(inputField.value).toBe("05/05/2020");
+      expect(errorMaxDate).not.toBeInTheDocument();
+      expect(errorInvalid).not.toBeInTheDocument();
+    });
+
+    it("should display an error when the date is in the future", async () => {
+      const today = "2020-06-04T00:00:00.000Z";
+      jest
+        .spyOn(global.Date, "now")
+        .mockImplementationOnce(() => new Date(today).valueOf());
+
+      const tomorrow = addDays(new Date(Date.now()), 1);
+      const value = format(tomorrow, DATE_FORMAT);
+      await insertInputAndBlur(inputField, value);
+      const error = habitatUseForm.queryByTestId("error-max-date-date");
+
+      expect(inputField.value).toBe("05/06/2020");
+      expect(error).toBeInTheDocument();
+    });
+
+    it(`should display an error when the date not in the format ${DATE_FORMAT}`, async () => {
+      await insertInputAndBlur(inputField, "2020-05-05");
+      const error = habitatUseForm.queryByTestId(
+        "error-invalid-date-format-date"
+      );
+
+      expect(inputField.value).toBe("2020-05-05");
+      expect(error).toBeInTheDocument();
     });
   });
 });

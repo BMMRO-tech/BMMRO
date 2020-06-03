@@ -1,7 +1,13 @@
-import { validateField, isEmpty } from "./validation";
+import { format } from "date-fns";
+import {
+  validateNumericField,
+  validateDateField,
+  validateEmpty,
+} from "./validation";
+import { DATE_FORMAT } from "./constants";
 
 const isoDateToday = () => {
-  return new Date().toISOString().split("T")[0];
+  return format(new Date(), DATE_FORMAT);
 };
 
 export const fields = [
@@ -11,7 +17,7 @@ export const fields = [
     placeholder: "4",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 99),
+    validate: (value) => validateNumericField(value, 0, 99),
   },
   {
     name: "numberOfCalves",
@@ -19,7 +25,7 @@ export const fields = [
     placeholder: "4",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 99),
+    validate: (value) => validateNumericField(value, 0, 99),
   },
   {
     name: "species",
@@ -64,7 +70,7 @@ export const fields = [
       "Unknown balaenopterid",
     ],
     type: "select",
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "numberOfBoats",
@@ -72,7 +78,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 999),
+    validate: (value) => validateNumericField(value, 0, 999),
   },
   {
     name: "directionOfTravel",
@@ -80,7 +86,7 @@ export const fields = [
     options: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "comments",
@@ -95,7 +101,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "waterDepth",
@@ -103,7 +109,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 9999),
+    validate: (value) => validateNumericField(value, 0, 9999),
   },
   {
     name: "waterTemp",
@@ -111,7 +117,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 15, 40),
+    validate: (value) => validateNumericField(value, 15, 40),
   },
   {
     name: "bottomSubstrate",
@@ -127,7 +133,7 @@ export const fields = [
     ],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "cloudCover",
@@ -135,7 +141,7 @@ export const fields = [
     options: ["< 25%", "25% - 50%", "50% - 75%", "> 75%"],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "beaufortSeaState",
@@ -143,7 +149,7 @@ export const fields = [
     options: [0, 1, 2, 3, 4, 5],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "tideState",
@@ -151,7 +157,7 @@ export const fields = [
     options: ["High", "Ebb", "Low", "Flood", "Slack"],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "behaviour",
@@ -159,7 +165,7 @@ export const fields = [
     options: ["Rest", "Feed", "Social", "Travel", "Milling"],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "swellWaveHeight",
@@ -167,7 +173,7 @@ export const fields = [
     options: ["0", "1", "2", "3", "4", "5", "6+"],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "distance",
@@ -175,7 +181,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 9999),
+    validate: (value) => validateNumericField(value, 0, 9999),
   },
   {
     name: "bearing",
@@ -183,7 +189,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 360),
+    validate: (value) => validateNumericField(value, 0, 360),
   },
   {
     name: "aspect",
@@ -191,7 +197,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 360),
+    validate: (value) => validateNumericField(value, 0, 360),
   },
   {
     name: "groupCohesion",
@@ -199,7 +205,7 @@ export const fields = [
     options: ["Tight", "Moderate", "Loose"],
     type: "select",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "groupComposition",
@@ -207,7 +213,7 @@ export const fields = [
     placeholder: "SM",
     type: "text",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "surfaceBout",
@@ -215,7 +221,7 @@ export const fields = [
     placeholder: "11",
     type: "number",
     required: true,
-    validate: (value) => validateField(value, 0, 99),
+    validate: (value) => validateNumericField(value, 0, 99),
   },
   {
     name: "endTime",
@@ -223,18 +229,18 @@ export const fields = [
     placeholder: "12:00",
     type: "time",
     required: true,
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "date",
     label: "Date",
-    placeholder: "mm/dd/yyyy",
-    type: "date",
+    placeholder: "dd/mm/yyyy",
+    type: "text",
     required: true,
     initialValue: () => {
       return isoDateToday();
     },
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateDateField(value, new Date(), DATE_FORMAT),
   },
   {
     name: "startTime",
@@ -248,7 +254,7 @@ export const fields = [
         minute: "2-digit",
       });
     },
-    validate: (value) => isEmpty(value),
+    validate: (value) => validateEmpty(value),
   },
   {
     name: "latitude",
@@ -256,7 +262,7 @@ export const fields = [
     placeholder: "53.012",
     type: "text",
     required: true,
-    validate: (value) => validateField(value, -90, 90),
+    validate: (value) => validateNumericField(value, -90, 90),
   },
   {
     name: "longitude",
@@ -264,6 +270,6 @@ export const fields = [
     placeholder: "-68.356",
     type: "text",
     required: true,
-    validate: (value) => validateField(value, -180, 180),
+    validate: (value) => validateNumericField(value, -180, 180),
   },
 ];
