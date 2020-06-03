@@ -11,10 +11,12 @@ const Select = ({
     name,
     label,
     onChange,
+    required,
     onBlur,
     options,
     touched,
     value,
+    dependingFieldValue,
     error,
     validate,
   },
@@ -47,7 +49,9 @@ const Select = ({
         data-testid={name}
         onChange={onChange}
         onBlur={onBlur}
-        validate={validate}
+        validate={
+          required ? (value) => validate(value, dependingFieldValue) : null
+        }
         as="select"
       >
         <option key="none" value="">

@@ -5,7 +5,7 @@ import { addDays, format } from "date-fns";
 
 import HabitatUseForm from "../HabitatUseForm";
 import { DatastoreContext } from "../../App";
-import { DATE_FORMAT } from "../../forms/constants";
+import { DATE_FORMAT, TIME_FORMAT } from "../../forms/constants";
 
 describe("Habitat Use Form validation", () => {
   const insertInputAndBlur = async (inputField, value) => {
@@ -154,43 +154,118 @@ describe("Habitat Use Form validation", () => {
       inputField = habitatUseForm.queryByTestId("date");
     });
 
-    afterEach(() => cleanup());
+    afterEach(() => {
+      cleanup();
+      jest.clearAllMocks();
+    });
 
     it("should display no error when date value is the current day or in the past", async () => {
-      await insertInputAndBlur(inputField, "05/05/2020");
+      await insertInputAndBlur(inputField, "05/03/2020");
       const errorMaxDate = habitatUseForm.queryByTestId("error-max-date-date");
-      const errorInvalid = habitatUseForm.queryByTestId(
+      const errorInvalidFormat = habitatUseForm.queryByTestId(
         "error-invalid-date-format-date"
       );
 
-      expect(inputField.value).toBe("05/05/2020");
+      expect(inputField.value).toBe("05/03/2020");
       expect(errorMaxDate).not.toBeInTheDocument();
-      expect(errorInvalid).not.toBeInTheDocument();
+      expect(errorInvalidFormat).not.toBeInTheDocument();
     });
 
     it("should display an error when the date is in the future", async () => {
-      const today = "2020-06-04T00:00:00.000Z";
+      const today = "2020-05-04T00:00:00.000Z";
       jest
         .spyOn(global.Date, "now")
-        .mockImplementationOnce(() => new Date(today).valueOf());
-
+        .mockImplementation(() => new Date(today).valueOf());
       const tomorrow = addDays(new Date(Date.now()), 1);
       const value = format(tomorrow, DATE_FORMAT);
+
       await insertInputAndBlur(inputField, value);
       const error = habitatUseForm.queryByTestId("error-max-date-date");
 
-      expect(inputField.value).toBe("05/06/2020");
+      expect(inputField.value).toBe("05/05/2020");
       expect(error).toBeInTheDocument();
     });
 
     it(`should display an error when the date not in the format ${DATE_FORMAT}`, async () => {
-      await insertInputAndBlur(inputField, "2020-05-05");
+      await insertInputAndBlur(inputField, "2020-03-05");
       const error = habitatUseForm.queryByTestId(
         "error-invalid-date-format-date"
       );
 
-      expect(inputField.value).toBe("2020-05-05");
+      expect(inputField.value).toBe("2020-03-05");
       expect(error).toBeInTheDocument();
+    });
+  });
+
+  describe("Time validation", () => {
+    const testCases = ["startTime", "endTime"];
+
+    testCases.forEach((testCase) => {
+      describe(`${testCase}`, () => {
+        let habitatUseForm;
+        let timeField;
+        let dateField;
+
+        beforeEach(() => {
+          habitatUseForm = render(
+            <DatastoreContext.Provider value={{}}>
+              <HabitatUseForm />
+            </DatastoreContext.Provider>
+          );
+          timeField = habitatUseForm.queryByTestId(testCase);
+          dateField = habitatUseForm.queryByTestId("date");
+        });
+
+        afterEach(() => {
+          cleanup();
+          jest.clearAllMocks();
+        });
+
+        it("should display no error when time value is the current time or in the past", async () => {
+          await insertInputAndBlur(dateField, "05/03/2020");
+          await insertInputAndBlur(timeField, "12:30");
+          const errorMaxTime = habitatUseForm.queryByTestId(
+            `error-max-time-${testCase}`
+          );
+          const errorInvalidFormat = habitatUseForm.queryByTestId(
+            `error-invalid-time-format-${testCase}`
+          );
+
+          expect(timeField.value).toBe("12:30");
+          expect(dateField.value).toBe("05/03/2020");
+          expect(errorMaxTime).not.toBeInTheDocument();
+          expect(errorInvalidFormat).not.toBeInTheDocument();
+        });
+
+        it(`should display an error when the date not in the format ${TIME_FORMAT}`, async () => {
+          await insertInputAndBlur(timeField, "22:30:04");
+          const error = habitatUseForm.queryByTestId(
+            `error-invalid-time-format-${testCase}`
+          );
+
+          expect(timeField.value).toBe("22:30:04");
+          expect(error).toBeInTheDocument();
+        });
+
+        it("should display an error when the time is in the future", async () => {
+          const today = "2020-05-04T12:30:00.000Z";
+          jest
+            .spyOn(global.Date, "now")
+            .mockImplementation(() => new Date(today).valueOf());
+          const tomorrow = addDays(new Date(Date.now()), 1);
+          const dateValue = format(tomorrow, DATE_FORMAT);
+
+          await insertInputAndBlur(dateField, dateValue);
+          await insertInputAndBlur(timeField, "12:30");
+          const error = habitatUseForm.queryByTestId(
+            `error-max-time-${testCase}`
+          );
+
+          expect(dateField.value).toBe("05/05/2020");
+          expect(timeField.value).toBe("12:30");
+          expect(error).toBeInTheDocument();
+        });
+      });
     });
   });
 });

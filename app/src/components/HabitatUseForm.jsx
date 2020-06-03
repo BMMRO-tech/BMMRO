@@ -91,19 +91,30 @@ const HabitatUseForm = () => {
           <Form>
             <div css={styles.formContainer}>
               {fields.map(
-                ({ name, label, placeholder, type, options, validate }) => {
+                ({
+                  name,
+                  label,
+                  required,
+                  placeholder,
+                  type,
+                  options,
+                  validate,
+                  dependingOn,
+                }) => {
                   const config = {
-                    type: type,
-                    name: name,
-                    label: label,
+                    type,
+                    name,
+                    label,
+                    required,
                     onChange: handleChange,
                     onBlur: handleBlur,
-                    options: options,
-                    placeholder: placeholder,
+                    options,
+                    placeholder,
                     touched: touched[name],
                     value: values[name],
                     error: errors[name],
-                    validate: validate,
+                    dependingFieldValue: values[dependingOn],
+                    validate,
                   };
                   return (
                     <div

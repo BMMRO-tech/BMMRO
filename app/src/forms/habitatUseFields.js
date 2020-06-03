@@ -2,12 +2,17 @@ import { format } from "date-fns";
 import {
   validateNumericField,
   validateDateField,
+  validateTimeField,
   validateEmpty,
 } from "./validation";
-import { DATE_FORMAT } from "./constants";
+import { DATE_FORMAT, TIME_FORMAT } from "./constants";
 
-const isoDateToday = () => {
-  return format(new Date(), DATE_FORMAT);
+const getCurrentDate = (dateFormat) => {
+  return format(new Date(), dateFormat);
+};
+
+const getCurrentTime = (timeFormat) => {
+  return format(new Date(), timeFormat);
 };
 
 export const fields = [
@@ -70,6 +75,7 @@ export const fields = [
       "Unknown balaenopterid",
     ],
     type: "select",
+    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -227,9 +233,11 @@ export const fields = [
     name: "endTime",
     label: "End Time",
     placeholder: "12:00",
-    type: "time",
+    type: "text",
     required: true,
-    validate: (value) => validateEmpty(value),
+    dependingOn: "date",
+    validate: (value, dependingFieldValue) =>
+      validateTimeField(value, dependingFieldValue, TIME_FORMAT, DATE_FORMAT),
   },
   {
     name: "date",
@@ -237,24 +245,19 @@ export const fields = [
     placeholder: "dd/mm/yyyy",
     type: "text",
     required: true,
-    initialValue: () => {
-      return isoDateToday();
-    },
-    validate: (value) => validateDateField(value, new Date(), DATE_FORMAT),
+    initialValue: () => getCurrentDate(DATE_FORMAT),
+    validate: (value) => validateDateField(value, DATE_FORMAT),
   },
   {
     name: "startTime",
     label: "Start Time",
     placeholder: "12:00",
-    type: "time",
+    type: "text",
     required: true,
-    initialValue: () => {
-      return new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    },
-    validate: (value) => validateEmpty(value),
+    dependingOn: "date",
+    initialValue: () => getCurrentTime(TIME_FORMAT),
+    validate: (value, dependingFieldValue) =>
+      validateTimeField(value, dependingFieldValue, TIME_FORMAT, DATE_FORMAT),
   },
   {
     name: "latitude",

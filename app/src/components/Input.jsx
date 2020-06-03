@@ -7,7 +7,18 @@ import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
 const Input = ({
-  config: { type, name, label, placeholder, touched, value, error, validate },
+  config: {
+    type,
+    name,
+    label,
+    required,
+    placeholder,
+    touched,
+    value,
+    dependingFieldValue,
+    error,
+    validate,
+  },
 }) => {
   const styles = {
     label: css`
@@ -36,7 +47,9 @@ const Input = ({
         id={name}
         data-testid={name}
         value={value}
-        validate={validate}
+        validate={
+          required ? (value) => validate(value, dependingFieldValue) : null
+        }
       />
       {!!error && !!touched && (
         <ErrorMessage
