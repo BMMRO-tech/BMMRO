@@ -18,6 +18,7 @@ const ErrorMessage = ({ error, testId, isInline = false }) => {
     error: css`
       display: ${isInline ? "inline" : "block"};
       color: ${colors.red};
+      font-size: 13px;
     `,
   };
 

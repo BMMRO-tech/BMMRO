@@ -95,19 +95,19 @@ export const fields = [
     validate: (value) => validateEmpty(value),
   },
   {
-    name: "comments",
-    label: "Comments",
-    placeholder: "Dolphins crater feeding",
-    type: "textarea",
-    required: false,
-  },
-  {
     name: "encSeqNo",
     label: "Enc Seq #",
     placeholder: "1",
     type: "number",
     required: true,
     validate: (value) => validateEmpty(value),
+  },
+  {
+    name: "comments",
+    label: "Comments",
+    placeholder: "Dolphins crater feeding",
+    type: "textarea",
+    required: false,
   },
   {
     name: "waterDepth",

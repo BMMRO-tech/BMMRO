@@ -27,13 +27,17 @@ const Select = ({
       padding-bottom: 5px;
     `,
     input: css`
-      width: 70%;
+      width: 100%;
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
       background: ${colors.white};
       border-radius: 0;
-      border: 1px solid ${colors.lightBlue};
+      border: 1px solid ${!!error && touched ? colors.red : colors.lightBlue};
+    `,
+    errorContainer: css`
+      margin-top: 2px;
+      min-height: 18px;
     `,
   };
   return (
@@ -65,13 +69,11 @@ const Select = ({
           );
         })}
       </Field>
-      {!!error && !!touched && (
-        <ErrorMessage
-          testId={`error-${error.type}-${name}`}
-          error={error}
-          isInline={true}
-        />
-      )}
+      <div css={styles.errorContainer}>
+        {!!error && !!touched && (
+          <ErrorMessage testId={`error-${error.type}-${name}`} error={error} />
+        )}
+      </div>
     </Fragment>
   );
 };

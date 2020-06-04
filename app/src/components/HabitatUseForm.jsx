@@ -28,15 +28,23 @@ const HabitatUseForm = () => {
   }, [datastore]);
 
   const styles = {
-    inputFieldContainer: css`
-      margin-bottom: 15px;
+    inputFieldContainerSingle: css`
+      margin-bottom: 5px;
+    `,
+    inputFieldContainerDouble: css`
+      margin-bottom: 5px;
+
+      @media (min-width: 500px) {
+        grid-column: 1 / span 2;
+      }
     `,
     formContainer: css`
       margin-bottom: 10px;
 
       @media (min-width: 500px) {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: 45% 45%;
+        grid-column-gap: 10%;
       }
     `,
     recordSummaryList: css`
@@ -119,7 +127,11 @@ const HabitatUseForm = () => {
                   return (
                     <div
                       key={`habitat-use-form-field-${name}`}
-                      css={styles.inputFieldContainer}
+                      css={
+                        type === "textarea"
+                          ? styles.inputFieldContainerDouble
+                          : styles.inputFieldContainerSingle
+                      }
                     >
                       {type === "select" ? (
                         <Select config={config} />

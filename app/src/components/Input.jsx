@@ -26,11 +26,17 @@ const Input = ({
       padding-bottom: 5px;
     `,
     input: css`
-      width: 70%;
+      width: 100%;
+      max-width: 100%;
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
-      border: 1px solid ${colors.lightBlue};
+      border: 1px solid ${!!error && touched ? colors.red : colors.lightBlue};
+      ${type === "textarea" && "min-height: 120px;"}
+    `,
+    errorContainer: css`
+      margin-top: 3px;
+      min-height: 20px;
     `,
   };
   return (
@@ -51,13 +57,11 @@ const Input = ({
           required ? (value) => validate(value, dependingFieldValue) : null
         }
       />
-      {!!error && !!touched && (
-        <ErrorMessage
-          testId={`error-${error.type}-${name}`}
-          error={error}
-          isInline={true}
-        />
-      )}
+      <div css={styles.errorContainer}>
+        {!!error && touched && (
+          <ErrorMessage testId={`error-${error.type}-${name}`} error={error} />
+        )}
+      </div>
     </Fragment>
   );
 };
