@@ -15,7 +15,7 @@ const Input = ({
     placeholder,
     touched,
     value,
-    dependingFieldValue,
+    dependingFields,
     error,
     validate,
   },
@@ -53,9 +53,7 @@ const Input = ({
         id={name}
         data-testid={name}
         value={value}
-        validate={
-          required ? (value) => validate(value, dependingFieldValue) : null
-        }
+        validate={required ? (value) => validate(value, dependingFields) : null}
       />
       <div css={styles.errorContainer}>
         {!!error && touched && (

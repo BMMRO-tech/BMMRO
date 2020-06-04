@@ -109,6 +109,11 @@ const HabitatUseForm = () => {
                   validate,
                   dependingOn,
                 }) => {
+                  const dependingFields = {};
+                  dependingOn &&
+                    dependingOn.forEach(
+                      (field) => (dependingFields[field] = values[field])
+                    );
                   const config = {
                     type,
                     name,
@@ -121,7 +126,7 @@ const HabitatUseForm = () => {
                     touched: touched[name],
                     value: values[name],
                     error: errors[name],
-                    dependingFieldValue: values[dependingOn],
+                    dependingFields,
                     validate,
                   };
                   return (

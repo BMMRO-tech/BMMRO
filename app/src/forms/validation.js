@@ -1,5 +1,5 @@
 import { parse, isValid } from "date-fns";
-import { FormErrorType } from "./constants";
+import { FormErrorType, DATE_FORMAT, TIME_FORMAT } from "./constants";
 
 export const validateEmpty = (value) => {
   if (!value) return { type: FormErrorType.EMPTY };
@@ -22,19 +22,19 @@ const validateMin = (value, min) => {
   }
 };
 
-const validateDateFormat = (value, format) => {
-  const date = parse(value, format, new Date());
+const validateDateFormat = (value) => {
+  const date = parse(value, DATE_FORMAT, new Date());
 
   if (!isValid(date)) {
     return {
       type: FormErrorType.INVALID_DATE_FORMAT,
-      rule: format,
+      rule: DATE_FORMAT,
     };
   }
 };
 
-const validateDateMax = (value, format, max = new Date(Date.now())) => {
-  const parsedDate = parse(value, format, new Date());
+const validateDateMax = (value, max = new Date(Date.now())) => {
+  const parsedDate = parse(value, DATE_FORMAT, new Date());
 
   if (parsedDate > max) {
     return {
@@ -43,26 +43,20 @@ const validateDateMax = (value, format, max = new Date(Date.now())) => {
   }
 };
 
-const validateTimeFormat = (value, format) => {
-  const time = parse(value, format, new Date());
+const validateTimeFormat = (value) => {
+  const time = parse(value, TIME_FORMAT, new Date());
 
   if (!isValid(time)) {
     return {
       type: FormErrorType.INVALID_TIME_FORMAT,
-      rule: format,
+      rule: TIME_FORMAT,
     };
   }
 };
 
-const validateTimeMax = (
-  time,
-  date,
-  timeFromat,
-  dateFormat,
-  max = new Date(Date.now())
-) => {
+const validateTimeMax = (time, date, max = new Date(Date.now())) => {
   const dateWithTime = `${date} ${time}`;
-  const fromatDateWithTime = `${dateFormat} ${timeFromat}`;
+  const fromatDateWithTime = `${DATE_FORMAT} ${TIME_FORMAT}`;
   const parsedDateWithTime = parse(
     dateWithTime,
     fromatDateWithTime,
@@ -76,24 +70,42 @@ const validateTimeMax = (
   }
 };
 
+const validateStartTimeBeforeEndTime = (startTime, endTime) => {
+  const startTimeParsed = parse(startTime, TIME_FORMAT, new Date());
+  const endTimeParsed = parse(endTime, TIME_FORMAT, new Date());
+
+  if (startTimeParsed > endTimeParsed) {
+    return {
+      type: FormErrorType.START_TIME_AFTER_END_TIME,
+    };
+  }
+};
+
 export const validateNumericField = (value, min, max) => {
   return (
     validateEmpty(value) || validateMin(value, min) || validateMax(value, max)
   );
 };
 
-export const validateDateField = (value, format) => {
+export const validateDateField = (value) => {
   return (
-    validateEmpty(value) ||
-    validateDateFormat(value, format) ||
-    validateDateMax(value, format)
+    validateEmpty(value) || validateDateFormat(value) || validateDateMax(value)
   );
 };
 
-export const validateTimeField = (time, date, timeFormat, dateFormat) => {
+export const validateStartTimeField = (time, dependingFields) => {
   return (
     validateEmpty(time) ||
-    validateTimeFormat(time, timeFormat) ||
-    validateTimeMax(time, date, timeFormat, dateFormat)
+    validateTimeFormat(time) ||
+    validateTimeMax(time, dependingFields["date"])
+  );
+};
+
+export const validateEndTimeField = (endTime, dependingFields) => {
+  return (
+    validateEmpty(endTime) ||
+    validateTimeFormat(endTime) ||
+    validateTimeMax(endTime, dependingFields["date"]) ||
+    validateStartTimeBeforeEndTime(dependingFields["startTime"], endTime)
   );
 };

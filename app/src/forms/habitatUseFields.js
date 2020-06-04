@@ -2,17 +2,18 @@ import { format } from "date-fns";
 import {
   validateNumericField,
   validateDateField,
-  validateTimeField,
+  validateStartTimeField,
+  validateEndTimeField,
   validateEmpty,
 } from "./validation";
 import { DATE_FORMAT, TIME_FORMAT } from "./constants";
 
-const getCurrentDate = (dateFormat) => {
-  return format(new Date(), dateFormat);
+const getCurrentDate = () => {
+  return format(new Date(), DATE_FORMAT);
 };
 
-const getCurrentTime = (timeFormat) => {
-  return format(new Date(), timeFormat);
+const getCurrentTime = () => {
+  return format(new Date(), TIME_FORMAT);
 };
 
 export const fields = [
@@ -235,9 +236,9 @@ export const fields = [
     placeholder: "12:00",
     type: "text",
     required: true,
-    dependingOn: "date",
-    validate: (value, dependingFieldValue) =>
-      validateTimeField(value, dependingFieldValue, TIME_FORMAT, DATE_FORMAT),
+    dependingOn: ["date", "startTime"],
+    validate: (value, dependingFields) =>
+      validateEndTimeField(value, dependingFields),
   },
   {
     name: "date",
@@ -245,8 +246,8 @@ export const fields = [
     placeholder: "dd/mm/yyyy",
     type: "text",
     required: true,
-    initialValue: () => getCurrentDate(DATE_FORMAT),
-    validate: (value) => validateDateField(value, DATE_FORMAT),
+    initialValue: () => getCurrentDate(),
+    validate: (value) => validateDateField(value),
   },
   {
     name: "startTime",
@@ -254,10 +255,10 @@ export const fields = [
     placeholder: "12:00",
     type: "text",
     required: true,
-    dependingOn: "date",
-    initialValue: () => getCurrentTime(TIME_FORMAT),
-    validate: (value, dependingFieldValue) =>
-      validateTimeField(value, dependingFieldValue, TIME_FORMAT, DATE_FORMAT),
+    dependingOn: ["date"],
+    initialValue: () => getCurrentTime(),
+    validate: (value, dependingFields) =>
+      validateStartTimeField(value, dependingFields),
   },
   {
     name: "latitude",
