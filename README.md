@@ -18,13 +18,13 @@ Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull, but
 We are passionate about technology. We understand that the system that protects us, doesnt protect all. We are a subsystem within a system that reaches out to correct the problems caused by the system, which we are part of. Its complicated.
 
 ## Mission
-- Build software to enable and improve BMMRO's mission
-- Be a technical consultant to BMMRO
+- Amplify BMMRO's positive impact by applying our technical skill
 
 ## Philosophy
 - Thin vertical slices
-- Add automated tests, if it builds we ship it
-- ... (suggest more)
+- Automated all the things, if it builds we ship it
+- Pave the way for new contribution with beautiful code and documentation
+- (...more)
 
 ## Onboarding Pathway
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
