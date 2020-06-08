@@ -30,6 +30,7 @@ export const usePosition = () => {
       return;
     }
     return geo.getCurrentPosition(onChange, onError);
+    // eslint-disable-next-line
   }, []);
 
   return { ...position, error };
