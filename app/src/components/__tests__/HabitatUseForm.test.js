@@ -65,9 +65,7 @@ describe("Habitat Use Form validation", () => {
       });
     });
 
-    afterAll(() => {
-      cleanup();
-    });
+    afterAll(() => cleanup());
 
     testCases.forEach((testCase) => {
       it(`${testCase} should display an error when input is empty`, async () => {
@@ -88,12 +86,10 @@ describe("Habitat Use Form validation", () => {
       { minValue: 0, maxValue: 360, id: "aspect" },
       { minValue: 15, maxValue: 40, id: "waterTemp" },
       { minValue: 0, maxValue: 99, id: "surfaceBout" },
-      { minValue: -90, maxValue: 90, id: "latitude" },
-      { minValue: -180, maxValue: 180, id: "longitude" },
     ];
 
     testCases.forEach((testCase) => {
-      describe(`${testCase.id}`, () => {
+      describe(testCase.id, () => {
         let habitatUseForm;
         let inputField;
 
@@ -112,9 +108,15 @@ describe("Habitat Use Form validation", () => {
         it(`should display no error when value is between ${testCase.minValue}-${testCase.maxValue}`, async () => {
           const value = (testCase.maxValue - 1).toString();
           await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(`error-${testCase.id}`);
+          const errorMin = habitatUseForm.queryByTestId(
+            `error-min-value-${testCase.id}`
+          );
+          const errorMax = habitatUseForm.queryByTestId(
+            `error-max-value-${testCase.id}`
+          );
 
-          expect(error).not.toBeInTheDocument();
+          expect(errorMin).not.toBeInTheDocument();
+          expect(errorMax).not.toBeInTheDocument();
           expect(inputField.value).toBe(value);
         });
 
@@ -201,7 +203,7 @@ describe("Habitat Use Form validation", () => {
     const testCases = ["startTime", "endTime"];
 
     testCases.forEach((testCase) => {
-      describe(`${testCase}`, () => {
+      describe(testCase, () => {
         let habitatUseForm;
         let dateField;
 
@@ -283,6 +285,89 @@ describe("Habitat Use Form validation", () => {
             expect(error).toBeInTheDocument();
           });
         }
+      });
+    });
+  });
+
+  describe("Position validation", () => {
+    const testCases = [
+      { minValue: -90, maxValue: 90, id: "latitude" },
+      { minValue: -180, maxValue: 180, id: "longitude" },
+    ];
+
+    testCases.forEach((testCase) => {
+      describe(testCase.id, () => {
+        let habitatUseForm;
+        let inputField;
+
+        beforeEach(() => {
+          habitatUseForm = render(
+            <DatastoreContext.Provider value={{}}>
+              <HabitatUseForm />
+            </DatastoreContext.Provider>
+          );
+          inputField = habitatUseForm.queryByTestId(testCase.id);
+        });
+
+        afterEach(() => cleanup());
+
+        it(`should display no error when input value is within the range from ${testCase.minValue} to ${testCase.maxValue} and has 6 decimal digits`, async () => {
+          const value = (testCase.minValue + 0.111111).toString();
+          await insertInputAndBlur(inputField, value);
+          const errorInvalidFormat = habitatUseForm.queryByTestId(
+            `error-invalid-position-format-${testCase.id}`
+          );
+          const errorMin = habitatUseForm.queryByTestId(
+            `error-min-value-${testCase.id}`
+          );
+          const errorMax = habitatUseForm.queryByTestId(
+            `error-min-value-${testCase.id}`
+          );
+
+          expect(errorInvalidFormat).not.toBeInTheDocument();
+          expect(errorMin).not.toBeInTheDocument();
+          expect(errorMax).not.toBeInTheDocument();
+        });
+
+        it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {
+          const value = (testCase.minValue - 0.000001).toString();
+          await insertInputAndBlur(inputField, value);
+          const error = habitatUseForm.queryByTestId(
+            `error-min-value-${testCase.id}`
+          );
+
+          expect(error).toBeInTheDocument();
+        });
+
+        it(`should display an error when input number is above maximum value of ${testCase.maxValue}`, async () => {
+          const value = (testCase.maxValue + 0.000001).toString();
+          await insertInputAndBlur(inputField, value);
+          const error = habitatUseForm.queryByTestId(
+            `error-max-value-${testCase.id}`
+          );
+
+          expect(error).toBeInTheDocument();
+        });
+
+        it(`should display an error when input number has less than 6 decimal digits`, async () => {
+          const value = (testCase.minValue + 0.00001).toString();
+          await insertInputAndBlur(inputField, value);
+          const error = habitatUseForm.queryByTestId(
+            `error-invalid-position-format-${testCase.id}`
+          );
+
+          expect(error).toBeInTheDocument();
+        });
+
+        it(`should display an error when input number has more than 6 decimal digits`, async () => {
+          const value = (testCase.minValue + 0.0000000001).toString();
+          await insertInputAndBlur(inputField, value);
+          const error = habitatUseForm.queryByTestId(
+            `error-invalid-position-format-${testCase.id}`
+          );
+
+          expect(error).toBeInTheDocument();
+        });
       });
     });
   });

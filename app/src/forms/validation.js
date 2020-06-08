@@ -22,6 +22,17 @@ const validateMin = (value, min) => {
   }
 };
 
+const validateDecimalPrecision = (value, precision) => {
+  const decimalDigits = (value.toString().split(".")[1] || []).length;
+
+  if (decimalDigits > precision || decimalDigits < precision) {
+    return {
+      type: FormErrorType.INVALID_POSITION_FORMAT,
+      rule: precision,
+    };
+  }
+};
+
 const validateDateFormat = (value) => {
   const date = parse(value, DATE_FORMAT, new Date());
 
@@ -107,5 +118,14 @@ export const validateEndTimeField = (endTime, dependingFields) => {
     validateTimeFormat(endTime) ||
     validateTimeMax(endTime, dependingFields["date"]) ||
     validateStartTimeBeforeEndTime(dependingFields["startTime"], endTime)
+  );
+};
+
+export const validatePositionField = (value, min, max, precision) => {
+  return (
+    validateEmpty(value) ||
+    validateMin(value, min) ||
+    validateMax(value, max) ||
+    validateDecimalPrecision(value, precision)
   );
 };

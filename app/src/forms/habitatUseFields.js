@@ -5,8 +5,13 @@ import {
   validateStartTimeField,
   validateEndTimeField,
   validateEmpty,
+  validatePositionField,
 } from "./validation";
-import { DATE_FORMAT, TIME_FORMAT } from "./constants";
+import {
+  DATE_FORMAT,
+  TIME_FORMAT,
+  POSITION_DECIMAL_PRECISION,
+} from "./constants";
 
 const getCurrentDate = () => {
   return format(new Date(), DATE_FORMAT);
@@ -263,17 +268,19 @@ export const fields = [
   {
     name: "latitude",
     label: "Lat",
-    placeholder: "53.012",
+    placeholder: "53.012234",
     type: "text",
     required: true,
-    validate: (value) => validateNumericField(value, -90, 90),
+    validate: (value) =>
+      validatePositionField(value, -90, 90, POSITION_DECIMAL_PRECISION),
   },
   {
     name: "longitude",
     label: "Long",
-    placeholder: "-68.356",
+    placeholder: "-68.356234",
     type: "text",
     required: true,
-    validate: (value) => validateNumericField(value, -180, 180),
+    validate: (value) =>
+      validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),
   },
 ];

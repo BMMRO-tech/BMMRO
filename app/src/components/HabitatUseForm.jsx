@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 import { useState, useEffect, Fragment, useContext } from "react";
 
 import { fields } from "../forms/habitatUseFields";
-import { usePosition } from "../position/usePosition";
+import { usePosition } from "../hooks/usePosition";
 import { DatastoreContext } from "../App";
 import Button from "./Button";
 import Select from "./Select";

@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
+import { POSITION_DECIMAL_PRECISION } from "../forms/constants";
 
 export const usePosition = () => {
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
 
+  const roundCoordinate = (value) =>
+    +(
+      Math.round(value + "e+" + POSITION_DECIMAL_PRECISION) +
+      "e-" +
+      POSITION_DECIMAL_PRECISION
+    );
+
   const onChange = ({ coords }) => {
     setPosition({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
+      latitude: roundCoordinate(coords.latitude),
+      longitude: roundCoordinate(coords.longitude),
     });
   };
 
