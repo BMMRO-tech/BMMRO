@@ -79,6 +79,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "rahul",
+      "name": "Rahul Sarika",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/858220?v=4",
+      "profile": "https://github.com/rahul",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
