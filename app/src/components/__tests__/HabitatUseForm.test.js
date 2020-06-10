@@ -393,7 +393,7 @@ describe("Habitat Use Form validation", () => {
       global.navigator.geolocation = mockGeolocation;
 
       global.Date.now = jest.fn(() =>
-        new Date(`2020-05-04T${startTime}:00.000+01:00`).getTime()
+        new Date(`2020-05-04T${startTime}:00.000Z`).getTime()
       );
 
       habitatUseForm = render(
