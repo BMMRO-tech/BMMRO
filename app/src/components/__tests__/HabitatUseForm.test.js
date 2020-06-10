@@ -108,15 +108,11 @@ describe("Habitat Use Form validation", () => {
         it(`should display no error when value is between ${testCase.minValue}-${testCase.maxValue}`, async () => {
           const value = (testCase.maxValue - 1).toString();
           await insertInputAndBlur(inputField, value);
-          const errorMin = habitatUseForm.queryByTestId(
-            `error-min-value-${testCase.id}`
-          );
-          const errorMax = habitatUseForm.queryByTestId(
-            `error-max-value-${testCase.id}`
-          );
+          const error = habitatUseForm.queryByTestId("error", {
+            exact: false,
+          });
 
-          expect(errorMin).not.toBeInTheDocument();
-          expect(errorMax).not.toBeInTheDocument();
+          expect(error).not.toBeInTheDocument();
           expect(inputField.value).toBe(value);
         });
 
@@ -158,26 +154,24 @@ describe("Habitat Use Form validation", () => {
 
     afterEach(() => {
       cleanup();
-      jest.resetAllMocks();
     });
 
     it("should display no error when date value is the current day or in the past", async () => {
       await insertInputAndBlur(inputField, "05/03/2020");
-      const errorMaxDate = habitatUseForm.queryByTestId("error-max-date-date");
-      const errorInvalidFormat = habitatUseForm.queryByTestId(
-        "error-invalid-date-format-date"
-      );
+      const error = habitatUseForm.queryByTestId("error", {
+        exact: false,
+      });
 
       expect(inputField.value).toBe("05/03/2020");
-      expect(errorMaxDate).not.toBeInTheDocument();
-      expect(errorInvalidFormat).not.toBeInTheDocument();
+      expect(error).not.toBeInTheDocument();
     });
 
     it("should display an error when the date is in the future", async () => {
+      const originalDateNow = Date.now;
       const today = "2020-05-04T00:00:00.000Z";
-      jest
-        .spyOn(global.Date, "now")
-        .mockImplementation(() => new Date(today).valueOf());
+
+      global.Date.now = jest.fn(() => new Date(today).getTime());
+
       const tomorrow = addDays(new Date(Date.now()), 1);
       const value = format(tomorrow, DATE_FORMAT);
 
@@ -186,6 +180,7 @@ describe("Habitat Use Form validation", () => {
 
       expect(inputField.value).toBe("05/05/2020");
       expect(error).toBeInTheDocument();
+      Date.now = originalDateNow;
     });
 
     it(`should display an error when the date not in the format ${DATE_FORMAT}`, async () => {
@@ -218,32 +213,27 @@ describe("Habitat Use Form validation", () => {
 
         afterEach(() => {
           cleanup();
-          jest.resetAllMocks();
         });
 
         it("should display no error when time value is the current time or in the past", async () => {
           const timeField = habitatUseForm.queryByTestId(testCase);
-          await insertInputAndBlur(dateField, "05/03/2020");
-          await insertInputAndBlur(timeField, "12:30");
-          const errorMaxTime = habitatUseForm.queryByTestId(
-            `error-max-time-${testCase}`
-          );
-          const errorInvalidFormat = habitatUseForm.queryByTestId(
-            `error-invalid-time-format-${testCase}`
-          );
+          const curTime = format(new Date(), TIME_FORMAT);
+          await insertInputAndBlur(timeField, curTime);
+          const error = habitatUseForm.queryByTestId("error", {
+            exact: false,
+          });
 
-          expect(timeField.value).toBe("12:30");
-          expect(dateField.value).toBe("05/03/2020");
-          expect(errorMaxTime).not.toBeInTheDocument();
-          expect(errorInvalidFormat).not.toBeInTheDocument();
+          expect(timeField.value).toBe(curTime);
+          expect(error).not.toBeInTheDocument();
         });
 
         it("should display an error when the time is in the future", async () => {
+          const originalTimeNow = global.Date.now;
           const timeField = habitatUseForm.queryByTestId(testCase);
           const today = "2020-05-04T12:30:00.000Z";
-          jest
-            .spyOn(global.Date, "now")
-            .mockImplementation(() => new Date(today).valueOf());
+
+          global.Date.now = jest.fn(() => new Date(today).getTime());
+
           const tomorrow = addDays(new Date(Date.now()), 1);
           const dateValue = format(tomorrow, DATE_FORMAT);
 
@@ -256,6 +246,7 @@ describe("Habitat Use Form validation", () => {
           expect(dateField.value).toBe("05/05/2020");
           expect(timeField.value).toBe("12:30");
           expect(error).toBeInTheDocument();
+          global.Date.now = originalTimeNow;
         });
 
         it(`should display an error when the date not in the format ${TIME_FORMAT}`, async () => {
@@ -271,18 +262,23 @@ describe("Habitat Use Form validation", () => {
 
         if (testCase === "endTime") {
           it("should display an error when end time is before start time", async () => {
+            const originalTimeNow = global.Date.now;
             const startTimeField = habitatUseForm.queryByTestId("startTime");
             const endTimeField = habitatUseForm.queryByTestId("endTime");
+            const today = "2030-07-23T15:00:00.000Z";
 
-            await insertInputAndBlur(startTimeField, "13:00");
-            await insertInputAndBlur(endTimeField, "12:30");
+            global.Date.now = jest.fn(() => new Date(today).getTime());
+
+            await insertInputAndBlur(startTimeField, "9:30");
+            await insertInputAndBlur(endTimeField, "9:00");
             const error = habitatUseForm.queryByTestId(
               `error-start-time-after-end-time-${testCase}`
             );
 
-            expect(startTimeField.value).toBe("13:00");
-            expect(endTimeField.value).toBe("12:30");
+            expect(startTimeField.value).toBe("9:30");
+            expect(endTimeField.value).toBe("9:00");
             expect(error).toBeInTheDocument();
+            global.Date.now = originalTimeNow;
           });
         }
       });
@@ -299,8 +295,21 @@ describe("Habitat Use Form validation", () => {
       describe(testCase.id, () => {
         let habitatUseForm;
         let inputField;
+        const mockPosition = "23.123456";
 
         beforeEach(() => {
+          const mockGeolocation = {
+            getCurrentPosition: jest.fn().mockImplementation((success) =>
+              success({
+                coords: {
+                  latitude: mockPosition,
+                  longitude: mockPosition,
+                },
+              })
+            ),
+          };
+          global.navigator.geolocation = mockGeolocation;
+
           habitatUseForm = render(
             <DatastoreContext.Provider value={{}}>
               <HabitatUseForm />
@@ -314,19 +323,11 @@ describe("Habitat Use Form validation", () => {
         it(`should display no error when input value is within the range from ${testCase.minValue} to ${testCase.maxValue} and has 6 decimal digits`, async () => {
           const value = (testCase.minValue + 0.111111).toString();
           await insertInputAndBlur(inputField, value);
-          const errorInvalidFormat = habitatUseForm.queryByTestId(
-            `error-invalid-position-format-${testCase.id}`
-          );
-          const errorMin = habitatUseForm.queryByTestId(
-            `error-min-value-${testCase.id}`
-          );
-          const errorMax = habitatUseForm.queryByTestId(
-            `error-min-value-${testCase.id}`
-          );
+          const error = habitatUseForm.queryByTestId("error", {
+            exact: false,
+          });
 
-          expect(errorInvalidFormat).not.toBeInTheDocument();
-          expect(errorMin).not.toBeInTheDocument();
-          expect(errorMax).not.toBeInTheDocument();
+          expect(error).not.toBeInTheDocument();
         });
 
         it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {
@@ -369,6 +370,53 @@ describe("Habitat Use Form validation", () => {
           expect(error).toBeInTheDocument();
         });
       });
+    });
+  });
+
+  describe("Autofill validation", () => {
+    const latitude = "47.123456";
+    const longitude = "27.123456";
+    const startTime = "11:30";
+
+    let habitatUseForm;
+    beforeAll(() => {
+      const mockGeolocation = {
+        getCurrentPosition: jest.fn().mockImplementation((success) =>
+          success({
+            coords: {
+              latitude,
+              longitude,
+            },
+          })
+        ),
+      };
+      global.navigator.geolocation = mockGeolocation;
+
+      global.Date.now = jest.fn(() =>
+        new Date(`2020-05-04T${startTime}:00.000+01:00`).getTime()
+      );
+
+      habitatUseForm = render(
+        <DatastoreContext.Provider value={{}}>
+          <HabitatUseForm />
+        </DatastoreContext.Provider>
+      );
+    });
+    afterAll(() => cleanup());
+
+    it(`should display no error when latitude is autofilled`, async () => {
+      const latitudeField = habitatUseForm.queryByTestId("latitude");
+      expect(latitudeField.value).toBe(latitude);
+    });
+
+    it(`should display no error when longitude is autofilled`, async () => {
+      const longitudeField = habitatUseForm.queryByTestId("longitude");
+      expect(longitudeField.value).toBe(longitude);
+    });
+
+    it(`should display no error when startTime is autofilled`, async () => {
+      const startTimeField = habitatUseForm.queryByTestId("startTime");
+      expect(startTimeField.value).toBe(startTime);
     });
   });
 });

@@ -14,11 +14,11 @@ import {
 } from "./constants";
 
 const getCurrentDate = () => {
-  return format(new Date(), DATE_FORMAT);
+  return format(new Date(Date.now()), DATE_FORMAT);
 };
 
 const getCurrentTime = () => {
-  return format(new Date(), TIME_FORMAT);
+  return format(new Date(Date.now()), TIME_FORMAT);
 };
 
 export const fields = [

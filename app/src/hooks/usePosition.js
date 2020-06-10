@@ -27,9 +27,9 @@ export const usePosition = () => {
     const geo = navigator.geolocation;
     if (!geo) {
       setError("Geolocation is not supported");
-      return;
+    } else {
+      geo.getCurrentPosition(onChange, onError);
     }
-    return geo.getCurrentPosition(onChange, onError);
     // eslint-disable-next-line
   }, []);
 
