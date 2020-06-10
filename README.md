@@ -82,7 +82,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/flaviarodriguesf"><img src="https://avatars1.githubusercontent.com/u/9823979?v=4" width="100px;" alt=""/><br /><sub><b>Flávia Falé</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=flaviarodriguesf" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/rahul"><img src="https://avatars3.githubusercontent.com/u/858220?v=4" width="100px;" alt=""/><br /><sub><b>Rahul Sarika</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=rahul" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/rahul-rakshit"><img src="https://avatars1.githubusercontent.com/u/36737963?v=4" width="100px;" alt=""/><br /><sub><b>Rahul Rakshit</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=rahul-rakshit" title="Code">💻</a></td>
   </tr>
 </table>
 
