@@ -114,7 +114,9 @@ const HabitatUseForm = () => {
                     );
                   const isPosition =
                     name === "latitude" || name === "longitude";
-                  const positionValue = values[name] || position[name] || "";
+                  if (isPosition && !values[name] && !!position[name]) {
+                    values[name] = position[name];
+                  }
 
                   const config = {
                     type,
@@ -126,11 +128,12 @@ const HabitatUseForm = () => {
                     options,
                     placeholder,
                     touched: touched[name],
-                    value: isPosition ? positionValue : values[name],
+                    value: values[name],
                     error: errors[name],
                     dependingFields,
                     validate,
                   };
+
                   return (
                     <div
                       key={`habitat-use-form-field-${name}`}
