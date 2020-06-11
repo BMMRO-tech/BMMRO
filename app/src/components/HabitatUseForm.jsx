@@ -5,7 +5,7 @@ import { useState, useEffect, Fragment, useContext } from "react";
 
 import { fields } from "../forms/habitatUseFields";
 import { usePosition } from "../hooks/usePosition";
-import { DatastoreContext } from "../App";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Button from "./Button";
 import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
@@ -15,7 +15,7 @@ const HabitatUseForm = () => {
   const [submitMessage, setSubmitMessage] = useState(null);
   const [pendingRecords, setPendingRecords] = useState([]);
   const position = usePosition();
-  const { datastore } = useContext(DatastoreContext);
+  const { datastore } = useContext(FirebaseContext);
 
   useEffect(() => {
     if (!!datastore) {

@@ -3,12 +3,12 @@ import { Fragment, useContext } from "react";
 import { Global, css, jsx } from "@emotion/core";
 
 import colors from "../materials/colors";
-import { DatastoreContext } from "../App";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Header from "./Header";
 import Error from "./Error";
 
 const Layout = ({ children }) => {
-  const { error, datastore } = useContext(DatastoreContext);
+  const { error, datastore } = useContext(FirebaseContext);
 
   const styles = {
     global: css`
