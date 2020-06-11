@@ -9,10 +9,9 @@ import { DATE_FORMAT, TIME_FORMAT } from "../../forms/constants";
 
 describe("Habitat Use Form validation", () => {
   const insertInputAndBlur = async (inputField, value) => {
-    await wait(async () => {
-      user.click(inputField);
-      await user.type(inputField, value);
-      user.tab();
+    await wait(() => {
+      fireEvent.change(inputField, { target: { value } });
+      fireEvent.blur(inputField);
     });
   };
 
@@ -365,6 +364,55 @@ describe("Habitat Use Form validation", () => {
           await insertInputAndBlur(inputField, value);
           const error = habitatUseForm.queryByTestId(
             `error-invalid-position-format-${testCase.id}`
+          );
+
+          expect(error).toBeInTheDocument();
+        });
+      });
+    });
+  });
+
+  describe("Text validation", () => {
+    const testCases = [
+      { id: "groupComposition", maxChar: 100 },
+      { id: "comments", maxChar: 500 },
+    ];
+    let habitatUseForm;
+
+    beforeEach(() => {
+      habitatUseForm = render(
+        <DatastoreContext.Provider value={{}}>
+          <HabitatUseForm />
+        </DatastoreContext.Provider>
+      );
+    });
+
+    afterEach(() => {
+      cleanup();
+    });
+
+    testCases.forEach((testCase) => {
+      describe(testCase.id, () => {
+        it("Should display no error when valid text entered", async () => {
+          const inputField = habitatUseForm.queryByTestId(testCase.id);
+
+          const value = "x".repeat(testCase.maxChar - 1);
+          await insertInputAndBlur(inputField, value);
+          const error = habitatUseForm.queryByTestId("error", {
+            exact: false,
+          });
+
+          expect(inputField.value).toBe(value);
+          expect(error).not.toBeInTheDocument();
+        });
+
+        it(`Should display an error when the text is longer than ${testCase.maxChar}`, async () => {
+          const inputField = habitatUseForm.queryByTestId(testCase.id);
+          const value = "x".repeat(testCase.maxChar + 1);
+
+          await insertInputAndBlur(inputField, value);
+          const error = habitatUseForm.queryByTestId(
+            `error-max-char-length-${testCase.id}`
           );
 
           expect(error).toBeInTheDocument();

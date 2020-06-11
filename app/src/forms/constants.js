@@ -8,6 +8,7 @@ export const FormErrorType = {
   INVALID_TIME_FORMAT: "invalid-time-format",
   START_TIME_AFTER_END_TIME: "start-time-after-end-time",
   INVALID_POSITION_FORMAT: "invalid-position-format",
+  MAX_CHAR_LENGTH: "max-char-length",
 };
 
 export const DATE_FORMAT = "dd/MM/yyyy";

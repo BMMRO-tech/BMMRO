@@ -14,8 +14,8 @@ const ErrorMessage = ({ error, testId, isInline = false }) => {
     [FormErrorType.INVALID_TIME_FORMAT]: `Time must be in the following format ${error.rule}`,
     [FormErrorType.START_TIME_AFTER_END_TIME]:
       "End time cannot be before start time",
-    [FormErrorType.INVALID_POSITION_FORMAT]:
-      "Position must have 6 decimal digits",
+    [FormErrorType.INVALID_POSITION_FORMAT]: `Position must have ${error.rule} decimal digits`,
+    [FormErrorType.MAX_CHAR_LENGTH]: `Text cannot be longer than ${error.rule} characters`,
   };
 
   const styles = {

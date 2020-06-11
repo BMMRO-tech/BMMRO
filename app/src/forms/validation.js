@@ -22,6 +22,15 @@ const validateMin = (value, min) => {
   }
 };
 
+export const validateMaxCharLength = (value, max) => {
+  if (value.length > max) {
+    return {
+      type: FormErrorType.MAX_CHAR_LENGTH,
+      rule: max,
+    };
+  }
+};
+
 const validateDecimalPrecision = (value, precision) => {
   const decimalDigits = (value.toString().split(".")[1] || []).length;
 
@@ -102,6 +111,10 @@ export const validateDateField = (value) => {
   return (
     validateEmpty(value) || validateDateFormat(value) || validateDateMax(value)
   );
+};
+
+export const validateRequiredTextField = (value, max) => {
+  return validateEmpty(value) || validateMaxCharLength(value, max);
 };
 
 export const validateStartTimeField = (time, dependingFields) => {

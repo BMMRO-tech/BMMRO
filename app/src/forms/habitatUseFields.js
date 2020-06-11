@@ -6,6 +6,8 @@ import {
   validateEndTimeField,
   validateEmpty,
   validatePositionField,
+  validateMaxCharLength,
+  validateRequiredTextField,
 } from "./validation";
 import {
   DATE_FORMAT,
@@ -114,6 +116,7 @@ export const fields = [
     placeholder: "Dolphins crater feeding",
     type: "textarea",
     required: false,
+    validate: (value) => validateMaxCharLength(value, 500),
   },
   {
     name: "waterDepth",
@@ -225,7 +228,7 @@ export const fields = [
     placeholder: "SM",
     type: "text",
     required: true,
-    validate: (value) => validateEmpty(value),
+    validate: (value) => validateRequiredTextField(value, 100),
   },
   {
     name: "surfaceBout",
