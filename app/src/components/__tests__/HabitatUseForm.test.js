@@ -377,6 +377,7 @@ describe("Habitat Use Form validation", () => {
     const latitude = "47.123456";
     const longitude = "27.123456";
     const startTime = "11:30";
+    const date = "04/05/2020";
 
     let habitatUseForm;
     beforeAll(() => {
@@ -404,19 +405,14 @@ describe("Habitat Use Form validation", () => {
     });
     afterAll(() => cleanup());
 
-    it(`should display no error when latitude is autofilled`, async () => {
-      const latitudeField = habitatUseForm.queryByTestId("latitude");
-      expect(latitudeField.value).toBe(latitude);
-    });
-
-    it(`should display no error when longitude is autofilled`, async () => {
-      const longitudeField = habitatUseForm.queryByTestId("longitude");
-      expect(longitudeField.value).toBe(longitude);
-    });
-
-    it(`should display no error when startTime is autofilled`, async () => {
+    it("startTime should be autofilled", async () => {
       const startTimeField = habitatUseForm.queryByTestId("startTime");
       expect(startTimeField.value).toBe(startTime);
+    });
+
+    it("date should be autofilled", async () => {
+      const dateField = habitatUseForm.queryByTestId("date");
+      expect(dateField.value).toBe(date);
     });
   });
 });

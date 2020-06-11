@@ -14,7 +14,7 @@ import Input from "./Input";
 const HabitatUseForm = () => {
   const [submitMessage, setSubmitMessage] = useState(null);
   const [pendingRecords, setPendingRecords] = useState([]);
-  const { latitude, longitude } = usePosition();
+  const position = usePosition();
   const { datastore } = useContext(DatastoreContext);
 
   useEffect(() => {
@@ -64,8 +64,6 @@ const HabitatUseForm = () => {
               ? field.initialValue()
               : "";
           });
-          initValues["latitude"] = latitude || "";
-          initValues["longitude"] = longitude || "";
 
           return initValues;
         })()}
@@ -114,6 +112,10 @@ const HabitatUseForm = () => {
                     dependingOn.forEach(
                       (field) => (dependingFields[field] = values[field])
                     );
+                  const isPosition =
+                    name === "latitude" || name === "longitude";
+                  const positionValue = values[name] || position[name] || "";
+
                   const config = {
                     type,
                     name,
@@ -124,7 +126,7 @@ const HabitatUseForm = () => {
                     options,
                     placeholder,
                     touched: touched[name],
-                    value: values[name],
+                    value: isPosition ? positionValue : values[name],
                     error: errors[name],
                     dependingFields,
                     validate,
