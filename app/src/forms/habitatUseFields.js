@@ -120,7 +120,7 @@ export const fields = [
   },
   {
     name: "waterDepth",
-    label: "Water Depth",
+    label: "Water Depth (m)",
     placeholder: "1",
     type: "number",
     required: true,
@@ -128,7 +128,7 @@ export const fields = [
   },
   {
     name: "waterTemp",
-    label: "Water Temp",
+    label: "Water Temp (°C)",
     placeholder: "1",
     type: "number",
     required: true,
@@ -192,7 +192,7 @@ export const fields = [
   },
   {
     name: "distance",
-    label: "Distance",
+    label: "Distance (m)",
     placeholder: "1",
     type: "number",
     required: true,
@@ -200,7 +200,7 @@ export const fields = [
   },
   {
     name: "bearing",
-    label: "Bearing",
+    label: "Bearing (°)",
     placeholder: "1",
     type: "number",
     required: true,
@@ -208,7 +208,7 @@ export const fields = [
   },
   {
     name: "aspect",
-    label: "Aspect",
+    label: "Aspect (°)",
     placeholder: "1",
     type: "number",
     required: true,
@@ -240,8 +240,8 @@ export const fields = [
   },
   {
     name: "endTime",
-    label: "End Time",
-    placeholder: "12:00",
+    label: "End Time (hh:mm)",
+    placeholder: "16:00",
     type: "text",
     required: true,
     dependingOn: ["date", "startTime"],
@@ -250,8 +250,8 @@ export const fields = [
   },
   {
     name: "date",
-    label: "Date",
-    placeholder: "dd/mm/yyyy",
+    label: "Date (dd/mm/yyyy)",
+    placeholder: "23/05/2020",
     type: "text",
     required: true,
     initialValue: () => getCurrentDate(),
@@ -259,8 +259,8 @@ export const fields = [
   },
   {
     name: "startTime",
-    label: "Start Time",
-    placeholder: "12:00",
+    label: "Start Time (hh:mm)",
+    placeholder: "15:00",
     type: "text",
     required: true,
     dependingOn: ["date"],
