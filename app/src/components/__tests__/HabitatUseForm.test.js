@@ -8,40 +8,42 @@ import { DatastoreContext } from "../../App";
 import { DATE_FORMAT, TIME_FORMAT } from "../../forms/constants";
 
 describe("Habitat Use Form validation", () => {
-  const insertInputAndBlur = async (inputField, value) => {
+  const assertOnFieldInput = async (fieldId, testCase) => {
+    const form = render(
+      <DatastoreContext.Provider value={{}}>
+        <HabitatUseForm />
+      </DatastoreContext.Provider>
+    );
+    const inputField = form.queryByTestId(fieldId);
     await wait(() => {
-      fireEvent.change(inputField, { target: { value } });
+      fireEvent.change(inputField, { target: { value: testCase.value } });
       fireEvent.blur(inputField);
     });
+
+    expect(inputField.value).toBe(testCase.value);
+
+    if (!!testCase.error) {
+      const error = form.queryByTestId(`error-${testCase.error}-${fieldId}`);
+      expect(error).toBeInTheDocument();
+    } else {
+      const error = form.queryByTestId("error", {
+        exact: false,
+      });
+      expect(error).not.toBeInTheDocument();
+    }
   };
 
-  describe("Empty validation", () => {
+  describe("Select field", () => {
     const testCases = [
-      "numberOfAnimals",
-      "numberOfCalves",
       "species",
-      "numberOfBoats",
       "directionOfTravel",
-      "encSeqNo",
-      "waterDepth",
-      "waterTemp",
       "bottomSubstrate",
       "cloudCover",
       "beaufortSeaState",
       "tideState",
       "behaviour",
       "swellWaveHeight",
-      "distance",
-      "bearing",
-      "aspect",
       "groupCohesion",
-      "groupComposition",
-      "surfaceBout",
-      "endTime",
-      "startTime",
-      "date",
-      "latitude",
-      "longitude",
     ];
 
     let habitatUseForm;
@@ -52,14 +54,9 @@ describe("Habitat Use Form validation", () => {
           <HabitatUseForm />
         </DatastoreContext.Provider>
       );
-
-      const startTime = habitatUseForm.queryByTestId("startTime");
-      const date = habitatUseForm.queryByTestId("date");
       const submitButton = habitatUseForm.queryByTestId("submit-button");
 
       await wait(async () => {
-        fireEvent.change(startTime, { target: { value: null } });
-        fireEvent.change(date, { target: { value: null } });
         user.click(submitButton);
       });
     });
@@ -67,382 +64,262 @@ describe("Habitat Use Form validation", () => {
     afterAll(() => cleanup());
 
     testCases.forEach((testCase) => {
-      it(`${testCase} should display an error when input is empty`, async () => {
+      it(`${testCase} should have error of type 'empty' for empty value`, async () => {
         const error = habitatUseForm.queryByTestId(`error-empty-${testCase}`);
         expect(error).toBeInTheDocument();
       });
     });
   });
 
-  describe("Min and max value validation", () => {
-    const testCases = [
-      { minValue: 0, maxValue: 99, id: "numberOfAnimals" },
-      { minValue: 0, maxValue: 99, id: "numberOfCalves" },
-      { minValue: 0, maxValue: 999, id: "numberOfBoats" },
-      { minValue: 0, maxValue: 9999, id: "waterDepth" },
-      { minValue: 0, maxValue: 9999, id: "distance" },
-      { minValue: 0, maxValue: 360, id: "bearing" },
-      { minValue: 0, maxValue: 360, id: "aspect" },
-      { minValue: 15, maxValue: 40, id: "waterTemp" },
-      { minValue: 0, maxValue: 99, id: "surfaceBout" },
+  describe("Numeric field", () => {
+    const fields = [
+      {
+        id: "encSeqNo",
+        testCases: [{ value: "", error: "empty" }],
+      },
+      {
+        id: "numberOfAnimals",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "100", error: "max-value" },
+        ],
+      },
+      {
+        id: "numberOfCalves",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "100", error: "max-value" },
+        ],
+      },
+      {
+        id: "numberOfBoats",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "1000", error: "max-value" },
+        ],
+      },
+      {
+        id: "waterDepth",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "10000", error: "max-value" },
+        ],
+      },
+      {
+        id: "distance",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "10000", error: "max-value" },
+        ],
+      },
+      {
+        id: "bearing",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "361", error: "max-value" },
+        ],
+      },
+      {
+        id: "aspect",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "361", error: "max-value" },
+        ],
+      },
+      {
+        id: "waterTemp",
+        testCases: [
+          { value: "16", error: undefined },
+          { value: "", error: "empty" },
+          { value: "14", error: "min-value" },
+          { value: "41", error: "max-value" },
+        ],
+      },
+      {
+        id: "surfaceBout",
+        testCases: [
+          { value: "10", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-1", error: "min-value" },
+          { value: "100", error: "max-value" },
+        ],
+      },
+      {
+        id: "latitude",
+        testCases: [
+          { value: "1.123456", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-91.123456", error: "min-value" },
+          { value: "91.123456", error: "max-value" },
+          { value: "10.12345", error: "invalid-position-format" },
+          { value: "10.1234567", error: "invalid-position-format" },
+        ],
+      },
+      {
+        id: "longitude",
+        testCases: [
+          { value: "1.123456", error: undefined },
+          { value: "", error: "empty" },
+          { value: "-181.123456", error: "min-value" },
+          { value: "181.123456", error: "max-value" },
+          { value: "10.12345", error: "invalid-position-format" },
+          { value: "10.1234567", error: "invalid-position-format" },
+        ],
+      },
     ];
 
-    testCases.forEach((testCase) => {
-      describe(testCase.id, () => {
-        let habitatUseForm;
-        let inputField;
+    afterEach(() => cleanup());
 
-        beforeEach(() => {
-          habitatUseForm = render(
-            <DatastoreContext.Provider value={{}}>
-              <HabitatUseForm />
-            </DatastoreContext.Provider>
-          );
-
-          inputField = habitatUseForm.queryByTestId(testCase.id);
-        });
-
-        afterEach(() => cleanup());
-
-        it(`should display no error when value is between ${testCase.minValue}-${testCase.maxValue}`, async () => {
-          const value = (testCase.maxValue - 1).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId("error", {
-            exact: false,
+    fields.forEach((field) => {
+      describe(field.id, () => {
+        field.testCases.forEach((testCase) => {
+          const valueDescription = !!testCase.value
+            ? `value ${testCase.value}`
+            : "empty value";
+          const testDescription = `Should have error of type '${testCase.error}' for ${valueDescription}`;
+          it(testDescription, async () => {
+            await assertOnFieldInput(field.id, testCase);
           });
-
-          expect(error).not.toBeInTheDocument();
-          expect(inputField.value).toBe(value);
-        });
-
-        it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {
-          const value = (testCase.minValue - 10).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-min-value-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
-        });
-
-        it(`should display an error when input number is above maximum value of ${testCase.maxValue}`, async () => {
-          const value = (testCase.maxValue + 10).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-max-value-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
         });
       });
     });
   });
 
-  describe("Date validation", () => {
-    let habitatUseForm;
-    let inputField;
+  describe("Text field", () => {
+    const fields = [
+      {
+        id: "groupComposition",
+        testCases: [
+          { value: "x".repeat(101), error: "max-char-length" },
+          { value: "x".repeat(50), error: undefined },
+          { value: "", error: "empty" },
+        ],
+      },
+      {
+        id: "comments",
+        testCases: [
+          { value: "x".repeat(501), error: "max-char-length" },
+          { value: "x".repeat(50), error: undefined },
+        ],
+      },
+    ];
 
-    beforeEach(() => {
-      habitatUseForm = render(
-        <DatastoreContext.Provider value={{}}>
-          <HabitatUseForm />
-        </DatastoreContext.Provider>
-      );
-      inputField = habitatUseForm.queryByTestId("date");
-    });
+    afterEach(() => cleanup());
 
-    afterEach(() => {
-      cleanup();
-    });
-
-    it("should display no error when date value is the current day or in the past", async () => {
-      await insertInputAndBlur(inputField, "05/03/2020");
-      const error = habitatUseForm.queryByTestId("error", {
-        exact: false,
+    fields.forEach((field) => {
+      describe(field.id, () => {
+        field.testCases.forEach((testCase) => {
+          const valueDescription = !!testCase.value
+            ? `text ${testCase.value.length} characters long`
+            : "empty value";
+          const testDescription = `Should have error of type '${testCase.error}' for ${valueDescription}`;
+          it(testDescription, async () => {
+            await assertOnFieldInput(field.id, testCase);
+          });
+        });
       });
-
-      expect(inputField.value).toBe("05/03/2020");
-      expect(error).not.toBeInTheDocument();
     });
+  });
 
-    it("should display an error when the date is in the future", async () => {
-      const originalDateNow = Date.now;
+  describe("Date field", () => {
+    const testCases = [
+      { value: "05/03/2020", error: undefined },
+      { value: "", error: "empty" },
+      { value: "05/05/2020", error: "max-date" },
+      { value: "2020-03-05", error: "invalid-date-format" },
+    ];
+
+    let originalDateNow;
+    beforeAll(() => {
+      originalDateNow = Date.now;
       const today = "2020-05-04T00:00:00.000Z";
-
       global.Date.now = jest.fn(() => new Date(today).getTime());
-
-      const tomorrow = addDays(new Date(Date.now()), 1);
-      const value = format(tomorrow, DATE_FORMAT);
-
-      await insertInputAndBlur(inputField, value);
-      const error = habitatUseForm.queryByTestId("error-max-date-date");
-
-      expect(inputField.value).toBe("05/05/2020");
-      expect(error).toBeInTheDocument();
-      Date.now = originalDateNow;
     });
 
-    it(`should display an error when the date not in the format ${DATE_FORMAT}`, async () => {
-      await insertInputAndBlur(inputField, "2020-03-05");
-      const error = habitatUseForm.queryByTestId(
-        "error-invalid-date-format-date"
-      );
-
-      expect(inputField.value).toBe("2020-03-05");
-      expect(error).toBeInTheDocument();
-    });
-  });
-
-  describe("Time validation", () => {
-    const testCases = ["startTime", "endTime"];
+    afterAll(() => (Date.now = originalDateNow));
+    afterEach(() => cleanup());
 
     testCases.forEach((testCase) => {
-      describe(testCase, () => {
-        let habitatUseForm;
-        let dateField;
-
-        beforeEach(() => {
-          habitatUseForm = render(
-            <DatastoreContext.Provider value={{}}>
-              <HabitatUseForm />
-            </DatastoreContext.Provider>
-          );
-          dateField = habitatUseForm.queryByTestId("date");
-        });
-
-        afterEach(() => {
-          cleanup();
-        });
-
-        it("should display no error when time value is the current time or in the past", async () => {
-          const timeField = habitatUseForm.queryByTestId(testCase);
-          const curTime = format(new Date(), TIME_FORMAT);
-          await insertInputAndBlur(timeField, curTime);
-          const error = habitatUseForm.queryByTestId("error", {
-            exact: false,
-          });
-
-          expect(timeField.value).toBe(curTime);
-          expect(error).not.toBeInTheDocument();
-        });
-
-        it("should display an error when the time is in the future", async () => {
-          const originalTimeNow = global.Date.now;
-          const timeField = habitatUseForm.queryByTestId(testCase);
-          const today = "2020-05-04T12:30:00.000Z";
-
-          global.Date.now = jest.fn(() => new Date(today).getTime());
-
-          const tomorrow = addDays(new Date(Date.now()), 1);
-          const dateValue = format(tomorrow, DATE_FORMAT);
-
-          await insertInputAndBlur(dateField, dateValue);
-          await insertInputAndBlur(timeField, "12:30");
-          const error = habitatUseForm.queryByTestId(
-            `error-max-time-${testCase}`
-          );
-
-          expect(dateField.value).toBe("05/05/2020");
-          expect(timeField.value).toBe("12:30");
-          expect(error).toBeInTheDocument();
-          global.Date.now = originalTimeNow;
-        });
-
-        it(`should display an error when the date not in the format ${TIME_FORMAT}`, async () => {
-          const timeField = habitatUseForm.queryByTestId(testCase);
-          await insertInputAndBlur(timeField, "22:30:04");
-          const error = habitatUseForm.queryByTestId(
-            `error-invalid-time-format-${testCase}`
-          );
-
-          expect(timeField.value).toBe("22:30:04");
-          expect(error).toBeInTheDocument();
-        });
-
-        if (testCase === "endTime") {
-          it("should display an error when end time is before start time", async () => {
-            const originalTimeNow = global.Date.now;
-            const startTimeField = habitatUseForm.queryByTestId("startTime");
-            const endTimeField = habitatUseForm.queryByTestId("endTime");
-            const today = "2030-07-23T15:00:00.000Z";
-
-            global.Date.now = jest.fn(() => new Date(today).getTime());
-
-            await insertInputAndBlur(startTimeField, "9:30");
-            await insertInputAndBlur(endTimeField, "9:00");
-            const error = habitatUseForm.queryByTestId(
-              `error-start-time-after-end-time-${testCase}`
-            );
-
-            expect(startTimeField.value).toBe("9:30");
-            expect(endTimeField.value).toBe("9:00");
-            expect(error).toBeInTheDocument();
-            global.Date.now = originalTimeNow;
-          });
-        }
+      const valueDescription = !!testCase.value
+        ? `value ${testCase.value}`
+        : "empty value";
+      const testDescription = `Should have error of type '${testCase.error}' for ${valueDescription}`;
+      it(testDescription, async () => {
+        await assertOnFieldInput("date", testCase);
       });
     });
   });
 
-  describe("Position validation", () => {
-    const testCases = [
-      { minValue: -90, maxValue: 90, id: "latitude" },
-      { minValue: -180, maxValue: 180, id: "longitude" },
+  describe("Time field", () => {
+    const fields = [
+      {
+        id: "startTime",
+        testCases: [
+          { value: "14:30", error: undefined },
+          { value: "", error: "empty" },
+          { value: "19:30", error: "max-time" },
+          { value: "15:30:50", error: "invalid-time-format" },
+        ],
+      },
+      {
+        id: "endTime",
+        testCases: [
+          { value: "15:30", error: undefined },
+          { value: "", error: "empty" },
+          { value: "19:30", error: "max-time" },
+          { value: "12:30", error: "start-time-after-end-time" },
+          { value: "15:30:50", error: "invalid-time-format" },
+        ],
+      },
     ];
 
-    testCases.forEach((testCase) => {
-      describe(testCase.id, () => {
-        let habitatUseForm;
-        let inputField;
-        const mockPosition = "23.123456";
+    let originalDateNow;
+    beforeAll(() => {
+      originalDateNow = Date.now;
+      const today = "2020-05-04T15:30:00.000Z";
+      global.Date.now = jest.fn(() => new Date(today).getTime());
+    });
 
-        beforeEach(() => {
-          const mockGeolocation = {
-            getCurrentPosition: jest.fn().mockImplementation((success) =>
-              success({
-                coords: {
-                  latitude: mockPosition,
-                  longitude: mockPosition,
-                },
-              })
-            ),
-          };
-          global.navigator.geolocation = mockGeolocation;
+    afterAll(() => (Date.now = originalDateNow));
+    afterEach(() => cleanup());
 
-          habitatUseForm = render(
-            <DatastoreContext.Provider value={{}}>
-              <HabitatUseForm />
-            </DatastoreContext.Provider>
-          );
-          inputField = habitatUseForm.queryByTestId(testCase.id);
-        });
-
-        afterEach(() => cleanup());
-
-        it(`should display no error when input value is within the range from ${testCase.minValue} to ${testCase.maxValue} and has 6 decimal digits`, async () => {
-          const value = (testCase.minValue + 0.111111).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId("error", {
-            exact: false,
+    fields.forEach((field) => {
+      describe(field.id, () => {
+        field.testCases.forEach((testCase) => {
+          const valueDescription = !!testCase.value
+            ? `value ${testCase.value}`
+            : "empty value";
+          const testDescription = `Should have error of type '${testCase.error}' for ${valueDescription}`;
+          it(testDescription, async () => {
+            await assertOnFieldInput(field.id, testCase);
           });
-
-          expect(error).not.toBeInTheDocument();
-        });
-
-        it(`should display an error when input number is below minimum value of ${testCase.minValue}`, async () => {
-          const value = (testCase.minValue - 0.000001).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-min-value-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
-        });
-
-        it(`should display an error when input number is above maximum value of ${testCase.maxValue}`, async () => {
-          const value = (testCase.maxValue + 0.000001).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-max-value-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
-        });
-
-        it(`should display an error when input number has less than 6 decimal digits`, async () => {
-          const value = (testCase.minValue + 0.00001).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-invalid-position-format-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
-        });
-
-        it(`should display an error when input number has more than 6 decimal digits`, async () => {
-          const value = (testCase.minValue + 0.0000000001).toString();
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-invalid-position-format-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
         });
       });
     });
   });
 
-  describe("Text validation", () => {
-    const testCases = [
-      { id: "groupComposition", maxChar: 100 },
-      { id: "comments", maxChar: 500 },
-    ];
-    let habitatUseForm;
-
-    beforeEach(() => {
-      habitatUseForm = render(
-        <DatastoreContext.Provider value={{}}>
-          <HabitatUseForm />
-        </DatastoreContext.Provider>
-      );
-    });
-
-    afterEach(() => {
-      cleanup();
-    });
-
-    testCases.forEach((testCase) => {
-      describe(testCase.id, () => {
-        it("Should display no error when valid text entered", async () => {
-          const inputField = habitatUseForm.queryByTestId(testCase.id);
-
-          const value = "x".repeat(testCase.maxChar - 1);
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId("error", {
-            exact: false,
-          });
-
-          expect(inputField.value).toBe(value);
-          expect(error).not.toBeInTheDocument();
-        });
-
-        it(`Should display an error when the text is longer than ${testCase.maxChar}`, async () => {
-          const inputField = habitatUseForm.queryByTestId(testCase.id);
-          const value = "x".repeat(testCase.maxChar + 1);
-
-          await insertInputAndBlur(inputField, value);
-          const error = habitatUseForm.queryByTestId(
-            `error-max-char-length-${testCase.id}`
-          );
-
-          expect(error).toBeInTheDocument();
-        });
-      });
-    });
-  });
-
-  describe("Autofill validation", () => {
-    const latitude = "47.123456";
-    const longitude = "27.123456";
+  describe("Autofill", () => {
     const startTime = "11:30";
     const date = "04/05/2020";
 
     let habitatUseForm;
     beforeAll(() => {
-      const mockGeolocation = {
-        getCurrentPosition: jest.fn().mockImplementation((success) =>
-          success({
-            coords: {
-              latitude,
-              longitude,
-            },
-          })
-        ),
-      };
-      global.navigator.geolocation = mockGeolocation;
-
       global.Date.now = jest.fn(() =>
-        new Date(`2020-05-04T${startTime}:00.000Z`).getTime()
+        new Date(`2020-05-04T11:30:00.000Z`).getTime()
       );
 
       habitatUseForm = render(
