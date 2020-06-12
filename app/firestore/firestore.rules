@@ -1,0 +1,11 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /habitatUse/{habitatUseId} {
+      function validateNum(val, min, max) {
+        return val is number && val >= min && val <= max;
+      }
+
+      allow create: if validateNum(request.resource.data.numberOfAnimals, 0, 99);
+    }
+  }
+}

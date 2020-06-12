@@ -16,9 +16,12 @@ jobs:
       - name: Install dependencies
         working-directory: ${{env.APP_DIR}}
         run: npm install
-      - name: Run tests
+      - name: Run frontend tests
         working-directory: ${{env.APP_DIR}}
         run: npm test
+      - name: Run firestore tests
+        working-directory: ${{env.APP_DIR}}
+        run: npm run test-firestore
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_PROJECT_ID_DEV}}
