@@ -10,8 +10,8 @@ Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull, but
 ## About them
 - Website:	 http://www.bahamaswhales.org/home.aspx
 - Facebook: 	www.facebook.com/BMMRO
-- Twitter: 	[@BMMRO](https://www.instagram.com/bmmro/)
-- Instagram: 	[@BMMRO](https://twitter.com/BMMRO)
+- Instagram: 	[@BMMRO](https://www.instagram.com/bmmro/)
+- Twitter: 	[@BMMRO](https://twitter.com/BMMRO)
 - [Publications](https://bit.ly/35cssEW)
 
 ## About us
