@@ -10,7 +10,7 @@
     ]
   },
   "firestore": {
-    "rules": "firestore.rules"
+    "rules": "firestore/firestore.rules"
   },
   "emulators": {
     "firestore": {
