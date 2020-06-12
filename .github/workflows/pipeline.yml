@@ -15,7 +15,9 @@ jobs:
       - uses: actions/setup-node@v1
       - name: Install dependencies
         working-directory: ${{env.APP_DIR}}
-        run: npm install
+        run: |
+          npm install
+          sudo npm install -g firebase-tools
       - name: Run frontend tests
         working-directory: ${{env.APP_DIR}}
         run: npm test
@@ -32,6 +34,5 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: |
-          sudo npm install -g firebase-tools
           firebase use ${{secrets.FIREBASE_PROJECT_ID_DEV}}
           firebase deploy
