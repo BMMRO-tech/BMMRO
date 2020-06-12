@@ -2,7 +2,7 @@ import { parse, isValid } from "date-fns";
 import { FormErrorType, DATE_FORMAT, TIME_FORMAT } from "./constants";
 
 export const validateEmpty = (value) => {
-  if (!value) return { type: FormErrorType.EMPTY };
+  if (value !== 0 && !value) return { type: FormErrorType.EMPTY };
 };
 
 const validateMax = (value, max) => {
