@@ -5,35 +5,28 @@ import firebase from "firebase";
 import { navigate } from "@reach/router";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Login from "../Login";
+import {
+  buildFirebaseAuthMock,
+  buildFirestoreMock,
+} from "../../testUtils/firebase";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
 }));
 
 describe("Login page", () => {
-  const buildFirebaseAuthMock = (signInResult) => {
-    jest.spyOn(firebase, "auth").mockImplementation(() => {
-      return {
-        onAuthStateChanged: jest.fn(),
-        signInWithEmailAndPassword: signInResult,
-      };
-    });
-  };
-
   beforeEach(() => {
-    jest.spyOn(firebase, "firestore").mockImplementation(() => {
-      return {
-        enablePersistence: jest.fn(),
-      };
-    });
+    buildFirestoreMock();
   });
 
   afterEach(cleanup);
 
   it("redirects to landing page when user successfully logs in", async () => {
-    const signInResult = jest
-      .fn()
-      .mockResolvedValue("result of signInWithEmailAndPassword");
+    const signInResult = {
+      signInWithEmailAndPassword: jest
+        .fn()
+        .mockResolvedValue("result of signInWithEmailAndPassword"),
+    };
     buildFirebaseAuthMock(signInResult);
 
     let loginPage;
@@ -61,7 +54,11 @@ describe("Login page", () => {
   });
 
   it("shows an error message when user fails to login", async () => {
-    const signInResult = jest.fn().mockRejectedValue(new Error("some error"));
+    const signInResult = {
+      signInWithEmailAndPassword: jest
+        .fn()
+        .mockRejectedValue(new Error("some error")),
+    };
     buildFirebaseAuthMock(signInResult);
 
     let loginPage;
