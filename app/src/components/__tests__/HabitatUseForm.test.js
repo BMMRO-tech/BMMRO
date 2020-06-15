@@ -1,8 +1,10 @@
 import React from "react";
 import { render, wait, fireEvent, cleanup } from "@testing-library/react/pure";
 import user from "@testing-library/user-event";
+
 import HabitatUseForm from "../HabitatUseForm";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
+import numericFields from "../../forms/habitatUse/testCases/numericFields.json";
 
 describe("Habitat Use Form validation", () => {
   const assertOnFieldInput = async (fieldId, testCase) => {
@@ -69,119 +71,9 @@ describe("Habitat Use Form validation", () => {
   });
 
   describe("Numeric field", () => {
-    const fields = [
-      {
-        id: "encSeqNo",
-        testCases: [{ value: "", error: "empty" }],
-      },
-      {
-        id: "numberOfAnimals",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "100", error: "max-value" },
-        ],
-      },
-      {
-        id: "numberOfCalves",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "100", error: "max-value" },
-        ],
-      },
-      {
-        id: "numberOfBoats",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "1000", error: "max-value" },
-        ],
-      },
-      {
-        id: "waterDepth",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "10000", error: "max-value" },
-        ],
-      },
-      {
-        id: "distance",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "10000", error: "max-value" },
-        ],
-      },
-      {
-        id: "bearing",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "361", error: "max-value" },
-        ],
-      },
-      {
-        id: "aspect",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "361", error: "max-value" },
-        ],
-      },
-      {
-        id: "waterTemp",
-        testCases: [
-          { value: "16", error: undefined },
-          { value: "", error: "empty" },
-          { value: "14", error: "min-value" },
-          { value: "41", error: "max-value" },
-        ],
-      },
-      {
-        id: "surfaceBout",
-        testCases: [
-          { value: "10", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-1", error: "min-value" },
-          { value: "100", error: "max-value" },
-        ],
-      },
-      {
-        id: "latitude",
-        testCases: [
-          { value: "1.123456", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-91.123456", error: "min-value" },
-          { value: "91.123456", error: "max-value" },
-          { value: "10.12345", error: "invalid-position-format" },
-          { value: "10.1234567", error: "invalid-position-format" },
-        ],
-      },
-      {
-        id: "longitude",
-        testCases: [
-          { value: "1.123456", error: undefined },
-          { value: "", error: "empty" },
-          { value: "-181.123456", error: "min-value" },
-          { value: "181.123456", error: "max-value" },
-          { value: "10.12345", error: "invalid-position-format" },
-          { value: "10.1234567", error: "invalid-position-format" },
-        ],
-      },
-    ];
-
     afterEach(() => cleanup());
 
-    fields.forEach((field) => {
+    numericFields.forEach((field) => {
       describe(field.id, () => {
         field.testCases.forEach((testCase) => {
           const valueDescription = !!testCase.value

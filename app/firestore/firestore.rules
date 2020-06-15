@@ -1,11 +1,43 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /habitatUse/{habitatUseId} {
-      function validateNum(val, min, max) {
-        return val is number && val >= min && val <= max;
+      function validateRequired(property) {
+        return property in request.resource.data;
       }
 
-      allow create: if validateNum(request.resource.data.numberOfAnimals, 0, 99);
+      function validateType(val) {
+        return val is number;
+      }
+
+      function validateRange(val, min, max) {
+        return val >= min && val <= max;
+      }
+
+      function validateDecimalPlaces(val) {
+        return string(val).matches('^[0-9]*.[0-9]{6}$');
+      }
+
+      function validateNumericValue(property, val, min, max) {
+        return validateRequired(property) && validateType(val) && validateRange(val, min, max);
+      }
+
+      function positionValidation(property, val, min, max) {
+        return validateNumericValue(property, val, min, max) && validateDecimalPlaces(val);
+      }
+
+      allow create: if 
+        validateNumericValue('encSeqNo', request.resource.data.encSeqNo, 0, 99) &&
+        validateNumericValue('numberOfAnimals', request.resource.data.numberOfAnimals, 0, 99) &&
+        validateNumericValue('numberOfCalves', request.resource.data.numberOfCalves, 0, 99) &&
+        validateNumericValue('numberOfBoats', request.resource.data.numberOfBoats, 0, 999) &&
+        validateNumericValue('waterDepth', request.resource.data.waterDepth, 0, 9999) &&
+        validateNumericValue('distance', request.resource.data.distance, 0, 9999) &&
+        validateNumericValue('bearing', request.resource.data.bearing, 0, 360) &&
+        validateNumericValue('aspect', request.resource.data.aspect, 0, 360) &&
+        validateNumericValue('waterTemp', request.resource.data.waterTemp, 15, 40) &&
+        validateNumericValue('surfaceBout', request.resource.data.surfaceBout, 0, 99) &&
+        positionValidation('latitude', request.resource.data.latitude, -90, 90) &&
+        positionValidation('longitude', request.resource.data.longitude, -180, 180);
     }
   }
 }

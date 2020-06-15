@@ -8,12 +8,12 @@ import {
   validatePositionField,
   validateMaxCharLength,
   validateRequiredTextField,
-} from "./validation";
+} from "../validation";
 import {
   DATE_FORMAT,
   TIME_FORMAT,
   POSITION_DECIMAL_PRECISION,
-} from "./constants";
+} from "../constants";
 
 const getCurrentDate = () => {
   return format(new Date(Date.now()), DATE_FORMAT);
@@ -108,7 +108,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     required: true,
-    validate: (value) => validateEmpty(value),
+    validate: (value) => validateNumericField(value, 0, 99),
   },
   {
     name: "comments",
