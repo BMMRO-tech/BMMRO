@@ -11,6 +11,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +20,7 @@ const Login = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => navigate("/"))
-      .catch((err) => alert(err));
+      .catch(() => setLoginError("There was an error."));
   };
 
   useEffect(() => {
@@ -28,20 +29,27 @@ const Login = () => {
 
   return (
     <Layout>
+      <h1 data-testid="login-page">Login</h1>
       <form onSubmit={handleSubmit}>
         <input
+          data-testid="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="email"
         />
         <input
+          data-testid="password"
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder="password"
         />
 
-        <button type="submit">Sign in</button>
+        <button data-testid="submit" type="submit">
+          Sign in
+        </button>
+
+        {!!loginError && <div data-testid="login-error">{loginError}</div>}
       </form>
     </Layout>
   );

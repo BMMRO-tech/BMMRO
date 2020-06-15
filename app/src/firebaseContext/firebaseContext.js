@@ -5,9 +5,9 @@ import firebase from "firebase";
 import { initFirestore, Datastore } from "../datastore/datastore";
 import { navigate } from "@reach/router";
 
-export const FirebaseContext = createContext();
+const FirebaseContext = createContext();
 
-export function FirebaseContextProvider({ children, overrides }) {
+const FirebaseContextProvider = ({ children }) => {
   const [datastore, setDatastore] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [datastoreError, setDatastoreError] = useState(null);
@@ -34,13 +34,11 @@ export function FirebaseContextProvider({ children, overrides }) {
 
   return (
     <FirebaseContext.Provider
-      value={{
-        loggedInUser: overrides.loggedInUser ?? loggedInUser,
-        datastore: overrides.datastore ?? datastore,
-        datastoreError: overrides.datastoreError ?? datastoreError,
-      }}
+      value={{ loggedInUser, datastore, datastoreError }}
     >
       {children}
     </FirebaseContext.Provider>
   );
-}
+};
+
+export { FirebaseContext, FirebaseContextProvider };

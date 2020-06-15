@@ -12,14 +12,16 @@ const Landing = () => {
   return (
     <Layout>
       <h1>Welcome to BMMRO</h1>
-      {loggedInUser ? <p>You are logged in as {loggedInUser?.email}</p> : null}
+      {loggedInUser ? (
+        <p data-testid="welcome-text">
+          You are logged in as {loggedInUser.email}
+        </p>
+      ) : null}
       <Link to="habitat">
         <Button>Record Habitat Use</Button>
       </Link>
     </Layout>
   );
 };
-
-// TODO: add logout button
 
 export default Landing;
