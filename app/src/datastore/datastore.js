@@ -1,4 +1,3 @@
-import firebase from "firebase/app";
 import "firebase/firestore";
 import { CollectionNames, DatastoreErrorType } from "./constants";
 
@@ -55,13 +54,8 @@ export class Datastore {
   }
 }
 
-export const config = {
-  projectId: process.env.REACT_APP_PROJECT_ID,
-};
-
-export const initFirestore = (config) => {
+export const initFirestore = (firebase) => {
   try {
-    firebase.initializeApp(config);
     return firebase.firestore();
   } catch (e) {
     throw new DatastoreError(DatastoreErrorType.INITIALIZATION);

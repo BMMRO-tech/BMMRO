@@ -1,18 +1,15 @@
 import React from "react";
 import { render, wait, fireEvent, cleanup } from "@testing-library/react/pure";
 import user from "@testing-library/user-event";
-import { addDays, format } from "date-fns";
-
 import HabitatUseForm from "../HabitatUseForm";
-import { DatastoreContext } from "../../App";
-import { DATE_FORMAT, TIME_FORMAT } from "../../forms/constants";
+import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 
 describe("Habitat Use Form validation", () => {
   const assertOnFieldInput = async (fieldId, testCase) => {
     const form = render(
-      <DatastoreContext.Provider value={{}}>
+      <FirebaseContext.Provider value={{}}>
         <HabitatUseForm />
-      </DatastoreContext.Provider>
+      </FirebaseContext.Provider>
     );
     const inputField = form.queryByTestId(fieldId);
     await wait(() => {
@@ -50,9 +47,9 @@ describe("Habitat Use Form validation", () => {
 
     beforeAll(async () => {
       habitatUseForm = render(
-        <DatastoreContext.Provider value={{}}>
+        <FirebaseContext.Provider value={{}}>
           <HabitatUseForm />
-        </DatastoreContext.Provider>
+        </FirebaseContext.Provider>
       );
       const submitButton = habitatUseForm.queryByTestId("submit-button");
 
@@ -323,9 +320,9 @@ describe("Habitat Use Form validation", () => {
       );
 
       habitatUseForm = render(
-        <DatastoreContext.Provider value={{}}>
+        <FirebaseContext.Provider value={{}}>
           <HabitatUseForm />
-        </DatastoreContext.Provider>
+        </FirebaseContext.Provider>
       );
     });
     afterAll(() => cleanup());
