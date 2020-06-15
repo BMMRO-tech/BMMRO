@@ -41,7 +41,7 @@ Since forms are the core component of the application we intend to test their fu
 
 ## Running and Building the app
 
-To run the app in development mode a .env file is required with REACT_APP_PROJECT_ID set.
+To run the app in development mode a .env file is required with REACT_APP_PROJECT_ID, REACT_APP_API_KEY and REACT_APP_AUTH_DOMAIN set. These values can be found in the project settings in Firebase.
 
 In the project directory, you can run:
 
