@@ -8,5 +8,6 @@ export const useLogoutRedirect = (loggedInUser) => {
     if (!loggedInUser) {
       navigate("/login", { state: { from: location.pathname } });
     }
+    // eslint-disable-next-line
   }, [loggedInUser]);
 };

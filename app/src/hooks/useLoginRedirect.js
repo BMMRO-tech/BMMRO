@@ -12,5 +12,6 @@ export const useLoginRedirect = (loggedInUser) => {
         navigate("/", { state: { from: location.pathname } });
       }
     }
+    // eslint-disable-next-line
   }, [loggedInUser]);
 };

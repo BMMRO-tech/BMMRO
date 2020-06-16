@@ -3,7 +3,6 @@ import { jsx } from "@emotion/core";
 import { createContext, useState, useEffect } from "react";
 import firebase from "firebase";
 import { initFirestore, Datastore } from "../datastore/datastore";
-import { navigate } from "@reach/router";
 
 const FirebaseContext = createContext();
 
