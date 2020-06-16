@@ -1,7 +1,6 @@
 import React from "react";
 import { act, render, cleanup, wait } from "@testing-library/react/pure";
 import user from "@testing-library/user-event";
-import firebase from "firebase";
 import { navigate } from "@reach/router";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Login from "../Login";
@@ -12,6 +11,7 @@ import {
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
+  useLocation: jest.fn(),
 }));
 
 describe("Login page", () => {

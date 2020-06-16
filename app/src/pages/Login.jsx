@@ -1,13 +1,15 @@
 /** @jsx jsx */
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { jsx } from "@emotion/core";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import firebaseApp from "../firebaseContext/firebase";
 import Layout from "../components/Layout";
 import { navigate } from "@reach/router";
+import { useLoginRedirect } from "../hooks/useLoginRedirect";
 
 const Login = () => {
   const { loggedInUser } = useContext(FirebaseContext);
+  useLoginRedirect(loggedInUser);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,10 +24,6 @@ const Login = () => {
       .then(() => navigate("/"))
       .catch(() => setLoginError("There was an error."));
   };
-
-  useEffect(() => {
-    if (loggedInUser) navigate("/");
-  }, [loggedInUser]);
 
   return (
     <Layout>

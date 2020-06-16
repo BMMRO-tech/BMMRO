@@ -28,10 +28,6 @@ const FirebaseContextProvider = ({ children }) => {
     firebase.auth().onAuthStateChanged(setLoggedInUser);
   }, []);
 
-  useEffect(() => {
-    if (!loggedInUser) navigate("/login");
-  }, [loggedInUser]);
-
   return (
     <FirebaseContext.Provider
       value={{ loggedInUser, datastore, datastoreError }}
