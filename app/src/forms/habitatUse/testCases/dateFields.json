@@ -1,0 +1,11 @@
+[
+  {
+    "id": "date",
+    "testCases": [
+      { "value": "05/03/2020" },
+      { "value": "", "error": "empty" },
+      { "value": "05/05/2020", "error": "max-date", "target": "frontend" },
+      { "value": "2020-03-05", "error": "invalid-date-format" }
+    ]
+  }
+]

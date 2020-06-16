@@ -1,63 +1,97 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /habitatUse/{habitatUseId} {
-      function validateMissing(property) {
-        return property in request.resource.data;
-      }
-
-      function validateNumber(val) {
-        return val is number;
-      }
-
-      function validateString(val) {
-        return val is string;
-      }
-
-      function validateEmptyString(val) {
-        return val.size() != 0;
-      }
-
-      function validateRange(val, min, max) {
-        return val >= min && val <= max;
-      }
-
-      function validateDecimalPrecision(val) {
-        return string(val).matches('^-?[0-9]*.[0-9]{6}$');
-      }
-
-      function validateMaxCharLength(val, max) {
-        return val.size() <= max;
-      }
-
-      function validateNumericValue(property, val, min, max) {
-        return validateMissing(property) && validateNumber(val) && validateRange(val, min, max);
-      }
-
-      function validatePosition(property, val, min, max) {
-        return validateNumericValue(property, val, min, max) && validateDecimalPrecision(val);
-      }
-
-      function validateStringValue(property, val, max) {
-        return validateMissing(property) && validateString(val) && validateMaxCharLength(val, max);
-      }
-
       allow read;
-      allow create: if 
-        validateNumericValue('encSeqNo', request.resource.data.encSeqNo, 0, 99) &&
-        validateNumericValue('numberOfAnimals', request.resource.data.numberOfAnimals, 0, 99) &&
-        validateNumericValue('numberOfCalves', request.resource.data.numberOfCalves, 0, 99) &&
-        validateNumericValue('numberOfBoats', request.resource.data.numberOfBoats, 0, 999) &&
-        validateNumericValue('waterDepth', request.resource.data.waterDepth, 0, 9999) &&
-        validateNumericValue('distance', request.resource.data.distance, 0, 9999) &&
-        validateNumericValue('bearing', request.resource.data.bearing, 0, 360) &&
-        validateNumericValue('aspect', request.resource.data.aspect, 0, 360) &&
-        validateNumericValue('waterTemp', request.resource.data.waterTemp, 15, 40) &&
-        validateNumericValue('surfaceBout', request.resource.data.surfaceBout, 0, 99) &&
-        validatePosition('latitude', request.resource.data.latitude, -90, 90) &&
-        validatePosition('longitude', request.resource.data.longitude, -180, 180) &&
-        validateStringValue('groupComposition', request.resource.data.groupComposition, 100) && 
-        validateEmptyString(request.resource.data.groupComposition) &&
-        validateStringValue('comments', request.resource.data.comments, 500);
+      allow create: if habitatUseValidation();
     }
   }
+}
+
+function habitatUseValidation() {
+  return validateNumericValue('encSeqNo', request.resource.data.encSeqNo, 0, 99) &&
+    validateNumericValue('numberOfAnimals', request.resource.data.numberOfAnimals, 0, 99) &&
+    validateNumericValue('numberOfCalves', request.resource.data.numberOfCalves, 0, 99) &&
+    validateNumericValue('numberOfBoats', request.resource.data.numberOfBoats, 0, 999) &&
+    validateNumericValue('waterDepth', request.resource.data.waterDepth, 0, 9999) &&
+    validateNumericValue('distance', request.resource.data.distance, 0, 9999) &&
+    validateNumericValue('bearing', request.resource.data.bearing, 0, 360) &&
+    validateNumericValue('aspect', request.resource.data.aspect, 0, 360) &&
+    validateNumericValue('waterTemp', request.resource.data.waterTemp, 15, 40) &&
+    validateNumericValue('surfaceBout', request.resource.data.surfaceBout, 0, 99) &&
+    validatePosition('latitude', request.resource.data.latitude, -90, 90) &&
+    validatePosition('longitude', request.resource.data.longitude, -180, 180) &&
+    validateStringValue('groupComposition', request.resource.data.groupComposition, 100) && 
+    validateComments() &&
+    validateDateValue('date', request.resource.data.date) &&
+    validateTimeValue('startTime', request.resource.data.startTime) &&
+    validateTimeValue('endTime', request.resource.data.endTime) &&
+    validateStringValue('species', request.resource.data.species, 100) && 
+    validateStringValue('directionOfTravel', request.resource.data.directionOfTravel, 100) &&
+    validateStringValue('bottomSubstrate', request.resource.data.bottomSubstrate, 100) &&
+    validateStringValue('cloudCover', request.resource.data.cloudCover, 100) &&
+    validateStringValue('beaufortSeaState', request.resource.data.beaufortSeaState, 100) &&
+    validateStringValue('tideState', request.resource.data.tideState, 100) &&
+    validateStringValue('behaviour', request.resource.data.behaviour, 100) &&
+    validateStringValue('swellWaveHeight', request.resource.data.swellWaveHeight, 100) &&
+    validateStringValue('groupCohesion', request.resource.data.groupCohesion, 100);
+}
+
+function validateMissingField(field) {
+  return field in request.resource.data;
+}
+
+function validateNumber(val) {
+  return val is number;
+}
+
+function validateString(val) {
+  return val is string;
+}
+
+function validateEmptyString(val) {
+  return val.size() != 0;
+}
+
+function validateRange(val, min, max) {
+  return val >= min && val <= max;
+}
+
+function validateDecimalPrecision(val) {
+  return string(val).matches('^-?[0-9]*.[0-9]{6}$');
+}
+
+function validateDateFormat(val) {
+  return string(val).matches('^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$');
+}
+
+function validateTimeFormat(val) {
+  return string(val).matches('^[0-9]{1,2}:[0-9]{1,2}$');
+}
+
+function validateMaxCharLength(val, max) {
+  return val.size() <= max;
+}
+
+function validateNumericValue(field, val, min, max) {
+  return validateMissingField(field) && validateNumber(val) && validateRange(val, min, max);
+}
+
+function validatePosition(field, val, min, max) {
+  return validateNumericValue(field, val, min, max) && validateDecimalPrecision(val);
+}
+
+function validateStringValue(field, val, max) {
+  return validateMissingField(field) && validateString(val) && validateEmptyString(val) && validateMaxCharLength(val, max);
+}
+
+function validateDateValue(field, val) {
+  return validateMissingField(field) && validateDateFormat(val);
+}
+
+function validateTimeValue(field, val) {
+  return validateMissingField(field) && validateTimeFormat(val);
+}
+
+function validateComments() {
+  return validateMissingField('comments') && validateString(request.resource.data.comments) && validateMaxCharLength(request.resource.data.comments, 500);
 }

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "startTime",
+    "testCases": [
+      { "value": "14:30" },
+      { "value": "", "error": "empty" },
+      { "value": "19:30", "error": "max-time", "target": "frontend" },
+      { "value": "15:30:50", "error": "invalid-time-format" }
+    ]
+  },
+  {
+    "id": "endTime",
+    "testCases": [
+      { "value": "15:30" },
+      { "value": "", "error": "empty" },
+      { "value": "19:30", "error": "max-time", "target": "frontend" },
+      {
+        "value": "12:30",
+        "error": "start-time-after-end-time",
+        "target": "frontend"
+      },
+      { "value": "15:30:50", "error": "invalid-time-format" }
+    ]
+  }
+]

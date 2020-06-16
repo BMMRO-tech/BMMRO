@@ -1,0 +1,41 @@
+[
+  {
+    "id": "species",
+    "testCases": [
+      { "value": "Bottlenose dolphin - coastal" },
+      { "value": "", "error": "empty" }
+    ]
+  },
+  {
+    "id": "directionOfTravel",
+    "testCases": [{ "value": "N" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "bottomSubstrate",
+    "testCases": [{ "value": "Rock" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "cloudCover",
+    "testCases": [{ "value": "< 25%" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "beaufortSeaState",
+    "testCases": [{ "value": "0" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "tideState",
+    "testCases": [{ "value": "High" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "behaviour",
+    "testCases": [{ "value": "Rest" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "swellWaveHeight",
+    "testCases": [{ "value": "0" }, { "value": "", "error": "empty" }]
+  },
+  {
+    "id": "groupCohesion",
+    "testCases": [{ "value": "Tight" }, { "value": "", "error": "empty" }]
+  }
+]
