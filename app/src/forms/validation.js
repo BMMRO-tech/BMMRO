@@ -113,7 +113,7 @@ export const validateDateField = (value) => {
   );
 };
 
-export const validateRequiredTextField = (value, max) => {
+export const validateTextField = (value, max) => {
   return validateEmpty(value) || validateMaxCharLength(value, max);
 };
 

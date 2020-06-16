@@ -7,7 +7,7 @@ import {
   validateEmpty,
   validatePositionField,
   validateMaxCharLength,
-  validateRequiredTextField,
+  validateTextField,
 } from "../validation";
 import {
   DATE_FORMAT,
@@ -29,7 +29,6 @@ export const fields = [
     label: "No. of Animals",
     placeholder: "4",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 99),
   },
   {
@@ -37,7 +36,6 @@ export const fields = [
     label: "No. of Calves",
     placeholder: "4",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 99),
   },
   {
@@ -83,7 +81,6 @@ export const fields = [
       "Unknown balaenopterid",
     ],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -91,7 +88,6 @@ export const fields = [
     label: "No. of Boats",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 999),
   },
   {
@@ -99,7 +95,6 @@ export const fields = [
     label: "Direction of Travel",
     options: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -107,7 +102,6 @@ export const fields = [
     label: "Enc Seq #",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 99),
   },
   {
@@ -115,7 +109,6 @@ export const fields = [
     label: "Comments",
     placeholder: "Dolphins crater feeding",
     type: "textarea",
-    required: false,
     validate: (value) => validateMaxCharLength(value, 500),
   },
   {
@@ -123,7 +116,6 @@ export const fields = [
     label: "Water Depth (m)",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 9999),
   },
   {
@@ -131,7 +123,6 @@ export const fields = [
     label: "Water Temp (°C)",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 15, 40),
   },
   {
@@ -147,7 +138,6 @@ export const fields = [
       "Unknown",
     ],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -155,7 +145,6 @@ export const fields = [
     label: "Cloud Cover",
     options: ["< 25%", "25% - 50%", "50% - 75%", "> 75%"],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -163,7 +152,6 @@ export const fields = [
     label: "Beaufort Sea State",
     options: [0, 1, 2, 3, 4, 5],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -171,7 +159,6 @@ export const fields = [
     label: "Tide State",
     options: ["High", "Ebb", "Low", "Flood", "Slack"],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -179,7 +166,6 @@ export const fields = [
     label: "Behaviour",
     options: ["Rest", "Feed", "Social", "Travel", "Milling"],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -187,7 +173,6 @@ export const fields = [
     label: "Swell / Wave height (ft)",
     options: ["0", "1", "2", "3", "4", "5", "6+"],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -195,7 +180,6 @@ export const fields = [
     label: "Distance (m)",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 9999),
   },
   {
@@ -203,7 +187,6 @@ export const fields = [
     label: "Bearing (°)",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 360),
   },
   {
@@ -211,7 +194,6 @@ export const fields = [
     label: "Aspect (°)",
     placeholder: "1",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 360),
   },
   {
@@ -219,7 +201,6 @@ export const fields = [
     label: "Group Cohesion",
     options: ["Tight", "Moderate", "Loose"],
     type: "select",
-    required: true,
     validate: (value) => validateEmpty(value),
   },
   {
@@ -227,15 +208,13 @@ export const fields = [
     label: "Group Composition",
     placeholder: "SM",
     type: "text",
-    required: true,
-    validate: (value) => validateRequiredTextField(value, 100),
+    validate: (value) => validateTextField(value, 100),
   },
   {
     name: "surfaceBout",
     label: "Surface Bout",
     placeholder: "11",
     type: "number",
-    required: true,
     validate: (value) => validateNumericField(value, 0, 99),
   },
   {
@@ -243,7 +222,6 @@ export const fields = [
     label: "End Time (hh:mm)",
     placeholder: "16:00",
     type: "text",
-    required: true,
     dependingOn: ["date", "startTime"],
     validate: (value, dependingFields) =>
       validateEndTimeField(value, dependingFields),
@@ -253,7 +231,6 @@ export const fields = [
     label: "Date (dd/mm/yyyy)",
     placeholder: "23/05/2020",
     type: "text",
-    required: true,
     initialValue: () => getCurrentDate(),
     validate: (value) => validateDateField(value),
   },
@@ -262,7 +239,6 @@ export const fields = [
     label: "Start Time (hh:mm)",
     placeholder: "15:00",
     type: "text",
-    required: true,
     dependingOn: ["date"],
     initialValue: () => getCurrentTime(),
     validate: (value, dependingFields) =>
@@ -273,7 +249,6 @@ export const fields = [
     label: "Lat",
     placeholder: "53.012234",
     type: "text",
-    required: true,
     validate: (value) =>
       validatePositionField(value, -90, 90, POSITION_DECIMAL_PRECISION),
   },
@@ -282,7 +257,6 @@ export const fields = [
     label: "Long",
     placeholder: "-68.356234",
     type: "text",
-    required: true,
     validate: (value) =>
       validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),
   },

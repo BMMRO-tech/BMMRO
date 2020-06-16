@@ -5,6 +5,7 @@ import user from "@testing-library/user-event";
 import HabitatUseForm from "../HabitatUseForm";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import numericFields from "../../forms/habitatUse/testCases/numericFields.json";
+import textFields from "../../forms/habitatUse/testCases/textFields.json";
 
 describe("Habitat Use Form validation", () => {
   const assertOnFieldInput = async (fieldId, testCase) => {
@@ -89,27 +90,9 @@ describe("Habitat Use Form validation", () => {
   });
 
   describe("Text field", () => {
-    const fields = [
-      {
-        id: "groupComposition",
-        testCases: [
-          { value: "x".repeat(101), error: "max-char-length" },
-          { value: "x".repeat(50), error: undefined },
-          { value: "", error: "empty" },
-        ],
-      },
-      {
-        id: "comments",
-        testCases: [
-          { value: "x".repeat(501), error: "max-char-length" },
-          { value: "x".repeat(50), error: undefined },
-        ],
-      },
-    ];
-
     afterEach(() => cleanup());
 
-    fields.forEach((field) => {
+    textFields.forEach((field) => {
       describe(field.id, () => {
         field.testCases.forEach((testCase) => {
           const valueDescription = !!testCase.value

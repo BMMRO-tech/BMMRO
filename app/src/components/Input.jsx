@@ -11,7 +11,6 @@ const Input = ({
     type,
     name,
     label,
-    required,
     placeholder,
     touched,
     value,

@@ -100,7 +100,6 @@ const HabitatUseForm = () => {
                 ({
                   name,
                   label,
-                  required,
                   placeholder,
                   type,
                   options,
@@ -122,7 +121,6 @@ const HabitatUseForm = () => {
                     type,
                     name,
                     label,
-                    required,
                     onChange: handleChange,
                     onBlur: handleBlur,
                     options,

@@ -1,6 +1,7 @@
 const firebase = require("@firebase/testing");
 const fs = require("fs");
 const numericFields = require("../src/forms/habitatUse/testCases/numericFields.json");
+const textFields = require("../src/forms/habitatUse/testCases/textFields.json");
 
 const projectId = "bmmro-app";
 const rules = fs.readFileSync(`${__dirname}/firestore.rules`, "utf8");
@@ -34,6 +35,8 @@ describe("Habitat Use Collection Create Validation", () => {
     surfaceBout: 1,
     latitude: 1.123456,
     longitude: 1.123456,
+    groupComposition: "SM",
+    comments: "",
   };
 
   describe("Numeric fields", () => {
@@ -44,16 +47,16 @@ describe("Habitat Use Collection Create Validation", () => {
           if (!!testCase.error) {
             testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
           } else if (testCase.value == "") {
-            testDescription = `Should fail due to '${testCase.error}' for empty value`;
+            testDescription = `Should fail due to '${testCase.error}' for incorrect format`;
           } else {
             testDescription = `Should succeed with value '${testCase.value}'`;
           }
 
-          it(testDescription, async () => {
-            const value = !!testCase.value
-              ? parseFloat(testCase.value)
-              : testCase.value;
+          const value = !!testCase.value
+            ? parseFloat(testCase.value)
+            : testCase.value;
 
+          it(testDescription, async () => {
             if (testCase.error) {
               await firebase.assertFails(
                 db.collection(collectionName).add({
@@ -66,6 +69,47 @@ describe("Habitat Use Collection Create Validation", () => {
                 db.collection(collectionName).add({
                   ...defaultValues,
                   [field.id]: value,
+                })
+              );
+            }
+          });
+        });
+
+        it("Should fail if property is missing", async () => {
+          const testVal = { ...defaultValues };
+          delete testVal[field.id];
+          await firebase.assertFails(
+            db.collection(collectionName).add(testVal)
+          );
+        });
+      });
+    });
+
+    textFields.forEach((field) => {
+      describe(field.id, () => {
+        field.testCases.forEach((testCase) => {
+          let testDescription;
+          if (!!testCase.error) {
+            testDescription = `Should fail due to '${testCase.error}' for value of length ${testCase.value.length}`;
+          } else if (testCase.value == "") {
+            testDescription = `Should fail due to '${testCase.error}' for empty value`;
+          } else {
+            testDescription = `Should succeed with value '${testCase.value}'`;
+          }
+
+          it(testDescription, async () => {
+            if (testCase.error) {
+              await firebase.assertFails(
+                db.collection(collectionName).add({
+                  ...defaultValues,
+                  [field.id]: testCase.value,
+                })
+              );
+            } else {
+              await firebase.assertSucceeds(
+                db.collection(collectionName).add({
+                  ...defaultValues,
+                  [field.id]: testCase.value,
                 })
               );
             }
