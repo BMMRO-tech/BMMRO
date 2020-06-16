@@ -1,5 +1,5 @@
 import "firebase/firestore";
-import { CollectionNames, DatastoreErrorType } from "./constants";
+import { CollectionNames, DatastoreErrorType } from "../constants/datastore";
 
 export class DatastoreError extends Error {
   constructor(errorType) {

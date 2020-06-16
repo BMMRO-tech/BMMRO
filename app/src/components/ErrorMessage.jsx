@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import colors from "../materials/colors";
-import { FormErrorType } from "../forms/constants";
+import { FormErrorType } from "../constants/forms";
+import { AuthenticationErrorType } from "../constants/authentication";
 
 const ErrorMessage = ({ error, testId, isInline = false }) => {
   const message = {
@@ -16,6 +17,10 @@ const ErrorMessage = ({ error, testId, isInline = false }) => {
       "End time cannot be before start time",
     [FormErrorType.INVALID_POSITION_FORMAT]: `Position must have ${error.rule} decimal digits`,
     [FormErrorType.MAX_CHAR_LENGTH]: `Text cannot be longer than ${error.rule} characters`,
+    [AuthenticationErrorType.UNSUCCESSFUL_LOGIN]:
+      "The username or password you entered is not recognised. Please try again.",
+    [AuthenticationErrorType.UNSUCCESSFUL_LOGOUT]:
+      "There was an error while logging out. Please try again.",
   };
 
   const styles = {

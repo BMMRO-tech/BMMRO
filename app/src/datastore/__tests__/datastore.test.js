@@ -1,5 +1,5 @@
 import { Datastore, DatastoreError, initFirestore } from "../datastore";
-import { DatastoreErrorType } from "../constants";
+import { DatastoreErrorType } from "../../constants/datastore";
 
 class FirebaseErrorMock extends Error {
   constructor(code) {

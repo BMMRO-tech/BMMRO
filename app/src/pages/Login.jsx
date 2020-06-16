@@ -6,6 +6,8 @@ import firebaseApp from "../firebaseContext/firebase";
 import Layout from "../components/Layout";
 import { navigate } from "@reach/router";
 import { useLoginRedirect } from "../hooks/useLoginRedirect";
+import { AuthenticationErrorType } from "../constants/authentication";
+import ErrorMessage from "../components/ErrorMessage";
 
 const Login = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -22,7 +24,9 @@ const Login = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => navigate("/"))
-      .catch(() => setLoginError("There was an error."));
+      .catch(() =>
+        setLoginError({ type: AuthenticationErrorType.UNSUCCESSFUL_LOGIN })
+      );
   };
 
   return (
@@ -47,7 +51,9 @@ const Login = () => {
           Sign in
         </button>
 
-        {!!loginError && <div data-testid="login-error">{loginError}</div>}
+        {!!loginError && (
+          <ErrorMessage error={loginError} testId="login-error" />
+        )}
       </form>
     </Layout>
   );

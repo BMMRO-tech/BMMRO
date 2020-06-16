@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { POSITION_DECIMAL_PRECISION } from "../forms/constants";
+import { POSITION_DECIMAL_PRECISION } from "../constants/forms";
 
 export const usePosition = () => {
   const [position, setPosition] = useState({});

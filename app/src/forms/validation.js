@@ -1,5 +1,5 @@
 import { parse, isValid } from "date-fns";
-import { FormErrorType, DATE_FORMAT, TIME_FORMAT } from "./constants";
+import { FormErrorType, DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
 
 export const validateEmpty = (value) => {
   if (value !== 0 && !value) return { type: FormErrorType.EMPTY };

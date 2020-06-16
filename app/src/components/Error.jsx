@@ -3,7 +3,7 @@ import { jsx } from "@emotion/core";
 
 import { Fragment } from "react";
 import Button from "./Button";
-import { DatastoreErrorType } from "../datastore/constants";
+import { DatastoreErrorType } from "../constants/datastore";
 
 const Error = ({ type }) => {
   const message = {

@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { createContext, useState, useEffect } from "react";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 import { initFirestore, Datastore } from "../datastore/datastore";
 
 const FirebaseContext = createContext();
