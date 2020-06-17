@@ -146,11 +146,28 @@ describe("Habitat Use Form validation", () => {
     const startTime = "11:30";
     const date = "04/05/2020";
 
+    const latitude = 1.123456;
+    const latitudeActual = "1.123456";
+    const longitude = 1.12345;
+    const longitudeActual = "1.123450";
+
     let habitatUseForm;
     beforeAll(() => {
       global.Date.now = jest.fn(() =>
         new Date(`2020-05-04T11:30:00.000Z`).getTime()
       );
+
+      const mockGeolocation = {
+        getCurrentPosition: jest.fn().mockImplementation((success) =>
+          success({
+            coords: {
+              latitude,
+              longitude,
+            },
+          })
+        ),
+      };
+      global.navigator.geolocation = mockGeolocation;
 
       habitatUseForm = render(
         <FirebaseContext.Provider value={{}}>
@@ -168,6 +185,16 @@ describe("Habitat Use Form validation", () => {
     it("date should be autofilled", async () => {
       const dateField = habitatUseForm.queryByTestId("date");
       expect(dateField.value).toBe(date);
+    });
+
+    it("latitude should be autofilled", async () => {
+      const latitudeField = habitatUseForm.queryByTestId("latitude");
+      expect(latitudeField.value).toBe(latitudeActual);
+    });
+
+    it("longitude should be autofilled", async () => {
+      const longitudeField = habitatUseForm.queryByTestId("longitude");
+      expect(longitudeField.value).toBe(longitudeActual);
     });
   });
 });

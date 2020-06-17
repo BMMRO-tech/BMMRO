@@ -12,10 +12,18 @@ export const usePosition = () => {
       POSITION_DECIMAL_PRECISION
     );
 
+  const appendZero = (val) => {
+    const digitsMissing =
+      POSITION_DECIMAL_PRECISION - (val.toString().split(".")[1] || []).length;
+    let stringVal = val.toString();
+
+    return stringVal.concat("0".repeat(digitsMissing));
+  };
+
   const onChange = ({ coords }) => {
     setPosition({
-      latitude: roundCoordinate(coords.latitude),
-      longitude: roundCoordinate(coords.longitude),
+      latitude: appendZero(roundCoordinate(coords.latitude)),
+      longitude: appendZero(roundCoordinate(coords.longitude)),
     });
   };
 

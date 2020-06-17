@@ -99,7 +99,8 @@
       { "value": "-91.123456", "error": "min-value" },
       { "value": "91.123456", "error": "max-value" },
       { "value": "10.12345", "error": "invalid-position-format" },
-      { "value": "10.1234567", "error": "invalid-position-format" }
+      { "value": "10.1234567", "error": "invalid-position-format" },
+      { "value": "10.123k56", "error": "invalid-position-format" }
     ]
   },
   {
@@ -112,7 +113,8 @@
       { "value": "-181.123456", "error": "min-value" },
       { "value": "181.123456", "error": "max-value" },
       { "value": "10.12345", "error": "invalid-position-format" },
-      { "value": "10.1234567", "error": "invalid-position-format" }
+      { "value": "10.1234567", "error": "invalid-position-format" },
+      { "value": "10.12345p", "error": "invalid-position-format" }
     ]
   }
 ]

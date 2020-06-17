@@ -31,10 +31,9 @@ export const validateMaxCharLength = (value, max) => {
   }
 };
 
-const validateDecimalPrecision = (value, precision) => {
-  const decimalDigits = (value.toString().split(".")[1] || []).length;
-
-  if (decimalDigits > precision || decimalDigits < precision) {
+const validatePositionFormat = (value, precision) => {
+  const positionFormat = RegExp(`^-?[0-9]*.[0-9]{${precision}}$`);
+  if (!positionFormat.test(value)) {
     return {
       type: FormErrorType.INVALID_POSITION_FORMAT,
       rule: precision,
@@ -137,8 +136,8 @@ export const validateEndTimeField = (endTime, dependingFields) => {
 export const validatePositionField = (value, min, max, precision) => {
   return (
     validateEmpty(value) ||
-    validateMin(value, min) ||
-    validateMax(value, max) ||
-    validateDecimalPrecision(value, precision)
+    validatePositionFormat(value, precision) ||
+    validateMin(parseFloat(value), min) ||
+    validateMax(parseFloat(value), max)
   );
 };
