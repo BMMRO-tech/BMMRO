@@ -65,6 +65,9 @@ const HabitatUseForm = () => {
               : "";
           });
 
+          initValues["latitude"] = "0";
+          initValues["longitude"] = "0";
+
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
@@ -111,9 +114,10 @@ const HabitatUseForm = () => {
                     dependingOn.forEach(
                       (field) => (dependingFields[field] = values[field])
                     );
+
                   const isPosition =
                     name === "latitude" || name === "longitude";
-                  if (isPosition && !values[name] && !!position[name]) {
+                  if (isPosition && values[name] === "0" && !!position[name]) {
                     values[name] = position[name];
                   }
 
