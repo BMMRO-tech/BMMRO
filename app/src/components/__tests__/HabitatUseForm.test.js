@@ -19,12 +19,19 @@ describe("Habitat Use Form validation", () => {
         </FirebaseContext.Provider>
       );
       const inputField = form.queryByTestId(fieldId);
+
       await wait(() => {
-        fireEvent.change(inputField, { target: { value: testCase.value } });
+        fireEvent.change(inputField, {
+          target: { value: testCase.value },
+        });
         fireEvent.blur(inputField);
       });
 
-      expect(inputField.value).toBe(testCase.value);
+      const inputValue =
+        inputField.type == "number" && !!testCase.value
+          ? parseFloat(inputField.value)
+          : inputField.value;
+      expect(inputValue).toBe(testCase.value);
 
       if (!!testCase.error) {
         const error = form.queryByTestId(`error-${testCase.error}-${fieldId}`);

@@ -248,7 +248,7 @@ export const fields = [
     name: "latitude",
     label: "Lat",
     placeholder: "53.012234",
-    type: "number",
+    type: "text",
     validate: (value) =>
       validatePositionField(value, -90, 90, POSITION_DECIMAL_PRECISION),
   },
@@ -256,7 +256,7 @@ export const fields = [
     name: "longitude",
     label: "Long",
     placeholder: "-68.356234",
-    type: "number",
+    type: "text",
     validate: (value) =>
       validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),
   },

@@ -77,7 +77,7 @@ function validateNumericValue(field, val, min, max) {
 }
 
 function validatePosition(field, val, min, max) {
-  return validateNumericValue(field, val, min, max) && validateDecimalPrecision(val);
+  return validateNumericValue(field, float(val), min, max) && validateDecimalPrecision(val);
 }
 
 function validateStringValue(field, val, max) {

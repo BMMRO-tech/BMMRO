@@ -2,91 +2,91 @@
   {
     "id": "encSeqNo",
     "testCases": [
-      { "value": "1" },
+      { "value": 1 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "100", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 100, "error": "max-value" }
     ]
   },
   {
     "id": "numberOfAnimals",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "100", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 100, "error": "max-value" }
     ]
   },
   {
     "id": "numberOfCalves",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "100", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 100, "error": "max-value" }
     ]
   },
   {
     "id": "numberOfBoats",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "1000", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 1000, "error": "max-value" }
     ]
   },
   {
     "id": "waterDepth",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "10000", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 10000, "error": "max-value" }
     ]
   },
   {
     "id": "distance",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "10000", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 10000, "error": "max-value" }
     ]
   },
   {
     "id": "bearing",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "361", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 361, "error": "max-value" }
     ]
   },
   {
     "id": "aspect",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "361", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 361, "error": "max-value" }
     ]
   },
   {
     "id": "waterTemp",
     "testCases": [
-      { "value": "16" },
+      { "value": 16 },
       { "value": "", "error": "empty" },
-      { "value": "14", "error": "min-value" },
-      { "value": "41", "error": "max-value" }
+      { "value": 14, "error": "min-value" },
+      { "value": 41, "error": "max-value" }
     ]
   },
   {
     "id": "surfaceBout",
     "testCases": [
-      { "value": "10" },
+      { "value": 10 },
       { "value": "", "error": "empty" },
-      { "value": "-1", "error": "min-value" },
-      { "value": "100", "error": "max-value" }
+      { "value": -1, "error": "min-value" },
+      { "value": 100, "error": "max-value" }
     ]
   },
   {
@@ -94,6 +94,7 @@
     "testCases": [
       { "value": "1.123456" },
       { "value": "-1.123456" },
+      { "value": "10.123450" },
       { "value": "", "error": "empty" },
       { "value": "-91.123456", "error": "min-value" },
       { "value": "91.123456", "error": "max-value" },
@@ -106,6 +107,7 @@
     "testCases": [
       { "value": "1.123456" },
       { "value": "-1.123456" },
+      { "value": "-1.123450" },
       { "value": "", "error": "empty" },
       { "value": "-181.123456", "error": "min-value" },
       { "value": "181.123456", "error": "max-value" },

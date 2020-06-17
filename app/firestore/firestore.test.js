@@ -36,8 +36,8 @@ describe("Habitat Use Collection Create Validation", () => {
     aspect: 1,
     waterTemp: 16,
     surfaceBout: 1,
-    latitude: 1.123456,
-    longitude: 1.123456,
+    latitude: "1.123456",
+    longitude: "1.123456",
     groupComposition: "SM",
     comments: "",
     date: "23/07/2018",
@@ -54,20 +54,20 @@ describe("Habitat Use Collection Create Validation", () => {
     groupCohesion: "Tight",
   };
 
-  const testDocumentCreation = (testDescription, testCase, field, value) => {
+  const testDocumentCreation = (testDescription, testCase, field) => {
     it(testDescription, async () => {
       if (testCase.error) {
         await firebase.assertFails(
           db.collection(collectionName).add({
             ...defaultValues,
-            [field.id]: value,
+            [field.id]: testCase.value,
           })
         );
       } else {
         await firebase.assertSucceeds(
           db.collection(collectionName).add({
             ...defaultValues,
-            [field.id]: value,
+            [field.id]: testCase.value,
           })
         );
       }
@@ -95,11 +95,7 @@ describe("Habitat Use Collection Create Validation", () => {
             testDescription = `Should succeed with value '${testCase.value}'`;
           }
 
-          const value = !!testCase.value
-            ? parseFloat(testCase.value)
-            : testCase.value;
-
-          testDocumentCreation(testDescription, testCase, field, value);
+          testDocumentCreation(testDescription, testCase, field);
         });
 
         testDocCreationWithMissingField(field);
@@ -118,12 +114,7 @@ describe("Habitat Use Collection Create Validation", () => {
             testDescription = `Should succeed with value of length ${testCase.value.length}`;
           }
 
-          testDocumentCreation(
-            testDescription,
-            testCase,
-            field,
-            testCase.value
-          );
+          testDocumentCreation(testDescription, testCase, field);
         });
 
         testDocCreationWithMissingField(field);
@@ -142,12 +133,7 @@ describe("Habitat Use Collection Create Validation", () => {
             testDescription = `Should succeed with value of length ${testCase.value.length}`;
           }
 
-          testDocumentCreation(
-            testDescription,
-            testCase,
-            field,
-            testCase.value
-          );
+          testDocumentCreation(testDescription, testCase, field);
         });
 
         testDocCreationWithMissingField(field);
@@ -170,12 +156,7 @@ describe("Habitat Use Collection Create Validation", () => {
             testDescription = `Should succeed with value '${testCase.value}'`;
           }
 
-          testDocumentCreation(
-            testDescription,
-            testCase,
-            field,
-            testCase.value
-          );
+          testDocumentCreation(testDescription, testCase, field);
         });
 
         testDocCreationWithMissingField(field);
@@ -198,12 +179,7 @@ describe("Habitat Use Collection Create Validation", () => {
             testDescription = `Should succeed with value '${testCase.value}'`;
           }
 
-          testDocumentCreation(
-            testDescription,
-            testCase,
-            field,
-            testCase.value
-          );
+          testDocumentCreation(testDescription, testCase, field);
         });
 
         testDocCreationWithMissingField(field);
