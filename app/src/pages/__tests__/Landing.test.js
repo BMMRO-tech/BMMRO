@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, cleanup } from "@testing-library/react/pure";
+import { render, cleanup } from "@testing-library/react/pure";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Landing from "../Landing";
 import { buildFirestoreMock } from "../../testUtils/firebase";
