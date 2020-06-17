@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import { useLocation, navigate } from "@reach/router";
+import { useLocation, useNavigate } from "@reach/router";
 
 export const useLogoutRedirect = (loggedInUser) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loggedInUser) {

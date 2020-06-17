@@ -12,6 +12,7 @@ import {
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
   useLocation: jest.fn(),
+  useNavigate: jest.fn(),
 }));
 
 describe("Login page", () => {
