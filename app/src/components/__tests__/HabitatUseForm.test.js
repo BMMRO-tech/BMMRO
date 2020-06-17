@@ -1,6 +1,5 @@
 import React from "react";
 import { render, wait, fireEvent, cleanup } from "@testing-library/react/pure";
-import user from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
