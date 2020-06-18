@@ -3,7 +3,6 @@ import { jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
-import Logout from "../components/Logout";
 import { useContext } from "react";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 
@@ -21,7 +20,6 @@ const Landing = () => {
       <Link to="habitat">
         <Button>Record Habitat Use</Button>
       </Link>
-      <Logout />
     </Layout>
   );
 };

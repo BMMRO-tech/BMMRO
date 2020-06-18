@@ -1,12 +1,20 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import firebaseApp from "../firebaseContext/firebase";
 import { AuthenticationErrorType } from "../constants/authentication";
-import { Fragment, useState } from "react";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import { Fragment, useState, useContext } from "react";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 
+const styles = {
+  text: css`
+    padding-bottom: 6px;
+  `,
+};
+
 const Logout = () => {
+  const { loggedInUser } = useContext(FirebaseContext);
   const [logoutError, setLogoutError] = useState(null);
 
   const logout = () => {
@@ -20,7 +28,8 @@ const Logout = () => {
 
   return (
     <Fragment>
-      <Button onClick={logout} testId="logout-button">
+      <div css={styles.text}>{loggedInUser?.email}</div>
+      <Button width="100%" onClick={logout} testId="logout-button">
         Logout
       </Button>
       {!!logoutError && (

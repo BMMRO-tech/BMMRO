@@ -2,12 +2,12 @@
 import { jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import LoginForm from "../components/LoginForm";
-import Logo from "../components/Logo";
+import Logo from "../components/icons/Logo";
 
 const Login = () => {
   return (
     <Layout hasHeader={false}>
-      <Logo loginPage={true} />
+      <Logo isLoginPage={true} />
       <LoginForm />
     </Layout>
   );

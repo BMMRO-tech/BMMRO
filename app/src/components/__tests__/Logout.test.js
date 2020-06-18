@@ -1,5 +1,6 @@
 import React from "react";
-import { render, wait, fireEvent } from "@testing-library/react/pure";
+import { wait, fireEvent } from "@testing-library/react/pure";
+import { renderWithMockContexts } from "../../testUtils/renderWithMockContexts";
 import { buildFirebaseAuthMock } from "../../testUtils/firebase";
 import Logout from "../Logout";
 
@@ -10,7 +11,7 @@ describe("Logout", () => {
     };
     buildFirebaseAuthMock(signOutResult);
 
-    const { queryByTestId } = render(<Logout />);
+    const { queryByTestId } = renderWithMockContexts(<Logout />);
 
     fireEvent.click(queryByTestId("logout-button"));
 
