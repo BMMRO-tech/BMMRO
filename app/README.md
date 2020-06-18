@@ -59,6 +59,10 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm run test-firestore`
+
+Runs the Firebase tests using the Firebase emulator.
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
