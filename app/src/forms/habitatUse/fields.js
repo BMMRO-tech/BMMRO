@@ -121,7 +121,7 @@ export const fields = [
   {
     name: "waterTemp",
     label: "Water Temp (°C)",
-    placeholder: "1",
+    placeholder: "15",
     type: "number",
     validate: (value) => validateNumericField(value, 15, 40),
   },
