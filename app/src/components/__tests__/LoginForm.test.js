@@ -33,8 +33,6 @@ describe("Login page", () => {
       </FirebaseContext.Provider>
     );
 
-    expect(queryByTestId("login-page")).toBeInTheDocument();
-
     fireEvent.click(queryByTestId("submit"));
 
     await wait(() => expect(queryByTestId("login-error")).toBeInTheDocument());

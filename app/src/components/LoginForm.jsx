@@ -26,7 +26,8 @@ const LoginForm = () => {
 
   return (
     <Fragment>
-      <h1 data-testid="login-page">Login</h1>
+      {!!loginError && <ErrorMessage error={loginError} testId="login-error" />}
+
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
@@ -34,7 +35,7 @@ const LoginForm = () => {
         <Form>
           <Input
             config={{
-              label: "Email Address",
+              label: "Email address",
               type: "email",
               name: "email",
             }}
@@ -46,13 +47,11 @@ const LoginForm = () => {
               name: "password",
             }}
           />
-          <Button testId="submit" type="submit">
-            Login
+          <Button testId="submit" type="submit" width="100%">
+            Log in
           </Button>
         </Form>
       </Formik>
-
-      {!!loginError && <ErrorMessage error={loginError} testId="login-error" />}
     </Fragment>
   );
 };

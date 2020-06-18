@@ -7,7 +7,7 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Header from "./Header";
 import Error from "./Error";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, hasHeader = true }) => {
   const { datastore, datastoreError } = useContext(FirebaseContext);
 
   const styles = {
@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
   return (
     <Fragment>
       <Global styles={styles.global} />
-      <Header />
+      {hasHeader ? <Header /> : null}
       <main>
         <div css={styles.container}>
           {!datastore && !datastoreError ? (
