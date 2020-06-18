@@ -9,6 +9,7 @@
 - Google Firebase
   - [Cloud Firestore](https://firebase.google.com/docs/firestore) (Database)
   - [Firebase Hosting](https://firebase.google.com/docs/hosting) (Website hosting)
+  - [Firebase Authentication](https://firebase.google.com/docs/auth) (Authentication)
 - [Github Actions](https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions) (Deployment/CI) - Github secrets are used to store Cloud Firestore Project ID and Firebase deployment token.
 
 ## Offline Support
