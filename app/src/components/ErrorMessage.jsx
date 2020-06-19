@@ -4,7 +4,7 @@ import colors from "../materials/colors";
 import { FormErrorType } from "../constants/forms";
 import { AuthenticationErrorType } from "../constants/authentication";
 
-const ErrorMessage = ({ error, testId, isInline = false }) => {
+const ErrorMessage = ({ error, testId, isInputFieldError = true }) => {
   const message = {
     [FormErrorType.EMPTY]: "Required",
     [FormErrorType.MIN_VALUE]: `Value must be greater than or equal to ${error.rule}`,
@@ -26,9 +26,8 @@ const ErrorMessage = ({ error, testId, isInline = false }) => {
 
   const styles = {
     error: css`
-      display: ${isInline ? "inline" : "block"};
       color: ${colors.red};
-      font-size: 13px;
+      font-size: ${isInputFieldError ? "13px" : "15px"};
     `,
   };
 

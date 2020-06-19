@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState, useContext, Fragment } from "react";
 import { Formik, Form } from "formik";
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import firebaseApp from "../firebaseContext/firebase";
 import { useLoginRedirect } from "../hooks/useLoginRedirect";
@@ -24,15 +24,27 @@ const LoginForm = () => {
       );
   };
 
+  const styles = {
+    form: css`
+      padding-top: 10px;
+    `,
+  };
+
   return (
     <Fragment>
-      {!!loginError && <ErrorMessage error={loginError} testId="login-error" />}
+      {!!loginError && (
+        <ErrorMessage
+          error={loginError}
+          isInputFieldError={false}
+          testId="login-error"
+        />
+      )}
 
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
       >
-        <Form>
+        <Form css={styles.form}>
           <Input
             config={{
               label: "Email address",

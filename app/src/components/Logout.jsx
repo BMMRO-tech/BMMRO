@@ -7,14 +7,6 @@ import { Fragment, useState, useContext } from "react";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 
-const styles = {
-  text: css`
-    padding-bottom: 6px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `,
-};
-
 const Logout = () => {
   const { loggedInUser } = useContext(FirebaseContext);
   const [logoutError, setLogoutError] = useState(null);
@@ -26,6 +18,14 @@ const Logout = () => {
       .catch(() =>
         setLogoutError({ type: AuthenticationErrorType.UNSUCCESSFUL_LOGOUT })
       );
+  };
+
+  const styles = {
+    text: css`
+      padding-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
   };
 
   return (

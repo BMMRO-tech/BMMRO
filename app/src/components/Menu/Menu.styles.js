@@ -24,7 +24,7 @@ export const menuStyles = {
     right: 10px;
     position: absolute;
     background-color: white;
-    padding: 10px;
+    padding: 20px;
     box-shadow: 0.5px 1px 1.5px 2px rgba(40, 54, 104, 0.15);
     z-index: 10;
     max-width: 300px;
