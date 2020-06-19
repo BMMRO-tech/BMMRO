@@ -2,8 +2,10 @@
 import { css, jsx } from "@emotion/core";
 
 import colors from "../materials/colors";
-import UserMenu from "./UserMenu";
+import Menu from "./Menu/Menu";
 import Logo from "./icons/Logo";
+import { Avatar } from "./icons/Avatar";
+import Logout from "./Logout";
 
 const styles = {
   header: css`
@@ -32,7 +34,7 @@ const Header = () => {
       <div css={styles.container}>
         <Logo />
         <span css={styles.text}>BMMRO</span>
-        <UserMenu />
+        <Menu menuButtonComponent={<Avatar />} menuItems={[<Logout />]} />
       </div>
     </header>
   );
