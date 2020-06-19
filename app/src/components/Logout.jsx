@@ -10,6 +10,8 @@ import ErrorMessage from "../components/ErrorMessage";
 const styles = {
   text: css`
     padding-bottom: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   `,
 };
 
