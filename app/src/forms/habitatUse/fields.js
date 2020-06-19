@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import {
-  validateNumericField,
+  validateFloatField,
+  validateIntegerField,
   validateDateField,
   validateStartTimeField,
   validateEndTimeField,
@@ -29,14 +30,14 @@ export const fields = [
     label: "No. of Animals",
     placeholder: "4",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 99),
+    validate: (value) => validateIntegerField(value, 0, 99),
   },
   {
     name: "numberOfCalves",
     label: "No. of Calves",
     placeholder: "4",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 99),
+    validate: (value) => validateIntegerField(value, 0, 99),
   },
   {
     name: "species",
@@ -88,7 +89,7 @@ export const fields = [
     label: "No. of Boats",
     placeholder: "1",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 999),
+    validate: (value) => validateIntegerField(value, 0, 999),
   },
   {
     name: "directionOfTravel",
@@ -102,7 +103,7 @@ export const fields = [
     label: "Enc Seq #",
     placeholder: "1",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 99),
+    validate: (value) => validateIntegerField(value, 0, 99),
   },
   {
     name: "comments",
@@ -116,14 +117,14 @@ export const fields = [
     label: "Water Depth (m)",
     placeholder: "1",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 9999),
+    validate: (value) => validateFloatField(value, 0, 9999),
   },
   {
     name: "waterTemp",
     label: "Water Temp (°C)",
     placeholder: "15",
     type: "number",
-    validate: (value) => validateNumericField(value, 15, 40),
+    validate: (value) => validateFloatField(value, 15, 40),
   },
   {
     name: "bottomSubstrate",
@@ -180,21 +181,21 @@ export const fields = [
     label: "Distance (m)",
     placeholder: "1",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 9999),
+    validate: (value) => validateFloatField(value, 0, 9999),
   },
   {
     name: "bearing",
     label: "Bearing (°)",
     placeholder: "1",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 360),
+    validate: (value) => validateFloatField(value, 0, 360),
   },
   {
     name: "aspect",
     label: "Aspect (°)",
     placeholder: "1",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 360),
+    validate: (value) => validateFloatField(value, 0, 360),
   },
   {
     name: "groupCohesion",
@@ -215,7 +216,7 @@ export const fields = [
     label: "Surface Bout",
     placeholder: "11",
     type: "number",
-    validate: (value) => validateNumericField(value, 0, 99),
+    validate: (value) => validateIntegerField(value, 0, 99),
   },
   {
     name: "endTime",

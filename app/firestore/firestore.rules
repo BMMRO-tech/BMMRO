@@ -8,23 +8,17 @@ service cloud.firestore {
 }
 
 function habitatUseValidation() {
-  return validateNumericValue('encSeqNo', request.resource.data.encSeqNo, 0, 99) &&
-    validateNumericValue('numberOfAnimals', request.resource.data.numberOfAnimals, 0, 99) &&
-    validateNumericValue('numberOfCalves', request.resource.data.numberOfCalves, 0, 99) &&
-    validateNumericValue('numberOfBoats', request.resource.data.numberOfBoats, 0, 999) &&
-    validateNumericValue('waterDepth', request.resource.data.waterDepth, 0, 9999) &&
-    validateNumericValue('distance', request.resource.data.distance, 0, 9999) &&
-    validateNumericValue('bearing', request.resource.data.bearing, 0, 360) &&
-    validateNumericValue('aspect', request.resource.data.aspect, 0, 360) &&
-    validateNumericValue('waterTemp', request.resource.data.waterTemp, 15, 40) &&
-    validateNumericValue('surfaceBout', request.resource.data.surfaceBout, 0, 99) &&
-    validatePosition('latitude', request.resource.data.latitude, -90, 90) &&
-    validatePosition('longitude', request.resource.data.longitude, -180, 180) &&
+  return validateIntegerValue('encSeqNo', request.resource.data.encSeqNo, 0, 99) &&
+    validateIntegerValue('numberOfAnimals', request.resource.data.numberOfAnimals, 0, 99) &&
+    validateIntegerValue('numberOfCalves', request.resource.data.numberOfCalves, 0, 99) &&
+    validateIntegerValue('numberOfBoats', request.resource.data.numberOfBoats, 0, 999) &&
+    validateIntegerValue('surfaceBout', request.resource.data.surfaceBout, 0, 99) &&
+    validateFloatValue('waterDepth', request.resource.data.waterDepth, 0, 9999) &&
+    validateFloatValue('distance', request.resource.data.distance, 0, 9999) &&
+    validateFloatValue('bearing', request.resource.data.bearing, 0, 360) &&
+    validateFloatValue('aspect', request.resource.data.aspect, 0, 360) &&
+    validateFloatValue('waterTemp', request.resource.data.waterTemp, 15, 40) &&
     validateStringValue('groupComposition', request.resource.data.groupComposition, 100) && 
-    validateComments() &&
-    validateDateValue('date', request.resource.data.date) &&
-    validateTimeValue('startTime', request.resource.data.startTime) &&
-    validateTimeValue('endTime', request.resource.data.endTime) &&
     validateStringValue('species', request.resource.data.species, 100) && 
     validateStringValue('directionOfTravel', request.resource.data.directionOfTravel, 100) &&
     validateStringValue('bottomSubstrate', request.resource.data.bottomSubstrate, 100) &&
@@ -33,7 +27,13 @@ function habitatUseValidation() {
     validateStringValue('tideState', request.resource.data.tideState, 100) &&
     validateStringValue('behaviour', request.resource.data.behaviour, 100) &&
     validateStringValue('swellWaveHeight', request.resource.data.swellWaveHeight, 100) &&
-    validateStringValue('groupCohesion', request.resource.data.groupCohesion, 100);
+    validateStringValue('groupCohesion', request.resource.data.groupCohesion, 100) &&
+    validateComments() &&
+    validatePosition('latitude', request.resource.data.latitude, -90, 90) &&
+    validatePosition('longitude', request.resource.data.longitude, -180, 180) &&
+    validateDateValue('date', request.resource.data.date) &&
+    validateTimeValue('startTime', request.resource.data.startTime) &&
+    validateTimeValue('endTime', request.resource.data.endTime);
 }
 
 function validateMissingField(field) {
@@ -42,6 +42,10 @@ function validateMissingField(field) {
 
 function validateNumber(val) {
   return val is number;
+}
+
+function validateInteger(val) {
+  return val is int;
 }
 
 function validateString(val) {
@@ -72,12 +76,16 @@ function validateMaxCharLength(val, max) {
   return val.size() <= max;
 }
 
-function validateNumericValue(field, val, min, max) {
+function validateFloatValue(field, val, min, max) {
   return validateMissingField(field) && validateNumber(val) && validateRange(val, min, max);
 }
 
+function validateIntegerValue(field, val, min, max) {
+  return validateMissingField(field) && validateInteger(val) && validateRange(val, min, max);
+}
+
 function validatePosition(field, val, min, max) {
-  return validateNumericValue(field, float(val), min, max) && validatePositionFormat(val);
+  return validateFloatValue(field, float(val), min, max) && validatePositionFormat(val);
 }
 
 function validateStringValue(field, val, max) {

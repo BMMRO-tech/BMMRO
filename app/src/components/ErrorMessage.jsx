@@ -9,6 +9,7 @@ const ErrorMessage = ({ error, testId, isInline = false }) => {
     [FormErrorType.EMPTY]: "Required",
     [FormErrorType.MIN_VALUE]: `Value must be greater than or equal to ${error.rule}`,
     [FormErrorType.MAX_VALUE]: `Value must be less than or equal to ${error.rule}`,
+    [FormErrorType.INVALID_NUMBER_FORMAT]: "Invalid number format",
     [FormErrorType.MAX_DATE]: "Date cannot be in the future",
     [FormErrorType.INVALID_DATE_FORMAT]: `Date must be in the following format ${error.rule}`,
     [FormErrorType.MAX_TIME]: "Time cannot be in the future",

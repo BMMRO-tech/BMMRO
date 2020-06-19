@@ -22,6 +22,14 @@ const validateMin = (value, min) => {
   }
 };
 
+const validateInteger = (value) => {
+  if (!Number.isInteger(value)) {
+    return {
+      type: FormErrorType.INVALID_NUMBER_FORMAT,
+    };
+  }
+};
+
 export const validateMaxCharLength = (value, max) => {
   if (value.length > max) {
     return {
@@ -100,9 +108,18 @@ const validateStartTimeBeforeEndTime = (startTime, endTime) => {
   }
 };
 
-export const validateNumericField = (value, min, max) => {
+export const validateFloatField = (value, min, max) => {
   return (
     validateEmpty(value) || validateMin(value, min) || validateMax(value, max)
+  );
+};
+
+export const validateIntegerField = (value, min, max) => {
+  return (
+    validateEmpty(value) ||
+    validateInteger(value) ||
+    validateMin(value, min) ||
+    validateMax(value, max)
   );
 };
 

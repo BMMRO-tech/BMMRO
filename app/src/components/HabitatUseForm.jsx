@@ -162,10 +162,10 @@ const HabitatUseForm = () => {
             >
               Submit
             </Button>
+            {!!submitMessage && submitMessage}
           </Form>
         )}
       </Formik>
-      {!!submitMessage && <div>{submitMessage}</div>}
       {!!pendingRecords.length && (
         <div css={styles.recordSummaryList}>
           <RecordSummaryList

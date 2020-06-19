@@ -2,6 +2,7 @@ export const FormErrorType = {
   EMPTY: "empty",
   MIN_VALUE: "min-value",
   MAX_VALUE: "max-value",
+  INVALID_NUMBER_FORMAT: "invalid-number-format",
   MAX_DATE: "max-date",
   INVALID_DATE_FORMAT: "invalid-date-format",
   MAX_TIME: "max-time",
