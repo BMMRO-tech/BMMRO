@@ -19,7 +19,7 @@ const ErrorMessage = ({ error, testId, isInputFieldError = true }) => {
     [FormErrorType.INVALID_POSITION_FORMAT]: `Position must have ${error.rule} decimal digits`,
     [FormErrorType.MAX_CHAR_LENGTH]: `Text cannot be longer than ${error.rule} characters`,
     [AuthenticationErrorType.UNSUCCESSFUL_LOGIN]:
-      "The username or password you entered is not recognised. Please try again.",
+      "The email address or password you entered is not recognised. Please try again.",
     [AuthenticationErrorType.UNSUCCESSFUL_LOGOUT]:
       "There was an error while logging out. Please try again.",
   };
