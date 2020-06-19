@@ -5,6 +5,14 @@ import { buildFirebaseAuthMock } from "../../testUtils/firebase";
 import Logout from "../Logout";
 
 describe("Logout", () => {
+  it("should display the user's email address", async () => {
+    const { queryByTestId } = renderWithMockContexts(<Logout />, {
+      loggedInUser: "some-user",
+    });
+
+    expect(queryByTestId("user-email")).toBeInTheDocument();
+  });
+
   it("should display an error when logout is unsuccessful", async () => {
     const signOutResult = {
       signOut: jest.fn().mockRejectedValue(new Error("some error")),
