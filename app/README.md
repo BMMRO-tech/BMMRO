@@ -40,6 +40,12 @@ Since forms are the core component of the application we intend to test their fu
 - [User Testing](https://github.com/BMMRO-tech/BMMRO/milestone/2) - This is our first milestone allowing the application to be tested by real users in real conditions.
 - [Production](https://github.com/BMMRO-tech/BMMRO/milestone/1) - The initial release of the application. The tasks included in this milestone are required to be complete before we can safely recommend for this system to replace the paper form.
 
+## A Note on State Management
+
+We've hoisted react state that is to be shared among components into react context. State pertaining to firebase is in FirebaseContext.
+
+For all persistence-related things, we're using firebase. Submitted forms are also stored locally as is enabled by the `firestore.enablePersistence()` method. The exception is that we additionally store the `loggedInUser` in localStorage to prevent redirection to the login page while firebase auth is initializing.
+
 ## Running and Building the app
 
 To run the app in development mode a .env file is required with REACT_APP_PROJECT_ID, REACT_APP_API_KEY and REACT_APP_AUTH_DOMAIN set. These values can be found in the project settings in Firebase.
