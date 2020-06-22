@@ -9,7 +9,9 @@ const FirebaseContext = createContext();
 
 const FirebaseContextProvider = ({ children }) => {
   const [datastore, setDatastore] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(
+    JSON.parse(localStorage.getItem("loggedInUser"))
+  );
   const [datastoreError, setDatastoreError] = useState(null);
 
   useEffect(() => {
@@ -25,7 +27,11 @@ const FirebaseContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(setLoggedInUser);
+    firebase.auth().onAuthStateChanged((user) => {
+      const userToStore = user ? { email: user.email } : null;
+      localStorage.setItem("loggedInUser", JSON.stringify(userToStore));
+      setLoggedInUser(user);
+    });
   }, []);
 
   return (
