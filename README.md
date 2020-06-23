@@ -32,6 +32,7 @@ We are passionate about technology. We understand that the system that protects 
 - [Habitiat Use Data Sheet, example of the most frequently used form on boat excurtions](HabitatUseDataSheet.JPG)
 - [Encounter Sighting Data Sheet](EncounterSightingDataSheet.JPG)
 - [Kanban board](https://github.com/JBJamesBrownJB/BMMRO/projects/1)
+- [Contributing guidelines](https://github.com/JBJamesBrownJB/BMMRO/blob/master/CONTRIBUTING.md)
 
 ## Milestones
 - ✅**Inception**
@@ -51,6 +52,16 @@ Potential future work could be further app improvements, more accessible or soph
 # Documents and repositories: 
 [Google drive](https://bit.ly/34ha4dK)
 ... If you do not have access to any of the above, email oktawia.kata@thoughtworks.com or james.brown@thoughtworks.com
+
+# Repository maintenance
+
+**Maintenance level:** highly supported
+
+This project has dedicated maintainers to keep this project running smoothly. We will do our best to review and merge PRs quickly, and respond to issues within 5 days, barring unforeseen circumstances.
+
+**Maintainers:** 
+- [James Brown](https://github.com/JBJamesBrownJB)
+- [Oktawia Kata](https://github.com/aiwatko)
 
 # Inspiration
 - https://www.flukebook.org/
