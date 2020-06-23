@@ -4,14 +4,13 @@ import { createContext, useState, useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { initFirestore, Datastore } from "../datastore/datastore";
+import clientPersistence from "../clientPersistence/clientPersistence";
 
 const FirebaseContext = createContext();
 
 const FirebaseContextProvider = ({ children }) => {
   const [datastore, setDatastore] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(
-    JSON.parse(localStorage.getItem("loggedInUser"))
-  );
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [datastoreError, setDatastoreError] = useState(null);
 
   useEffect(() => {
@@ -28,14 +27,9 @@ const FirebaseContextProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        localStorage.setItem(
-          "loggedInUser",
-          JSON.stringify({ email: "loading@user.com" })
-        );
-      } else {
-        localStorage.removeItem("loggedInUser");
-      }
+      user
+        ? clientPersistence.set("isLoggedIn", true)
+        : clientPersistence.remove("isLoggedIn");
       setLoggedInUser(user);
     });
   }, []);

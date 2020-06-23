@@ -31,7 +31,7 @@ const Logout = () => {
   return (
     <Fragment>
       <div css={styles.text} data-testid="user-email">
-        {loggedInUser?.email}
+        {loggedInUser?.email || "Loading user..."}
       </div>
       <Button width="100%" onClick={logout} testId="logout-button">
         Logout
