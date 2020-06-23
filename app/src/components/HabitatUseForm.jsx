@@ -12,7 +12,8 @@ import RecordSummaryList from "./RecordSummaryList";
 import Input from "./Input";
 
 const HabitatUseForm = () => {
-  const [submitMessage, setSubmitMessage] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasSubmitError, setHasSubmitError] = useState(false);
   const [pendingRecords, setPendingRecords] = useState([]);
   const position = usePosition();
   const { datastore } = useContext(FirebaseContext);
@@ -51,6 +52,16 @@ const HabitatUseForm = () => {
       margin-top: 45px;
     `,
   };
+  const generateSubmitMessage = () => {
+    if (isSubmitted) {
+      return !pendingRecords.length
+        ? "Reading uploaded!"
+        : "Reading stored locally";
+    } else if (hasSubmitError) {
+      return "Failed to upload!";
+    }
+  };
+
   return (
     <Fragment>
       <h1>Habitat Use Form</h1>
@@ -71,20 +82,12 @@ const HabitatUseForm = () => {
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
-          const online = window.navigator.onLine;
-
-          if (online) {
-            try {
-              await datastore.createHabitatUse(values);
-              setSubmitMessage("Reading uploaded");
-              setSubmitting(false);
-            } catch (e) {
-              setSubmitMessage("Failed to upload!");
-              setSubmitting(false);
-            }
-          } else {
+          try {
             datastore.createHabitatUse(values);
-            setSubmitMessage("Reading stored locally");
+            setIsSubmitted(true);
+            setSubmitting(false);
+          } catch (e) {
+            setHasSubmitError(true);
             setSubmitting(false);
           }
         }}
@@ -162,7 +165,7 @@ const HabitatUseForm = () => {
             >
               Submit
             </Button>
-            {!!submitMessage && submitMessage}
+            {generateSubmitMessage()}
           </Form>
         )}
       </Formik>
