@@ -28,8 +28,14 @@ const FirebaseContextProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      const userToStore = user ? { email: user.email } : null;
-      localStorage.setItem("loggedInUser", JSON.stringify(userToStore));
+      if (user) {
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({ email: "loading@user.com" })
+        );
+      } else {
+        localStorage.removeItem("loggedInUser");
+      }
       setLoggedInUser(user);
     });
   }, []);
