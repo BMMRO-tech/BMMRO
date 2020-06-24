@@ -1,0 +1,21 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "BMMRO scripts",
+  "main": "export-data.js",
+  "scripts": {
+    "test": "firebase emulators:exec --only firestore 'jest'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.14.0",
+    "dotenv": "^8.2.0",
+    "firebase": "^7.15.4",
+    "json2csv": "^5.0.1"
+  },
+  "devDependencies": {
+    "@firebase/testing": "^0.15.0",
+    "jest": "^25.0.0"
+  }
+}

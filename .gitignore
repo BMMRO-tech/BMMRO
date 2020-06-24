@@ -89,27 +89,32 @@ typings/
 
 # Frontend app 
 
-# Logs
+## Logs
 npm-debug.log*
 firebase-debug.log*
 
-# dependencies
+## dependencies
 /app/node_modules
 /app/.pnp
 /app/.pnp.js
 
-# testing
+## testing
 /app/coverage
 
-# production
+## production
 /app/build
 
-# Firebase cache
+## Firebase cache
 .firebase/
 
-# Firebase config
+## Firebase config
 .firebaserc
 
-# misc
+## misc
 .DS_Store
 .vscode
+
+# Scripts
+
+## Exported data
+/scripts/exported
