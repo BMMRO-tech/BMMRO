@@ -5,6 +5,7 @@ const textFields = require("../src/forms/habitatUse/testCases/textFields.json");
 const dateFields = require("../src/forms/habitatUse/testCases/dateFields.json");
 const timeFields = require("../src/forms/habitatUse/testCases/timeFields.json");
 const selectFields = require("../src/forms/habitatUse/testCases/selectFields.json");
+const hiddenFields = require("../src/forms/habitatUse/testCases/hiddenFields.json");
 
 const projectId = "bmmro-app";
 const rules = fs.readFileSync(`${__dirname}/firestore.rules`, "utf8");
@@ -42,7 +43,7 @@ describe("Habitat Use Collection Create Validation", () => {
     comments: "",
     date: "23/07/2018",
     startTime: "22:22",
-    endTime: "23:1",
+    endTime: "23:10",
     species: "Bottlenose dolphin - coastal",
     directionOfTravel: "N",
     bottomSubstrate: "Rock",
@@ -52,6 +53,7 @@ describe("Habitat Use Collection Create Validation", () => {
     behaviour: "Rest",
     swellWaveHeight: "0",
     groupCohesion: "Tight",
+    timestamp: "2018-07-23T22:22",
   };
 
   const testDocumentCreation = (testDescription, testCase, field) => {
@@ -177,6 +179,25 @@ describe("Habitat Use Collection Create Validation", () => {
             testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
           } else {
             testDescription = `Should succeed with value '${testCase.value}'`;
+          }
+
+          testDocumentCreation(testDescription, testCase, field);
+        });
+
+        testDocCreationWithMissingField(field);
+      });
+    });
+  });
+
+  describe("Hidden fields", () => {
+    hiddenFields.forEach((field) => {
+      describe(field.id, () => {
+        field.testCases.forEach((testCase) => {
+          let testDescription;
+          if (!!testCase.error) {
+            testDescription = `Should fail due to '${testCase.error}' for value ${testCase.value}`;
+          } else {
+            testDescription = `Should succeed with value ${testCase.value}`;
           }
 
           testDocumentCreation(testDescription, testCase, field);

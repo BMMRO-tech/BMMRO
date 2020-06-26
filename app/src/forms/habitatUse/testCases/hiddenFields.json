@@ -1,0 +1,9 @@
+[
+  {
+    "id": "timestamp",
+    "testCases": [
+      { "value": "2020-03-05T13:00:00" },
+      { "value": "2020-03-05", "error": "invalid-date-format" }
+    ]
+  }
+]
