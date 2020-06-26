@@ -196,5 +196,10 @@ describe("Habitat Use Form validation", () => {
       const longitudeField = habitatUseForm.queryByTestId("longitude");
       expect(longitudeField.value).toBe(longitudeActual);
     });
+
+    it("timestamp should be autofilled", async () => {
+      const timestampField = habitatUseForm.queryByTestId("timestamp");
+      expect(timestampField.value).toBe("2020-05-04T11:30:00");
+    });
   });
 });

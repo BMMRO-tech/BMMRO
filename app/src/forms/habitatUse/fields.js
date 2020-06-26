@@ -14,15 +14,16 @@ import {
   DATE_FORMAT,
   TIME_FORMAT,
   POSITION_DECIMAL_PRECISION,
+  TIMESTAMP_FORMAT,
 } from "../../constants/forms";
 
-const getCurrentDate = () => {
-  return format(new Date(Date.now()), DATE_FORMAT);
-};
+const getCurrentDate = () => new Date(Date.now());
 
-const getCurrentTime = () => {
-  return format(new Date(Date.now()), TIME_FORMAT);
-};
+export const formatTimestamp = (date) => format(date, TIMESTAMP_FORMAT);
+
+const formatDate = (date) => format(date, DATE_FORMAT);
+
+const formatTime = (date) => format(date, TIME_FORMAT);
 
 export const fields = [
   {
@@ -232,7 +233,7 @@ export const fields = [
     label: "Date (dd/mm/yyyy)",
     placeholder: "23/05/2020",
     type: "text",
-    initialValue: () => getCurrentDate(),
+    initialValue: () => formatDate(getCurrentDate()),
     validate: (value) => validateDateField(value),
   },
   {
@@ -241,7 +242,7 @@ export const fields = [
     placeholder: "15:00",
     type: "text",
     dependingOn: ["date"],
-    initialValue: () => getCurrentTime(),
+    initialValue: () => formatTime(getCurrentDate()),
     validate: (value, dependingFields) =>
       validateStartTimeField(value, dependingFields),
   },
@@ -260,5 +261,10 @@ export const fields = [
     type: "text",
     validate: (value) =>
       validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),
+  },
+  {
+    name: "timestamp",
+    type: "hidden",
+    initialValue: () => formatTimestamp(getCurrentDate()),
   },
 ];

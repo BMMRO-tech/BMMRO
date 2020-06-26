@@ -12,6 +12,7 @@ export const FormErrorType = {
   MAX_CHAR_LENGTH: "max-char-length",
 };
 
+export const TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 export const DATE_FORMAT = "dd/MM/yyyy";
 export const TIME_FORMAT = "HH:mm";
 export const POSITION_DECIMAL_PRECISION = 6;

@@ -17,6 +17,7 @@ const Input = ({
     dependingFields,
     error,
     validate,
+    onBlur,
   },
 }) => {
   const styles = {
@@ -40,9 +41,11 @@ const Input = ({
   };
   return (
     <Fragment>
-      <label css={styles.label} htmlFor={name}>
-        {label}
-      </label>
+      {label && (
+        <label css={styles.label} htmlFor={name}>
+          {label}
+        </label>
+      )}
       <Field
         as={type === "textarea" ? type : null}
         css={styles.input}
@@ -52,6 +55,7 @@ const Input = ({
         id={name}
         data-testid={name}
         value={value}
+        onBlur={onBlur}
         validate={
           !!validate ? (value) => validate(value, dependingFields) : null
         }

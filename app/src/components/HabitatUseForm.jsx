@@ -2,8 +2,10 @@
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { useState, useEffect, Fragment, useContext } from "react";
+import { parse } from "date-fns";
 
-import { fields } from "../forms/habitatUse/fields";
+import { DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
+import { fields, formatTimestamp } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Button from "./Button";
@@ -66,8 +68,7 @@ const HabitatUseForm = () => {
     <Fragment>
       <h1>Habitat Use Form</h1>
       <Formik
-        enableReinitialize={true}
-        initialValues={(function () {
+        initialValues={(() => {
           const initValues = {};
 
           fields.forEach((field) => {
@@ -82,6 +83,13 @@ const HabitatUseForm = () => {
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
+          values["timestamp"] = formatTimestamp(
+            parse(
+              `${values["date"]} ${values["startTime"]}`,
+              `${DATE_FORMAT} ${TIME_FORMAT}`,
+              new Date()
+            )
+          );
           try {
             datastore.createHabitatUse(values);
             setIsSubmitted(true);
@@ -109,8 +117,8 @@ const HabitatUseForm = () => {
                   placeholder,
                   type,
                   options,
-                  validate,
                   dependingOn,
+                  validate,
                 }) => {
                   const dependingFields = {};
                   dependingOn &&
