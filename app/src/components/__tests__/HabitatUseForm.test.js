@@ -199,7 +199,9 @@ describe("Habitat Use Form validation", () => {
 
     it("timestamp should be autofilled", async () => {
       const timestampField = habitatUseForm.queryByTestId("timestamp");
-      expect(timestampField.value).toBe("2020-05-04T11:30:00");
+      expect(timestampField.value).toBe(
+        "Mon May 04 2020 11:30:00 GMT+0000 (Coordinated Universal Time)"
+      );
     });
   });
 });

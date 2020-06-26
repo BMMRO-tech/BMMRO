@@ -14,12 +14,9 @@ import {
   DATE_FORMAT,
   TIME_FORMAT,
   POSITION_DECIMAL_PRECISION,
-  TIMESTAMP_FORMAT,
 } from "../../constants/forms";
 
 const getCurrentDate = () => new Date(Date.now());
-
-export const formatTimestamp = (date) => format(date, TIMESTAMP_FORMAT);
 
 const formatDate = (date) => format(date, DATE_FORMAT);
 
@@ -265,6 +262,6 @@ export const fields = [
   {
     name: "timestamp",
     type: "hidden",
-    initialValue: () => formatTimestamp(getCurrentDate()),
+    initialValue: () => getCurrentDate(),
   },
 ];

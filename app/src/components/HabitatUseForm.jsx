@@ -5,7 +5,7 @@ import { useState, useEffect, Fragment, useContext } from "react";
 import { parse } from "date-fns";
 
 import { DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
-import { fields, formatTimestamp } from "../forms/habitatUse/fields";
+import { fields } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Button from "./Button";
@@ -68,6 +68,7 @@ const HabitatUseForm = () => {
     <Fragment>
       <h1>Habitat Use Form</h1>
       <Formik
+        enableReinitialize={true}
         initialValues={(() => {
           const initValues = {};
 
@@ -83,12 +84,10 @@ const HabitatUseForm = () => {
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
-          values["timestamp"] = formatTimestamp(
-            parse(
-              `${values["date"]} ${values["startTime"]}`,
-              `${DATE_FORMAT} ${TIME_FORMAT}`,
-              new Date()
-            )
+          values["timestamp"] = parse(
+            `${values["date"]} ${values["startTime"]}`,
+            `${DATE_FORMAT} ${TIME_FORMAT}`,
+            new Date()
           );
           try {
             datastore.createHabitatUse(values);
