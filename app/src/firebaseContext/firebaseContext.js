@@ -5,6 +5,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { initFirestore, Datastore } from "../datastore/datastore";
 import clientPersistence from "../clientPersistence/clientPersistence";
+import { navigate } from "@reach/router";
 
 const FirebaseContext = createContext();
 
@@ -27,10 +28,13 @@ const FirebaseContextProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      user
-        ? clientPersistence.set("isLoggedIn", true)
-        : clientPersistence.remove("isLoggedIn");
       setLoggedInUser(user);
+      if (user) {
+        clientPersistence.set("isLoggedIn", true);
+      } else {
+        clientPersistence.remove("isLoggedIn");
+        navigate("/login", { state: { from: window.location.pathname } });
+      }
     });
   }, []);
 
