@@ -5,7 +5,7 @@ const textFields = require("../src/forms/habitatUse/testCases/textFields.json");
 const dateFields = require("../src/forms/habitatUse/testCases/dateFields.json");
 const timeFields = require("../src/forms/habitatUse/testCases/timeFields.json");
 const selectFields = require("../src/forms/habitatUse/testCases/selectFields.json");
-const hiddenFields = require("../src/forms/habitatUse/testCases/hiddenFields.json");
+const hiddenFields = require("../src/forms/habitatUse/testCases/hiddenFields");
 
 const projectId = "bmmro-app";
 const rules = fs.readFileSync(`${__dirname}/firestore.rules`, "utf8");
@@ -53,7 +53,7 @@ describe("Habitat Use Collection Create Validation", () => {
     behaviour: "Rest",
     swellWaveHeight: "0",
     groupCohesion: "Tight",
-    timestamp: "2018-07-23T22:22",
+    timestamp: new Date("2018-07-23T22:22"),
   };
 
   const testDocumentCreation = (testDescription, testCase, field) => {

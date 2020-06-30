@@ -2,39 +2,39 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /habitatUse/{habitatUseId} {
       allow read;
-      allow create: if habitatUseValidation();
+      allow create: if habitatUseValidation(request.resource.data);
     }
   }
 }
 
-function habitatUseValidation() {
-  return validateIntegerValue('encSeqNo', request.resource.data.encSeqNo, 0, 99) &&
-    validateIntegerValue('numberOfAnimals', request.resource.data.numberOfAnimals, 0, 99) &&
-    validateIntegerValue('numberOfCalves', request.resource.data.numberOfCalves, 0, 99) &&
-    validateIntegerValue('numberOfBoats', request.resource.data.numberOfBoats, 0, 999) &&
-    validateIntegerValue('surfaceBout', request.resource.data.surfaceBout, 0, 99) &&
-    validateFloatValue('waterDepth', request.resource.data.waterDepth, 0, 9999) &&
-    validateFloatValue('distance', request.resource.data.distance, 0, 9999) &&
-    validateFloatValue('bearing', request.resource.data.bearing, 0, 360) &&
-    validateFloatValue('aspect', request.resource.data.aspect, 0, 360) &&
-    validateFloatValue('waterTemp', request.resource.data.waterTemp, 15, 40) &&
-    validateStringValue('groupComposition', request.resource.data.groupComposition, 100) && 
-    validateStringValue('species', request.resource.data.species, 100) && 
-    validateStringValue('directionOfTravel', request.resource.data.directionOfTravel, 100) &&
-    validateStringValue('bottomSubstrate', request.resource.data.bottomSubstrate, 100) &&
-    validateStringValue('cloudCover', request.resource.data.cloudCover, 100) &&
-    validateStringValue('beaufortSeaState', request.resource.data.beaufortSeaState, 100) &&
-    validateStringValue('tideState', request.resource.data.tideState, 100) &&
-    validateStringValue('behaviour', request.resource.data.behaviour, 100) &&
-    validateStringValue('swellWaveHeight', request.resource.data.swellWaveHeight, 100) &&
-    validateStringValue('groupCohesion', request.resource.data.groupCohesion, 100) &&
+function habitatUseValidation(fireData) {
+  return validateIntegerValue('encSeqNo', fireData.encSeqNo, 0, 99) &&
+    validateIntegerValue('numberOfAnimals', fireData.numberOfAnimals, 0, 99) &&
+    validateIntegerValue('numberOfCalves', fireData.numberOfCalves, 0, 99) &&
+    validateIntegerValue('numberOfBoats', fireData.numberOfBoats, 0, 999) &&
+    validateIntegerValue('surfaceBout', fireData.surfaceBout, 0, 99) &&
+    validateFloatValue('waterDepth', fireData.waterDepth, 0, 9999) &&
+    validateFloatValue('distance', fireData.distance, 0, 9999) &&
+    validateFloatValue('bearing', fireData.bearing, 0, 360) &&
+    validateFloatValue('aspect', fireData.aspect, 0, 360) &&
+    validateFloatValue('waterTemp', fireData.waterTemp, 15, 40) &&
+    validateStringValue('groupComposition', fireData.groupComposition, 100) &&
+    validateStringValue('species', fireData.species, 100) &&
+    validateStringValue('directionOfTravel', fireData.directionOfTravel, 100) &&
+    validateStringValue('bottomSubstrate', fireData.bottomSubstrate, 100) &&
+    validateStringValue('cloudCover', fireData.cloudCover, 100) &&
+    validateStringValue('beaufortSeaState', fireData.beaufortSeaState, 100) &&
+    validateStringValue('tideState', fireData.tideState, 100) &&
+    validateStringValue('behaviour', fireData.behaviour, 100) &&
+    validateStringValue('swellWaveHeight', fireData.swellWaveHeight, 100) &&
+    validateStringValue('groupCohesion', fireData.groupCohesion, 100) &&
     validateCommentsValue() &&
-    validatePosition('latitude', request.resource.data.latitude, -90, 90) &&
-    validatePosition('longitude', request.resource.data.longitude, -180, 180) &&
-    validateDateValue('date', request.resource.data.date) &&
-    validateTimeValue('startTime', request.resource.data.startTime) &&
-    validateTimeValue('endTime', request.resource.data.endTime) &&
-  validateTimestampValue('timestamp', request.resource.data.timestamp);
+    validatePosition('latitude', fireData.latitude, -90, 90) &&
+    validatePosition('longitude', fireData.longitude, -180, 180) &&
+    validateDateValue('date', fireData.date) &&
+    validateTimeValue('startTime', fireData.startTime) &&
+    validateTimeValue('endTime', fireData.endTime) &&
+  validateTimestampValue('timestamp', fireData.timestamp);
 }
 
 function validateMissingField(field) {
@@ -54,7 +54,7 @@ function validateString(val) {
 }
 
 function validateTimestamp(val) {
-  return string(val).matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}[T]{1}[0-9]{2}:[0-9]{2}:[0-9]{2}$');
+  return val is timestamp;
 }
 
 function validateEmptyString(val) {

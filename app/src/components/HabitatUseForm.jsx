@@ -83,12 +83,9 @@ const HabitatUseForm = () => {
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
-          values["timestamp"] = formatTimestamp(
-            parse(
-              `${values["date"]} ${values["startTime"]}`,
-              `${DATE_FORMAT} ${TIME_FORMAT}`,
-              new Date()
-            )
+          values["timestamp"] = parseDateTime(
+            values["date"],
+            values["startTime"]
           );
           try {
             datastore.createHabitatUse(values);
@@ -190,3 +187,7 @@ const HabitatUseForm = () => {
 };
 
 export default HabitatUseForm;
+
+function parseDateTime(date, time) {
+  return parse(`${date} ${time}`, `${DATE_FORMAT} ${TIME_FORMAT}`, new Date());
+}
