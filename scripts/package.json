@@ -4,7 +4,8 @@
   "description": "BMMRO scripts",
   "main": "export-data.js",
   "scripts": {
-    "test": "firebase emulators:exec --only firestore 'jest'"
+    "test": "firebase emulators:exec --only firestore 'jest'",
+    "export-data": "node ./exportData"
   },
   "author": "",
   "license": "ISC",
