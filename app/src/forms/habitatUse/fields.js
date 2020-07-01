@@ -26,7 +26,6 @@ export const fields = [
   {
     name: "numberOfAnimals",
     label: "No. of Animals",
-    placeholder: "4",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
     initialValue: () => 1,
@@ -34,7 +33,6 @@ export const fields = [
   {
     name: "numberOfCalves",
     label: "No. of Calves",
-    placeholder: "4",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
     initialValue: () => 0,
@@ -87,7 +85,6 @@ export const fields = [
   {
     name: "numberOfBoats",
     label: "No. of Boats",
-    placeholder: "1",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 999),
     initialValue: () => 1,
@@ -102,28 +99,24 @@ export const fields = [
   {
     name: "encSeqNo",
     label: "Enc Seq #",
-    placeholder: "1",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
   },
   {
     name: "comments",
     label: "Comments",
-    placeholder: "Dolphins crater feeding",
     type: "textarea",
     validate: (value) => validateMaxCharLength(value, 500),
   },
   {
     name: "waterDepth",
     label: "Water Depth (m)",
-    placeholder: "1",
     type: "number",
     validate: (value) => validateFloatField(value, 0, 9999),
   },
   {
     name: "waterTemp",
     label: "Water Temp (°C)",
-    placeholder: "15",
     type: "number",
     validate: (value) => validateFloatField(value, 15, 40),
     initialValue: () => 28,
@@ -182,21 +175,18 @@ export const fields = [
   {
     name: "distance",
     label: "Distance (m)",
-    placeholder: "1",
     type: "number",
     validate: (value) => validateFloatField(value, 0, 9999),
   },
   {
     name: "bearing",
     label: "Bearing (°)",
-    placeholder: "1",
     type: "number",
     validate: (value) => validateFloatField(value, 0, 360),
   },
   {
     name: "aspect",
     label: "Aspect (°)",
-    placeholder: "1",
     type: "number",
     validate: (value) => validateFloatField(value, 0, 360),
   },
@@ -210,14 +200,12 @@ export const fields = [
   {
     name: "groupComposition",
     label: "Group Composition",
-    placeholder: "SM",
     type: "text",
     validate: (value) => validateTextField(value, 100),
   },
   {
     name: "surfaceBout",
     label: "Surface Bout",
-    placeholder: "11",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
     initialValue: () => 0,
@@ -225,7 +213,6 @@ export const fields = [
   {
     name: "endTime",
     label: "End Time (hh:mm)",
-    placeholder: "16:00",
     type: "text",
     dependingOn: ["date", "startTime"],
     validate: (value, dependingFields) =>
@@ -234,7 +221,6 @@ export const fields = [
   {
     name: "date",
     label: "Date (dd/mm/yyyy)",
-    placeholder: "23/05/2020",
     type: "text",
     initialValue: () => formatDate(getCurrentDate()),
     validate: (value) => validateDateField(value),
@@ -242,7 +228,6 @@ export const fields = [
   {
     name: "startTime",
     label: "Start Time (hh:mm)",
-    placeholder: "15:00",
     type: "text",
     dependingOn: ["date"],
     initialValue: () => formatTime(getCurrentDate()),
@@ -252,7 +237,6 @@ export const fields = [
   {
     name: "latitude",
     label: "Lat",
-    placeholder: "53.012234",
     type: "text",
     validate: (value) =>
       validatePositionField(value, -90, 90, POSITION_DECIMAL_PRECISION),
@@ -260,7 +244,6 @@ export const fields = [
   {
     name: "longitude",
     label: "Long",
-    placeholder: "-68.356234",
     type: "text",
     validate: (value) =>
       validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),
