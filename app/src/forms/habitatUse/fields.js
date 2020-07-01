@@ -29,6 +29,7 @@ export const fields = [
     placeholder: "4",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
+    initialValue: () => 1,
   },
   {
     name: "numberOfCalves",
@@ -36,6 +37,7 @@ export const fields = [
     placeholder: "4",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
+    initialValue: () => 0,
   },
   {
     name: "species",
@@ -88,6 +90,7 @@ export const fields = [
     placeholder: "1",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 999),
+    initialValue: () => 1,
   },
   {
     name: "directionOfTravel",
@@ -123,6 +126,7 @@ export const fields = [
     placeholder: "15",
     type: "number",
     validate: (value) => validateFloatField(value, 15, 40),
+    initialValue: () => 28,
   },
   {
     name: "bottomSubstrate",
@@ -173,6 +177,7 @@ export const fields = [
     options: ["0", "1", "2", "3", "4", "5", "6+"],
     type: "select",
     validate: (value) => validateEmpty(value),
+    initialValue: () => "1",
   },
   {
     name: "distance",
@@ -215,6 +220,7 @@ export const fields = [
     placeholder: "11",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
+    initialValue: () => 0,
   },
   {
     name: "endTime",
