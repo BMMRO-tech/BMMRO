@@ -1,11 +1,11 @@
 const { exportData } = require("./exportData");
 
 describe("script", () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     delete process.env.PROJECT_ID;
     delete process.env.API_KEY;
     delete process.env.AUTH_DOMAIN;
-    delete process.env.USERNAME;
+    delete process.env.EMAIL;
     delete process.env.PASSWORD;
     delete process.argv[2];
     delete process.argv[3];
@@ -25,7 +25,7 @@ describe("script", () => {
       process.env.PROJECT_ID = "project-id";
       process.env.API_KEY = "api-key";
       process.env.AUTH_DOMAIN = "auth-domain";
-      process.env.USERNAME = "test";
+      process.env.EMAIL = "test";
       process.env.PASSWORD = "test";
     });
 

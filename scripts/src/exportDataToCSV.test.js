@@ -11,7 +11,7 @@ describe("exportData script", () => {
   const projectId = "project-id";
   const apiKey = "api-key";
   const authDomain = "auth-domain";
-  const username = "test";
+  const email = "test";
   const password = "test";
 
   let startDate;
@@ -93,7 +93,7 @@ describe("exportData script", () => {
         projectId,
         apiKey,
         authDomain,
-        username,
+        email,
         password,
         startDate,
         endDate
@@ -119,7 +119,7 @@ describe("exportData script", () => {
         projectId,
         apiKey,
         authDomain,
-        username,
+        email,
         password,
         startDate,
         endDate
@@ -136,7 +136,7 @@ describe("exportData script", () => {
           projectId,
           apiKey,
           authDomain,
-          username,
+          email,
           password,
           startDate,
           endDate

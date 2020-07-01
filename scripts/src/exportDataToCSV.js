@@ -37,6 +37,7 @@ const queryDataByTimeInterval = async (
 
 const transformDataToCsvFormat = (data) => {
   const jsondata = [];
+
   data.forEach((doc) => {
     const object = doc.data();
     jsondata.push(object);
@@ -58,14 +59,14 @@ const exportDataToCSV = async (
   projectId,
   apiKey,
   authDomain,
-  username,
+  email,
   password,
   startDate,
   endDate
 ) => {
   try {
     initializeApp(projectId, apiKey, authDomain);
-    await authenticateUser(username, password);
+    await authenticateUser(email, password);
 
     const firestore = firebase.firestore();
     const queryData = await queryDataByTimeInterval(

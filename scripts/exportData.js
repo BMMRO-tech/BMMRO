@@ -3,7 +3,7 @@ const { exportDataToCSV } = require("./src/exportDataToCSV");
 
 const errorType = {
   MISSING_ENV_VAR:
-    "Missing env variable(s). Make sure you defined PROJECT_ID, API_KEY, AUTH_DOMAIN, USERNAME and PASSWORD.",
+    "Missing env variable(s). Make sure you defined PROJECT_ID, API_KEY, AUTH_DOMAIN, EMAIL and PASSWORD.",
   MISSING_ARG:
     "Missing script argument(s). Make sure you defined start date and and date.",
   INVALID_DATE_FORMAT: "Dates must be in format dd/MM/yyyy",
@@ -17,7 +17,7 @@ const checkMissingConfigValues = () => {
     !process.env.PROJECT_ID ||
     !process.env.API_KEY ||
     !process.env.AUTH_DOMAIN ||
-    !process.env.USERNAME ||
+    !process.env.EMAIL ||
     !process.env.PASSWORD
   ) {
     throw new Error(errorType.MISSING_ENV_VAR);
@@ -54,7 +54,7 @@ const exportData = async function () {
     process.env.PROJECT_ID,
     process.env.API_KEY,
     process.env.AUTH_DOMAIN,
-    process.env.USERNAME,
+    process.env.EMAIL,
     process.env.PASSWORD,
     startDate,
     endDate
