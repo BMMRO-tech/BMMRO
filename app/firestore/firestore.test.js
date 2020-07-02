@@ -89,8 +89,6 @@ describe("Habitat Use Collection Create Validation", () => {
           let testDescription;
           if (!!testCase.error) {
             testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
-          } else if (testCase.value == "") {
-            testDescription = `Should fail due to '${testCase.error}' for incorrect format`;
           } else {
             testDescription = `Should succeed with value '${testCase.value}'`;
           }

@@ -1,41 +1,38 @@
 [
   {
     "id": "species",
-    "testCases": [
-      { "value": "Bottlenose dolphin - coastal" },
-      { "value": "", "error": "empty" }
-    ]
+    "testCases": [{ "value": "Bottlenose dolphin - coastal" }, { "value": "" }]
   },
   {
     "id": "directionOfTravel",
-    "testCases": [{ "value": "N" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "N" }, { "value": "" }]
   },
   {
     "id": "bottomSubstrate",
-    "testCases": [{ "value": "Rock" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "Rock" }, { "value": "" }]
   },
   {
     "id": "cloudCover",
-    "testCases": [{ "value": "< 25%" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "< 25%" }, { "value": "" }]
   },
   {
     "id": "beaufortSeaState",
-    "testCases": [{ "value": "0" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "0" }, { "value": "" }]
   },
   {
     "id": "tideState",
-    "testCases": [{ "value": "High" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "High" }, { "value": "" }]
   },
   {
     "id": "behaviour",
-    "testCases": [{ "value": "Rest" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "Rest" }, { "value": "" }]
   },
   {
     "id": "swellWaveHeight",
-    "testCases": [{ "value": "0" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "0" }, { "value": "" }]
   },
   {
     "id": "groupCohesion",
-    "testCases": [{ "value": "Tight" }, { "value": "", "error": "empty" }]
+    "testCases": [{ "value": "Tight" }, { "value": "" }]
   }
 ]

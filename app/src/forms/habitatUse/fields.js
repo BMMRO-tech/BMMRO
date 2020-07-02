@@ -5,10 +5,10 @@ import {
   validateDateField,
   validateStartTimeField,
   validateEndTimeField,
-  validateEmpty,
   validatePositionField,
   validateMaxCharLength,
   validateTextField,
+  validateEncSeq,
 } from "../validation";
 import {
   DATE_FORMAT,
@@ -80,7 +80,6 @@ export const fields = [
       "West Indian manatee",
     ],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "numberOfBoats",
@@ -94,13 +93,12 @@ export const fields = [
     label: "Direction of Travel",
     options: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "encSeqNo",
     label: "Enc Seq #",
     type: "number",
-    validate: (value) => validateIntegerField(value, 0, 99),
+    validate: (value) => validateEncSeq(value, 0, 99),
   },
   {
     name: "comments",
@@ -134,42 +132,36 @@ export const fields = [
       "Unknown",
     ],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "cloudCover",
     label: "Cloud Cover",
     options: ["< 25%", "25% - 50%", "50% - 75%", "> 75%"],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "beaufortSeaState",
     label: "Beaufort Sea State",
     options: [0, 1, 2, 3, 4, 5],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "tideState",
     label: "Tide State",
     options: ["High", "Ebb", "Low", "Flood", "Slack"],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "behaviour",
     label: "Behaviour",
     options: ["Rest", "Feed", "Social", "Travel", "Milling"],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "swellWaveHeight",
     label: "Swell / Wave height (ft)",
     options: ["0", "1", "2", "3", "4", "5", "6+"],
     type: "select",
-    validate: (value) => validateEmpty(value),
     initialValue: () => "1",
   },
   {
@@ -195,7 +187,6 @@ export const fields = [
     label: "Group Cohesion",
     options: ["Tight", "Moderate", "Loose"],
     type: "select",
-    validate: (value) => validateEmpty(value),
   },
   {
     name: "groupComposition",

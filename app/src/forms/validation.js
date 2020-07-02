@@ -108,13 +108,21 @@ const validateStartTimeBeforeEndTime = (startTime, endTime) => {
   }
 };
 
-export const validateFloatField = (value, min, max) => {
-  return (
-    validateEmpty(value) || validateMin(value, min) || validateMax(value, max)
-  );
+export const validateFloatField = (value, min, max, optional = true) => {
+  return value === "" && optional
+    ? ""
+    : validateMin(value, min) || validateMax(value, max);
 };
 
-export const validateIntegerField = (value, min, max) => {
+export const validateIntegerField = (value, min, max, optional = true) => {
+  return value === "" && optional
+    ? ""
+    : validateInteger(value) ||
+        validateMin(value, min) ||
+        validateMax(value, max);
+};
+
+export const validateEncSeq = (value, min, max) => {
   return (
     validateEmpty(value) ||
     validateInteger(value) ||
@@ -130,7 +138,7 @@ export const validateDateField = (value) => {
 };
 
 export const validateTextField = (value, max) => {
-  return validateEmpty(value) || validateMaxCharLength(value, max);
+  return validateMaxCharLength(value, max);
 };
 
 export const validateStartTimeField = (time, dependingFields) => {
