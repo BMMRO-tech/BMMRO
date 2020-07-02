@@ -96,7 +96,7 @@ export const fields = [
   },
   {
     name: "encSeqNo",
-    label: "Enc Seq #",
+    label: "Enc Seq #*",
     type: "number",
     validate: (value) => validateEncSeq(value, 0, 99),
   },
@@ -211,14 +211,14 @@ export const fields = [
   },
   {
     name: "date",
-    label: "Date (dd/mm/yyyy)",
+    label: "Date (dd/mm/yyyy)*",
     type: "text",
     initialValue: () => formatDate(getCurrentDate()),
     validate: (value) => validateDateField(value),
   },
   {
     name: "startTime",
-    label: "Start Time (hh:mm)",
+    label: "Start Time (hh:mm)*",
     type: "text",
     dependingOn: ["date"],
     initialValue: () => formatTime(getCurrentDate()),
@@ -227,14 +227,14 @@ export const fields = [
   },
   {
     name: "latitude",
-    label: "Lat",
+    label: "Lat*",
     type: "text",
     validate: (value) =>
       validatePositionField(value, -90, 90, POSITION_DECIMAL_PRECISION),
   },
   {
     name: "longitude",
-    label: "Long",
+    label: "Long*",
     type: "text",
     validate: (value) =>
       validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),

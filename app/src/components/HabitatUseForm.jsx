@@ -67,6 +67,11 @@ const HabitatUseForm = () => {
   return (
     <Fragment>
       <h1>Habitat Use Form</h1>
+      <p>
+        <small>
+          <em>*required fields</em>
+        </small>
+      </p>
       <Formik
         enableReinitialize={true}
         initialValues={(() => {
