@@ -12,7 +12,7 @@
     "id": "endTime",
     "testCases": [
       { "value": "15:30" },
-      { "value": "", "error": "empty" },
+      { "value": "" },
       { "value": "19:30", "error": "max-time", "target": "frontend" },
       {
         "value": "12:30",

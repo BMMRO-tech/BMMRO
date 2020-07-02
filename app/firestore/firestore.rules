@@ -32,8 +32,8 @@ function habitatUseValidation(fireData) {
     validatePosition('latitude', fireData.latitude, -90, 90) &&
     validatePosition('longitude', fireData.longitude, -180, 180) &&
     validateDateValue('date', fireData.date) &&
-    validateTimeValue('startTime', fireData.startTime) &&
-    validateTimeValue('endTime', fireData.endTime);
+    validateTimeValue('startTime', fireData.startTime, false) &&
+    validateTimeValue('endTime', fireData.endTime, true);
 }
 
 function validateMissingField(field) {
@@ -96,6 +96,6 @@ function validateDateValue(field, val) {
   return validateDateFormat(val);
 }
 
-function validateTimeValue(field, val) {
-  return validateTimeFormat(val);
+function validateTimeValue(field, val, optional) {
+  return (val == "" && optional) ? true : validateTimeFormat(val);
 }

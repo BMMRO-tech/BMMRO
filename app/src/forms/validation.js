@@ -150,8 +150,9 @@ export const validateStartTimeField = (time, dependingFields) => {
 };
 
 export const validateEndTimeField = (endTime, dependingFields) => {
+  if (!endTime) return "";
+
   return (
-    validateEmpty(endTime) ||
     validateTimeFormat(endTime) ||
     validateTimeMax(endTime, dependingFields["date"]) ||
     validateStartTimeBeforeEndTime(dependingFields["startTime"], endTime)
