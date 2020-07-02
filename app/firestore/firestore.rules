@@ -8,7 +8,7 @@ service cloud.firestore {
 }
 
 function habitatUseValidation(fireData) {
-  return validateIntegerValue('encSeqNo', fireData.encSeqNo, 0, 99, false) &&
+  return validateIntegerValue('encSeqNo', fireData.encSeqNo, 0, 99, true) &&
     validateIntegerValue('numberOfAnimals', fireData.numberOfAnimals, 0, 99, true) &&
     validateIntegerValue('numberOfCalves', fireData.numberOfCalves, 0, 99, true) &&
     validateIntegerValue('numberOfBoats', fireData.numberOfBoats, 0, 999, true) &&

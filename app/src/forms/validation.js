@@ -123,12 +123,11 @@ export const validateIntegerField = (value, min, max, optional = true) => {
 };
 
 export const validateEncSeq = (value, min, max) => {
-  return (
-    validateEmpty(value) ||
-    validateInteger(value) ||
-    validateMin(value, min) ||
-    validateMax(value, max)
-  );
+  return value === ""
+    ? ""
+    : validateInteger(value) ||
+        validateMin(value, min) ||
+        validateMax(value, max);
 };
 
 export const validateDateField = (value) => {
