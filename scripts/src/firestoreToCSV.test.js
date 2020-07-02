@@ -3,9 +3,9 @@ const firebase = require("firebase");
 const fs = require("fs");
 const { parse } = require("date-fns");
 
-const { exportDataToCSV } = require("./exportDataToCSV");
+const { exportDataToCSV } = require("./firestoreToCSV");
 
-describe("exportData script", () => {
+describe("firestore to CSV", () => {
   const DATE_FORMAT = "dd/MM/yyyy";
 
   const projectId = "project-id";

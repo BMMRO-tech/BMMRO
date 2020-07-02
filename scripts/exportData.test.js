@@ -1,6 +1,6 @@
 const { exportData } = require("./exportData");
 
-describe("script", () => {
+describe("Export data script", () => {
   beforeEach(() => {
     delete process.env.PROJECT_ID;
     delete process.env.API_KEY;

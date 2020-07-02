@@ -1,5 +1,5 @@
 const { parse, isValid } = require("date-fns");
-const { exportDataToCSV } = require("./src/exportDataToCSV");
+const { exportDataToCSV } = require("./src/firestoreToCSV");
 
 const errorType = {
   MISSING_ENV_VAR:
