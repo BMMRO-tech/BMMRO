@@ -4,7 +4,7 @@
   "description": "BMMRO scripts",
   "main": "export-data.js",
   "scripts": {
-    "test": "firebase emulators:exec --only firestore 'jest'",
+    "test": "firebase emulators:exec --only firestore 'jest ./src/_queryDataByTimeInterval.test.js'",
     "export-data": "node ./exportData"
   },
   "author": "",
