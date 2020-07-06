@@ -1,7 +1,7 @@
 const firebaseTesting = require("@firebase/testing");
-const _queryDataByTimeInterval = require("./_queryDataByTimeInterval");
+const _queryDataByTimeInterval = require("../queryDataByTimeInterval");
 const { parse } = require("date-fns");
-const testEntries = require("./testdata");
+const testEntries = require("../__fixtures__/testdata");
 
 describe("queryDataByTimeInterval", () => {
   const projectId = "project-id";
