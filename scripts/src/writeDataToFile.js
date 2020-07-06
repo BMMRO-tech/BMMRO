@@ -1,5 +1,6 @@
 const fs = require("fs");
 const logAndExit = require("./helpers/logAndExit");
+const logToStdErrAndExit = require("./helpers/logToStdErrAndExit");
 
 const writeDataToFile = (dirName, fileName, data) => {
   if (!fs.existsSync(dirName)) {
@@ -7,7 +8,13 @@ const writeDataToFile = (dirName, fileName, data) => {
   }
 
   const path = `${dirName}/${fileName}`;
-  fs.writeFile(path, data, () => logAndExit(`Data has been saved in: ${path}`));
+
+  try {
+    fs.writeFileSync(path, data);
+    logAndExit(`Data has been saved in: ${path}`);
+  } catch (e) {
+    logToStdErrAndExit(e.message);
+  }
 };
 
 module.exports = writeDataToFile;

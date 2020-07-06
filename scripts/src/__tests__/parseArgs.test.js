@@ -18,7 +18,7 @@ describe("parseArgs", () => {
     });
   });
 
-  it("ensures you pass in startDate", () => {
+  it("ensures that startDate and endDate are passed", () => {
     const args = ["node version", "entrypoint filename", "dummy endDate"];
 
     const parseArgsStatus = parseArgs(args);
