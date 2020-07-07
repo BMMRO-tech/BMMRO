@@ -49,18 +49,25 @@ For all persistence-related things, we're using firebase. Submitted forms are al
 ## Running and Building the app
 
 To run the app locally you need to setup your own Firebase project:
+
 1. Create a Firebase account [here](https://console.firebase.google.com/) if you don't have one.
 2. Create a new project.
 3. Add a web app to your project (register web app without setting up Firebase Hosting). This will generate firebaseConfig.
 4. Create `.env` file in `app` directory. It will be ignored in version control.
 5. Add the following properties to `.env` file and set them to values that can be found in project settings inside firebaseConfig object in Firebase console:
-  - set `REACT_APP_PROJECT_ID` to `projectId`
-  - set `REACT_APP_API_KEY` to `apiKey`
-  - set `REACT_APP_AUTH_DOMAIN` to `authDomain`
+
+- set `REACT_APP_PROJECT_ID` to `projectId`
+- set `REACT_APP_API_KEY` to `apiKey`
+- set `REACT_APP_AUTH_DOMAIN` to `authDomain`
+
 6.  Go to Authentication tab in Firebase console and setup sign-in method to email/password.
 7.  Go to Users tab and add new user. You will be able to login locally with these credentials.
 
-In the `app` directory, you can run:
+In the `app` directory, install all dependencies:
+
+### `npm install`
+
+And start the app:
 
 ### `npm start`
 
