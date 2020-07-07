@@ -3,7 +3,7 @@ const mapFields = (data, config) => {
 
   return data.map((entry) => {
     const transformedEntry = {};
-    fieldConfig.forEach(([originalKey, finalKey]) => {
+    fieldConfig.forEach(([finalKey, originalKey]) => {
       transformedEntry[finalKey] = entry[originalKey] || "";
     });
     return transformedEntry;

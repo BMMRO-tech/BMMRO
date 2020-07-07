@@ -1,5 +1,5 @@
 const { parse, isValid } = require("date-fns");
-const errorTypes = require("./messages");
+const errorTypes = require("./constants/messages");
 const Status = require("./helpers/Status");
 const DATE_FORMAT = "dd/MM/yyyy";
 

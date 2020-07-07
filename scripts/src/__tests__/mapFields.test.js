@@ -7,7 +7,7 @@ describe("mapFields", () => {
       { a: 4, b: 5, c: 6 },
       { a: 7, b: 8, c: 9 },
     ];
-    const config = { a: "A", b: "B", c: "C" };
+    const config = { A: "a", B: "b", C: "c" };
 
     const mappedFields = mapFields(testData, config);
 
@@ -24,7 +24,7 @@ describe("mapFields", () => {
       { a: 4, b: 5, c: 6, d: 1 },
       { a: 7, b: 8, c: 9 },
     ];
-    const config = { a: "A", b: "B", c: "C" };
+    const config = { A: "a", B: "b", C: "c" };
 
     const mappedFields = mapFields(testData, config);
 
@@ -41,7 +41,7 @@ describe("mapFields", () => {
       { a: 4, b: 5, c: 6 },
       { a: 7, b: 8, c: 9 },
     ];
-    const config = { a: "A", b: "B", c: "C", d: "D" };
+    const config = { A: "a", B: "b", C: "c", D: "" };
 
     const mappedFields = mapFields(testData, config);
 

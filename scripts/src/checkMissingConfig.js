@@ -1,5 +1,5 @@
 const Status = require("./helpers/Status");
-const errorTypes = require("./messages");
+const errorTypes = require("./constants/messages");
 
 const checkMissingConfig = (projectId, apiKey, authDomain, email, password) => {
   if (!projectId || !apiKey || !authDomain || !email || !password) {
