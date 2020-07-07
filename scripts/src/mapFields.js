@@ -1,10 +1,13 @@
 const mapFields = (data, config) => {
-  const fieldConfig = Object.entries(config);
+  const tableConfig = Object.entries(config);
 
   return data.map((entry) => {
     const transformedEntry = {};
-    fieldConfig.forEach(([finalKey, originalKey]) => {
-      transformedEntry[finalKey] = entry[originalKey] || "";
+    tableConfig.forEach(([finalFieldName, fieldConfig]) => {
+      const fieldValue = fieldConfig.transform
+        ? fieldConfig.transform(entry[fieldConfig.key])
+        : entry[fieldConfig.key];
+      transformedEntry[finalFieldName] = fieldValue || "";
     });
     return transformedEntry;
   });
