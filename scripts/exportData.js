@@ -6,10 +6,10 @@ const queryDataByTimeInterval = require("./src/queryDataByTimeInterval");
 const transformJsonToCsv = require("./src/transformJsonToCsv");
 const writeDataToFile = require("./src/writeDataToFile");
 const logAndExit = require("./src/helpers/logAndExit");
+const generateFilename = require("./src/generateFilename");
 const messages = require("./src/constants/messages");
 const collectionName = "habitatUse";
 const timestampFieldName = "timestamp";
-const fileName = "exportedDb.csv";
 const dirName = "./exported";
 
 const exportData = async () => {
@@ -47,6 +47,7 @@ const exportData = async () => {
 
   const csvData = transformJsonToCsv(timerangeJsonData);
 
+  const fileName = generateFilename(startDate, endDate);
   writeDataToFile(dirName, fileName, csvData);
 };
 
