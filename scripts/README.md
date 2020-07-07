@@ -20,7 +20,7 @@ In the `scripts` directory:
 npm install
 ```
 
-1. Run the command below to start the script. You will need to specify a date range to export the data entries from. First argument passed to the command is a start date (entries from this date will be included) and second argument is an end date (entries from this date will be excluded). Dates need to be in `dd/mm/yyyy` format, for example:
+4. Run the command below to start the script. You will need to specify a date range to export the data entries from. First argument passed to the command is a start date (entries from this date will be included) and second argument is an end date (entries from this date will be excluded). Dates need to be in `dd/mm/yyyy` format, for example:
 
 ```
 npm start -- "01/06/2020" "01/07/2020"
