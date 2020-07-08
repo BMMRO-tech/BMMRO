@@ -23,7 +23,7 @@ const exportData = async () => {
   if (!configStatus.isSuccessful()) logToStdErrAndExit(configStatus.value);
 
   const argsStatus = parseArgs([...process.argv]);
-  if (!argsStatus.isSuccessful()) logToStdErrAndExit(configStatus.value);
+  if (!argsStatus.isSuccessful()) logToStdErrAndExit(argsStatus.value);
   const { startDate, endDate } = argsStatus.value;
 
   firebase.initializeApp({

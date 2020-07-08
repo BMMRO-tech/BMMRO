@@ -1,5 +1,5 @@
 const logAndExit = (stringToLog) => {
-  console.error(stringToLog);
+  console.log(stringToLog);
   process.exit(0);
 };
 

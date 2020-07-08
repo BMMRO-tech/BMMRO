@@ -9,12 +9,12 @@ In the `scripts` directory:
 1. Create `.env` file.
 2. Add the following properties to `.env` file and set them to values that can be found in project settings inside firebaseConfig object in Firebase console:
 
-- set `REACT_APP_PROJECT_ID` to `projectId`
-- set `REACT_APP_API_KEY` to `apiKey`
-- set `REACT_APP_AUTH_DOMAIN` to `authDomain`
+- set `PROJECT_ID` to `projectId`
+- set `API_KEY` to `apiKey`
+- set `AUTH_DOMAIN` to `authDomain`
 - set `EMAIL` and `PASSWORD` to your email address and password that you use to log in to the app
 
-3. Install all dependencies:
+1. Install all dependencies:
 
 ```
 npm install
