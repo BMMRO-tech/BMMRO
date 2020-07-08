@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import firebaseApp from "../firebaseContext/firebase";
+import firebase from "firebase/app";
 import { AuthenticationErrorType } from "../constants/authentication";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { Fragment, useState, useContext } from "react";
@@ -12,7 +12,7 @@ const Logout = () => {
   const [logoutError, setLogoutError] = useState(null);
 
   const logout = () => {
-    firebaseApp
+    firebase
       .auth()
       .signOut()
       .catch(() =>

@@ -3,7 +3,7 @@ import { useState, useContext, Fragment } from "react";
 import { Formik, Form } from "formik";
 import { jsx, css } from "@emotion/core";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import firebaseApp from "../firebaseContext/firebase";
+import firebase from "firebase/app";
 import { useLoginRedirect } from "../hooks/useLoginRedirect";
 import { AuthenticationErrorType } from "../constants/authentication";
 import ErrorMessage from "./ErrorMessage";
@@ -16,7 +16,7 @@ const LoginForm = () => {
   const [loginError, setLoginError] = useState(null);
 
   const handleSubmit = ({ email, password }) => {
-    firebaseApp
+    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(() =>
