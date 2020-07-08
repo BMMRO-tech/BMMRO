@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import colors from "../../materials/colors";
+import appStyles from "../../materials/appStyles";
 
-const styles = {
+const avatarStyles = {
   avatar: css`
     height: 40px;
   `,
@@ -12,8 +12,8 @@ export const Avatar = ({ handleClick }) => {
   return (
     <svg
       onClick={handleClick}
-      fill={colors.lightBlue}
-      css={styles.avatar}
+      fill={appStyles.colors.lightBlue}
+      css={avatarStyles.avatar}
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       viewBox="0 0 100 100"

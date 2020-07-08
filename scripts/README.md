@@ -14,7 +14,7 @@ In the `scripts` directory:
 - set `AUTH_DOMAIN` to `authDomain`
 - set `EMAIL` and `PASSWORD` to your email address and password that you use to log in to the app
 
-1. Install all dependencies:
+3. Install all dependencies:
 
 ```
 npm install

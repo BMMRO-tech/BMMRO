@@ -2,8 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
 import { Field } from "formik";
-
-import colors from "../materials/colors";
+import appStyles from "../materials/appStyles";
 import ErrorMessage from "./ErrorMessage";
 
 const Select = ({
@@ -30,9 +29,12 @@ const Select = ({
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
-      background: ${colors.white};
+      background: ${appStyles.colors.white};
       border-radius: 0;
-      border: 1px solid ${!!error && touched ? colors.red : colors.lightBlue};
+      border: 1px solid
+        ${!!error && touched
+          ? appStyles.colors.red
+          : appStyles.colors.lightBlue};
     `,
     errorContainer: css`
       margin-top: 2px;

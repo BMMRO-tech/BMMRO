@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import colors from "../materials/colors";
+import appStyles from "../materials/appStyles";
 
 const Button = ({
   type,
@@ -12,7 +12,7 @@ const Button = ({
   width = "auto",
 }) => {
   const styles = css`
-    background: ${colors.darkBlue};
+    background: ${appStyles.colors.darkBlue};
     border: none;
     color: white;
     font-size: 15px;

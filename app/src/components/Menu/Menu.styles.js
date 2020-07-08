@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import appStyles from "../../materials/appStyles";
 
 export const menuStyles = {
   menuButton: css`
@@ -31,11 +32,11 @@ export const menuStyles = {
     overflow: hidden;
     text-overflow: ellipsis;
 
-    @media (min-width: 740px) {
+    @media (min-width: ${appStyles.appContainer.maxWidth}) {
       max-width: 500px;
       /* padding on the right outside of the container
       device width - container width = padding on both sides */
-      right: calc((100vw - 740px) / 2);
+      right: calc((100vw - ${appStyles.appContainer.maxWidth}) / 2);
     }
   `,
 };
