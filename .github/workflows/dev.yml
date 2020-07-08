@@ -47,3 +47,12 @@ jobs:
         run: |
           firebase use ${{secrets.FIREBASE_PROJECT_ID}}
           firebase deploy
+      - name: Create dev-deployed-* tag
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          git fetch origin --tags -q
+          VERSION=$(git describe --tags $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
+          TAG="dev-deployed-$((VERSION+1))"
+          git tag $TAG $COMMIT_SHA
+          git push origin $TAG
