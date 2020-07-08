@@ -1,4 +1,4 @@
-name: BMMRO Frontend Pipeline
+name: Deployment to dev environment
 
 on:
   push:
