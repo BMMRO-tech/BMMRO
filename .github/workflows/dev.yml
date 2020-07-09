@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_DIR: ./app
-      SCRIPTS_DIR: ./export-script
+      EXPORT_SCRIPT_DIR: ./export-script
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -25,13 +25,13 @@ jobs:
       - name: Run firestore tests
         working-directory: ${{env.APP_DIR}}
         run: npm run test-firestore
-      - name: Install script dependencies
-        working-directory: ${{env.SCRIPTS_DIR}}
+      - name: Install export script dependencies
+        working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: |
           npm install
           sudo npm install -g firebase-tools
-      - name: Run scripts tests
-        working-directory: ${{env.SCRIPTS_DIR}}
+      - name: Run export script tests
+        working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: npm test
       - name: Build production bundle
         env:
