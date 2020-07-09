@@ -36,16 +36,16 @@ const exportData = async () => {
     .signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD)
     .catch((e) => logToStdErrAndExit(e.message));
 
-  const timerangeJsonData = await queryDataByTimeInterval(
+  const timeRangeJsonData = await queryDataByTimeInterval(
     startDate,
     endDate,
     timestampFieldName,
     firebase.firestore(),
     collectionName
   );
-  if (timerangeJsonData.length === 0) logAndExit(messages.NO_DATA);
+  if (timeRangeJsonData.length === 0) logAndExit(messages.NO_DATA);
 
-  const csvData = transformJsonToCsv(timerangeJsonData);
+  const csvData = transformJsonToCsv(timeRangeJsonData);
 
   const fileName = generateFilename(startDate, endDate);
   writeDataToFile(dirName, fileName, csvData);
