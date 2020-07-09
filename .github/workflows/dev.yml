@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_DIR: ./app
-      SCRIPTS_DIR: ./scripts
+      SCRIPTS_DIR: ./export-script
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
