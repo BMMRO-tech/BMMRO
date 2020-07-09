@@ -35,9 +35,9 @@ jobs:
         run: npm test
       - name: Build production bundle
         env:
-          REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_PROJECT_ID}}
-          REACT_APP_API_KEY: ${{secrets.FIREBASE_API_KEY}}
-          REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_AUTH_DOMAIN}}
+          REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
+          REACT_APP_API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
+          REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
@@ -45,7 +45,7 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: |
-          firebase use ${{secrets.FIREBASE_PROJECT_ID}}
+          firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
           firebase deploy
       - name: Create dev-deployed-* tag
         env:
