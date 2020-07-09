@@ -51,7 +51,6 @@ jobs:
         run: |
           git fetch origin --tags -q
           PENDING_TAG=$(git describe --tags --match "prod-pending-*" $(git rev-list --tags="prod-pending-*" --max-count=1))
-          echo $PENDING_TAG
           VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
           TAG="prod-deployed-$VERSION"
           git tag $TAG $PENDING_TAG
