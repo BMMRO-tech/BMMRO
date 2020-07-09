@@ -15,6 +15,15 @@ To deploy to production run the local deploy script passing the environment ('pr
 ## Rollback
 To rollback, the local deploy script can be run passing 'prod' and an older build tag e.g. 'dev-deployed-11'. It may be enforced that any build must be deployed to UAT before production. In this case to rollback you would first need to deploy an old build to UAT then deploy UAT to production.
 
+## Running the script
+1. Clone the repository.
+2. Open the deploy-script folder in the terminal.
+3. The script can now be run with: ```node deploy.js ENVIRONMENT_NAME DEPLOY_TAG```
+
+ENVIRONMENT_NAME - Options: ‘uat’ or ‘prod’
+
+DEPLOY_TAG - Options: ‘dev-deployed-XX’ or ‘uat-deployed-XX’
+
 ## How it works
 To trigger the deploy action the local script pushes a ‘uat-pending-XX’ or 'prod-pending-XX’ tag. The Github action identifies this tag and starts the deploy process to the corresponding environment. Once the deploy is complete the action sets the final environment tag ('prod-deployed-XX’ or 'uat-deployed-XX’). This means that if a deploy fails the pending tag will be updated however the environment tag will still point to the last successfully deployed build.
 
