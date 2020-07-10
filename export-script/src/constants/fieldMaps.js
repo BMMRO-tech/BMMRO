@@ -1,4 +1,5 @@
 const convertDateToMDY = require("../convertDateToMDY");
+const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
   habitatUse: {
@@ -17,7 +18,7 @@ module.exports = {
     Behaviour: { key: "behaviour" },
     "Number of boats": { key: "numberOfBoats" },
     "Wave Height": { key: "swellWaveHeight" },
-    DOT: { key: "" },
+    DOT: { key: "directionOfTravel" },
     "Surfacing Bout": { key: "surfaceBout" },
     "Tagged Whale?": { key: "" },
     "Bearing (relative )": { key: "bearing" },
@@ -29,6 +30,9 @@ module.exports = {
     "End Time": { key: "endTime" },
     "Group Composition": { key: "groupComposition" },
     "# animals": { key: "numberOfAnimals" },
-    Comment: { key: "comments" },
+    Comment: {
+      key: "comments",
+      transform: prependFromFirestore,
+    },
   },
 };
