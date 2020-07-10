@@ -1,5 +1,5 @@
 const firebaseTesting = require("@firebase/testing");
-const _queryDataByTimeInterval = require("../queryDataByTimeInterval");
+const queryDataByTimeInterval = require("../queryDataByTimeInterval");
 const { parse } = require("date-fns");
 const testEntries = require("../__fixtures__/testdata");
 
@@ -32,7 +32,7 @@ describe("queryDataByTimeInterval", () => {
     const startDate = parse("10/05/2020", DATE_FORMAT, new Date());
     const endDate = parse("28/06/2020", DATE_FORMAT, new Date());
 
-    const results = await _queryDataByTimeInterval(
+    const results = await queryDataByTimeInterval(
       startDate,
       endDate,
       TIMESTAMP_FIELD_NAME,
@@ -51,7 +51,7 @@ describe("queryDataByTimeInterval", () => {
     startDate = parse("23/05/2020", DATE_FORMAT, new Date());
     endDate = parse("23/06/2020", DATE_FORMAT, new Date());
 
-    const results = await _queryDataByTimeInterval(
+    const results = await queryDataByTimeInterval(
       startDate,
       endDate,
       TIMESTAMP_FIELD_NAME,
@@ -69,7 +69,7 @@ describe("queryDataByTimeInterval", () => {
     startDate = parse("10/02/2020", DATE_FORMAT, new Date());
     endDate = parse("28/02/2020", DATE_FORMAT, new Date());
 
-    const results = await _queryDataByTimeInterval(
+    const results = await queryDataByTimeInterval(
       startDate,
       endDate,
       TIMESTAMP_FIELD_NAME,
