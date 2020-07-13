@@ -9,16 +9,9 @@ const selectFields = require("../src/forms/habitatUse/testCases/selectFields.jso
 const projectId = "bmmro-app";
 const rules = fs.readFileSync(`${__dirname}/firestore.rules`, "utf8");
 
-describe("Habitat Use Collection Create Validation", () => {
+describe("Habitat Use Collection", () => {
   let db;
   const collectionName = "habitatUse";
-
-  beforeAll(async () => {
-    await firebase.loadFirestoreRules({ projectId, rules });
-    db = firebase
-      .initializeTestApp({ projectId, auth: { uid: "testId" } })
-      .firestore();
-  });
 
   afterAll(async () => {
     await firebase.clearFirestoreData({ projectId });
@@ -54,133 +47,151 @@ describe("Habitat Use Collection Create Validation", () => {
     groupCohesion: "Tight",
   };
 
-  const testDocumentCreation = (testDescription, testCase, field) => {
-    it(testDescription, async () => {
-      if (testCase.error) {
-        await firebase.assertFails(
-          db.collection(collectionName).add({
-            ...defaultValues,
-            [field.id]: testCase.value,
-          })
-        );
-      } else {
-        await firebase.assertSucceeds(
-          db.collection(collectionName).add({
-            ...defaultValues,
-            [field.id]: testCase.value,
-          })
-        );
-      }
-    });
-  };
+  it("should fail to submit data when user is not authenticated", async () => {
+    await firebase.loadFirestoreRules({ projectId, rules });
+    db = firebase.initializeTestApp({ projectId }).firestore();
 
-  const testDocCreationWithMissingField = (field) => {
-    it("Should fail if field is missing", async () => {
-      const testVal = { ...defaultValues };
-      delete testVal[field.id];
-      await firebase.assertFails(db.collection(collectionName).add(testVal));
-    });
-  };
-
-  describe("Numeric fields", () => {
-    numericFields.forEach((field) => {
-      describe(field.id, () => {
-        field.testCases.forEach((testCase) => {
-          let testDescription;
-          if (!!testCase.error) {
-            testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
-          } else {
-            testDescription = `Should succeed with value '${testCase.value}'`;
-          }
-
-          testDocumentCreation(testDescription, testCase, field);
-        });
-
-        testDocCreationWithMissingField(field);
-      });
-    });
+    await firebase.assertFails(
+      db.collection(collectionName).add(defaultValues)
+    );
   });
 
-  describe("Text fields", () => {
-    textFields.forEach((field) => {
-      describe(field.id, () => {
-        field.testCases.forEach((testCase) => {
-          let testDescription;
-          if (!!testCase.error) {
-            testDescription = `Should fail due to '${testCase.error}' for value of length ${testCase.value.length}`;
-          } else {
-            testDescription = `Should succeed with value of length ${testCase.value.length}`;
-          }
+  describe("Form validation", () => {
+    beforeAll(async () => {
+      await firebase.loadFirestoreRules({ projectId, rules });
+      db = firebase
+        .initializeTestApp({ projectId, auth: { uid: "testId" } })
+        .firestore();
+    });
 
-          testDocumentCreation(testDescription, testCase, field);
+    const testDocumentCreation = (testDescription, testCase, field) => {
+      it(testDescription, async () => {
+        if (testCase.error) {
+          await firebase.assertFails(
+            db.collection(collectionName).add({
+              ...defaultValues,
+              [field.id]: testCase.value,
+            })
+          );
+        } else {
+          await firebase.assertSucceeds(
+            db.collection(collectionName).add({
+              ...defaultValues,
+              [field.id]: testCase.value,
+            })
+          );
+        }
+      });
+    };
+
+    const testDocCreationWithMissingField = (field) => {
+      it("Should fail if field is missing", async () => {
+        const testVal = { ...defaultValues };
+        delete testVal[field.id];
+        await firebase.assertFails(db.collection(collectionName).add(testVal));
+      });
+    };
+
+    describe("Numeric fields", () => {
+      numericFields.forEach((field) => {
+        describe(field.id, () => {
+          field.testCases.forEach((testCase) => {
+            let testDescription;
+            if (!!testCase.error) {
+              testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
+            } else {
+              testDescription = `Should succeed with value '${testCase.value}'`;
+            }
+
+            testDocumentCreation(testDescription, testCase, field);
+          });
+
+          testDocCreationWithMissingField(field);
         });
-
-        testDocCreationWithMissingField(field);
       });
     });
-  });
 
-  describe("Select fields", () => {
-    selectFields.forEach((field) => {
-      describe(field.id, () => {
-        field.testCases.forEach((testCase) => {
-          let testDescription;
-          if (!!testCase.error) {
-            testDescription = `Should fail due to '${testCase.error}' for value of length ${testCase.value.length}`;
-          } else {
-            testDescription = `Should succeed with value of length ${testCase.value.length}`;
-          }
+    describe("Text fields", () => {
+      textFields.forEach((field) => {
+        describe(field.id, () => {
+          field.testCases.forEach((testCase) => {
+            let testDescription;
+            if (!!testCase.error) {
+              testDescription = `Should fail due to '${testCase.error}' for value of length ${testCase.value.length}`;
+            } else {
+              testDescription = `Should succeed with value of length ${testCase.value.length}`;
+            }
 
-          testDocumentCreation(testDescription, testCase, field);
+            testDocumentCreation(testDescription, testCase, field);
+          });
+
+          testDocCreationWithMissingField(field);
         });
-
-        testDocCreationWithMissingField(field);
       });
     });
-  });
 
-  describe("Date fields", () => {
-    dateFields.forEach((field) => {
-      describe(field.id, () => {
-        field.testCases.forEach((testCase) => {
-          if (testCase.target === "frontend") {
-            return;
-          }
+    describe("Select fields", () => {
+      selectFields.forEach((field) => {
+        describe(field.id, () => {
+          field.testCases.forEach((testCase) => {
+            let testDescription;
+            if (!!testCase.error) {
+              testDescription = `Should fail due to '${testCase.error}' for value of length ${testCase.value.length}`;
+            } else {
+              testDescription = `Should succeed with value of length ${testCase.value.length}`;
+            }
 
-          let testDescription;
-          if (!!testCase.error) {
-            testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
-          } else {
-            testDescription = `Should succeed with value '${testCase.value}'`;
-          }
+            testDocumentCreation(testDescription, testCase, field);
+          });
 
-          testDocumentCreation(testDescription, testCase, field);
+          testDocCreationWithMissingField(field);
         });
-
-        testDocCreationWithMissingField(field);
       });
     });
-  });
 
-  describe("Time fields", () => {
-    timeFields.forEach((field) => {
-      describe(field.id, () => {
-        field.testCases.forEach((testCase) => {
-          if (testCase.target === "frontend") {
-            return;
-          }
+    describe("Date fields", () => {
+      dateFields.forEach((field) => {
+        describe(field.id, () => {
+          field.testCases.forEach((testCase) => {
+            if (testCase.target === "frontend") {
+              return;
+            }
 
-          let testDescription;
-          if (!!testCase.error) {
-            testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
-          } else {
-            testDescription = `Should succeed with value '${testCase.value}'`;
-          }
+            let testDescription;
+            if (!!testCase.error) {
+              testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
+            } else {
+              testDescription = `Should succeed with value '${testCase.value}'`;
+            }
 
-          testDocumentCreation(testDescription, testCase, field);
+            testDocumentCreation(testDescription, testCase, field);
+          });
+
+          testDocCreationWithMissingField(field);
         });
+      });
+    });
 
-        testDocCreationWithMissingField(field);
+    describe("Time fields", () => {
+      timeFields.forEach((field) => {
+        describe(field.id, () => {
+          field.testCases.forEach((testCase) => {
+            if (testCase.target === "frontend") {
+              return;
+            }
+
+            let testDescription;
+            if (!!testCase.error) {
+              testDescription = `Should fail due to '${testCase.error}' for value '${testCase.value}'`;
+            } else {
+              testDescription = `Should succeed with value '${testCase.value}'`;
+            }
+
+            testDocumentCreation(testDescription, testCase, field);
+          });
+
+          testDocCreationWithMissingField(field);
+        });
       });
     });
   });

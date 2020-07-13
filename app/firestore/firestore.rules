@@ -1,8 +1,9 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /habitatUse/{habitatUseId} {
-      allow read;
-      allow create: if habitatUseValidation(request.resource.data);
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && habitatUseValidation(request.resource.data);
+      allow update, delete: if false;
     }
   }
 }
