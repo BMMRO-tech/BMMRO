@@ -95,7 +95,7 @@ export const fields = [
   },
   {
     name: "encSeqNo",
-    label: "Enc Seq # *",
+    label: "Enc Seq #*",
     type: "number",
     validate: (value) => validateEncSeq(value, 0, 99),
   },
