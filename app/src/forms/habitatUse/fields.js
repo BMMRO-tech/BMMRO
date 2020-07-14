@@ -161,7 +161,6 @@ export const fields = [
     label: "Swell / Wave height (ft)",
     options: ["0", "1", "2", "3", "4", "5", "6+"],
     type: "select",
-    initialValue: () => "1",
   },
   {
     name: "distance",
