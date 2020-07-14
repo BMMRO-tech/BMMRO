@@ -117,7 +117,6 @@ export const fields = [
     label: "Water Temp (°C)",
     type: "number",
     validate: (value) => validateFloatField(value, 15, 40),
-    initialValue: () => 28,
   },
   {
     name: "bottomSubstrate",
