@@ -9,7 +9,7 @@ async function isCurrentBranchMaster() {
 
   if (branchesOutput.stderr) {
     console.error(branchesOutput.stderr);
-    return;
+    process.exit(1);
   }
 
   const branches = branchesOutput.stdout;
@@ -33,35 +33,40 @@ async function fetchTags() {
   const fetchTagsOutput = await exec("git fetch origin --tags -q");
 
   if (fetchTagsOutput.stderr) {
-    console.log(fetchTagsOutput.stderr);
-    return;
+    console.error(fetchTagsOutput.stderr);
+    process.exit(1);
   }
 }
 
 async function createAndPushTag(pendingTag, tag) {
-  const createTagOutput = await exec(`git tag ${pendingTag} ${tag} -f`);
+  try {
+    const createTagOutput = await exec(`git tag ${pendingTag} ${tag} -f`);
 
-  if (createTagOutput.stderr) {
-    console.log(createTagOutput.stderr);
-    return;
-  }
+    if (createTagOutput.stderr) {
+      console.error(createTagOutput.stderr);
+      process.exit(1);
+    }
 
-  const pushTagOutput = await exec(
-    `git push origin ${pendingTag} --porcelain -f`
-  );
+    const pushTagOutput = await exec(
+      `git push origin ${pendingTag} --porcelain -f`
+    );
 
-  if (pushTagOutput.stderr) {
-    console.log(pushTagOutput.stderr);
-    return;
-  } else {
-    console.log(`Tag ${pendingTag} successfully created.`);
+    if (pushTagOutput.stderr) {
+      console.error(pushTagOutput.stderr);
+      process.exit(1);
+    } else {
+      console.log(`Tag ${pendingTag} successfully created.`);
+    }
+  } catch (e) {
+    console.error(e.message);
+    process.exit(1);
   }
 }
 
 (async function createTagForEnvironment() {
   if (!process.argv[2] || !process.argv[3]) {
     console.error("Error: Please provide environment and tag to be deployed.");
-    return;
+    process.exit(1);
   }
 
   const environment = process.argv[2];
@@ -73,7 +78,7 @@ async function createAndPushTag(pendingTag, tag) {
         ", "
       )}.`
     );
-    return;
+    process.exit(1);
   }
 
   if (
@@ -83,7 +88,7 @@ async function createAndPushTag(pendingTag, tag) {
     console.error(
       `Error: Cannot deploy tag ${tag} to ${environment}. Can only deploy to UAT tags that start with dev-deployed- or to Production tags that start with uat-deployed-.`
     );
-    return;
+    process.exit(1);
   }
 
   if (await isCurrentBranchMaster()) {
