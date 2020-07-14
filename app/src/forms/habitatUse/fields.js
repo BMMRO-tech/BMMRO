@@ -19,14 +19,14 @@ const formatTime = (date) => format(date, TIME_FORMAT);
 export const fields = [
   {
     name: "numberOfAnimals",
-    label: "No. of Animals",
+    label: "Number of Animals",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
     initialValue: () => 1,
   },
   {
     name: "numberOfCalves",
-    label: "No. of Calves",
+    label: "Number of Calves",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
   },
@@ -76,7 +76,7 @@ export const fields = [
   },
   {
     name: "numberOfBoats",
-    label: "No. of Boats",
+    label: "Number of Boats",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 999),
     initialValue: () => 1,
@@ -89,7 +89,7 @@ export const fields = [
   },
   {
     name: "encSeqNo",
-    label: "Enc Seq #*",
+    label: "Enc Seq number *",
     type: "number",
     validate: (value) => validateEncSeq(value, 0, 99),
   },
