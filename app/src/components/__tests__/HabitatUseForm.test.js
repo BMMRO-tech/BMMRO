@@ -94,7 +94,7 @@ describe("Habitat Use Form validation", () => {
     });
   });
 
-  describe("Date field", () => {
+  describe.only("Date field", () => {
     let originalDateNow;
     beforeAll(() => {
       originalDateNow = Date.now;

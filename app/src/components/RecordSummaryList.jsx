@@ -11,7 +11,7 @@ const RecordSummary = ({ date, time, encSeqNo }) => {
 
   return (
     <tr>
-      <td css={styles.recordDetail}>{date}</td>
+      <td css={styles.recordDetail}>{date.toString()}</td>
       <td css={styles.recordDetail}>{time}</td>
       <td css={styles.recordDetail}>{encSeqNo}</td>
     </tr>

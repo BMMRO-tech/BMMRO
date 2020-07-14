@@ -5,6 +5,8 @@ import { useState, useEffect, Fragment, useContext } from "react";
 import { parse } from "date-fns";
 
 import { DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
+import { format } from "date-fns";
+
 import { fields } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -12,6 +14,18 @@ import Button from "./Button";
 import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
 import Input from "./Input";
+import DatePicker from "./DatePicker";
+
+const renderField = (config) => {
+  switch (config.type) {
+    case "select":
+      return <Select config={config} />;
+    case "date":
+      return <DatePicker config={config} />;
+    default:
+      return <Input config={config} />;
+  }
+};
 
 const HabitatUseForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -89,6 +103,8 @@ const HabitatUseForm = () => {
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
+          values["date"] = format(values["date"], DATE_FORMAT);
+
           values["timestamp"] = parse(
             `${values["date"]} ${values["startTime"]}`,
             `${DATE_FORMAT} ${TIME_FORMAT}`,
@@ -160,11 +176,7 @@ const HabitatUseForm = () => {
                           : styles.inputFieldContainerSingle
                       }
                     >
-                      {type === "select" ? (
-                        <Select config={config} />
-                      ) : (
-                        <Input config={config} />
-                      )}
+                      {renderField(config)}
                     </div>
                   );
                 }

@@ -49,21 +49,8 @@ const validatePositionFormat = (value, precision) => {
   }
 };
 
-const validateDateFormat = (value) => {
-  const date = parse(value, DATE_FORMAT, new Date());
-
-  if (!isValid(date)) {
-    return {
-      type: FormErrorType.INVALID_DATE_FORMAT,
-      rule: DATE_FORMAT,
-    };
-  }
-};
-
 const validateDateMax = (value, max = new Date(Date.now())) => {
-  const parsedDate = parse(value, DATE_FORMAT, new Date());
-
-  if (parsedDate > max) {
+  if (value > max) {
     return {
       type: FormErrorType.MAX_DATE,
     };
@@ -132,9 +119,7 @@ export const validateEncSeq = (value, min, max) => {
 };
 
 export const validateDateField = (value) => {
-  return (
-    validateEmpty(value) || validateDateFormat(value) || validateDateMax(value)
-  );
+  return validateEmpty(value) || validateDateMax(value);
 };
 
 export const validateTextField = (value, max) => {

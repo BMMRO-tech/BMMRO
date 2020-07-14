@@ -10,15 +10,9 @@ import {
   validateTextField,
   validateEncSeq,
 } from "../validation";
-import {
-  DATE_FORMAT,
-  TIME_FORMAT,
-  POSITION_DECIMAL_PRECISION,
-} from "../../constants/forms";
+import { TIME_FORMAT, POSITION_DECIMAL_PRECISION } from "../../constants/forms";
 
 const getCurrentDate = () => new Date(Date.now());
-
-const formatDate = (date) => format(date, DATE_FORMAT);
 
 const formatTime = (date) => format(date, TIME_FORMAT);
 
@@ -208,9 +202,9 @@ export const fields = [
   },
   {
     name: "date",
-    label: "Date (dd/mm/yyyy)*",
-    type: "text",
-    initialValue: () => formatDate(getCurrentDate()),
+    label: "Date (dd, MMMM, yyyy)*",
+    type: "date",
+    initialValue: () => getCurrentDate(),
     validate: (value) => validateDateField(value),
   },
   {
