@@ -2,6 +2,8 @@ const childProcessExec = require("child_process").exec;
 const util = require("util");
 const exec = util.promisify(childProcessExec);
 
+const allowedEnvironments = ["uat", "prod"];
+
 async function isCurrentBranchMaster() {
   const branchesOutput = await exec("git branch");
 
@@ -64,6 +66,15 @@ async function createAndPushTag(pendingTag, tag) {
 
   const environment = process.argv[2];
   const tag = process.argv[3];
+
+  if (!allowedEnvironments.includes(environment)) {
+    console.error(
+      `Error: Cannot deploy to the environment different than ${allowedEnvironments.join(
+        ", "
+      )}.`
+    );
+    return;
+  }
 
   if (
     (environment.toLowerCase() === "uat" && !tag.startsWith("dev-deployed-")) ||
