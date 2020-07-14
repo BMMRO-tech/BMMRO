@@ -35,7 +35,6 @@ export const fields = [
     label: "No. of Calves",
     type: "number",
     validate: (value) => validateIntegerField(value, 0, 99),
-    initialValue: () => 0,
   },
   {
     name: "species",
