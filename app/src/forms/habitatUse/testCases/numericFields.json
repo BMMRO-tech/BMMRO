@@ -3,7 +3,7 @@
     "id": "encSeqNo",
     "testCases": [
       { "value": 1 },
-      { "value": "" },
+      { "value": "", "error": "empty" },
       { "value": 1.5, "error": "invalid-number-format" },
       { "value": -1, "error": "min-value" },
       { "value": 100, "error": "max-value" }
