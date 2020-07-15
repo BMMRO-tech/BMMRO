@@ -48,7 +48,7 @@ const DatePickerField = ({ config: { name, label, touched, error } }) => {
       )}
       <div css={styles.inputContainer}>
         <DatePicker
-          dateFormat="dd, MMMM, yyyy"
+          dateFormat="dd MMMM yyyy"
           maxDate={new Date()}
           id={name}
           css={styles.input}

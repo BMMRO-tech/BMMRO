@@ -89,7 +89,7 @@ export const fields = [
   },
   {
     name: "encSeqNo",
-    label: "Enc Seq number *",
+    label: "Enc Seq number*",
     type: "number",
     validate: (value) => validateEncSeq(value, 0, 99),
   },
@@ -202,7 +202,7 @@ export const fields = [
   },
   {
     name: "date",
-    label: "Date (dd, MMMM, yyyy)*",
+    label: "Date (dd MMMM yyyy)*",
     type: "date",
     initialValue: () => getCurrentDate(),
     validate: (value) => validateDateField(value),

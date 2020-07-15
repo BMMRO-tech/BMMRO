@@ -1,6 +1,6 @@
 [
   {
     "id": "date",
-    "testCases": [{ "value": "23, July, 2019" }]
+    "testCases": [{ "value": "23 July 2019" }]
   }
 ]
