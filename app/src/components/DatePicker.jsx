@@ -11,6 +11,7 @@ import ErrorMessage from "./ErrorMessage";
 const DatePickerField = ({ config: { name, label, touched, error } }) => {
   const { setFieldValue } = useFormikContext();
   const [field] = useField(name);
+
   const styles = {
     label: css`
       display: block;
@@ -47,13 +48,15 @@ const DatePickerField = ({ config: { name, label, touched, error } }) => {
       )}
       <div css={styles.inputContainer}>
         <DatePicker
-          css={styles.input}
-          id={name}
           dateFormat="dd, MMMM, yyyy"
           maxDate={new Date()}
+          id={name}
+          css={styles.input}
+          withPortal
+          onFocus={(e) => e.target.blur()}
           customInput={<input data-testid={name} type="text" />}
-          {...field}
           selected={(field.value && new Date(field.value)) || null}
+          {...field}
           onChange={(val) => {
             setFieldValue(field.name, val);
           }}
