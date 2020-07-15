@@ -1,4 +1,4 @@
-import { parse, isValid } from "date-fns";
+import { parse, isValid, format } from "date-fns";
 import { FormErrorType, DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
 
 export const validateEmpty = (value) => {
@@ -69,15 +69,15 @@ const validateTimeFormat = (value) => {
 };
 
 const validateTimeMax = (time, date, max = new Date(Date.now())) => {
-  const dateWithTime = `${date} ${time}`;
-  const fromatDateWithTime = `${DATE_FORMAT} ${TIME_FORMAT}`;
-  const parsedDateWithTime = parse(
-    dateWithTime,
-    fromatDateWithTime,
+  const formattedDate = format(date, DATE_FORMAT);
+
+  const dateTime = parse(
+    `${formattedDate} ${time}`,
+    `${DATE_FORMAT} ${TIME_FORMAT}`,
     new Date()
   );
 
-  if (parsedDateWithTime > max) {
+  if (dateTime > max) {
     return {
       type: FormErrorType.MAX_TIME,
     };

@@ -2,10 +2,9 @@
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { useState, useEffect, Fragment, useContext } from "react";
-import { parse } from "date-fns";
+import { parse, format } from "date-fns";
 
 import { DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
-import { format } from "date-fns";
 
 import { fields } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";

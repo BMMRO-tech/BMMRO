@@ -94,7 +94,7 @@ describe("Habitat Use Form validation", () => {
     });
   });
 
-  describe.only("Date field", () => {
+  describe("Date field", () => {
     let originalDateNow;
     beforeAll(() => {
       originalDateNow = Date.now;
@@ -144,7 +144,7 @@ describe("Habitat Use Form validation", () => {
 
   describe("Autofill", () => {
     const startTime = "11:30";
-    const date = "04/05/2020";
+    const date = "04, May, 2020";
 
     const latitude = 1.123456;
     const latitudeActual = "1.123456";
