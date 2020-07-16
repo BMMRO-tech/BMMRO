@@ -102,15 +102,16 @@ const HabitatUseForm = () => {
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
-          values["date"] = format(values["date"], DATE_FORMAT);
+          const submitValues = { ...values };
+          submitValues["date"] = format(submitValues["date"], DATE_FORMAT);
 
-          values["timestamp"] = parse(
-            `${values["date"]} ${values["startTime"]}`,
+          submitValues["timestamp"] = parse(
+            `${submitValues["date"]} ${submitValues["startTime"]}`,
             `${DATE_FORMAT} ${TIME_FORMAT}`,
             new Date()
           );
           try {
-            datastore.createHabitatUse(values);
+            datastore.createHabitatUse(submitValues);
             setIsSubmitted(true);
             setSubmitting(false);
           } catch (e) {
