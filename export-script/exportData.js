@@ -43,7 +43,7 @@ const exportData = async () => {
     timestampFieldName,
     firebase.firestore(),
     collectionName
-  );
+  ).catch((e) => logToStdErrAndExit(e.message));
   if (timeRangeJsonData.length === 0) logAndExit(messages.NO_DATA);
 
   const csvData = transformJsonToCsv(timeRangeJsonData, config.encounter);
