@@ -1,12 +1,10 @@
 const { format } = require("date-fns");
 
-const generateFilename = (startDate, endDate) => {
-  return (
-    format(startDate, "yyyy-MM-dd") +
-    "__" +
-    format(endDate, "yyyy-MM-dd") +
-    "__db.csv"
-  );
+const generateFilename = (tableName, startDate, endDate) => {
+  const formattedStartDate = format(startDate, "yyyy-MM-dd");
+  const formattedEndDate = format(endDate, "yyyy-MM-dd");
+
+  return `${tableName}__${formattedStartDate}__${formattedEndDate}.csv`;
 };
 
 module.exports = generateFilename;

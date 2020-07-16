@@ -2,14 +2,15 @@ const firebase = require("firebase");
 const logToStdErrAndExit = require("./src/helpers/logToStdErrAndExit");
 const checkMissingConfig = require("./src/checkMissingConfig");
 const parseArgs = require("./src/parseArgs");
-const queryDataByTimeInterval = require("./src/queryDataByTimeInterval");
+const queryCollectionByTimeRange = require("./src/queryCollectionByTimeRange");
 const transformJsonToCsv = require("./src/transformJsonToCsv");
 const writeDataToFile = require("./src/writeDataToFile");
 const logAndExit = require("./src/helpers/logAndExit");
 const generateFilename = require("./src/generateFilename");
 const messages = require("./src/constants/messages");
-const collectionName = "habitatUse";
-const timestampFieldName = "timestamp";
+const config = require("./src/constants/fieldMaps");
+const collectionName = "encounter";
+const timestampFieldName = "date";
 const dirName = "./exported";
 
 const exportData = async () => {
@@ -36,7 +37,7 @@ const exportData = async () => {
     .signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD)
     .catch((e) => logToStdErrAndExit(e.message));
 
-  const timeRangeJsonData = await queryDataByTimeInterval(
+  const timeRangeJsonData = await queryCollectionByTimeRange(
     startDate,
     endDate,
     timestampFieldName,
@@ -45,9 +46,9 @@ const exportData = async () => {
   );
   if (timeRangeJsonData.length === 0) logAndExit(messages.NO_DATA);
 
-  const csvData = transformJsonToCsv(timeRangeJsonData);
+  const csvData = transformJsonToCsv(timeRangeJsonData, config.encounter);
 
-  const fileName = generateFilename(startDate, endDate);
+  const fileName = generateFilename(collectionName, startDate, endDate);
   writeDataToFile(dirName, fileName, csvData);
 };
 

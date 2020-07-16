@@ -9,7 +9,7 @@ describe("convertDateToMDY", () => {
     expect(convertedDate).toEqual("10/15/2019");
   });
 
-  it("strips trailing zeros from the date", () => {
+  it("strips leading zeros from the date", () => {
     const dmyDate = "03/09/2019";
 
     const convertedDate = convertDateToMDY(dmyDate);

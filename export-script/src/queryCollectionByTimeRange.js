@@ -1,4 +1,4 @@
-const queryDataByTimeInterval = async (
+const queryCollectionByTimeRange = async (
   startDate,
   endDate,
   timestampFieldName,
@@ -16,4 +16,4 @@ const queryDataByTimeInterval = async (
   return results;
 };
 
-module.exports = queryDataByTimeInterval;
+module.exports = queryCollectionByTimeRange;

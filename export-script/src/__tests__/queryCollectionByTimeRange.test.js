@@ -1,14 +1,14 @@
 const firebaseTesting = require("@firebase/testing");
-const queryDataByTimeInterval = require("../queryDataByTimeInterval");
+const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
 const { parse } = require("date-fns");
-const testEntries = require("../__fixtures__/testdata");
+const testEntries = require("../__fixtures__/encounterData");
 
-describe("queryDataByTimeInterval", () => {
+describe("queryCollectionByTimeRange", () => {
   const projectId = "project-id";
   const uid = "testId";
   const DATE_FORMAT = "dd/MM/yyyy";
-  const TIMESTAMP_FIELD_NAME = "timestamp";
-  const collectionName = "habitatUse";
+  const TIMESTAMP_FIELD_NAME = "date";
+  const collectionName = "encounter";
   let firestoreEmulator;
 
   beforeAll(async () => {
@@ -32,7 +32,7 @@ describe("queryDataByTimeInterval", () => {
     const startDate = parse("10/05/2020", DATE_FORMAT, new Date());
     const endDate = parse("28/06/2020", DATE_FORMAT, new Date());
 
-    const results = await queryDataByTimeInterval(
+    const results = await queryCollectionByTimeRange(
       startDate,
       endDate,
       TIMESTAMP_FIELD_NAME,
@@ -41,17 +41,17 @@ describe("queryDataByTimeInterval", () => {
     );
 
     expect(results.length).toEqual(2);
-    const resultAnimalNumbers = results.map((r) => r.numberOfAnimals);
-    expect(resultAnimalNumbers).toContain(1);
-    expect(resultAnimalNumbers).toContain(2);
-    expect(resultAnimalNumbers).not.toContain(5);
+    const resultSequenceNumbers = results.map((r) => r.seqNo);
+    expect(resultSequenceNumbers).toContain(1);
+    expect(resultSequenceNumbers).toContain(2);
+    expect(resultSequenceNumbers).not.toContain(5);
   });
 
   it("includes entries on start date and excludes entries on end date", async () => {
     startDate = parse("23/05/2020", DATE_FORMAT, new Date());
     endDate = parse("23/06/2020", DATE_FORMAT, new Date());
 
-    const results = await queryDataByTimeInterval(
+    const results = await queryCollectionByTimeRange(
       startDate,
       endDate,
       TIMESTAMP_FIELD_NAME,
@@ -60,16 +60,16 @@ describe("queryDataByTimeInterval", () => {
     );
 
     expect(results.length).toEqual(1);
-    const resultAnimalNumbers = results.map((r) => r.numberOfAnimals);
-    expect(resultAnimalNumbers).toContain(1);
-    expect(resultAnimalNumbers).not.toContain(2);
+    const resultSequenceNumbers = results.map((r) => r.seqNo);
+    expect(resultSequenceNumbers).toContain(1);
+    expect(resultSequenceNumbers).not.toContain(2);
   });
 
   it("returns an empty array when no entries fall within time range", async () => {
     startDate = parse("10/02/2020", DATE_FORMAT, new Date());
     endDate = parse("28/02/2020", DATE_FORMAT, new Date());
 
-    const results = await queryDataByTimeInterval(
+    const results = await queryCollectionByTimeRange(
       startDate,
       endDate,
       TIMESTAMP_FIELD_NAME,

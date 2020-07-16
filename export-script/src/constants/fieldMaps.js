@@ -1,9 +1,28 @@
 const convertDateToMDY = require("../convertDateToMDY");
+const convertUnixTimestampToMDY = require("../convertUnixTimestampToMDY");
 const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
+  encounter: {
+    "Sequence #": { key: "seqNo" },
+    Date: { key: "date", transform: convertUnixTimestampToMDY },
+    Area: { key: "area" },
+    "Encounter/Sighting": { key: "" },
+    "Encounter #": { key: "" },
+    "Sighting Number": { key: "" },
+    Species: { key: "" },
+    "Group size": { key: "" },
+    "Begin time": { key: "" },
+    Location: { key: "" },
+    Project: { key: "" },
+    Vessel: { key: "" },
+    Observers: { key: "" },
+    "BMMRO data": { key: "" },
+    Transect: { key: "" },
+    "Transect #": { key: "" },
+    "Vessel log #": { key: "" },
+  },
   habitatUse: {
-    Area: { key: "" },
     Date: { key: "date", transform: convertDateToMDY },
     "Sequence #": { key: "encSeqNo" },
     Time: { key: "startTime" },
@@ -20,12 +39,9 @@ module.exports = {
     "Wave Height": { key: "swellWaveHeight" },
     DOT: { key: "directionOfTravel" },
     "Surfacing Bout": { key: "surfaceBout" },
-    "Tagged Whale?": { key: "" },
     "Bearing (relative )": { key: "bearing" },
     Distance: { key: "distance" },
     "Aspect (relative)": { key: "aspect" },
-    "Non-Tagged Surfacing Counts": { key: "" },
-    "Tagged Surfacing Counts": { key: "" },
     "Group Cohesion": { key: "groupCohesion" },
     "End Time": { key: "endTime" },
     "Group Composition": { key: "groupComposition" },
@@ -34,5 +50,9 @@ module.exports = {
       key: "comments",
       transform: prependFromFirestore,
     },
+    "Non-Tagged Surfacing Counts": { key: "" },
+    "Tagged Whale?": { key: "" },
+    "Tagged Surfacing Counts": { key: "" },
+    Area: { key: "" },
   },
 };

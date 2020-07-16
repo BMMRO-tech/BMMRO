@@ -8,10 +8,10 @@ main -> exportDataToCsv: config, dates
 exportDataToCsv -> initializeApp: config
 exportDataToCsv -> auth: email, password
 auth -> exportDataToCsv: ok / not ok
-exportDataToCsv -> queryDataByTimeInterval: start, end, etc.
-queryDataByTimeInterval -> exportDataToCsv: data / error
-queryDataByTimeInterval -> transformDataToCsvFormat: json data
-transformDataToCsvFormat -> queryDataByTimeInterval: csv data
+exportDataToCsv -> queryCollectionByTimeRange: start, end, etc.
+queryCollectionByTimeRange -> exportDataToCsv: data / error
+queryCollectionByTimeRange -> transformDataToCsvFormat: json data
+queryCollectionByTimeRange -> queryCollectionByTimeRange: csv data
 exportDataToCsv -> writeDataToFile: csv Data
 writeDataToFile -> FS: csv Data
 exportDataToCsv -> main: ok / not ok
