@@ -15,7 +15,6 @@ describe("writeDataToFile", () => {
     writeDataToFile("dummyDir", "dummyFile", "test");
 
     expect(fs.writeFileSync).toHaveBeenCalledWith("dummyDir/dummyFile", "test");
-    expect(logAndExit).toHaveBeenCalledTimes(1);
   });
 
   it("exits the script if writing to file fails", () => {

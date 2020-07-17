@@ -3,13 +3,16 @@ const logToStdErrAndExit = require("./src/helpers/logToStdErrAndExit");
 const checkMissingConfig = require("./src/checkMissingConfig");
 const parseArgs = require("./src/parseArgs");
 const queryCollectionByTimeRange = require("./src/queryCollectionByTimeRange");
+const querySubcollectionByDocId = require("./src/querySubcollectionByDocId");
 const transformJsonToCsv = require("./src/transformJsonToCsv");
 const writeDataToFile = require("./src/writeDataToFile");
 const logAndExit = require("./src/helpers/logAndExit");
 const generateFilename = require("./src/generateFilename");
 const messages = require("./src/constants/messages");
 const config = require("./src/constants/fieldMaps");
-const collectionName = "encounter";
+
+const encounterCollection = "encounter";
+const habitatUseSubcollection = "habitatUseTest";
 const timestampFieldName = "date";
 const dirName = "./exported";
 
@@ -37,19 +40,44 @@ const exportData = async () => {
     .signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD)
     .catch((e) => logToStdErrAndExit(e.message));
 
-  const timeRangeJsonData = await queryCollectionByTimeRange(
+  const encounters = await queryCollectionByTimeRange(
     startDate,
     endDate,
     timestampFieldName,
     firebase.firestore(),
-    collectionName
+    encounterCollection
   ).catch((e) => logToStdErrAndExit(e.message));
-  if (timeRangeJsonData.length === 0) logAndExit(messages.NO_DATA);
+  if (encounters.length === 0) logAndExit(messages.NO_DATA);
 
-  const csvData = transformJsonToCsv(timeRangeJsonData, config.encounter);
+  let habitatUseForms = [];
+  for (const encounter of encounters) {
+    const habitatUse = await querySubcollectionByDocId(
+      firebase.firestore(),
+      encounter.id,
+      encounterCollection,
+      habitatUseSubcollection
+    );
+    habitatUseForms.push(...habitatUse);
+  }
 
-  const fileName = generateFilename(collectionName, startDate, endDate);
-  writeDataToFile(dirName, fileName, csvData);
+  const csvEncounters = transformJsonToCsv(encounters, config.encounter);
+  const csvHabitatUse = transformJsonToCsv(habitatUseForms, config.habitatUse);
+
+  const encountersFileName = generateFilename(
+    encounterCollection,
+    startDate,
+    endDate
+  );
+  const habitatUseFileName = generateFilename(
+    habitatUseSubcollection,
+    startDate,
+    endDate
+  );
+
+  writeDataToFile(dirName, encountersFileName, csvEncounters);
+  writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
+
+  logAndExit("Script complete!");
 };
 
 module.exports = exportData;
