@@ -10,7 +10,7 @@ module.exports = {
     "Encounter/Sighting": { key: "" },
     "Encounter #": { key: "" },
     "Sighting Number": { key: "" },
-    Species: { key: "" },
+    Species: { key: "species" },
     "Group size": { key: "" },
     "Begin time": { key: "" },
     Location: { key: "" },
@@ -59,7 +59,7 @@ module.exports = {
     "Autec range": { key: "" },
   },
   habitatUse: {
-    Date: { key: "date", transform: convertDateToMDY },
+    Date: { key: "date", transform: convertUnixTimestampToMDY },
     "Sequence #": { key: "encSeqNo" },
     Time: { key: "startTime" },
     Latitude: { key: "latitude" },
@@ -89,6 +89,6 @@ module.exports = {
     "Non-Tagged Surfacing Counts": { key: "" },
     "Tagged Whale?": { key: "" },
     "Tagged Surfacing Counts": { key: "" },
-    Area: { key: "" },
+    Area: { key: "area" },
   },
 };

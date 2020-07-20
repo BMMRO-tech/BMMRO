@@ -57,6 +57,13 @@ const exportData = async () => {
       encounterCollection,
       habitatUseSubcollection
     );
+    habitatUse.forEach((entry) => {
+      entry.area = encounter.area;
+      entry.encSeqNo = encounter.seqNo;
+      entry.species = encounter.species;
+      entry.date = encounter.date;
+    });
+
     habitatUseForms.push(...habitatUse);
   }
 
