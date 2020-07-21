@@ -11,7 +11,7 @@ describe("writeDataToFile", () => {
     fs.existsSync = jest.fn(() => true);
   });
 
-  it("can write data to file", () => {
+  it("writes data to file", () => {
     writeDataToFile("dummyDir", "dummyFile", "test");
 
     expect(fs.writeFileSync).toHaveBeenCalledWith("dummyDir/dummyFile", "test");

@@ -18,7 +18,7 @@ describe("mapFields", () => {
     ]);
   });
 
-  it("should transform a field value by a callback in the config", () => {
+  it("transforms a field value by a callback in the config", () => {
     const testData = [
       { a: 1, b: 2, c: 3 },
       { a: 4, b: 5, c: 6 },
@@ -57,7 +57,7 @@ describe("mapFields", () => {
     ]);
   });
 
-  it("should add a key from config if it is not present in data", () => {
+  it("adds a key from config if it is not present in data", () => {
     const testData = [
       { a: 1, b: 2, c: 3 },
       { a: 4, b: 5, c: 6 },

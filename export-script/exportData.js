@@ -14,7 +14,7 @@ const config = require("./src/constants/fieldMaps");
 
 const encounterCollection = "encounter";
 const habitatUseSubcollection = "habitatUseTest";
-const timestampFieldName = "date";
+const timestampFieldName = "startTimestamp";
 const dirName = "./exported";
 
 const exportData = async () => {

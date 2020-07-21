@@ -1,11 +1,10 @@
-const convertDateToMDY = require("../convertDateToMDY");
 const convertUnixTimestampToMDY = require("../convertUnixTimestampToMDY");
 const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
   encounter: {
     "Sequence #": { key: "seqNo" },
-    Date: { key: "date", transform: convertUnixTimestampToMDY },
+    Date: { key: "startTimestamp", transform: convertUnixTimestampToMDY },
     Area: { key: "area" },
     "Encounter/Sighting": { key: "" },
     "Encounter #": { key: "" },
@@ -95,6 +94,6 @@ module.exports = {
     area: "area",
     encSeqNo: "seqNo",
     species: "species",
-    date: "date",
+    date: "startTimestamp",
   },
 };
