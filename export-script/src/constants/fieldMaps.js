@@ -93,7 +93,6 @@ module.exports = {
   habitatUseToEncounter: {
     area: "area",
     encSeqNo: "seqNo",
-    species: "species",
     date: "startTimestamp",
   },
 };
