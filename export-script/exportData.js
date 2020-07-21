@@ -4,6 +4,7 @@ const checkMissingConfig = require("./src/checkMissingConfig");
 const parseArgs = require("./src/parseArgs");
 const queryCollectionByTimeRange = require("./src/queryCollectionByTimeRange");
 const querySubcollectionByDocId = require("./src/querySubcollectionByDocId");
+const populateCollectionValues = require("./src/populateCollectionValues");
 const transformJsonToCsv = require("./src/transformJsonToCsv");
 const writeDataToFile = require("./src/writeDataToFile");
 const logAndExit = require("./src/helpers/logAndExit");
@@ -40,35 +41,37 @@ const exportData = async () => {
     .signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD)
     .catch((e) => logToStdErrAndExit(e.message));
 
-  const encounters = await queryCollectionByTimeRange(
+  const encounterEntries = await queryCollectionByTimeRange(
     startDate,
     endDate,
     timestampFieldName,
     firebase.firestore(),
     encounterCollection
   ).catch((e) => logToStdErrAndExit(e.message));
-  if (encounters.length === 0) logAndExit(messages.NO_DATA);
+  if (encounterEntries.length === 0) logAndExit(messages.NO_DATA);
 
-  let habitatUseForms = [];
-  for (const encounter of encounters) {
+  let habitatUseEntries = [];
+  for (const encounter of encounterEntries) {
     const habitatUse = await querySubcollectionByDocId(
       firebase.firestore(),
       encounter.id,
       encounterCollection,
       habitatUseSubcollection
     );
-    habitatUse.forEach((entry) => {
-      entry.area = encounter.area;
-      entry.encSeqNo = encounter.seqNo;
-      entry.species = encounter.species;
-      entry.date = encounter.date;
-    });
-
-    habitatUseForms.push(...habitatUse);
+    habitatUseEntries.push(...habitatUse);
   }
 
-  const csvEncounters = transformJsonToCsv(encounters, config.encounter);
-  const csvHabitatUse = transformJsonToCsv(habitatUseForms, config.habitatUse);
+  const extendedHabitatUseEntries = populateCollectionValues(
+    encounterEntries,
+    habitatUseEntries,
+    config.habitatUseToEncounter
+  );
+
+  const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
+  const csvHabitatUse = transformJsonToCsv(
+    extendedHabitatUseEntries,
+    config.habitatUse
+  );
 
   const encountersFileName = generateFilename(
     encounterCollection,

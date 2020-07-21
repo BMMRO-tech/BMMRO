@@ -11,7 +11,7 @@ const querySubcollectionByDocId = async (
     .get();
 
   const results = [];
-  rawResults.forEach((doc) => results.push(doc.data()));
+  rawResults.forEach((doc) => results.push({ parentId: id, ...doc.data() }));
   return results;
 };
 

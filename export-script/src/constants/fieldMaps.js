@@ -91,4 +91,10 @@ module.exports = {
     "Tagged Surfacing Counts": { key: "" },
     Area: { key: "area" },
   },
+  habitatUseToEncounter: {
+    area: "area",
+    encSeqNo: "seqNo",
+    species: "species",
+    date: "date",
+  },
 };
