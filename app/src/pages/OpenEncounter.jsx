@@ -1,17 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Link } from "@reach/router";
-import { ROUTES } from "../constants/routes";
-import colors from "../materials/colors";
+import { jsx } from "@emotion/core";
 import Layout from "../components/Layout";
-import Button from "../components/Button";
-
-const styles = {
-  container: css`
-    background-color: ${colors.lightGray};
-    padding: 10px;
-  `,
-};
+import EncounterOverview from "../components/EncounterOverview";
 
 const OpenEncounter = () => {
   const encounterData = {
@@ -22,14 +12,7 @@ const OpenEncounter = () => {
 
   return (
     <Layout>
-      <div css={styles.container}>
-        <div>Encounter {encounterData.seqNo}</div>
-        <div>{encounterData.species} species</div>
-        <div>{encounterData.area}</div>
-        <Link to={ROUTES.habitat}>
-          <Button variant="secondary">+ Add Habitat Use</Button>
-        </Link>
-      </div>
+      <EncounterOverview content={encounterData} />
     </Layout>
   );
 };

@@ -8,28 +8,28 @@ import Logo from "./icons/Logo";
 import { Avatar } from "./icons/Avatar";
 import Logout from "./Logout";
 
-const styles = {
-  header: css`
-    min-height: 50px;
-    box-shadow: 6px 1px 5px 1px rgba(40, 54, 104, 0.15);
-  `,
-  container: css`
-    display: flex;
-    align-items: center;
-    max-width: ${containers.default};
-    margin: 0 auto;
-    padding: 10px;
-  `,
-  text: css`
-    font-weight: bold;
-    font-size: 30px;
-    margin-right: auto;
-    margin-left: 10px;
-    color: ${colors.lightBlue};
-  `,
-};
-
 const Header = () => {
+  const styles = {
+    header: css`
+      min-height: 50px;
+      box-shadow: 6px 1px 5px 1px rgba(40, 54, 104, 0.15);
+    `,
+    container: css`
+      display: flex;
+      align-items: center;
+      max-width: ${containers.default};
+      margin: 0 auto;
+      padding: 10px;
+    `,
+    text: css`
+      font-weight: bold;
+      font-size: 30px;
+      margin-right: auto;
+      margin-left: 10px;
+      color: ${colors.lightBlue};
+    `,
+  };
+
   return (
     <header css={styles.header}>
       <div css={styles.container}>

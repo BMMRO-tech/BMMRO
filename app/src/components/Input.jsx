@@ -39,6 +39,7 @@ const Input = ({
       min-height: 20px;
     `,
   };
+
   return (
     <Fragment>
       {label && (
