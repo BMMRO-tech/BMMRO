@@ -25,7 +25,6 @@ const Layout = ({ children, hasHeader = true }) => {
     container: css`
       max-width: ${containers.default};
       margin: 0 auto;
-      padding: 10px;
     `,
 
     loadingIcon: css`

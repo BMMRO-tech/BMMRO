@@ -11,7 +11,7 @@ const EncounterOverview = ({ content }) => {
   const styles = {
     container: css`
       background-color: ${colors.lightGray};
-      padding: 10px;
+      padding: 15px;
     `,
     summaryContainer: css`
       margin-bottom: 15px;
@@ -29,7 +29,7 @@ const EncounterOverview = ({ content }) => {
           <span css={typography.caption}>Encounter {content.seqNo}</span>
           <span css={styles.title}>{content.species} species</span>
         </h1>
-        <h2 css={typography.subtitle}>{content.area}</h2>
+        <h2 css={typography.text}>{content.area}</h2>
       </div>
       <Link to={ROUTES.habitat}>
         <Button variant="secondary">+ Add Habitat Use</Button>

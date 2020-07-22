@@ -9,7 +9,7 @@ const typography = {
     font-weight: 600;
     text-transform: uppercase;
   `,
-  subtitle: css`
+  text: css`
     margin: 0;
     color: ${colors.darkGray};
     font-size: 18px;

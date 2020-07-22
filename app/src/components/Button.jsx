@@ -31,7 +31,7 @@ const Button = ({
     `,
     secondary: css`
       ${basicStyles}
-      background: ${colors.white};
+      background: transparent;
       color: ${colors.darkBlue};
     `,
   };

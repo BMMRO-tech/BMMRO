@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
-import { useState, useEffect, Fragment, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { parse, format } from "date-fns";
 
 import { DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
@@ -44,6 +44,9 @@ const HabitatUseForm = () => {
   }, [datastore]);
 
   const styles = {
+    container: css`
+      padding: 0 15px;
+    `,
     inputFieldContainerSingle: css`
       margin-bottom: 5px;
     `,
@@ -78,7 +81,7 @@ const HabitatUseForm = () => {
   };
 
   return (
-    <Fragment>
+    <div css={styles.container}>
       <h1>Habitat Use Form</h1>
       <p>
         <small>
@@ -201,7 +204,7 @@ const HabitatUseForm = () => {
           />
         </div>
       )}
-    </Fragment>
+    </div>
   );
 };
 
