@@ -2,7 +2,8 @@
 import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
 import { Field } from "formik";
-import appStyles from "../materials/appStyles";
+
+import colors from "../materials/colors";
 import ErrorMessage from "./ErrorMessage";
 
 const Input = ({
@@ -30,10 +31,7 @@ const Input = ({
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
-      border: 1px solid
-        ${!!error && touched
-          ? appStyles.colors.red
-          : appStyles.colors.lightBlue};
+      border: 1px solid ${!!error && touched ? colors.red : colors.lightBlue};
       ${type === "textarea" && "min-height: 120px;"}
     `,
     errorContainer: css`

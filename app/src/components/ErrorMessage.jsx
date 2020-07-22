@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import appStyles from "../materials/appStyles";
+
+import colors from "../materials/colors";
 import { FormErrorType } from "../constants/forms";
 import { AuthenticationErrorType } from "../constants/authentication";
 
@@ -26,7 +27,7 @@ const ErrorMessage = ({ error, testId, isInputFieldError = true }) => {
 
   const styles = {
     error: css`
-      color: ${appStyles.colors.red};
+      color: ${colors.red};
       font-size: ${isInputFieldError ? "13px" : "15px"};
     `,
   };

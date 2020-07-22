@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { Fragment, useContext } from "react";
 import { Global, css, jsx } from "@emotion/core";
-import appStyles from "../materials/appStyles";
+import containers from "../materials/containers";
+import colors from "../materials/colors";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Header from "./Header";
 import Error from "./Error";
@@ -14,22 +15,22 @@ const Layout = ({ children, hasHeader = true }) => {
       body {
         margin: 0;
         font-family: Verdana, Geneva, sans-serif;
-        background-color: ${appStyles.colors.white};
-        color: ${appStyles.colors.darkBlue};
+        background-color: ${colors.white};
+        color: ${colors.darkBlue};
       }
       * {
         box-sizing: border-box;
       }
     `,
     container: css`
-      max-width: ${appStyles.appContainer.maxWidth};
+      max-width: ${containers.default};
       margin: 0 auto;
       padding: 10px;
     `,
 
     loadingIcon: css`
       height: 100px;
-      fill: ${appStyles.colors.lightBlue};
+      fill: ${colors.lightBlue};
     `,
     loadingContainer: css`
       height: 80vh;

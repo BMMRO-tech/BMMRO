@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-
-import appStyles from "../materials/appStyles";
+import colors from "../materials/colors";
 
 const Button = ({
   type,
@@ -13,7 +12,7 @@ const Button = ({
   width = "auto",
 }) => {
   const basicStyles = css`
-    border: 1px solid ${appStyles.colors.darkBlue};
+    border: 1px solid ${colors.darkBlue};
     font-size: 15px;
     padding: 10px 15px;
     margin-right: 10px;
@@ -27,13 +26,13 @@ const Button = ({
   const variantStyles = {
     primary: css`
       ${basicStyles}
-      background: ${appStyles.colors.darkBlue};
-      color: ${appStyles.colors.white};
+      background: ${colors.darkBlue};
+      color: ${colors.white};
     `,
     secondary: css`
       ${basicStyles}
-      background: ${appStyles.colors.white};
-      color: ${appStyles.colors.darkBlue};
+      background: ${colors.white};
+      color: ${colors.darkBlue};
     `,
   };
 

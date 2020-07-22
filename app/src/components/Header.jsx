@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import appStyles from "../materials/appStyles";
+import containers from "../materials/containers";
+import colors from "../materials/colors";
 import Menu from "./Menu/Menu";
 import Logo from "./icons/Logo";
 import { Avatar } from "./icons/Avatar";
@@ -15,7 +16,7 @@ const styles = {
   container: css`
     display: flex;
     align-items: center;
-    max-width: ${appStyles.appContainer.maxWidth};
+    max-width: ${containers.default};
     margin: 0 auto;
     padding: 10px;
   `,
@@ -24,7 +25,7 @@ const styles = {
     font-size: 30px;
     margin-right: auto;
     margin-left: 10px;
-    color: ${appStyles.colors.lightBlue};
+    color: ${colors.lightBlue};
   `,
 };
 

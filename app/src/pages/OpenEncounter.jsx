@@ -2,13 +2,13 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import { ROUTES } from "../constants/routes";
-import appStyles from "../materials/appStyles";
+import colors from "../materials/colors";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
 
 const styles = {
   container: css`
-    background-color: ${appStyles.colors.lightGray};
+    background-color: ${colors.lightGray};
     padding: 10px;
   `,
 };
