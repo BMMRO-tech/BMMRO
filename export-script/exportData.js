@@ -7,6 +7,7 @@ const querySubcollectionByDocId = require("./src/querySubcollectionByDocId");
 const populateCollectionValues = require("./src/populateCollectionValues");
 const transformJsonToCsv = require("./src/transformJsonToCsv");
 const writeDataToFile = require("./src/writeDataToFile");
+const logSection = require("./src/helpers/logSection");
 const logAndExit = require("./src/helpers/logAndExit");
 const generateFilename = require("./src/generateFilename");
 const messages = require("./src/constants/messages");
@@ -41,6 +42,7 @@ const exportData = async () => {
     .signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD)
     .catch((e) => logToStdErrAndExit(e.message));
 
+  logSection(encounterCollection);
   const encounterEntries = await queryCollectionByTimeRange(
     startDate,
     endDate,
@@ -50,6 +52,15 @@ const exportData = async () => {
   ).catch((e) => logToStdErrAndExit(e.message));
   if (encounterEntries.length === 0) logAndExit(messages.NO_DATA);
 
+  const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
+  const encountersFileName = generateFilename(
+    encounterCollection,
+    startDate,
+    endDate
+  );
+  writeDataToFile(dirName, encountersFileName, csvEncounters);
+
+  logSection(habitatUseSubcollection);
   let habitatUseEntries = [];
   for (const encounter of encounterEntries) {
     const habitatUse = await querySubcollectionByDocId(
@@ -60,6 +71,7 @@ const exportData = async () => {
     );
     habitatUseEntries.push(...habitatUse);
   }
+  if (habitatUseEntries.length === 0) logAndExit(messages.NO_DATA);
 
   const extendedHabitatUseEntries = populateCollectionValues(
     encounterEntries,
@@ -67,24 +79,17 @@ const exportData = async () => {
     config.habitatUseToEncounter
   );
 
-  const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
   const csvHabitatUse = transformJsonToCsv(
     extendedHabitatUseEntries,
     config.habitatUse
   );
 
-  const encountersFileName = generateFilename(
-    encounterCollection,
-    startDate,
-    endDate
-  );
   const habitatUseFileName = generateFilename(
     habitatUseSubcollection,
     startDate,
     endDate
   );
 
-  writeDataToFile(dirName, encountersFileName, csvEncounters);
   writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
 
   logAndExit("Script complete!");
