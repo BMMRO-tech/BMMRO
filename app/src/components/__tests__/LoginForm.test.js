@@ -1,5 +1,10 @@
 import React from "react";
-import { render, cleanup, wait, fireEvent } from "@testing-library/react/pure";
+import {
+  render,
+  cleanup,
+  waitFor,
+  fireEvent,
+} from "@testing-library/react/pure";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import {
   buildFirebaseAuthMock,
@@ -35,6 +40,8 @@ describe("Login page", () => {
 
     fireEvent.click(queryByTestId("submit"));
 
-    await wait(() => expect(queryByTestId("login-error")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(queryByTestId("login-error")).toBeInTheDocument()
+    );
   });
 });

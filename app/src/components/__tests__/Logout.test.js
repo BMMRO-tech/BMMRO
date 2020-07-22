@@ -1,5 +1,5 @@
 import React from "react";
-import { wait, fireEvent } from "@testing-library/react/pure";
+import { waitFor, fireEvent } from "@testing-library/react/pure";
 import { renderWithMockContexts } from "../../testUtils/renderWithMockContexts";
 import { buildFirebaseAuthMock } from "../../testUtils/firebase";
 import Logout from "../Logout";
@@ -23,6 +23,8 @@ describe("Logout", () => {
 
     fireEvent.click(queryByTestId("logout-button"));
 
-    await wait(() => expect(queryByTestId("logout-error")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(queryByTestId("logout-error")).toBeInTheDocument()
+    );
   });
 });

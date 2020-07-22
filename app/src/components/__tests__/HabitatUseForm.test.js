@@ -1,5 +1,10 @@
 import React from "react";
-import { render, wait, fireEvent, cleanup } from "@testing-library/react/pure";
+import {
+  render,
+  waitFor,
+  fireEvent,
+  cleanup,
+} from "@testing-library/react/pure";
 
 import HabitatUseForm from "../HabitatUseForm";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
@@ -19,7 +24,7 @@ describe("Habitat Use Form validation", () => {
       );
       const inputField = form.queryByTestId(fieldId);
 
-      await wait(() => {
+      await waitFor(() => {
         fireEvent.change(inputField, {
           target: { value: testCase.value },
         });
