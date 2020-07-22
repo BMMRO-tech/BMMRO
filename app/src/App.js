@@ -3,7 +3,9 @@ import { useContext } from "react";
 import { FirebaseContext } from "./firebaseContext/firebaseContext";
 import { jsx } from "@emotion/core";
 import { LocationProvider, Router } from "@reach/router";
-import HabitatUse from "./pages/HabitatUse";
+import { ROUTES } from "./constants/routes";
+import NewHabitatUse from "./pages/NewHabitatUse";
+import OpenEncounter from "./pages/OpenEncounter";
 import Login from "./pages/Login";
 import { FirebaseContextProvider } from "./firebaseContext/firebaseContext";
 import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
@@ -14,8 +16,9 @@ const AppWithoutContext = () => {
 
   return (
     <Router>
-      <Login path="/login" />
-      <HabitatUse default path="/habitat" />
+      <Login path={ROUTES.login} />
+      <NewHabitatUse path={ROUTES.habitat} />
+      <OpenEncounter path={ROUTES.openEncounter} />
     </Router>
   );
 };

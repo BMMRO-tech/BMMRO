@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "@reach/router";
+import { ROUTES } from "../constants/routes";
 import clientPersistence from "../clientPersistence/clientPersistence";
 
 export const useLogoutRedirect = (loggedInUser) => {
@@ -8,7 +9,7 @@ export const useLogoutRedirect = (loggedInUser) => {
 
   useEffect(() => {
     if (!loggedInUser && !clientPersistence.get("isLoggedIn")) {
-      navigate("/login", { state: { from: location.pathname } });
+      navigate(ROUTES.login, { state: { from: location.pathname } });
     }
     // eslint-disable-next-line
   }, [loggedInUser]);

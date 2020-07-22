@@ -3,7 +3,7 @@ import { jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 
-const HabitatUse = () => {
+const NewHabitatUse = () => {
   return (
     <Layout>
       <HabitatUseForm />
@@ -11,4 +11,4 @@ const HabitatUse = () => {
   );
 };
 
-export default HabitatUse;
+export default NewHabitatUse;

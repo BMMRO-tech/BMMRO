@@ -9,12 +9,11 @@ const Button = ({
   children,
   testId,
   onClick,
+  variant = "primary",
   width = "auto",
 }) => {
-  const styles = css`
-    background: ${appStyles.colors.darkBlue};
-    border: none;
-    color: white;
+  const basicStyles = css`
+    border: 1px solid ${appStyles.colors.darkBlue};
     font-size: 15px;
     padding: 10px 15px;
     margin-right: 10px;
@@ -24,9 +23,27 @@ const Button = ({
       background: darkgrey;
     }
   `;
+
+  const variantStyles = {
+    primary: css`
+      ${basicStyles}
+      background: ${appStyles.colors.darkBlue};
+      color: ${appStyles.colors.white};
+    `,
+    secondary: css`
+      ${basicStyles}
+      background: ${appStyles.colors.white};
+      color: ${appStyles.colors.darkBlue};
+    `,
+  };
+
   return (
     <button
-      css={styles}
+      css={
+        variant === "secondary"
+          ? variantStyles.secondary
+          : variantStyles.primary
+      }
       type={type}
       disabled={disabled}
       data-testid={testId}

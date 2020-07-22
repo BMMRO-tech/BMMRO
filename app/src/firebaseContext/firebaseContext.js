@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import { navigate } from "@reach/router";
 import { createContext, useState, useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { ROUTES } from "../constants/routes";
 import { initFirestore, Datastore } from "../datastore/datastore";
 import clientPersistence from "../clientPersistence/clientPersistence";
-import { navigate } from "@reach/router";
 
 const FirebaseContext = createContext();
 
@@ -33,7 +34,7 @@ const FirebaseContextProvider = ({ children }) => {
         clientPersistence.set("isLoggedIn", true);
       } else {
         clientPersistence.remove("isLoggedIn");
-        navigate("/login", { state: { from: window.location.pathname } });
+        navigate(ROUTES.login, { state: { from: window.location.pathname } });
       }
     });
   }, []);
