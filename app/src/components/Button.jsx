@@ -10,6 +10,7 @@ const Button = ({
   onClick,
   variant = "primary",
   width = "auto",
+  primaryBackgroundColor = colors.darkBlue,
 }) => {
   const basicStyles = css`
     border: 1px solid ${colors.darkBlue};
@@ -26,7 +27,7 @@ const Button = ({
   const variantStyles = {
     primary: css`
       ${basicStyles}
-      background: ${colors.darkBlue};
+      background: ${primaryBackgroundColor};
       color: ${colors.white};
     `,
     secondary: css`
