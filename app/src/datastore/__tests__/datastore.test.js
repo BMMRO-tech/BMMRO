@@ -36,14 +36,14 @@ describe("Datastore with firestore", () => {
       expect(actual).toEqual("abc123");
     });
 
-    it("should throw 'DatastoreError' with code COLLECTION_ENTRY when create habitat use fails", async () => {
+    it("should throw 'DatastoreError' with code COLLECTION_ITEM_CREATION when create habitat use fails", async () => {
       const collectionReturnMock = {
         add: jest.fn().mockRejectedValue(new Error("mango")),
       };
       const datastore = buildDatastoreMock(collectionReturnMock);
 
       await expect(datastore.createHabitatUse("123")).rejects.toThrow(
-        new DatastoreError(DatastoreErrorType.COLLECTION_ENTRY)
+        new DatastoreError(DatastoreErrorType.COLLECTION_ITEM_CREATION)
       );
     });
   });

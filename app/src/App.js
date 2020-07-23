@@ -14,11 +14,14 @@ const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
   useLogoutRedirect(loggedInUser);
 
+  const NewEncounter = () => "New encounter";
+
   return (
     <Router>
       <Login path={ROUTES.login} />
-      <NewHabitatUse path={ROUTES.habitat} />
+      <NewEncounter default path={ROUTES.newEncounter} />
       <OpenEncounter path={ROUTES.openEncounter} />
+      <NewHabitatUse path={ROUTES.newHabitatUse} />
     </Router>
   );
 };

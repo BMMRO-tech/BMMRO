@@ -15,12 +15,42 @@ export class Datastore {
 
   async createHabitatUse(values) {
     try {
-      const result = await this.firestore
+      const docRef = await this.firestore
         .collection(CollectionNames.HABITAT_USE)
         .add(values);
-      return result.id;
+      return docRef.id;
     } catch (e) {
-      throw new DatastoreError(DatastoreErrorType.COLLECTION_ENTRY);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_ITEM_CREATION);
+    }
+  }
+
+  async readEncounterById(id) {
+    try {
+      const docRef = await this.firestore
+        .collection(CollectionNames.ENCOUNTER)
+        .doc(id)
+        .get();
+
+      return docRef.data();
+    } catch (e) {
+      console.log(e);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
+    }
+  }
+
+  async readHabitatUseByEncounterId(id) {
+    try {
+      const docRefs = await this.firestore
+        .collection(CollectionNames.ENCOUNTER)
+        .doc(id)
+        .collection(CollectionNames.HABITAT_USE_TEST)
+        .get();
+
+      const results = [];
+      docRefs.forEach((doc) => results.push(doc.data()));
+      return results;
+    } catch (e) {
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
     }
   }
 

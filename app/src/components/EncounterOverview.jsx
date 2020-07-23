@@ -31,7 +31,7 @@ const EncounterOverview = ({ content }) => {
         </h1>
         <h2 css={typography.text}>{content.area}</h2>
       </div>
-      <Link to={ROUTES.habitat}>
+      <Link to={ROUTES.newHabitatUse}>
         <Button variant="secondary">+ Add Habitat Use</Button>
       </Link>
     </div>

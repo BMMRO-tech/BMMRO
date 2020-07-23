@@ -23,6 +23,8 @@ const HabitatUseListItem = ({ content }) => {
 };
 
 const HabitatUseList = ({ items }) =>
-  items.map((item) => <HabitatUseListItem content={item} />);
+  items.map((item, index) => (
+    <HabitatUseListItem key={`habitatUseListItem-${index}`} content={item} />
+  ));
 
 export default HabitatUseList;

@@ -1,25 +1,17 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
+import { useEffect, useContext, useState } from "react";
+import { navigate } from "@reach/router";
+
+import { ROUTES } from "../constants/routes";
+import clientPersistence from "../clientPersistence/clientPersistence";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterOverview from "../components/EncounterOverview";
 import HabitatUseList from "../components/HabitatUseList";
 import Button from "../components/Button";
 
 const OpenEncounter = () => {
-  const encounter = {
-    seqNo: "E12",
-    area: "SA",
-    species: "Bottlenose dolphin - coastal",
-    habitatUseEntries: [
-      {
-        startTime: "09:45",
-      },
-      {
-        startTime: "10:04",
-      },
-    ],
-  };
-
   const styles = {
     container: css`
       margin-top: 20px;
@@ -31,13 +23,40 @@ const OpenEncounter = () => {
     `,
   };
 
+  const onEndEncounterClick = () => {
+    clientPersistence.remove("openEncounterId");
+    navigate(ROUTES.newEncounter);
+  };
+
+  const { datastore } = useContext(FirebaseContext);
+  const [encounter, setEncounter] = useState({});
+
+  useEffect(() => {
+    const getData = async (encounterId) => {
+      const [encounterResult, habitatUseResult] = await Promise.all([
+        datastore.readEncounterById(encounterId),
+        datastore.readHabitatUseByEncounterId(encounterId),
+      ]);
+
+      setEncounter({ ...encounterResult, habitatUseEntries: habitatUseResult });
+    };
+
+    const openEncounterId = clientPersistence.get("openEncounterId");
+
+    if (!!datastore) {
+      getData(openEncounterId);
+    }
+  }, [datastore]);
+
   return (
     <Layout>
       <div css={styles.container}>
         <EncounterOverview content={encounter} />
-        <HabitatUseList items={encounter.habitatUseEntries} />
+        {!!encounter.habitatUseEntries && (
+          <HabitatUseList items={encounter.habitatUseEntries} />
+        )}
         <div css={styles.buttonContainer}>
-          <Button>End Encounter</Button>
+          <Button onClick={onEndEncounterClick}>End Encounter</Button>
         </div>
       </div>
     </Layout>
