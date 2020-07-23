@@ -5,6 +5,9 @@ import TextInput from "./formFields/TextInput/TextInput";
 import Select from "./formFields/Select/Select";
 
 const styles = {
+  container: css`
+    padding: 0 15px;
+  `,
   formContainer: css`
     margin-bottom: 10px;
 
@@ -18,25 +21,32 @@ const styles = {
 
 const EncounterForm = () => {
   return (
-    <Formik initialValues={{}}>
-      <Form>
-        <div css={styles.formContainer}>
-          <TextInput
-            name="favoriteColor"
-            labelText="Your favorite color please"
-            isRequired={true}
-          />
-        </div>
-        <div css={styles.formContainer}>
-          <Select
-            name="species"
-            labelText="Your species please"
-            options={["Homo sapiens", "Daucus carota", "Crangon crangon"]}
-            isRequired={true}
-          />
-        </div>
-      </Form>
-    </Formik>
+    <div css={styles.container}>
+      <h1>New Encounter</h1>
+      <p>
+        <small>
+          <em>*required fields</em>
+        </small>
+      </p>
+
+      <Formik initialValues={{ favoriteColor: "", species: "" }}>
+        <Form>
+          <div css={styles.formContainer}>
+            <TextInput
+              name="favoriteColor"
+              labelText="Your favorite color please"
+              isRequired={true}
+            />
+            <Select
+              name="species"
+              labelText="Your species please"
+              options={["Homo sapiens", "Daucus carota", "Crangon crangon"]}
+              isRequired={true}
+            />
+          </div>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 
