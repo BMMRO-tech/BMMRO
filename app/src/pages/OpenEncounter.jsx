@@ -43,7 +43,7 @@ const OpenEncounter = () => {
 
     const openEncounterId = clientPersistence.get("openEncounterId");
 
-    if (!!datastore) {
+    if (!!datastore && openEncounterId) {
       getData(openEncounterId);
     }
   }, [datastore]);

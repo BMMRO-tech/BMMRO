@@ -12,11 +12,13 @@ describe("Datastore with firestore", () => {
   const buildDatastoreMock = ({
     add = "",
     onSnapshot = "",
+    doc = "",
     enablePersistence = "",
   }) => {
     const firestoreMock = {
       collection: jest.fn().mockReturnValue({
         add,
+        doc,
         onSnapshot,
       }),
       enablePersistence,
@@ -28,21 +30,29 @@ describe("Datastore with firestore", () => {
   describe("createHabitatUse", () => {
     it("should add expected data to habitat use collection", async () => {
       const collectionReturnMock = {
-        add: jest.fn().mockResolvedValue({ id: "abc123" }),
+        doc: jest.fn().mockReturnValue({
+          collection: jest.fn().mockReturnValue({
+            add: jest.fn().mockResolvedValue({ id: "abc123" }),
+          }),
+        }),
       };
       const datastore = buildDatastoreMock(collectionReturnMock);
 
-      const actual = await datastore.createHabitatUse({ value1: "123" });
+      const actual = await datastore.createHabitatUse("123", { value1: "123" });
       expect(actual).toEqual("abc123");
     });
 
     it("should throw 'DatastoreError' with code COLLECTION_ITEM_CREATION when create habitat use fails", async () => {
       const collectionReturnMock = {
-        add: jest.fn().mockRejectedValue(new Error("mango")),
+        doc: jest.fn().mockReturnValue({
+          collection: jest.fn().mockReturnValue({
+            add: jest.fn().mockRejectedValue(new Error("mango")),
+          }),
+        }),
       };
       const datastore = buildDatastoreMock(collectionReturnMock);
 
-      await expect(datastore.createHabitatUse("123")).rejects.toThrow(
+      await expect(datastore.createHabitatUse("123", "abc")).rejects.toThrow(
         new DatastoreError(DatastoreErrorType.COLLECTION_ITEM_CREATION)
       );
     });

@@ -13,10 +13,12 @@ export class Datastore {
     this.firestore = firestore;
   }
 
-  async createHabitatUse(values) {
+  async createHabitatUse(openEncounterId, values) {
     try {
       const docRef = await this.firestore
-        .collection(CollectionNames.HABITAT_USE)
+        .collection(CollectionNames.ENCOUNTER)
+        .doc(openEncounterId)
+        .collection(CollectionNames.HABITAT_USE_TEST)
         .add(values);
       return docRef.id;
     } catch (e) {

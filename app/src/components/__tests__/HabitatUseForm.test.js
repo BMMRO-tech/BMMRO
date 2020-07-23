@@ -10,7 +10,6 @@ import HabitatUseForm from "../HabitatUseForm";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import numericFields from "../../forms/habitatUse/testCases/numericFields.json";
 import textFields from "../../forms/habitatUse/testCases/textFields.json";
-import dateFields from "../../forms/habitatUse/testCases/dateFields.json";
 import selectFields from "../../forms/habitatUse/testCases/selectFields.json";
 import timeFields from "../../forms/habitatUse/testCases/timeFields.json";
 
@@ -99,30 +98,6 @@ describe("Habitat Use Form validation", () => {
     });
   });
 
-  describe("Date field", () => {
-    let originalDateNow;
-    beforeAll(() => {
-      originalDateNow = Date.now;
-      const today = "2020-05-04T00:00:00.000Z";
-      global.Date.now = jest.fn(() => new Date(today).getTime());
-    });
-
-    afterAll(() => (Date.now = originalDateNow));
-    afterEach(() => cleanup());
-
-    dateFields.forEach((field) => {
-      describe(field.id, () => {
-        field.testCases.forEach((testCase) => {
-          const valueDescription = !!testCase.value
-            ? `value ${testCase.value}`
-            : "empty value";
-          const testDescription = `Should have error of type '${testCase.error}' for ${valueDescription}`;
-          testFieldInput(testDescription, "date", testCase);
-        });
-      });
-    });
-  });
-
   describe("Time field", () => {
     let originalDateNow;
     beforeAll(() => {
@@ -149,7 +124,6 @@ describe("Habitat Use Form validation", () => {
 
   describe("Autofill", () => {
     const startTime = "11:30";
-    const date = "04 May 2020";
 
     const latitude = 1.123456;
     const latitudeActual = "1.123456";
@@ -187,11 +161,6 @@ describe("Habitat Use Form validation", () => {
       expect(startTimeField.value).toBe(startTime);
     });
 
-    it("date should be autofilled", async () => {
-      const dateField = habitatUseForm.queryByTestId("date");
-      expect(dateField.value).toBe(date);
-    });
-
     it("latitude should be autofilled", async () => {
       const latitudeField = habitatUseForm.queryByTestId("latitude");
       expect(latitudeField.value).toBe(latitudeActual);
@@ -200,11 +169,6 @@ describe("Habitat Use Form validation", () => {
     it("longitude should be autofilled", async () => {
       const longitudeField = habitatUseForm.queryByTestId("longitude");
       expect(longitudeField.value).toBe(longitudeActual);
-    });
-
-    it("timestamp should be autofilled", async () => {
-      const timestampField = habitatUseForm.queryByTestId("timestamp");
-      expect(timestampField.value).toMatch("Mon May 04 2020 11:30:00 GMT+0000");
     });
   });
 });

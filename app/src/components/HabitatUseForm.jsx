@@ -2,10 +2,10 @@
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { useState, useEffect, useContext } from "react";
-import { parse, format } from "date-fns";
+import { navigate } from "@reach/router";
 
-import { DATE_FORMAT, TIME_FORMAT } from "../constants/forms";
-
+import { ROUTES } from "../constants/routes";
+import clientPersistence from "../clientPersistence/clientPersistence";
 import { fields } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -13,20 +13,8 @@ import Button from "./Button";
 import Select from "./Select";
 import RecordSummaryList from "./RecordSummaryList";
 import Input from "./Input";
-import DatePicker from "./DatePicker";
 
-const renderField = (config) => {
-  switch (config.type) {
-    case "select":
-      return <Select config={config} />;
-    case "date":
-      return <DatePicker config={config} />;
-    default:
-      return <Input config={config} />;
-  }
-};
-
-const HabitatUseForm = () => {
+const HabitatUseForm = ({ location }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [hasSubmitError, setHasSubmitError] = useState(false);
   const [pendingRecords, setPendingRecords] = useState([]);
@@ -101,22 +89,19 @@ const HabitatUseForm = () => {
 
           initValues["latitude"] = "0";
           initValues["longitude"] = "0";
+          initValues["date"] = new Date(Date.now());
 
           return initValues;
         })()}
         onSubmit={async (values, { setSubmitting }) => {
-          const submitValues = { ...values };
-          submitValues["date"] = format(submitValues["date"], DATE_FORMAT);
+          delete values["date"];
 
-          submitValues["timestamp"] = parse(
-            `${submitValues["date"]} ${submitValues["startTime"]}`,
-            `${DATE_FORMAT} ${TIME_FORMAT}`,
-            new Date()
-          );
           try {
-            datastore.createHabitatUse(submitValues);
+            const openEncounterId = clientPersistence.get("openEncounterId");
+            datastore.createHabitatUse(openEncounterId, values);
             setIsSubmitted(true);
             setSubmitting(false);
+            navigate(ROUTES.openEncounter);
           } catch (e) {
             setHasSubmitError(true);
             setSubmitting(false);
@@ -172,14 +157,18 @@ const HabitatUseForm = () => {
 
                   return (
                     <div
-                      key={`habitat-use-form-field-${name}`}
+                      key={`habitat-use-form-field-${config.name}`}
                       css={
-                        type === "textarea"
+                        config.type === "textarea"
                           ? styles.inputFieldContainerDouble
                           : styles.inputFieldContainerSingle
                       }
                     >
-                      {renderField(config)}
+                      {config.type === "select" ? (
+                        <Select config={config} />
+                      ) : (
+                        <Input config={config} />
+                      )}
                     </div>
                   );
                 }
