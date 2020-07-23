@@ -2,7 +2,10 @@
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import TextInput from "./formFields/TextInput/TextInput";
+import DateInput from "./formFields/DateInput/DateInput";
 import Select from "./formFields/Select/Select";
+import areaOptions from "../constants/areaOptions";
+import speciesOptions from "../constants/speciesOptions";
 
 const styles = {
   container: css`
@@ -29,18 +32,32 @@ const EncounterForm = () => {
         </small>
       </p>
 
-      <Formik initialValues={{ favoriteColor: "", species: "" }}>
+      <Formik
+        initialValues={{
+          sequenceNumber: "",
+          date: new Date(),
+          area: "",
+          species: "",
+        }}
+      >
         <Form>
           <div css={styles.formContainer}>
             <TextInput
-              name="favoriteColor"
-              labelText="Your favorite color please"
+              name="sequenceNumber"
+              labelText="Sequence Number*"
+              isRequired={true}
+            />
+            <DateInput name="date" labelText="Date*" isRequired={true} />
+            <Select
+              name="area"
+              labelText="Area*"
+              options={areaOptions}
               isRequired={true}
             />
             <Select
               name="species"
-              labelText="Your species please"
-              options={["Homo sapiens", "Daucus carota", "Crangon crangon"]}
+              labelText="Species*"
+              options={speciesOptions}
               isRequired={true}
             />
           </div>
