@@ -19,26 +19,26 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   const cancelRef = useRef();
 
   const styles = {
+    overlayBackground: css`
+      background-color: rgba(0, 0, 0, 0.5);
+    `,
+    overlay: css`
+      z-index: 9999;
+    `,
     modal: css`
-      z-index: 999;
       position: fixed;
       background-color: white;
+      z-index: 9999;
       box-shadow: 0.5px 1px 1.5px 2px rgba(40, 54, 104, 0.15);
       display: block;
-      margin: auto;
-      width: 50%;
-      height: 50%;
       padding: 20px;
-
-      @media (max-width: 800px) {
-        width: 90%;
-      }
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     `,
     modalHeader: css`
       text-align: center;
       padding-bottom: 20px;
-    `,
-    modalHeaderText: css`
       font-weight: bold;
     `,
     modalText: css`
@@ -46,7 +46,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
     `,
     modalButtons: css`
       margin: auto;
-      width: 50%;
+      text-align: center;
     `,
   };
 
@@ -75,7 +75,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       <Fragment>
         <Attention />
         <AlertDialogLabel
-          css={styles.modalHeaderText}
+          css={styles.modalHeader}
           data-testid="offline-modal-title"
         >
           Logout while offline?
@@ -117,38 +117,40 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   ));
 
   return (
-    <AlertDialogOverlay
-      css={styles.modal}
-      leastDestructiveRef={cancelRef}
-      data-testid="confirmation-modal"
-    >
-      <div css={styles.modalContent}>
-        <div css={styles.modalHeader}>
+    <Fragment css={styles.overlayBackground}>
+      <AlertDialogOverlay
+        css={styles.overlay}
+        leastDestructiveRef={cancelRef}
+        data-testid="confirmation-modal"
+      >
+        <div css={styles.modal}>
+          <div css={styles.modalHeader}>
+            {navigator.onLine
+              ? renderOnlineModalTitle()
+              : renderOfflineModalTitle()}
+          </div>
           {navigator.onLine
-            ? renderOnlineModalTitle()
-            : renderOfflineModalTitle()}
-        </div>
-        {navigator.onLine
-          ? renderOnlineModalDescription()
-          : renderOfflineModalDescription()}
-        <div css={styles.modalButtons}>
-          <Button
-            primaryBackgroundColor={
-              navigator.onLine ? colors.darkBlue : colors.darkRed
-            }
-            testId="confirm-logout-button"
-            onClick={logout}
-          >
-            Logout
-          </Button>
-          <CancelButton />
-        </div>
-      </div>
+            ? renderOnlineModalDescription()
+            : renderOfflineModalDescription()}
+          <div css={styles.modalButtons}>
+            <Button
+              primaryBackgroundColor={
+                navigator.onLine ? colors.darkBlue : colors.darkRed
+              }
+              testId="confirm-logout-button"
+              onClick={logout}
+            >
+              Logout
+            </Button>
+            <CancelButton />
+          </div>
 
-      {!!logoutError && (
-        <ErrorMessage error={logoutError} testId="logout-error" />
-      )}
-    </AlertDialogOverlay>
+          {!!logoutError && (
+            <ErrorMessage error={logoutError} testId="logout-error" />
+          )}
+        </div>
+      </AlertDialogOverlay>
+    </Fragment>
   );
 };
 
