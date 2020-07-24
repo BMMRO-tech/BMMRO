@@ -1,13 +1,16 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import getDateInputStyle from "./getDateInputStyle";
 import FieldError from "../FieldError";
 import getFieldErrorMessage from "../getFieldErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
-import DatePicker from "react-datepicker";
 
-const DateInput = ({ name, labelText, maxLength, isRequired }) => {
+const DateInput = ({ name, labelText, isRequired }) => {
   const validateText = (val) => {
     if (!val && isRequired) {
       return getFieldErrorMessage(FormErrorType.EMPTY);
