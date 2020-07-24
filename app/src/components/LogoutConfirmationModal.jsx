@@ -28,24 +28,32 @@ const LogoutConfirmationModal = ({ closeModal }) => {
     modal: css`
       position: fixed;
       background-color: white;
-      z-index: 9999;
-      box-shadow: 0.5px 1px 1.5px 2px rgba(40, 54, 104, 0.15);
       display: block;
       padding: 20px;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      @media (max-width: 800px) {
+        min-width: 90%;
+      }
     `,
     modalHeader: css`
       text-align: center;
-      padding-bottom: 20px;
       font-weight: bold;
     `,
+    modalHeaderContainerOffline: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `,
+    attentionIcon: css`
+      padding-right: 20px;
+    `,
     modalText: css`
-      padding-bottom: 20px;
+      padding: 20px 0 20px 0;
     `,
     modalButtons: css`
-      margin: auto;
       text-align: center;
     `,
   };
@@ -72,15 +80,17 @@ const LogoutConfirmationModal = ({ closeModal }) => {
 
   const renderOfflineModalTitle = () => {
     return (
-      <Fragment>
-        <Attention />
+      <div css={styles.modalHeaderContainerOffline}>
+        <div css={styles.attentionIcon}>
+          <Attention />
+        </div>
         <AlertDialogLabel
           css={styles.modalHeader}
           data-testid="offline-modal-title"
         >
           Logout while offline?
         </AlertDialogLabel>
-      </Fragment>
+      </div>
     );
   };
 
