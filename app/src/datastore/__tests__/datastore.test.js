@@ -1,5 +1,8 @@
 import { Datastore, DatastoreError, initFirestore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
+import { CollectionNames } from "../../constants/datastore";
+import { collectionData } from "../__fixtures__/collectionData";
+import * as firebaseTesting from "@firebase/testing";
 
 class FirebaseErrorMock extends Error {
   constructor(code) {
@@ -28,31 +31,46 @@ describe("Datastore with firestore", () => {
   };
 
   describe("createHabitatUse", () => {
-    it("should add expected data to habitat use collection", async () => {
-      const collectionReturnMock = {
-        doc: jest.fn().mockReturnValue({
-          collection: jest.fn().mockReturnValue({
-            add: jest.fn().mockResolvedValue({ id: "abc123" }),
-          }),
-        }),
-      };
-      const datastore = buildDatastoreMock(collectionReturnMock);
+    const projectId = "project-id";
+    const uid = "testId";
+    let firestoreEmulator;
+    let encounterId;
 
-      const actual = await datastore.createHabitatUse("123", { value1: "123" });
-      expect(actual).toEqual("abc123");
+    beforeAll(async () => {
+      const firebaseMock = firebaseTesting.initializeTestApp({
+        projectId,
+        auth: { uid },
+      });
+      firestoreEmulator = firebaseMock.firestore();
+
+      const documentRef = await firestoreEmulator
+        .collection(CollectionNames.ENCOUNTER)
+        .add(collectionData);
+
+      encounterId = documentRef.id;
+    });
+
+    afterAll(async () => {
+      await firebaseTesting.clearFirestoreData({ projectId });
+      await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    });
+
+    it("should add expected data to habitat use collection", async () => {
+      const datastore = new Datastore(firestoreEmulator);
+
+      const actual = await datastore.createHabitatUse(encounterId, {
+        value1: "123",
+      });
+
+      expect(actual).not.toBe(null);
     });
 
     it("should throw 'DatastoreError' with code COLLECTION_ITEM_CREATION when create habitat use fails", async () => {
-      const collectionReturnMock = {
-        doc: jest.fn().mockReturnValue({
-          collection: jest.fn().mockReturnValue({
-            add: jest.fn().mockRejectedValue(new Error("mango")),
-          }),
-        }),
-      };
-      const datastore = buildDatastoreMock(collectionReturnMock);
+      const datastore = new Datastore(firestoreEmulator);
 
-      await expect(datastore.createHabitatUse("123", "abc")).rejects.toThrow(
+      await expect(
+        datastore.createHabitatUse(encounterId, "abc")
+      ).rejects.toThrow(
         new DatastoreError(DatastoreErrorType.COLLECTION_ITEM_CREATION)
       );
     });
