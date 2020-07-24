@@ -8,10 +8,9 @@ const Attention = () => {
       height: 40px;
     `,
   };
+
   return (
     <svg
-      height="100px"
-      width="100px"
       xmlns="http://www.w3.org/2000/svg"
       fill={colors.darkRed}
       css={styles.attention}
