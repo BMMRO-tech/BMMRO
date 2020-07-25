@@ -26,7 +26,7 @@ const Header = () => {
       font-size: 30px;
       margin-right: auto;
       margin-left: 10px;
-      color: ${colors.lightBlue};
+      color: ${colors.darkGray};
     `,
   };
 

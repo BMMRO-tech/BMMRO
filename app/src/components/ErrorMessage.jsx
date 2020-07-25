@@ -27,7 +27,7 @@ const ErrorMessage = ({ error, testId, isInputFieldError = true }) => {
 
   const styles = {
     error: css`
-      color: ${colors.red};
+      color: ${colors.darkRed};
       font-size: ${isInputFieldError ? "13px" : "15px"};
     `,
   };

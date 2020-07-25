@@ -4,7 +4,7 @@ import colors from "./colors";
 const typography = {
   title: css`
     margin: 0;
-    color: ${colors.darkBlue};
+    color: ${colors.darkTurquoise};
     font-size: 20px;
     font-weight: 600;
     text-transform: uppercase;

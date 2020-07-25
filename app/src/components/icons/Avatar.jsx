@@ -12,7 +12,7 @@ export const Avatar = ({ handleClick }) => {
   return (
     <svg
       onClick={handleClick}
-      fill={colors.lightBlue}
+      fill={colors.mediumTurquoise}
       css={avatarStyles.avatar}
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"

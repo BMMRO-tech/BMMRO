@@ -171,9 +171,4 @@ export const fields = [
     validate: (value) =>
       validatePositionField(value, -180, 180, POSITION_DECIMAL_PRECISION),
   },
-  {
-    name: "timestamp",
-    type: "hidden",
-    initialValue: () => getCurrentDate(),
-  },
 ];

@@ -10,7 +10,7 @@ import Button from "../components/Button";
 const EncounterOverview = ({ content }) => {
   const styles = {
     container: css`
-      background-color: ${colors.lightGray};
+      background-color: ${colors.lighterGray};
       padding: 15px;
     `,
     summaryContainer: css`

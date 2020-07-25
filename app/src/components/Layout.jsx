@@ -16,7 +16,7 @@ const Layout = ({ children, hasHeader = true }) => {
         margin: 0;
         font-family: Verdana, Geneva, sans-serif;
         background-color: ${colors.white};
-        color: ${colors.darkBlue};
+        color: ${colors.darkGray};
       }
       * {
         box-sizing: border-box;
@@ -29,7 +29,7 @@ const Layout = ({ children, hasHeader = true }) => {
 
     loadingIcon: css`
       height: 100px;
-      fill: ${colors.lightBlue};
+      fill: ${colors.mediumTurquoise};
     `,
     loadingContainer: css`
       height: 80vh;

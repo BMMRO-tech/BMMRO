@@ -32,7 +32,9 @@ const Select = ({
       font-size: 15px;
       background: ${colors.white};
       border-radius: 0;
-      border: 1px solid ${!!error && touched ? colors.red : colors.lightBlue};
+      border: 1px solid
+        ${!!error && touched ? colors.darkRed : colors.mediumGray};
+      border-radius: 2px;
     `,
     errorContainer: css`
       margin-top: 2px;

@@ -9,7 +9,6 @@ import {
 } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
 import { AuthenticationErrorType } from "../constants/authentication";
-import colors from "../materials/colors";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 import Attention from "./icons/Attention";
@@ -121,7 +120,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   };
 
   const CancelButton = forwardRef((props, ref) => (
-    <Button variant="secondary" ref={ref} onClick={closeModal}>
+    <Button variant="neutral" ref={ref} onClick={closeModal}>
       Stay logged in
     </Button>
   ));
@@ -144,9 +143,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
             : renderOfflineModalDescription()}
           <div css={styles.modalButtons}>
             <Button
-              primaryBackgroundColor={
-                navigator.onLine ? colors.darkBlue : colors.darkRed
-              }
+              variant={navigator.onLine ? "primary" : "warning"}
               testId="confirm-logout-button"
               onClick={logout}
             >

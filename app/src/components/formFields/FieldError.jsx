@@ -5,7 +5,7 @@ import colors from "../../materials/colors";
 const FieldError = ({ touched, errorMessage, labelText }) => {
   const styles = {
     error: css`
-      color: ${colors.red};
+      color: ${colors.darkRed};
       font-size: 13px;
       display: ${touched && errorMessage ? "block" : "none"};
     `,

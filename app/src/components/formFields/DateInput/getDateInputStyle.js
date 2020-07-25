@@ -13,7 +13,9 @@ const getDateInputStyle = (error, touched) => {
       margin-right: 5px;
       padding: 5px;
       font-size: 15px;
-      border: 1px solid ${!!error && touched ? colors.red : colors.lightBlue};
+      border: 1px solid
+        ${!!error && touched ? colors.darkRed : colors.mediumGray};
+      border-radius: 2px;
     `,
   };
 };
