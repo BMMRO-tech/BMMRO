@@ -49,12 +49,18 @@ const LogoutConfirmationModal = ({ closeModal }) => {
     attentionIcon: css`
       padding-right: 20px;
     `,
-    modalText: css`
+    modalDescription: css`
       padding: 20px 0 20px 0;
     `,
     modalButtons: css`
       display: flex;
       justify-content: space-around;
+    `,
+    modalDescriptionList: css`
+      margin: 0;
+      li:not(:first-child) {
+        margin-top: 10px;
+      }
     `,
   };
 
@@ -96,7 +102,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
 
   const renderOnlineModalDescription = () => {
     return (
-      <AlertDialogDescription css={styles.modalText}>
+      <AlertDialogDescription css={styles.modalDescription}>
         If you lose internet connection you will not be able to log back in
         until you are online again.
       </AlertDialogDescription>
@@ -105,8 +111,8 @@ const LogoutConfirmationModal = ({ closeModal }) => {
 
   const renderOfflineModalDescription = () => {
     return (
-      <AlertDialogDescription css={styles.modalText}>
-        <ul>
+      <AlertDialogDescription css={styles.modalDescription}>
+        <ul css={styles.modalDescriptionList}>
           <li>
             You will not be able to login and use the app until you are back
             online.
