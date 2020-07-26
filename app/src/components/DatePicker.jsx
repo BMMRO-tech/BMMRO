@@ -22,7 +22,7 @@ const DatePickerField = ({ config: { name, label, touched, error } }) => {
       max-width: 100%;
       margin-right: 5px;
       padding: 5px;
-      font-size: 15px;
+      font-size: 16px;
       border: 1px solid
         ${!!error && touched ? colors.darkRed : colors.mediumGray};
       border-radius: 2px;

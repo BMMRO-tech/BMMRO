@@ -19,7 +19,7 @@ const Header = () => {
       align-items: center;
       max-width: ${containers.default};
       margin: 0 auto;
-      padding: 10px 15px;
+      padding: 10px;
     `,
     text: css`
       font-weight: bold;

@@ -7,23 +7,32 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Header from "./Header";
 import Error from "./Error";
 
-const Layout = ({ children, hasHeader = true }) => {
+const Layout = ({
+  containerSize = containers.default,
+  hasDefaultPadding = true,
+  children,
+  hasHeader = true,
+}) => {
   const { datastore, datastoreError } = useContext(FirebaseContext);
 
   const styles = {
     global: css`
       body {
         margin: 0;
-        font-family: Verdana, Geneva, sans-serif;
         background-color: ${colors.white};
         color: ${colors.darkGray};
+        font-size: 16px;
       }
       * {
         box-sizing: border-box;
+        font-family: "Open Sans", Verdana, sans-serif;
       }
     `,
     container: css`
-      max-width: ${containers.default};
+      max-width: ${containerSize};
+      padding-top: 25px;
+      padding-left: ${hasDefaultPadding ? "10px" : 0};
+      padding-right: ${hasDefaultPadding ? "10px" : 0};
       margin: 0 auto;
     `,
 

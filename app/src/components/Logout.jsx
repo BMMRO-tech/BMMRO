@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import { Fragment, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import Button from "../components/Button";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 
@@ -26,7 +26,7 @@ const Logout = () => {
   };
 
   return (
-    <Fragment>
+    <div>
       <div css={styles.text} data-testid="user-email">
         {loggedInUser?.email || "Loading user..."}
       </div>
@@ -39,7 +39,7 @@ const Logout = () => {
       </Button>
 
       {showConfirmationModal && renderConfirmationModal()}
-    </Fragment>
+    </div>
   );
 };
 

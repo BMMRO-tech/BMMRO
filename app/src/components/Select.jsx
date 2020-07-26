@@ -22,14 +22,27 @@ const Select = ({
 }) => {
   const styles = {
     label: css`
-      display: block;
-      padding-bottom: 5px;
+      span {
+        display: block;
+        padding-bottom: 5px;
+      }
+
+      &:focus-within {
+        span {
+          color: ${colors.darkTurquoise};
+          font-weight: 700;
+        }
+
+        select {
+          outline: 2px solid ${colors.mediumTurquoise};
+        }
+      }
     `,
     input: css`
       width: 100%;
       margin-right: 5px;
       padding: 5px;
-      font-size: 15px;
+      font-size: 16px;
       background: ${colors.white};
       border-radius: 0;
       border: 1px solid
@@ -43,33 +56,34 @@ const Select = ({
   };
   return (
     <Fragment>
-      <label css={styles.label} htmlFor={name}>
-        {label}
+      <label css={styles.label}>
+        <span>{label}</span>
+        <Field
+          css={styles.input}
+          name={name}
+          value={value}
+          id={name}
+          data-testid={name}
+          onChange={onChange}
+          onBlur={onBlur}
+          validate={
+            !!validate ? (value) => validate(value, dependingFields) : null
+          }
+          as="select"
+        >
+          <option key="none" value="">
+            -- Please select option --
+          </option>
+          {options.map((option) => {
+            return (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            );
+          })}
+        </Field>
       </label>
-      <Field
-        css={styles.input}
-        name={name}
-        value={value}
-        id={name}
-        data-testid={name}
-        onChange={onChange}
-        onBlur={onBlur}
-        validate={
-          !!validate ? (value) => validate(value, dependingFields) : null
-        }
-        as="select"
-      >
-        <option key="none" value="">
-          -- Please select option --
-        </option>
-        {options.map((option) => {
-          return (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          );
-        })}
-      </Field>
+
       <div css={styles.errorContainer}>
         {!!error && !!touched && (
           <ErrorMessage testId={`error-${error.type}-${name}`} error={error} />

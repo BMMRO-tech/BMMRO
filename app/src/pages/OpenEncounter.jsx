@@ -13,9 +13,6 @@ import Button from "../components/Button";
 
 const OpenEncounter = () => {
   const styles = {
-    container: css`
-      margin-top: 20px;
-    `,
     buttonContainer: css`
       display: flex;
       justify-content: center;
@@ -50,14 +47,12 @@ const OpenEncounter = () => {
 
   return (
     <Layout>
-      <div css={styles.container}>
-        <EncounterOverview content={encounter} />
-        {!!encounter.habitatUseEntries && (
-          <HabitatUseList items={encounter.habitatUseEntries} />
-        )}
-        <div css={styles.buttonContainer}>
-          <Button onClick={onEndEncounterClick}>End Encounter</Button>
-        </div>
+      <EncounterOverview content={encounter} />
+      {!!encounter.habitatUseEntries && (
+        <HabitatUseList items={encounter.habitatUseEntries} />
+      )}
+      <div css={styles.buttonContainer}>
+        <Button onClick={onEndEncounterClick}>End Encounter</Button>
       </div>
     </Layout>
   );

@@ -5,7 +5,7 @@ const typography = {
   title: css`
     margin: 0;
     color: ${colors.darkTurquoise};
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     text-transform: uppercase;
   `,

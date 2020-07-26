@@ -29,19 +29,21 @@ const DateInput = ({ name, labelText, isRequired }) => {
   return (
     <div>
       <div>
-        <label css={styles.label}>{labelText}</label>
-        <DatePicker
-          dateFormat="dd MMMM yyyy"
-          maxDate={new Date()}
-          id={name}
-          css={styles.input}
-          withPortal
-          onFocus={(e) => e.target.blur()}
-          customInput={<input aria-label={labelText} type="text" />}
-          selected={(field.value && new Date(field.value)) || null}
-          {...field}
-          onChange={helpers.setValue}
-        />
+        <label css={styles.label}>
+          <span>{labelText}</span>
+          <DatePicker
+            dateFormat="dd MMMM yyyy"
+            maxDate={new Date()}
+            id={name}
+            css={styles.input}
+            withPortal
+            onFocus={(e) => e.target.blur()}
+            customInput={<input aria-label={labelText} type="text" />}
+            selected={(field.value && new Date(field.value)) || null}
+            {...field}
+            onChange={helpers.setValue}
+          />
+        </label>
       </div>
       <FieldError
         touched={meta.touched}

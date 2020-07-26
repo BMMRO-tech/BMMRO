@@ -3,11 +3,11 @@ import containers from "../../materials/containers";
 
 export const menuStyles = {
   menuButton: css`
+    display: flex;
+    align-items: center;
     background-color: transparent;
     border: none;
-    &:focus {
-      outline: none;
-    }
+    padding: 0;
   `,
   mask: css`
     top: 0;

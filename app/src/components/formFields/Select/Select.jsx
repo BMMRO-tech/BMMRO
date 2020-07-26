@@ -22,8 +22,8 @@ const Select = ({ name, labelText, isRequired, options }) => {
 
   return (
     <div>
-      <div>
-        <label css={styles.label}>{labelText}</label>
+      <label css={styles.label}>
+        <span>{labelText}</span>
         <select {...field} css={styles.select} aria-label={labelText}>
           <option key="none" value="" aria-label="default empty option">
             -- Please select option --
@@ -34,7 +34,7 @@ const Select = ({ name, labelText, isRequired, options }) => {
             </option>
           ))}
         </select>
-      </div>
+      </label>
       <FieldError
         touched={meta.touched}
         errorMessage={meta.error}

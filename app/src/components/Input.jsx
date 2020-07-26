@@ -22,15 +22,32 @@ const Input = ({
 }) => {
   const styles = {
     label: css`
-      display: block;
-      padding-bottom: 5px;
+      span {
+        display: block;
+        padding-bottom: 5px;
+      }
+
+      &:focus-within {
+        span {
+          color: ${colors.darkTurquoise};
+          font-weight: 700;
+        }
+
+        input {
+          outline: 2px solid ${colors.mediumTurquoise};
+        }
+
+        textarea {
+          outline: 2px solid ${colors.mediumTurquoise};
+        }
+      }
     `,
     input: css`
       width: 100%;
       max-width: 100%;
       margin-right: 5px;
       padding: 5px;
-      font-size: 15px;
+      font-size: 16px;
       border: 1px solid
         ${!!error && touched ? colors.darkRed : colors.mediumGray};
       border-radius: 2px;
@@ -44,25 +61,24 @@ const Input = ({
 
   return (
     <Fragment>
-      {label && (
-        <label css={styles.label} htmlFor={name}>
-          {label}
-        </label>
-      )}
-      <Field
-        as={type === "textarea" ? type : null}
-        css={styles.input}
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        id={name}
-        data-testid={name}
-        value={value}
-        onBlur={onBlur}
-        validate={
-          !!validate ? (value) => validate(value, dependingFields) : null
-        }
-      />
+      <label css={styles.label}>
+        <span>{label}</span>
+        <Field
+          as={type === "textarea" ? type : null}
+          css={styles.input}
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          id={name}
+          data-testid={name}
+          value={value}
+          onBlur={onBlur}
+          validate={
+            !!validate ? (value) => validate(value, dependingFields) : null
+          }
+        />
+      </label>
+
       <div css={styles.errorContainer}>
         {!!error && touched && (
           <ErrorMessage testId={`error-${error.type}-${name}`} error={error} />

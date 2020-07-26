@@ -28,6 +28,9 @@ const LoginForm = () => {
     form: css`
       padding-top: 10px;
     `,
+    button: css`
+      margin: 0 auto;
+    `,
   };
 
   return (
@@ -59,9 +62,11 @@ const LoginForm = () => {
               name: "password",
             }}
           />
-          <Button testId="submit" type="submit" width="100%">
-            Log in
-          </Button>
+          <div css={styles.buttonContainer}>
+            <Button styles={styles.button} testId="submit" type="submit">
+              Log in
+            </Button>
+          </div>
         </Form>
       </Formik>
     </Fragment>

@@ -5,7 +5,7 @@ import EncounterForm from "../components/EncounterForm";
 
 const NewEncounter = () => {
   return (
-    <Layout>
+    <Layout hasDefaultPadding={false}>
       <EncounterForm />
     </Layout>
   );

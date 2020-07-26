@@ -4,14 +4,27 @@ import colors from "../../../materials/colors";
 const getTextInputStyle = (error, touched) => {
   return {
     label: css`
-      display: block;
-      padding-bottom: 5px;
+      span {
+        display: block;
+        padding-bottom: 5px;
+      }
+
+      &:focus-within {
+        span {
+          color: ${colors.darkTurquoise};
+          font-weight: 700;
+        }
+
+        select {
+          outline: 2px solid ${colors.mediumTurquoise};
+        }
+      }
     `,
     select: css`
       width: 100%;
       margin-right: 5px;
       padding: 5px;
-      font-size: 15px;
+      font-size: 16px;
       background: ${colors.white};
       border-radius: 0;
       border: 1px solid

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { useState, Fragment, forwardRef, useRef } from "react";
+import { useState, forwardRef, useRef } from "react";
 import firebase from "firebase/app";
 import {
   AlertDialogOverlay,
@@ -53,7 +53,8 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       padding: 20px 0 20px 0;
     `,
     modalButtons: css`
-      text-align: center;
+      display: flex;
+      justify-content: space-around;
     `,
   };
 
@@ -126,7 +127,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   ));
 
   return (
-    <Fragment css={styles.overlayBackground}>
+    <div css={styles.overlayBackground}>
       <AlertDialogOverlay
         css={styles.overlay}
         leastDestructiveRef={cancelRef}
@@ -157,7 +158,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
           )}
         </div>
       </AlertDialogOverlay>
-    </Fragment>
+    </div>
   );
 };
 

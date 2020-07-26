@@ -5,7 +5,7 @@ import HabitatUseForm from "../components/HabitatUseForm";
 
 const NewHabitatUse = () => {
   return (
-    <Layout>
+    <Layout hasDefaultPadding={false}>
       <HabitatUseForm />
     </Layout>
   );

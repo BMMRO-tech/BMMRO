@@ -11,14 +11,16 @@ const EncounterOverview = ({ content }) => {
   const styles = {
     container: css`
       background-color: ${colors.lighterGray};
-      padding: 15px;
+      padding: 15px 10px;
     `,
     summaryContainer: css`
       margin-bottom: 15px;
     `,
     title: css`
       display: block;
-      margin: 5px 0;
+    `,
+    link: css`
+      text-decoration: none;
     `,
   };
 
@@ -31,7 +33,7 @@ const EncounterOverview = ({ content }) => {
         </h1>
         <h2 css={typography.text}>{content.area}</h2>
       </div>
-      <Link to={ROUTES.newHabitatUse}>
+      <Link css={styles.link} to={ROUTES.newHabitatUse}>
         <Button variant="secondary">+ Add Habitat Use</Button>
       </Link>
     </div>

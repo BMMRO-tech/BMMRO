@@ -31,10 +31,10 @@ const TextInput = ({ name, labelText, maxLength, isRequired }) => {
 
   return (
     <div>
-      <div>
-        <label css={styles.label}>{labelText}</label>
+      <label css={styles.label}>
+        <span>{labelText}</span>
         <input {...field} css={styles.input} aria-label={labelText} />
-      </div>
+      </label>
       <FieldError
         touched={meta.touched}
         errorMessage={meta.error}

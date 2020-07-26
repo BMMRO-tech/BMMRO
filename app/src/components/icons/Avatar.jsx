@@ -4,7 +4,7 @@ import colors from "../../materials/colors";
 
 const avatarStyles = {
   avatar: css`
-    height: 40px;
+    height: 44px;
   `,
 };
 

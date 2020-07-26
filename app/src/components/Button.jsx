@@ -10,13 +10,17 @@ const Button = ({
   onClick,
   variant = "primary",
   width = "auto",
+  styles,
 }) => {
   const basicStyles = css`
-    font-size: 15px;
-    padding: 10px 15px;
-    margin-right: 10px;
+    ${styles}
+    display: block;
+    min-width: 150px;
+    font-size: 16px;
+    padding: 10px 20px;
     width: ${width};
     border-radius: 2px;
+    font-weight: 600;
 
     &:disabled {
       background: darkgrey;
