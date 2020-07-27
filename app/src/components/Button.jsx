@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import colors from "../materials/colors";
+import breakPoints from "../materials/breakPoints";
 
 const Button = ({
   type,
@@ -15,15 +16,20 @@ const Button = ({
   const basicStyles = css`
     ${styles}
     display: block;
-    min-width: 150px;
+    min-width: 100px;
     font-size: 16px;
-    padding: 10px 20px;
+    padding: 10px;
     width: ${width};
     border-radius: 2px;
     font-weight: 600;
 
     &:disabled {
       background: darkgrey;
+    }
+
+    @media (min-width: ${breakPoints.maxPhone}) {
+      min-width: 150px;
+      padding: 10px 20px;
     }
   `;
 

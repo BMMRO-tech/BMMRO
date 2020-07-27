@@ -1,5 +1,6 @@
 const breakPoints = {
-  tablet: "500px",
+  maxPhone: "500px",
+  mediumTablet: "800px",
 };
 
 export default breakPoints;

@@ -45,7 +45,7 @@ const HabitatUseForm = ({ location }) => {
       padding: 0 20px;
     `,
     fieldsContainer: css`
-      @media (min-width: ${breakPoints.tablet}) {
+      @media (min-width: ${breakPoints.maxPhone}) {
         display: grid;
         grid-template-columns: 45% 45%;
         grid-column-gap: 10%;
@@ -57,7 +57,7 @@ const HabitatUseForm = ({ location }) => {
     inputFieldContainerDouble: css`
       margin-bottom: 5px;
 
-      @media (min-width: ${breakPoints.tablet}) {
+      @media (min-width: ${breakPoints.maxPhone}) {
         grid-column: 1 / span 2;
       }
     `,
