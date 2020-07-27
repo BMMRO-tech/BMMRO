@@ -37,7 +37,7 @@ const OpenEncounter = () => {
         datastore.readDocsByParentId(
           encounterId,
           CollectionNames.ENCOUNTER,
-          CollectionNames.HABITAT_USE_TEST
+          CollectionNames.HABITAT_USE
         ),
       ]);
 

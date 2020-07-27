@@ -113,7 +113,7 @@ const HabitatUseForm = ({ location }) => {
                 CollectionNames.ENCOUNTER
               );
               datastore.createSubDoc(
-                CollectionNames.HABITAT_USE_TEST,
+                CollectionNames.HABITAT_USE,
                 values,
                 openEncounter
               );

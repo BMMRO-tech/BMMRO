@@ -1,7 +1,6 @@
 export const CollectionNames = {
   ENCOUNTER: "encounter",
   HABITAT_USE: "habitatUse",
-  HABITAT_USE_TEST: "habitatUseTest",
 };
 
 export const DatastoreErrorType = {

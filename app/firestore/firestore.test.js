@@ -42,7 +42,7 @@ describe("Habitat Use Collection", () => {
 describe("Encounter collection with habitat use subcollection", () => {
   let db;
   const collectionName = "encounter";
-  const subcollectionName = "habitatUseTest";
+  const subcollectionName = "habitatUse";
 
   const initializeFirestore = (auth) => {
     return firebase.initializeTestApp({ projectId, auth }).firestore();

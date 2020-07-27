@@ -14,7 +14,7 @@ const messages = require("./src/constants/messages");
 const config = require("./src/constants/fieldMaps");
 
 const encounterCollection = "encounter";
-const habitatUseSubcollection = "habitatUseTest";
+const habitatUseSubcollection = "habitatUse";
 const timestampFieldName = "startTimestamp";
 const dirName = "./exported";
 
