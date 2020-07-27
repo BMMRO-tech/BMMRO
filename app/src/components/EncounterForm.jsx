@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Formik, Form } from "formik";
 import { navigate } from "@reach/router";
 import { css, jsx } from "@emotion/core";
@@ -11,12 +11,14 @@ import TextInput from "./formFields/TextInput/TextInput";
 import DateInput from "./formFields/DateInput/DateInput";
 import Select from "./formFields/Select/Select";
 import Button from "./Button";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 
 import areaOptions from "../constants/areaOptions";
 import speciesOptions from "../constants/speciesOptions";
 import { ROUTES } from "../constants/routes";
 
 import clientPersistence from "../clientPersistence/clientPersistence";
+import { CollectionNames } from "../constants/datastore";
 
 const styles = {
   title: css`
@@ -44,6 +46,8 @@ const styles = {
 };
 
 const EncounterForm = () => {
+  const { datastore } = useContext(FirebaseContext);
+
   return (
     <Fragment>
       <h1 css={styles.title}>New Encounter</h1>
@@ -56,8 +60,8 @@ const EncounterForm = () => {
             species: "",
           }}
           onSubmit={(values) => {
-            console.log(values);
-            clientPersistence.set("openEncounterId", "abc");
+            const id = datastore.createDoc(CollectionNames.ENCOUNTER, values);
+            clientPersistence.set("openEncounterId", id);
             navigate(ROUTES.openEncounter);
           }}
         >
