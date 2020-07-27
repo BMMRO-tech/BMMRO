@@ -1,4 +1,5 @@
-![alt text](./logo_v1.png "Fluke! error...")
+![alt text](./logo_v2.png "Fluke! error...")
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
