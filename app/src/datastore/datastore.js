@@ -9,8 +9,22 @@ export class DatastoreError extends Error {
 }
 
 export class Datastore {
-  constructor(firestore) {
+  constructor(firestore, enableLogging = true) {
     this.firestore = firestore;
+    this.enableLogging = enableLogging;
+  }
+
+  async readDocById(id, collectionName) {
+    try {
+      const docRef = await this.firestore
+        .collection(collectionName)
+        .doc(id)
+        .get();
+      return docRef.data();
+    } catch (e) {
+      this.enableLogging && console.error(e);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
+    }
   }
 
   async createHabitatUse(openEncounterId, values) {

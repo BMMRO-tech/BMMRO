@@ -34,7 +34,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format-check && npm test -- --watchAll=false"
+      "pre-commit": "npm run format-check && CI=true npm test"
     }
   },
   "eslintConfig": {

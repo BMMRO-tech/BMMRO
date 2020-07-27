@@ -1,0 +1,11 @@
+rules_version = '2'
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    allow update, delete: if false;
+    
+    match /dolphin/{dolphinId} {
+      allow create, read: if request.auth != null && request.auth.uid == 'test-researcher';
+    }
+  }
+}
