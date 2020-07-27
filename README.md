@@ -51,7 +51,7 @@ Research, incept and build on the existing system to allow their extensive colle
 Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
 
 # Documents and repositories: 
-[Google drive](https://bit.ly/34ha4dK)
+[Google drive](https://drive.google.com/drive/folders/158V1HhQiZe8HlKXTzOMhXw2lyf51NNlc?usp=sharing)
 ... If you do not have access to any of the above, email oktawia.kata@thoughtworks.com or james.brown@thoughtworks.com
 
 # Repository maintenance
