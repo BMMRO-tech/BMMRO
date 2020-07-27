@@ -33,15 +33,15 @@ describe("datastore", () => {
   );
 
   describe("#readDocById", () => {
-    it("sucessfully reads document with ID", async () => {
+    it("successfully reads document with ID", async () => {
       const { id } = await firestoreEmulator
         .collection("dolphin")
         .add({ name: "Barney", species: "Bottlenose dolphin" });
 
       const datastore = new Datastore(firestoreEmulator);
-      const barney = await datastore.readDocById(id, "dolphin");
+      const { data: animal } = await datastore.readDocById(id, "dolphin");
 
-      expect(barney).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
+      expect(animal).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
     });
 
     it("throws datastore error if security rules reject read", async () => {
@@ -74,14 +74,14 @@ describe("datastore", () => {
         .add({ name: "Bob", species: "Narwal" });
 
       const datastore = new Datastore(firestoreEmulator);
-      const animals = await datastore.readDocsByParentId(
+      const animalsData = await datastore.readDocsByParentId(
         parentId,
         "animal",
         "whale"
       );
 
-      expect(animals).toContainEqual({ name: "Bill", species: "Blue" });
-      expect(animals).toContainEqual({ name: "Bob", species: "Narwal" });
+      expect(animalsData).toContainEqual({ name: "Bill", species: "Blue" });
+      expect(animalsData).toContainEqual({ name: "Bob", species: "Narwal" });
     });
 
     it("throws datastore error if security rules reject read", async () => {

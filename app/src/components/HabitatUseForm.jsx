@@ -5,6 +5,7 @@ import { useState, useEffect, useContext, Fragment } from "react";
 import { navigate } from "@reach/router";
 
 import { ROUTES } from "../constants/routes";
+import { CollectionNames } from "../constants/datastore";
 import clientPersistence from "../clientPersistence/clientPersistence";
 import { fields } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";
@@ -107,11 +108,20 @@ const HabitatUseForm = ({ location }) => {
 
             try {
               const openEncounterId = clientPersistence.get("openEncounterId");
-              datastore.createHabitatUse(openEncounterId, values);
+              const { ref: openEncounter } = await datastore.readDocById(
+                openEncounterId,
+                CollectionNames.ENCOUNTER
+              );
+              datastore.createSubDoc(
+                CollectionNames.HABITAT_USE_TEST,
+                values,
+                openEncounter
+              );
               setIsSubmitted(true);
               setSubmitting(false);
               navigate(ROUTES.openEncounter);
             } catch (e) {
+              console.log(e);
               setHasSubmitError(true);
               setSubmitting(false);
             }

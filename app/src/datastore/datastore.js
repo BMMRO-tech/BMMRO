@@ -21,11 +21,9 @@ export class Datastore {
 
   async readDocById(id, collectionName) {
     try {
-      const docRef = await this.firestore
-        .collection(collectionName)
-        .doc(id)
-        .get();
-      return docRef.data();
+      const docRef = this.firestore.collection(collectionName).doc(id);
+      const docSnapshot = await docRef.get();
+      return { data: docSnapshot.data(), ref: docRef };
     } catch (e) {
       this.enableLogging && console.error(e);
       throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
@@ -61,49 +59,6 @@ export class Datastore {
     const id = docRef.id;
     docRef.set(values).catch(this.handleDelayedError);
     return id;
-  }
-
-  async createHabitatUse(openEncounterId, values) {
-    try {
-      const docRef = await this.firestore
-        .collection(CollectionNames.ENCOUNTER)
-        .doc(openEncounterId)
-        .collection(CollectionNames.HABITAT_USE_TEST)
-        .add(values);
-      return docRef.id;
-    } catch (e) {
-      throw new DatastoreError(DatastoreErrorType.COLLECTION_ITEM_CREATION);
-    }
-  }
-
-  async readEncounterById(id) {
-    try {
-      const docRef = await this.firestore
-        .collection(CollectionNames.ENCOUNTER)
-        .doc(id)
-        .get();
-
-      return docRef.data();
-    } catch (e) {
-      console.log(e);
-      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
-    }
-  }
-
-  async readHabitatUseByEncounterId(id) {
-    try {
-      const docRefs = await this.firestore
-        .collection(CollectionNames.ENCOUNTER)
-        .doc(id)
-        .collection(CollectionNames.HABITAT_USE_TEST)
-        .get();
-
-      const results = [];
-      docRefs.forEach((doc) => results.push(doc.data()));
-      return results;
-    } catch (e) {
-      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
-    }
   }
 
   subscribeToPendingHabitatUseRecords(saveRecords) {

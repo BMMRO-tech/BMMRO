@@ -4,6 +4,7 @@ import { useEffect, useContext, useState, Fragment } from "react";
 import { navigate } from "@reach/router";
 
 import { ROUTES } from "../constants/routes";
+import { CollectionNames } from "../constants/datastore";
 import clientPersistence from "../clientPersistence/clientPersistence";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
@@ -32,11 +33,18 @@ const OpenEncounter = () => {
   useEffect(() => {
     const getData = async (encounterId) => {
       const [encounterResult, habitatUseResult] = await Promise.all([
-        datastore.readEncounterById(encounterId),
-        datastore.readHabitatUseByEncounterId(encounterId),
+        datastore.readDocById(encounterId, CollectionNames.ENCOUNTER),
+        datastore.readDocsByParentId(
+          encounterId,
+          CollectionNames.ENCOUNTER,
+          CollectionNames.HABITAT_USE_TEST
+        ),
       ]);
 
-      setEncounter({ ...encounterResult, habitatUseEntries: habitatUseResult });
+      setEncounter({
+        ...encounterResult.data,
+        habitatUseEntries: habitatUseResult,
+      });
     };
 
     const openEncounterId = clientPersistence.get("openEncounterId");
