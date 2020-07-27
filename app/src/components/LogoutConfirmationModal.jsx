@@ -12,6 +12,7 @@ import { AuthenticationErrorType } from "../constants/authentication";
 import Button from "../components/Button";
 import ErrorMessage from "../components/ErrorMessage";
 import Attention from "./icons/Attention";
+import breakPoints from "../materials/breakPoints";
 
 const LogoutConfirmationModal = ({ closeModal }) => {
   const [logoutError, setLogoutError] = useState(null);
@@ -29,12 +30,13 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       background-color: white;
       display: block;
       padding: 20px;
+      min-width: 90%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
 
-      @media (max-width: 800px) {
-        min-width: 90%;
+      @media (min-width: ${breakPoints.mediumTablet}) {
+        min-width: auto;
       }
     `,
     modalHeader: css`
