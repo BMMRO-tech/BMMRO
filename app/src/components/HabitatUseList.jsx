@@ -15,7 +15,7 @@ const HabitatUseListItem = ({ content }) => {
     `,
   };
   return (
-    <li css={styles.container}>
+    <li css={styles.container} data-testid="habitat-use-list-item">
       <span css={styles.time}>{content.startTime}</span>
       <span>Habitat Use</span>
     </li>
