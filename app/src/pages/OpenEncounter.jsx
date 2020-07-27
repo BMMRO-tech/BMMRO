@@ -40,7 +40,11 @@ const OpenEncounter = () => {
 
     const openEncounterId = clientPersistence.get("openEncounterId");
 
-    if (!!datastore && openEncounterId) {
+    if (!openEncounterId) {
+      navigate(ROUTES.newEncounter);
+    }
+
+    if (!!datastore) {
       getData(openEncounterId);
     }
   }, [datastore]);

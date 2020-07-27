@@ -15,16 +15,34 @@ const HabitatUseListItem = ({ content }) => {
     `,
   };
   return (
-    <div css={styles.container}>
+    <li css={styles.container}>
       <span css={styles.time}>{content.startTime}</span>
       <span>Habitat Use</span>
-    </div>
+    </li>
   );
 };
 
-const HabitatUseList = ({ items }) =>
-  items.map((item, index) => (
-    <HabitatUseListItem key={`habitatUseListItem-${index}`} content={item} />
-  ));
+const HabitatUseList = ({ items }) => {
+  const styles = css`
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  `;
+
+  const sortedItems = items.sort((a, b) =>
+    b.startTime.localeCompare(a.startTime)
+  );
+
+  return (
+    <ul css={styles}>
+      {sortedItems.map((item, index) => (
+        <HabitatUseListItem
+          key={`habitatUseListItem-${index}`}
+          content={item}
+        />
+      ))}
+    </ul>
+  );
+};
 
 export default HabitatUseList;
