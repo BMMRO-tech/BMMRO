@@ -7,5 +7,12 @@ service cloud.firestore {
     match /dolphin/{dolphinId} {
       allow create, read: if request.auth != null && request.auth.uid == 'test-researcher';
     }
+    
+    match /animal/{animalId} {
+      allow create, read: if request.auth != null && request.auth.uid == 'test-researcher';
+      match /whale/{whaleId} {
+        allow create, read: if request.auth != null && request.auth.uid == 'test-researcher';
+      }
+    }
   }
 }

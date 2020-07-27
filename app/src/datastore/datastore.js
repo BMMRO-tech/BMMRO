@@ -9,9 +9,14 @@ export class DatastoreError extends Error {
 }
 
 export class Datastore {
-  constructor(firestore, enableLogging = true) {
+  constructor(
+    firestore,
+    enableLogging = true,
+    handleDelayedError = console.error
+  ) {
     this.firestore = firestore;
     this.enableLogging = enableLogging;
+    this.handleDelayedError = handleDelayedError;
   }
 
   async readDocById(id, collectionName) {
@@ -25,6 +30,37 @@ export class Datastore {
       this.enableLogging && console.error(e);
       throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
     }
+  }
+
+  async readDocsByParentId(parentId, collectionName, subcollectionName) {
+    try {
+      const docRefs = await this.firestore
+        .collection(collectionName)
+        .doc(parentId)
+        .collection(subcollectionName)
+        .get();
+
+      const results = [];
+      docRefs.forEach((doc) => results.push(doc.data()));
+      return results;
+    } catch (e) {
+      this.enableLogging && console.error(e);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
+    }
+  }
+
+  createDoc(collectionName, values) {
+    const docRef = this.firestore.collection(collectionName).doc();
+    const id = docRef.id;
+    docRef.set(values).catch(this.handleDelayedError);
+    return id;
+  }
+
+  createSubDoc(subcollectionName, values, parentDoc) {
+    const docRef = parentDoc.collection(subcollectionName).doc();
+    const id = docRef.id;
+    docRef.set(values).catch(this.handleDelayedError);
+    return id;
   }
 
   async createHabitatUse(openEncounterId, values) {
