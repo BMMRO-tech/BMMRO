@@ -1,4 +1,4 @@
-![alt text](./logo_v2.png "Fluke! error...")
+<img src="./logo_v2.png" width="100" style=" display: block;margin-left: auto;margin-right: auto;" alt="BMMRO logo">
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
