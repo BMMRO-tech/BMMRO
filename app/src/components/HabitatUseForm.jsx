@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
-import { useState, useEffect, useContext, Fragment } from "react";
+import { useContext, Fragment } from "react";
 import { navigate } from "@reach/router";
 
 import { ROUTES } from "../constants/routes";
@@ -15,25 +15,11 @@ import typography from "../materials/typography";
 import colors from "../materials/colors";
 import Button from "./Button";
 import Select from "./Select";
-import RecordSummaryList from "./RecordSummaryList";
 import Input from "./Input";
 
-const HabitatUseForm = ({ location }) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [hasSubmitError, setHasSubmitError] = useState(false);
-  const [pendingRecords, setPendingRecords] = useState([]);
+const HabitatUseForm = () => {
   const position = usePosition();
   const { datastore } = useContext(FirebaseContext);
-
-  useEffect(() => {
-    if (!!datastore) {
-      try {
-        datastore.subscribeToPendingHabitatUseRecords(setPendingRecords);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }, [datastore]);
 
   const styles = {
     title: css`
@@ -68,18 +54,6 @@ const HabitatUseForm = ({ location }) => {
     submitButton: `
       margin: 0 auto;
     `,
-    recordSummaryList: css`
-      margin-top: 45px;
-    `,
-  };
-  const generateSubmitMessage = () => {
-    if (isSubmitted) {
-      return !pendingRecords.length
-        ? "Reading uploaded!"
-        : "Reading stored locally";
-    } else if (hasSubmitError) {
-      return "Failed to upload!";
-    }
   };
 
   return (
@@ -103,26 +77,18 @@ const HabitatUseForm = ({ location }) => {
 
             return initValues;
           })()}
-          onSubmit={async (values, { setSubmitting }) => {
+          onSubmit={(values) => {
             delete values["date"];
 
-            try {
-              const openEncounterPath = clientPersistence.get(
-                "openEncounterPath"
-              );
-              datastore.createSubDoc(
-                openEncounterPath,
-                CollectionNames.HABITAT_USE,
-                values
-              );
-              setIsSubmitted(true);
-              setSubmitting(false);
-              navigate(ROUTES.openEncounter);
-            } catch (e) {
-              console.log(e);
-              setHasSubmitError(true);
-              setSubmitting(false);
-            }
+            const openEncounterPath = clientPersistence.get(
+              "openEncounterPath"
+            );
+            datastore.createSubDoc(
+              openEncounterPath,
+              CollectionNames.HABITAT_USE,
+              values
+            );
+            navigate(ROUTES.openEncounter);
           }}
         >
           {({
@@ -208,19 +174,10 @@ const HabitatUseForm = ({ location }) => {
               >
                 Submit
               </Button>
-              {generateSubmitMessage()}
             </Form>
           )}
         </Formik>
       </div>
-      {!!pendingRecords.length && (
-        <div css={styles.recordSummaryList}>
-          <RecordSummaryList
-            title="List of pending records"
-            records={pendingRecords}
-          />
-        </div>
-      )}
     </Fragment>
   );
 };
