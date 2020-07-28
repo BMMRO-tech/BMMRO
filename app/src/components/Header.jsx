@@ -12,7 +12,7 @@ const Header = () => {
   const styles = {
     header: css`
       min-height: 50px;
-      box-shadow: 6px 1px 5px 1px rgba(40, 54, 104, 0.15);
+      box-shadow: 0 1px 5px 1px rgba(40, 54, 104, 0.15);
     `,
     container: css`
       display: flex;

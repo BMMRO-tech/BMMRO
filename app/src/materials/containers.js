@@ -1,6 +1,6 @@
 const containers = {
   small: "450px",
-  default: "740px",
+  default: "768px",
 };
 
 export default containers;

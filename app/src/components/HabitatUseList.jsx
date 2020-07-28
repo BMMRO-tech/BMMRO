@@ -7,7 +7,7 @@ const HabitatUseListItem = ({ content }) => {
   const styles = {
     container: css`
       ${typography.text}
-      padding: 15px;
+      padding: 15px 10px;
       border-bottom: 1px solid ${colors.lightGray};
     `,
     time: css`
