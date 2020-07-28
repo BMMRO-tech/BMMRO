@@ -60,8 +60,8 @@ const EncounterForm = () => {
             species: "",
           }}
           onSubmit={(values) => {
-            const id = datastore.createDoc(CollectionNames.ENCOUNTER, values);
-            clientPersistence.set("openEncounterId", id);
+            const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
+            clientPersistence.set("openEncounterPath", path);
             navigate(ROUTES.openEncounter);
           }}
         >

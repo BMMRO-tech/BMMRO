@@ -19,27 +19,28 @@ export class Datastore {
     this.handleDelayedError = handleDelayedError;
   }
 
-  async readDocById(id, collectionName) {
+  async readDocByPath(path) {
     try {
-      const docRef = this.firestore.collection(collectionName).doc(id);
+      const docRef = this.firestore.doc(path);
       const docSnapshot = await docRef.get();
-      return { data: docSnapshot.data(), ref: docRef };
+      return { data: docSnapshot.data(), path: docRef.path };
     } catch (e) {
       this.enableLogging && console.error(e);
       throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
     }
   }
 
-  async readDocsByParentId(parentId, collectionName, subcollectionName) {
+  async readDocsByParentPath(parentPath, subcollectionName) {
     try {
       const docRefs = await this.firestore
-        .collection(collectionName)
-        .doc(parentId)
+        .doc(parentPath)
         .collection(subcollectionName)
         .get();
 
       const results = [];
-      docRefs.forEach((doc) => results.push(doc.data()));
+      docRefs.forEach((doc) =>
+        results.push({ data: doc.data(), path: doc.ref.path })
+      );
       return results;
     } catch (e) {
       this.enableLogging && console.error(e);
@@ -47,18 +48,14 @@ export class Datastore {
     }
   }
 
-  createDoc(collectionName, values) {
-    const docRef = this.firestore.collection(collectionName).doc();
-    const id = docRef.id;
+  createDoc(collectionPath, values) {
+    const docRef = this.firestore.collection(collectionPath).doc();
     docRef.set(values).catch(this.handleDelayedError);
-    return id;
+    return docRef.path;
   }
 
-  createSubDoc(subcollectionName, values, parentDoc) {
-    const docRef = parentDoc.collection(subcollectionName).doc();
-    const id = docRef.id;
-    docRef.set(values).catch(this.handleDelayedError);
-    return id;
+  createSubDoc(parentPath, subcollectionName, values) {
+    return this.createDoc(`${parentPath}/${subcollectionName}`, values);
   }
 
   subscribeToPendingHabitatUseRecords(saveRecords) {

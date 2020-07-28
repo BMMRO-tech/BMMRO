@@ -23,7 +23,7 @@ const OpenEncounter = () => {
   };
 
   const onEndEncounterClick = () => {
-    clientPersistence.remove("openEncounterId");
+    clientPersistence.remove("openEncounterPath");
     navigate(ROUTES.newEncounter);
   };
 
@@ -31,12 +31,11 @@ const OpenEncounter = () => {
   const [encounter, setEncounter] = useState({});
 
   useEffect(() => {
-    const getData = async (encounterId) => {
+    const getData = async (encounterPath) => {
       const [encounterResult, habitatUseResult] = await Promise.all([
-        datastore.readDocById(encounterId, CollectionNames.ENCOUNTER),
-        datastore.readDocsByParentId(
-          encounterId,
-          CollectionNames.ENCOUNTER,
+        datastore.readDocByPath(encounterPath),
+        datastore.readDocsByParentPath(
+          encounterPath,
           CollectionNames.HABITAT_USE
         ),
       ]);
@@ -47,14 +46,14 @@ const OpenEncounter = () => {
       });
     };
 
-    const openEncounterId = clientPersistence.get("openEncounterId");
+    const openEncounterPath = clientPersistence.get("openEncounterPath");
 
-    if (!openEncounterId) {
+    if (!openEncounterPath) {
       navigate(ROUTES.newEncounter);
     }
 
     if (!!datastore) {
-      getData(openEncounterId);
+      getData(openEncounterPath);
     }
   }, [datastore]);
 

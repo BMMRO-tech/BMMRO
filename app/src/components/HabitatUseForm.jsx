@@ -107,15 +107,13 @@ const HabitatUseForm = ({ location }) => {
             delete values["date"];
 
             try {
-              const openEncounterId = clientPersistence.get("openEncounterId");
-              const { ref: openEncounter } = await datastore.readDocById(
-                openEncounterId,
-                CollectionNames.ENCOUNTER
+              const openEncounterPath = clientPersistence.get(
+                "openEncounterPath"
               );
               datastore.createSubDoc(
+                openEncounterPath,
                 CollectionNames.HABITAT_USE,
-                values,
-                openEncounter
+                values
               );
               setIsSubmitted(true);
               setSubmitting(false);

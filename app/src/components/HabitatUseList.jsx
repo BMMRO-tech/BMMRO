@@ -16,7 +16,7 @@ const HabitatUseListItem = ({ content }) => {
   };
   return (
     <li css={styles.container} data-testid="habitat-use-list-item">
-      <span css={styles.time}>{content.startTime}</span>
+      <span css={styles.time}>{content.data.startTime}</span>
       <span>Habitat Use</span>
     </li>
   );
@@ -30,14 +30,14 @@ const HabitatUseList = ({ items }) => {
   `;
 
   const sortedItems = items.sort((a, b) =>
-    b.startTime.localeCompare(a.startTime)
+    b.data.startTime.localeCompare(a.data.startTime)
   );
 
   return (
     <ul css={styles}>
-      {sortedItems.map((item, index) => (
+      {sortedItems.map((item) => (
         <HabitatUseListItem
-          key={`habitatUseListItem-${index}`}
+          key={`habitatUseListItem-${item.path}`}
           content={item}
         />
       ))}

@@ -32,22 +32,25 @@ describe("datastore", () => {
     async () => await firebaseTesting.clearFirestoreData({ projectId })
   );
 
-  describe("#readDocById", () => {
-    it("successfully reads document with ID", async () => {
+  describe("#readDocByPath", () => {
+    it("successfully reads document with path", async () => {
       const { id } = await firestoreEmulator
         .collection("dolphin")
         .add({ name: "Barney", species: "Bottlenose dolphin" });
 
       const datastore = new Datastore(firestoreEmulator);
-      const { data: animal } = await datastore.readDocById(id, "dolphin");
+      const { data: animal, path } = await datastore.readDocByPath(
+        `dolphin/${id}`
+      );
 
+      expect(path).toEqual(`dolphin/${id}`);
       expect(animal).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
     });
 
     it("throws datastore error if security rules reject read", async () => {
       const datastore = new Datastore(firestoreEmulator, false);
       const thrownError = await datastore
-        .readDocById("non-existent id", "collection-without-read-permissions")
+        .readDocByPath("collection-without-read-permissions/non-existent-id")
         .catch((err) => err);
 
       expect(thrownError.name).toEqual("DatastoreError");
@@ -55,33 +58,32 @@ describe("datastore", () => {
     });
   });
 
-  describe("#readDocsByParentId", () => {
-    it("successfully reads document with ID", async () => {
-      const { id: parentId } = await firestoreEmulator
+  describe("#readDocsByParentPath", () => {
+    it("successfully reads subdocuments by parent path", async () => {
+      const { path: parentPath } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
 
-      await firestoreEmulator
-        .collection("animal")
-        .doc(parentId)
+      const { path: firstAnimalPath } = await firestoreEmulator
+        .doc(parentPath)
         .collection("whale")
         .add({ name: "Bill", species: "Blue" });
 
-      await firestoreEmulator
-        .collection("animal")
-        .doc(parentId)
+      const { path: secondAnimalPath } = await firestoreEmulator
+        .doc(parentPath)
         .collection("whale")
         .add({ name: "Bob", species: "Narwal" });
 
       const datastore = new Datastore(firestoreEmulator);
-      const animalsData = await datastore.readDocsByParentId(
-        parentId,
-        "animal",
-        "whale"
-      );
+      const animals = await datastore.readDocsByParentPath(parentPath, "whale");
+
+      const animalsData = animals.map((animal) => animal.data);
+      const animalPaths = animals.map((animal) => animal.path);
 
       expect(animalsData).toContainEqual({ name: "Bill", species: "Blue" });
       expect(animalsData).toContainEqual({ name: "Bob", species: "Narwal" });
+      expect(animalPaths).toContain(firstAnimalPath);
+      expect(animalPaths).toContain(secondAnimalPath);
     });
 
     it("throws datastore error if security rules reject read", async () => {
@@ -92,34 +94,34 @@ describe("datastore", () => {
         .add({ location: "Pacific" });
 
       const thrownError = await datastore
-        .readDocsByParentId(parentId, "invalid-collection", "whale")
+        .readDocsByParentPath(`invalid-collection/${parentId}`, "whale")
         .catch((err) => err);
 
       expect(thrownError.name).toEqual("DatastoreError");
       expect(thrownError.message).toEqual(DatastoreErrorType.COLLECTION_READ);
     });
 
-    it("returns empty array if ID is invalid", async () => {
+    it("returns empty array if parent path id is invalid", async () => {
       const datastore = new Datastore(firestoreEmulator, false);
-      const animals = await datastore.readDocsByParentId(
-        "invalid-id",
-        "animal",
+      const animals = await datastore.readDocsByParentPath(
+        "animal/invalid-id",
         "whale"
       );
 
       expect(animals).toEqual([]);
     });
   });
+
   describe("#createDoc", () => {
     it("successfully creates document", async () => {
       const datastore = new Datastore(firestoreEmulator, false);
 
-      const id = datastore.createDoc("dolphin", {
+      const path = datastore.createDoc("dolphin", {
         name: "Sally",
         species: "Killer Whale",
       });
 
-      const doc = await firestoreEmulator.collection("dolphin").doc(id).get();
+      const doc = await firestoreEmulator.doc(path).get();
 
       expect(doc.data()).toEqual({
         name: "Sally",
@@ -151,25 +153,22 @@ describe("datastore", () => {
     it("successfully creates subdocument", async () => {
       const datastore = new Datastore(firestoreEmulator, false);
 
-      const docRef = await firestoreEmulator
+      const { path: parentPath } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
 
-      const id = datastore.createSubDoc(
-        "whale",
-        {
-          name: "Sally",
-          species: "Killer Whale",
-        },
-        docRef
-      );
+      const subDocPath = datastore.createSubDoc(parentPath, "whale", {
+        name: "Sally",
+        species: "Killer Whale",
+      });
 
-      const subDoc = await docRef.collection("whale").doc(id).get();
+      const subDoc = await firestoreEmulator.doc(subDocPath).get();
 
       expect(subDoc.data()).toEqual({
         name: "Sally",
         species: "Killer Whale",
       });
+      expect(subDocPath).toMatch(new RegExp(`^${parentPath}/whale`));
     });
 
     it("triggers delayed error callback when creating subdocument fails", async () => {
@@ -180,19 +179,16 @@ describe("datastore", () => {
         handleDelayedError
       );
 
-      const docRef = await firestoreEmulator
+      const { path: parentPath } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
 
-      datastore.createSubDoc(
-        "fake-name",
-        {
-          name: "Sally",
-          species: "Killer Whale",
-        },
-        docRef
-      );
+      const subDocPath = datastore.createSubDoc(parentPath, "fake-name", {
+        name: "Sally",
+        species: "Killer Whale",
+      });
 
+      expect(subDocPath).toMatch(new RegExp(`^${parentPath}/fake-name`));
       await waitFor(() => {
         const callArg = handleDelayedError.mock.calls[0][0];
         expect(callArg.name).toEqual("FirebaseError");
