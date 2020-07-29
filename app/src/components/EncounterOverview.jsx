@@ -7,7 +7,7 @@ import typography from "../materials/typography";
 import colors from "../materials/colors";
 import Button from "../components/Button";
 
-const EncounterOverview = ({ content }) => {
+const EncounterOverview = ({ encounter }) => {
   const styles = {
     container: css`
       background-color: ${colors.lighterGray};
@@ -28,10 +28,12 @@ const EncounterOverview = ({ content }) => {
     <div css={styles.container}>
       <div css={styles.summaryContainer}>
         <h1 css={typography.title}>
-          <span css={typography.caption}>Encounter {content.seqNo}</span>
-          <span css={styles.title}>{content.species} species</span>
+          <span css={typography.caption}>
+            Encounter {encounter.sequenceNumber}
+          </span>
+          <span css={styles.title}>{encounter.species} species</span>
         </h1>
-        <h2 css={typography.text}>{content.area}</h2>
+        <h2 css={typography.text}>{encounter.area}</h2>
       </div>
       <Link css={styles.link} to={ROUTES.newHabitatUse}>
         <Button variant="secondary">+ Add Habitat Use</Button>

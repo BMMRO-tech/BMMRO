@@ -89,7 +89,7 @@ const OpenEncounter = () => {
     <Layout hasDefaultPadding={false}>
       {!!Object.keys(encounter).length ? (
         <Fragment>
-          <EncounterOverview content={encounter} />
+          <EncounterOverview encounter={encounter} />
           {!!encounter.habitatUseEntries && (
             <div css={styles.listContainer}>
               <HabitatUseList items={encounter.habitatUseEntries} />
