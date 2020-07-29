@@ -73,9 +73,7 @@ const HabitatUseForm = () => {
 
             initValues["latitude"] = "0";
             initValues["longitude"] = "0";
-            initValues["date"] = clientPersistence.get(
-              "openEncounterStartTimestamp"
-            );
+            initValues["date"] = new Date(Date.now());
 
             return initValues;
           })()}
