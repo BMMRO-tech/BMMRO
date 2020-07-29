@@ -2,6 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { navigate } from "@reach/router";
+import { fromUnixTime } from "date-fns";
 
 import breakPoints from "../materials/breakPoints";
 import { ROUTES } from "../constants/routes";
@@ -45,6 +46,7 @@ const OpenEncounter = () => {
 
   const onEndEncounterClick = () => {
     clientPersistence.remove("openEncounterPath");
+    clientPersistence.remove("openEncounterStartTimestamp");
     navigate(ROUTES.newEncounter);
   };
 
@@ -65,6 +67,11 @@ const OpenEncounter = () => {
         ...encounterResult.data,
         habitatUseEntries: habitatUseResult,
       });
+
+      clientPersistence.set(
+        "openEncounterStartTimestamp",
+        fromUnixTime(encounterResult.data.startTimestamp.seconds)
+      );
     };
 
     const openEncounterPath = clientPersistence.get("openEncounterPath");
