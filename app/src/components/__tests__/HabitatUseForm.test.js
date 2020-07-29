@@ -12,23 +12,16 @@ import numericFields from "../../forms/habitatUse/testCases/numericFields.json";
 import textFields from "../../forms/habitatUse/testCases/textFields.json";
 import selectFields from "../../forms/habitatUse/testCases/selectFields.json";
 import timeFields from "../../forms/habitatUse/testCases/timeFields.json";
-import clientPersistence from "../../clientPersistence/clientPersistence";
 
 describe("Habitat Use Form validation", () => {
-  beforeAll(() => {
-    Object.defineProperty(window, "localStorage", {
-      value: {
-        getItem: () => new Date(`2020-05-04T11:30:00.000Z`).toLocaleString(),
-      },
-      writable: true,
-    });
-  });
-
   const testFieldInput = (testDescription, fieldId, testCase) => {
     it(testDescription, async () => {
       const form = render(
         <FirebaseContext.Provider value={{}}>
-          <HabitatUseForm />
+          <HabitatUseForm
+            encounterPath={"/encounter/123"}
+            encounterStartTimestamp={new Date(`2020-05-04T11:30:00.000Z`)}
+          />
         </FirebaseContext.Provider>
       );
       const inputField = form.queryByTestId(fieldId);
@@ -160,7 +153,10 @@ describe("Habitat Use Form validation", () => {
 
       habitatUseForm = render(
         <FirebaseContext.Provider value={{}}>
-          <HabitatUseForm />
+          <HabitatUseForm
+            encounterPath={"/encounter/123"}
+            encounterStartTimestamp={new Date(`2020-05-04T11:30:00.000Z`)}
+          />
         </FirebaseContext.Provider>
       );
     });

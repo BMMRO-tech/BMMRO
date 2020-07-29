@@ -9,17 +9,23 @@ import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 
 const NewHabitatUse = () => {
-  useEffect(() => {
-    const openEncounterPath = clientPersistence.get("openEncounterPath");
+  const openEncounterPath = clientPersistence.get("openEncounterPath");
+  const openEncounterStartTimestamp = clientPersistence.get(
+    "openEncounterStartTimestamp"
+  );
 
+  useEffect(() => {
     if (!openEncounterPath) {
       navigate(ROUTES.newEncounter);
     }
-  }, []);
+  }, [openEncounterPath]);
 
   return (
     <Layout hasDefaultPadding={false}>
-      <HabitatUseForm />
+      <HabitatUseForm
+        encounterPath={openEncounterPath}
+        encounterStartTimestamp={openEncounterStartTimestamp}
+      />
     </Layout>
   );
 };

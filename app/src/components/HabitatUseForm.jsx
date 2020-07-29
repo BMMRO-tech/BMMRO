@@ -6,7 +6,6 @@ import { navigate } from "@reach/router";
 
 import { ROUTES } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
-import clientPersistence from "../clientPersistence/clientPersistence";
 import { fields } from "../forms/habitatUse/fields";
 import { usePosition } from "../hooks/usePosition";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -17,7 +16,7 @@ import Button from "./Button";
 import Select from "./Select";
 import Input from "./Input";
 
-const HabitatUseForm = () => {
+const HabitatUseForm = ({ encounterPath, encounterStartTimestamp }) => {
   const position = usePosition();
   const { datastore } = useContext(FirebaseContext);
 
@@ -73,20 +72,15 @@ const HabitatUseForm = () => {
 
             initValues["latitude"] = "0";
             initValues["longitude"] = "0";
-            initValues["date"] = clientPersistence.get(
-              "openEncounterStartTimestamp"
-            );
+            initValues["date"] = encounterStartTimestamp;
 
             return initValues;
           })()}
           onSubmit={(values) => {
             delete values["date"];
 
-            const openEncounterPath = clientPersistence.get(
-              "openEncounterPath"
-            );
             datastore.createSubDoc(
-              openEncounterPath,
+              encounterPath,
               CollectionNames.HABITAT_USE,
               values
             );
