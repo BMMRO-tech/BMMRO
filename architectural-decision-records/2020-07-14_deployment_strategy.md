@@ -11,7 +11,7 @@ Currently we only have one environment, development, and every change that is me
 Since we were already using Github Actions to deploy to the development environment (due to the fact that it's free and easy to configure), we decide to use it to deploy to the new environments too.
 These were the different options considered for the deployment strategy for the different environments:
 
-### Option 1 - One branche for each environment
+### Option 1 - One branch for each environment
 
 In this approach each environment would have its own branch, and we would merge when we wanted to promote to a specific environment.
 The flow would be the following: push to master => deploys to dev; merge with user-testing branch => deploys to user-testing; merge with production branch => deploys to production.
@@ -65,7 +65,7 @@ The cons of this approach are:
 - Application is built every time we deploy to a new environment (as opposed to build an artifact once and promote it to the different environments).
 - If the tags that trigger deployments ("uat-pending-XX" and "prod-pending-xx") are added to a branch, that would trigger a deployment too.
 
-Despite the issues mentioned above, we've decided to use this approach due to time contraints but have created a new Github issue to investigate how to use artifacts.
+Despite the issues mentioned above, we've decided to use this approach due to time constraints but have created a new Github issue to investigate how to use artifacts.
 
 ## Links
 
