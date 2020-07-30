@@ -35,7 +35,7 @@ const EncounterOverview = ({ encounter }) => {
           <span css={[typography.caption, styles.caption]}>
             Encounter {encounter.sequenceNumber}
           </span>
-          <span css={styles.title}>{encounter.species} species</span>
+          <span css={styles.title}>{encounter.species}</span>
         </h1>
         <h2 css={typography.text}>{encounter.area}</h2>
       </div>
