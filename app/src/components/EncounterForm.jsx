@@ -71,6 +71,7 @@ const EncounterForm = () => {
                 name="sequenceNumber"
                 labelText="Sequence Number*"
                 isRequired={true}
+                maxLength={100}
               />
               <DateInput
                 name="startTimestamp"
