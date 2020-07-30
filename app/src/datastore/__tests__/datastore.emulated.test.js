@@ -6,17 +6,19 @@ import path from "path";
 import { Datastore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
 
+const getFirestore = () => {
+  return firebaseTesting
+    .initializeTestApp({
+      projectId: "project-id",
+      auth: { uid: "test-researcher" },
+    })
+    .firestore();
+};
+
 describe("datastore", () => {
   const projectId = "project-id";
-  const uid = "test-researcher";
-  let firestoreEmulator;
 
   beforeAll(async () => {
-    const firebaseMock = firebaseTesting.initializeTestApp({
-      projectId,
-      auth: { uid },
-    });
-    firestoreEmulator = firebaseMock.firestore();
     await firebaseTesting.loadFirestoreRules({
       projectId,
       rules: fs.readFileSync(
@@ -28,12 +30,14 @@ describe("datastore", () => {
   afterAll(async () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
-  afterEach(
+  beforeEach(
     async () => await firebaseTesting.clearFirestoreData({ projectId })
   );
 
   describe("#readDocByPath", () => {
     it("successfully reads document with path", async () => {
+      const firestoreEmulator = getFirestore();
+
       const { id } = await firestoreEmulator
         .collection("dolphin")
         .add({ name: "Barney", species: "Bottlenose dolphin" });
@@ -48,6 +52,8 @@ describe("datastore", () => {
     });
 
     it("throws datastore error if security rules reject read", async () => {
+      const firestoreEmulator = getFirestore();
+
       const datastore = new Datastore(firestoreEmulator, false);
       const thrownError = await datastore
         .readDocByPath("collection-without-read-permissions/non-existent-id")
@@ -60,6 +66,8 @@ describe("datastore", () => {
 
   describe("#readDocsByParentPath", () => {
     it("successfully reads subdocuments by parent path", async () => {
+      const firestoreEmulator = getFirestore();
+
       const { path: parentPath } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
@@ -87,6 +95,8 @@ describe("datastore", () => {
     });
 
     it("throws datastore error if security rules reject read", async () => {
+      const firestoreEmulator = getFirestore();
+
       const datastore = new Datastore(firestoreEmulator, false);
 
       const { id: parentId } = await firestoreEmulator
@@ -102,6 +112,8 @@ describe("datastore", () => {
     });
 
     it("returns empty array if parent path id is invalid", async () => {
+      const firestoreEmulator = getFirestore();
+
       const datastore = new Datastore(firestoreEmulator, false);
       const animals = await datastore.readDocsByParentPath(
         "animal/invalid-id",
@@ -114,6 +126,8 @@ describe("datastore", () => {
 
   describe("#createDoc", () => {
     it("successfully creates document", async () => {
+      const firestoreEmulator = getFirestore();
+
       const datastore = new Datastore(firestoreEmulator, false);
 
       const path = datastore.createDoc("dolphin", {
@@ -130,6 +144,8 @@ describe("datastore", () => {
     });
 
     it("triggers delayed error callback when creating document fails", async () => {
+      const firestoreEmulator = getFirestore();
+
       const handleDelayedError = jest.fn();
       const datastore = new Datastore(
         firestoreEmulator,
@@ -151,6 +167,8 @@ describe("datastore", () => {
 
   describe("#createSubDoc", () => {
     it("successfully creates subdocument", async () => {
+      const firestoreEmulator = getFirestore();
+
       const datastore = new Datastore(firestoreEmulator, false);
 
       const { path: parentPath } = await firestoreEmulator
@@ -172,6 +190,8 @@ describe("datastore", () => {
     });
 
     it("triggers delayed error callback when creating subdocument fails", async () => {
+      const firestoreEmulator = getFirestore();
+
       const handleDelayedError = jest.fn();
       const datastore = new Datastore(
         firestoreEmulator,
