@@ -16,6 +16,10 @@ const EncounterOverview = ({ encounter }) => {
     summaryContainer: css`
       margin-bottom: 15px;
     `,
+    caption: css`
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
     title: css`
       display: block;
     `,
@@ -28,7 +32,7 @@ const EncounterOverview = ({ encounter }) => {
     <div css={styles.container}>
       <div css={styles.summaryContainer}>
         <h1 css={typography.title}>
-          <span css={typography.caption}>
+          <span css={[typography.caption, styles.caption]}>
             Encounter {encounter.sequenceNumber}
           </span>
           <span css={styles.title}>{encounter.species} species</span>
