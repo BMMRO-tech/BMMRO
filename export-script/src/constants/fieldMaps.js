@@ -3,7 +3,7 @@ const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
   encounter: {
-    "Sequence #": { key: "seqNo" },
+    "Sequence #": { key: "sequenceNumber" },
     Date: { key: "startTimestamp", transform: convertUnixTimestampToMDY },
     Area: { key: "area" },
     "Encounter/Sighting": { key: "" },
@@ -92,7 +92,7 @@ module.exports = {
   },
   habitatUseToEncounter: {
     area: "area",
-    encSeqNo: "seqNo",
+    encSeqNo: "sequenceNumber",
     date: "startTimestamp",
   },
 };
