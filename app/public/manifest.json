@@ -3,9 +3,9 @@
   "name": "BMMRO app",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "48x48"
     },
     {
       "src": "logo192.png",
