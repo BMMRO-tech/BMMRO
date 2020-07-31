@@ -10,6 +10,8 @@ const getFieldErrorMessage = (type, params) => {
       return `Value must be greater than or equal to ${params.value}`;
     case FormErrorType.INVALID_NUMBER_FORMAT:
       return "Invalid number format";
+    case FormErrorType.INVALID_TIME_FORMAT:
+      return `Time must be in the following format ${params.format}`;
     case FormErrorType.EMPTY:
       return "Required";
     default:
