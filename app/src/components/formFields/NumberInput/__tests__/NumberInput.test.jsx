@@ -79,6 +79,34 @@ describe("NumberInput", () => {
     ).toHaveTextContent(expectedErrorMessage);
   });
 
+  it("validates on integer value", async () => {
+    const { getFormErrors, getByRole } = renderWithinFormik(
+      <NumberInput
+        name="favoriteNumber"
+        labelText="Your favorite number"
+        isInteger={true}
+      />,
+      { favoriteNumber: "" }
+    );
+
+    const numberInput = getByRole("spinbutton", {
+      name: "Your favorite number",
+    });
+    await act(async () => {
+      await userEvent.type(numberInput, "10.345", { delay: 1 });
+      userEvent.tab();
+    });
+
+    const expectedErrorMessage = getFieldErrorMessage(
+      FormErrorType.INVALID_NUMBER_FORMAT
+    );
+
+    expect(getFormErrors().favoriteNumber).toEqual(expectedErrorMessage);
+    expect(
+      getByRole("alert", { name: "Your favorite number" })
+    ).toHaveTextContent(expectedErrorMessage);
+  });
+
   it("validates empty inputs if set as required", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <NumberInput

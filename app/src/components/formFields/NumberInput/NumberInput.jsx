@@ -11,11 +11,22 @@ const isNullOrUndefined = (value) => {
   return value === null || value === undefined;
 };
 
-const NumberInput = ({ name, labelText, maxValue, minValue, isRequired }) => {
+const NumberInput = ({
+  name,
+  labelText,
+  maxValue,
+  minValue,
+  isRequired,
+  isInteger,
+}) => {
   const validateNumber = (val) => {
     if (val === "") {
       if (isRequired) return getFieldErrorMessage(FormErrorType.EMPTY);
       else return "";
+    }
+
+    if (isInteger && !Number.isInteger(val)) {
+      return getFieldErrorMessage(FormErrorType.INVALID_NUMBER_FORMAT);
     }
 
     if (!isNullOrUndefined(maxValue) && val > maxValue) {
@@ -44,12 +55,7 @@ const NumberInput = ({ name, labelText, maxValue, minValue, isRequired }) => {
     <div>
       <label css={styles.label}>
         <span>{labelText}</span>
-        <input
-          {...field}
-          type="number"
-          css={styles.input}
-          aria-label={labelText}
-        />
+        <input {...field} type="number" css={styles.input} />
       </label>
       <FieldError
         touched={meta.touched}

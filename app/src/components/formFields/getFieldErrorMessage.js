@@ -8,6 +8,8 @@ const getFieldErrorMessage = (type, params) => {
       return `Value must be less than or equal to ${params.value}`;
     case FormErrorType.MIN_VALUE:
       return `Value must be greater than or equal to ${params.value}`;
+    case FormErrorType.INVALID_NUMBER_FORMAT:
+      return "Invalid number format";
     case FormErrorType.EMPTY:
       return "Required";
     default:
