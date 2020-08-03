@@ -26,7 +26,7 @@ const getTextAreaInputStyle = (error, touched) => {
     `,
     input: css`
       width: 100%;
-      max-width: 100%;
+      max-width: 400px;
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;

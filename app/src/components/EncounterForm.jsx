@@ -8,6 +8,7 @@ import breakPoints from "../materials/breakPoints";
 import typography from "../materials/typography";
 import colors from "../materials/colors";
 import TextInput from "./formFields/TextInput/TextInput";
+import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import DateInput from "./formFields/DateInput/DateInput";
 import Select from "./formFields/Select/Select";
@@ -96,6 +97,7 @@ const EncounterForm = () => {
             observers: "",
             groupSize: "",
             location: "",
+            comments: "",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
@@ -155,6 +157,11 @@ const EncounterForm = () => {
                 isInteger
               />
               <TextInput name="location" labelText="Location" maxLength={100} />
+              <TextAreaInput
+                name="comments"
+                labelText="Comments / Observations (names of underwater observers)"
+                maxLength={500}
+              />
             </div>
             <p css={styles.legend}>
               <span css={styles.requiredLegend}>*</span>required fields

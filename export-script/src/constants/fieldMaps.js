@@ -29,7 +29,7 @@ module.exports = {
     "Biopsy sheet #": { key: "" },
     "Tag Attempt": { key: "" },
     "Tag Success": { key: "" },
-    Comments: { key: "", transform: prependFromFirestore },
+    Comments: { key: "comments", transform: prependFromFirestore },
     "End of search effort": { key: "" },
     "End time": { key: "" },
     "Elapsed time": { key: "" },
