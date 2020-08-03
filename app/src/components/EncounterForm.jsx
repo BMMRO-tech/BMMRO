@@ -8,6 +8,7 @@ import breakPoints from "../materials/breakPoints";
 import typography from "../materials/typography";
 import colors from "../materials/colors";
 import TextInput from "./formFields/TextInput/TextInput";
+import NumberInput from "./formFields/NumberInput/NumberInput";
 import DateInput from "./formFields/DateInput/DateInput";
 import Select from "./formFields/Select/Select";
 import Button from "./Button";
@@ -138,6 +139,14 @@ const EncounterForm = () => {
                 name="observers"
                 labelText="Observers"
                 maxLength={200}
+              />
+              <NumberInput
+                name="groupSize"
+                labelText="Group size (visual)"
+                minValue={1}
+                maxValue={9999}
+                isShort
+                isInteger
               />
             </div>
             <p css={styles.legend}>

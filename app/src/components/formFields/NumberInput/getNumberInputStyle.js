@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 import colors from "../../../materials/colors";
 
-const getNumberInputStyle = (error, touched) => {
+const getNumberInputStyle = (error, touched, isShort) => {
   return {
     label: css`
       span {
@@ -25,8 +25,8 @@ const getNumberInputStyle = (error, touched) => {
       }
     `,
     input: css`
-      width: 100%;
-      max-width: 100%;
+      width: ${isShort ? "50%" : "100%"};
+      max-width: ${isShort ? "200px" : "400px"};
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;

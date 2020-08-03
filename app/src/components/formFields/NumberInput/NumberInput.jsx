@@ -18,6 +18,7 @@ const NumberInput = ({
   minValue,
   isRequired,
   isInteger,
+  isShort,
 }) => {
   const validateNumber = (val) => {
     if (val === "") {
@@ -49,7 +50,7 @@ const NumberInput = ({
     validate: validateNumber,
   });
 
-  const styles = getNumberInputStyle(meta.error, meta.touched);
+  const styles = getNumberInputStyle(meta.error, meta.touched, isShort);
 
   return (
     <div>

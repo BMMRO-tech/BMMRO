@@ -10,7 +10,7 @@ module.exports = {
     "Encounter #": { key: "" },
     "Sighting Number": { key: "" },
     Species: { key: "species" },
-    "Group size": { key: "" },
+    "Group size": { key: "groupSize" },
     "Begin time": { key: "" },
     Location: { key: "" },
     Project: { key: "project" },
