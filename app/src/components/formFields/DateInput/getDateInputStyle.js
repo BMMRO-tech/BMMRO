@@ -5,9 +5,14 @@ const getDateInputStyle = (error, touched) => {
   return {
     label: css`
       span {
+        float: left;
         display: block;
         padding-bottom: 5px;
       }
+    `,
+    required: css`
+      color: ${colors.darkRed};
+      margin-left: 5px;
     `,
     input: css`
       width: 100%;

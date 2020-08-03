@@ -44,6 +44,11 @@ const styles = {
   `,
   legend: css`
     margin-top: 0;
+    font-size: smaller;
+  `,
+  requiredLegend: css`
+    color: ${colors.darkRed};
+    margin-right: 5px;
   `,
   buttonContainer: css`
     display: flex;
@@ -93,32 +98,30 @@ const EncounterForm = () => {
             <div css={styles.fieldsContainer}>
               <TextInput
                 name="sequenceNumber"
-                labelText="Sequence Number*"
+                labelText="Sequence Number"
                 isRequired={true}
                 maxLength={100}
               />
               <DateInput
                 name="startTimestamp"
-                labelText="Date*"
+                labelText="Date"
                 isRequired={true}
               />
               <Select
                 name="area"
-                labelText="Area*"
+                labelText="Area"
                 options={areaOptions}
                 isRequired={true}
               />
               <Select
                 name="species"
-                labelText="Species*"
+                labelText="Species"
                 options={speciesOptions}
                 isRequired={true}
               />
             </div>
             <p css={styles.legend}>
-              <small>
-                <em>*required fields</em>
-              </small>
+              <span css={styles.requiredLegend}>*</span>required fields
             </p>
             <div css={styles.buttonContainer}>
               <Button styles={styles.submitButton} type="submit">

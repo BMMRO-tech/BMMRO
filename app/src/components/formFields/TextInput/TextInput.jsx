@@ -33,6 +33,7 @@ const TextInput = ({ name, labelText, maxLength, isRequired }) => {
     <div>
       <label css={styles.label}>
         <span>{labelText}</span>
+        {isRequired ? <span css={styles.required}>*</span> : ""}
         <input {...field} css={styles.input} aria-label={labelText} />
       </label>
       <FieldError

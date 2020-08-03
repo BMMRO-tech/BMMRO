@@ -31,6 +31,8 @@ const DateInput = ({ name, labelText, isRequired }) => {
       <div>
         <label css={styles.label}>
           <span>{labelText}</span>
+          {isRequired ? <span css={styles.required}>*</span> : ""}
+
           <DatePicker
             dateFormat="dd MMMM yyyy"
             maxDate={new Date()}

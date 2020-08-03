@@ -24,6 +24,8 @@ const Select = ({ name, labelText, isRequired, options }) => {
     <div>
       <label css={styles.label}>
         <span>{labelText}</span>
+        {isRequired ? <span css={styles.required}>*</span> : ""}
+
         <select {...field} css={styles.select} aria-label={labelText}>
           <option key="none" value="" aria-label="default empty option">
             -- Please select option --
