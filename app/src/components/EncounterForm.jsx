@@ -12,6 +12,7 @@ import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import DateInput from "./formFields/DateInput/DateInput";
 import Select from "./formFields/Select/Select";
+import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import Button from "./Button";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import clientPersistence from "../clientPersistence/clientPersistence";
@@ -102,6 +103,11 @@ const EncounterForm = () => {
             audioRec: "",
             photographerFrameNumber: "",
             visualIdentifications: "",
+            biopsyAttempt: "",
+            biopsySuccess: "",
+            tagAttempt: "",
+            tagSuccess: "",
+            transect: "",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
@@ -188,6 +194,48 @@ const EncounterForm = () => {
                 name="visualIdentifications"
                 labelText="Visual identifications"
                 maxLength={255}
+              />
+              <RadioGroup
+                name="biopsyAttempt"
+                labelText="Biopsy attempt"
+                options={[
+                  { label: "Yes", value: "yes" },
+                  { label: "No", value: "no" },
+                ]}
+              />
+              <RadioGroup
+                name="biopsySuccess"
+                labelText="Biopsy success"
+                options={[
+                  { label: "Yes", value: "yes" },
+                  { label: "No", value: "no" },
+                  { label: "Not noted", value: "not-noted" },
+                ]}
+              />
+              <RadioGroup
+                name="tagAttempt"
+                labelText="Tag attempt"
+                options={[
+                  { label: "Yes", value: "yes" },
+                  { label: "No", value: "no" },
+                ]}
+              />
+              <RadioGroup
+                name="tagSuccess"
+                labelText="Tag success"
+                options={[
+                  { label: "On", value: "on", checked: false },
+                  { label: "Off", value: "off", checked: false },
+                  { label: "Not noted", value: "not-noted", checked: true },
+                ]}
+              />
+              <RadioGroup
+                name="transect"
+                labelText="Transect"
+                options={[
+                  { label: "On", value: "on", checked: false },
+                  { label: "Off", value: "off", checked: true },
+                ]}
               />
             </div>
             <p css={styles.legend}>
