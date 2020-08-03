@@ -20,6 +20,7 @@ import areaOptions from "../constants/areaOptions";
 import speciesOptions from "../constants/speciesOptions";
 import projectOptions from "../constants/projectOptions";
 import cueOptions from "../constants/cueOptions";
+import vesselOptions from "../constants/vesselOptions";
 
 const styles = {
   title: css`
@@ -128,6 +129,11 @@ const EncounterForm = () => {
                 options={projectOptions}
               />
               <Select name="cue" labelText="Cue" options={cueOptions} />
+              <Select
+                name="vessel"
+                labelText="Vessel"
+                options={vesselOptions}
+              />
             </div>
             <p css={styles.legend}>
               <span css={styles.requiredLegend}>*</span>required fields

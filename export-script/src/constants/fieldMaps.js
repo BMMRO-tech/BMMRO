@@ -14,7 +14,7 @@ module.exports = {
     "Begin time": { key: "" },
     Location: { key: "" },
     Project: { key: "project" },
-    Vessel: { key: "" },
+    Vessel: { key: "vessel" },
     Observers: { key: "" },
     "BMMRO data": { key: "" },
     Transect: { key: "" },
