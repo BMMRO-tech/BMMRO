@@ -13,7 +13,7 @@ module.exports = {
     "Group size": { key: "" },
     "Begin time": { key: "" },
     Location: { key: "" },
-    Project: { key: "" },
+    Project: { key: "project" },
     Vessel: { key: "" },
     Observers: { key: "" },
     "BMMRO data": { key: "" },

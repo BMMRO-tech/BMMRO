@@ -15,6 +15,7 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 
 import areaOptions from "../constants/areaOptions";
 import speciesOptions from "../constants/speciesOptions";
+import projectOptions from "../constants/projectOptions";
 import { ROUTES } from "../constants/routes";
 
 import clientPersistence from "../clientPersistence/clientPersistence";
@@ -120,6 +121,11 @@ const EncounterForm = () => {
                 labelText="Species"
                 options={speciesOptions}
                 isRequired
+              />
+              <Select
+                name="project"
+                labelText="Project"
+                options={projectOptions}
               />
             </div>
             <p css={styles.legend}>
