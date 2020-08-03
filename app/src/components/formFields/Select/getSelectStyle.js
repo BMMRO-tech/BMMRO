@@ -25,8 +25,13 @@ const getTextInputStyle = (error, touched) => {
       color: ${colors.darkRed};
       margin-left: 5px;
     `,
+    selectContainer: css`
+      display: inline-block;
+      width: 100%;
+    `,
     select: css`
       width: 100%;
+      max-width: 400px;
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;

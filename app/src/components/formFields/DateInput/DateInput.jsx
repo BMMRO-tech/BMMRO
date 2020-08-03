@@ -10,7 +10,7 @@ import FieldError from "../FieldError";
 import getFieldErrorMessage from "../getFieldErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 
-const DateInput = ({ name, labelText, isRequired }) => {
+const DateInput = ({ name, labelText, isRequired, isShort }) => {
   const validateText = (val) => {
     if (!val && isRequired) {
       return getFieldErrorMessage(FormErrorType.EMPTY);
@@ -24,7 +24,7 @@ const DateInput = ({ name, labelText, isRequired }) => {
     validate: validateText,
   });
 
-  const styles = getDateInputStyle(meta.error, meta.touched);
+  const styles = getDateInputStyle(meta.error, meta.touched, isShort);
 
   return (
     <div>

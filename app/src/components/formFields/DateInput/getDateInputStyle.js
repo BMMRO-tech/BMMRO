@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 import colors from "../../../materials/colors";
 
-const getDateInputStyle = (error, touched) => {
+const getDateInputStyle = (error, touched, isShort) => {
   return {
     label: css`
       span {
@@ -15,8 +15,8 @@ const getDateInputStyle = (error, touched) => {
       margin-left: 5px;
     `,
     input: css`
-      width: 100%;
-      max-width: 100%;
+      width: ${isShort ? "50%" : "100%"};
+      max-width: 200px;
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;

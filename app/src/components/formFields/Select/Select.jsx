@@ -26,16 +26,18 @@ const Select = ({ name, labelText, isRequired, options }) => {
         <span>{labelText}</span>
         {isRequired ? <span css={styles.required}>*</span> : ""}
 
-        <select {...field} css={styles.select} aria-label={labelText}>
-          <option key="none" value="" aria-label="default empty option">
-            -- Please select option --
-          </option>
-          {options.map((option) => (
-            <option key={option} value={option} aria-label={option}>
-              {option}
+        <div css={styles.selectContainer}>
+          <select {...field} css={styles.select} aria-label={labelText}>
+            <option key="none" value="" aria-label="default empty option">
+              -- Please select option --
             </option>
-          ))}
-        </select>
+            {options.map((option) => (
+              <option key={option} value={option} aria-label={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </label>
       <FieldError
         touched={meta.touched}

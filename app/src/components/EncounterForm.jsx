@@ -31,12 +31,12 @@ const styles = {
     padding: 0 20px;
     margin-bottom: 70px;
 
-    @media (min-width: ${breakPoints.maxPhone}) {
+    @media (min-width: ${breakPoints.mediumTablet}) {
       margin-bottom: 0;
     }
   `,
   fieldsContainer: css`
-    @media (min-width: ${breakPoints.maxPhone}) {
+    @media (min-width: ${breakPoints.mediumTablet}) {
       display: grid;
       grid-template-columns: 45% 45%;
       grid-column-gap: 10%;
@@ -99,25 +99,27 @@ const EncounterForm = () => {
               <TextInput
                 name="sequenceNumber"
                 labelText="Sequence Number"
-                isRequired={true}
                 maxLength={100}
+                isRequired
+                isShort
               />
               <DateInput
                 name="startTimestamp"
                 labelText="Date"
-                isRequired={true}
+                isRequired
+                isShort
               />
               <Select
                 name="area"
                 labelText="Area"
                 options={areaOptions}
-                isRequired={true}
+                isRequired
               />
               <Select
                 name="species"
                 labelText="Species"
                 options={speciesOptions}
-                isRequired={true}
+                isRequired
               />
             </div>
             <p css={styles.legend}>

@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 import colors from "../../../materials/colors";
 
-const getTextInputStyle = (error, touched) => {
+const getTextInputStyle = (error, touched, isShort) => {
   return {
     label: css`
       span {
@@ -29,9 +29,13 @@ const getTextInputStyle = (error, touched) => {
       color: ${colors.darkRed};
       margin-left: 5px;
     `,
-    input: css`
+    inputContainer: css`
+      display: inline-block;
       width: 100%;
-      max-width: 100%;
+    `,
+    input: css`
+      width: ${isShort ? "50%" : "100%"};
+      max-width: 200px;
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;
