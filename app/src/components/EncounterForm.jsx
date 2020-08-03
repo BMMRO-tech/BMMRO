@@ -12,14 +12,14 @@ import DateInput from "./formFields/DateInput/DateInput";
 import Select from "./formFields/Select/Select";
 import Button from "./Button";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import clientPersistence from "../clientPersistence/clientPersistence";
+import { ROUTES } from "../constants/routes";
+import { CollectionNames } from "../constants/datastore";
 
 import areaOptions from "../constants/areaOptions";
 import speciesOptions from "../constants/speciesOptions";
 import projectOptions from "../constants/projectOptions";
-import { ROUTES } from "../constants/routes";
-
-import clientPersistence from "../clientPersistence/clientPersistence";
-import { CollectionNames } from "../constants/datastore";
+import cueOptions from "../constants/cueOptions";
 
 const styles = {
   title: css`
@@ -127,6 +127,7 @@ const EncounterForm = () => {
                 labelText="Project"
                 options={projectOptions}
               />
+              <Select name="cue" labelText="Cue" options={cueOptions} />
             </div>
             <p css={styles.legend}>
               <span css={styles.requiredLegend}>*</span>required fields

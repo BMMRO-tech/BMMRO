@@ -41,7 +41,7 @@ module.exports = {
     "Total # of individuals ided": { key: "" },
     "Stranded?": { key: "" },
     "Visual IDs": { key: "" },
-    Cue: { key: "" },
+    Cue: { key: "cue" },
     "# Adult Male": { key: "" },
     "# Adult Female": { key: "" },
     "# Adult Unknown": { key: "" },
