@@ -12,6 +12,8 @@ const getFieldErrorMessage = (type, params) => {
       return "Invalid number format";
     case FormErrorType.INVALID_TIME_FORMAT:
       return `Time must be in the following format ${params.format}`;
+    case FormErrorType.INVALID_POSITION_FORMAT:
+      return "Invalid position format";
     case FormErrorType.EMPTY:
       return "Required";
     default:
