@@ -40,7 +40,7 @@ module.exports = {
     "Total # frames": { key: "" },
     "Total # of individuals ided": { key: "" },
     "Stranded?": { key: "" },
-    "Visual IDs": { key: "" },
+    "Visual IDs": { key: "visualIdentifications" },
     Cue: { key: "cue" },
     "# Adult Male": { key: "" },
     "# Adult Female": { key: "" },

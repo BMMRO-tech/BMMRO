@@ -100,6 +100,8 @@ const EncounterForm = () => {
             comments: "",
             videoRec: "",
             audioRec: "",
+            photographerFrameNumber: "",
+            visualIdentifications: "",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
@@ -118,7 +120,7 @@ const EncounterForm = () => {
               <TextInput
                 name="sequenceNumber"
                 labelText="Encounter sequence"
-                maxLength={100}
+                maxLength={255}
                 isRequired
                 isShort
               />
@@ -148,7 +150,7 @@ const EncounterForm = () => {
               <TextInput
                 name="observers"
                 labelText="Observers"
-                maxLength={200}
+                maxLength={255}
               />
               <NumberInput
                 name="groupSize"
@@ -167,12 +169,25 @@ const EncounterForm = () => {
               <TextInput
                 name="videoRec"
                 labelText="Video Rec"
-                maxLength={200}
+                maxLength={255}
               />
               <TextInput
                 name="audioRec"
                 labelText="Audio Rec"
-                maxLength={200}
+                maxLength={255}
+              />
+              <NumberInput
+                name="photographerFrameNumber"
+                labelText="Photographer-frame number"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <TextAreaInput
+                name="visualIdentifications"
+                labelText="Visual identifications"
+                maxLength={255}
               />
             </div>
             <p css={styles.legend}>
