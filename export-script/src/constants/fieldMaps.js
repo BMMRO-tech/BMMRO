@@ -12,7 +12,7 @@ module.exports = {
     Species: { key: "species" },
     "Group size": { key: "groupSize" },
     "Begin time": { key: "" },
-    Location: { key: "" },
+    Location: { key: "location" },
     Project: { key: "project" },
     Vessel: { key: "vessel" },
     Observers: { key: "observers" },

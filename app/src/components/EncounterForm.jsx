@@ -148,6 +148,7 @@ const EncounterForm = () => {
                 isShort
                 isInteger
               />
+              <TextInput name="location" labelText="Location" maxLength={100} />
             </div>
             <p css={styles.legend}>
               <span css={styles.requiredLegend}>*</span>required fields
