@@ -90,6 +90,12 @@ const EncounterForm = () => {
             startTimestamp: new Date(),
             area: "",
             species: "",
+            project: "",
+            cue: "",
+            vessel: "",
+            observers: "",
+            groupSize: "",
+            location: "",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
