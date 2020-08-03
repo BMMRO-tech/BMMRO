@@ -97,16 +97,16 @@ const EncounterForm = () => {
         >
           <Form>
             <div css={styles.fieldsContainer}>
-              <TextInput
-                name="sequenceNumber"
-                labelText="Sequence Number"
-                maxLength={100}
-                isRequired
-                isShort
-              />
               <DateInput
                 name="startTimestamp"
                 labelText="Date"
+                isRequired
+                isShort
+              />
+              <TextInput
+                name="sequenceNumber"
+                labelText="Encounter sequence"
+                maxLength={100}
                 isRequired
                 isShort
               />
