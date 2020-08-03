@@ -9,8 +9,8 @@ export default [
   "M3R",
   "None",
   "Not Noted",
-  "Radiocall",
   "RDF",
+  "Radiocall",
   "Splash",
   "Tail Stock",
 ];
