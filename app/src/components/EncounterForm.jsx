@@ -29,6 +29,11 @@ const styles = {
   `,
   formContainer: css`
     padding: 0 20px;
+    margin-bottom: 70px;
+
+    @media (min-width: ${breakPoints.maxPhone}) {
+      margin-bottom: 0;
+    }
   `,
   fieldsContainer: css`
     @media (min-width: ${breakPoints.maxPhone}) {
@@ -40,9 +45,28 @@ const styles = {
   legend: css`
     margin-top: 0;
   `,
+  buttonContainer: css`
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    position: fixed;
+    bottom: 0;
+    background: white;
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0 -1px 5px 1px rgba(40, 54, 104, 0.15);
+    left: 0;
+
+    @media (min-width: ${breakPoints.maxPhone}) {
+      position: relative;
+      bottom: auto;
+      background: none;
+      box-shadow: none;
+    }
+  `,
   submitButton: `
-      margin: 0 auto;
-    `,
+    margin: 0 auto;
+  `,
 };
 
 const EncounterForm = () => {
@@ -96,9 +120,11 @@ const EncounterForm = () => {
                 <em>*required fields</em>
               </small>
             </p>
-            <Button styles={styles.submitButton} type="submit">
-              Submit
-            </Button>
+            <div css={styles.buttonContainer}>
+              <Button styles={styles.submitButton} type="submit">
+                Save Encounter
+              </Button>
+            </div>
           </Form>
         </Formik>
       </div>
