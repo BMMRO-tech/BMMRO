@@ -98,6 +98,8 @@ const EncounterForm = () => {
             groupSize: "",
             location: "",
             comments: "",
+            videoRec: "",
+            audioRec: "",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
@@ -161,6 +163,16 @@ const EncounterForm = () => {
                 name="comments"
                 labelText="Comments / Observations (names of underwater observers)"
                 maxLength={500}
+              />
+              <TextInput
+                name="videoRec"
+                labelText="Video Rec"
+                maxLength={200}
+              />
+              <TextInput
+                name="audioRec"
+                labelText="Audio Rec"
+                maxLength={200}
               />
             </div>
             <p css={styles.legend}>
