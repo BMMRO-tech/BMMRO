@@ -35,7 +35,7 @@ const getTextInputStyle = (error, touched, isShort) => {
     `,
     input: css`
       width: ${isShort ? "50%" : "100%"};
-      max-width: 200px;
+      max-width: ${isShort ? "200px" : "400px"};
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;

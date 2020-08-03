@@ -134,6 +134,11 @@ const EncounterForm = () => {
                 labelText="Vessel"
                 options={vesselOptions}
               />
+              <TextInput
+                name="observers"
+                labelText="Observers"
+                maxLength={200}
+              />
             </div>
             <p css={styles.legend}>
               <span css={styles.requiredLegend}>*</span>required fields
