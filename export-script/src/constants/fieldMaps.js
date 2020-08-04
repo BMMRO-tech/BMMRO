@@ -54,7 +54,7 @@ module.exports = {
     "# Year of Young": { key: "numYoungOfYear" },
     "# Neonate": { key: "numNeonates" },
     "# Unknown": { key: "numUnknown" },
-    "Reason for leaving": { key: "" },
+    "Reason for leaving": { key: "reasonForLeaving" },
     "Autec range": { key: "" },
   },
   habitatUse: {

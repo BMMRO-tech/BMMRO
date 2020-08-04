@@ -25,6 +25,7 @@ import speciesOptions from "../constants/speciesOptions";
 import projectOptions from "../constants/projectOptions";
 import cueOptions from "../constants/cueOptions";
 import vesselOptions from "../constants/vesselOptions";
+import reasonForLeavingOptions from "../constants/reasonForLeavingOptions";
 
 const styles = {
   title: css`
@@ -123,6 +124,7 @@ const EncounterForm = () => {
             numUnknown: "",
             endOfSearchEffort: "",
             endTime: "",
+            reasonForLeaving: "",
             highTide: "",
             lowTide: "",
             logbookNumber: "",
@@ -366,6 +368,11 @@ const EncounterForm = () => {
                 isShort
               />
               <TimeInput name="endTime" labelText="End time" isShort />
+              <Select
+                name="reasonForLeaving"
+                labelText="Reason for leaving"
+                options={reasonForLeavingOptions}
+              />
               <TimeInput name="hightTide" labelText="High tide" isShort />
               <TimeInput name="lowTide" labelText="Low tide" isShort />
               <TextInput
