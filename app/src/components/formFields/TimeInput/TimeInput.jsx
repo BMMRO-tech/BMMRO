@@ -15,7 +15,7 @@ const getCurrentDate = () => new Date(Date.now());
 
 const formatTime = (date) => format(date, TIME_FORMAT);
 
-const TimeInput = ({ name, labelText, autofill }) => {
+const TimeInput = ({ name, labelText, autofill, isShort }) => {
   const validateTime = (val) => {
     const timePattern = new RegExp("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
 
@@ -39,7 +39,7 @@ const TimeInput = ({ name, labelText, autofill }) => {
     // eslint-disable-next-line
   }, []);
 
-  const styles = getTimeInputStyle(meta.error, meta.touched);
+  const styles = getTimeInputStyle(meta.error, meta.touched, isShort);
 
   return (
     <div>

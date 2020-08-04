@@ -11,6 +11,7 @@ import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import DateInput from "./formFields/DateInput/DateInput";
+import TimeInput from "./formFields/TimeInput/TimeInput";
 import Select from "./formFields/Select/Select";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import Button from "./Button";
@@ -108,6 +109,26 @@ const EncounterForm = () => {
             tagAttempt: "no",
             tagSuccess: "not-noted",
             transect: "off",
+            numAdultMale: "",
+            numAdultFemale: "",
+            numAdultUnknown: "",
+            numSubAdultMale: "",
+            numSubAdultFemale: "",
+            numSubAdult: "",
+            numJuvenileMale: "",
+            numJuvenileFemale: "",
+            numJuvenileUnknown: "",
+            numYoungOfYear: "",
+            numNeonates: "",
+            numUnknown: "",
+            endOfSearchEffort: "",
+            endTime: "",
+            highTide: "",
+            lowTide: "",
+            logbookNumber: "",
+            encounterNumber: "",
+            startTime: "",
+            enteredBy: "Research Assistant",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
@@ -338,6 +359,41 @@ const EncounterForm = () => {
                 maxValue={9999}
                 isShort
                 isInteger
+              />
+              <TimeInput
+                name="endOfSearchEffort"
+                labelText="End of search effort"
+                isShort
+              />
+              <TimeInput name="endTime" labelText="End time" isShort />
+              <TimeInput name="hightTide" labelText="High tide" isShort />
+              <TimeInput name="lowTide" labelText="Low tide" isShort />
+              <TextInput
+                name="logbookNumber"
+                labelText="Logbook number"
+                maxLength={50}
+                isShort
+              />
+              <NumberInput
+                name="encounterNumber"
+                labelText="Encounter number"
+                minValue={1}
+                maxValue={9999}
+                isShort
+              />
+              <TimeInput
+                name="startTime"
+                labelText="Start time"
+                isShort
+                autofill
+              />
+              <RadioGroup
+                name="enteredBy"
+                labelText="Entered by"
+                options={[
+                  { label: "Research Assistant", value: "Research Assistant" },
+                  { label: "Research Scientist", value: "Research Scientist" },
+                ]}
               />
             </div>
             <p css={styles.legend}>
