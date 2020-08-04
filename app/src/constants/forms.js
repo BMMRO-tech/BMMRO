@@ -14,4 +14,5 @@ export const FormErrorType = {
 
 export const DATE_FORMAT = "dd/MM/yyyy";
 export const TIME_FORMAT = "HH:mm";
+export const TIME_PATTERN = "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$";
 export const POSITION_DECIMAL_PRECISION = 6;

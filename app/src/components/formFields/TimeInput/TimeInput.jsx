@@ -8,8 +8,11 @@ import InputMask from "react-input-mask";
 import getTimeInputStyle from "./getTimeInputStyle";
 import FieldError from "../FieldError";
 import getFieldErrorMessage from "../getFieldErrorMessage";
-import { FormErrorType } from "../../../constants/forms";
-import { TIME_FORMAT } from "../../../constants/forms";
+import {
+  FormErrorType,
+  TIME_FORMAT,
+  TIME_PATTERN,
+} from "../../../constants/forms";
 
 const getCurrentDate = () => new Date(Date.now());
 
@@ -17,7 +20,7 @@ const formatTime = (date) => format(date, TIME_FORMAT);
 
 const TimeInput = ({ name, labelText, autofill, isShort, isRequired }) => {
   const validateTime = (val) => {
-    const timePattern = new RegExp("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
+    const timePattern = new RegExp(TIME_PATTERN);
 
     if (val && !timePattern.test(val)) {
       return getFieldErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {

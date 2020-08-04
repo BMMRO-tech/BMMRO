@@ -12,6 +12,7 @@ import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import DateInput from "./formFields/DateInput/DateInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
+import ElapsedTime from "./formFields/ElapsedTime/ElapsedTime";
 import Select from "./formFields/Select/Select";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import Button from "./Button";
@@ -130,6 +131,7 @@ const EncounterForm = () => {
             logbookNumber: "",
             encounterNumber: "",
             startTime: "",
+            elapsedTime: "",
             enteredBy: "Research Assistant",
           }}
           onSubmit={(values) => {
@@ -394,6 +396,7 @@ const EncounterForm = () => {
                 isShort
                 autofill
               />
+              <ElapsedTime />
               <RadioGroup
                 name="enteredBy"
                 labelText="Entered by"
