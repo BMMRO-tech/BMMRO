@@ -103,11 +103,11 @@ const EncounterForm = () => {
             audioRec: "",
             photographerFrameNumber: "",
             visualIdentifications: "",
-            biopsyAttempt: "",
-            biopsySuccess: "",
-            tagAttempt: "",
-            tagSuccess: "",
-            transect: "",
+            biopsyAttempt: "no",
+            biopsySuccess: "not-noted",
+            tagAttempt: "no",
+            tagSuccess: "not-noted",
+            transect: "off",
           }}
           onSubmit={(values) => {
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
@@ -224,17 +224,17 @@ const EncounterForm = () => {
                 name="tagSuccess"
                 labelText="Tag success"
                 options={[
-                  { label: "On", value: "on", checked: false },
-                  { label: "Off", value: "off", checked: false },
-                  { label: "Not noted", value: "not-noted", checked: true },
+                  { label: "On", value: "on" },
+                  { label: "Off", value: "off" },
+                  { label: "Not noted", value: "not-noted" },
                 ]}
               />
               <RadioGroup
                 name="transect"
                 labelText="Transect"
                 options={[
-                  { label: "On", value: "on", checked: false },
-                  { label: "Off", value: "off", checked: true },
+                  { label: "On", value: "on" },
+                  { label: "Off", value: "off" },
                 ]}
               />
             </div>

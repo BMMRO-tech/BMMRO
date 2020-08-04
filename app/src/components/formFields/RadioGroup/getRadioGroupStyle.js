@@ -3,6 +3,9 @@ import colors from "../../../materials/colors";
 
 const getRadioGroupStyle = () => {
   return {
+    radioGroupContainer: css`
+      margin-bottom: 20px;
+    `,
     label: css`
       span {
         display: block;
