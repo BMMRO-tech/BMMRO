@@ -237,6 +237,108 @@ const EncounterForm = () => {
                   { label: "Off", value: "off" },
                 ]}
               />
+              <TextInput
+                name="transectNumber"
+                labelText="Transect Number"
+                maxLength={50}
+                isShort
+              />
+              <NumberInput
+                name="numAdultMale"
+                labelText="Number of adult male"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numAdultFemale"
+                labelText="Number of adult female"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numAdultUnknown"
+                labelText="Number of adult unknown"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numSubAdultMale"
+                labelText="Number of sub adult male"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numSubAdultFemale"
+                labelText="Number of sub adult female"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numSubAdult"
+                labelText="Number of sub adult"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numJuvenileMale"
+                labelText="Number of juvenile male"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numJuvenileFemale"
+                labelText="Number of juvenile female"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numJuvenileUnknown"
+                labelText="Number of juvenile unknown"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numYoungOfYear"
+                labelText="Number of young of year"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numNeonates"
+                labelText="Number of neonates"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
+              <NumberInput
+                name="numUnknown"
+                labelText="Number of unknown"
+                minValue={0}
+                maxValue={9999}
+                isShort
+                isInteger
+              />
             </div>
             <p css={styles.legend}>
               <span css={styles.requiredLegend}>*</span>required fields
