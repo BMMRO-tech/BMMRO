@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { jsx } from "@emotion/core";
-import { useContext, Fragment } from "react";
+import { useContext } from "react";
 import { navigate } from "@reach/router";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
@@ -23,14 +23,15 @@ import tideState from "../constants/formOptions/tideState";
 import behaviour from "../constants/formOptions/behaviour";
 import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
+import utilities from "../materials/utilities";
 
 const HabitatUseForm = ({ encounterPath }) => {
   const { datastore } = useContext(FirebaseContext);
 
   return (
-    <Fragment>
-      <h1>Habitat Use Form</h1>
-      <div>
+    <div css={utilities.sticky.contentContainer}>
+      <h1 css={utilities.form.title}>Habitat Use Form</h1>
+      <div css={utilities.form.container}>
         <Formik
           initialValues={{
             numberOfAnimals: 1,
@@ -67,7 +68,7 @@ const HabitatUseForm = ({ encounterPath }) => {
           }}
         >
           <Form>
-            <div>
+            <div css={utilities.form.fieldsGrid}>
               <NumberInput
                 name="numberOfAnimals"
                 labelText="Number of Animals"
@@ -198,14 +199,16 @@ const HabitatUseForm = ({ encounterPath }) => {
                 autofill
               />
             </div>
-            <p>
+            <div css={utilities.form.legend}>
               <span>*</span>required fields
-            </p>
-            <Button type="submit">Submit</Button>
+            </div>
+            <div css={utilities.sticky.footerContainer}>
+              <Button type="submit">Submit</Button>
+            </div>
           </Form>
         </Formik>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

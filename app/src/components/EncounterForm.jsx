@@ -1,12 +1,10 @@
 /** @jsx jsx */
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 import { Formik, Form } from "formik";
 import { navigate } from "@reach/router";
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 
-import breakPoints from "../materials/breakPoints";
-import typography from "../materials/typography";
-import colors from "../materials/colors";
+import utilities from "../materials/utilities";
 import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import NumberInput from "./formFields/NumberInput/NumberInput";
@@ -28,67 +26,13 @@ import cueOptions from "../constants/cueOptions";
 import vesselOptions from "../constants/vesselOptions";
 import reasonForLeavingOptions from "../constants/reasonForLeavingOptions";
 
-const styles = {
-  title: css`
-    ${typography.title}
-    background-color: ${colors.lighterGray};
-    padding: 10px;
-    margin-bottom: 15px;
-  `,
-  formContainer: css`
-    padding: 0 20px;
-    margin-bottom: 70px;
-
-    @media (min-width: ${breakPoints.mediumTablet}) {
-      margin-bottom: 0;
-    }
-  `,
-  fieldsContainer: css`
-    @media (min-width: ${breakPoints.mediumTablet}) {
-      display: grid;
-      grid-template-columns: 45% 45%;
-      grid-column-gap: 10%;
-    }
-  `,
-  legend: css`
-    margin-top: 0;
-    font-size: smaller;
-  `,
-  requiredLegend: css`
-    color: ${colors.darkRed};
-    margin-right: 5px;
-  `,
-  buttonContainer: css`
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    position: fixed;
-    bottom: 0;
-    background: white;
-    width: 100%;
-    padding: 10px;
-    box-shadow: 0 -1px 5px 1px rgba(40, 54, 104, 0.15);
-    left: 0;
-
-    @media (min-width: ${breakPoints.maxPhone}) {
-      position: relative;
-      bottom: auto;
-      background: none;
-      box-shadow: none;
-    }
-  `,
-  submitButton: `
-    margin: 0 auto;
-  `,
-};
-
 const EncounterForm = () => {
   const { datastore } = useContext(FirebaseContext);
 
   return (
-    <Fragment>
-      <h1 css={styles.title}>New Encounter</h1>
-      <div css={styles.formContainer}>
+    <div css={utilities.sticky.contentContainer}>
+      <h1 css={utilities.form.title}>New Encounter</h1>
+      <div css={utilities.form.container}>
         <Formik
           initialValues={{
             sequenceNumber: "",
@@ -141,7 +85,7 @@ const EncounterForm = () => {
           }}
         >
           <Form>
-            <div css={styles.fieldsContainer}>
+            <div css={utilities.form.fieldsGrid}>
               <DateInput
                 name="startTimestamp"
                 labelText="Date"
@@ -401,23 +345,27 @@ const EncounterForm = () => {
                 name="enteredBy"
                 labelText="Entered by"
                 options={[
-                  { label: "Research Assistant", value: "Research Assistant" },
-                  { label: "Research Scientist", value: "Research Scientist" },
+                  {
+                    label: "Research Assistant",
+                    value: "Research Assistant",
+                  },
+                  {
+                    label: "Research Scientist",
+                    value: "Research Scientist",
+                  },
                 ]}
               />
             </div>
-            <p css={styles.legend}>
-              <span css={styles.requiredLegend}>*</span>required fields
-            </p>
-            <div css={styles.buttonContainer}>
-              <Button styles={styles.submitButton} type="submit">
-                Save Encounter
-              </Button>
+            <div css={utilities.form.legend}>
+              <span>*</span>required fields
+            </div>
+            <div css={utilities.sticky.footerContainer}>
+              <Button type="submit">Save Encounter</Button>
             </div>
           </Form>
         </Formik>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

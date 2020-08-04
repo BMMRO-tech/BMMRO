@@ -10,9 +10,6 @@ import HabitatUseForm from "../components/HabitatUseForm";
 
 const NewHabitatUse = () => {
   const openEncounterPath = clientPersistence.get("openEncounterPath");
-  const openEncounterStartTimestamp = clientPersistence.get(
-    "openEncounterStartTimestamp"
-  );
 
   useEffect(() => {
     if (!openEncounterPath) {
@@ -22,10 +19,7 @@ const NewHabitatUse = () => {
 
   return (
     <Layout hasDefaultPadding={false}>
-      <HabitatUseForm
-        encounterPath={openEncounterPath}
-        encounterStartTimestamp={openEncounterStartTimestamp}
-      />
+      <HabitatUseForm encounterPath={openEncounterPath} />
     </Layout>
   );
 };
