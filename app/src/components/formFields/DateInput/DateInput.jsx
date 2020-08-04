@@ -28,7 +28,7 @@ const DateInput = ({ name, labelText, isRequired, isShort }) => {
       <div>
         <label css={fieldStyles.label}>
           <span>{labelText}</span>
-          {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
+          {isRequired && <span css={fieldStyles.required}>*</span>}
 
           <DatePicker
             dateFormat="dd MMMM yyyy"

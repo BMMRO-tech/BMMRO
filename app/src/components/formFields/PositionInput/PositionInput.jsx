@@ -9,7 +9,14 @@ import fieldStyles from "../fieldStyles";
 import getFieldErrorMessage from "../getFieldErrorMessage";
 import FieldError from "../FieldError";
 
-const PositionInput = ({ name, labelText, isRequired, type, autofill }) => {
+const PositionInput = ({
+  name,
+  labelText,
+  isRequired,
+  isShort,
+  type,
+  autofill,
+}) => {
   const position = usePosition();
 
   const positionConfig = {
@@ -67,13 +74,13 @@ const PositionInput = ({ name, labelText, isRequired, type, autofill }) => {
     <div>
       <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
+        {isRequired && <span css={fieldStyles.required}>*</span>}
 
         <div css={fieldStyles.inputContainer}>
           <input
             {...field}
             type="text"
-            css={fieldStyles.getInputStyles(meta.error, meta.touched)}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
           />
         </div>
       </label>

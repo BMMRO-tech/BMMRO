@@ -32,6 +32,8 @@ const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
     <div>
       <label css={fieldStyles.label}>
         <span>{labelText}</span>
+        {isRequired && <span css={fieldStyles.required}>*</span>}
+
         <textarea
           {...field}
           css={fieldStyles.getInputStyles(meta.error, meta.touched)}

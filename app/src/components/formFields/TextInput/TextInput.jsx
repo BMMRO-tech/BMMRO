@@ -32,7 +32,7 @@ const TextInput = ({ name, labelText, maxLength, isRequired, isShort }) => {
     <div>
       <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
+        {isRequired && <span css={fieldStyles.required}>*</span>}
 
         <div css={fieldStyles.inputContainer}>
           <input

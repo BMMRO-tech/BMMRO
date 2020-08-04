@@ -3,8 +3,9 @@ import { jsx } from "@emotion/core";
 import { useField } from "formik";
 import { Fragment } from "react";
 import getRadioGroupStyle from "./getRadioGroupStyle";
+import fieldStyles from "../fieldStyles";
 
-const RadioGroup = ({ name, labelText, options }) => {
+const RadioGroup = ({ name, labelText, options, isRequired }) => {
   const [field] = useField({
     name,
   });
@@ -14,6 +15,7 @@ const RadioGroup = ({ name, labelText, options }) => {
   return (
     <div css={styles.radioGroupContainer}>
       <span css={styles.label}>{labelText}</span>
+      {isRequired && <span css={fieldStyles.required}>*</span>}
       <div>
         {options.map((option) => {
           return (

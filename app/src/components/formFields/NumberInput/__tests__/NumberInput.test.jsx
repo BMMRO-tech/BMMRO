@@ -119,7 +119,7 @@ describe("NumberInput", () => {
 
     await act(async () => {
       const textInput = getByRole("spinbutton", {
-        name: "Your favorite number",
+        name: "Your favorite number *",
       });
       userEvent.click(textInput);
       userEvent.tab();

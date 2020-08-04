@@ -75,6 +75,7 @@ const HabitatUseForm = ({ encounterPath }) => {
                 minValue={0}
                 maxValue={99}
                 isInteger
+                isShort
               />
               <NumberInput
                 name="numberOfCalves"
@@ -82,6 +83,7 @@ const HabitatUseForm = ({ encounterPath }) => {
                 minValue={0}
                 maxValue={99}
                 isInteger
+                isShort
               />
               <NumberInput
                 name="numberOfBoats"
@@ -89,11 +91,13 @@ const HabitatUseForm = ({ encounterPath }) => {
                 minValue={0}
                 maxValue={999}
                 isInteger
+                isShort
               />
               <Select
                 name="directionOfTravel"
                 labelText="Direction of Travel"
                 options={direction}
+                isShort
               />
               <TextAreaInput
                 name="comments"
@@ -105,12 +109,14 @@ const HabitatUseForm = ({ encounterPath }) => {
                 labelText="Water Depth (m)"
                 minValue={0}
                 maxValue={9999}
+                isShort
               />
               <NumberInput
                 name="waterTemp"
                 labelText="Water Temp (°C)"
                 minValue={15}
                 maxValue={40}
+                isShort
               />
               <Select
                 name="bottomSubstrate"
@@ -126,11 +132,13 @@ const HabitatUseForm = ({ encounterPath }) => {
                 name="beaufortSeaState"
                 labelText="Beaufort Sea State"
                 options={beaufortSeaState}
+                isShort
               />
               <Select
                 name="tideState"
                 labelText="Tide State"
                 options={tideState}
+                isShort
               />
               <Select
                 name="behaviour"
@@ -141,24 +149,28 @@ const HabitatUseForm = ({ encounterPath }) => {
                 name="swellWaveHeight"
                 labelText="Swell / Wave height (ft)"
                 options={swellWaveHeight}
+                isShort
               />
               <NumberInput
                 name="distance"
                 labelText="Distance (m)"
                 minValue={0}
                 maxValue={9999}
+                isShort
               />
               <NumberInput
                 name="bearing"
                 labelText="Bearing (°)"
                 minValue={0}
                 maxValue={360}
+                isShort
               />
               <NumberInput
                 name="aspect"
                 labelText="Aspect (°)"
                 minValue={0}
                 maxValue={360}
+                isShort
               />
               <Select
                 name="groupCohesion"
@@ -169,6 +181,7 @@ const HabitatUseForm = ({ encounterPath }) => {
                 name="groupComposition"
                 labelText="Group Composition"
                 maxLength={100}
+                isShort
               />
               <NumberInput
                 name="surfaceBout"
@@ -176,12 +189,14 @@ const HabitatUseForm = ({ encounterPath }) => {
                 minValue={0}
                 maxValue={99}
                 isInteger
+                isShort
               />
-              <TimeInput name="endTime" labelText="End Time (hh:mm)" />
+              <TimeInput name="endTime" labelText="End Time (hh:mm)" isShort />
               <TimeInput
                 name="startTime"
                 labelText="Start Time (hh:mm)"
                 isRequired
+                isShort
                 autofill
               />
               <PositionInput
@@ -189,6 +204,7 @@ const HabitatUseForm = ({ encounterPath }) => {
                 type="latitude"
                 labelText="Lat"
                 isRequired
+                isShort
                 autofill
               />
               <PositionInput
@@ -196,6 +212,7 @@ const HabitatUseForm = ({ encounterPath }) => {
                 type="longitude"
                 labelText="Long"
                 isRequired
+                isShort
                 autofill
               />
             </div>
@@ -203,7 +220,7 @@ const HabitatUseForm = ({ encounterPath }) => {
               <span>*</span>required fields
             </div>
             <div css={utilities.sticky.footerContainer}>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save habitat use</Button>
             </div>
           </Form>
         </Formik>

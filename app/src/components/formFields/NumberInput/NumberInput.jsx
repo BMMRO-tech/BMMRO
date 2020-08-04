@@ -54,6 +54,7 @@ const NumberInput = ({
     <div>
       <label css={fieldStyles.label}>
         <span>{labelText}</span>
+        {isRequired && <span css={fieldStyles.required}>*</span>}
         <div css={fieldStyles.inputContainer}>
           <input
             {...field}

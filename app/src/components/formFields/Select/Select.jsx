@@ -7,7 +7,7 @@ import getFieldErrorMessage from "../getFieldErrorMessage";
 import fieldStyles from "../fieldStyles";
 import FieldError from "../FieldError";
 
-const Select = ({ name, labelText, isRequired, options }) => {
+const Select = ({ name, labelText, isRequired, isShort, options }) => {
   const validate = (val) => {
     if (!val) {
       if (isRequired) return getFieldErrorMessage(FormErrorType.EMPTY);
@@ -23,16 +23,16 @@ const Select = ({ name, labelText, isRequired, options }) => {
     <div>
       <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
+        {isRequired && <span css={fieldStyles.required}>*</span>}
 
         <div css={fieldStyles.inputContainer}>
           <select
             {...field}
-            css={fieldStyles.getInputStyles(meta.error, meta.touched)}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             aria-label={labelText}
           >
             <option key="none" value="" aria-label="default empty option">
-              -- Please select option --
+              -- Select option --
             </option>
             {options.map((option) => (
               <option key={option} value={option} aria-label={option}>
