@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 
-import getNumberInputStyle from "./getNumberInputStyle";
-import FieldError from "../FieldError";
-import getFieldErrorMessage from "../getFieldErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
+import getFieldErrorMessage from "../getFieldErrorMessage";
+import fieldStyles from "../fieldStyles";
+import FieldError from "../FieldError";
 
 const isNullOrUndefined = (value) => {
   return value === null || value === undefined;
@@ -50,13 +50,17 @@ const NumberInput = ({
     validate: validateNumber,
   });
 
-  const styles = getNumberInputStyle(meta.error, meta.touched, isShort);
-
   return (
     <div>
-      <label css={styles.label}>
+      <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        <input {...field} type="number" css={styles.input} />
+        <div css={fieldStyles.inputContainer}>
+          <input
+            {...field}
+            type="number"
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+          />
+        </div>
       </label>
       <FieldError
         touched={meta.touched}

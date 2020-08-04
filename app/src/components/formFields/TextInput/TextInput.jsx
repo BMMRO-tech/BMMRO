@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
-import getTextInputStyle from "./getTextInputStyle";
-import FieldError from "../FieldError";
-import getFieldErrorMessage from "../getFieldErrorMessage";
+
 import { FormErrorType } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
+import getFieldErrorMessage from "../getFieldErrorMessage";
+import FieldError from "../FieldError";
 
 const TextInput = ({ name, labelText, maxLength, isRequired, isShort }) => {
   const validateText = (val) => {
@@ -27,16 +28,18 @@ const TextInput = ({ name, labelText, maxLength, isRequired, isShort }) => {
     validate: validateText,
   });
 
-  const styles = getTextInputStyle(meta.error, meta.touched, isShort);
-
   return (
     <div>
-      <label css={styles.label}>
+      <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={styles.required}>*</span> : ""}
+        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
 
-        <div css={styles.inputContainer}>
-          <input {...field} css={styles.input} aria-label={labelText} />
+        <div css={fieldStyles.inputContainer}>
+          <input
+            {...field}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+            aria-label={labelText}
+          />
         </div>
       </label>
       <FieldError

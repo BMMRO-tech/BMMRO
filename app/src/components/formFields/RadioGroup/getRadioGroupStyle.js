@@ -11,21 +11,6 @@ const getRadioGroupStyle = () => {
         display: block;
         padding-bottom: 5px;
       }
-
-      &:focus-within {
-        span {
-          color: ${colors.darkTurquoise};
-          font-weight: 700;
-        }
-
-        input {
-          outline: 2px solid ${colors.mediumTurquoise};
-        }
-
-        textarea {
-          outline: 2px solid ${colors.mediumTurquoise};
-        }
-      }
     `,
     radioLabel: css`
       display: inline-flex;

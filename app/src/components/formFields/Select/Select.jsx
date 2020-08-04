@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
-import FieldError from "../FieldError";
-import getFieldErrorMessage from "../getFieldErrorMessage";
+
 import { FormErrorType } from "../../../constants/forms";
-import getSelectStyle from "./getSelectStyle";
+import getFieldErrorMessage from "../getFieldErrorMessage";
+import fieldStyles from "../fieldStyles";
+import FieldError from "../FieldError";
 
 const Select = ({ name, labelText, isRequired, options }) => {
   const validate = (val) => {
@@ -18,16 +19,18 @@ const Select = ({ name, labelText, isRequired, options }) => {
 
   const [field, meta] = useField({ name, validate });
 
-  const styles = getSelectStyle(meta.error, meta.touched);
-
   return (
     <div>
-      <label css={styles.label}>
+      <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={styles.required}>*</span> : ""}
+        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
 
-        <div css={styles.selectContainer}>
-          <select {...field} css={styles.select} aria-label={labelText}>
+        <div css={fieldStyles.inputContainer}>
+          <select
+            {...field}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched)}
+            aria-label={labelText}
+          >
             <option key="none" value="" aria-label="default empty option">
               -- Please select option --
             </option>

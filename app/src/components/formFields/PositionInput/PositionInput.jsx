@@ -4,9 +4,9 @@ import { useField } from "formik";
 import { useEffect } from "react";
 
 import { usePosition } from "../../../hooks/usePosition";
-import getPositionInputStyle from "./getPositionInputStyle";
-import getFieldErrorMessage from "../getFieldErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
+import getFieldErrorMessage from "../getFieldErrorMessage";
 import FieldError from "../FieldError";
 
 const PositionInput = ({ name, labelText, isRequired, type, autofill }) => {
@@ -63,16 +63,18 @@ const PositionInput = ({ name, labelText, isRequired, type, autofill }) => {
     // eslint-disable-next-line
   }, [position[type]]);
 
-  const styles = getPositionInputStyle(meta.error, meta.touched);
-
   return (
     <div>
-      <label css={styles.label}>
+      <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={styles.required}>*</span> : ""}
+        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
 
-        <div css={styles.inputContainer}>
-          <input {...field} type="text" css={styles.input} />
+        <div css={fieldStyles.inputContainer}>
+          <input
+            {...field}
+            type="text"
+            css={fieldStyles.getInputStyles(meta.error, meta.touched)}
+          />
         </div>
       </label>
       <FieldError

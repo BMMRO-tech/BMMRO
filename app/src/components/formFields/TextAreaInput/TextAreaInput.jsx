@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 
-import getTextAreaInputStyle from "./getTextAreaInputStyle";
-import FieldError from "../FieldError";
-import getFieldErrorMessage from "../getFieldErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
+import getFieldErrorMessage from "../getFieldErrorMessage";
+import FieldError from "../FieldError";
 
 const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
   const validateTextArea = (val) => {
@@ -28,13 +28,15 @@ const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
     validate: validateTextArea,
   });
 
-  const styles = getTextAreaInputStyle(meta.error, meta.touched);
-
   return (
     <div>
-      <label css={styles.label}>
+      <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        <textarea {...field} css={styles.input} aria-label={labelText} />
+        <textarea
+          {...field}
+          css={fieldStyles.getInputStyles(meta.error, meta.touched)}
+          aria-label={labelText}
+        />
       </label>
       <FieldError
         touched={meta.touched}

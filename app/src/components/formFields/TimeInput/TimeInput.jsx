@@ -5,14 +5,14 @@ import { useField, useFormikContext } from "formik";
 import { format } from "date-fns";
 import InputMask from "react-input-mask";
 
-import getTimeInputStyle from "./getTimeInputStyle";
-import FieldError from "../FieldError";
-import getFieldErrorMessage from "../getFieldErrorMessage";
 import {
   FormErrorType,
   TIME_FORMAT,
   TIME_PATTERN,
 } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
+import getFieldErrorMessage from "../getFieldErrorMessage";
+import FieldError from "../FieldError";
 
 const getCurrentDate = () => new Date(Date.now());
 
@@ -70,19 +70,17 @@ const TimeInput = ({
     // eslint-disable-next-line
   }, []);
 
-  const styles = getTimeInputStyle(meta.error, meta.touched, isShort);
-
   return (
     <div>
-      <label css={styles.label}>
+      <label css={fieldStyles.label}>
         <span>{labelText}</span>
-        {isRequired ? <span css={styles.required}>*</span> : ""}
+        {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
 
-        <div css={styles.inputContainer}>
+        <div css={fieldStyles.inputContainer}>
           <InputMask
             {...field}
             mask="99:99"
-            css={styles.input}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             aria-label={labelText}
           />
         </div>

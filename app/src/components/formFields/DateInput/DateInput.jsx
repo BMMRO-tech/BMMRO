@@ -1,14 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import getDateInputStyle from "./getDateInputStyle";
-import FieldError from "../FieldError";
-import getFieldErrorMessage from "../getFieldErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
+import getFieldErrorMessage from "../getFieldErrorMessage";
+import fieldStyles from "../fieldStyles";
+import FieldError from "../FieldError";
 
 const DateInput = ({ name, labelText, isRequired, isShort }) => {
   const validateText = (val) => {
@@ -24,20 +23,18 @@ const DateInput = ({ name, labelText, isRequired, isShort }) => {
     validate: validateText,
   });
 
-  const styles = getDateInputStyle(meta.error, meta.touched, isShort);
-
   return (
     <div>
       <div>
-        <label css={styles.label}>
+        <label css={fieldStyles.label}>
           <span>{labelText}</span>
-          {isRequired ? <span css={styles.required}>*</span> : ""}
+          {isRequired ? <span css={fieldStyles.required}>*</span> : ""}
 
           <DatePicker
             dateFormat="dd MMMM yyyy"
             maxDate={new Date()}
             id={name}
-            css={styles.input}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             withPortal
             onFocus={(e) => e.target.blur()}
             customInput={<input aria-label={labelText} type="text" />}
