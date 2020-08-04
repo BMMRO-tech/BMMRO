@@ -51,7 +51,7 @@ describe("TextInput", () => {
       <TextInput
         name="favoriteColor"
         labelText="Your favorite color"
-        isRequired={true}
+        isRequired
       />,
       { favoriteColor: "" }
     );

@@ -24,7 +24,7 @@ const PositionInput = ({ name, labelText, isRequired, type, autofill }) => {
   };
 
   const validatePosition = (val) => {
-    const positionPattern = new RegExp(`^-?[0-9]{3}.[0-9]{6}$`);
+    const positionPattern = new RegExp(`^-?[0-9]*.[0-9]{6}$`);
     const { min, max } = positionConfig[type];
 
     if (val === "") {
@@ -69,7 +69,11 @@ const PositionInput = ({ name, labelText, isRequired, type, autofill }) => {
     <div>
       <label css={styles.label}>
         <span>{labelText}</span>
-        <input {...field} type="text" css={styles.input} />
+        {isRequired ? <span css={styles.required}>*</span> : ""}
+
+        <div css={styles.inputContainer}>
+          <input {...field} type="text" css={styles.input} />
+        </div>
       </label>
       <FieldError
         touched={meta.touched}

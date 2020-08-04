@@ -1,29 +1,41 @@
 import { css } from "@emotion/core";
 import colors from "../../../materials/colors";
 
-const getPositionInputStyle = (error, touched) => {
+const getPositionInputStyle = (error, touched, isShort) => {
   return {
     label: css`
       span {
+        float: left;
         display: block;
         padding-bottom: 5px;
       }
+
       &:focus-within {
         span {
           color: ${colors.darkTurquoise};
           font-weight: 700;
         }
+
         input {
           outline: 2px solid ${colors.mediumTurquoise};
         }
+
         textarea {
           outline: 2px solid ${colors.mediumTurquoise};
         }
       }
     `,
-    input: css`
+    required: css`
+      color: ${colors.darkRed};
+      margin-left: 5px;
+    `,
+    inputContainer: css`
+      display: inline-block;
       width: 100%;
-      max-width: 100%;
+    `,
+    input: css`
+      width: ${isShort ? "50%" : "100%"};
+      max-width: ${isShort ? "200px" : "400px"};
       margin-right: 5px;
       padding: 5px;
       font-size: 16px;
@@ -33,4 +45,5 @@ const getPositionInputStyle = (error, touched) => {
     `,
   };
 };
+
 export default getPositionInputStyle;

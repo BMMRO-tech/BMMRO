@@ -12,7 +12,7 @@ const UserMenu = ({ menuButtonComponent, menuItems }) => {
         css={menuStyles.menuButton}
         aria-label="Open menu"
         onClick={() => setShowMenu(true)}
-        aria-haspopup={true}
+        aria-haspopup
       >
         {menuButtonComponent}
       </button>

@@ -84,7 +84,7 @@ describe("NumberInput", () => {
       <NumberInput
         name="favoriteNumber"
         labelText="Your favorite number"
-        isInteger={true}
+        isInteger
       />,
       { favoriteNumber: "" }
     );
@@ -112,7 +112,7 @@ describe("NumberInput", () => {
       <NumberInput
         name="favoriteNumber"
         labelText="Your favorite number"
-        isRequired={true}
+        isRequired
       />,
       { favoriteNumber: "" }
     );

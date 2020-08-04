@@ -1,84 +1,63 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import { useContext, Fragment } from "react";
 import { navigate } from "@reach/router";
 
+import NumberInput from "./formFields/NumberInput/NumberInput";
+import TextInput from "./formFields/TextInput/TextInput";
+import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
+import TimeInput from "./formFields/TimeInput/TimeInput";
+import PositionInput from "./formFields/PositionInput/PositionInput";
+import Select from "./formFields/Select/Select";
+import Button from "./Button";
+
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { ROUTES } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
-import { fields } from "../forms/habitatUse/fields";
-import { usePosition } from "../hooks/usePosition";
-import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import breakPoints from "../materials/breakPoints";
-import typography from "../materials/typography";
-import colors from "../materials/colors";
-import Button from "./Button";
-import Select from "./Select";
-import Input from "./Input";
+import direction from "../constants/formOptions/direction";
+import bottomSubstrate from "../constants/formOptions/bottomSubstrate";
+import cloudCover from "../constants/formOptions/cloudCover";
+import beaufortSeaState from "../constants/formOptions/beaufortSeaState";
+import tideState from "../constants/formOptions/tideState";
+import behaviour from "../constants/formOptions/behaviour";
+import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
+import groupCohesion from "../constants/formOptions/groupCohesion";
 
-const HabitatUseForm = ({ encounterPath, encounterStartTimestamp }) => {
-  const position = usePosition();
+const HabitatUseForm = ({ encounterPath }) => {
   const { datastore } = useContext(FirebaseContext);
-
-  const styles = {
-    title: css`
-      ${typography.title}
-      background-color: ${colors.lighterGray};
-      padding: 10px;
-      margin-bottom: 15px;
-    `,
-    formContainer: css`
-      padding: 0 20px;
-    `,
-    fieldsContainer: css`
-      @media (min-width: ${breakPoints.maxPhone}) {
-        display: grid;
-        grid-template-columns: 45% 45%;
-        grid-column-gap: 10%;
-      }
-    `,
-    inputFieldContainerSingle: css`
-      margin-bottom: 5px;
-    `,
-    inputFieldContainerDouble: css`
-      margin-bottom: 5px;
-
-      @media (min-width: ${breakPoints.maxPhone}) {
-        grid-column: 1 / span 2;
-      }
-    `,
-    legend: css`
-      margin-top: 0;
-    `,
-    submitButton: `
-      margin: 0 auto;
-    `,
-  };
 
   return (
     <Fragment>
-      <h1 css={styles.title}>Habitat Use Form</h1>
-      <div css={styles.formContainer}>
+      <h1>Habitat Use Form</h1>
+      <div>
         <Formik
-          enableReinitialize={true}
-          initialValues={(() => {
-            const initValues = {};
-
-            fields.forEach((field) => {
-              initValues[field.name] = field.initialValue
-                ? field.initialValue()
-                : "";
-            });
-
-            initValues["latitude"] = "0";
-            initValues["longitude"] = "0";
-            initValues["date"] = encounterStartTimestamp;
-
-            return initValues;
-          })()}
+          initialValues={{
+            numberOfAnimals: 1,
+            numberOfCalves: "",
+            numberOfBoats: 1,
+            directionOfTravel: "",
+            comments: "",
+            waterDepth: "",
+            waterTemp: "",
+            bottomSubstrate: "",
+            cloudCover: "",
+            beaufortSeaState: "",
+            tideState: "",
+            behaviour: "",
+            swellWaveHeight: "",
+            distance: "",
+            bearing: "",
+            aspect: "",
+            groupCohesion: "",
+            groupComposition: "",
+            surfaceBout: 0,
+            endTime: "",
+            startTime: "",
+            latitude: "0",
+            longitude: "0",
+          }}
           onSubmit={(values) => {
-            delete values["date"];
-
             datastore.createSubDoc(
               encounterPath,
               CollectionNames.HABITAT_USE,
@@ -87,91 +66,143 @@ const HabitatUseForm = ({ encounterPath, encounterStartTimestamp }) => {
             navigate(ROUTES.openEncounter);
           }}
         >
-          {({
-            handleChange,
-            handleBlur,
-            isSubmitting,
-            touched,
-            values,
-            errors,
-          }) => (
-            <Form>
-              <div css={styles.fieldsContainer}>
-                {fields.map(
-                  ({
-                    name,
-                    label,
-                    placeholder,
-                    type,
-                    options,
-                    dependingOn,
-                    validate,
-                  }) => {
-                    const dependingFields = {};
-                    dependingOn &&
-                      dependingOn.forEach(
-                        (field) => (dependingFields[field] = values[field])
-                      );
-
-                    const isPosition =
-                      name === "latitude" || name === "longitude";
-                    if (
-                      isPosition &&
-                      values[name] === "0" &&
-                      !!position[name]
-                    ) {
-                      values[name] = position[name];
-                    }
-
-                    const config = {
-                      type,
-                      name,
-                      label,
-                      onChange: handleChange,
-                      onBlur: handleBlur,
-                      options,
-                      placeholder,
-                      touched: touched[name],
-                      value: values[name],
-                      error: errors[name],
-                      dependingFields,
-                      validate,
-                    };
-
-                    return (
-                      <div
-                        key={`habitat-use-form-field-${config.name}`}
-                        css={
-                          config.type === "textarea"
-                            ? styles.inputFieldContainerDouble
-                            : styles.inputFieldContainerSingle
-                        }
-                      >
-                        {config.type === "select" ? (
-                          <Select config={config} />
-                        ) : (
-                          <Input config={config} />
-                        )}
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-              <p css={styles.legend}>
-                <small>
-                  <em>*required fields</em>
-                </small>
-              </p>
-              <Button
-                styles={styles.submitButton}
-                testId="submit-button"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Submit
-              </Button>
-            </Form>
-          )}
+          <Form>
+            <div>
+              <NumberInput
+                name="numberOfAnimals"
+                labelText="Number of Animals"
+                minValue={0}
+                maxValue={99}
+                isInteger
+              />
+              <NumberInput
+                name="numberOfCalves"
+                labelText="Number of Calves"
+                minValue={0}
+                maxValue={99}
+                isInteger
+              />
+              <NumberInput
+                name="numberOfBoats"
+                labelText="Number of Boats"
+                minValue={0}
+                maxValue={999}
+                isInteger
+              />
+              <Select
+                name="directionOfTravel"
+                labelText="Direction of Travel"
+                options={direction}
+              />
+              <TextAreaInput
+                name="comments"
+                labelText="Comments"
+                maxLength={500}
+              />
+              <NumberInput
+                name="waterDepth"
+                labelText="Water Depth (m)"
+                minValue={0}
+                maxValue={9999}
+              />
+              <NumberInput
+                name="waterTemp"
+                labelText="Water Temp (°C)"
+                minValue={15}
+                maxValue={40}
+              />
+              <Select
+                name="bottomSubstrate"
+                labelText="Bottom Substrate"
+                options={bottomSubstrate}
+              />
+              <Select
+                name="cloudCover"
+                labelText="Cloud Cover"
+                options={cloudCover}
+              />
+              <Select
+                name="beaufortSeaState"
+                labelText="Beaufort Sea State"
+                options={beaufortSeaState}
+              />
+              <Select
+                name="tideState"
+                labelText="Tide State"
+                options={tideState}
+              />
+              <Select
+                name="behaviour"
+                labelText="Behaviour"
+                options={behaviour}
+              />
+              <Select
+                name="swellWaveHeight"
+                labelText="Swell / Wave height (ft)"
+                options={swellWaveHeight}
+              />
+              <NumberInput
+                name="distance"
+                labelText="Distance (m)"
+                minValue={0}
+                maxValue={9999}
+              />
+              <NumberInput
+                name="bearing"
+                labelText="Bearing (°)"
+                minValue={0}
+                maxValue={360}
+              />
+              <NumberInput
+                name="aspect"
+                labelText="Aspect (°)"
+                minValue={0}
+                maxValue={360}
+              />
+              <Select
+                name="groupCohesion"
+                labelText="Group Cohesion"
+                options={groupCohesion}
+              />
+              <TextInput
+                name="groupComposition"
+                labelText="Group Composition"
+                maxLength={100}
+              />
+              <NumberInput
+                name="surfaceBout"
+                labelText="Surface Bout"
+                minValue={0}
+                maxValue={99}
+                isInteger
+              />
+              <TimeInput name="endTime" labelText="End Time (hh:mm)" />
+              <TimeInput
+                name="startTime"
+                labelText="Start Time (hh:mm)"
+                isRequired
+                autofill
+              />
+              <PositionInput
+                name="latitude"
+                type="latitude"
+                labelText="Lat"
+                isRequired
+                autofill
+              />
+              <PositionInput
+                name="longitude"
+                type="longitude"
+                labelText="Long"
+                isRequired
+                autofill
+              />
+            </div>
+            <p>
+              <span>*</span>required fields
+            </p>
+            <Button type="submit">Submit</Button>
+          </Form>
         </Formik>
       </div>
     </Fragment>

@@ -59,7 +59,7 @@ describe("TextAreaInput", () => {
       <TextAreaInput
         name="favoriteSentence"
         labelText="Your favorite sentence"
-        isRequired={true}
+        isRequired
       />,
       { favoriteSentence: "" }
     );

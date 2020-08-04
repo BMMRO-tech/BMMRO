@@ -33,7 +33,7 @@ describe("Select", () => {
         name="favoriteColor"
         labelText="Your favorite color"
         options={htmlColors}
-        isRequired={true}
+        isRequired
       />,
       { favoriteColor: "" }
     );

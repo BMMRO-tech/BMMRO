@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { act, waitFor } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
 import PositionInput from "../PositionInput";
@@ -22,12 +22,7 @@ describe("PositionInput", () => {
 
   it("validates min value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        isRequired={true}
-        type="latitude"
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -49,12 +44,7 @@ describe("PositionInput", () => {
 
   it("validates max value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        isRequired={true}
-        type="latitude"
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -76,12 +66,7 @@ describe("PositionInput", () => {
 
   it("validates format to only allow digits", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        isRequired={true}
-        type="latitude"
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -103,12 +88,7 @@ describe("PositionInput", () => {
 
   it("displays error for less than 6 decimal digits", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        isRequired={true}
-        type="latitude"
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -130,12 +110,7 @@ describe("PositionInput", () => {
 
   it("displays error for more than 6 decimal digits", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        isRequired={true}
-        type="latitude"
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -160,14 +135,14 @@ describe("PositionInput", () => {
       <PositionInput
         name="lat"
         labelText="Your latitude"
-        isRequired={true}
         type="latitude"
+        isRequired
       />,
       { lat: "" }
     );
 
     await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude" });
+      const positionInput = getByRole("textbox", { name: "Your latitude *" });
       userEvent.click(positionInput);
       userEvent.tab();
     });

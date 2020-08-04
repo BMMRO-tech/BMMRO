@@ -26,7 +26,7 @@ describe("DateInput", () => {
       <DateInput
         name="favoriteDate"
         labelText="Your favorite date"
-        isRequired={true}
+        isRequired
       />,
       { favoriteDate: "" }
     );

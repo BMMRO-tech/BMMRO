@@ -15,7 +15,7 @@ const getCurrentDate = () => new Date(Date.now());
 
 const formatTime = (date) => format(date, TIME_FORMAT);
 
-const TimeInput = ({ name, labelText, autofill, isShort }) => {
+const TimeInput = ({ name, labelText, autofill, isShort, isRequired }) => {
   const validateTime = (val) => {
     const timePattern = new RegExp("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
 
@@ -45,12 +45,16 @@ const TimeInput = ({ name, labelText, autofill, isShort }) => {
     <div>
       <label css={styles.label}>
         <span>{labelText}</span>
-        <InputMask
-          {...field}
-          mask="99:99"
-          css={styles.input}
-          aria-label={labelText}
-        />
+        {isRequired ? <span css={styles.required}>*</span> : ""}
+
+        <div css={styles.inputContainer}>
+          <InputMask
+            {...field}
+            mask="99:99"
+            css={styles.input}
+            aria-label={labelText}
+          />
+        </div>
       </label>
       <FieldError
         touched={meta.touched}

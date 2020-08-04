@@ -8,7 +8,7 @@ import Logo from "../components/icons/Logo";
 const Login = () => {
   return (
     <Layout containerSize={containers.small} hasHeader={false}>
-      <Logo isLoginPage={true} />
+      <Logo isLoginPage />
       <LoginForm />
     </Layout>
   );
