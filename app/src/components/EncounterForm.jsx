@@ -313,7 +313,12 @@ const EncounterForm = () => {
                 labelText="End of search effort"
                 isShort
               />
-              <TimeInput name="endTime" labelText="End time" isShort />
+              <TimeInput
+                name="endTime"
+                labelText="End time"
+                isShort
+                priorTimeName="startTime"
+              />
               <Select
                 name="reasonForLeaving"
                 labelText="Reason for leaving"

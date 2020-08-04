@@ -2,11 +2,12 @@
 import { jsx } from "@emotion/core";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import TestUtils from "react-dom/test-utils";
+
 import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
 import TimeInput from "../TimeInput";
 import { FormErrorType } from "../../../../constants/forms";
 import getFieldErrorMessage from "../../getFieldErrorMessage";
-import TestUtils from "react-dom/test-utils";
 
 const changeInputMaskValue = (element, value) => {
   element.value = value;
@@ -56,6 +57,34 @@ describe("TimeInput", () => {
       { format: "hh:mm" }
     );
     expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
+
+    expect(getByText(expectedErrorMessage)).toBeInTheDocument();
+  });
+
+  it("validates start time before end time", async () => {
+    const {
+      getFormErrors,
+      getByRole,
+      getByText,
+    } = renderWithinFormik(
+      <TimeInput
+        name="defaultTime"
+        labelText="Your favorite time"
+        priorTimeName="startTime"
+      />,
+      { defaultTime: "15:00", startTime: "15:30" }
+    );
+
+    const timeInput = getByRole("textbox", { name: "Your favorite time" });
+    await act(async () => {
+      timeInput.selectionStart = timeInput.selectionEnd = "15:00".length;
+      TestUtils.Simulate.change(timeInput);
+    });
+
+    const expectedErrorMessage = getFieldErrorMessage(
+      FormErrorType.START_TIME_AFTER_END_TIME
+    );
+    expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
 
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });

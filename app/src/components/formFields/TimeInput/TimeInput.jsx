@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useEffect } from "react";
-import { useField } from "formik";
+import { useField, useFormikContext } from "formik";
 import { format } from "date-fns";
 import InputMask from "react-input-mask";
 
@@ -18,15 +18,43 @@ const getCurrentDate = () => new Date(Date.now());
 
 const formatTime = (date) => format(date, TIME_FORMAT);
 
-const TimeInput = ({ name, labelText, autofill, isShort, isRequired }) => {
-  const validateTime = (val) => {
-    const timePattern = new RegExp(TIME_PATTERN);
+const timeStringToMinutes = (time) => {
+  const [hours, mins] = time.match(/\d{2}/g);
+  return Number(hours) * 60 + Number(mins);
+};
 
-    if (val && !timePattern.test(val)) {
+const timeStringValid = (val) => {
+  const timePattern = new RegExp(TIME_PATTERN);
+  return timePattern.test(val);
+};
+
+const TimeInput = ({
+  name,
+  labelText,
+  autofill,
+  isShort,
+  isRequired,
+  priorTimeName,
+}) => {
+  const formikContext = useFormikContext();
+
+  const validateTime = (val) => {
+    if (val && !timeStringValid(val)) {
       return getFieldErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
         format: "hh:mm",
       });
     }
+
+    const priorTimeValue = formikContext.values[priorTimeName];
+    if (
+      priorTimeValue &&
+      timeStringValid(priorTimeValue) &&
+      timeStringToMinutes(priorTimeValue) >
+        timeStringToMinutes(formikContext.values[name])
+    ) {
+      return getFieldErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
+    }
+
     return "";
   };
 
