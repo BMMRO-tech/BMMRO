@@ -9,7 +9,7 @@ import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import {
   buildFirebaseAuthMock,
   buildFirestoreMock,
-} from "../../testUtils/firebase";
+} from "../../utils/test/firebase";
 import LoginForm from "../LoginForm";
 
 jest.mock("@reach/router", () => ({

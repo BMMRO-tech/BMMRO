@@ -19,12 +19,12 @@ import clientPersistence from "../clientPersistence/clientPersistence";
 import { ROUTES } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
 
-import areaOptions from "../constants/areaOptions";
-import speciesOptions from "../constants/speciesOptions";
-import projectOptions from "../constants/projectOptions";
-import cueOptions from "../constants/cueOptions";
-import vesselOptions from "../constants/vesselOptions";
-import reasonForLeavingOptions from "../constants/reasonForLeavingOptions";
+import area from "../constants/formOptions/area";
+import species from "../constants/formOptions/species";
+import project from "../constants/formOptions/project";
+import cue from "../constants/formOptions/cue";
+import vessel from "../constants/formOptions/vessel";
+import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
 
 const EncounterForm = () => {
   const { datastore } = useContext(FirebaseContext);
@@ -99,29 +99,16 @@ const EncounterForm = () => {
                 isRequired
                 isShort
               />
-              <Select
-                name="area"
-                labelText="Area"
-                options={areaOptions}
-                isRequired
-              />
+              <Select name="area" labelText="Area" options={area} isRequired />
               <Select
                 name="species"
                 labelText="Species"
-                options={speciesOptions}
+                options={species}
                 isRequired
               />
-              <Select
-                name="project"
-                labelText="Project"
-                options={projectOptions}
-              />
-              <Select name="cue" labelText="Cue" options={cueOptions} />
-              <Select
-                name="vessel"
-                labelText="Vessel"
-                options={vesselOptions}
-              />
+              <Select name="project" labelText="Project" options={project} />
+              <Select name="cue" labelText="Cue" options={cue} />
+              <Select name="vessel" labelText="Vessel" options={vessel} />
               <TextInput
                 name="observers"
                 labelText="Observers"
@@ -322,7 +309,7 @@ const EncounterForm = () => {
               <Select
                 name="reasonForLeaving"
                 labelText="Reason for leaving"
-                options={reasonForLeavingOptions}
+                options={reasonForLeaving}
               />
               <TimeInput name="hightTide" labelText="High tide" isShort />
               <TimeInput name="lowTide" labelText="Low tide" isShort />

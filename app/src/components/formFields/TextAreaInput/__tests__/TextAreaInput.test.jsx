@@ -3,10 +3,10 @@ import { jsx } from "@emotion/core";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import TextAreaInput from "../TextAreaInput";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("TextAreaInput", () => {
   it("synchronizes field value with form state", async () => {
@@ -44,7 +44,7 @@ describe("TextAreaInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.MAX_CHAR_LENGTH,
       { length: 10 }
     );
@@ -72,7 +72,7 @@ describe("TextAreaInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.EMPTY);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteSentence).toEqual(expectedErrorMessage);
     expect(
       getByRole("alert", { name: "Your favorite sentence" })

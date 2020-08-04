@@ -2,15 +2,15 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 
-import { FormErrorType } from "../../../constants/forms";
-import getFieldErrorMessage from "../getFieldErrorMessage";
-import fieldStyles from "../fieldStyles";
 import FieldError from "../FieldError";
+import getErrorMessage from "../../../utils/getErrorMessage";
+import { FormErrorType } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
 
 const Select = ({ name, labelText, isRequired, isShort, options }) => {
   const validate = (val) => {
     if (!val) {
-      if (isRequired) return getFieldErrorMessage(FormErrorType.EMPTY);
+      if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
       else return "";
     }
 

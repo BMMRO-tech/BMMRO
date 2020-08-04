@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/core";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import PositionInput from "../PositionInput";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("PositionInput", () => {
   it("synchronizes field value with form state", async () => {
@@ -33,7 +33,7 @@ describe("PositionInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.MIN_VALUE, {
+    const expectedErrorMessage = getErrorMessage(FormErrorType.MIN_VALUE, {
       value: -90,
     });
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
@@ -55,7 +55,7 @@ describe("PositionInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.MAX_VALUE, {
+    const expectedErrorMessage = getErrorMessage(FormErrorType.MAX_VALUE, {
       value: 90,
     });
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
@@ -77,7 +77,7 @@ describe("PositionInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_POSITION_FORMAT
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
@@ -99,7 +99,7 @@ describe("PositionInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_POSITION_FORMAT
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
@@ -121,7 +121,7 @@ describe("PositionInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_POSITION_FORMAT
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
@@ -147,7 +147,7 @@ describe("PositionInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.EMPTY);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
       expectedErrorMessage

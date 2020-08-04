@@ -1,4 +1,4 @@
-import { renderWithMockContexts } from "../../testUtils/renderWithMockContexts";
+import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React, { useContext } from "react";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import { useLoginRedirect } from "../useLoginRedirect";

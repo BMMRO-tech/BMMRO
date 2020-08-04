@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/core";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import TextInput from "../TextInput";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("TextInput", () => {
   it("synchronizes field value with form state", async () => {
@@ -36,7 +36,7 @@ describe("TextInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.MAX_CHAR_LENGTH,
       { length: 5 }
     );
@@ -62,7 +62,7 @@ describe("TextInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.EMPTY);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteColor).toEqual(expectedErrorMessage);
     expect(
       getByRole("alert", { name: "Your favorite color" })

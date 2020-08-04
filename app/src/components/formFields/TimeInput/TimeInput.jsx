@@ -5,14 +5,14 @@ import { useField, useFormikContext } from "formik";
 import { format } from "date-fns";
 import InputMask from "react-input-mask";
 
+import FieldError from "../FieldError";
 import {
   FormErrorType,
   TIME_FORMAT,
   TIME_PATTERN,
 } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
-import getFieldErrorMessage from "../getFieldErrorMessage";
-import FieldError from "../FieldError";
+import getErrorMessage from "../../../utils/getErrorMessage";
 
 const getCurrentDate = () => new Date(Date.now());
 
@@ -40,7 +40,7 @@ const TimeInput = ({
 
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
-      return getFieldErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
+      return getErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
         format: "hh:mm",
       });
     }
@@ -52,7 +52,7 @@ const TimeInput = ({
       timeStringToMinutes(priorTimeValue) >
         timeStringToMinutes(formikContext.values[name])
     ) {
-      return getFieldErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
+      return getErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
     }
 
     return "";

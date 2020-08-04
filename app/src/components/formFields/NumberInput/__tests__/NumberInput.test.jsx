@@ -3,10 +3,10 @@ import { jsx } from "@emotion/core";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import NumberInput from "../NumberInput";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("NumberInput", () => {
   it("synchronizes field value with form state", async () => {
@@ -41,7 +41,7 @@ describe("NumberInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.MAX_VALUE, {
+    const expectedErrorMessage = getErrorMessage(FormErrorType.MAX_VALUE, {
       value: 5,
     });
 
@@ -69,7 +69,7 @@ describe("NumberInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.MIN_VALUE, {
+    const expectedErrorMessage = getErrorMessage(FormErrorType.MIN_VALUE, {
       value: 0,
     });
 
@@ -97,7 +97,7 @@ describe("NumberInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_NUMBER_FORMAT
     );
 
@@ -125,7 +125,7 @@ describe("NumberInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.EMPTY);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteNumber).toEqual(expectedErrorMessage);
     expect(
       getByRole("alert", { name: "Your favorite number" })

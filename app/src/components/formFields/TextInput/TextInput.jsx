@@ -2,20 +2,27 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 
+import FieldError from "../FieldError";
+import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
-import getFieldErrorMessage from "../getFieldErrorMessage";
-import FieldError from "../FieldError";
 
-const TextInput = ({ name, labelText, maxLength, isRequired, isShort }) => {
+const TextInput = ({
+  name,
+  labelText,
+  type,
+  maxLength,
+  isRequired,
+  isShort,
+}) => {
   const validateText = (val) => {
     if (!val) {
-      if (isRequired) return getFieldErrorMessage(FormErrorType.EMPTY);
+      if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
       else return "";
     }
 
     if (maxLength && val.length > maxLength) {
-      return getFieldErrorMessage(FormErrorType.MAX_CHAR_LENGTH, {
+      return getErrorMessage(FormErrorType.MAX_CHAR_LENGTH, {
         length: maxLength,
       });
     }
@@ -39,6 +46,7 @@ const TextInput = ({ name, labelText, maxLength, isRequired, isShort }) => {
             {...field}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             aria-label={labelText}
+            type={type ? type : "text"}
           />
         </div>
       </label>

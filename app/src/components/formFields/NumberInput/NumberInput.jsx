@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 
-import { FormErrorType } from "../../../constants/forms";
-import getFieldErrorMessage from "../getFieldErrorMessage";
-import fieldStyles from "../fieldStyles";
 import FieldError from "../FieldError";
+import getErrorMessage from "../../../utils/getErrorMessage";
+import { FormErrorType } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
 
 const isNullOrUndefined = (value) => {
   return value === null || value === undefined;
@@ -22,22 +22,22 @@ const NumberInput = ({
 }) => {
   const validateNumber = (val) => {
     if (val === "") {
-      if (isRequired) return getFieldErrorMessage(FormErrorType.EMPTY);
+      if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
       else return "";
     }
 
     if (isInteger && !Number.isInteger(val)) {
-      return getFieldErrorMessage(FormErrorType.INVALID_NUMBER_FORMAT);
+      return getErrorMessage(FormErrorType.INVALID_NUMBER_FORMAT);
     }
 
     if (!isNullOrUndefined(maxValue) && val > maxValue) {
-      return getFieldErrorMessage(FormErrorType.MAX_VALUE, {
+      return getErrorMessage(FormErrorType.MAX_VALUE, {
         value: maxValue,
       });
     }
 
     if (!isNullOrUndefined(minValue) && val < minValue) {
-      return getFieldErrorMessage(FormErrorType.MIN_VALUE, {
+      return getErrorMessage(FormErrorType.MIN_VALUE, {
         value: minValue,
       });
     }

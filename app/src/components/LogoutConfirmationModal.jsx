@@ -9,8 +9,9 @@ import {
 } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
 import { AuthenticationErrorType } from "../constants/authentication";
+import getErrorMessage from "../utils/getErrorMessage";
+import colors from "../materials/colors";
 import Button from "../components/Button";
-import ErrorMessage from "../components/ErrorMessage";
 import Attention from "./icons/Attention";
 import breakPoints from "../materials/breakPoints";
 
@@ -64,6 +65,10 @@ const LogoutConfirmationModal = ({ closeModal }) => {
         margin-top: 10px;
       }
     `,
+    error: css`
+      color: ${colors.darkRed};
+      font-size: 16px;
+    `,
   };
 
   const logout = () => {
@@ -71,7 +76,9 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       .auth()
       .signOut()
       .catch(() =>
-        setLogoutError({ type: AuthenticationErrorType.UNSUCCESSFUL_LOGOUT })
+        setLogoutError(
+          getErrorMessage(AuthenticationErrorType.UNSUCCESSFUL_LOGOUT)
+        )
       );
   };
 
@@ -162,7 +169,9 @@ const LogoutConfirmationModal = ({ closeModal }) => {
           </div>
 
           {!!logoutError && (
-            <ErrorMessage error={logoutError} testId="logout-error" />
+            <div css={styles.error} data-testid="logout-error">
+              {logoutError}
+            </div>
           )}
         </div>
       </AlertDialogOverlay>

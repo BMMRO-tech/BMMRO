@@ -2,7 +2,7 @@
 import { jsx } from "@emotion/core";
 import userEvent from "@testing-library/user-event";
 
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
 import { act } from "react-dom/test-utils";
 

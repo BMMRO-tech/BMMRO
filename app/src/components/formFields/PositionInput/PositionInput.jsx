@@ -4,9 +4,9 @@ import { useField } from "formik";
 import { useEffect } from "react";
 
 import { usePosition } from "../../../hooks/usePosition";
+import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
-import getFieldErrorMessage from "../getFieldErrorMessage";
 import FieldError from "../FieldError";
 
 const PositionInput = ({
@@ -35,22 +35,22 @@ const PositionInput = ({
     const { min, max } = positionConfig[type];
 
     if (val === "") {
-      if (isRequired) return getFieldErrorMessage(FormErrorType.EMPTY);
+      if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
       else return "";
     }
 
     if (val && !positionPattern.test(val)) {
-      return getFieldErrorMessage(FormErrorType.INVALID_POSITION_FORMAT);
+      return getErrorMessage(FormErrorType.INVALID_POSITION_FORMAT);
     }
 
     if (parseFloat(val) > max) {
-      return getFieldErrorMessage(FormErrorType.MAX_VALUE, {
+      return getErrorMessage(FormErrorType.MAX_VALUE, {
         value: max,
       });
     }
 
     if (parseFloat(val) < min) {
-      return getFieldErrorMessage(FormErrorType.MIN_VALUE, {
+      return getErrorMessage(FormErrorType.MIN_VALUE, {
         value: min,
       });
     }

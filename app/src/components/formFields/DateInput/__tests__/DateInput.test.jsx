@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { act, fireEvent } from "@testing-library/react";
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 import DateInput from "../DateInput";
 
 describe("DateInput", () => {
@@ -37,7 +37,7 @@ describe("DateInput", () => {
       fireEvent.blur(dateInput);
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.EMPTY);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteDate).toEqual(expectedErrorMessage);
     expect(
       getByRole("alert", { name: "Your favorite date" })

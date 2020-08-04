@@ -1,6 +1,6 @@
 import React from "react";
 import { waitFor, fireEvent } from "@testing-library/react/pure";
-import { renderWithMockContexts } from "../../testUtils/renderWithMockContexts";
+import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import Logout from "../Logout";
 
 describe("Logout", () => {

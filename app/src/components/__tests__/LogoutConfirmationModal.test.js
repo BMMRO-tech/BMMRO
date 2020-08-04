@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, fireEvent } from "@testing-library/react/pure";
-import { renderWithMockContexts } from "../../testUtils/renderWithMockContexts";
-import { buildFirebaseAuthMock } from "../../testUtils/firebase";
+import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
+import { buildFirebaseAuthMock } from "../../utils/test/firebase";
 import LogoutConfirmationModal from "../LogoutConfirmationModal";
 
 describe("Logout Confirmation Modal", () => {

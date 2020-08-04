@@ -3,7 +3,7 @@ import { jsx } from "@emotion/core";
 import userEvent from "@testing-library/user-event";
 import { act } from "@testing-library/react";
 
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import RadioGroup from "../RadioGroup";
 
 describe("RadioGroup", () => {

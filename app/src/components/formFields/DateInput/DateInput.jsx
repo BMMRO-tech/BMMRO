@@ -4,15 +4,15 @@ import { useField } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { FormErrorType } from "../../../constants/forms";
-import getFieldErrorMessage from "../getFieldErrorMessage";
-import fieldStyles from "../fieldStyles";
 import FieldError from "../FieldError";
+import getErrorMessage from "../../../utils/getErrorMessage";
+import { FormErrorType } from "../../../constants/forms";
+import fieldStyles from "../fieldStyles";
 
 const DateInput = ({ name, labelText, isRequired, isShort }) => {
   const validateText = (val) => {
     if (!val && isRequired) {
-      return getFieldErrorMessage(FormErrorType.EMPTY);
+      return getErrorMessage(FormErrorType.EMPTY);
     }
 
     return "";

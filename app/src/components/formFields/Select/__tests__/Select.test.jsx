@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/core";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import Select from "../Select";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 
 const htmlColors = ["teal", "tomato", "fuchsia", "lime", "moccasin", "linen"];
 
@@ -47,7 +47,7 @@ describe("Select", () => {
     await act(async () => userEvent.selectOptions(select, ""));
     await act(async () => userEvent.tab());
 
-    const expectedErrorMessage = getFieldErrorMessage(FormErrorType.EMPTY);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(
       getByRole("alert", { name: "Your favorite color" })
     ).toBeInTheDocument();

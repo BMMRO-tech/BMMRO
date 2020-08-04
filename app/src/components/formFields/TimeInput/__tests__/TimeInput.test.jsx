@@ -4,10 +4,10 @@ import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TestUtils from "react-dom/test-utils";
 
-import renderWithinFormik from "../../../../testUtils/renderWithinFormik";
+import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import TimeInput from "../TimeInput";
 import { FormErrorType } from "../../../../constants/forms";
-import getFieldErrorMessage from "../../getFieldErrorMessage";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 
 const changeInputMaskValue = (element, value) => {
   element.value = value;
@@ -52,7 +52,7 @@ describe("TimeInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_TIME_FORMAT,
       { format: "hh:mm" }
     );
@@ -81,7 +81,7 @@ describe("TimeInput", () => {
       TestUtils.Simulate.change(timeInput);
     });
 
-    const expectedErrorMessage = getFieldErrorMessage(
+    const expectedErrorMessage = getErrorMessage(
       FormErrorType.START_TIME_AFTER_END_TIME
     );
     expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
