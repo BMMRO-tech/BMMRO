@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useEffect } from "react";
-import { useField, useFormikContext } from "formik";
+import { useField } from "formik";
 import { format } from "date-fns";
 import InputMask from "react-input-mask";
 
