@@ -33,6 +33,7 @@ const EncounterForm = () => {
   const RESEARCH_SCIENTIST = "Research Scientist";
 
   const handleSubmit = (values) => {
+    values.startTimestamp.setHours(0, 0, 0, 0);
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
 
     const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);

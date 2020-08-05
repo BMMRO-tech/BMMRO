@@ -40,7 +40,7 @@ describe("EncounterForm", () => {
     expect(formValues.species).toEqual("Fin whale");
     expect(formValues.sequenceNumber).toEqual("123");
     expect(formValues.startTimestamp).toEqual(
-      new Date("2020-05-04T11:30:00.000Z")
+      new Date("2020-05-04T00:00:00.000Z")
     );
     expect(formValues.startTime).toEqual("11:30");
   });
