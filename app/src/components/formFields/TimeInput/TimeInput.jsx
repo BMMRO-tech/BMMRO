@@ -33,9 +33,11 @@ const TimeInput = ({
   autofill,
   isShort,
   isRequired,
-  priorTimeName,
+  priorTime,
 }) => {
-  const formikContext = useFormikContext();
+  const [preValidationField] = useField({
+    name,
+  });
 
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
@@ -44,12 +46,11 @@ const TimeInput = ({
       });
     }
 
-    const priorTimeValue = formikContext.values[priorTimeName];
     if (
-      priorTimeValue &&
-      timeStringValid(priorTimeValue) &&
-      timeStringToMinutes(priorTimeValue) >
-        timeStringToMinutes(formikContext.values[name])
+      priorTime &&
+      timeStringValid(priorTime) &&
+      timeStringToMinutes(priorTime) >
+        timeStringToMinutes(preValidationField.value)
     ) {
       return getErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
     }

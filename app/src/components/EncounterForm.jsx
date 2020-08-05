@@ -84,277 +84,288 @@ const EncounterForm = () => {
             navigate(ROUTES.openEncounter);
           }}
         >
-          <Form>
-            <div css={utilities.form.fieldsGrid}>
-              <DateInput
-                name="startTimestamp"
-                labelText="Date"
-                isRequired
-                isShort
-              />
-              <TextInput
-                name="sequenceNumber"
-                labelText="Encounter sequence"
-                maxLength={255}
-                isRequired
-                isShort
-              />
-              <Select name="area" labelText="Area" options={area} isRequired />
-              <Select
-                name="species"
-                labelText="Species"
-                options={species}
-                isRequired
-              />
-              <Select name="project" labelText="Project" options={project} />
-              <Select name="cue" labelText="Cue" options={cue} />
-              <Select name="vessel" labelText="Vessel" options={vessel} />
-              <TextInput
-                name="observers"
-                labelText="Observers"
-                maxLength={255}
-              />
-              <NumberInput
-                name="groupSize"
-                labelText="Group size (visual)"
-                minValue={1}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <TextInput name="location" labelText="Location" maxLength={100} />
-              <TextAreaInput
-                name="comments"
-                labelText="Comments / Observations (names of underwater observers)"
-                maxLength={500}
-              />
-              <TextInput
-                name="videoRec"
-                labelText="Video Rec"
-                maxLength={255}
-              />
-              <TextInput
-                name="audioRec"
-                labelText="Audio Rec"
-                maxLength={255}
-              />
-              <NumberInput
-                name="photographerFrameNumber"
-                labelText="Photographer-frame number"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <TextAreaInput
-                name="visualIdentifications"
-                labelText="Visual identifications"
-                maxLength={255}
-              />
-              <RadioGroup
-                name="biopsyAttempt"
-                labelText="Biopsy attempt"
-                options={[
-                  { label: "Yes", value: "yes" },
-                  { label: "No", value: "no" },
-                ]}
-              />
-              <RadioGroup
-                name="biopsySuccess"
-                labelText="Biopsy success"
-                options={[
-                  { label: "Yes", value: "yes" },
-                  { label: "No", value: "no" },
-                  { label: "Not noted", value: "not-noted" },
-                ]}
-              />
-              <RadioGroup
-                name="tagAttempt"
-                labelText="Tag attempt"
-                options={[
-                  { label: "Yes", value: "yes" },
-                  { label: "No", value: "no" },
-                ]}
-              />
-              <RadioGroup
-                name="tagSuccess"
-                labelText="Tag success"
-                options={[
-                  { label: "On", value: "on" },
-                  { label: "Off", value: "off" },
-                  { label: "Not noted", value: "not-noted" },
-                ]}
-              />
-              <RadioGroup
-                name="transect"
-                labelText="Transect"
-                options={[
-                  { label: "On", value: "on" },
-                  { label: "Off", value: "off" },
-                ]}
-              />
-              <TextInput
-                name="transectNumber"
-                labelText="Transect Number"
-                maxLength={50}
-                isShort
-              />
-              <NumberInput
-                name="numAdultMale"
-                labelText="Number of adult male"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numAdultFemale"
-                labelText="Number of adult female"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numAdultUnknown"
-                labelText="Number of adult unknown"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numSubAdultMale"
-                labelText="Number of sub adult male"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numSubAdultFemale"
-                labelText="Number of sub adult female"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numSubAdult"
-                labelText="Number of sub adult"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numJuvenileMale"
-                labelText="Number of juvenile male"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numJuvenileFemale"
-                labelText="Number of juvenile female"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numJuvenileUnknown"
-                labelText="Number of juvenile unknown"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numYoungOfYear"
-                labelText="Number of young of year"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numNeonates"
-                labelText="Number of neonates"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <NumberInput
-                name="numUnknown"
-                labelText="Number of unknown"
-                minValue={0}
-                maxValue={9999}
-                isShort
-                isInteger
-              />
-              <TimeInput
-                name="endOfSearchEffort"
-                labelText="End of search effort"
-                isShort
-              />
-              <TimeInput
-                name="endTime"
-                labelText="End time"
-                isShort
-                priorTimeName="startTime"
-              />
-              <Select
-                name="reasonForLeaving"
-                labelText="Reason for leaving"
-                options={reasonForLeaving}
-              />
-              <TimeInput name="hightTide" labelText="High tide" isShort />
-              <TimeInput name="lowTide" labelText="Low tide" isShort />
-              <TextInput
-                name="logbookNumber"
-                labelText="Logbook number"
-                maxLength={50}
-                isShort
-              />
-              <NumberInput
-                name="encounterNumber"
-                labelText="Encounter number"
-                minValue={1}
-                maxValue={9999}
-                isShort
-              />
-              <TimeInput
-                name="startTime"
-                labelText="Start time"
-                isShort
-                autofill
-              />
-              <ElapsedTime />
-              <RadioGroup
-                name="enteredBy"
-                labelText="Entered by"
-                options={[
-                  {
-                    label: "Research Assistant",
-                    value: "Research Assistant",
-                  },
-                  {
-                    label: "Research Scientist",
-                    value: "Research Scientist",
-                  },
-                ]}
-              />
-            </div>
-            <div css={utilities.form.legend}>
-              <span>*</span>required fields
-            </div>
-            <div css={utilities.sticky.footerContainer}>
-              <Button type="submit">Save Encounter</Button>
-            </div>
-          </Form>
+          {({ values }) => (
+            <Form>
+              <div css={utilities.form.fieldsGrid}>
+                <DateInput
+                  name="startTimestamp"
+                  labelText="Date"
+                  isRequired
+                  isShort
+                />
+                <TextInput
+                  name="sequenceNumber"
+                  labelText="Encounter sequence"
+                  maxLength={255}
+                  isRequired
+                  isShort
+                />
+                <Select
+                  name="area"
+                  labelText="Area"
+                  options={area}
+                  isRequired
+                />
+                <Select
+                  name="species"
+                  labelText="Species"
+                  options={species}
+                  isRequired
+                />
+                <Select name="project" labelText="Project" options={project} />
+                <Select name="cue" labelText="Cue" options={cue} />
+                <Select name="vessel" labelText="Vessel" options={vessel} />
+                <TextInput
+                  name="observers"
+                  labelText="Observers"
+                  maxLength={255}
+                />
+                <NumberInput
+                  name="groupSize"
+                  labelText="Group size (visual)"
+                  minValue={1}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <TextInput
+                  name="location"
+                  labelText="Location"
+                  maxLength={100}
+                />
+                <TextAreaInput
+                  name="comments"
+                  labelText="Comments / Observations (names of underwater observers)"
+                  maxLength={500}
+                />
+                <TextInput
+                  name="videoRec"
+                  labelText="Video Rec"
+                  maxLength={255}
+                />
+                <TextInput
+                  name="audioRec"
+                  labelText="Audio Rec"
+                  maxLength={255}
+                />
+                <NumberInput
+                  name="photographerFrameNumber"
+                  labelText="Photographer-frame number"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <TextAreaInput
+                  name="visualIdentifications"
+                  labelText="Visual identifications"
+                  maxLength={255}
+                />
+                <RadioGroup
+                  name="biopsyAttempt"
+                  labelText="Biopsy attempt"
+                  options={[
+                    { label: "Yes", value: "yes" },
+                    { label: "No", value: "no" },
+                  ]}
+                />
+                <RadioGroup
+                  name="biopsySuccess"
+                  labelText="Biopsy success"
+                  options={[
+                    { label: "Yes", value: "yes" },
+                    { label: "No", value: "no" },
+                    { label: "Not noted", value: "not-noted" },
+                  ]}
+                />
+                <RadioGroup
+                  name="tagAttempt"
+                  labelText="Tag attempt"
+                  options={[
+                    { label: "Yes", value: "yes" },
+                    { label: "No", value: "no" },
+                  ]}
+                />
+                <RadioGroup
+                  name="tagSuccess"
+                  labelText="Tag success"
+                  options={[
+                    { label: "On", value: "on" },
+                    { label: "Off", value: "off" },
+                    { label: "Not noted", value: "not-noted" },
+                  ]}
+                />
+                <RadioGroup
+                  name="transect"
+                  labelText="Transect"
+                  options={[
+                    { label: "On", value: "on" },
+                    { label: "Off", value: "off" },
+                  ]}
+                />
+                <TextInput
+                  name="transectNumber"
+                  labelText="Transect Number"
+                  maxLength={50}
+                  isShort
+                />
+                <NumberInput
+                  name="numAdultMale"
+                  labelText="Number of adult male"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numAdultFemale"
+                  labelText="Number of adult female"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numAdultUnknown"
+                  labelText="Number of adult unknown"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numSubAdultMale"
+                  labelText="Number of sub adult male"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numSubAdultFemale"
+                  labelText="Number of sub adult female"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numSubAdult"
+                  labelText="Number of sub adult"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numJuvenileMale"
+                  labelText="Number of juvenile male"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numJuvenileFemale"
+                  labelText="Number of juvenile female"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numJuvenileUnknown"
+                  labelText="Number of juvenile unknown"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numYoungOfYear"
+                  labelText="Number of young of year"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numNeonates"
+                  labelText="Number of neonates"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <NumberInput
+                  name="numUnknown"
+                  labelText="Number of unknown"
+                  minValue={0}
+                  maxValue={9999}
+                  isShort
+                  isInteger
+                />
+                <TimeInput
+                  name="endOfSearchEffort"
+                  labelText="End of search effort"
+                  isShort
+                />
+                <TimeInput
+                  name="endTime"
+                  labelText="End time"
+                  isShort
+                  priorTime={values.startTime}
+                />
+                <Select
+                  name="reasonForLeaving"
+                  labelText="Reason for leaving"
+                  options={reasonForLeaving}
+                />
+                <TimeInput name="hightTide" labelText="High tide" isShort />
+                <TimeInput name="lowTide" labelText="Low tide" isShort />
+                <TextInput
+                  name="logbookNumber"
+                  labelText="Logbook number"
+                  maxLength={50}
+                  isShort
+                />
+                <NumberInput
+                  name="encounterNumber"
+                  labelText="Encounter number"
+                  minValue={1}
+                  maxValue={9999}
+                  isShort
+                />
+                <TimeInput
+                  name="startTime"
+                  labelText="Start time"
+                  isShort
+                  autofill
+                />
+                <ElapsedTime />
+                <RadioGroup
+                  name="enteredBy"
+                  labelText="Entered by"
+                  options={[
+                    {
+                      label: "Research Assistant",
+                      value: "Research Assistant",
+                    },
+                    {
+                      label: "Research Scientist",
+                      value: "Research Scientist",
+                    },
+                  ]}
+                />
+              </div>
+              <div css={utilities.form.legend}>
+                <span>*</span>required fields
+              </div>
+              <div css={utilities.sticky.footerContainer}>
+                <Button type="submit">Save Encounter</Button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>

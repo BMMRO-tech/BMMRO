@@ -70,9 +70,9 @@ describe("TimeInput", () => {
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
-        priorTimeName="startTime"
+        priorTime="15:30"
       />,
-      { defaultTime: "15:00", startTime: "15:30" }
+      { defaultTime: "15:00" }
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
