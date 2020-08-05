@@ -33,6 +33,29 @@ describe("NumberInput", () => {
     expect(getFormErrors()).toEqual({});
   });
 
+  it("does not display an error when field value is correct", async () => {
+    const { getByRole, queryByRole } = renderWithinFormik(
+      <NumberInput
+        name="favoriteNumber"
+        labelText="Your favorite number"
+        isRequired
+      />,
+      { favoriteNumber: "" }
+    );
+
+    const numberInput = getByRole("spinbutton", {
+      name: "Your favorite number *",
+    });
+    await act(async () => {
+      await userEvent.type(numberInput, "100", { delay: 1 });
+      userEvent.tab();
+    });
+
+    expect(
+      queryByRole("alert", { name: "Your favorite number" })
+    ).not.toBeInTheDocument();
+  });
+
   it("validates on max number", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <NumberInput

@@ -32,6 +32,30 @@ describe("Select", () => {
     expect(getFormErrors()).toEqual({});
   });
 
+  it("does not display an error when field value is correct", async () => {
+    const { getByRole, queryByRole } = renderWithinFormik(
+      <Select
+        name="favoriteColor"
+        labelText="Your favorite color"
+        options={htmlColors}
+        isRequired
+      />,
+      { favoriteColor: "" }
+    );
+
+    const select = getByRole("combobox", {
+      name: "Your favorite color",
+    });
+    await act(async () => {
+      await userEvent.selectOptions(select, "teal");
+      userEvent.tab();
+    });
+
+    expect(
+      queryByRole("alert", { name: "Your favorite color" })
+    ).not.toBeInTheDocument();
+  });
+
   it("validates empty value if set as required", async () => {
     const { getFormErrors, queryByRole, getByRole } = renderWithinFormik(
       <Select

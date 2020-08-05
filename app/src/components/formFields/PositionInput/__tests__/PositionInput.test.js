@@ -25,6 +25,30 @@ describe("PositionInput", () => {
     expect(getFormErrors()).toEqual({});
   });
 
+  it("does not display an error when field value is correct", async () => {
+    const { getByRole, queryByRole } = renderWithinFormik(
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        isRequired
+      />,
+      { lat: "" }
+    );
+
+    const positionInput = getByRole("textbox", {
+      name: "Your latitude *",
+    });
+    await act(async () => {
+      await userEvent.type(positionInput, "15.123456", { delay: 1 });
+      userEvent.tab();
+    });
+
+    expect(
+      queryByRole("alert", { name: "Your latitude" })
+    ).not.toBeInTheDocument();
+  });
+
   it("validates min value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,

@@ -33,6 +33,31 @@ describe("TextAreaInput", () => {
     expect(getFormErrors()).toEqual({});
   });
 
+  it("does not display an error when field value is correct", async () => {
+    const { getByRole, queryByRole } = renderWithinFormik(
+      <TextAreaInput
+        name="favoriteSentence"
+        labelText="Your favorite sentence"
+        isRequired
+      />,
+      { favoriteSentence: "" }
+    );
+
+    const textInput = getByRole("textbox", {
+      name: "Your favorite sentence",
+    });
+    textInput.selectionStart = 0;
+
+    await act(async () => {
+      await userEvent.type(textInput, "I like the color mango.", { delay: 1 });
+      userEvent.tab();
+    });
+
+    expect(
+      queryByRole("alert", { name: "Your favorite sentence" })
+    ).not.toBeInTheDocument();
+  });
+
   it("validates on field max length", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <TextAreaInput

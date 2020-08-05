@@ -36,6 +36,27 @@ describe("DateInput", () => {
     expect(getFormErrors()).toEqual({});
   });
 
+  it("does not display an error when field value is correct", async () => {
+    const { getByRole, queryByRole } = renderWithinFormik(
+      <DateInput
+        name="favoriteDate"
+        labelText="Your favorite date"
+        isRequired
+      />,
+      { favoriteDate: "" }
+    );
+
+    const dateInput = getByRole("textbox", { name: "Your favorite date" });
+    await act(async () => {
+      await fireEvent.change(dateInput, { target: { value: "22 July 2020" } });
+      fireEvent.blur(dateInput);
+    });
+
+    expect(
+      queryByRole("alert", { name: "Your favorite date" })
+    ).not.toBeInTheDocument();
+  });
+
   it("validates empty inputs if set as required", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <DateInput

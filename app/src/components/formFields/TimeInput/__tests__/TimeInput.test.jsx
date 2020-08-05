@@ -46,6 +46,29 @@ describe("TimeInput", () => {
     expect(getFormErrors()).toEqual({});
   });
 
+  it("does not display an error when field value is correct", async () => {
+    const { getByRole, queryByRole } = renderWithinFormik(
+      <TimeInput
+        name="favoriteTime"
+        labelText="Your favorite time"
+        isRequired
+      />,
+      { favoriteTime: "" }
+    );
+
+    const timeInput = getByRole("textbox", {
+      name: "Your favorite time",
+    });
+    await act(async () => {
+      await userEvent.type(timeInput, "15:00", { delay: 1 });
+      userEvent.tab();
+    });
+
+    expect(
+      queryByRole("alert", { name: "Your favorite time" })
+    ).not.toBeInTheDocument();
+  });
+
   it("validates on invalid hour", async () => {
     const {
       getFormErrors,
