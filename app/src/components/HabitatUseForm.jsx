@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { jsx } from "@emotion/core";
-import { useContext } from "react";
-import { navigate } from "@reach/router";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import TextInput from "./formFields/TextInput/TextInput";
@@ -12,9 +10,6 @@ import PositionInput from "./formFields/PositionInput/PositionInput";
 import Select from "./formFields/Select/Select";
 import Button from "./Button";
 
-import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import { ROUTES } from "../constants/routes";
-import { CollectionNames } from "../constants/datastore";
 import direction from "../constants/formOptions/direction";
 import bottomSubstrate from "../constants/formOptions/bottomSubstrate";
 import cloudCover from "../constants/formOptions/cloudCover";
@@ -25,9 +20,7 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
 import utilities from "../materials/utilities";
 
-const HabitatUseForm = ({ encounterPath, handleSubmit }) => {
-  const { datastore } = useContext(FirebaseContext);
-
+const HabitatUseForm = ({ handleSubmit }) => {
   return (
     <div css={utilities.sticky.contentContainer}>
       <h1 css={utilities.form.title}>Habitat Use Form</h1>
