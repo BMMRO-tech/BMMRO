@@ -12,7 +12,7 @@ import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 
 const DateInput = ({ name, labelText, isRequired, isShort, autofill }) => {
-  const validateText = (val) => {
+  const validateDate = (val) => {
     if (!val && isRequired) {
       return getErrorMessage(FormErrorType.EMPTY);
     }
@@ -22,7 +22,7 @@ const DateInput = ({ name, labelText, isRequired, isShort, autofill }) => {
 
   const [field, meta, helpers] = useField({
     name,
-    validate: validateText,
+    validate: validateDate,
   });
 
   useEffect(() => {
