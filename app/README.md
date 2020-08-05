@@ -82,6 +82,8 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+If you recieve a timeout error when running the tests, the test timeout can be extended. This is done by adding a number higher than the default (5000) as the second test argument (see [jest docs](https://jestjs.io/docs/en/api#testonlyeachtablename-fn)). This change should only be made locally and not pushed to master.
+
 ### `npm run test-firestore`
 
 Runs the Firebase tests using the Firebase emulator.
