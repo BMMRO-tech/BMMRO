@@ -8,7 +8,7 @@ import HabitatUseForm from "../HabitatUseForm";
 describe("HabitatUseForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date(`2020-05-04T11:30:00.000Z`).getTime()
+      new Date("2020-05-04T11:30:00.000Z").getTime()
     );
   });
 

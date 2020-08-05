@@ -32,6 +32,14 @@ const EncounterForm = () => {
   const RESEARCH_ASSISTANT = "Research Assistant";
   const RESEARCH_SCIENTIST = "Research Scientist";
 
+  const handleSubmit = (values) => {
+    values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
+
+    const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
+    clientPersistence.set("openEncounterPath", path);
+    navigate(ROUTES.openEncounter);
+  };
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <h1 css={utilities.form.title}>New Encounter</h1>
@@ -81,13 +89,7 @@ const EncounterForm = () => {
             elapsedTime: "",
             enteredBy: RESEARCH_ASSISTANT,
           }}
-          onSubmit={(values) => {
-            values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
-
-            const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
-            clientPersistence.set("openEncounterPath", path);
-            navigate(ROUTES.openEncounter);
-          }}
+          onSubmit={handleSubmit}
         >
           {({ values }) => (
             <Form>
@@ -146,12 +148,12 @@ const EncounterForm = () => {
                 />
                 <TextInput
                   name="videoRec"
-                  labelText="Video Rec"
+                  labelText="Video rec"
                   maxLength={255}
                 />
                 <TextInput
                   name="audioRec"
-                  labelText="Audio Rec"
+                  labelText="Audio rec"
                   maxLength={255}
                 />
                 <NumberInput
@@ -211,7 +213,7 @@ const EncounterForm = () => {
                 />
                 <TextInput
                   name="transectNumber"
-                  labelText="Transect Number"
+                  labelText="Transect number"
                   maxLength={50}
                   isShort
                 />
