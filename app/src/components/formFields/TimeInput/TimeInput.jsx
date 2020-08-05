@@ -50,7 +50,7 @@ const TimeInput = ({
       );
 
       if (dateTime > getCurrentDate()) {
-        return getErrorMessage(FormErrorType.DATE_IN_FUTURE);
+        return getErrorMessage(FormErrorType.TIME_IN_FUTURE);
       }
     }
 
