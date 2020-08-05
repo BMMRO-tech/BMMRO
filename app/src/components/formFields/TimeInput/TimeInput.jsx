@@ -15,8 +15,8 @@ import fieldStyles from "../fieldStyles";
 import getErrorMessage from "../../../utils/getErrorMessage";
 
 const getCurrentDate = () => new Date(Date.now());
-
 const formatTime = (date) => format(date, TIME_FORMAT);
+const timePattern = new RegExp("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
 
 const timeStringToMinutes = (time) => {
   const [hours, mins] = time.match(/\d{2}/g);
@@ -64,11 +64,13 @@ const TimeInput = ({
   });
 
   useEffect(() => {
-    if (autofill) {
-      helpers.setValue(formatTime(getCurrentDate()));
-    }
+    if (autofill) helpers.setValue(formatTime(getCurrentDate()));
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    if (field.value === "__:__") helpers.setValue("");
+    // eslint-disable-next-line
+  }, [field.value]);
 
   return (
     <div>

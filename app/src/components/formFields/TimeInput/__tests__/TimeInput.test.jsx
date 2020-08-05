@@ -89,6 +89,21 @@ describe("TimeInput", () => {
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });
 
+  it("sets form field state to empty string when value is __:__", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <TimeInput name="favoriteTime" labelText="Your favorite time" />,
+      { favoriteTime: "" }
+    );
+    const timeInput = getByRole("textbox", { name: "Your favorite time" });
+    await act(async () => changeInputMaskValue(timeInput, "1234"));
+    expect(getFormValues().favoriteTime).toEqual("12:34");
+
+    await act(async () => changeInputMaskValue(timeInput, ""));
+
+    expect(getFormValues().favoriteTime).toEqual("");
+    expect(getFormValues().favoriteTime).not.toEqual("__:__");
+  });
+
   it("autofills time", () => {
     const { getFormValues } = renderWithinFormik(
       <TimeInput name="defaultTime" labelText="Your favorite time" autofill />,
