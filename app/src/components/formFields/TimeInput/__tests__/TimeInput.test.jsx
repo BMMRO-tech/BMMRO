@@ -32,12 +32,13 @@ describe("TimeInput", () => {
       <TimeInput
         name="favoriteTime"
         labelText="Your favorite time"
-        priorTime="15:00"
+        notBefore="15:00"
       />,
       { favoriteTime: "" }
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
+
     await act(async () => {
       changeInputMaskValue(timeInput, "1800");
     });
@@ -59,6 +60,7 @@ describe("TimeInput", () => {
     const timeInput = getByRole("textbox", {
       name: "Your favorite time",
     });
+
     await act(async () => {
       await userEvent.type(timeInput, "15:00", { delay: 1 });
       userEvent.tab();
@@ -80,6 +82,7 @@ describe("TimeInput", () => {
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
+
     await act(async () => {
       changeInputMaskValue(timeInput, "2561");
       userEvent.tab();
@@ -89,8 +92,8 @@ describe("TimeInput", () => {
       FormErrorType.INVALID_TIME_FORMAT,
       { format: "hh:mm" }
     );
-    expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
 
+    expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });
 
@@ -103,7 +106,36 @@ describe("TimeInput", () => {
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
-        priorTime="15:30"
+        notBefore="15:30"
+      />,
+      { defaultTime: "15:00" }
+    );
+
+    const timeInput = getByRole("textbox", { name: "Your favorite time" });
+
+    await act(async () => {
+      timeInput.selectionStart = timeInput.selectionEnd = "15:00".length;
+      TestUtils.Simulate.change(timeInput);
+    });
+
+    const expectedErrorMessage = getErrorMessage(
+      FormErrorType.START_TIME_AFTER_END_TIME
+    );
+
+    expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
+    expect(getByText(expectedErrorMessage)).toBeInTheDocument();
+  });
+
+  it("validates time is not in the future", async () => {
+    const {
+      getFormErrors,
+      getByRole,
+      getByText,
+    } = renderWithinFormik(
+      <TimeInput
+        name="defaultTime"
+        labelText="Your favorite time"
+        notInFuture
       />,
       { defaultTime: "15:00" }
     );
@@ -114,11 +146,9 @@ describe("TimeInput", () => {
       TestUtils.Simulate.change(timeInput);
     });
 
-    const expectedErrorMessage = getErrorMessage(
-      FormErrorType.START_TIME_AFTER_END_TIME
-    );
-    expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
+    const expectedErrorMessage = getErrorMessage(FormErrorType.TIME_IN_FUTURE);
 
+    expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });
 
@@ -128,7 +158,9 @@ describe("TimeInput", () => {
       { favoriteTime: "" }
     );
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
+
     await act(async () => changeInputMaskValue(timeInput, "1234"));
+
     expect(getFormValues().favoriteTime).toEqual("12:34");
 
     await act(async () => changeInputMaskValue(timeInput, ""));

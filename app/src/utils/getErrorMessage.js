@@ -18,6 +18,8 @@ const getErrorMessage = (type, params) => {
       return "Invalid position format";
     case FormErrorType.START_TIME_AFTER_END_TIME:
       return "End time cannot be before start time";
+    case FormErrorType.TIME_IN_FUTURE:
+      return "Time cannot be in the future";
     case FormErrorType.EMPTY:
       return "Required";
     case AuthenticationErrorType.UNSUCCESSFUL_LOGIN:

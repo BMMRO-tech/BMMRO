@@ -33,7 +33,8 @@ const TimeInput = ({
   autofill,
   isShort,
   isRequired,
-  priorTime,
+  notBefore,
+  notInFuture,
 }) => {
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
@@ -42,8 +43,19 @@ const TimeInput = ({
       });
     }
 
-    if (val && priorTime && timeStringValid(priorTime)) {
-      if (timeStringToMinutes(priorTime) > timeStringToMinutes(val)) {
+    if (val && notInFuture) {
+      const dateTime = getCurrentDate().setHours(
+        val.split(":")[0],
+        val.split(":")[1]
+      );
+
+      if (dateTime > getCurrentDate()) {
+        return getErrorMessage(FormErrorType.DATE_IN_FUTURE);
+      }
+    }
+
+    if (val && notBefore && timeStringValid(notBefore)) {
+      if (timeStringToMinutes(notBefore) > timeStringToMinutes(val)) {
         return getErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
       }
     }

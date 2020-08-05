@@ -323,7 +323,8 @@ const EncounterForm = () => {
                   name="endTime"
                   labelText="End time"
                   isShort
-                  priorTime={values.startTime}
+                  notBefore={values.startTime}
+                  notInFuture
                 />
                 <Select
                   name="reasonForLeaving"
@@ -350,6 +351,7 @@ const EncounterForm = () => {
                   labelText="Start time"
                   isShort
                   autofill
+                  notInFuture
                 />
                 <ElapsedTime />
                 <RadioGroup
