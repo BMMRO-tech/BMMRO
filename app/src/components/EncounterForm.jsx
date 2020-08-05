@@ -327,7 +327,7 @@ const EncounterForm = () => {
                   labelText="Reason for leaving"
                   options={reasonForLeaving}
                 />
-                <TimeInput name="hightTide" labelText="High tide" isShort />
+                <TimeInput name="highTide" labelText="High tide" isShort />
                 <TimeInput name="lowTide" labelText="Low tide" isShort />
                 <TextInput
                   name="logbookNumber"
