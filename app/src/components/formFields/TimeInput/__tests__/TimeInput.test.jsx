@@ -24,8 +24,16 @@ describe("TimeInput", () => {
   });
 
   it("synchronizes field value with form state", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
-      <TimeInput name="favoriteTime" labelText="Your favorite time" />,
+    const {
+      getFormValues,
+      getFormErrors,
+      getByRole,
+    } = renderWithinFormik(
+      <TimeInput
+        name="favoriteTime"
+        labelText="Your favorite time"
+        priorTime="15:00"
+      />,
       { favoriteTime: "" }
     );
 
@@ -33,7 +41,9 @@ describe("TimeInput", () => {
     await act(async () => {
       changeInputMaskValue(timeInput, "1800");
     });
+
     expect(getFormValues().favoriteTime).toEqual("18:00");
+    expect(getFormErrors()).toEqual({});
   });
 
   it("validates on invalid hour", async () => {

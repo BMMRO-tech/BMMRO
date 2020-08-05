@@ -13,17 +13,27 @@ describe("DateInput", () => {
     );
   });
   it("synchronizes field value with form state", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
+    const {
+      getFormValues,
+      getFormErrors,
+      getByRole,
+    } = renderWithinFormik(
       <DateInput name="favoriteDate" labelText="Your favorite date" />,
       { favoriteDate: "" }
     );
 
     const dateInput = getByRole("textbox", { name: "Your favorite date" });
-    await fireEvent.change(dateInput, { target: { value: "22 July 2020" } });
+
+    await act(async () => {
+      await fireEvent.change(dateInput, { target: { value: "22 July 2020" } });
+      fireEvent.blur(dateInput);
+    });
 
     expect(getFormValues().favoriteDate).toEqual(
       new Date(2020, 6, 22).toISOString()
     );
+
+    expect(getFormErrors()).toEqual({});
   });
 
   it("validates empty inputs if set as required", async () => {

@@ -10,7 +10,11 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("TextAreaInput", () => {
   it("synchronizes field value with form state", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
+    const {
+      getFormValues,
+      getFormErrors,
+      getByRole,
+    } = renderWithinFormik(
       <TextAreaInput
         name="favoriteSentence"
         labelText="Your favorite sentence"
@@ -26,6 +30,7 @@ describe("TextAreaInput", () => {
     await userEvent.type(textInput, "I like the color blue.", { delay: 1 });
 
     expect(getFormValues().favoriteSentence).toEqual("I like the color blue.");
+    expect(getFormErrors()).toEqual({});
   });
 
   it("validates on field max length", async () => {

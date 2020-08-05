@@ -8,16 +8,18 @@ import { act } from "react-dom/test-utils";
 
 describe("ElapsedTime", () => {
   it("synchronizes field value with form state & autofills", async () => {
-    let getFormValues;
+    let timeRender;
+
     await act(async () => {
-      getFormValues = renderWithinFormik(<ElapsedTime />, {
+      timeRender = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "11:30",
-      }).getFormValues;
+      });
     });
 
-    expect(getFormValues().elapsedTime).toEqual(30);
+    expect(timeRender.getFormValues().elapsedTime).toEqual(30);
+    expect(timeRender.getFormErrors()).toEqual({});
   });
 
   it("does not set time when time is invalid", async () => {

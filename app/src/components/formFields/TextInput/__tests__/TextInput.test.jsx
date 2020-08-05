@@ -9,7 +9,11 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("TextInput", () => {
   it("synchronizes field value with form state", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
+    const {
+      getFormValues,
+      getFormErrors,
+      getByRole,
+    } = renderWithinFormik(
       <TextInput name="favoriteColor" labelText="Your favorite color" />,
       { favoriteColor: "" }
     );
@@ -18,6 +22,7 @@ describe("TextInput", () => {
     await userEvent.type(textInput, "blue", { delay: 1 });
 
     expect(getFormValues().favoriteColor).toEqual("blue");
+    expect(getFormErrors()).toEqual({});
   });
 
   it("validates on field max length", async () => {

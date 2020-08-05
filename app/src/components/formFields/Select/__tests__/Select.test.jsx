@@ -11,7 +11,11 @@ const htmlColors = ["teal", "tomato", "fuchsia", "lime", "moccasin", "linen"];
 
 describe("Select", () => {
   it("synchronizes field value with form state", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
+    const {
+      getFormValues,
+      getFormErrors,
+      getByRole,
+    } = renderWithinFormik(
       <Select
         name="favoriteColor"
         labelText="Your favorite color"
@@ -25,6 +29,7 @@ describe("Select", () => {
 
     expect(select).toHaveDisplayValue("teal");
     expect(getFormValues().favoriteColor).toEqual("teal");
+    expect(getFormErrors()).toEqual({});
   });
 
   it("validates empty value if set as required", async () => {

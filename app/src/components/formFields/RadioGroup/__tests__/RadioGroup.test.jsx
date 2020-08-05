@@ -8,7 +8,7 @@ import RadioGroup from "../RadioGroup";
 
 describe("RadioGroup", () => {
   it("synchronizes field value with form state", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
+    const { getFormValues, getFormErrors, getByRole } = renderWithinFormik(
       <RadioGroup
         name="favoritePlanet"
         labelText="Your favorite planet"
@@ -28,5 +28,6 @@ describe("RadioGroup", () => {
     });
 
     expect(getFormValues().favoritePlanet).toEqual("moon");
+    expect(getFormErrors()).toEqual({});
   });
 });
