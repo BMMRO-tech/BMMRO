@@ -11,6 +11,11 @@ import HabitatUseForm from "../components/HabitatUseForm";
 const NewHabitatUse = () => {
   const openEncounterPath = clientPersistence.get("openEncounterPath");
 
+  const handleSubmit = (values) => {
+    datastore.createSubDoc(encounterPath, CollectionNames.HABITAT_USE, values);
+    navigate(ROUTES.openEncounter);
+  };
+
   useEffect(() => {
     if (!openEncounterPath) {
       navigate(ROUTES.newEncounter);
@@ -19,7 +24,10 @@ const NewHabitatUse = () => {
 
   return (
     <Layout hasDefaultPadding={false}>
-      <HabitatUseForm encounterPath={openEncounterPath} />
+      <HabitatUseForm
+        encounterPath={openEncounterPath}
+        handleSubmit={handleSubmit}
+      />
     </Layout>
   );
 };

@@ -25,7 +25,7 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
 import utilities from "../materials/utilities";
 
-const HabitatUseForm = ({ encounterPath }) => {
+const HabitatUseForm = ({ encounterPath, handleSubmit }) => {
   const { datastore } = useContext(FirebaseContext);
 
   return (
@@ -58,14 +58,7 @@ const HabitatUseForm = ({ encounterPath }) => {
             latitude: "0",
             longitude: "0",
           }}
-          onSubmit={(values) => {
-            datastore.createSubDoc(
-              encounterPath,
-              CollectionNames.HABITAT_USE,
-              values
-            );
-            navigate(ROUTES.openEncounter);
-          }}
+          onSubmit={handleSubmit}
         >
           <Form>
             <div css={utilities.form.fieldsGrid}>
