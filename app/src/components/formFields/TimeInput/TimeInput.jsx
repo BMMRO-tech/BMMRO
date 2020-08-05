@@ -16,7 +16,6 @@ import getErrorMessage from "../../../utils/getErrorMessage";
 
 const getCurrentDate = () => new Date(Date.now());
 const formatTime = (date) => format(date, TIME_FORMAT);
-const timePattern = new RegExp("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
 
 const timeStringToMinutes = (time) => {
   const [hours, mins] = time.match(/\d{2}/g);
