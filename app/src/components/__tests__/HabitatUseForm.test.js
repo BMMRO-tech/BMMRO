@@ -1,8 +1,8 @@
 import React from "react";
-import { render, act } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { FirebaseContext } from "../../firebaseContext/firebaseContext";
+import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import HabitatUseForm from "../HabitatUseForm";
 
 describe("HabitatUseForm", () => {
@@ -10,6 +10,10 @@ describe("HabitatUseForm", () => {
     global.Date.now = jest.fn(() =>
       new Date(`2020-05-04T11:30:00.000Z`).getTime()
     );
+  });
+
+  it("submits the form with correct values if all required fields are completed", async () => {
+    const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
       getCurrentPosition: jest.fn().mockImplementation((success) =>
@@ -21,17 +25,19 @@ describe("HabitatUseForm", () => {
         })
       ),
     };
-  });
 
-  it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
-    const { getByRole } = render(
-      <FirebaseContext.Provider value={{}}>
-        <HabitatUseForm
-          encounterPath="encounter/123"
-          handleSubmit={(values) => (formValues = values)}
-        />
-      </FirebaseContext.Provider>
+    let collectionPath;
+    const { getByRole } = renderWithMockContexts(
+      <HabitatUseForm openEncounterPath="encounter/123" />,
+      {
+        datastore: {
+          createSubDoc: (parentPath, _, values) => {
+            collectionPath = parentPath;
+            formValues = values;
+          },
+        },
+      }
     );
 
     await act(async () => {
@@ -40,17 +46,42 @@ describe("HabitatUseForm", () => {
       });
       const latitudeInput = getByRole("textbox", { name: "Lat *" });
       const submitButton = getByRole("button");
-      await userEvent.clear(numberOfAnimalsInput);
+
+      userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
-      await userEvent.clear(latitudeInput);
+      userEvent.clear(latitudeInput);
       await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
       userEvent.click(submitButton);
     });
 
+    expect(collectionPath).toEqual("encounter/123");
     expect(formValues.latitude).toEqual("15.123456");
     expect(formValues.longitude).toEqual("1.123456");
     expect(formValues.startTime).toEqual("11:30");
     expect(formValues.numberOfAnimals).toEqual(5);
     expect(formValues.endTime).toEqual("");
+
+    global.navigator.geolocation = realGeolocation;
+  });
+
+  it("displays error and doesn't submit the form if required fields are not completed", async () => {
+    const mockCreateSubDoc = jest.fn();
+    const { getByRole, getByLabelText } = renderWithMockContexts(
+      <HabitatUseForm openEncounterPath="encounter/123" />,
+      {
+        datastore: {
+          createSubDoc: mockCreateSubDoc,
+        },
+      }
+    );
+
+    await act(async () => {
+      const submitButton = getByRole("button");
+      userEvent.click(submitButton);
+
+      const errorMessage = getByLabelText("Lat");
+      expect(errorMessage).toHaveAttribute("role", "alert");
+      expect(mockCreateSubDoc).not.toHaveBeenCalled();
+    });
   });
 });
