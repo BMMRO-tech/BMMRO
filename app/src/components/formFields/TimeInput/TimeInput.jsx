@@ -35,10 +35,6 @@ const TimeInput = ({
   isRequired,
   priorTime,
 }) => {
-  const [preValidationField] = useField({
-    name,
-  });
-
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
       return getErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
@@ -46,13 +42,10 @@ const TimeInput = ({
       });
     }
 
-    if (
-      priorTime &&
-      timeStringValid(priorTime) &&
-      timeStringToMinutes(priorTime) >
-        timeStringToMinutes(preValidationField.value)
-    ) {
-      return getErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
+    if (val && priorTime && timeStringValid(priorTime)) {
+      if (timeStringToMinutes(priorTime) > timeStringToMinutes(val)) {
+        return getErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
+      }
     }
 
     return "";
