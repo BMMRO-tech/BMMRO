@@ -1,29 +1,22 @@
 import { useState, useEffect } from "react";
 import { POSITION_DECIMAL_PRECISION } from "../constants/forms";
+import { appendZeros, roundNumber } from "../utils/math";
+
+const formatCoordinate = (value) => {
+  return appendZeros(
+    roundNumber(value, POSITION_DECIMAL_PRECISION),
+    POSITION_DECIMAL_PRECISION
+  );
+};
 
 export const usePosition = () => {
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
 
-  const roundCoordinate = (value) =>
-    +(
-      Math.round(value + "e+" + POSITION_DECIMAL_PRECISION) +
-      "e-" +
-      POSITION_DECIMAL_PRECISION
-    );
-
-  const appendZero = (val) => {
-    const digitsMissing =
-      POSITION_DECIMAL_PRECISION - (val.toString().split(".")[1] || []).length;
-    let stringVal = val.toString();
-
-    return stringVal.concat("0".repeat(digitsMissing));
-  };
-
   const onChange = ({ coords }) => {
     setPosition({
-      latitude: appendZero(roundCoordinate(coords.latitude)),
-      longitude: appendZero(roundCoordinate(coords.longitude)),
+      latitude: formatCoordinate(coords.latitude),
+      longitude: formatCoordinate(coords.longitude),
     });
   };
 

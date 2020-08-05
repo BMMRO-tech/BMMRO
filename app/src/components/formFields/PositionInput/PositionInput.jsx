@@ -65,7 +65,7 @@ const PositionInput = ({
 
   useEffect(() => {
     if (autofill && position[type]) {
-      helpers.setValue(position[type]);
+      !meta.touched && helpers.setValue(position[type]);
     }
     // eslint-disable-next-line
   }, [position[type]]);
