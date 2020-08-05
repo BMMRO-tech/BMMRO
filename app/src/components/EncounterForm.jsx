@@ -29,6 +29,9 @@ import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
 const EncounterForm = () => {
   const { datastore } = useContext(FirebaseContext);
 
+  const RESEARCH_ASSISTANT = "Research Assistant";
+  const RESEARCH_SCIENTIST = "Research Scientist";
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <h1 css={utilities.form.title}>New Encounter</h1>
@@ -76,9 +79,11 @@ const EncounterForm = () => {
             encounterNumber: "",
             startTime: "",
             elapsedTime: "",
-            enteredBy: "Research Assistant",
+            enteredBy: RESEARCH_ASSISTANT,
           }}
           onSubmit={(values) => {
+            values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
+
             const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
             clientPersistence.set("openEncounterPath", path);
             navigate(ROUTES.openEncounter);
@@ -348,12 +353,12 @@ const EncounterForm = () => {
                   labelText="Entered by"
                   options={[
                     {
-                      label: "Research Assistant",
-                      value: "Research Assistant",
+                      label: RESEARCH_ASSISTANT,
+                      value: RESEARCH_ASSISTANT,
                     },
                     {
-                      label: "Research Scientist",
-                      value: "Research Scientist",
+                      label: RESEARCH_SCIENTIST,
+                      value: RESEARCH_SCIENTIST,
                     },
                   ]}
                 />
