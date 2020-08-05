@@ -7,6 +7,11 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 import DateInput from "../DateInput";
 
 describe("DateInput", () => {
+  beforeAll(() => {
+    global.Date.now = jest.fn(() =>
+      new Date("2020-08-04T11:30:00.000Z").getTime()
+    );
+  });
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <DateInput name="favoriteDate" labelText="Your favorite date" />,
@@ -42,5 +47,14 @@ describe("DateInput", () => {
     expect(
       getByRole("alert", { name: "Your favorite date" })
     ).toHaveTextContent(expectedErrorMessage);
+  });
+
+  it("autofills date", () => {
+    const { getFormValues } = renderWithinFormik(
+      <DateInput name="defaultDate" labelText="Your favorite date" autofill />,
+      { defaultDate: "" }
+    );
+
+    expect(getFormValues().defaultDate).toEqual("2020-08-04T11:30:00.000Z");
   });
 });

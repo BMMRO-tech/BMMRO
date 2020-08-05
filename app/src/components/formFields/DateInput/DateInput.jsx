@@ -1,15 +1,17 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import { useEffect } from "react";
 import { useField } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import FieldError from "../FieldError";
 import getErrorMessage from "../../../utils/getErrorMessage";
+import { getCurrentDate } from "../../../utils/time";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 
-const DateInput = ({ name, labelText, isRequired, isShort }) => {
+const DateInput = ({ name, labelText, isRequired, isShort, autofill }) => {
   const validateText = (val) => {
     if (!val && isRequired) {
       return getErrorMessage(FormErrorType.EMPTY);
@@ -22,6 +24,11 @@ const DateInput = ({ name, labelText, isRequired, isShort }) => {
     name,
     validate: validateText,
   });
+
+  useEffect(() => {
+    if (autofill) helpers.setValue(getCurrentDate());
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>

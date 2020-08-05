@@ -13,8 +13,8 @@ import {
 } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 import getErrorMessage from "../../../utils/getErrorMessage";
+import { getCurrentDate } from "../../../utils/time";
 
-const getCurrentDate = () => new Date(Date.now());
 const formatTime = (date) => format(date, TIME_FORMAT);
 
 const timeStringToMinutes = (time) => {

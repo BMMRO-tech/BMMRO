@@ -39,7 +39,7 @@ const EncounterForm = () => {
         <Formik
           initialValues={{
             sequenceNumber: "",
-            startTimestamp: new Date(),
+            startTimestamp: "",
             area: "",
             species: "",
             project: "",
@@ -97,6 +97,7 @@ const EncounterForm = () => {
                   labelText="Date"
                   isRequired
                   isShort
+                  autofill
                 />
                 <TextInput
                   name="sequenceNumber"
