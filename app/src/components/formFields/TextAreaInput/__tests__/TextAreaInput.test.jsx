@@ -64,8 +64,9 @@ describe("TextAreaInput", () => {
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite sentence" });
-    textInput.selectionStart = textInput.selectionEnd = "I like the color blue.".length;
-    await userEvent.type(textInput, "I like the color blue.", { delay: 1 });
+    const sentence = "I like the color blue.";
+    textInput.selectionStart = sentence.length;
+    await userEvent.type(textInput, sentence, { delay: 1 });
 
     expect(getFormValues().favoriteSentence).toEqual("I like the");
   });

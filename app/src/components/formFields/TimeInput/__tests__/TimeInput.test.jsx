@@ -19,7 +19,7 @@ const changeInputMaskValue = (element, value) => {
 describe("TimeInput", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date(`2020-05-04T11:30:00.000Z`).getTime()
+      new Date("2020-05-04T11:30:00.000Z").getTime()
     );
   });
 
@@ -130,7 +130,7 @@ describe("TimeInput", () => {
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
-        notInFuture
+        notAfter={new Date(Date.now())}
       />,
       { defaultTime: "15:00" }
     );

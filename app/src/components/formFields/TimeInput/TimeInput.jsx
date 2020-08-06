@@ -34,7 +34,7 @@ const TimeInput = ({
   isShort,
   isRequired,
   notBefore,
-  notInFuture,
+  notAfter,
 }) => {
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
@@ -43,8 +43,8 @@ const TimeInput = ({
       });
     }
 
-    if (val && notInFuture) {
-      const dateTime = getCurrentDate().setHours(
+    if (val && notAfter) {
+      const dateTime = new Date(notAfter).setHours(
         val.split(":")[0],
         val.split(":")[1]
       );
