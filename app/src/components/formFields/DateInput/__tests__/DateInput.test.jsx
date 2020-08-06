@@ -13,11 +13,7 @@ describe("DateInput", () => {
     );
   });
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getFormErrors,
-      getByRole,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <DateInput name="favoriteDate" labelText="Your favorite date" />,
       { favoriteDate: "" }
     );
@@ -32,8 +28,6 @@ describe("DateInput", () => {
     expect(getFormValues().favoriteDate).toEqual(
       new Date(2020, 6, 22).toISOString()
     );
-
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {

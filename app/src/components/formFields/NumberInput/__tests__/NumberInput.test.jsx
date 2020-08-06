@@ -10,11 +10,7 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("NumberInput", () => {
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getByRole,
-      getFormErrors,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <NumberInput
         name="favoriteNumber"
         labelText="Your favorite number"
@@ -30,7 +26,6 @@ describe("NumberInput", () => {
     await userEvent.type(numberInput, "55", { delay: 1 });
 
     expect(getFormValues().favoriteNumber).toEqual(55);
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {

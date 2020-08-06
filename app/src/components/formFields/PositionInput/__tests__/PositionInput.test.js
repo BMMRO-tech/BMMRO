@@ -9,11 +9,7 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("PositionInput", () => {
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getFormErrors,
-      getByRole,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
@@ -22,7 +18,6 @@ describe("PositionInput", () => {
     await userEvent.type(positionInput, "10.123450", { delay: 1 });
 
     expect(getFormValues().lat).toEqual("10.123450");
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {

@@ -40,7 +40,7 @@ const EncounterOverview = ({ encounter }) => {
         <h2 css={typography.text}>{encounter.area}</h2>
       </div>
       <Link css={styles.link} to={ROUTES.newHabitatUse}>
-        <Button variant="secondary">+ Add Habitat Use</Button>
+        <Button variant="secondary">+ Add habitat use</Button>
       </Link>
     </div>
   );

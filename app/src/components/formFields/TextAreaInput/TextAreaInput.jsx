@@ -14,12 +14,6 @@ const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
       else return "";
     }
 
-    if (maxLength && val.length > maxLength) {
-      return getErrorMessage(FormErrorType.MAX_CHAR_LENGTH, {
-        length: maxLength,
-      });
-    }
-
     return "";
   };
 
@@ -38,6 +32,7 @@ const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
           {...field}
           css={fieldStyles.getInputStyles(meta.error, meta.touched)}
           aria-label={labelText}
+          maxLength={maxLength}
         />
       </label>
       <FieldError

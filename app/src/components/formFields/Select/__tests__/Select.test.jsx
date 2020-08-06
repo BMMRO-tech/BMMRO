@@ -11,11 +11,7 @@ const htmlColors = ["teal", "tomato", "fuchsia", "lime", "moccasin", "linen"];
 
 describe("Select", () => {
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getFormErrors,
-      getByRole,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <Select
         name="favoriteColor"
         labelText="Your favorite color"
@@ -29,7 +25,6 @@ describe("Select", () => {
 
     expect(select).toHaveDisplayValue("teal");
     expect(getFormValues().favoriteColor).toEqual("teal");
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {

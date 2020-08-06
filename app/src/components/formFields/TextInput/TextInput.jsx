@@ -21,12 +21,6 @@ const TextInput = ({
       else return "";
     }
 
-    if (maxLength && val.length > maxLength) {
-      return getErrorMessage(FormErrorType.MAX_CHAR_LENGTH, {
-        length: maxLength,
-      });
-    }
-
     return "";
   };
 
@@ -47,6 +41,7 @@ const TextInput = ({
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             aria-label={labelText}
             type={type ? type : "text"}
+            maxLength={maxLength}
           />
         </div>
       </label>

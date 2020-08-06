@@ -66,7 +66,7 @@ const OpenEncounter = () => {
             <HabitatUseList items={encounter.habitatUseEntries} />
           )}
           <div css={utilities.sticky.footerContainer}>
-            <Button onClick={onEndEncounterClick}>End Encounter</Button>
+            <Button onClick={onEndEncounterClick}>End encounter</Button>
           </div>
         </div>
       ) : (

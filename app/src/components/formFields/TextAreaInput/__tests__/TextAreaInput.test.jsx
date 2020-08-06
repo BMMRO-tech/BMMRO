@@ -10,11 +10,7 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("TextAreaInput", () => {
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getFormErrors,
-      getByRole,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <TextAreaInput
         name="favoriteSentence"
         labelText="Your favorite sentence"
@@ -30,7 +26,6 @@ describe("TextAreaInput", () => {
     await userEvent.type(textInput, "I like the color blue.", { delay: 1 });
 
     expect(getFormValues().favoriteSentence).toEqual("I like the color blue.");
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {
@@ -58,8 +53,8 @@ describe("TextAreaInput", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("validates on field max length", async () => {
-    const { getFormErrors, getByRole } = renderWithinFormik(
+  it("does not allow user to input more characters than max length", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
       <TextAreaInput
         name="favoriteSentence"
         labelText="Your favorite sentence"
@@ -69,19 +64,10 @@ describe("TextAreaInput", () => {
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite sentence" });
-    await act(async () => {
-      await userEvent.type(textInput, "I like the color blue.", { delay: 1 });
-      userEvent.tab();
-    });
+    textInput.selectionStart = textInput.selectionEnd = "I like the color blue.".length;
+    await userEvent.type(textInput, "I like the color blue.", { delay: 1 });
 
-    const expectedErrorMessage = getErrorMessage(
-      FormErrorType.MAX_CHAR_LENGTH,
-      { length: 10 }
-    );
-    expect(getFormErrors().favoriteSentence).toEqual(expectedErrorMessage);
-    expect(
-      getByRole("alert", { name: "Your favorite sentence" })
-    ).toHaveTextContent(expectedErrorMessage);
+    expect(getFormValues().favoriteSentence).toEqual("I like the");
   });
 
   it("validates empty inputs if set as required", async () => {

@@ -9,11 +9,7 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("TextInput", () => {
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getFormErrors,
-      getByRole,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <TextInput name="favoriteColor" labelText="Your favorite color" />,
       { favoriteColor: "" }
     );
@@ -22,7 +18,6 @@ describe("TextInput", () => {
     await userEvent.type(textInput, "blue", { delay: 1 });
 
     expect(getFormValues().favoriteColor).toEqual("blue");
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {
@@ -48,8 +43,8 @@ describe("TextInput", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("validates on field max length", async () => {
-    const { getFormErrors, getByRole } = renderWithinFormik(
+  it("does not allow user to input more characters than max length", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
       <TextInput
         name="favoriteColor"
         labelText="Your favorite color"
@@ -64,14 +59,7 @@ describe("TextInput", () => {
       userEvent.tab();
     });
 
-    const expectedErrorMessage = getErrorMessage(
-      FormErrorType.MAX_CHAR_LENGTH,
-      { length: 5 }
-    );
-    expect(getFormErrors().favoriteColor).toEqual(expectedErrorMessage);
-    expect(
-      getByRole("alert", { name: "Your favorite color" })
-    ).toHaveTextContent(expectedErrorMessage);
+    expect(getFormValues().favoriteColor).toEqual("tomat");
   });
 
   it("validates empty inputs if set as required", async () => {

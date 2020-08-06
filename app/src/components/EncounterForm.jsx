@@ -373,7 +373,7 @@ const EncounterForm = () => {
                 <span>*</span>required fields
               </div>
               <div css={utilities.sticky.footerContainer}>
-                <Button type="submit">Save Encounter</Button>
+                <Button type="submit">Save encounter</Button>
               </div>
             </Form>
           )}

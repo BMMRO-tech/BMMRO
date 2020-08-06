@@ -24,11 +24,7 @@ describe("TimeInput", () => {
   });
 
   it("synchronizes field value with form state", async () => {
-    const {
-      getFormValues,
-      getFormErrors,
-      getByRole,
-    } = renderWithinFormik(
+    const { getFormValues, getByRole } = renderWithinFormik(
       <TimeInput
         name="favoriteTime"
         labelText="Your favorite time"
@@ -44,7 +40,6 @@ describe("TimeInput", () => {
     });
 
     expect(getFormValues().favoriteTime).toEqual("18:00");
-    expect(getFormErrors()).toEqual({});
   });
 
   it("does not display an error when field value is correct", async () => {
