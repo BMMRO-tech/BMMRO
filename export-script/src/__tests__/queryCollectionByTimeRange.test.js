@@ -8,7 +8,7 @@ describe("queryCollectionByTimeRange", () => {
   const uid = "testId";
   const DATE_FORMAT = "dd/MM/yyyy";
   const TIMESTAMP_FIELD_NAME = "date";
-  const collectionName = "encounter";
+  const collectionName = "collection";
   let firestoreEmulator;
 
   beforeAll(async () => {
