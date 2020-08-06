@@ -127,7 +127,7 @@ const EncounterForm = () => {
                 <TextInput
                   name="observers"
                   labelText="Observers"
-                  maxLength={255}
+                  maxLength={100}
                 />
                 <NumberInput
                   name="groupSize"
@@ -150,7 +150,7 @@ const EncounterForm = () => {
                 <TextInput
                   name="videoRec"
                   labelText="Video rec"
-                  maxLength={255}
+                  maxLength={50}
                 />
                 <TextInput
                   name="audioRec"
@@ -168,22 +168,22 @@ const EncounterForm = () => {
                 <TextAreaInput
                   name="visualIdentifications"
                   labelText="Visual identifications"
-                  maxLength={255}
+                  maxLength={200}
                 />
                 <RadioGroup
                   name="biopsyAttempt"
                   labelText="Biopsy attempt"
                   options={[
-                    { label: "Yes", value: "yes" },
-                    { label: "No", value: "no" },
+                    { label: "Yes", value: "Yes" },
+                    { label: "No", value: "No" },
                   ]}
                 />
                 <RadioGroup
                   name="biopsySuccess"
                   labelText="Biopsy success"
                   options={[
-                    { label: "Yes", value: "yes" },
-                    { label: "No", value: "no" },
+                    { label: "Yes", value: "Yes" },
+                    { label: "No", value: "No" },
                     { label: "Not noted", value: "not-noted" },
                   ]}
                 />
@@ -191,31 +191,31 @@ const EncounterForm = () => {
                   name="tagAttempt"
                   labelText="Tag attempt"
                   options={[
-                    { label: "Yes", value: "yes" },
-                    { label: "No", value: "no" },
+                    { label: "Yes", value: "Yes" },
+                    { label: "No", value: "No" },
                   ]}
                 />
                 <RadioGroup
                   name="tagSuccess"
                   labelText="Tag success"
                   options={[
-                    { label: "On", value: "on" },
-                    { label: "Off", value: "off" },
-                    { label: "Not noted", value: "not-noted" },
+                    { label: "On", value: "On" },
+                    { label: "Off", value: "Off" },
+                    { label: "Not noted", value: "Not Noted" },
                   ]}
                 />
                 <RadioGroup
                   name="transect"
                   labelText="Transect"
                   options={[
-                    { label: "On", value: "on" },
-                    { label: "Off", value: "off" },
+                    { label: "On", value: "On" },
+                    { label: "Off", value: "Off" },
                   ]}
                 />
                 <TextInput
                   name="transectNumber"
                   labelText="Transect number"
-                  maxLength={50}
+                  maxLength={8}
                   isShort
                 />
                 <NumberInput
@@ -336,7 +336,7 @@ const EncounterForm = () => {
                 <TextInput
                   name="logbookNumber"
                   labelText="Logbook number"
-                  maxLength={50}
+                  maxLength={20}
                   isShort
                 />
                 <NumberInput
