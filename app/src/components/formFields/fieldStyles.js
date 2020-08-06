@@ -11,8 +11,11 @@ const fieldStyles = {
 
     &:focus-within {
       span {
-        color: ${colors.darkTurquoise};
         font-weight: 700;
+
+        &:first-of-type {
+          color: ${colors.darkTurquoise};
+        }
       }
 
       select {
