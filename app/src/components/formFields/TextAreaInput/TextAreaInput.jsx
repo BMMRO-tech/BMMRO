@@ -31,7 +31,6 @@ const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
         <textarea
           {...field}
           css={fieldStyles.getInputStyles(meta.error, meta.touched)}
-          aria-label={labelText}
           maxLength={maxLength}
         />
       </label>

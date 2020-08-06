@@ -29,7 +29,6 @@ const Select = ({ name, labelText, isRequired, isShort, options }) => {
           <select
             {...field}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
-            aria-label={labelText}
           >
             <option key="none" value="" aria-label="default empty option">
               -- Select option --

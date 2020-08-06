@@ -39,7 +39,7 @@ describe("Select", () => {
     );
 
     const select = getByRole("combobox", {
-      name: "Your favorite color",
+      name: "Your favorite color *",
     });
     await act(async () => {
       await userEvent.selectOptions(select, "teal");
@@ -61,7 +61,7 @@ describe("Select", () => {
       />,
       { favoriteColor: "" }
     );
-    const select = getByRole("combobox", { name: "Your favorite color" });
+    const select = getByRole("combobox", { name: "Your favorite color *" });
     await act(async () => userEvent.selectOptions(select, ["teal"]));
     await act(async () => userEvent.tab());
     expect(

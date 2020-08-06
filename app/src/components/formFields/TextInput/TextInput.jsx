@@ -39,7 +39,6 @@ const TextInput = ({
           <input
             {...field}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
-            aria-label={labelText}
             type={type ? type : "text"}
             maxLength={maxLength}
           />

@@ -39,7 +39,7 @@ describe("TextAreaInput", () => {
     );
 
     const textInput = getByRole("textbox", {
-      name: "Your favorite sentence",
+      name: "Your favorite sentence *",
     });
     textInput.selectionStart = 0;
 
@@ -82,7 +82,7 @@ describe("TextAreaInput", () => {
 
     await act(async () => {
       const textInput = getByRole("textbox", {
-        name: "Your favorite sentence",
+        name: "Your favorite sentence *",
       });
       userEvent.click(textInput);
       userEvent.tab();

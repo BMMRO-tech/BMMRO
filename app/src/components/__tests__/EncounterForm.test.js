@@ -23,10 +23,10 @@ describe("EncounterForm", () => {
     });
 
     await act(async () => {
-      const areaInput = getByRole("combobox", { name: "Area" });
-      const speciesInput = getByRole("combobox", { name: "Species" });
+      const areaInput = getByRole("combobox", { name: "Area *" });
+      const speciesInput = getByRole("combobox", { name: "Species *" });
       const encounterSequenceInput = getByRole("textbox", {
-        name: "Encounter sequence",
+        name: "Encounter sequence *",
       });
       const submitButton = getByRole("button");
 

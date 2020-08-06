@@ -53,7 +53,7 @@ describe("TimeInput", () => {
     );
 
     const timeInput = getByRole("textbox", {
-      name: "Your favorite time",
+      name: "Your favorite time *",
     });
 
     await act(async () => {

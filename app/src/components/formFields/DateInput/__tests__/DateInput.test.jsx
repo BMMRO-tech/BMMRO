@@ -40,7 +40,7 @@ describe("DateInput", () => {
       { favoriteDate: "" }
     );
 
-    const dateInput = getByRole("textbox", { name: "Your favorite date" });
+    const dateInput = getByRole("textbox", { name: "Your favorite date *" });
     await act(async () => {
       await fireEvent.change(dateInput, { target: { value: "22 July 2020" } });
       fireEvent.blur(dateInput);
@@ -61,7 +61,7 @@ describe("DateInput", () => {
       { favoriteDate: "" }
     );
 
-    const dateInput = getByRole("textbox", { name: "Your favorite date" });
+    const dateInput = getByRole("textbox", { name: "Your favorite date *" });
     await act(async () => {
       await fireEvent.change(dateInput, { target: { value: "" } });
       fireEvent.blur(dateInput);

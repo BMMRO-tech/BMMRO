@@ -88,7 +88,6 @@ const TimeInput = ({
             {...field}
             mask="99:99"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
-            aria-label={labelText}
           />
         </div>
       </label>

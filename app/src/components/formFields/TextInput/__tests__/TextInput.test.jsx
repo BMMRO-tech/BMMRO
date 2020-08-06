@@ -31,7 +31,7 @@ describe("TextInput", () => {
     );
 
     const textInput = getByRole("textbox", {
-      name: "Your favorite color",
+      name: "Your favorite color *",
     });
     await act(async () => {
       await userEvent.type(textInput, "mango", { delay: 1 });
@@ -73,7 +73,7 @@ describe("TextInput", () => {
     );
 
     await act(async () => {
-      const textInput = getByRole("textbox", { name: "Your favorite color" });
+      const textInput = getByRole("textbox", { name: "Your favorite color *" });
       userEvent.click(textInput);
       userEvent.tab();
     });

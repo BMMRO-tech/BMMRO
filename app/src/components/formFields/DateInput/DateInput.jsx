@@ -44,7 +44,7 @@ const DateInput = ({ name, labelText, isRequired, isShort, autofill }) => {
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             withPortal
             onFocus={(e) => e.target.blur()}
-            customInput={<input aria-label={labelText} type="text" />}
+            customInput={<input type="text" />}
             selected={(field.value && new Date(field.value)) || null}
             {...field}
             onChange={helpers.setValue}
