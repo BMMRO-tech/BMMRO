@@ -62,11 +62,11 @@ const EncounterForm = () => {
             audioRec: "",
             photographerFrameNumber: "",
             visualIdentifications: "",
-            biopsyAttempt: "no",
+            biopsyAttempt: "No",
             biopsySuccess: "not-noted",
-            tagAttempt: "no",
+            tagAttempt: "No",
             tagSuccess: "not-noted",
-            transect: "off",
+            transect: "Off",
             numAdultMale: "",
             numAdultFemale: "",
             numAdultUnknown: "",
@@ -201,7 +201,7 @@ const EncounterForm = () => {
                   options={[
                     { label: "On", value: "On" },
                     { label: "Off", value: "Off" },
-                    { label: "Not noted", value: "Not Noted" },
+                    { label: "Not noted", value: "not-noted" },
                   ]}
                 />
                 <RadioGroup
