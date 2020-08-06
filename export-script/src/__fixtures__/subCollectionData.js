@@ -1,11 +1,20 @@
 module.exports = [
   {
-    noOfAnimals: 1,
+    id: "4",
+    data: {
+      noOfAnimals: 1,
+    },
   },
   {
-    noOfAnimals: 2,
+    id: "5",
+    data: {
+      noOfAnimals: 2,
+    },
   },
   {
-    noOfAnimals: 5,
+    id: "6",
+    data: {
+      noOfAnimals: 5,
+    },
   },
 ];

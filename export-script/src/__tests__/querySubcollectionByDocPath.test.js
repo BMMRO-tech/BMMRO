@@ -1,11 +1,11 @@
 const firebaseTesting = require("@firebase/testing");
 const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
-const querySubcollectionByDocId = require("../querySubcollectionByDocId");
+const querySubcollectionByDocPath = require("../querySubcollectionByDocPath");
 const { parse } = require("date-fns");
 const collectionData = require("../__fixtures__/collectionData");
 const subCollectionData = require("../__fixtures__/subCollectionData");
 
-describe("querySubcollectionByDocId", () => {
+describe("querySubcollectionByDocPath", () => {
   const projectId = "project-id";
   const uid = "testId";
   const DATE_FORMAT = "dd/MM/yyyy";
@@ -25,14 +25,16 @@ describe("querySubcollectionByDocId", () => {
     for (const collectionEntry of collectionData) {
       const documentRef = await firestoreEmulator
         .collection(collectionName)
-        .add(collectionEntry);
+        .doc(collectionEntry.id);
+
+      documentRef.set(collectionEntry.data);
 
       for (const subCollectionEntry of subCollectionData) {
         await firestoreEmulator
-          .collection(collectionName)
-          .doc(documentRef.id)
+          .doc(documentRef.path)
           .collection(subCollectionName)
-          .add(subCollectionEntry);
+          .doc(subCollectionEntry.id)
+          .set({ ...subCollectionEntry.data, parentPath: documentRef.path });
       }
     }
 
@@ -53,11 +55,28 @@ describe("querySubcollectionByDocId", () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
-  it("returns subcollection items given a correct collection document ID", async () => {
-    const subCollectionEntries = await querySubcollectionByDocId(
+  it("adds a correct path to the querying result", async () => {
+    const resultCollectionEntry = collectionEntries.find((r) => r.seqNo === 1);
+
+    const subCollectionEntries = await querySubcollectionByDocPath(
       firestoreEmulator,
-      collectionEntries[0].id,
-      collectionName,
+      resultCollectionEntry.path,
+      subCollectionName
+    );
+
+    const resultSubCollectionEntry = subCollectionEntries.find(
+      (r) => r.noOfAnimals === 1
+    );
+
+    expect(resultSubCollectionEntry.path).toBe(
+      `${resultCollectionEntry.path}/${subCollectionName}/4`
+    );
+  });
+
+  it("returns subcollection items given a correct collection document ID", async () => {
+    const subCollectionEntries = await querySubcollectionByDocPath(
+      firestoreEmulator,
+      collectionEntries[0].path,
       subCollectionName
     );
 
@@ -68,13 +87,11 @@ describe("querySubcollectionByDocId", () => {
     expect(resultNoOfAnimals).toContain(5);
   });
 
-
   it("returns an empty array when no entries are found for a given id", async () => {
-    const inexistentDocumentId = "abc";
-    const subCollectionEntries = await querySubcollectionByDocId(
+    const inexistentDocumentPath = "abc/123";
+    const subCollectionEntries = await querySubcollectionByDocPath(
       firestoreEmulator,
-      inexistentDocumentId,
-      collectionName,
+      inexistentDocumentPath,
       subCollectionName
     );
 

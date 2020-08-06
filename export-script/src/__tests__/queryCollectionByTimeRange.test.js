@@ -19,13 +19,31 @@ describe("queryCollectionByTimeRange", () => {
     firestoreEmulator = firebaseMock.firestore();
 
     for (const entry of collectionData) {
-      await firestoreEmulator.collection(collectionName).add(entry);
+      await firestoreEmulator
+        .collection(collectionName)
+        .doc(entry.id)
+        .set(entry.data);
     }
   });
 
   afterAll(async () => {
     await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+  });
+
+  it("adds a correct path to the querying result", async () => {
+    const startDate = parse("22/05/2020", DATE_FORMAT, new Date());
+    const endDate = parse("24/05/2020", DATE_FORMAT, new Date());
+
+    const collectionEntries = await queryCollectionByTimeRange(
+      startDate,
+      endDate,
+      TIMESTAMP_FIELD_NAME,
+      firestoreEmulator,
+      collectionName
+    );
+
+    expect(collectionEntries[0].path).toBe(`${collectionName}/1`);
   });
 
   it("filters entries with given time range", async () => {

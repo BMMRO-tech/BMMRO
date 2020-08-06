@@ -7,7 +7,8 @@ const populateCollectionValues = (
 
   collectionEntries.forEach((collectionEntry) => {
     const filteredSubcollectionEntries = subcollectionEntries.filter(
-      (subcollectionEntry) => subcollectionEntry.parentId === collectionEntry.id
+      (subcollectionEntry) =>
+        subcollectionEntry.parentPath === collectionEntry.path
     );
 
     filteredSubcollectionEntries.forEach((subcollectionEntry) => {

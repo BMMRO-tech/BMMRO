@@ -12,7 +12,9 @@ const queryCollectionByTimeRange = async (
     .get();
 
   const results = [];
-  rawResults.forEach((doc) => results.push({ id: doc.id, ...doc.data() }));
+  rawResults.forEach((doc) =>
+    results.push({ path: doc.ref.path, ...doc.data() })
+  );
   return results;
 };
 

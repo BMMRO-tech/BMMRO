@@ -3,7 +3,7 @@ const logToStdErrAndExit = require("./src/helpers/logToStdErrAndExit");
 const checkMissingConfig = require("./src/checkMissingConfig");
 const parseArgs = require("./src/parseArgs");
 const queryCollectionByTimeRange = require("./src/queryCollectionByTimeRange");
-const querySubcollectionByDocId = require("./src/querySubcollectionByDocId");
+const querySubcollectionByDocPath = require("./src/querySubcollectionByDocPath");
 const populateCollectionValues = require("./src/populateCollectionValues");
 const transformJsonToCsv = require("./src/transformJsonToCsv");
 const writeDataToFile = require("./src/writeDataToFile");
@@ -63,10 +63,9 @@ const exportData = async () => {
   logSection(habitatUseSubcollection);
   let habitatUseEntries = [];
   for (const encounter of encounterEntries) {
-    const habitatUse = await querySubcollectionByDocId(
+    const habitatUse = await querySubcollectionByDocPath(
       firebase.firestore(),
-      encounter.id,
-      encounterCollection,
+      encounter.path,
       habitatUseSubcollection
     );
     habitatUseEntries.push(...habitatUse);
