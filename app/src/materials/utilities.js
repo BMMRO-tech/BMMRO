@@ -35,7 +35,7 @@ const utilities = {
     contentContainer: css`
       margin-bottom: 80px;
 
-      @media (min-width: ${breakPoints.maxPhone}) {
+      @media (min-width: ${breakPoints.mediumTablet}) {
         margin-bottom: 0;
       }
     `,
@@ -51,7 +51,7 @@ const utilities = {
       box-shadow: 0 -1px 5px 1px rgba(40, 54, 104, 0.15);
       left: 0;
 
-      @media (min-width: ${breakPoints.maxPhone}) {
+      @media (min-width: ${breakPoints.mediumTablet}) {
         position: relative;
         bottom: auto;
         background: none;

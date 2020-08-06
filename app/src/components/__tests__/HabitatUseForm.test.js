@@ -42,7 +42,7 @@ describe("HabitatUseForm", () => {
 
     await act(async () => {
       const numberOfAnimalsInput = getByRole("spinbutton", {
-        name: "Number of Animals",
+        name: "Number of animals",
       });
       const latitudeInput = getByRole("textbox", { name: "Lat *" });
       const submitButton = getByRole("button");
