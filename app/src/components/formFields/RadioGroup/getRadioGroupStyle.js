@@ -16,7 +16,8 @@ const getRadioGroupStyle = () => {
       display: inline-flex;
       align-items: center;
       margin-right: 15px;
-      padding: 5px 0;
+      min-width: 44px;
+      min-height: 44px;
     `,
     radioButton: css`
       margin-right: 5px;
