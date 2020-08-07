@@ -47,6 +47,7 @@ const fieldStyles = {
     font-size: 16px;
     border: 1px solid ${!!error && touched ? colors.darkRed : colors.mediumGray};
     border-radius: 2px;
+    background: ${colors.white};
   `,
 };
 
