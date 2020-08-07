@@ -35,6 +35,13 @@ const OpenEncounter = () => {
         ),
       ]);
 
+      if (!encounterResult.data) {
+        clientPersistence.remove("openEncounterPath");
+        clientPersistence.remove("openEncounterStartTimestamp");
+        navigate(ROUTES.newEncounter);
+        return;
+      }
+
       setEncounter({
         ...encounterResult.data,
         habitatUseEntries: habitatUseResult,
@@ -50,6 +57,7 @@ const OpenEncounter = () => {
 
     if (!openEncounterPath) {
       navigate(ROUTES.newEncounter);
+      return;
     }
 
     if (!!datastore) {
