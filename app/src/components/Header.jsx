@@ -13,6 +13,10 @@ const Header = () => {
     header: css`
       min-height: 50px;
       box-shadow: 0 1px 5px 1px rgba(40, 54, 104, 0.15);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
     `,
     container: css`
       display: flex;

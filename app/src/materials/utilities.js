@@ -33,7 +33,7 @@ const utilities = {
   },
   sticky: {
     contentContainer: css`
-      margin-bottom: 80px;
+      margin-bottom: 20px;
 
       @media (min-width: ${breakPoints.mediumTablet}) {
         margin-bottom: 0;

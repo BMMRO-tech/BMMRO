@@ -1,29 +1,43 @@
 /** @jsx jsx */
 import { Fragment, useContext } from "react";
 import { Global, css, jsx } from "@emotion/core";
+
 import containers from "../materials/containers";
+import breakPoints from "../materials/breakPoints";
 import colors from "../materials/colors";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Header from "./Header";
 import Error from "./Error";
 import Loader from "./Loader";
+import Footer from "./Footer";
 
 const Layout = ({
   containerSize = containers.default,
   hasDefaultPadding = true,
   children,
   hasHeader = true,
+  hasStickyButton = true,
 }) => {
   const { datastore, datastoreError } = useContext(FirebaseContext);
 
   const styles = {
     global: css`
       body {
-        margin: 0;
+        margin: 65px 0 150px 0;
         background-color: ${colors.white};
         color: ${colors.darkGray};
         font-size: 16px;
+
+        @media (min-width: ${breakPoints.mediumTablet}) {
+          margin-bottom: 100px;
+        }
       }
+
+      html {
+        position: relative;
+        min-height: 100%;
+      }
+
       * {
         box-sizing: border-box;
         font-family: "Open Sans", Verdana, sans-serif;
@@ -53,6 +67,7 @@ const Layout = ({
           )}
         </div>
       </main>
+      <Footer hasStickyButton={hasStickyButton} />
     </Fragment>
   );
 };
