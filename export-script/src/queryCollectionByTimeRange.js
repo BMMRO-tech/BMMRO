@@ -1,14 +1,20 @@
+const exportedFieldName = "exported";
+
 const queryCollectionByTimeRange = async (
   startDate,
   endDate,
   timestampFieldName,
   firestoreInstance,
-  collection
+  collection,
+  onlyUnexported
 ) => {
+  const exportedConditions = onlyUnexported ? [false] : [true, false];
+
   const rawResults = await firestoreInstance
     .collection(collection)
     .where(timestampFieldName, ">=", startDate)
     .where(timestampFieldName, "<", endDate)
+    .where(exportedFieldName, "in", exportedConditions)
     .get();
 
   const results = [];
