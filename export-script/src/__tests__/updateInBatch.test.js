@@ -1,7 +1,7 @@
 const firebaseTesting = require("@firebase/testing");
 const updateInBatch = require("../updateInBatch");
 const collectionData = require("../__fixtures__/collectionData");
-const subcollectionData = require("../__fixtures__/subcollectionData");
+const subcollectionData = require("../__fixtures__/subCollectionData");
 
 describe("updateInBatch", () => {
   const projectId = "project-id";
