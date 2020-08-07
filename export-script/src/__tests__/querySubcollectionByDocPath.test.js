@@ -23,7 +23,7 @@ describe("querySubcollectionByDocPath", () => {
     firestoreEmulator = firebaseMock.firestore();
 
     for (const collectionEntry of collectionData) {
-      const documentRef = await firestoreEmulator
+      const documentRef = firestoreEmulator
         .collection(collectionName)
         .doc(collectionEntry.id);
 
