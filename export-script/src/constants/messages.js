@@ -7,4 +7,8 @@ module.exports = {
   END_DATE_BEFORE_START_DATE: "End date must be after start date.",
   NO_DATA:
     "There were no entries within given time range, so no csv file will be created.",
+  BATCH_UPDATE_FAILED:
+    "There was an error when updating the docs. No records have been marked as exported.",
+  BATCH_UPDATE_SUCCESSFUL:
+    "Exported data has been marked as exported in the Firestore database.",
 };

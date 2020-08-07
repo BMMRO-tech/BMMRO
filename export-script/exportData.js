@@ -10,6 +10,7 @@ const writeDataToFile = require("./src/writeDataToFile");
 const logSection = require("./src/helpers/logSection");
 const logAndExit = require("./src/helpers/logAndExit");
 const generateFilename = require("./src/generateFilename");
+const updateInBatch = require("./src/updateInBatch");
 const messages = require("./src/constants/messages");
 const config = require("./src/constants/fieldMaps");
 
@@ -91,7 +92,18 @@ const exportData = async () => {
 
   writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
 
-  logAndExit("Script complete!");
+  logSection("Mark as exported");
+  const entriesToUpdate = [...encounterEntries, ...habitatUseEntries];
+  const updateStatus = await updateInBatch(
+    firebase.firestore(),
+    entriesToUpdate,
+    {
+      exported: true,
+      exportedOn: new Date(),
+    }
+  );
+  if (updateStatus.isSuccessful()) logAndExit(updateStatus.value);
+  else logToStdErrAndExit(updateStatus.value);
 };
 
 module.exports = exportData;

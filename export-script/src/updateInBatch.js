@@ -1,3 +1,6 @@
+const messages = require("./constants/messages");
+const Status = require("./helpers/Status");
+
 const updateInBatch = async (firestoreInstance, entries, update) => {
   const batch = firestoreInstance.batch();
 
@@ -6,7 +9,12 @@ const updateInBatch = async (firestoreInstance, entries, update) => {
     batch.update(docRef, update);
   });
 
-  await batch.commit();
+  try {
+    await batch.commit();
+    return new Status("SUCCESS", messages.BATCH_UPDATE_SUCCESSFUL);
+  } catch (err) {
+    return new Status("BATCH_UPDATE_FAILED", messages.BATCH_UPDATE_FAILED);
+  }
 };
 
 module.exports = updateInBatch;

@@ -2,6 +2,7 @@ const firebaseTesting = require("@firebase/testing");
 const updateInBatch = require("../updateInBatch");
 const collectionData = require("../__fixtures__/collectionData");
 const subcollectionData = require("../__fixtures__/subCollectionData");
+const messages = require("../constants/messages");
 
 describe("updateInBatch", () => {
   const projectId = "project-id";
@@ -10,13 +11,14 @@ describe("updateInBatch", () => {
   const subcollectionName = "subcollection";
   let firestoreEmulator;
 
-  beforeAll(async () => {
+  beforeAll(() => {
     const firebaseMock = firebaseTesting.initializeTestApp({
       projectId,
       auth: { uid },
     });
     firestoreEmulator = firebaseMock.firestore();
   });
+
   beforeEach(async () => {
     for (const entry of collectionData) {
       await firestoreEmulator
@@ -31,17 +33,23 @@ describe("updateInBatch", () => {
       .doc(subdoc.id)
       .set(subdoc.data);
   });
+
   afterEach(
     async () => await firebaseTesting.clearFirestoreData({ projectId })
   );
+
   afterAll(async () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
   it("updates doc only for the passed doc refs", async () => {
-    await updateInBatch(firestoreEmulator, [{ path: `${collectionName}/1` }], {
-      exported: true,
-    });
+    const status = await updateInBatch(
+      firestoreEmulator,
+      [{ path: `${collectionName}/1` }],
+      {
+        exported: true,
+      }
+    );
 
     const collectionEntries = [];
     const result = await firestoreEmulator.collection(collectionName).get();
@@ -54,10 +62,11 @@ describe("updateInBatch", () => {
 
     expect(updatedEntry).toHaveProperty("exported", true);
     expect(skippedEntry).toHaveProperty("exported", false);
+    expect(status.isSuccessful()).toBe(true);
   });
 
   it("updates all docs for which doc refs are passed", async () => {
-    await updateInBatch(
+    const status = await updateInBatch(
       firestoreEmulator,
       [{ path: `${collectionName}/1` }, { path: `${collectionName}/2` }],
       { exported: true }
@@ -80,10 +89,11 @@ describe("updateInBatch", () => {
       date: expect.anything(),
       exported: true,
     });
+    expect(status.isSuccessful()).toBe(true);
   });
 
   it("updates all docs by doc ref regardless of collection", async () => {
-    await updateInBatch(
+    const status = await updateInBatch(
       firestoreEmulator,
       [
         { path: `${collectionName}/1` },
@@ -115,5 +125,26 @@ describe("updateInBatch", () => {
       noOfAnimals: 1,
       exported: true,
     });
+    expect(status.isSuccessful()).toBe(true);
+  });
+
+  it("does not update any docs if something goes wrong", async () => {
+    const nonExistentPath = "mango";
+    const status = await updateInBatch(
+      firestoreEmulator,
+      [{ path: `${collectionName}/1` }, { path: `${nonExistentPath}/123` }],
+      { exported: true }
+    );
+
+    const collectionEntries = [];
+    (await firestoreEmulator.collection(collectionName).get()).forEach((doc) =>
+      collectionEntries.push(doc.data())
+    );
+    const updatedEntries = collectionEntries.filter((entry) => entry.exported);
+
+    expect(updatedEntries).toHaveLength(0);
+    expect(status.isSuccessful()).toBe(false);
+    expect(status.status).toBe("BATCH_UPDATE_FAILED");
+    expect(status.value).toBe(messages.BATCH_UPDATE_FAILED);
   });
 });
