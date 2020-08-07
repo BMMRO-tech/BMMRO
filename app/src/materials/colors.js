@@ -1,6 +1,7 @@
 const colors = {
   darkTurquoise: "#00525E",
   mediumTurquoise: "#007385",
+  lightTurqoise: "#C2DDE2",
   darkRed: "#B21010",
   darkGray: "#363636",
   mediumGray: "#595959",

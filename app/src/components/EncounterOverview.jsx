@@ -1,11 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { Link } from "@reach/router";
 
-import { ROUTES } from "../constants/routes";
 import typography from "../materials/typography";
 import colors from "../materials/colors";
-import Button from "../components/Button";
 
 const EncounterOverview = ({ encounter }) => {
   const styles = {
@@ -23,9 +20,6 @@ const EncounterOverview = ({ encounter }) => {
     title: css`
       display: block;
     `,
-    link: css`
-      text-decoration: none;
-    `,
   };
 
   return (
@@ -39,9 +33,6 @@ const EncounterOverview = ({ encounter }) => {
         </h1>
         <h2 css={typography.text}>{encounter.area}</h2>
       </div>
-      <Link css={styles.link} to={ROUTES.newHabitatUse}>
-        <Button variant="secondary">+ Add habitat use</Button>
-      </Link>
     </div>
   );
 };
