@@ -31,7 +31,7 @@ const Select = ({ name, labelText, isRequired, isShort, options }) => {
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
           >
             <option key="none" value="" aria-label="default empty option">
-              -- Select option --
+              -- Select --
             </option>
             {options.map((option) => (
               <option key={option} value={option} aria-label={option}>
