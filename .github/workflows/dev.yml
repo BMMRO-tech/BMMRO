@@ -12,7 +12,7 @@ jobs:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
       PREVIOUS_VERSION: $(git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
-      NEW_VERSION: $(PREVIOUS_VERSION+1)
+      NEW_VERSION: $((PREVIOUS_VERSION+1))
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
