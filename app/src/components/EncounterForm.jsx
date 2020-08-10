@@ -89,6 +89,7 @@ const EncounterForm = () => {
             startTime: "",
             elapsedTime: "",
             enteredBy: RESEARCH_ASSISTANT,
+            exported: false,
           }}
           onSubmit={handleSubmit}
         >

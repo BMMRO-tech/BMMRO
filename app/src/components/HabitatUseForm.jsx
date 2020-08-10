@@ -51,6 +51,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
               startTime: "",
               latitude: "0",
               longitude: "0",
+              exported: false,
             }
           }
           onSubmit={handleSubmit}

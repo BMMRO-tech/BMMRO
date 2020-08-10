@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "encounter",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "exported",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "startTimestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
