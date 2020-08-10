@@ -3,13 +3,13 @@ const errorTypes = require("./constants/messages");
 const Status = require("./helpers/Status");
 const DATE_FORMAT = "dd/MM/yyyy";
 
-const parseArgs = (args) => {
-  if (!args[2] || !args[3]) {
+const parseArgs = (startDateArg, endDateArg) => {
+  if (!startDateArg || !endDateArg) {
     return new Status("MISSING_ARG", errorTypes.MISSING_ARG);
   }
 
-  const startDate = parse(args[2], DATE_FORMAT, new Date());
-  const endDate = parse(args[3], DATE_FORMAT, new Date());
+  const startDate = parse(startDateArg, DATE_FORMAT, new Date());
+  const endDate = parse(endDateArg, DATE_FORMAT, new Date());
 
   if (!isValid(startDate) || !isValid(endDate)) {
     return new Status("INVALID_DATE_FORMAT", errorTypes.INVALID_DATE_FORMAT);

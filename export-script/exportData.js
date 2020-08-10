@@ -1,7 +1,7 @@
 const firebase = require("firebase");
 const logToStdErrAndExit = require("./src/helpers/logToStdErrAndExit");
 const checkMissingConfig = require("./src/checkMissingConfig");
-const parseArgs = require("./src/parseArgs");
+const parseDates = require("./src/parseDates");
 const queryCollectionByTimeRange = require("./src/queryCollectionByTimeRange");
 const querySubcollectionByDocPath = require("./src/querySubcollectionByDocPath");
 const populateCollectionValues = require("./src/populateCollectionValues");
@@ -19,7 +19,7 @@ const habitatUseSubcollection = "habitatUse";
 const timestampFieldName = "startTimestamp";
 const dirName = "./exported";
 
-const exportData = async () => {
+const exportData = async (startDateArg, endDateArg, options) => {
   const configStatus = checkMissingConfig(
     process.env.PROJECT_ID,
     process.env.API_KEY,
@@ -29,7 +29,7 @@ const exportData = async () => {
   );
   if (!configStatus.isSuccessful()) logToStdErrAndExit(configStatus.value);
 
-  const argsStatus = parseArgs([...process.argv]);
+  const argsStatus = parseDates(startDateArg, endDateArg);
   if (!argsStatus.isSuccessful()) logToStdErrAndExit(argsStatus.value);
   const { startDate, endDate } = argsStatus.value;
 
