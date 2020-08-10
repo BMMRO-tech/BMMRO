@@ -8,7 +8,6 @@ import EncounterForm from "../components/EncounterForm";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { generateOpenEncounterURL } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
-import { RESEARCH_ASSISTANT } from "../constants/formOptions/roles";
 
 const NewEncounter = () => {
   const { datastore } = useContext(FirebaseContext);
