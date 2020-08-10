@@ -40,6 +40,7 @@ jobs:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
           REACT_APP_API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
+          REACT_APP_VERSION: "0"
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
