@@ -1,25 +1,26 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { useEffect } from "react";
+import { useContext } from "react";
 import { navigate } from "@reach/router";
 
-import { ROUTES } from "../constants/routes";
-import clientPersistence from "../clientPersistence/clientPersistence";
 import Layout from "../components/Layout";
 import EncounterForm from "../components/EncounterForm";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import { generateOpenEncounterURL } from "../constants/routes";
+import { CollectionNames } from "../constants/datastore";
+import { RESEARCH_ASSISTANT } from "../constants/formOptions/roles";
 
 const NewEncounter = () => {
-  useEffect(() => {
-    const encounterPath = clientPersistence.get("openEncounterPath");
+  const { datastore } = useContext(FirebaseContext);
 
-    if (encounterPath) {
-      navigate(ROUTES.openEncounter);
-    }
-  }, []);
+  const handleSubmit = (values) => {
+    const id = datastore.createDoc(CollectionNames.ENCOUNTER, values);
+    navigate(generateOpenEncounterURL(id));
+  };
 
   return (
     <Layout hasDefaultPadding={false}>
-      <EncounterForm />
+      <EncounterForm handleSubmit={handleSubmit} />
     </Layout>
   );
 };

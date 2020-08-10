@@ -5,7 +5,7 @@ import { Link } from "@reach/router";
 
 import colors from "../materials/colors";
 import typography from "../materials/typography";
-import { ROUTES } from "../constants/routes";
+import { ROUTES, generateNewHabitatUseURL } from "../constants/routes";
 import Button from "../components/Button";
 import { RightArrow } from "./icons/RightArrow";
 
@@ -37,7 +37,7 @@ const HabitatUseListItem = ({ content }) => {
   );
 };
 
-const HabitatUseList = ({ items }) => {
+const HabitatUseList = ({ items, encounterId }) => {
   const styles = {
     list: css`
       list-style-type: none;
@@ -76,7 +76,7 @@ const HabitatUseList = ({ items }) => {
     <Fragment>
       <div css={styles.listHeader}>
         <p>Habitat Use</p>
-        <Link css={styles.link} to={ROUTES.newHabitatUse}>
+        <Link css={styles.link} to={generateNewHabitatUseURL(encounterId)}>
           <Button>+ New</Button>
         </Link>
       </div>

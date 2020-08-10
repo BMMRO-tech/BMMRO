@@ -2,7 +2,6 @@ import React from "react";
 import { act, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import HabitatUseForm from "../HabitatUseForm";
 
 describe("HabitatUseForm", () => {

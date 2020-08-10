@@ -1,8 +1,7 @@
 import React from "react";
-import { act } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import EncounterForm from "../EncounterForm";
 
 describe("EncounterForm", () => {
@@ -14,13 +13,12 @@ describe("EncounterForm", () => {
 
   it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
-    const { getByRole } = renderWithMockContexts(<EncounterForm />, {
-      datastore: {
-        createDoc: (_, values) => {
-          formValues = values;
-        },
-      },
-    });
+    const mockHandleSubmit = (values) => {
+      formValues = values;
+    };
+    const { getByRole } = render(
+      <EncounterForm handleSubmit={mockHandleSubmit} />
+    );
 
     await act(async () => {
       const areaInput = getByRole("combobox", { name: "Area *" });
@@ -46,14 +44,9 @@ describe("EncounterForm", () => {
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockCreateDoc = jest.fn();
-    const { getByRole, getByLabelText } = renderWithMockContexts(
-      <EncounterForm />,
-      {
-        datastore: {
-          createDoc: mockCreateDoc,
-        },
-      }
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, getByLabelText } = render(
+      <EncounterForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
@@ -64,7 +57,7 @@ describe("EncounterForm", () => {
         selector: '[role="alert"]',
       });
       expect(errorMessage).not.toBeNull();
-      expect(mockCreateDoc).not.toHaveBeenCalled();
+      expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
   });
 });

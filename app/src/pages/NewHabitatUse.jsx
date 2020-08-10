@@ -1,33 +1,25 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { navigate } from "@reach/router";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { CollectionNames } from "../constants/datastore";
-import { ROUTES } from "../constants/routes";
-import clientPersistence from "../clientPersistence/clientPersistence";
+import { generateOpenEncounterURL } from "../constants/routes";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 
-const NewHabitatUse = () => {
-  const openEncounterPath = clientPersistence.get("openEncounterPath");
+const NewHabitatUse = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
 
   const handleSubmit = (values) => {
     datastore.createSubDoc(
-      openEncounterPath,
+      `${CollectionNames.ENCOUNTER}/${encounterId}`,
       CollectionNames.HABITAT_USE,
       values
     );
-    navigate(ROUTES.openEncounter);
+    navigate(generateOpenEncounterURL(encounterId));
   };
-
-  useEffect(() => {
-    if (!openEncounterPath) {
-      navigate(ROUTES.newEncounter);
-    }
-  }, [openEncounterPath]);
 
   return (
     <Layout hasDefaultPadding={false}>

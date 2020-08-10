@@ -1,7 +1,5 @@
 /** @jsx jsx */
-import { useContext } from "react";
 import { Formik, Form } from "formik";
-import { navigate } from "@reach/router";
 import { jsx } from "@emotion/core";
 
 import utilities from "../materials/utilities";
@@ -14,10 +12,6 @@ import ElapsedTime from "./formFields/ElapsedTime/ElapsedTime";
 import Select from "./formFields/Select/Select";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import Button from "./Button";
-import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import clientPersistence from "../clientPersistence/clientPersistence";
-import { ROUTES } from "../constants/routes";
-import { CollectionNames } from "../constants/datastore";
 
 import area from "../constants/formOptions/area";
 import species from "../constants/formOptions/species";
@@ -25,20 +19,15 @@ import project from "../constants/formOptions/project";
 import cue from "../constants/formOptions/cue";
 import vessel from "../constants/formOptions/vessel";
 import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
+import {
+  RESEARCH_ASSISTANT,
+  RESEARCH_SCIENTIST,
+} from "../constants/formOptions/roles";
 
-const EncounterForm = () => {
-  const { datastore } = useContext(FirebaseContext);
-
-  const RESEARCH_ASSISTANT = "Research Assistant";
-  const RESEARCH_SCIENTIST = "Research Scientist";
-
-  const handleSubmit = (values) => {
+const EncounterForm = ({ handleSubmit }) => {
+  const transformSubmitValues = (values) => {
     values.startTimestamp.setHours(0, 0, 0, 0);
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
-
-    const path = datastore.createDoc(CollectionNames.ENCOUNTER, values);
-    clientPersistence.set("openEncounterPath", path);
-    navigate(ROUTES.openEncounter);
   };
 
   return (
@@ -91,7 +80,10 @@ const EncounterForm = () => {
             enteredBy: RESEARCH_ASSISTANT,
             exported: false,
           }}
-          onSubmit={handleSubmit}
+          onSubmit={(values) => {
+            transformSubmitValues(values);
+            handleSubmit(values);
+          }}
         >
           {({ values }) => (
             <Form>

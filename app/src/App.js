@@ -10,6 +10,7 @@ import OpenEncounter from "./pages/OpenEncounter";
 import Login from "./pages/Login";
 import { FirebaseContextProvider } from "./firebaseContext/firebaseContext";
 import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
+import EditHabitatUse from "./pages/EditHabitatUse";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -21,6 +22,7 @@ const AppWithoutContext = () => {
       <NewEncounter default path={ROUTES.newEncounter} />
       <OpenEncounter path={ROUTES.openEncounter} />
       <NewHabitatUse path={ROUTES.newHabitatUse} />
+      <EditHabitatUse path={ROUTES.editHabitatUse} />
     </Router>
   );
 };

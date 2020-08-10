@@ -51,7 +51,7 @@ export class Datastore {
   createDoc(collectionPath, values) {
     const docRef = this.firestore.collection(collectionPath).doc();
     docRef.set(values).catch(this.handleDelayedError);
-    return docRef.path;
+    return docRef.id;
   }
 
   createSubDoc(parentPath, subcollectionName, values) {

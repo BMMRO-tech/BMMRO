@@ -1,6 +1,15 @@
 export const ROUTES = {
-  newEncounter: "/new-encounter",
-  openEncounter: "/open-encounter",
-  newHabitatUse: "/new-habitat-use",
+  newEncounter: "/encounters/new",
+  openEncounter: "/encounters/:encounterId/habitat-uses",
+  newHabitatUse: "/encounters/:encounterId/habitat-uses/new",
+  editHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/edit",
   login: "/login",
+};
+
+export const generateOpenEncounterURL = (encounterId) => {
+  return `/encounters/${encounterId}/habitat-uses`;
+};
+
+export const generateNewHabitatUseURL = (encounterId) => {
+  return `/encounters/${encounterId}/habitat-uses/new`;
 };

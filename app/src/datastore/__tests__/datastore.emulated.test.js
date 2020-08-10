@@ -130,12 +130,12 @@ describe("datastore", () => {
 
       const datastore = new Datastore(firestoreEmulator, false);
 
-      const path = datastore.createDoc("dolphin", {
+      const id = datastore.createDoc("dolphin", {
         name: "Sally",
         species: "Killer Whale",
       });
 
-      const doc = await firestoreEmulator.doc(path).get();
+      const doc = await firestoreEmulator.doc(`dolphin/${id}`).get();
 
       expect(doc.data()).toEqual({
         name: "Sally",
@@ -171,22 +171,23 @@ describe("datastore", () => {
 
       const datastore = new Datastore(firestoreEmulator, false);
 
-      const { path: parentPath } = await firestoreEmulator
+      const { id: parentId } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
 
-      const subDocPath = datastore.createSubDoc(parentPath, "whale", {
+      const subDocId = datastore.createSubDoc(`animal/${parentId}`, "whale", {
         name: "Sally",
         species: "Killer Whale",
       });
 
-      const subDoc = await firestoreEmulator.doc(subDocPath).get();
+      const subDoc = await firestoreEmulator
+        .doc(`animal/${parentId}/whale/${subDocId}`)
+        .get();
 
       expect(subDoc.data()).toEqual({
         name: "Sally",
         species: "Killer Whale",
       });
-      expect(subDocPath).toMatch(new RegExp(`^${parentPath}/whale`));
     });
 
     it("triggers delayed error callback when creating subdocument fails", async () => {
@@ -199,16 +200,15 @@ describe("datastore", () => {
         handleDelayedError
       );
 
-      const { path: parentPath } = await firestoreEmulator
+      const { id: parentId } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
 
-      const subDocPath = datastore.createSubDoc(parentPath, "fake-name", {
+      datastore.createSubDoc(`animal/${parentId}`, "fake-name", {
         name: "Sally",
         species: "Killer Whale",
       });
 
-      expect(subDocPath).toMatch(new RegExp(`^${parentPath}/fake-name`));
       await waitFor(() => {
         const callArg = handleDelayedError.mock.calls[0][0];
         expect(callArg.name).toEqual("FirebaseError");
