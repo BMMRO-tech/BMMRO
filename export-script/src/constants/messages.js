@@ -8,7 +8,7 @@ module.exports = {
   NO_DATA:
     "There were no entries within given time range, so no csv file will be created.",
   BATCH_UPDATE_FAILED:
-    "There was an error when updating the docs. No records have been marked as exported.",
+    "There was an error when updating the docs. No records have been marked as exported. Please re-run the script with the same date range.",
   BATCH_UPDATE_SUCCESSFUL:
     "Exported data has been marked as exported in the Firestore database.",
 };
