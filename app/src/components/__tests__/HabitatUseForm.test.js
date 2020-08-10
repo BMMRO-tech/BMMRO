@@ -1,5 +1,5 @@
 import React from "react";
-import { act } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
@@ -27,17 +27,11 @@ describe("HabitatUseForm", () => {
     };
 
     let formValues;
-    let collectionPath;
-    const { getByRole } = renderWithMockContexts(
-      <HabitatUseForm openEncounterPath="encounter/123" />,
-      {
-        datastore: {
-          createSubDoc: (parentPath, _, values) => {
-            collectionPath = parentPath;
-            formValues = values;
-          },
-        },
-      }
+    const mockHandleSubmit = (values) => {
+      formValues = values;
+    };
+    const { getByRole } = render(
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
@@ -54,7 +48,6 @@ describe("HabitatUseForm", () => {
       userEvent.click(submitButton);
     });
 
-    expect(collectionPath).toEqual("encounter/123");
     expect(formValues.latitude).toEqual("15.123456");
     expect(formValues.longitude).toEqual("1.123456");
     expect(formValues.startTime).toEqual("11:30");
@@ -64,15 +57,55 @@ describe("HabitatUseForm", () => {
     global.navigator.geolocation = realGeolocation;
   });
 
+  it("submits with correct values if initial values are passed", async () => {
+    const mockInitialValues = {
+      numberOfAnimals: 1,
+      numberOfCalves: 3,
+      numberOfBoats: 1,
+      directionOfTravel: "N",
+      comments: "Cool whale!",
+      waterDepth: 22,
+      waterTemp: 17,
+      bottomSubstrate: "",
+      cloudCover: "",
+      beaufortSeaState: "",
+      tideState: "",
+      behaviour: "",
+      swellWaveHeight: "",
+      distance: "",
+      bearing: "",
+      aspect: "",
+      groupCohesion: "",
+      groupComposition: "",
+      surfaceBout: 0,
+      endTime: "",
+      startTime: "12:30",
+      latitude: "1.123456",
+      longitude: "1.123456",
+    };
+    let formValues;
+    const mockHandleSubmit = (values) => {
+      formValues = values;
+    };
+    const { getByRole } = render(
+      <HabitatUseForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+      />
+    );
+
+    await act(async () => {
+      const submitButton = getByRole("button");
+      userEvent.click(submitButton);
+    });
+
+    expect(formValues).toEqual(mockInitialValues);
+  });
+
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockCreateSubDoc = jest.fn();
-    const { getByRole, getByLabelText } = renderWithMockContexts(
-      <HabitatUseForm openEncounterPath="encounter/123" />,
-      {
-        datastore: {
-          createSubDoc: mockCreateSubDoc,
-        },
-      }
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, getByLabelText } = render(
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
@@ -81,7 +114,7 @@ describe("HabitatUseForm", () => {
 
       const errorMessage = getByLabelText("Lat");
       expect(errorMessage).toHaveAttribute("role", "alert");
-      expect(mockCreateSubDoc).not.toHaveBeenCalled();
+      expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
   });
 });

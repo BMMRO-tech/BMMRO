@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { navigate } from "@reach/router";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import { CollectionNames } from "../constants/datastore";
 import { ROUTES } from "../constants/routes";
 import clientPersistence from "../clientPersistence/clientPersistence";
 import Layout from "../components/Layout";
@@ -10,6 +12,16 @@ import HabitatUseForm from "../components/HabitatUseForm";
 
 const NewHabitatUse = () => {
   const openEncounterPath = clientPersistence.get("openEncounterPath");
+  const { datastore } = useContext(FirebaseContext);
+
+  const handleSubmit = (values) => {
+    datastore.createSubDoc(
+      openEncounterPath,
+      CollectionNames.HABITAT_USE,
+      values
+    );
+    navigate(ROUTES.openEncounter);
+  };
 
   useEffect(() => {
     if (!openEncounterPath) {
@@ -19,7 +31,7 @@ const NewHabitatUse = () => {
 
   return (
     <Layout hasDefaultPadding={false}>
-      <HabitatUseForm openEncounterPath={openEncounterPath} />
+      <HabitatUseForm handleSubmit={handleSubmit} />
     </Layout>
   );
 };

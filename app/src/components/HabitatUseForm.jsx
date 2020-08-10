@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { jsx } from "@emotion/core";
-import { useContext } from "react";
-import { navigate } from "@reach/router";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import TextInput from "./formFields/TextInput/TextInput";
@@ -12,9 +10,6 @@ import PositionInput from "./formFields/PositionInput/PositionInput";
 import Select from "./formFields/Select/Select";
 import Button from "./Button";
 
-import { ROUTES } from "../constants/routes";
-import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import { CollectionNames } from "../constants/datastore";
 import direction from "../constants/formOptions/direction";
 import bottomSubstrate from "../constants/formOptions/bottomSubstrate";
 import cloudCover from "../constants/formOptions/cloudCover";
@@ -25,48 +20,39 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
 import utilities from "../materials/utilities";
 
-const HabitatUseForm = ({ openEncounterPath }) => {
-  const { datastore } = useContext(FirebaseContext);
-
-  const handleSubmit = (values) => {
-    datastore.createSubDoc(
-      openEncounterPath,
-      CollectionNames.HABITAT_USE,
-      values
-    );
-    navigate(ROUTES.openEncounter);
-  };
-
+const HabitatUseForm = ({ initialValues, handleSubmit }) => {
   return (
     <div css={utilities.sticky.contentContainer}>
       <h1 css={utilities.form.title}>Habitat Use Form</h1>
       <div css={utilities.form.container}>
         <Formik
-          initialValues={{
-            numberOfAnimals: 1,
-            numberOfCalves: "",
-            numberOfBoats: 1,
-            directionOfTravel: "",
-            comments: "",
-            waterDepth: "",
-            waterTemp: "",
-            bottomSubstrate: "",
-            cloudCover: "",
-            beaufortSeaState: "",
-            tideState: "",
-            behaviour: "",
-            swellWaveHeight: "",
-            distance: "",
-            bearing: "",
-            aspect: "",
-            groupCohesion: "",
-            groupComposition: "",
-            surfaceBout: 0,
-            endTime: "",
-            startTime: "",
-            latitude: "0",
-            longitude: "0",
-          }}
+          initialValues={
+            initialValues || {
+              numberOfAnimals: 1,
+              numberOfCalves: "",
+              numberOfBoats: 1,
+              directionOfTravel: "",
+              comments: "",
+              waterDepth: "",
+              waterTemp: "",
+              bottomSubstrate: "",
+              cloudCover: "",
+              beaufortSeaState: "",
+              tideState: "",
+              behaviour: "",
+              swellWaveHeight: "",
+              distance: "",
+              bearing: "",
+              aspect: "",
+              groupCohesion: "",
+              groupComposition: "",
+              surfaceBout: 0,
+              endTime: "",
+              startTime: "",
+              latitude: "0",
+              longitude: "0",
+            }
+          }
           onSubmit={handleSubmit}
         >
           {({ values }) => (
@@ -205,7 +191,7 @@ const HabitatUseForm = ({ openEncounterPath }) => {
                   labelText="Start time (hh:mm)"
                   isRequired
                   isShort
-                  autofill
+                  autofill={!initialValues}
                 />
                 <PositionInput
                   name="latitude"
@@ -213,7 +199,7 @@ const HabitatUseForm = ({ openEncounterPath }) => {
                   labelText="Lat"
                   isRequired
                   isShort
-                  autofill
+                  autofill={!initialValues}
                 />
                 <PositionInput
                   name="longitude"
@@ -221,7 +207,7 @@ const HabitatUseForm = ({ openEncounterPath }) => {
                   labelText="Long"
                   isRequired
                   isShort
-                  autofill
+                  autofill={!initialValues}
                 />
               </div>
               <div css={utilities.form.legend}>

@@ -70,9 +70,7 @@ const OpenEncounter = () => {
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
           <EncounterOverview encounter={encounter} />
-          {!!encounter.habitatUseEntries && (
-            <HabitatUseList items={encounter.habitatUseEntries} />
-          )}
+          <HabitatUseList items={encounter.habitatUseEntries} />
           <div css={utilities.sticky.footerContainer}>
             <Button onClick={onEndEncounterClick}>End encounter</Button>
           </div>
