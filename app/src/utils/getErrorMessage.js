@@ -14,6 +14,8 @@ const getErrorMessage = (type, params) => {
       return `Time must be in the following format ${params.format}`;
     case FormErrorType.INVALID_POSITION_FORMAT:
       return "Invalid position format";
+    case FormErrorType.INVALID_DECIMAL_DIGITS:
+      return `Position must have ${params.decimalDigits} decimal digits`;
     case FormErrorType.START_TIME_AFTER_END_TIME:
       return "End time cannot be before start time";
     case FormErrorType.TIME_IN_FUTURE:

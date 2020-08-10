@@ -96,7 +96,7 @@ describe("PositionInput", () => {
 
     await act(async () => {
       const positionInput = getByRole("textbox", { name: "Your latitude" });
-      await userEvent.type(positionInput, "15.123k56", { delay: 1 });
+      await userEvent.type(positionInput, "5.123k56", { delay: 1 });
       userEvent.click(positionInput);
       userEvent.tab();
     });
@@ -124,7 +124,8 @@ describe("PositionInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_POSITION_FORMAT
+      FormErrorType.INVALID_DECIMAL_DIGITS,
+      { decimalDigits: 6 }
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
@@ -146,7 +147,8 @@ describe("PositionInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_POSITION_FORMAT
+      FormErrorType.INVALID_DECIMAL_DIGITS,
+      { decimalDigits: 6 }
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(

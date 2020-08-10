@@ -31,7 +31,7 @@ const PositionInput = ({
   };
 
   const validatePosition = (val) => {
-    const positionPattern = new RegExp(`^-?[0-9]*.[0-9]{6}$`);
+    const digitsPattern = new RegExp(`\\.[0-9]{6}$`);
     const { min, max } = positionConfig[type];
 
     if (val === "") {
@@ -39,8 +39,14 @@ const PositionInput = ({
       else return "";
     }
 
-    if (val && !positionPattern.test(val)) {
+    if (val && isNaN(Number(val))) {
       return getErrorMessage(FormErrorType.INVALID_POSITION_FORMAT);
+    }
+
+    if (val && !digitsPattern.test(val)) {
+      return getErrorMessage(FormErrorType.INVALID_DECIMAL_DIGITS, {
+        decimalDigits: 6,
+      });
     }
 
     if (parseFloat(val) > max) {
