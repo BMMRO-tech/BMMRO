@@ -11,13 +11,9 @@ const run = async (action) => {
     .passCommandToAction(false)
     .arguments("<startDate> <endDate>")
     .option(
-      "--unexported-only",
-      "export only entries that haven't previously been exported",
-      true
-    )
-    .option(
-      "--no-unexported-only",
-      "export all entries, regardless of whether they've been previously exported"
+      "-a, --all",
+      "export all entries, even those that have previously been exported",
+      false
     )
     .action(action);
 
