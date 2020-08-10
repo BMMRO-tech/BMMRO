@@ -50,7 +50,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     timestampFieldName,
     firebase.firestore(),
     encounterCollection,
-    true
+    options.unexportedOnly
   ).catch((e) => logToStdErrAndExit(e.message));
   if (encounterEntries.length === 0) logAndExit(messages.NO_DATA);
 
