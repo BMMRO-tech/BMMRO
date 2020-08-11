@@ -35,11 +35,18 @@ jobs:
       - name: Run export script tests
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: npm test
+      - name: Set environment variable with new version
+        run: |
+          PENDING_TAG=$(git describe --tags --match "prod-pending-*" $(git rev-list --tags="prod-pending-*" --max-count=1))
+          echo "::set-env name=PENDING_TAG::$PENDING_TAG"
+          PENDING_TAG_VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
+          echo "::set-env name=NEW_VERSION::$PENDING_TAG_VERSION"
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_PROD_PROJECT_ID}}
           REACT_APP_API_KEY: ${{secrets.FIREBASE_PROD_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_PROD_AUTH_DOMAIN}}
+          REACT_APP_VERSION: ${{env.NEW_VERSION}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
@@ -51,10 +58,7 @@ jobs:
           firebase deploy
       - name: Update prod-pending-* tag to prod-deployed-*
         run: |
-          git fetch origin --tags -q
-          PENDING_TAG=$(git describe --tags --match "prod-pending-*" $(git rev-list --tags="prod-pending-*" --max-count=1))
-          VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
-          TAG="prod-deployed-$VERSION"
-          git tag $TAG $PENDING_TAG -f
+          TAG="prod-deployed-${{env.NEW_VERSION}}"
+          git tag $TAG ${{env.PENDING_TAG}} -f
           git push origin $TAG -f
-          git push origin --delete $PENDING_TAG
+          git push origin --delete ${{env.PENDING_TAG}}
