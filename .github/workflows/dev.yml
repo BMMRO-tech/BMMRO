@@ -21,10 +21,6 @@ jobs:
         run: |
           npm install
           sudo npm install -g firebase-tools
-      - name: Set environment variable with new version
-        run: |
-          PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
-          echo "::set-env name=NEW_VERSION::$(($PREVIOUS_VERSION+1))"
       - name: Run frontend tests
         working-directory: ${{env.APP_DIR}}
         run: npm test
@@ -39,6 +35,10 @@ jobs:
       - name: Run export script tests
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: npm test
+      - name: Set environment variable with new version
+        run: |
+          PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
+          echo "::set-env name=NEW_VERSION::$(($PREVIOUS_VERSION+1))"
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
@@ -59,7 +59,6 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           git fetch origin --tags -q
-          VERSION=$(git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
-          TAG="dev-deployed-$((VERSION+1))"
+          TAG="dev-deployed-${{env.NEW_VERSION}}"
           git tag $TAG $COMMIT_SHA
           git push origin $TAG
