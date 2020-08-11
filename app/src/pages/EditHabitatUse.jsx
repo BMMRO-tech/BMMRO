@@ -33,6 +33,7 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
     if (!!datastore) {
       getData();
     }
+    // eslint-disable-next-line
   }, [datastore]);
 
   return (
