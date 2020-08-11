@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { ROUTES } from "../constants/routes";
@@ -14,12 +14,13 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 
 const OpenEncounter = ({ encounterId }) => {
+  const { datastore } = useContext(FirebaseContext);
+  const [encounter, setEncounter] = useState({});
+  const navigate = useNavigate();
+
   const onEndEncounterClick = () => {
     navigate(ROUTES.newEncounter);
   };
-
-  const { datastore } = useContext(FirebaseContext);
-  const [encounter, setEncounter] = useState({});
 
   useEffect(() => {
     const getData = async (encounterPath) => {
