@@ -15,6 +15,15 @@ const run = async (action) => {
       "export all entries, even those that have previously been exported",
       false
     )
+    .option(
+      "-m, --mark",
+      "mark exported entries as exported in the firestore database",
+      true
+    )
+    .option(
+      "--no-mark",
+      "don't mark exported entries as exported in the firestore database"
+    )
     .action(action);
 
   await program.parseAsync(process.argv);

@@ -78,21 +78,23 @@ const exportData = async (startDateArg, endDateArg, options) => {
     config.habitatUse
   );
 
-  logSection("Marking records as exported");
-  const allEntries = [...encounterEntries, ...habitatUseEntries];
-  if (allEntries.length > 500) {
-    logToStdErrAndExit(
-      getMessage("BATCH_UPDATE_LIMIT_EXCEEDED", {
-        numberOfEntries: allEntries.length,
-      })
-    );
-  }
+  if (options.mark) {
+    logSection("Marking records as exported");
+    const allEntries = [...encounterEntries, ...habitatUseEntries];
+    if (allEntries.length > 500) {
+      logToStdErrAndExit(
+        getMessage("BATCH_UPDATE_LIMIT_EXCEEDED", {
+          numberOfEntries: allEntries.length,
+        })
+      );
+    }
 
-  const updateStatus = await updateInBatch(firebase.firestore(), allEntries, {
-    exported: true,
-    exportedOn: new Date(),
-  });
-  if (!updateStatus.isSuccessful()) logToStdErrAndExit(updateStatus.value);
+    const updateStatus = await updateInBatch(firebase.firestore(), allEntries, {
+      exported: true,
+      exportedOn: new Date(),
+    });
+    if (!updateStatus.isSuccessful()) logToStdErrAndExit(updateStatus.value);
+  }
 
   logSection("Writing csv data to files");
   const encountersFileName = generateFilename(
