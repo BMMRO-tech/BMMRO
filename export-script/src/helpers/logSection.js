@@ -1,5 +1,5 @@
-const logSection = (collectionName) => {
-  console.log(`\n--------------- ${collectionName} ---------------`);
+const logSection = (text) => {
+  console.log(`\n${text}...`);
 };
 
 module.exports = logSection;

@@ -43,7 +43,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     .signInWithEmailAndPassword(process.env.EMAIL, process.env.PASSWORD)
     .catch((e) => logToStdErrAndExit(e.message));
 
-  logSection(encounterCollection);
+  logSection("Fetching data from Firestore");
   const encounterEntries = await queryCollectionByTimeRange(
     startDate,
     endDate,
@@ -54,15 +54,6 @@ const exportData = async (startDateArg, endDateArg, options) => {
   ).catch((e) => logToStdErrAndExit(e.message));
   if (encounterEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
-  const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
-  const encountersFileName = generateFilename(
-    encounterCollection,
-    startDate,
-    endDate
-  );
-  writeDataToFile(dirName, encountersFileName, csvEncounters);
-
-  logSection(habitatUseSubcollection);
   let habitatUseEntries = [];
   for (const encounter of encounterEntries) {
     const habitatUse = await querySubcollectionByDocPath(
@@ -74,15 +65,40 @@ const exportData = async (startDateArg, endDateArg, options) => {
   }
   if (habitatUseEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
+  logSection("Transforming to csv format");
   const extendedHabitatUseEntries = populateCollectionValues(
     encounterEntries,
     habitatUseEntries,
     config.habitatUseToEncounter
   );
 
+  const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
   const csvHabitatUse = transformJsonToCsv(
     extendedHabitatUseEntries,
     config.habitatUse
+  );
+
+  logSection("Marking records as exported");
+  const allEntries = [...encounterEntries, ...habitatUseEntries];
+  if (allEntries.length > 500) {
+    logToStdErrAndExit(
+      getMessage("BATCH_UPDATE_LIMIT_EXCEEDED", {
+        numberOfEntries: allEntries.length,
+      })
+    );
+  }
+
+  const updateStatus = await updateInBatch(firebase.firestore(), allEntries, {
+    exported: true,
+    exportedOn: new Date(),
+  });
+  if (!updateStatus.isSuccessful()) logToStdErrAndExit(updateStatus.value);
+
+  logSection("Writing csv data to files");
+  const encountersFileName = generateFilename(
+    encounterCollection,
+    startDate,
+    endDate
   );
 
   const habitatUseFileName = generateFilename(
@@ -91,20 +107,10 @@ const exportData = async (startDateArg, endDateArg, options) => {
     endDate
   );
 
+  writeDataToFile(dirName, encountersFileName, csvEncounters);
   writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
 
-  logSection("Mark as exported");
-  const entriesToUpdate = [...encounterEntries, ...habitatUseEntries];
-  const updateStatus = await updateInBatch(
-    firebase.firestore(),
-    entriesToUpdate,
-    {
-      exported: true,
-      exportedOn: new Date(),
-    }
-  );
-  if (updateStatus.isSuccessful()) logAndExit(updateStatus.value);
-  else logToStdErrAndExit(updateStatus.value);
+  logAndExit("\nScript complete!");
 };
 
 module.exports = exportData;
