@@ -4,10 +4,10 @@ import * as firebaseTesting from "@firebase/testing";
 import { waitFor } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
-import OpenEncounter from "../OpenEncounter";
+import NewHabitatUse from "../NewHabitatUse";
 
-describe("OpenEncounter", () => {
-  const projectId = "open-encounter-test-id";
+describe("NewHabitatUse", () => {
+  const projectId = "new-habitat-use-test-id";
   let firestoreEmulator;
   let datastore;
 
@@ -33,7 +33,7 @@ describe("OpenEncounter", () => {
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
     const { history } = renderWithMockContexts(
-      <OpenEncounter encounterId={"123"} />,
+      <NewHabitatUse encounterId={"123"} />,
       {
         datastore,
         route: "/encounters/123/habitat-uses",
@@ -51,7 +51,7 @@ describe("OpenEncounter", () => {
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
     const { history } = renderWithMockContexts(
-      <OpenEncounter encounterId={id} />,
+      <NewHabitatUse encounterId={id} />,
       {
         datastore,
         route: "/encounters/123/habitat-uses",

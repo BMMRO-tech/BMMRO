@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { navigate } from "@reach/router";
-import { useContext } from "react";
+import { useNavigate } from "@reach/router";
+import { useContext, useEffect } from "react";
 
+import { ROUTES } from "../constants/routes";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { CollectionNames } from "../constants/datastore";
 import { generateOpenEncounterURL } from "../constants/routes";
@@ -11,6 +12,7 @@ import HabitatUseForm from "../components/HabitatUseForm";
 
 const NewHabitatUse = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
+  const navigate = useNavigate();
 
   const handleSubmit = (values) => {
     datastore.createSubDoc(
@@ -20,6 +22,22 @@ const NewHabitatUse = ({ encounterId }) => {
     );
     navigate(generateOpenEncounterURL(encounterId));
   };
+
+  useEffect(() => {
+    const getEncounterData = async (encounterPath) => {
+      const encounterResult = await datastore.readDocByPath(encounterPath);
+
+      if (!encounterResult.data) {
+        navigate(ROUTES.newEncounter);
+        return;
+      }
+    };
+
+    if (!!datastore) {
+      getEncounterData(`${CollectionNames.ENCOUNTER}/${encounterId}`);
+    }
+    // eslint-disable-next-line
+  }, [datastore]);
 
   return (
     <Layout hasDefaultPadding={false}>
