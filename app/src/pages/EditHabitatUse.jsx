@@ -1,28 +1,27 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState } from "react";
+import { useNavigate } from "@reach/router";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 import Loader from "../components/Loader";
-import { navigate } from "@reach/router";
 import { generateOpenEncounterURL } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
 
 const EditHabitatUse = ({ encounterId, habitatUseId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (values) => {
     console.log(values);
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const values = await datastore.readDocByPath(
-        `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`
-      );
+    const getData = async (path) => {
+      const values = await datastore.readDocByPath(path);
 
       if (!!values.data) {
         setInitialValues(values.data);
@@ -31,7 +30,9 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
       }
     };
     if (!!datastore) {
-      getData();
+      getData(
+        `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`
+      );
     }
     // eslint-disable-next-line
   }, [datastore]);

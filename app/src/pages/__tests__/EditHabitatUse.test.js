@@ -4,10 +4,10 @@ import * as firebaseTesting from "@firebase/testing";
 import { waitFor } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
-import OpenEncounter from "../OpenEncounter";
+import EditHabitatUse from "../EditHabitatUse";
 
-describe("OpenEncounter", () => {
-  const projectId = "open-encounter-test-id";
+describe("EditHabitatUse", () => {
+  const projectId = "edit-habitat-use-test-id";
   let firestoreEmulator;
   let datastore;
 
@@ -27,16 +27,21 @@ describe("OpenEncounter", () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
-  it("navigates to /encounters/new if no encounter is found in firestore for a given ID", async () => {
-    await firestoreEmulator
+  it("navigates to encounter overview page if no habitat use is found in firestore for a given ID", async () => {
+    const { id } = await firestoreEmulator
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
-    const entryPath = "/encounters/123/habitat-uses";
-    const redirectPath = "/encounters/new";
+    await firestoreEmulator
+      .doc(`encounter/${id}`)
+      .collection("habitatUse")
+      .add({ age: "young", behaviour: "adventurous" });
+
+    const entryPath = `/encounters/${id}/habitat-uses/123/edit`;
+    const redirectPath = `/encounters/${id}/habitat-uses`;
 
     const { history } = renderWithMockContexts(
-      <OpenEncounter encounterId={"123"} />,
+      <EditHabitatUse encounterId={id} habitatUseId={"123"} />,
       {
         datastore,
         route: entryPath,
@@ -49,14 +54,19 @@ describe("OpenEncounter", () => {
   });
 
   it("stays on the same page if an encounter is found in firestore for a given ID", async () => {
-    const { id } = await firestoreEmulator
+    const { id: encounterId } = await firestoreEmulator
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
-    const actualPath = `/encounters/${id}/habitat-uses`;
+    const { id: habitatUseId } = await firestoreEmulator
+      .doc(`encounter/${encounterId}`)
+      .collection("habitatUse")
+      .add({ age: "young", behaviour: "adventurous" });
+
+    const actualPath = `/encounters/${encounterId}/habitat-uses/${habitatUseId}/edit`;
 
     const { history } = renderWithMockContexts(
-      <OpenEncounter encounterId={id} />,
+      <EditHabitatUse encounterId={encounterId} habitatUseId={habitatUseId} />,
       {
         datastore,
         route: actualPath,

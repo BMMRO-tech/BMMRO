@@ -32,16 +32,19 @@ describe("NewHabitatUse", () => {
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
+    const entryPath = "/encounters/123/habitat-uses";
+    const redirectPath = "/encounters/new";
+
     const { history } = renderWithMockContexts(
       <NewHabitatUse encounterId={"123"} />,
       {
         datastore,
-        route: "/encounters/123/habitat-uses",
+        route: entryPath,
       }
     );
 
     await waitFor(() => {
-      expect(history.location.pathname).toEqual("/encounters/new");
+      expect(history.location.pathname).toEqual(redirectPath);
     });
   });
 
@@ -50,16 +53,18 @@ describe("NewHabitatUse", () => {
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
+    const actualPath = `/encounters/${id}/habitat-uses`;
+
     const { history } = renderWithMockContexts(
       <NewHabitatUse encounterId={id} />,
       {
         datastore,
-        route: "/encounters/123/habitat-uses",
+        route: actualPath,
       }
     );
 
     await waitFor(async () => {
-      expect(history.location.pathname).toEqual("/encounters/123/habitat-uses");
+      expect(history.location.pathname).toEqual(actualPath);
     });
   });
 });
