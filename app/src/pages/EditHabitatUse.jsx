@@ -6,8 +6,11 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 import Loader from "../components/Loader";
+import { navigate } from "@reach/router";
+import { generateOpenEncounterURL } from "../constants/routes";
+import { CollectionNames } from "../constants/datastore";
 
-const EditHabitatUse = () => {
+const EditHabitatUse = ({ encounterId, habitatUseId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
 
@@ -18,9 +21,14 @@ const EditHabitatUse = () => {
   useEffect(() => {
     const getData = async () => {
       const values = await datastore.readDocByPath(
-        "encounter/0Oyl96tAmQyVazEAcbhR/habitatUse/cct6L8o6wFGZrP01dJxM"
+        `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`
       );
-      setInitialValues(values.data);
+
+      if (!!values.data) {
+        setInitialValues(values.data);
+      } else {
+        navigate(generateOpenEncounterURL(encounterId));
+      }
     };
     if (!!datastore) {
       getData();

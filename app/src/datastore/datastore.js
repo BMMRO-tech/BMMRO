@@ -38,9 +38,7 @@ export class Datastore {
         .get();
 
       const results = [];
-      docRefs.forEach((doc) =>
-        results.push({ data: doc.data(), path: doc.ref.path })
-      );
+      docRefs.forEach((doc) => results.push({ data: doc.data(), id: doc.id }));
       return results;
     } catch (e) {
       this.enableLogging && console.error(e);

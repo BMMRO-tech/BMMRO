@@ -13,3 +13,7 @@ export const generateOpenEncounterURL = (encounterId) => {
 export const generateNewHabitatUseURL = (encounterId) => {
   return `/encounters/${encounterId}/habitat-uses/new`;
 };
+
+export const generateEditHabitatURL = (encounterId, habitatUseId) => {
+  return `/encounters/${encounterId}/habitat-uses/${habitatUseId}/edit`;
+};

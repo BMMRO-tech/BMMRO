@@ -5,11 +5,14 @@ import { Link } from "@reach/router";
 
 import colors from "../materials/colors";
 import typography from "../materials/typography";
-import { ROUTES, generateNewHabitatUseURL } from "../constants/routes";
+import {
+  generateNewHabitatUseURL,
+  generateEditHabitatURL,
+} from "../constants/routes";
 import Button from "../components/Button";
 import { RightArrow } from "./icons/RightArrow";
 
-const HabitatUseListItem = ({ content }) => {
+const HabitatUseListItem = ({ content, encounterId }) => {
   const styles = {
     container: css`
       ${typography.text}
@@ -27,7 +30,10 @@ const HabitatUseListItem = ({ content }) => {
     `,
   };
   return (
-    <Link css={styles.link} to={ROUTES.openEncounter}>
+    <Link
+      css={styles.link}
+      to={generateEditHabitatURL(encounterId, content.id)}
+    >
       <li css={styles.container} data-testid="habitat-use-list-item">
         <span css={styles.time}>{content.data.startTime}</span>
         <span>Habitat Use</span>
@@ -87,8 +93,9 @@ const HabitatUseList = ({ items, encounterId }) => {
           <ul css={styles.list}>
             {sortedItems.map((item) => (
               <HabitatUseListItem
-                key={`habitatUseListItem-${item.path}`}
+                key={`habitatUseListItem-${item.id}`}
                 content={item}
+                encounterId={encounterId}
               />
             ))}
           </ul>

@@ -72,12 +72,12 @@ describe("datastore", () => {
         .collection("animal")
         .add({ location: "Pacific" });
 
-      const { path: firstAnimalPath } = await firestoreEmulator
+      const { id: firstAnimalId } = await firestoreEmulator
         .doc(parentPath)
         .collection("whale")
         .add({ name: "Bill", species: "Blue" });
 
-      const { path: secondAnimalPath } = await firestoreEmulator
+      const { id: secondAnimalId } = await firestoreEmulator
         .doc(parentPath)
         .collection("whale")
         .add({ name: "Bob", species: "Narwal" });
@@ -86,12 +86,12 @@ describe("datastore", () => {
       const animals = await datastore.readDocsByParentPath(parentPath, "whale");
 
       const animalsData = animals.map((animal) => animal.data);
-      const animalPaths = animals.map((animal) => animal.path);
+      const animalIds = animals.map((animal) => animal.id);
 
       expect(animalsData).toContainEqual({ name: "Bill", species: "Blue" });
       expect(animalsData).toContainEqual({ name: "Bob", species: "Narwal" });
-      expect(animalPaths).toContain(firstAnimalPath);
-      expect(animalPaths).toContain(secondAnimalPath);
+      expect(animalIds).toContain(firstAnimalId);
+      expect(animalIds).toContain(secondAnimalId);
     });
 
     it("throws datastore error if security rules reject read", async () => {

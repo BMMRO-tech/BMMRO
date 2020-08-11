@@ -5,9 +5,9 @@ import HabitatUseList from "../HabitatUseList";
 describe("HabitatUseList", () => {
   it("displays habitat use forms sorted by start time", () => {
     const items = [
-      { data: { startTime: "11:00" }, path: "encounter/123/habitatUse/123" },
-      { data: { startTime: "11:10" }, path: "encounter/123/habitatUse/456" },
-      { data: { startTime: "11:20" }, path: "encounter/123/habitatUse/789" },
+      { data: { startTime: "11:00" }, id: "123" },
+      { data: { startTime: "11:10" }, id: "456" },
+      { data: { startTime: "11:20" }, id: "789" },
     ];
     const { queryAllByTestId } = render(<HabitatUseList items={items} />);
 
