@@ -1,4 +1,4 @@
-const messages = require("./constants/messages");
+const getMessage = require("./constants/getMessage");
 const Status = require("./helpers/Status");
 
 const updateInBatch = async (firestoreInstance, entries, update) => {
@@ -11,9 +11,9 @@ const updateInBatch = async (firestoreInstance, entries, update) => {
 
   try {
     await batch.commit();
-    return new Status("SUCCESS", messages.BATCH_UPDATE_SUCCESSFUL);
+    return new Status("SUCCESS", getMessage("BATCH_UPDATE_SUCCESSFUL"));
   } catch (err) {
-    return new Status("BATCH_UPDATE_FAILED", messages.BATCH_UPDATE_FAILED);
+    return new Status("BATCH_UPDATE_FAILED", getMessage("BATCH_UPDATE_FAILED"));
   }
 };
 

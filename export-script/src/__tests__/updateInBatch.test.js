@@ -2,7 +2,7 @@ const firebaseTesting = require("@firebase/testing");
 const updateInBatch = require("../updateInBatch");
 const collectionData = require("../__fixtures__/collectionData");
 const subcollectionData = require("../__fixtures__/subCollectionData");
-const messages = require("../constants/messages");
+const getMessage = require("../constants/getMessage");
 
 describe("updateInBatch", () => {
   const projectId = "project-id";
@@ -145,6 +145,6 @@ describe("updateInBatch", () => {
     expect(updatedEntries).toHaveLength(0);
     expect(status.isSuccessful()).toBe(false);
     expect(status.status).toBe("BATCH_UPDATE_FAILED");
-    expect(status.value).toBe(messages.BATCH_UPDATE_FAILED);
+    expect(status.value).toBe(getMessage("BATCH_UPDATE_FAILED"));
   });
 });

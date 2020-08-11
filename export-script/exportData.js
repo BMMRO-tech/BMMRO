@@ -11,7 +11,7 @@ const logSection = require("./src/helpers/logSection");
 const logAndExit = require("./src/helpers/logAndExit");
 const generateFilename = require("./src/generateFilename");
 const updateInBatch = require("./src/updateInBatch");
-const messages = require("./src/constants/messages");
+const getMessage = require("./src/constants/getMessage");
 const config = require("./src/constants/fieldMaps");
 
 const encounterCollection = "encounter";
@@ -52,7 +52,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     encounterCollection,
     !options.all
   ).catch((e) => logToStdErrAndExit(e.message));
-  if (encounterEntries.length === 0) logAndExit(messages.NO_DATA);
+  if (encounterEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
   const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
   const encountersFileName = generateFilename(
@@ -72,7 +72,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     );
     habitatUseEntries.push(...habitatUse);
   }
-  if (habitatUseEntries.length === 0) logAndExit(messages.NO_DATA);
+  if (habitatUseEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
   const extendedHabitatUseEntries = populateCollectionValues(
     encounterEntries,
