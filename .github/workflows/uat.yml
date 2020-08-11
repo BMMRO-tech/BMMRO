@@ -38,6 +38,7 @@ jobs:
       - name: Set environment variable with new version
         run: |
           PENDING_TAG=$(git fetch origin --tags -q && git describe --tags --match "uat-pending-*" $(git rev-list --tags="uat-pending-*" --max-count=1))
+          echo "::set-env name=PENDING_TAG::$PENDING_TAG"
           PENDING_TAG_VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
           echo "::set-env name=NEW_VERSION::$PENDING_TAG_VERSION"
       - name: Build production bundle
@@ -57,10 +58,7 @@ jobs:
           firebase deploy
       - name: Update uat-pending-* tag to uat-deployed-*
         run: |
-          git fetch origin --tags -q
-          PENDING_TAG=$(git describe --tags --match "uat-pending-*" $(git rev-list --tags="uat-pending-*" --max-count=1))
-          VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
-          TAG="uat-deployed-$VERSION"
-          git tag $TAG $PENDING_TAG -f
+          TAG="uat-deployed-${{env.NEW_VERSION}}"
+          git tag $TAG ${{env.PENDING_TAG}} -f
           git push origin $TAG -f
-          git push origin --delete $PENDING_TAG
+          git push origin --delete ${{env.PENDING_TAG}}
