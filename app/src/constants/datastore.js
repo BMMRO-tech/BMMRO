@@ -10,5 +10,6 @@ export const DatastoreErrorType = {
   BROWSER_NOT_SUPPORTED: "browser-not-supported",
   COLLECTION_ITEM_CREATION: "collection-item-creation",
   COLLECTION_READ: "collection-read",
+  DOCUMENT_UPDATE: "document-update",
   UPDATES_SUBSCRIPTION: "updates-subscription",
 };

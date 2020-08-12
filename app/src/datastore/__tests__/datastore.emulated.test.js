@@ -215,4 +215,42 @@ describe("datastore", () => {
       });
     });
   });
+
+  describe("#updateDocByPath", () => {
+    it("successfully updates document by path", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const { id } = await firestoreEmulator
+        .collection("dolphin")
+        .add({ name: "Barney", species: "Bottlenose dolphin" });
+
+      const datastore = new Datastore(firestoreEmulator);
+
+      datastore.updateDocByPath(`dolphin/${id}`, { name: "Eddy" });
+
+      const dolphinDoc = await firestoreEmulator.doc(`dolphin/${id}`).get();
+
+      expect(dolphinDoc.data()).toEqual({
+        name: "Eddy",
+        species: "Bottlenose dolphin",
+      });
+    });
+
+    it("triggers delayed error callback when updating document fails", async () => {
+      const firestoreEmulator = getFirestore();
+      const handleDelayedError = jest.fn();
+      const datastore = new Datastore(
+        firestoreEmulator,
+        false,
+        handleDelayedError
+      );
+
+      datastore.updateDocByPath(`invalid-collection/123`, { location: "UK" });
+
+      await waitFor(() => {
+        const callArg = handleDelayedError.mock.calls[0][0];
+        expect(callArg.name).toEqual("FirebaseError");
+      });
+    });
+  });
 });

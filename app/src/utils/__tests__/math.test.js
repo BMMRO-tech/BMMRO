@@ -1,4 +1,4 @@
-import { roundNumber, appendZeros } from "../math";
+import { roundNumber, appendZeros, getModifiedProperties } from "../math";
 
 describe("math", () => {
   describe("roundNumber", () => {
@@ -18,6 +18,32 @@ describe("math", () => {
 
     it("also works for integers", () => {
       expect(appendZeros(2, 5)).toEqual("2.00000");
+    });
+  });
+
+  describe("getModifiedProperties", () => {
+    it("returns modified simple properties between original and modified object", () => {
+      const modified = { first: 1, second: 2 };
+      const original = { first: 1, second: 1 };
+
+      const changedValues = getModifiedProperties(modified, original);
+      expect(changedValues).toEqual({ second: 2 });
+    });
+
+    it("returns modified complex properties between original and modified object", () => {
+      const modified = {
+        first: 1,
+        second: { goodNums: [4, 5, 6], badNums: [1, 2, 3] },
+      };
+      const original = {
+        first: 1,
+        second: { goodNums: [4, 5, 6], badNums: [2, 2, 3] },
+      };
+
+      const changedValues = getModifiedProperties(modified, original);
+      expect(changedValues).toEqual({
+        second: { goodNums: [4, 5, 6], badNums: [1, 2, 3] },
+      });
     });
   });
 });

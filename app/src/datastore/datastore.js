@@ -56,6 +56,11 @@ export class Datastore {
     return this.createDoc(`${parentPath}/${subcollectionName}`, values);
   }
 
+  async updateDocByPath(path, values) {
+    const docRef = this.firestore.doc(path);
+    docRef.update(values).catch(this.handleDelayedError);
+  }
+
   async enableOfflineStorage() {
     try {
       await this.firestore.enablePersistence();

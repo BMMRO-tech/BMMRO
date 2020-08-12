@@ -5,7 +5,7 @@ service cloud.firestore {
     allow update, delete: if false;
     
     match /dolphin/{dolphinId} {
-      allow create, read: if request.auth != null && request.auth.uid == 'test-researcher';
+      allow create, read, update: if request.auth != null && request.auth.uid == 'test-researcher';
     }
     
     match /animal/{animalId} {

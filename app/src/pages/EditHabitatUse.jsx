@@ -9,6 +9,7 @@ import HabitatUseForm from "../components/HabitatUseForm";
 import Loader from "../components/Loader";
 import { generateOpenEncounterURL } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
+import { getModifiedProperties } from "../utils/math";
 
 const EditHabitatUse = ({ encounterId, habitatUseId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -16,7 +17,12 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
-    console.log(values);
+    const modifiedProperties = getModifiedProperties(values, initialValues);
+
+    datastore.updateDocByPath(
+      `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`,
+      modifiedProperties
+    );
   };
 
   useEffect(() => {
