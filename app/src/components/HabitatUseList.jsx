@@ -9,8 +9,9 @@ import {
   generateNewHabitatUseURL,
   generateEditHabitatURL,
 } from "../constants/routes";
-import Button from "../components/Button";
 import { RightArrow } from "./icons/RightArrow";
+import ListHeader from "./list/ListHeader";
+import Button from "../components/Button";
 
 const HabitatUseListItem = ({ content, encounterId }) => {
   const styles = {
@@ -50,15 +51,6 @@ const HabitatUseList = ({ items, encounterId }) => {
       padding: 0;
       margin: 0;
     `,
-    listHeader: css`
-      background: ${colors.lightTurqoise};
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: 55px;
-      padding: 15px 10px;
-      margin-top: 20px;
-    `,
     listContainer: css`
       min-height: 100px;
       background: white;
@@ -80,12 +72,11 @@ const HabitatUseList = ({ items, encounterId }) => {
 
   return (
     <Fragment>
-      <div css={styles.listHeader}>
-        <p>Habitat Use</p>
+      <ListHeader title="Habitat Use">
         <Link css={styles.link} to={generateNewHabitatUseURL(encounterId)}>
           <Button>+ New</Button>
         </Link>
-      </div>
+      </ListHeader>
       <div css={styles.listContainer}>
         {sortedItems.length === 0 ? (
           <p css={styles.noEntries}>No habitat use entries yet</p>
