@@ -73,3 +73,8 @@ npm test
 - Leading Zeros in Dates field is not selected
 
 8.  On the next page, select comma delimited and click the `First Row Contains Field Names` checkbox.
+
+## Notes
+
+A change in the Microsoft Access database without updating this export script accordingly might cause the import to fail. This change could be, for example, removing a field, changing the field type or validation (e.g., maximum length), ...
+Adding new fields to MS Access but not in Firestore, should not cause any issues. Exported records will just take the default values for those fields.
