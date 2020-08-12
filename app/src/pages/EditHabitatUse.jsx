@@ -21,6 +21,7 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
 
     datastore.updateDocByPath(habitatUsePath, modifiedProperties);
+    navigate(generateOpenEncounterURL(encounterId));
   };
 
   useEffect(() => {
