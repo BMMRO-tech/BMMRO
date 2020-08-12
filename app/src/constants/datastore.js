@@ -3,6 +3,14 @@ export const CollectionNames = {
   HABITAT_USE: "habitatUse",
 };
 
+export const generateEncounterPath = (id) => {
+  return `${CollectionNames.ENCOUNTER}/${id}`;
+};
+
+export const generateHabitatUsePath = (encounterId, habitatUseId) => {
+  return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`;
+};
+
 export const DatastoreErrorType = {
   INITIALIZATION: "initialization",
   UNKNOWN_OFFLINE_SUPPORT: "unknown-offline-support",

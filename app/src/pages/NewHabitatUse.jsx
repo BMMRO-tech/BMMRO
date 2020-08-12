@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 
 import { ROUTES } from "../constants/routes";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import { CollectionNames } from "../constants/datastore";
+import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { generateOpenEncounterURL } from "../constants/routes";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
@@ -13,13 +13,10 @@ import HabitatUseForm from "../components/HabitatUseForm";
 const NewHabitatUse = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
   const navigate = useNavigate();
+  const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (values) => {
-    datastore.createSubDoc(
-      `${CollectionNames.ENCOUNTER}/${encounterId}`,
-      CollectionNames.HABITAT_USE,
-      values
-    );
+    datastore.createSubDoc(encounterPath, CollectionNames.HABITAT_USE, values);
     navigate(generateOpenEncounterURL(encounterId));
   };
 
@@ -34,7 +31,7 @@ const NewHabitatUse = ({ encounterId }) => {
     };
 
     if (!!datastore) {
-      getEncounterData(`${CollectionNames.ENCOUNTER}/${encounterId}`);
+      getEncounterData(encounterPath);
     }
     // eslint-disable-next-line
   }, [datastore]);

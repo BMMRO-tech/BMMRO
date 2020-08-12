@@ -5,7 +5,7 @@ import { useNavigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { ROUTES } from "../constants/routes";
-import { CollectionNames } from "../constants/datastore";
+import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterOverview from "../components/EncounterOverview";
@@ -44,7 +44,7 @@ const OpenEncounter = ({ encounterId }) => {
     };
 
     if (!!datastore) {
-      getData(`${CollectionNames.ENCOUNTER}/${encounterId}`);
+      getData(generateEncounterPath(encounterId));
     }
     // eslint-disable-next-line
   }, [datastore]);

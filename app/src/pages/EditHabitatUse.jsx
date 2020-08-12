@@ -8,21 +8,19 @@ import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 import Loader from "../components/Loader";
 import { generateOpenEncounterURL } from "../constants/routes";
-import { CollectionNames } from "../constants/datastore";
+import { generateHabitatUsePath } from "../constants/datastore";
 import { getModifiedProperties } from "../utils/math";
 
 const EditHabitatUse = ({ encounterId, habitatUseId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
   const navigate = useNavigate();
+  const habitatUsePath = generateHabitatUsePath(encounterId, habitatUseId);
 
   const handleSubmit = (values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
 
-    datastore.updateDocByPath(
-      `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`,
-      modifiedProperties
-    );
+    datastore.updateDocByPath(habitatUsePath, modifiedProperties);
   };
 
   useEffect(() => {
@@ -36,9 +34,7 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
       }
     };
     if (!!datastore) {
-      getData(
-        `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`
-      );
+      getData(habitatUsePath);
     }
     // eslint-disable-next-line
   }, [datastore]);
