@@ -53,8 +53,8 @@ const HabitatUseList = ({ items, encounterId }) => {
               <ListItem
                 key={`habitatUseListItem-${item.id}`}
                 destinationUrl={generateEditHabitatURL(encounterId, item.id)}
-                primaryTimeInfo={item.data.startTime}
-                primaryContentInfo="Habitat Use"
+                primaryTime={item.data.startTime}
+                primaryContent="Habitat Use"
               />
             ))}
           </ul>

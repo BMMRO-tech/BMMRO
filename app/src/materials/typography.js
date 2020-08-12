@@ -9,10 +9,22 @@ const typography = {
     font-weight: 600;
     text-transform: uppercase;
   `,
-  text: css`
+  largeText: css`
     margin: 0;
     color: ${colors.darkGray};
     font-size: 18px;
+    font-weight: 500;
+  `,
+  mediumText: css`
+    margin: 0;
+    color: ${colors.darkGray};
+    font-size: 16px;
+    font-weight: 400;
+  `,
+  smallText: css`
+    margin: 0;
+    color: ${colors.darkGray};
+    font-size: 14px;
     font-weight: 400;
   `,
   caption: css`

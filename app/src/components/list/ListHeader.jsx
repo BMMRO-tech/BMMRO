@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/core";
 
 import colors from "../../materials/colors";
+import typography from "../../materials/typography";
 
 const ListHeader = ({ title, children }) => {
   const styles = {
@@ -17,7 +18,7 @@ const ListHeader = ({ title, children }) => {
   };
   return (
     <div css={styles.listHeader}>
-      <p>{title}</p>
+      <p css={typography.largeText}>{title}</p>
       {children}
     </div>
   );

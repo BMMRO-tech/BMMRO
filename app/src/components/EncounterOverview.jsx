@@ -31,7 +31,7 @@ const EncounterOverview = ({ encounter }) => {
           </span>
           <span css={styles.title}>{encounter.species}</span>
         </h1>
-        <h2 css={typography.text}>{encounter.area}</h2>
+        <h2 css={typography.largeText}>{encounter.area}</h2>
       </div>
     </div>
   );
