@@ -146,6 +146,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   labelText="Distance (m)"
                   minValue={0}
                   maxValue={9999}
+                  isInteger
                   isShort
                 />
                 <NumberInput
@@ -153,6 +154,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   labelText="Bearing (°)"
                   minValue={0}
                   maxValue={360}
+                  isInteger
                   isShort
                 />
                 <NumberInput
@@ -160,6 +162,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   labelText="Aspect (°)"
                   minValue={0}
                   maxValue={360}
+                  isInteger
                   isShort
                 />
                 <Select
@@ -170,7 +173,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                 <TextInput
                   name="groupComposition"
                   labelText="Group composition"
-                  maxLength={100}
+                  maxLength={255}
                   isShort
                 />
                 <NumberInput

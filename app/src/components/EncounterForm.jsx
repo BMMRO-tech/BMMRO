@@ -336,8 +336,9 @@ const EncounterForm = ({ handleSubmit }) => {
                   name="encounterNumber"
                   labelText="Encounter number"
                   minValue={1}
-                  maxValue={9999}
+                  maxValue={999}
                   isShort
+                  isInteger
                 />
                 <TimeInput
                   name="startTime"

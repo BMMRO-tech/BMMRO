@@ -39,6 +39,8 @@ const ElapsedTime = () => {
         {...field}
         name="elapsedTime"
         labelText="Elapsed time (mins)"
+        minValue={0}
+        maxValue={1440}
         isShort
         isInteger
       />
