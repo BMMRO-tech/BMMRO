@@ -3,46 +3,13 @@ import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
 import { Link } from "@reach/router";
 
-import colors from "../materials/colors";
-import typography from "../materials/typography";
 import {
   generateNewHabitatUseURL,
   generateEditHabitatURL,
 } from "../constants/routes";
-import { RightArrow } from "./icons/RightArrow";
 import ListHeader from "./list/ListHeader";
 import Button from "../components/Button";
-
-const HabitatUseListItem = ({ content, encounterId }) => {
-  const styles = {
-    container: css`
-      ${typography.text}
-      padding: 20px 0px;
-      border-bottom: 1px solid ${colors.lightGray};
-      display: flex;
-      align-items: center;
-    `,
-    time: css`
-      margin: 0px 20px;
-    `,
-    link: css`
-      text-decoration: none;
-      margin-left: auto;
-    `,
-  };
-  return (
-    <Link
-      css={styles.link}
-      to={generateEditHabitatURL(encounterId, content.id)}
-    >
-      <li css={styles.container} data-testid="habitat-use-list-item">
-        <span css={styles.time}>{content.data.startTime}</span>
-        <span>Habitat Use</span>
-        <RightArrow />
-      </li>
-    </Link>
-  );
-};
+import ListItem from "./list/ListItem";
 
 const HabitatUseList = ({ items, encounterId }) => {
   const styles = {
@@ -83,10 +50,11 @@ const HabitatUseList = ({ items, encounterId }) => {
         ) : (
           <ul css={styles.list}>
             {sortedItems.map((item) => (
-              <HabitatUseListItem
+              <ListItem
                 key={`habitatUseListItem-${item.id}`}
-                content={item}
-                encounterId={encounterId}
+                destinationUrl={generateEditHabitatURL(encounterId, item.id)}
+                primaryTimeInfo={item.data.startTime}
+                primaryContentInfo="Habitat Use"
               />
             ))}
           </ul>

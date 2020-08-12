@@ -9,9 +9,9 @@ describe("HabitatUseList", () => {
       { data: { startTime: "11:10" }, id: "456" },
       { data: { startTime: "11:20" }, id: "789" },
     ];
-    const { queryAllByTestId } = render(<HabitatUseList items={items} />);
+    const { queryAllByRole } = render(<HabitatUseList items={items} />);
 
-    const actual = queryAllByTestId("habitat-use-list-item");
+    const actual = queryAllByRole("listitem");
 
     expect(actual[0]).toHaveTextContent("11:20");
     expect(actual[1]).toHaveTextContent("11:10");
