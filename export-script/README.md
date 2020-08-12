@@ -77,4 +77,4 @@ npm test
 ## Notes
 
 A change in the Microsoft Access database without updating this export script accordingly might cause the import to fail. This change could be, for example, removing a field, changing the field type or validation (e.g., maximum length), ...
-Adding new fields to MS Access but not in Firestore, should not cause any issues. Exported records will just take the default values for those fields.
+Adding new fields to MS Access but not in Firestore, should not cause any issues. Imported records will just take the default values for those fields.
