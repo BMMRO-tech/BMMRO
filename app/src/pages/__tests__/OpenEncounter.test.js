@@ -47,24 +47,4 @@ describe("OpenEncounter", () => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
   });
-
-  it("stays on the same page if an encounter is found in firestore for a given ID", async () => {
-    const { id } = await firestoreEmulator
-      .collection("encounter")
-      .add({ name: "Barney", species: "Bottlenose dolphin" });
-
-    const actualPath = `/encounters/${id}/habitat-uses`;
-
-    const { history } = renderWithMockContexts(
-      <OpenEncounter encounterId={id} />,
-      {
-        datastore,
-        route: actualPath,
-      }
-    );
-
-    await waitFor(() => {
-      expect(history.location.pathname).toEqual(actualPath);
-    });
-  });
 });

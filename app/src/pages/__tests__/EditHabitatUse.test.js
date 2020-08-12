@@ -52,29 +52,4 @@ describe("EditHabitatUse", () => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
   });
-
-  it("stays on the same page if an encounter is found in firestore for a given ID", async () => {
-    const { id: encounterId } = await firestoreEmulator
-      .collection("encounter")
-      .add({ name: "Barney", species: "Bottlenose dolphin" });
-
-    const { id: habitatUseId } = await firestoreEmulator
-      .doc(`encounter/${encounterId}`)
-      .collection("habitatUse")
-      .add({ age: "young", behaviour: "adventurous" });
-
-    const actualPath = `/encounters/${encounterId}/habitat-uses/${habitatUseId}/edit`;
-
-    const { history } = renderWithMockContexts(
-      <EditHabitatUse encounterId={encounterId} habitatUseId={habitatUseId} />,
-      {
-        datastore,
-        route: actualPath,
-      }
-    );
-
-    await waitFor(() => {
-      expect(history.location.pathname).toEqual(actualPath);
-    });
-  });
 });
