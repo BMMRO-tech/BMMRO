@@ -1,17 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Fragment } from "react";
-import { Link } from "@reach/router";
 
-import {
-  generateNewHabitatUseURL,
-  generateEditHabitatURL,
-} from "../constants/routes";
 import ListHeader from "./list/ListHeader";
-import Button from "../components/Button";
 import ListItem from "./list/ListItem";
 
-const HabitatUseList = ({ items, encounterId }) => {
+const EncounterList = ({ title, items }) => {
   const styles = {
     list: css`
       list-style-type: none;
@@ -19,11 +13,10 @@ const HabitatUseList = ({ items, encounterId }) => {
       margin: 0;
     `,
     listContainer: css`
-      min-height: 100px;
       background: white;
     `,
     noEntries: css`
-      margin: 20px;
+      padding: 20px;
       font-style: italic;
     `,
     link: css`
@@ -39,22 +32,20 @@ const HabitatUseList = ({ items, encounterId }) => {
 
   return (
     <Fragment>
-      <ListHeader title="Habitat Use">
-        <Link css={styles.link} to={generateNewHabitatUseURL(encounterId)}>
-          <Button>+ New</Button>
-        </Link>
-      </ListHeader>
+      <ListHeader title={title} />
       <div css={styles.listContainer}>
         {sortedItems.length === 0 ? (
-          <p css={styles.noEntries}>No habitat use entries yet</p>
+          <div css={styles.noEntries}>No encounters yet</div>
         ) : (
           <ul css={styles.list}>
             {sortedItems.map((item) => (
               <ListItem
                 key={item.id}
-                destinationUrl={generateEditHabitatURL(encounterId, item.id)}
-                primaryTime={item.data.startTime}
-                primaryContent="Habitat Use"
+                destinationUrl=""
+                primaryTime="01"
+                secondaryTime="Aug"
+                primaryContent="S02 Sperm Whale"
+                secondaryContent="North Grand Bahama"
               />
             ))}
           </ul>
@@ -64,4 +55,4 @@ const HabitatUseList = ({ items, encounterId }) => {
   );
 };
 
-export default HabitatUseList;
+export default EncounterList;

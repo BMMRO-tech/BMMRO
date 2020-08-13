@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import { FirebaseContextProvider } from "./firebaseContext/firebaseContext";
 import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
 import EditHabitatUse from "./pages/EditHabitatUse";
+import Encounters from "./pages/Encounters";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -23,6 +24,7 @@ const AppWithoutContext = () => {
       <OpenEncounter path={ROUTES.openEncounter} />
       <NewHabitatUse path={ROUTES.newHabitatUse} />
       <EditHabitatUse path={ROUTES.editHabitatUse} />
+      <Encounters path="/mango" />
     </Router>
   );
 };
