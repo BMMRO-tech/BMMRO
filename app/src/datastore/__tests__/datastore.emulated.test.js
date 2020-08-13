@@ -27,12 +27,14 @@ describe("datastore", () => {
       ),
     });
   });
-  afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
-  });
+
   beforeEach(
     async () => await firebaseTesting.clearFirestoreData({ projectId })
   );
+
+  afterAll(async () => {
+    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+  });
 
   describe("#readDocByPath", () => {
     it("successfully reads document with path", async () => {
