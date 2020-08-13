@@ -4,7 +4,6 @@
   "description": "BMMRO scripts",
   "main": "export-data.js",
   "scripts": {
-    "start": "node ./index.js",
     "test": "firebase emulators:exec --only firestore 'jest ./src --runInBand'"
   },
   "author": "",
