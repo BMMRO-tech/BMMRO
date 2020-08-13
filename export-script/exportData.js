@@ -63,7 +63,6 @@ const exportData = async (startDateArg, endDateArg, options) => {
     );
     habitatUseEntries.push(...habitatUse);
   }
-  if (habitatUseEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
   logSection("Transforming to csv format");
   const extendedHabitatUseEntries = populateCollectionValues(
@@ -73,10 +72,14 @@ const exportData = async (startDateArg, endDateArg, options) => {
   );
 
   const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
-  const csvHabitatUse = transformJsonToCsv(
-    extendedHabitatUseEntries,
-    config.habitatUse
-  );
+
+  let csvHabitatUse;
+  if (!!habitatUseEntries.length) {
+    csvHabitatUse = transformJsonToCsv(
+      extendedHabitatUseEntries,
+      config.habitatUse
+    );
+  }
 
   if (options.mark) {
     logSection("Marking records as exported");
@@ -103,14 +106,20 @@ const exportData = async (startDateArg, endDateArg, options) => {
     endDate
   );
 
-  const habitatUseFileName = generateFilename(
-    habitatUseSubcollection,
-    startDate,
-    endDate
-  );
+  let habitatUseFileName;
+  if (!!habitatUseEntries.length) {
+    habitatUseFileName = generateFilename(
+      habitatUseSubcollection,
+      startDate,
+      endDate
+    );
+  }
 
   writeDataToFile(dirName, encountersFileName, csvEncounters);
-  writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
+
+  if (!!habitatUseEntries.length) {
+    writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
+  }
 
   logAndExit("\nScript complete!");
 };
