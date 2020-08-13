@@ -16,13 +16,9 @@ const run = async (action) => {
       false
     )
     .option(
-      "-m, --mark",
-      "mark exported entries as exported in the firestore database",
-      true
-    )
-    .option(
       "--no-mark",
-      "don't mark exported entries as exported in the firestore database"
+      "don't mark exported entries as exported in the firestore database",
+      false
     )
     .action(action);
 
