@@ -7,8 +7,8 @@ This template should be used when we make significant changes to the app and we 
 
 Hello BMMRO team,
 
-we've just released a new version of the BMMRO web app that contains significant changes.
-Here are the steps needed in order to get the new version on your browser:
+We've just released a new version of the BMMRO web app that contains significant changes.
+Here are the steps needed in order to get the new version:
 
 - If you are using Chrome or Safari browsers on a desktop, or Chrome browser on an Android device: reload/refresh the page, close the tab and open it again.
 
