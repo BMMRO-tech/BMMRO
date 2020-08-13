@@ -68,6 +68,7 @@ npm test
 
 - Date Order is set to `MDY`
 - Date Delimiter is set to `/`
+- Text Qualifier is set to `"`
 - Time Delimiter is set to `:`
 - Four Digit Years checkbox is selected
 - Leading Zeros in Dates field is not selected
