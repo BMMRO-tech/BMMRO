@@ -18,9 +18,9 @@ const ListItem = ({
     container: css`
       ${typography.mediumText}
       padding: 20px;
-      border-bottom: 1px solid ${colors.lightGray};
       display: flex;
       align-items: center;
+      border-bottom: 1px solid ${colors.lightGray};
     `,
     timeContainer: css`
       display: flex;

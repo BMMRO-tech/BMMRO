@@ -59,6 +59,31 @@ const utilities = {
       }
     `,
   },
+  list: {
+    items: css`
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      a:last-child {
+        li {
+          border-bottom: none;
+        }
+      }
+    `,
+    container: css`
+      background: white;
+    `,
+    noEntries: css`
+      padding: 20px;
+      font-style: italic;
+    `,
+    link: css`
+      text-decoration: none;
+      margin-left: auto;
+      min-height: 44px;
+    `,
+  },
 };
 
 export default utilities;

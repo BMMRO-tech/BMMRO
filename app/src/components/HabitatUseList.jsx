@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import { Fragment } from "react";
 import { Link } from "@reach/router";
 
+import utilities from "../materials/utilities";
 import {
   generateNewHabitatUseURL,
   generateEditHabitatURL,
@@ -12,27 +13,6 @@ import Button from "../components/Button";
 import ListItem from "./list/ListItem";
 
 const HabitatUseList = ({ items, encounterId }) => {
-  const styles = {
-    list: css`
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    `,
-    listContainer: css`
-      min-height: 100px;
-      background: white;
-    `,
-    noEntries: css`
-      margin: 20px;
-      font-style: italic;
-    `,
-    link: css`
-      text-decoration: none;
-      margin-left: auto;
-      min-height: 44px;
-    `,
-  };
-
   const sortedItems = items.sort((a, b) =>
     b.data.startTime.localeCompare(a.data.startTime)
   );
@@ -40,15 +20,18 @@ const HabitatUseList = ({ items, encounterId }) => {
   return (
     <Fragment>
       <ListHeader title="Habitat Use">
-        <Link css={styles.link} to={generateNewHabitatUseURL(encounterId)}>
+        <Link
+          css={utilities.list.link}
+          to={generateNewHabitatUseURL(encounterId)}
+        >
           <Button>+ New</Button>
         </Link>
       </ListHeader>
-      <div css={styles.listContainer}>
+      <div css={utilities.list.container}>
         {sortedItems.length === 0 ? (
-          <p css={styles.noEntries}>No habitat use entries yet</p>
+          <p css={utilities.list.noEntries}>No habitat use entries yet</p>
         ) : (
-          <ul css={styles.list}>
+          <ul css={utilities.list.items}>
             {sortedItems.map((item) => (
               <ListItem
                 key={item.id}

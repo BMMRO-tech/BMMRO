@@ -1,57 +1,51 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Fragment } from "react";
-
-import ListHeader from "./list/ListHeader";
+import { jsx, css } from "@emotion/core";
+import colors from "../materials/colors";
+import typography from "../materials/typography";
+import utilities from "../materials/utilities";
 import ListItem from "./list/ListItem";
 
-const EncounterList = ({ title, items }) => {
+const EncounterList = ({ items }) => {
   const styles = {
-    list: css`
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    `,
-    listContainer: css`
-      background: white;
-    `,
-    noEntries: css`
-      padding: 20px;
-      font-style: italic;
-    `,
-    link: css`
-      text-decoration: none;
-      margin-left: auto;
-      min-height: 44px;
+    section: css`
+      background-color: ${colors.lightestTurquoise};
+      ${typography.mediumText}
+      padding-left: 10px;
     `,
   };
 
-  const sortedItems = items.sort((a, b) =>
-    b.data.startTime.localeCompare(a.data.startTime)
-  );
+  const sortedItems = !!items.entries.length
+    ? items.entries.sort(
+        (a, b) => b.data.startTimestamp - a.data.startTimestamp
+      )
+    : [];
 
   return (
-    <Fragment>
-      <ListHeader title={title} />
-      <div css={styles.listContainer}>
-        {sortedItems.length === 0 ? (
-          <div css={styles.noEntries}>No encounters yet</div>
-        ) : (
-          <ul css={styles.list}>
-            {sortedItems.map((item) => (
-              <ListItem
-                key={item.id}
-                destinationUrl=""
-                primaryTime="01"
-                secondaryTime="Aug"
-                primaryContent="S02 Sperm Whale"
-                secondaryContent="North Grand Bahama"
-              />
-            ))}
-          </ul>
-        )}
-      </div>
-    </Fragment>
+    <ul css={utilities.list.items}>
+      {!!items.sectionTitle && (
+        <div css={styles.section}>{items.sectionTitle}</div>
+      )}
+      {!sortedItems.length ? (
+        <div css={utilities.list.noEntries}>No encounters yet</div>
+      ) : (
+        sortedItems.map((entry) => {
+          const { startTimestamp, sequenceNumber, species, area } = entry.data;
+
+          return (
+            <ListItem
+              key={entry.id}
+              destinationUrl=""
+              primaryTime={startTimestamp.getDate().toString().padStart(2, "0")}
+              secondaryTime={startTimestamp.toLocaleString("default", {
+                month: "short",
+              })}
+              primaryContent={`${sequenceNumber} ${species}`}
+              secondaryContent={area}
+            />
+          );
+        })
+      )}
+    </ul>
   );
 };
 
