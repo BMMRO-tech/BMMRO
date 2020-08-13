@@ -7,7 +7,7 @@ import typography from "../../materials/typography";
 const ListHeader = ({ title, children }) => {
   const styles = {
     listHeader: css`
-      background: ${colors.lightTurqoise};
+      background: ${colors.lightTurquoise};
       display: flex;
       align-items: center;
       width: 100%;
