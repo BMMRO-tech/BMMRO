@@ -3,7 +3,6 @@ import { Formik, Form } from "formik";
 import { jsx } from "@emotion/core";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
-import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import PositionInput from "./formFields/PositionInput/PositionInput";
@@ -170,7 +169,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   labelText="Group cohesion"
                   options={groupCohesion}
                 />
-                <TextInput
+                <TextAreaInput
                   name="groupComposition"
                   labelText="Group composition"
                   maxLength={255}
