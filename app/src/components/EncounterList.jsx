@@ -5,8 +5,9 @@ import ListSubheader from "./list/ListSubheader";
 import ListItem from "./list/ListItem";
 import utilities from "../materials/utilities";
 import ListHeader from "./list/ListHeader";
+import LoadMoreButton from "./list/LoadMoreButton";
 
-const EncounterList = ({ title, items }) => {
+const EncounterList = ({ title, items, loadMore }) => {
   return (
     <Fragment>
       <ListHeader title={title} />
@@ -52,6 +53,7 @@ const EncounterList = ({ title, items }) => {
             </ul>
           ))
         )}
+        {loadMore ? <LoadMoreButton handleClick={loadMore} /> : null}
       </div>
     </Fragment>
   );

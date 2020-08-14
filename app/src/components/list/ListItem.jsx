@@ -17,7 +17,7 @@ const ListItem = ({
   const styles = {
     container: css`
       ${typography.mediumText}
-      padding: 20px;
+      padding: 16px;
       display: flex;
       align-items: center;
       border-bottom: 1px solid ${colors.lightGray};
