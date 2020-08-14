@@ -1,58 +1,89 @@
 <img src="./logo_v2.png" width="100" style=" display: block;margin-left: auto;margin-right: auto;" alt="BMMRO logo">
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 # Bahamas Marine Mammal Research Organization (BMMRO)
 
 ## Overview
+
 Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull, but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. This page is here because we believe technology can help them better than it currently is. Join us...
 
 ## About them
-- Website:	 http://www.bahamaswhales.org/home.aspx
-- Facebook: 	www.facebook.com/BMMRO
-- Instagram: 	[@BMMRO](https://www.instagram.com/bmmro/)
-- Twitter: 	[@BMMRO](https://twitter.com/BMMRO)
+
+- Website: http://www.bahamaswhales.org/home.aspx
+- Facebook: www.facebook.com/BMMRO
+- Instagram: [@BMMRO](https://www.instagram.com/bmmro/)
+- Twitter: [@BMMRO](https://twitter.com/BMMRO)
 - [Publications](https://bit.ly/35cssEW)
 
 ## About us
+
 We are passionate about technology. We understand that the system that protects us, doesnt protect all. We are a subsystem within a system that reaches out to correct the problems caused by the system, which we are part of. Its complicated.
 
 ## Mission
+
 - Amplify BMMRO's positive impact by applying our technical skill
 
 ## Philosophy
+
 - Thin vertical slices
 - Automated all the things, if it builds we ship it
 - Pave the way for new contribution with beautiful code and documentation
-- (...more)
 
 ## Onboarding Pathway
+
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
 - [Current “As Is” infographic](As%20Is%20InfoGraphic.png)
 - [Habitiat Use Data Sheet, example of the most frequently used form on boat excurtions](HabitatUseDataSheet.JPG)
 - [Encounter Sighting Data Sheet](EncounterSightingDataSheet.JPG)
-- [Kanban board](https://github.com/JBJamesBrownJB/BMMRO/projects/1)
-- [Contributing guidelines](https://github.com/JBJamesBrownJB/BMMRO/blob/master/CONTRIBUTING.md)
+- [Kanban board](https://github.com/BMMRO-tech/BMMRO/projects/1)
+- [Contributing guidelines](https://github.com/BMMRO-tech/BMMRO/blob/master/CONTRIBUTING.md)
+- [Google drive](https://drive.google.com/drive/folders/158V1HhQiZe8HlKXTzOMhXw2lyf51NNlc?usp=sharing)
 
 ## Milestones
-- ✅**Inception**
-- ✅**As-is inforgraphic**
-Gather information about the current “as-is” technology and processes being used
-- 🚦**HUDS** (Habitat Use Data Sheet)
-Build an application to improve the data gathered about habitats whilst researchers are on boat surveys. By the end of this milestone, they should be using a browser based UI (PWA?) to gather data for habitats from typical consumer devices (smart phones, pads, laptops), it should be stored securely on the cloud and accessible to export for use in their current R based analytics workflow
-- 🚦**ESDS** (Encounter Sighting Data Sheet)
-This will extend the application to enable capturing encounter data when marine wildlife is sighted on boat trips
-- 🚦**Data Migration Tool**
-This will provide a tool to migrate data from their current MS Access database to the new data store. It should be idempotent to allow for multiple migrations without data corruption or duplication and thus allowing old and new world to co-exist
-- 🚦**Media Link**
-Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data can be linked, in a meaningful way, to the HUDS and ESDS data. Look for opportunities to improve the gathering of this data along the way
-- 🚦**TBC**
-Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
 
-# Documents and repositories: 
-[Google drive](https://drive.google.com/drive/folders/158V1HhQiZe8HlKXTzOMhXw2lyf51NNlc?usp=sharing)
-... If you do not have access to any of the above, email oktawia.kata@thoughtworks.com or james.brown@thoughtworks.com
+### Stage 1 ✅
+
+#### APP FUNCTIONALITY
+
+- Basic EDS structure (key fields) with create full HUDS form and view list of created HUDS for an encounter
+- Export EDS and HUDS
+- Individual user accounts
+
+#### PRODUCTION READINESS / CFRs
+
+- User and DB authentication
+- Back-up strategy (Export to csv)
+- Production and test environments
+
+### Stage 2 🔄
+
+#### APP FUNCTIONALITY
+
+- View list of all encounters for preceding 12 months
+- View list of habitat forms within an encounter
+- Edit habitats (prior to export)
+- Edit encounters (prior to export)
+- View habitats (post export)
+- View encounters (post export)
+- Mark exported records as non-editable
+- Add version numbers to app
+- Improve usability
+- Post testing changes to form fields
+- User friendly exporting
+
+## Future ideas
+
+- 🚦**Data Migration Tool**
+  This will provide a tool to migrate data from their current MS Access database to the new data store. It should be idempotent to allow for multiple migrations without data corruption or duplication and thus allowing old and new world to co-exist
+- 🚦**Media Link**
+  Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data can be linked, in a meaningful way, to the HUDS and ESDS data. Look for opportunities to improve the gathering of this data along the way
+- 🚦**TBC**
+  Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
 
 # Repository maintenance
 
@@ -60,19 +91,22 @@ Potential future work could be further app improvements, more accessible or soph
 
 This project has dedicated maintainers to keep this project running smoothly. We will do our best to review and merge PRs quickly, and respond to issues within 5 days, barring unforeseen circumstances.
 
-**Maintainers:** 
+**Maintainers:**
+
 - [James Brown](https://github.com/JBJamesBrownJB)
 - [Oktawia Kata](https://github.com/aiwatko)
 
 # Inspiration
+
 - https://www.flukebook.org/
 - https://patternradio.withgoogle.com/
 
 ## Primary Contacts:
+
 - James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
-- Charlotte Dunn, PhD (BMMRO):  cdunn@bahamaswhales.org
+- Charlotte Dunn, PhD (BMMRO): cdunn@bahamaswhales.org
 - Thomas Brown, client Product Owner (BMMRO): motnworb@hotmail.com
-- Oktawia Kata, Technical Lead (TW): oktawia.kata@thoughtworks.com 
+- Oktawia Kata, Technical Lead (TW): oktawia.kata@thoughtworks.com
 - Team: bahamas-marine-mammal-research-organization@thoughtworks.com
 
 ## Contributors ✨
@@ -100,6 +134,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
