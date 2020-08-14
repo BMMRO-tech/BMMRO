@@ -24,11 +24,11 @@ We are passionate about technology. We understand that the system that protects 
 
 ## Mission
 
-- Amplify BMMRO's positive impact by applying our technical skill
+- Amplify BMMRO's positive impact by applying our technical skills
 
 ## Philosophy
 
-- Thin vertical slices
+- Thin vertical slices of work
 - Automated all the things, if it builds we ship it
 - Pave the way for new contribution with beautiful code and documentation
 
@@ -48,8 +48,8 @@ We are passionate about technology. We understand that the system that protects 
 
 #### APP FUNCTIONALITY
 
-- Basic EDS structure (key fields) with create full HUDS form and view list of created HUDS for an encounter
-- Export EDS and HUDS
+- Basic Encounter form structure (key fields) with create full Habitat use form and view list of created Habitat use for for an encounter
+- Export Encounter and Habitat use forms
 - Individual user accounts
 
 #### PRODUCTION READINESS / CFRs
@@ -64,14 +64,14 @@ We are passionate about technology. We understand that the system that protects 
 
 - View list of all encounters for preceding 12 months
 - View list of habitat forms within an encounter
-- Edit habitats (prior to export)
-- Edit encounters (prior to export)
-- View habitats (post export)
-- View encounters (post export)
+- Edit habitat use forms (prior to export)
+- Edit encounter forms (prior to export)
+- View habitat use forms (post export)
+- View encounter forms (post export)
 - Mark exported records as non-editable
 - Add version numbers to app
-- Improve usability
-- Post testing changes to form fields
+- Improve usability for the webapp
+- Post-user testing changes to form fields
 - User friendly exporting
 
 ## Future ideas
@@ -79,7 +79,7 @@ We are passionate about technology. We understand that the system that protects 
 - 🚦**Data Migration Tool**
   This will provide a tool to migrate data from their current MS Access database to the new data store. It should be idempotent to allow for multiple migrations without data corruption or duplication and thus allowing old and new world to co-exist
 - 🚦**Media Link**
-  Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data can be linked, in a meaningful way, to the HUDS and ESDS data. Look for opportunities to improve the gathering of this data along the way
+  Research, incept and build on the existing system to allow their extensive collection of media (images, video, audio) data can be linked, in a meaningful way, to an encounter. Look for opportunities to improve the gathering of this data along the way. Evolving into managing these forms (edit & view) within the webapp.
 - 🚦**TBC**
   Potential future work could be further app improvements, more accessible or sophisticated data analysis, website improvements, integrating data into their website.
 
