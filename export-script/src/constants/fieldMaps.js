@@ -1,4 +1,5 @@
 const convertUnixTimestampToMDY = require("../convertUnixTimestampToMDY");
+const convertWaveHeightOption = require("../convertWaveHeightOption");
 const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
@@ -71,7 +72,10 @@ module.exports = {
     "Tide state": { key: "tideState" },
     Behaviour: { key: "behaviour" },
     "Number of boats": { key: "numberOfBoats" },
-    "Wave Height": { key: "swellWaveHeight" },
+    "Wave Height": {
+      key: "swellWaveHeight",
+      transform: convertWaveHeightOption,
+    },
     DOT: { key: "directionOfTravel" },
     "Surfacing Bout": { key: "surfaceBout" },
     "Bearing (relative )": { key: "bearing" },
