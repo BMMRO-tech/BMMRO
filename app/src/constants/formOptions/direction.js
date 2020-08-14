@@ -1,1 +1,21 @@
-export default ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+export default [
+  "E",
+  "ENE",
+  "ESE",
+  "N",
+  "NE",
+  "NNE",
+  "NNW",
+  "NW",
+  "Not Directional",
+  "Not Noted",
+  "S",
+  "SE",
+  "SSE",
+  "SSW",
+  "SW",
+  "Stationary",
+  "W",
+  "WNW",
+  "WSW",
+];
