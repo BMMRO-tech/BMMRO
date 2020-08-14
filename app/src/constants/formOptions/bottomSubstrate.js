@@ -6,4 +6,5 @@ export default [
   "Silt/Mud",
   "Seagrass",
   "Unknown",
+  "Not Noted",
 ];

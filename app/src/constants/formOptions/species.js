@@ -17,6 +17,7 @@ export default [
   "Melon-headed whale",
   "Minke whale",
   "Northern bottlenose whale",
+  "Not Noted",
   "Pan-tropical spotted dolphin",
   "Pygmy killer whale",
   "Pygmy sperm whale",

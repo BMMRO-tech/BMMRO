@@ -1,1 +1,1 @@
-export default ["Tight", "Moderate", "Loose"];
+export default ["Tight", "Moderate", "Loose", "Not Noted"];
