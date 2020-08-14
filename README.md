@@ -1,7 +1,7 @@
 <img src="./logo_v2.png" width="100" style=" display: block;margin-left: auto;margin-right: auto;" alt="BMMRO logo">
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Bahamas Marine Mammal Research Organization (BMMRO)
@@ -128,6 +128,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/flaviarodriguesf"><img src="https://avatars1.githubusercontent.com/u/9823979?v=4" width="100px;" alt=""/><br /><sub><b>Flávia Falé</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=flaviarodriguesf" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/rahul-rakshit"><img src="https://avatars1.githubusercontent.com/u/36737963?v=4" width="100px;" alt=""/><br /><sub><b>Rahul Rakshit</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=rahul-rakshit" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/lroyTW"><img src="https://avatars2.githubusercontent.com/u/4237356?v=4" width="100px;" alt=""/><br /><sub><b>lroyTW</b></sub></a><br /><a href="#business-lroyTW" title="Business development">💼</a></td>
+    <td align="center"><a href="https://github.com/jhughes-tw"><img src="https://avatars3.githubusercontent.com/u/28755518?v=4" width="100px;" alt=""/><br /><sub><b>jhughes-tw</b></sub></a><br /><a href="#design-jhughes-tw" title="Design">🎨</a></td>
   </tr>
 </table>
 
