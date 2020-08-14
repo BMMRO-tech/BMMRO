@@ -4,7 +4,7 @@ import { Link } from "@reach/router";
 
 import colors from "../materials/colors";
 import Layout from "../components/Layout";
-import EncounterListContainer from "../components/EncounterListContainer";
+import EncounterList from "../components/EncounterList";
 import Button from "../components/Button";
 import { ROUTES } from "../constants/routes";
 
@@ -123,7 +123,8 @@ const mockTodayData = [
 
 const mockPreviousData = [
   {
-    sectionTitle: "July 2020",
+    month: "August",
+    year: 2020,
     entries: [
       {
         id: "55a5GnQinPGq9H8x0gRO",
@@ -234,7 +235,8 @@ const mockPreviousData = [
     ],
   },
   {
-    sectionTitle: "June 2020",
+    month: "June",
+    year: 2020,
     entries: [
       {
         id: "Phqc0OgG1Qac9qqo72ka",
@@ -451,9 +453,10 @@ const mockPreviousData = [
       },
     ],
   },
-  { sectionTitle: "May 2020", entries: [] },
+  { month: "May", year: 2020, entries: [] },
   {
-    sectionTitle: "April 2020",
+    month: "April",
+    year: 2020,
     entries: [
       {
         id: "dd3X7JCm9ZeNy6HFPCyC",
@@ -596,11 +599,8 @@ const Encounters = () => {
           <Button>+ New</Button>
         </Link>
       </div>
-      <EncounterListContainer title="Today" items={mockTodayData} />
-      <EncounterListContainer
-        title="Previous encounters"
-        items={mockPreviousData}
-      />
+      <EncounterList title="Today" items={mockTodayData} />
+      <EncounterList title="Previous encounters" items={mockPreviousData} />
     </Layout>
   );
 };
