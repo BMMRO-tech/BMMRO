@@ -7,7 +7,9 @@ const mapFields = (data, config) => {
       const fieldValue = fieldConfig.transform
         ? fieldConfig.transform(entry[fieldConfig.key])
         : entry[fieldConfig.key];
-      transformedEntry[finalFieldName] = fieldValue || "";
+
+      transformedEntry[finalFieldName] =
+        fieldValue === undefined ? "" : fieldValue;
     });
     return transformedEntry;
   });

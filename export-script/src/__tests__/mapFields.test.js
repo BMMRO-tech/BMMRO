@@ -78,4 +78,18 @@ describe("mapFields", () => {
       { A: 7, B: 8, C: 9, D: "" },
     ]);
   });
+
+  it("does not convert 0 to empty string", () => {
+    const testData = [{ a: 1, b: 0, c: undefined }];
+    const config = {
+      A: { key: "a" },
+      B: { key: "b" },
+      C: { key: "c" },
+      D: { key: "" },
+    };
+
+    const mappedFields = mapFields(testData, config);
+
+    expect(mappedFields).toEqual([{ A: 1, B: 0, C: "", D: "" }]);
+  });
 });
