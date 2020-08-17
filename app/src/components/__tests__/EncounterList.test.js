@@ -39,7 +39,7 @@ describe("EncounterList", () => {
   });
 
   it("displays enocounter forms over multiple months", () => {
-    const { queryAllByRole, getByT } = render(
+    const { queryAllByRole } = render(
       <EncounterList title="Previous Encounters" items={mockMultiMonthData} />
     );
 

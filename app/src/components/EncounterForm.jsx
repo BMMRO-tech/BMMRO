@@ -24,6 +24,7 @@ import {
   RESEARCH_ASSISTANT,
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
+import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 
 const EncounterForm = ({ handleSubmit }) => {
   const transformSubmitValues = (values) => {
@@ -327,7 +328,9 @@ const EncounterForm = ({ handleSubmit }) => {
                   isShort
                   autofill
                   notBefore={values.startTimestamp}
-                  notAfter={add(new Date(values.startTimestamp), { hours: 72 })}
+                  notAfter={add(new Date(values.startTimestamp), {
+                    hours: THREE_DAYS_IN_HOURS,
+                  })}
                 />
                 <TimeInput
                   name="endTime"
@@ -340,7 +343,7 @@ const EncounterForm = ({ handleSubmit }) => {
                   )}
                   notAfter={add(
                     calculateDateTime(values.startTimestamp, values.startTime),
-                    { hours: 72 }
+                    { hours: THREE_DAYS_IN_HOURS }
                   )}
                 />
                 <Select
