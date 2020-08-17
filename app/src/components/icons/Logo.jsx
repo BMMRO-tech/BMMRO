@@ -2,25 +2,17 @@
 import { css, jsx } from "@emotion/core";
 import colors from "../../materials/colors";
 
-const Logo = ({ isLoginPage }) => {
-  const logoStyles = {
-    headerLogo: css`
-      height: 40px;
-      width: auto;
-    `,
-    loginLogo: css`
-      height: 150px;
-      display: block;
-      margin-bottom: 50px;
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%;
-    `,
-  };
+const logoStyles = {
+  svg: css`
+    height: 40px;
+    width: auto;
+  `,
+};
 
+const Logo = () => {
   return (
     <svg
-      css={isLoginPage ? logoStyles.loginLogo : logoStyles.headerLogo}
+      css={logoStyles.svg}
       viewBox="0 0 71 66"
       xmlns="http://www.w3.org/2000/svg"
     >
