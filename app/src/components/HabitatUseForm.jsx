@@ -99,6 +99,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   minValue={0}
                   maxValue={9999}
                   isShort
+                  decimalPrecision={3}
                 />
                 <NumberInput
                   name="waterTemp"
