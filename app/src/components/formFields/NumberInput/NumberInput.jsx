@@ -12,7 +12,7 @@ const isNullOrUndefined = (value) => {
 };
 
 const numberOfDecimalPlaces = (value) => {
-  if (Math.floor(value) === value) return 0;
+  if (Number.isInteger(value)) return 0;
 
   return value.toString().split(".")[1].length || 0;
 };
