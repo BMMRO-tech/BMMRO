@@ -57,6 +57,8 @@ module.exports = {
     "# Unknown": { key: "numUnknown" },
     "Reason for leaving": { key: "reasonForLeaving" },
     "Autec range": { key: "" },
+    "Needs to be checked": { key: "needsToBeChecked" },
+    "Entered By": { key: "enteredBy" },
   },
   habitatUse: {
     Date: { key: "date", transform: convertUnixTimestampToMDY },
