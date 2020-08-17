@@ -115,7 +115,7 @@ const mockTodayData = [
 
 const mockPreviousData = [
   {
-    month: "August",
+    month: "July",
     year: 2020,
     entries: [
       {

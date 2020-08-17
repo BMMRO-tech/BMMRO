@@ -10,15 +10,20 @@ const ListHeader = ({ title, children }) => {
       background: ${colors.lightTurquoise};
       display: flex;
       align-items: center;
+      justify-content: space-between;
       width: 100%;
-      height: 55px;
-      padding: 15px 10px;
+      padding: 10px;
       margin-top: 20px;
     `,
+    title: css`
+      ${typography.largeText}
+      font-weight: 600;
+    `,
   };
+
   return (
     <div css={styles.listHeader}>
-      <p css={typography.largeText}>{title}</p>
+      <p css={styles.title}>{title}</p>
       {children}
     </div>
   );

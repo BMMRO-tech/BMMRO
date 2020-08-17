@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { Fragment } from "react";
 import { Link } from "@reach/router";
 
 import utilities from "../materials/utilities";
@@ -18,32 +17,27 @@ const HabitatUseList = ({ items, encounterId }) => {
   );
 
   return (
-    <Fragment>
+    <div css={utilities.list.container}>
       <ListHeader title="Habitat Use">
-        <Link
-          css={utilities.list.link}
-          to={generateNewHabitatUseURL(encounterId)}
-        >
-          <Button>+ New</Button>
+        <Link to={generateNewHabitatUseURL(encounterId)}>
+          <Button isSmall>+ New</Button>
         </Link>
       </ListHeader>
-      <div css={utilities.list.container}>
-        {sortedItems.length === 0 ? (
-          <p css={utilities.list.noEntries}>No habitat use entries yet</p>
-        ) : (
-          <ul css={utilities.list.items}>
-            {sortedItems.map((item) => (
-              <ListItem
-                key={item.id}
-                destinationUrl={generateEditHabitatURL(encounterId, item.id)}
-                primaryTime={item.data.startTime}
-                primaryContent="Habitat Use"
-              />
-            ))}
-          </ul>
-        )}
-      </div>
-    </Fragment>
+      {sortedItems.length === 0 ? (
+        <p css={utilities.list.noEntries}>No habitat use entries yet</p>
+      ) : (
+        <ul css={utilities.list.items}>
+          {sortedItems.map((item) => (
+            <ListItem
+              key={item.id}
+              destinationUrl={generateEditHabitatURL(encounterId, item.id)}
+              primaryTime={item.data.startTime}
+              primaryContent="Habitat Use"
+            />
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };
 

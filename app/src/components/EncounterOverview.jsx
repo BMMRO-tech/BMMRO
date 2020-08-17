@@ -7,7 +7,7 @@ import colors from "../materials/colors";
 const EncounterOverview = ({ encounter }) => {
   const styles = {
     container: css`
-      background-color: ${colors.lighterGray};
+      background-color: ${colors.white};
       padding: 15px 10px;
     `,
     summaryContainer: css`
@@ -20,6 +20,10 @@ const EncounterOverview = ({ encounter }) => {
     title: css`
       display: block;
     `,
+    subTitle: css`
+      ${typography.largeText}
+      font-weight: 500;
+    `,
   };
 
   return (
@@ -31,7 +35,7 @@ const EncounterOverview = ({ encounter }) => {
           </span>
           <span css={styles.title}>{encounter.species}</span>
         </h1>
-        <h2 css={typography.largeText}>{encounter.area}</h2>
+        <h2 css={styles.subTitle}>{encounter.area}</h2>
       </div>
     </div>
   );

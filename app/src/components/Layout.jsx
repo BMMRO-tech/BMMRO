@@ -24,7 +24,7 @@ const Layout = ({
     global: css`
       body {
         margin: 65px 0 150px 0;
-        background-color: ${colors.white};
+        background-color: ${colors.lighterGray};
         color: ${colors.darkGray};
         font-size: 16px;
 
@@ -36,6 +36,10 @@ const Layout = ({
       html {
         position: relative;
         min-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
       }
 
       * {

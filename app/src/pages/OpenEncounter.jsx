@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
+import breakPoints from "../materials/breakPoints";
 import { ROUTES } from "../constants/routes";
 import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -14,6 +15,16 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 
 const OpenEncounter = ({ encounterId }) => {
+  const styles = {
+    list: css`
+      margin: 10px;
+
+      @media (min-width: ${breakPoints.mediumTablet}) {
+        margin: 0;
+      }
+    `,
+  };
+
   const { datastore } = useContext(FirebaseContext);
   const [encounter, setEncounter] = useState({});
   const navigate = useNavigate();
@@ -54,10 +65,12 @@ const OpenEncounter = ({ encounterId }) => {
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
           <EncounterOverview encounter={encounter} />
-          <HabitatUseList
-            items={encounter.habitatUseEntries}
-            encounterId={encounterId}
-          />
+          <div css={styles.list}>
+            <HabitatUseList
+              items={encounter.habitatUseEntries}
+              encounterId={encounterId}
+            />
+          </div>
           <div css={utilities.sticky.footerContainer}>
             <Button onClick={onEndEncounterClick}>End encounter</Button>
           </div>

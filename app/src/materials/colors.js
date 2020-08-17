@@ -5,9 +5,9 @@ const colors = {
   lightestTurquoise: "#f2f8f9",
   darkRed: "#B21010",
   darkGray: "#363636",
-  mediumGray: "#595959",
+  mediumGray: "#868686",
   lightGray: "#DDD",
-  lighterGray: "#F6F6F6",
+  lighterGray: "#F7F7F7",
   white: "#FFF",
 };
 

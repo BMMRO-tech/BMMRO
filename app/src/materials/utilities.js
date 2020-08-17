@@ -73,15 +73,21 @@ const utilities = {
     `,
     container: css`
       background: white;
+
+      ul:first-of-type {
+        > div {
+          margin-top: 20px;
+        }
+      }
+
+      ul:last-child {
+        border-bottom: 1px solid ${colors.lightGray};
+      }
     `,
     noEntries: css`
       padding: 20px;
+      margin: 0;
       font-style: italic;
-    `,
-    link: css`
-      text-decoration: none;
-      margin-left: auto;
-      min-height: 44px;
     `,
   },
 };

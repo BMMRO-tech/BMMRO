@@ -17,6 +17,7 @@ const Header = () => {
       left: 0;
       top: 0;
       width: 100%;
+      background-color: ${colors.white};
     `,
     container: css`
       display: flex;

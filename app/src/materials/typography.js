@@ -2,6 +2,13 @@ import { css } from "@emotion/core";
 import colors from "./colors";
 
 const typography = {
+  largeTitle: css`
+    margin: 0;
+    color: ${colors.darkGray};
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+  `,
   title: css`
     margin: 0;
     color: ${colors.darkTurquoise};
@@ -9,11 +16,17 @@ const typography = {
     font-weight: 600;
     text-transform: uppercase;
   `,
+  smallTitle: css`
+    margin: 0;
+    color: ${colors.darkGray};
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+  `,
   largeText: css`
     margin: 0;
     color: ${colors.darkGray};
     font-size: 18px;
-    font-weight: 500;
   `,
   mediumText: css`
     margin: 0;
@@ -24,7 +37,7 @@ const typography = {
   smallText: css`
     margin: 0;
     color: ${colors.darkGray};
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
   `,
   caption: css`

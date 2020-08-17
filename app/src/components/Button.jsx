@@ -12,14 +12,16 @@ const Button = ({
   variant = "primary",
   width = "auto",
   styles,
+  isSmall,
 }) => {
   const basicStyles = css`
     ${styles}
     display: block;
     min-width: 100px;
     font-size: 16px;
-    padding: 10px;
     width: ${width};
+    padding: ${isSmall ? 0 : "10px"};
+    height: ${isSmall ? "36px" : "44px"};
     border-radius: 2px;
     font-weight: 600;
 
@@ -28,8 +30,8 @@ const Button = ({
     }
 
     @media (min-width: ${breakPoints.maxPhone}) {
-      min-width: 150px;
-      padding: 10px 20px;
+      min-width: ${isSmall ? "100px" : "150px"};
+      padding: ${isSmall ? 0 : "10px 20px"};
     }
   `;
 

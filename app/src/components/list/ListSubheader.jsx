@@ -6,10 +6,11 @@ import typography from "../../materials/typography";
 const ListSubheader = ({ title }) => {
   const styles = {
     section: css`
+      ${typography.smallTitle}
       background-color: ${colors.lightestTurquoise};
-      ${typography.mediumText}
-      padding-left: 10px;
-      text-transform: uppercase;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
     `,
   };
 
