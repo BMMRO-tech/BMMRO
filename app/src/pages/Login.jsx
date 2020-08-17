@@ -1,9 +1,18 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
-import containers from "../materials/containers";
+import { css, jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import LoginForm from "../components/LoginForm";
-import Logo from "../components/icons/Logo";
+import containers from "../materials/containers";
+
+const logoStyles = {
+  loginLogo: css`
+    display: block;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  `,
+};
 
 const Login = () => {
   return (
@@ -12,7 +21,7 @@ const Login = () => {
       hasHeader={false}
       hasStickyButton={false}
     >
-      <Logo isLoginPage />
+      <img css={logoStyles.loginLogo} src="logo512.png" alt="BMMRO logo" />
       <LoginForm />
     </Layout>
   );
