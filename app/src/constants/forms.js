@@ -10,6 +10,7 @@ export const FormErrorType = {
   START_TIME_AFTER_END_TIME: "start-time-after-end-time",
   TIME_IN_FUTURE: "time-in-future",
   INVALID_POSITION_FORMAT: "invalid-position-format",
+  MAX_DECIMAL_DIGITS: "max-decimal-digits",
 };
 
 export const DATE_FORMAT = "dd/MM/yyyy";

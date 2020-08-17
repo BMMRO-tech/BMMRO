@@ -106,6 +106,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   minValue={15}
                   maxValue={40}
                   isShort
+                  decimalPrecision={5}
                 />
                 <Select
                   name="bottomSubstrate"

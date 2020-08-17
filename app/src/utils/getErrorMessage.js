@@ -16,6 +16,8 @@ const getErrorMessage = (type, params) => {
       return "Invalid position format";
     case FormErrorType.INVALID_DECIMAL_DIGITS:
       return `Position must have ${params.decimalDigits} decimal digits`;
+    case FormErrorType.MAX_DECIMAL_DIGITS:
+      return `Field can only have a maximum of ${params.maxDecimalDigits} decimal digits`;
     case FormErrorType.START_TIME_AFTER_END_TIME:
       return "End time cannot be before start time";
     case FormErrorType.TIME_IN_FUTURE:

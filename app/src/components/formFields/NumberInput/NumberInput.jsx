@@ -11,6 +11,12 @@ const isNullOrUndefined = (value) => {
   return value === null || value === undefined;
 };
 
+const numberOfDecimalPlaces = (value) => {
+  if (Math.floor(value) === value) return 0;
+
+  return value.toString().split(".")[1].length || 0;
+};
+
 const NumberInput = ({
   name,
   labelText,
@@ -19,6 +25,7 @@ const NumberInput = ({
   isRequired,
   isInteger,
   isShort,
+  decimalPrecision,
 }) => {
   const validateNumber = (val) => {
     if (val === "") {
@@ -39,6 +46,12 @@ const NumberInput = ({
     if (!isNullOrUndefined(minValue) && val < minValue) {
       return getErrorMessage(FormErrorType.MIN_VALUE, {
         value: minValue,
+      });
+    }
+
+    if (decimalPrecision && numberOfDecimalPlaces(val) > decimalPrecision) {
+      return getErrorMessage(FormErrorType.MAX_DECIMAL_DIGITS, {
+        maxDecimalDigits: decimalPrecision,
       });
     }
 

@@ -135,6 +135,35 @@ describe("NumberInput", () => {
     ).toHaveTextContent(expectedErrorMessage);
   });
 
+  it("validates on decimal precision", async () => {
+    const { getFormErrors, getByRole } = renderWithinFormik(
+      <NumberInput
+        name="favoriteDecimalNumber"
+        labelText="Your favorite decimal number"
+        decimalPrecision={2}
+      />,
+      { favoriteDecimalNumber: "" }
+    );
+
+    const numberInput = getByRole("spinbutton", {
+      name: "Your favorite decimal number",
+    });
+    await act(async () => {
+      await userEvent.type(numberInput, "666.666", { delay: 1 });
+      userEvent.tab();
+    });
+
+    const expectedErrorMessage = getErrorMessage(
+      FormErrorType.MAX_DECIMAL_DIGITS,
+      { maxDecimalDigits: 2 }
+    );
+
+    expect(getFormErrors().favoriteDecimalNumber).toEqual(expectedErrorMessage);
+    expect(
+      getByRole("alert", { name: "Your favorite decimal number" })
+    ).toHaveTextContent(expectedErrorMessage);
+  });
+
   it("validates empty inputs if set as required", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <NumberInput
