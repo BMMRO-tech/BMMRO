@@ -1,5 +1,6 @@
 const convertUnixTimestampToMDY = require("../convertUnixTimestampToMDY");
 const convertWaveHeightOption = require("../convertWaveHeightOption");
+const convertEmptyToNotNoted = require("../convertEmptyToNotNoted");
 const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
@@ -14,8 +15,8 @@ module.exports = {
     "Group size": { key: "groupSize" },
     "Begin time": { key: "startTime" },
     Location: { key: "location" },
-    Project: { key: "project" },
-    Vessel: { key: "vessel" },
+    Project: { key: "project", transform: convertEmptyToNotNoted },
+    Vessel: { key: "vessel", transform: convertEmptyToNotNoted },
     Observers: { key: "observers" },
     "BMMRO data": { key: "" },
     Transect: { key: "transect" },
@@ -42,7 +43,7 @@ module.exports = {
     "Total # of individuals ided": { key: "" },
     "Stranded?": { key: "" },
     "Visual IDs": { key: "visualIdentifications" },
-    Cue: { key: "cue" },
+    Cue: { key: "cue", transform: convertEmptyToNotNoted },
     "# Adult Male": { key: "numAdultMale" },
     "# Adult Female": { key: "numAdultFemale" },
     "# Adult Unknown": { key: "numAdultUnknown" },
@@ -55,7 +56,10 @@ module.exports = {
     "# Year of Young": { key: "numYoungOfYear" },
     "# Neonate": { key: "numNeonates" },
     "# Unknown": { key: "numUnknown" },
-    "Reason for leaving": { key: "reasonForLeaving" },
+    "Reason for leaving": {
+      key: "reasonForLeaving",
+      transform: convertEmptyToNotNoted,
+    },
     "Autec range": { key: "" },
     "Needs to be checked": { key: "needsToBeChecked" },
     "Entered By": { key: "enteredBy" },
@@ -70,22 +74,30 @@ module.exports = {
     Longitude: { key: "longitude" },
     "Water temperature": { key: "waterTemp" },
     "Water depth": { key: "waterDepth" },
-    "Bottom substrate": { key: "bottomSubstrate" },
-    "Cloud cover": { key: "cloudCover" },
-    "Beaufort scale": { key: "beaufortSeaState" },
-    "Tide state": { key: "tideState" },
-    Behaviour: { key: "behaviour" },
+    "Bottom substrate": {
+      key: "bottomSubstrate",
+      transform: convertEmptyToNotNoted,
+    },
+    "Cloud cover": { key: "cloudCover", transform: convertEmptyToNotNoted },
+    "Beaufort scale": {
+      key: "beaufortSeaState",
+    },
+    "Tide state": { key: "tideState", transform: convertEmptyToNotNoted },
+    Behaviour: { key: "behaviour", transform: convertEmptyToNotNoted },
     "Number of boats": { key: "numberOfBoats" },
     "Wave Height": {
       key: "swellWaveHeight",
       transform: convertWaveHeightOption,
     },
-    DOT: { key: "directionOfTravel" },
+    DOT: { key: "directionOfTravel", transform: convertEmptyToNotNoted },
     "Surfacing Bout": { key: "surfaceBout" },
     "Bearing (relative )": { key: "bearing" },
     Distance: { key: "distance" },
     "Aspect (relative)": { key: "aspect" },
-    "Group Cohesion": { key: "groupCohesion" },
+    "Group Cohesion": {
+      key: "groupCohesion",
+      transform: convertEmptyToNotNoted,
+    },
     "End Time": { key: "endTime" },
     "Group Composition": { key: "groupComposition" },
     "# animals": { key: "numberOfAnimals" },
