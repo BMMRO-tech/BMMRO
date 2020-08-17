@@ -59,6 +59,8 @@ module.exports = {
     "Autec range": { key: "" },
     "Needs to be checked": { key: "needsToBeChecked" },
     "Entered By": { key: "enteredBy" },
+    "High Tide": { key: "highTide" },
+    "Low Tide": { key: "lowTide" },
   },
   habitatUse: {
     Date: { key: "date", transform: convertUnixTimestampToMDY },
