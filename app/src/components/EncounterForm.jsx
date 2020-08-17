@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Formik, Form } from "formik";
 import { jsx } from "@emotion/core";
+import add from "date-fns/add";
 
 import utilities from "../materials/utilities";
 import TextInput from "./formFields/TextInput/TextInput";
@@ -27,7 +28,13 @@ import {
 const EncounterForm = ({ handleSubmit }) => {
   const transformSubmitValues = (values) => {
     values.startTimestamp.setHours(0, 0, 0, 0);
+    values.endTimestamp.setHours(0, 0, 0, 0);
+
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
+  };
+
+  const calculateDateTime = (date, time) => {
+    return new Date(date).setHours(time.split(":")[0], time.split(":")[1]);
   };
 
   return (
@@ -69,6 +76,7 @@ const EncounterForm = ({ handleSubmit }) => {
             numNeonates: "",
             numUnknown: "",
             endOfSearchEffort: "",
+            endTimestamp: "",
             endTime: "",
             reasonForLeaving: "",
             highTide: "",
@@ -94,6 +102,7 @@ const EncounterForm = ({ handleSubmit }) => {
                   isRequired
                   isShort
                   autofill
+                  notAfter={new Date()}
                 />
                 <TextInput
                   name="sequenceNumber"
@@ -312,12 +321,27 @@ const EncounterForm = ({ handleSubmit }) => {
                   labelText="End of search effort"
                   isShort
                 />
+                <DateInput
+                  name="endTimestamp"
+                  labelText="End date"
+                  isShort
+                  autofill
+                  notBefore={values.startTimestamp}
+                  notAfter={add(new Date(values.startTimestamp), { hours: 72 })}
+                />
                 <TimeInput
                   name="endTime"
                   labelText="End time"
                   isShort
-                  notBefore={values.startTime}
-                  notAfter={values.startTimestamp}
+                  associatedDate={values.endTimestamp}
+                  notBefore={calculateDateTime(
+                    values.startTimestamp,
+                    values.startTime
+                  )}
+                  notAfter={add(
+                    calculateDateTime(values.startTimestamp, values.startTime),
+                    { hours: 72 }
+                  )}
                 />
                 <Select
                   name="reasonForLeaving"

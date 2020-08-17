@@ -1,16 +1,18 @@
 export const FormErrorType = {
   EMPTY: "empty",
-  MIN_VALUE: "min-value",
-  MAX_VALUE: "max-value",
-  INVALID_NUMBER_FORMAT: "invalid-number-format",
-  MAX_DATE: "max-date",
+  END_DATE_BEFORE_START_DATE: "end-date-before-start-date",
+  END_TIME_BEFORE_START_TIME: "end-time-before-start-time",
   INVALID_DATE_FORMAT: "invalid-date-format",
-  MAX_TIME: "max-time",
-  INVALID_TIME_FORMAT: "invalid-time-format",
-  START_TIME_AFTER_END_TIME: "start-time-after-end-time",
-  TIME_IN_FUTURE: "time-in-future",
+  INVALID_END_DATE: "invalid-end-date",
+  INVALID_END_TIME: "invalid-end-time",
+  INVALID_NUMBER_FORMAT: "invalid-number-format",
   INVALID_POSITION_FORMAT: "invalid-position-format",
+  INVALID_TIME_FORMAT: "invalid-time-format",
+  MAX_DATE: "max-date",
   MAX_DECIMAL_DIGITS: "max-decimal-digits",
+  MAX_TIME: "max-time",
+  MAX_VALUE: "max-value",
+  MIN_VALUE: "min-value",
 };
 
 export const DATE_FORMAT = "dd/MM/yyyy";

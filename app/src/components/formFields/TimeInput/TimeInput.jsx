@@ -17,11 +17,6 @@ import { getCurrentDate } from "../../../utils/time";
 
 const formatTime = (date) => format(date, TIME_FORMAT);
 
-const timeStringToMinutes = (time) => {
-  const [hours, mins] = time.match(/\d{2}/g);
-  return Number(hours) * 60 + Number(mins);
-};
-
 const timeStringValid = (val) => {
   const timePattern = new RegExp(TIME_PATTERN);
   return timePattern.test(val);
@@ -35,6 +30,7 @@ const TimeInput = ({
   isRequired,
   notBefore,
   notAfter,
+  associatedDate,
 }) => {
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
@@ -43,20 +39,18 @@ const TimeInput = ({
       });
     }
 
-    if (val && notAfter) {
-      const dateTime = new Date(notAfter).setHours(
+    if (val && associatedDate) {
+      const dateTime = new Date(associatedDate).setHours(
         val.split(":")[0],
         val.split(":")[1]
       );
 
-      if (dateTime > getCurrentDate()) {
-        return getErrorMessage(FormErrorType.TIME_IN_FUTURE);
+      if (notAfter && dateTime > notAfter) {
+        return getErrorMessage(FormErrorType.INVALID_END_TIME);
       }
-    }
 
-    if (val && notBefore && timeStringValid(notBefore)) {
-      if (timeStringToMinutes(notBefore) > timeStringToMinutes(val)) {
-        return getErrorMessage(FormErrorType.START_TIME_AFTER_END_TIME);
+      if (notBefore && dateTime < notBefore) {
+        return getErrorMessage(FormErrorType.END_TIME_BEFORE_START_TIME);
       }
     }
 

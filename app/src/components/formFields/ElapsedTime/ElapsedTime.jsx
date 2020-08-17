@@ -6,19 +6,20 @@ import { useField } from "formik";
 import NumberInput from "../NumberInput/NumberInput";
 import { TIME_PATTERN } from "../../../constants/forms";
 
-const timeStringToMinutes = (time) => {
-  const [hours, mins] = time.match(/\d{2}/g);
-  return Number(hours) * 60 + Number(mins);
-};
-
 const timeStringValid = (val) => {
   const timePattern = new RegExp(TIME_PATTERN);
   return timePattern.test(val);
 };
 
+const constructDateTime = (date, time) => {
+  return new Date(date).setHours(time.split(":")[0], time.split(":")[1]);
+};
+
 const ElapsedTime = () => {
   const [field, , helpers] = useField("elapsedTime");
+  const [startTimestampField] = useField("startTimestamp");
   const [startTimeField] = useField("startTime");
+  const [endTimestampField] = useField("endTimestamp");
   const [endTimeField] = useField("endTime");
 
   useEffect(() => {
@@ -26,13 +27,30 @@ const ElapsedTime = () => {
       timeStringValid(startTimeField.value) &&
       timeStringValid(endTimeField.value)
     ) {
-      const startTime = timeStringToMinutes(startTimeField.value);
-      const endTime = timeStringToMinutes(endTimeField.value);
+      const startDateTime = constructDateTime(
+        startTimestampField.value,
+        startTimeField.value
+      );
 
-      if (endTime - startTime >= 0) helpers.setValue(endTime - startTime);
+      const endDateTime = constructDateTime(
+        endTimestampField.value,
+        endTimeField.value
+      );
+
+      const elapsedTime = endDateTime - startDateTime;
+
+      if (elapsedTime >= 0) {
+        const elapsedMinutes = Math.round(elapsedTime / 60000);
+        helpers.setValue(elapsedMinutes);
+      }
     }
     // eslint-disable-next-line
-  }, [startTimeField.value, endTimeField.value]);
+  }, [
+    startTimestampField.value,
+    startTimeField.value,
+    endTimestampField.value,
+    endTimeField.value,
+  ]);
   return (
     <Fragment>
       <NumberInput
@@ -40,7 +58,7 @@ const ElapsedTime = () => {
         name="elapsedTime"
         labelText="Elapsed time (mins)"
         minValue={0}
-        maxValue={1440}
+        maxValue={4320}
         isShort
         isInteger
       />

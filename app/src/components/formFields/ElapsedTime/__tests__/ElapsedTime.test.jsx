@@ -15,6 +15,8 @@ describe("ElapsedTime", () => {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "11:30",
+        startTimestamp: new Date(Date.now()),
+        endTimestamp: new Date(Date.now()),
       });
     });
 
@@ -29,6 +31,8 @@ describe("ElapsedTime", () => {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "11:__",
+        startTimestamp: new Date(Date.now()),
+        endTimestamp: new Date(Date.now()),
       }).getFormValues;
     });
 
@@ -42,6 +46,8 @@ describe("ElapsedTime", () => {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "10:30",
+        startTimestamp: new Date(Date.now()),
+        endTimestamp: new Date(Date.now()),
       }).getFormValues;
     });
 

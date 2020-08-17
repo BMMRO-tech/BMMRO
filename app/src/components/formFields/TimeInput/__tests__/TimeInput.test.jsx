@@ -92,7 +92,7 @@ describe("TimeInput", () => {
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });
 
-  it("validates start time before end time", async () => {
+  it("validates time is not before the notBefore date", async () => {
     const {
       getFormErrors,
       getByRole,
@@ -101,27 +101,28 @@ describe("TimeInput", () => {
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
-        notBefore="15:30"
+        notBefore={new Date(Date.now())}
+        associatedDate={new Date(Date.now())}
       />,
-      { defaultTime: "15:00" }
+      { defaultTime: "11:29" }
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
     await act(async () => {
-      timeInput.selectionStart = timeInput.selectionEnd = "15:00".length;
+      timeInput.selectionStart = timeInput.selectionEnd = "11:29".length;
       TestUtils.Simulate.change(timeInput);
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.START_TIME_AFTER_END_TIME
+      FormErrorType.END_TIME_BEFORE_START_TIME
     );
 
     expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });
 
-  it("validates time is not in the future", async () => {
+  it("validates time is not after the notAfter date", async () => {
     const {
       getFormErrors,
       getByRole,
@@ -131,17 +132,20 @@ describe("TimeInput", () => {
         name="defaultTime"
         labelText="Your favorite time"
         notAfter={new Date(Date.now())}
+        associatedDate={new Date(Date.now())}
       />,
-      { defaultTime: "15:00" }
+      { defaultTime: "11:31" }
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
     await act(async () => {
-      timeInput.selectionStart = timeInput.selectionEnd = "15:00".length;
+      timeInput.selectionStart = timeInput.selectionEnd = "11:31".length;
       TestUtils.Simulate.change(timeInput);
     });
 
-    const expectedErrorMessage = getErrorMessage(FormErrorType.TIME_IN_FUTURE);
+    const expectedErrorMessage = getErrorMessage(
+      FormErrorType.INVALID_END_TIME
+    );
 
     expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();

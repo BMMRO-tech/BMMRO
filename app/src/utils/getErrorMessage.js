@@ -12,18 +12,22 @@ const getErrorMessage = (type, params) => {
       return "Invalid number format";
     case FormErrorType.INVALID_TIME_FORMAT:
       return `Time must be in the following format ${params.format}`;
+    case FormErrorType.INVALID_END_DATE:
+      return "Invalid end date";
+    case FormErrorType.INVALID_END_TIME:
+      return "Invalid end time";
     case FormErrorType.INVALID_POSITION_FORMAT:
       return "Invalid position format";
     case FormErrorType.INVALID_DECIMAL_DIGITS:
       return `Position must have ${params.decimalDigits} decimal digits`;
     case FormErrorType.MAX_DECIMAL_DIGITS:
       return `Field can only have a maximum of ${params.maxDecimalDigits} decimal digits`;
-    case FormErrorType.START_TIME_AFTER_END_TIME:
-      return "End time cannot be before start time";
-    case FormErrorType.TIME_IN_FUTURE:
-      return "Time cannot be in the future";
     case FormErrorType.EMPTY:
       return "Required";
+    case FormErrorType.END_TIME_BEFORE_START_TIME:
+      return "End time cannot be before start time";
+    case FormErrorType.END_DATE_BEFORE_START_DATE:
+      return "End date cannot be before start date";
     case AuthenticationErrorType.UNSUCCESSFUL_LOGIN:
       return "The email address or password you entered is not recognised. Please try again.";
     case AuthenticationErrorType.UNSUCCESSFUL_LOGOUT:

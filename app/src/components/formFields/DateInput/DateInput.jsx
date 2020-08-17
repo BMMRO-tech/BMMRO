@@ -11,10 +11,26 @@ import { getCurrentDate } from "../../../utils/time";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 
-const DateInput = ({ name, labelText, isRequired, isShort, autofill }) => {
+const DateInput = ({
+  name,
+  labelText,
+  isRequired,
+  isShort,
+  autofill,
+  notBefore,
+  notAfter,
+}) => {
   const validateDate = (val) => {
     if (!val && isRequired) {
       return getErrorMessage(FormErrorType.EMPTY);
+    }
+
+    if (notBefore && val < notBefore) {
+      return getErrorMessage(FormErrorType.END_DATE_BEFORE_START_DATE);
+    }
+
+    if (notAfter && val > notAfter) {
+      return getErrorMessage(FormErrorType.INVALID_END_DATE);
     }
 
     return "";
@@ -39,7 +55,8 @@ const DateInput = ({ name, labelText, isRequired, isShort, autofill }) => {
 
           <DatePicker
             dateFormat="dd MMMM yyyy"
-            maxDate={new Date()}
+            minDate={notBefore}
+            maxDate={notAfter}
             id={name}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             withPortal
