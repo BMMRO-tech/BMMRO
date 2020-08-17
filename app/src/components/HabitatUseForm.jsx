@@ -182,8 +182,8 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   labelText="Surface bout"
                   minValue={0}
                   maxValue={99}
-                  isInteger
                   isShort
+                  decimalPrecision={5}
                 />
                 <TimeInput
                   name="endTime"

@@ -1,6 +1,7 @@
 const convertUnixTimestampToMDY = require("../convertUnixTimestampToMDY");
 const convertWaveHeightOption = require("../convertWaveHeightOption");
 const convertEmptyToNotNoted = require("../convertEmptyToNotNoted");
+const convertToDecimal = require("../convertToDecimal");
 const prependFromFirestore = require("../prependFromFirestore");
 
 module.exports = {
@@ -90,7 +91,7 @@ module.exports = {
       transform: convertWaveHeightOption,
     },
     DOT: { key: "directionOfTravel", transform: convertEmptyToNotNoted },
-    "Surfacing Bout": { key: "surfaceBout" },
+    "Surfacing Bout": { key: "surfaceBout", transform: convertToDecimal },
     "Bearing (relative )": { key: "bearing" },
     Distance: { key: "distance" },
     "Aspect (relative)": { key: "aspect" },
