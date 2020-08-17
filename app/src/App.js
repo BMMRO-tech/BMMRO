@@ -12,6 +12,7 @@ import { FirebaseContextProvider } from "./firebaseContext/firebaseContext";
 import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
 import EditHabitatUse from "./pages/EditHabitatUse";
 import EditEncounter from "./pages/EditEncounter";
+import Encounters from "./pages/Encounters";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -25,6 +26,7 @@ const AppWithoutContext = () => {
       <EditEncounter path={ROUTES.editEncounter} />
       <NewHabitatUse path={ROUTES.newHabitatUse} />
       <EditHabitatUse path={ROUTES.editHabitatUse} />
+      <Encounters path={ROUTES.encounters} />
     </Router>
   );
 };

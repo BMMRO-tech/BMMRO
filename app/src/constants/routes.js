@@ -1,4 +1,5 @@
 export const ROUTES = {
+  encounters: "/encounters",
   newEncounter: "/encounters/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   editEncounter: "/encounters/:encounterId/edit",

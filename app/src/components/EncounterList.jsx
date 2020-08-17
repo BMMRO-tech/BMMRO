@@ -6,7 +6,9 @@ import utilities from "../materials/utilities";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 
-const EncounterList = ({ title, items, loadMore }) => {
+const EncounterList = ({ title, items, loadMore, showSubheader }) => {
+  const hasMaxItems = items.length >= 12;
+
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
@@ -15,9 +17,9 @@ const EncounterList = ({ title, items, loadMore }) => {
       ) : (
         items.map((item, i) => (
           <ul key={`encounterList-${i}`} css={utilities.list.items}>
-            <ListSubheader
-              title={item.month ? `${item.month} ${item.year}` : null}
-            />
+            {showSubheader && (
+              <ListSubheader title={`${item.month} ${item.year}`} />
+            )}
             {!item.entries.length ? (
               <div css={utilities.list.noEntries}>
                 No encounters in {item.month}
@@ -51,7 +53,9 @@ const EncounterList = ({ title, items, loadMore }) => {
           </ul>
         ))
       )}
-      {loadMore ? <LoadMoreButton handleClick={loadMore} /> : null}
+      {loadMore ? (
+        <LoadMoreButton hasMaxItems={hasMaxItems} handleClick={loadMore} />
+      ) : null}
     </div>
   );
 };

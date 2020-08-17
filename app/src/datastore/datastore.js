@@ -1,5 +1,6 @@
 import "firebase/firestore";
 import { fromUnixTime } from "date-fns";
+
 import { DatastoreErrorType } from "../constants/datastore";
 
 export class DatastoreError extends Error {
@@ -51,13 +52,49 @@ export class Datastore {
 
   async readDocsByParentPath(parentPath, subcollectionName) {
     try {
-      const docRefs = await this.firestore
+      const docsSnapshots = await this.firestore
         .doc(parentPath)
         .collection(subcollectionName)
         .get();
 
       const results = [];
-      docRefs.forEach((doc) => results.push({ data: doc.data(), id: doc.id }));
+      docsSnapshots.forEach((doc) =>
+        results.push({ data: doc.data(), id: doc.id })
+      );
+      return results;
+    } catch (e) {
+      this.enableLogging && console.error(e);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
+    }
+  }
+
+  async readDocsByTimeRange(
+    collectionName,
+    timestampFieldName,
+    startDate,
+    endDate
+  ) {
+    try {
+      const docsSnapshots = await this.firestore
+        .collection(collectionName)
+        .where(timestampFieldName, ">=", startDate)
+        .where(timestampFieldName, "<", endDate)
+        .get();
+
+      const results = [];
+      docsSnapshots.forEach((doc) => {
+        const docData = doc.data();
+
+        for (const property in docData) {
+          const value = docData[property];
+
+          if (typeof value === "object" && "seconds" in value) {
+            docData[property] = this.convertTimeObjectToDate(value);
+          }
+        }
+
+        results.push({ data: docData, id: doc.id });
+      });
       return results;
     } catch (e) {
       this.enableLogging && console.error(e);

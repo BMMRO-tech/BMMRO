@@ -14,7 +14,7 @@ const ListSubheader = ({ title }) => {
     `,
   };
 
-  return title ? <div css={styles.section}>{title}</div> : null;
+  return <div css={styles.section}>{title}</div>;
 };
 
 export default ListSubheader;

@@ -48,6 +48,7 @@ const Encounters = () => {
           title="Previous encounters"
           items={previousEncounters}
           loadMore={loadNextMonth}
+          showSubheader
         />
       </div>
     </Layout>
