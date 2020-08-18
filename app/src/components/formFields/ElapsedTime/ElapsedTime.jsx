@@ -5,14 +5,11 @@ import { useField } from "formik";
 
 import NumberInput from "../NumberInput/NumberInput";
 import { TIME_PATTERN } from "../../../constants/forms";
+import { constructDateTime } from "../../../utils/time";
 
 const timeStringValid = (val) => {
   const timePattern = new RegExp(TIME_PATTERN);
   return timePattern.test(val);
-};
-
-const constructDateTime = (date, time) => {
-  return new Date(date).setHours(time.split(":")[0], time.split(":")[1]);
 };
 
 const ElapsedTime = () => {

@@ -25,6 +25,7 @@ import {
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
 import { THREE_DAYS_IN_HOURS } from "../constants/forms";
+import { constructDateTime } from "../utils/time";
 
 const EncounterForm = ({ initialValues, handleSubmit }) => {
   const transformSubmitValues = (values) => {
@@ -32,10 +33,6 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
     values.endTimestamp.setHours(0, 0, 0, 0);
 
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
-  };
-
-  const calculateDateTime = (date, time) => {
-    return new Date(date).setHours(time.split(":")[0], time.split(":")[1]);
   };
 
   return (
@@ -336,12 +333,12 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   labelText="End time"
                   isShort
                   associatedDate={values.endTimestamp}
-                  notBefore={calculateDateTime(
+                  notBefore={constructDateTime(
                     values.startTimestamp,
                     values.startTime
                   )}
                   notAfter={add(
-                    calculateDateTime(values.startTimestamp, values.startTime),
+                    constructDateTime(values.startTimestamp, values.startTime),
                     { hours: THREE_DAYS_IN_HOURS }
                   )}
                 />

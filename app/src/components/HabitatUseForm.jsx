@@ -187,13 +187,13 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                 />
                 <TimeInput
                   name="endTime"
-                  labelText="End time (hh:mm)"
+                  labelText="End time (hh:mm:ss)"
                   notBefore={values.startTime}
                   isShort
                 />
                 <TimeInput
                   name="startTime"
-                  labelText="Start time (hh:mm)"
+                  labelText="Start time (hh:mm:ss)"
                   isRequired
                   isShort
                   autofill={!initialValues}

@@ -7,7 +7,7 @@ import HabitatUseForm from "../HabitatUseForm";
 describe("HabitatUseForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:00.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime()
     );
   });
 
@@ -49,7 +49,7 @@ describe("HabitatUseForm", () => {
 
     expect(formValues.latitude).toEqual("15.123456");
     expect(formValues.longitude).toEqual("1.123456");
-    expect(formValues.startTime).toEqual("11:30");
+    expect(formValues.startTime).toEqual("11:30:12");
     expect(formValues.numberOfAnimals).toEqual(5);
     expect(formValues.endTime).toEqual("");
 
@@ -78,7 +78,7 @@ describe("HabitatUseForm", () => {
       groupComposition: "",
       surfaceBout: 0,
       endTime: "",
-      startTime: "12:30",
+      startTime: "12:30:33",
       latitude: "1.123456",
       longitude: "1.123456",
     };

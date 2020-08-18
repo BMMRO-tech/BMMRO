@@ -19,7 +19,7 @@ const changeInputMaskValue = (element, value) => {
 describe("TimeInput", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:00.000Z").getTime()
+      new Date("2020-05-04T11:30:43.000Z").getTime()
     );
   });
 
@@ -28,7 +28,7 @@ describe("TimeInput", () => {
       <TimeInput
         name="favoriteTime"
         labelText="Your favorite time"
-        notBefore="15:00"
+        notBefore="15:00:00"
       />,
       { favoriteTime: "" }
     );
@@ -36,10 +36,10 @@ describe("TimeInput", () => {
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
     await act(async () => {
-      changeInputMaskValue(timeInput, "1800");
+      changeInputMaskValue(timeInput, "180000");
     });
 
-    expect(getFormValues().favoriteTime).toEqual("18:00");
+    expect(getFormValues().favoriteTime).toEqual("18:00:00");
   });
 
   it("does not display an error when field value is correct", async () => {
@@ -57,7 +57,7 @@ describe("TimeInput", () => {
     });
 
     await act(async () => {
-      await userEvent.type(timeInput, "15:00", { delay: 1 });
+      await userEvent.type(timeInput, "15:00:21", { delay: 1 });
       userEvent.tab();
     });
 
@@ -79,13 +79,13 @@ describe("TimeInput", () => {
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
     await act(async () => {
-      changeInputMaskValue(timeInput, "2561");
+      changeInputMaskValue(timeInput, "256111");
       userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_TIME_FORMAT,
-      { format: "hh:mm" }
+      { format: "hh:mm:ss" }
     );
 
     expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
@@ -104,13 +104,13 @@ describe("TimeInput", () => {
         notBefore={new Date(Date.now())}
         associatedDate={new Date(Date.now())}
       />,
-      { defaultTime: "11:29" }
+      { defaultTime: "11:29:11" }
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
     await act(async () => {
-      timeInput.selectionStart = timeInput.selectionEnd = "11:29".length;
+      timeInput.selectionStart = timeInput.selectionEnd = "11:29:11".length;
       TestUtils.Simulate.change(timeInput);
     });
 
@@ -134,12 +134,12 @@ describe("TimeInput", () => {
         notAfter={new Date(Date.now())}
         associatedDate={new Date(Date.now())}
       />,
-      { defaultTime: "11:31" }
+      { defaultTime: "11:31:13" }
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
     await act(async () => {
-      timeInput.selectionStart = timeInput.selectionEnd = "11:31".length;
+      timeInput.selectionStart = timeInput.selectionEnd = "11:31:13".length;
       TestUtils.Simulate.change(timeInput);
     });
 
@@ -151,21 +151,21 @@ describe("TimeInput", () => {
     expect(getByText(expectedErrorMessage)).toBeInTheDocument();
   });
 
-  it("sets form field state to empty string when value is __:__", async () => {
+  it("sets form field state to empty string when value is __:__:__", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <TimeInput name="favoriteTime" labelText="Your favorite time" />,
       { favoriteTime: "" }
     );
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
-    await act(async () => changeInputMaskValue(timeInput, "1234"));
+    await act(async () => changeInputMaskValue(timeInput, "123456"));
 
-    expect(getFormValues().favoriteTime).toEqual("12:34");
+    expect(getFormValues().favoriteTime).toEqual("12:34:56");
 
     await act(async () => changeInputMaskValue(timeInput, ""));
 
     expect(getFormValues().favoriteTime).toEqual("");
-    expect(getFormValues().favoriteTime).not.toEqual("__:__");
+    expect(getFormValues().favoriteTime).not.toEqual("__:__:__");
   });
 
   it("autofills time", () => {
@@ -174,6 +174,6 @@ describe("TimeInput", () => {
       { defaultTime: "" }
     );
 
-    expect(getFormValues().defaultTime).toEqual("11:30");
+    expect(getFormValues().defaultTime).toEqual("11:30:43");
   });
 });

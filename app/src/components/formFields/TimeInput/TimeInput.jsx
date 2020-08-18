@@ -35,14 +35,17 @@ const TimeInput = ({
   const validateTime = (val) => {
     if (val && !timeStringValid(val)) {
       return getErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
-        format: "hh:mm",
+        format: "hh:mm:ss",
       });
     }
 
+    const [hours, minutes, seconds] = val.split(":");
+
     if (val && associatedDate) {
       const dateTime = new Date(associatedDate).setHours(
-        val.split(":")[0],
-        val.split(":")[1]
+        hours,
+        minutes,
+        seconds
       );
 
       if (notAfter && dateTime > notAfter) {
@@ -67,7 +70,7 @@ const TimeInput = ({
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    if (field.value === "__:__") helpers.setValue("");
+    if (field.value === "__:__:__") helpers.setValue("");
     // eslint-disable-next-line
   }, [field.value]);
 
@@ -80,7 +83,7 @@ const TimeInput = ({
         <div css={fieldStyles.inputContainer}>
           <InputMask
             {...field}
-            mask="99:99"
+            mask="99:99:99"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
           />
         </div>

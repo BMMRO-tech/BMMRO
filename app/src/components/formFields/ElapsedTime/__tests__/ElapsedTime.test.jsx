@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
-import { act } from "react-dom/test-utils";
 
 describe("ElapsedTime", () => {
   it("synchronizes field value with form state & autofills", async () => {
@@ -13,24 +12,25 @@ describe("ElapsedTime", () => {
     await act(async () => {
       timeRender = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-        startTime: "11:00",
-        endTime: "11:30",
+        startTime: "11:00:05",
+        endTime: "11:30:50",
         startTimestamp: new Date(Date.now()),
         endTimestamp: new Date(Date.now()),
       });
     });
 
-    expect(timeRender.getFormValues().elapsedTime).toEqual(30);
+    expect(timeRender.getFormValues().elapsedTime).toEqual(31);
     expect(timeRender.getFormErrors()).toEqual({});
   });
 
   it("does not set time when time is invalid", async () => {
     let getFormValues;
+
     await act(async () => {
       getFormValues = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-        startTime: "11:00",
-        endTime: "11:__",
+        startTime: "11:00:11",
+        endTime: "11:00:__",
         startTimestamp: new Date(Date.now()),
         endTimestamp: new Date(Date.now()),
       }).getFormValues;
@@ -44,8 +44,8 @@ describe("ElapsedTime", () => {
     await act(async () => {
       getFormValues = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-        startTime: "11:00",
-        endTime: "10:30",
+        startTime: "11:00:55",
+        endTime: "11:00:54",
         startTimestamp: new Date(Date.now()),
         endTimestamp: new Date(Date.now()),
       }).getFormValues;
