@@ -50,6 +50,7 @@ const OpenEncounter = ({ encounterId }) => {
 
       setEncounter({
         ...encounterResult.data,
+        id: encounterId,
         habitatUseEntries: habitatUseResult,
       });
     };

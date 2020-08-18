@@ -21,6 +21,12 @@ const ListItem = ({
       display: flex;
       align-items: center;
       border-bottom: 1px solid ${colors.lightGray};
+
+      svg {
+        height: 25px;
+        margin-left: auto;
+        fill: ${colors.mediumGray};
+      }
     `,
     timeContainer: css`
       display: flex;

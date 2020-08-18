@@ -11,7 +11,7 @@ const typography = {
   `,
   title: css`
     margin: 0;
-    color: ${colors.darkTurquoise};
+    color: ${colors.darkGray};
     font-size: 22px;
     font-weight: 600;
     text-transform: uppercase;

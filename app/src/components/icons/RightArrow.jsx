@@ -1,23 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import colors from "../../materials/colors";
-
-const avatarStyles = {
-  avatar: css`
-    height: 25px;
-    margin-left: auto;
-  `,
-};
+import { jsx } from "@emotion/core";
 
 export const RightArrow = () => {
   return (
-    <svg
-      fill={colors.mediumGray}
-      css={avatarStyles.avatar}
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-      viewBox="0 0 100 100"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
       <g>
         <path d="M61.6991817,50 L26.7191556,15.0199743 C24.4269481,12.7277665 24.4269481,9.01136349 26.7191556,6.71915579 C29.0113634,4.42694807 32.7277664,4.42694807 35.0199742,6.71915579 L74.1504092,45.8495908 C75.2965131,46.9956946 75.8695649,48.4978475 75.8695649,50 C75.8695649,51.5021526 75.2965131,53.0043054 74.1504092,54.1504093 L35.0199742,93.2808444 C32.7277664,95.5730519 29.0113634,95.5730519 26.7191556,93.2808444 C24.4269481,90.9886366 24.4269481,87.2722336 26.7191556,84.9800258 L61.6991817,50 L61.6991817,50 Z"></path>
       </g>

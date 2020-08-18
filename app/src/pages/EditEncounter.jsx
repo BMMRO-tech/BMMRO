@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState } from "react";
+import { navigate } from "@reach/router";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
@@ -8,6 +9,7 @@ import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
 import { getModifiedProperties } from "../utils/math";
+import { generateOpenEncounterURL } from "../constants/routes";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -17,6 +19,8 @@ const EditEncounter = ({ encounterId }) => {
   const handleSubmit = (values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
     datastore.updateDocByPath(encounterPath, modifiedProperties);
+
+    navigate(generateOpenEncounterURL(encounterId));
   };
 
   useEffect(() => {
