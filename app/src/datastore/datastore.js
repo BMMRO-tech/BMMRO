@@ -1,4 +1,5 @@
 import "firebase/firestore";
+import { fromUnixTime } from "date-fns";
 import { DatastoreErrorType } from "../constants/datastore";
 
 export class DatastoreError extends Error {
@@ -19,11 +20,29 @@ export class Datastore {
     this.handleDelayedError = handleDelayedError;
   }
 
+  convertTimeObjectToDate = (timeObject) => {
+    return fromUnixTime(timeObject.seconds);
+  };
+
+  isUnixTimestamp = (value) => {
+    return typeof value === "object" && "seconds" in value;
+  };
+
   async readDocByPath(path) {
     try {
       const docRef = this.firestore.doc(path);
       const docSnapshot = await docRef.get();
-      return { data: docSnapshot.data(), path: docRef.path };
+      const docData = docSnapshot.data();
+
+      for (const property in docData) {
+        const value = docData[property];
+
+        if (this.isUnixTimestamp(value)) {
+          docData[property] = this.convertTimeObjectToDate(value);
+        }
+      }
+
+      return { data: docData, path: docRef.path };
     } catch (e) {
       this.enableLogging && console.error(e);
       throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
