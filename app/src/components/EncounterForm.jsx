@@ -199,8 +199,8 @@ const EncounterForm = ({ handleSubmit }) => {
                   name="tagSuccess"
                   labelText="Tag success"
                   options={[
-                    { label: "On", value: "On" },
-                    { label: "Off", value: "Off" },
+                    { label: "Yes", value: "Yes" },
+                    { label: "No", value: "No" },
                     { label: "Not noted", value: "not-noted" },
                   ]}
                 />
