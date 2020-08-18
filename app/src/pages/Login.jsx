@@ -21,7 +21,11 @@ const Login = () => {
       hasHeader={false}
       hasStickyButton={false}
     >
-      <img css={logoStyles.loginLogo} src="logo512.png" alt="BMMRO logo" />
+      <img
+        css={logoStyles.loginLogo}
+        src={process.env.PUBLIC_URL + "/logo512.png"}
+        alt="BMMRO logo"
+      />
       <LoginForm />
     </Layout>
   );
