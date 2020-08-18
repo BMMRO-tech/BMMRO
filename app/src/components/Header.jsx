@@ -40,7 +40,11 @@ const Header = () => {
   return (
     <header css={styles.header}>
       <div css={styles.container}>
-        <img css={styles.logo} src="../logo192.png" alt="BMMRO logo" />
+        <img
+          css={styles.logo}
+          src={process.env.PUBLIC_URL + "/logo192.png"}
+          alt="BMMRO logo"
+        />
         <span css={styles.text}>BMMRO</span>
         <Menu menuButtonComponent={<Avatar />} menuItems={[<Logout />]} />
       </div>
