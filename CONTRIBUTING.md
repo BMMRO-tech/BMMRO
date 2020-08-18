@@ -7,6 +7,7 @@ We welcome your input in:
 - Discussing the current state of the code
 - Submitting a fix
 - Proposing new features
+- Submitting a pull request for the existing issue
 
 ## How to contribute
 
@@ -37,7 +38,7 @@ We use GitHub issues to track bugs. Please ensure you include:
 
 Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
 
-- Fork the repo and create your branch from master
+- Fork the repository
 - If you've added code that should be tested, add tests
 - Update relevant documentation
 - Ensure the test suite passes
@@ -57,7 +58,7 @@ We use GitHub issues to track enhancement suggestions. Please make sure you prov
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-Please report unacceptable behavior [here](bahamas-marine-mammal-research-organization@thoughtworks.com)
+Please report unacceptable behavior here: bahamas-marine-mammal-research-organization@thoughtworks.com
 
 ## License
 
