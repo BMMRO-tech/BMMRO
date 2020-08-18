@@ -57,7 +57,7 @@ const EncounterForm = ({ handleSubmit }) => {
             comments: "",
             videoRec: "",
             audioRec: "",
-            photographerFrameNumber: "",
+            photographerFrame: "",
             visualIdentifications: "",
             biopsyAttempt: "No",
             biopsySuccess: "not-noted",
@@ -160,13 +160,10 @@ const EncounterForm = ({ handleSubmit }) => {
                   labelText="Audio rec"
                   maxLength={255}
                 />
-                <NumberInput
-                  name="photographerFrameNumber"
-                  labelText="Photographer-frame number"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
+                <TextInput
+                  name="photographerFrame"
+                  labelText="Photographer + Frame"
+                  maxLength={255}
                 />
                 <TextAreaInput
                   name="visualIdentifications"

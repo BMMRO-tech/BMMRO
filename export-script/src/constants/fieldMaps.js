@@ -66,6 +66,7 @@ module.exports = {
     "Entered By": { key: "enteredBy" },
     "High Tide": { key: "highTide" },
     "Low Tide": { key: "lowTide" },
+    "Photographer-frame": { key: "photographerFrame" },
   },
   habitatUse: {
     Date: { key: "date", transform: convertUnixTimestampToMDY },
