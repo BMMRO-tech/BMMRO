@@ -26,7 +26,7 @@ import {
 } from "../constants/formOptions/roles";
 import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 
-const EncounterForm = ({ handleSubmit }) => {
+const EncounterForm = ({ initialValues, handleSubmit }) => {
   const transformSubmitValues = (values) => {
     values.startTimestamp.setHours(0, 0, 0, 0);
     values.endTimestamp.setHours(0, 0, 0, 0);
@@ -43,52 +43,54 @@ const EncounterForm = ({ handleSubmit }) => {
       <h1 css={utilities.form.title}>New Encounter</h1>
       <div css={utilities.form.container}>
         <Formik
-          initialValues={{
-            sequenceNumber: "",
-            startTimestamp: "",
-            area: "",
-            species: "",
-            project: "",
-            cue: "",
-            vessel: "",
-            observers: "",
-            groupSize: "",
-            location: "",
-            comments: "",
-            videoRec: "",
-            audioRec: "",
-            photographerFrame: "",
-            visualIdentifications: "",
-            biopsyAttempt: "No",
-            biopsySuccess: "not-noted",
-            tagAttempt: "No",
-            tagSuccess: "not-noted",
-            transect: "Off",
-            numAdultMale: "",
-            numAdultFemale: "",
-            numAdultUnknown: "",
-            numSubAdultMale: "",
-            numSubAdultFemale: "",
-            numSubAdult: "",
-            numJuvenileMale: "",
-            numJuvenileFemale: "",
-            numJuvenileUnknown: "",
-            numYoungOfYear: "",
-            numNeonates: "",
-            numUnknown: "",
-            endOfSearchEffort: "",
-            endTimestamp: "",
-            endTime: "",
-            reasonForLeaving: "",
-            highTide: "",
-            lowTide: "",
-            logbookNumber: "",
-            encounterNumber: "",
-            startTime: "",
-            elapsedTime: "",
-            enteredBy: RESEARCH_ASSISTANT,
-            exported: false,
-          }}
+          initialValues={
+            initialValues || {
+              sequenceNumber: "",
+              startTimestamp: "",
+              area: "",
+              species: "",
+              project: "",
+              cue: "",
+              vessel: "",
+              observers: "",
+              groupSize: "",
+              location: "",
+              comments: "",
+              videoRec: "",
+              audioRec: "",
+              photographerFrame: "",
+              visualIdentifications: "",
+              biopsyAttempt: "No",
+              biopsySuccess: "not-noted",
+              tagAttempt: "No",
+              tagSuccess: "not-noted",
+              transect: "Off",
+              numAdultMale: "",
+              numAdultFemale: "",
+              numAdultUnknown: "",
+              numSubAdultMale: "",
+              numSubAdultFemale: "",
+              numSubAdult: "",
+              numJuvenileMale: "",
+              numJuvenileFemale: "",
+              numJuvenileUnknown: "",
+              numYoungOfYear: "",
+              numNeonates: "",
+              numUnknown: "",
+              endOfSearchEffort: "",
+              endTimestamp: "",
+              endTime: "",
+              reasonForLeaving: "",
+              highTide: "",
+              lowTide: "",
+              logbookNumber: "",
+              encounterNumber: "",
+              startTime: "",
+              elapsedTime: "",
+              enteredBy: RESEARCH_ASSISTANT,
+              exported: false,
+            }
+          }
           onSubmit={(values) => {
             transformSubmitValues(values);
             handleSubmit(values);
@@ -102,8 +104,8 @@ const EncounterForm = ({ handleSubmit }) => {
                   labelText="Date"
                   isRequired
                   isShort
-                  autofill
                   notAfter={new Date()}
+                  autofill={!initialValues}
                 />
                 <TextInput
                   name="sequenceNumber"
@@ -323,7 +325,7 @@ const EncounterForm = ({ handleSubmit }) => {
                   name="endTimestamp"
                   labelText="End date"
                   isShort
-                  autofill
+                  autofill={!initialValues}
                   notBefore={values.startTimestamp}
                   notAfter={add(new Date(values.startTimestamp), {
                     hours: THREE_DAYS_IN_HOURS,
@@ -368,7 +370,7 @@ const EncounterForm = ({ handleSubmit }) => {
                   name="startTime"
                   labelText="Start time"
                   isShort
-                  autofill
+                  autofill={!initialValues}
                   notAfter={values.startTimestamp}
                 />
                 <ElapsedTime />
