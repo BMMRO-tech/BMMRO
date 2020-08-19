@@ -12,14 +12,14 @@ describe("ElapsedTime", () => {
     await act(async () => {
       timeRender = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-        startTime: "11:00:05",
-        endTime: "11:30:50",
+        startTime: "11:00",
+        endTime: "11:30",
         startTimestamp: new Date(Date.now()),
         endTimestamp: new Date(Date.now()),
       });
     });
 
-    expect(timeRender.getFormValues().elapsedTime).toEqual(31);
+    expect(timeRender.getFormValues().elapsedTime).toEqual(30);
     expect(timeRender.getFormErrors()).toEqual({});
   });
 
@@ -29,8 +29,8 @@ describe("ElapsedTime", () => {
     await act(async () => {
       getFormValues = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-        startTime: "11:00:11",
-        endTime: "11:00:__",
+        startTime: "11:00",
+        endTime: "11:__",
         startTimestamp: new Date(Date.now()),
         endTimestamp: new Date(Date.now()),
       }).getFormValues;
@@ -44,8 +44,8 @@ describe("ElapsedTime", () => {
     await act(async () => {
       getFormValues = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-        startTime: "11:00:55",
-        endTime: "11:00:54",
+        startTime: "11:00",
+        endTime: "10:59",
         startTimestamp: new Date(Date.now()),
         endTimestamp: new Date(Date.now()),
       }).getFormValues;

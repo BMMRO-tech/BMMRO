@@ -40,7 +40,7 @@ describe("EncounterForm", () => {
     expect(formValues.startTimestamp).toEqual(
       new Date("2020-05-04T00:00:00.000Z")
     );
-    expect(formValues.startTime).toEqual("11:30:12");
+    expect(formValues.startTime).toEqual("11:30");
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
