@@ -88,7 +88,7 @@ export class Datastore {
         for (const property in docData) {
           const value = docData[property];
 
-          if (typeof value === "object" && "seconds" in value) {
+          if (this.isUnixTimestamp(value)) {
             docData[property] = this.convertTimeObjectToDate(value);
           }
         }

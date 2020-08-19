@@ -3,9 +3,10 @@ import { jsx } from "@emotion/core";
 import usLocale from "date-fns/locale/en-US";
 import { format } from "date-fns";
 
-import ListSubheader from "./list/ListSubheader";
-import ListItem from "./list/ListItem";
 import utilities from "../materials/utilities";
+import { generateEditEncounterURL } from "../constants/routes";
+import ListItem from "./list/ListItem";
+import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 
@@ -39,7 +40,7 @@ const EncounterList = ({ title, items, loadMore, showSubheader }) => {
                 return (
                   <ListItem
                     key={entry.id}
-                    destinationUrl=""
+                    destinationUrl={generateEditEncounterURL(entry.id)}
                     primaryTime={startTimestamp
                       .getDate()
                       .toString()
