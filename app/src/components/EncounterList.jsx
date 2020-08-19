@@ -1,5 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import usLocale from "date-fns/locale/en-US";
+import { format } from "date-fns";
+
 import ListSubheader from "./list/ListSubheader";
 import ListItem from "./list/ListItem";
 import utilities from "../materials/utilities";
@@ -41,8 +44,8 @@ const EncounterList = ({ title, items, loadMore, showSubheader }) => {
                       .getDate()
                       .toString()
                       .padStart(2, "0")}
-                    secondaryTime={startTimestamp.toLocaleString("default", {
-                      month: "short",
+                    secondaryTime={format(startTimestamp, "MMM", {
+                      locale: usLocale,
                     })}
                     primaryContent={`${sequenceNumber} ${species}`}
                     secondaryContent={area}
