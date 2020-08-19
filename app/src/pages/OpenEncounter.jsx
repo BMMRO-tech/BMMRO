@@ -30,7 +30,7 @@ const OpenEncounter = ({ encounterId }) => {
   const navigate = useNavigate();
 
   const onEndEncounterClick = () => {
-    navigate(ROUTES.newEncounter);
+    navigate(ROUTES.encounters);
   };
 
   useEffect(() => {

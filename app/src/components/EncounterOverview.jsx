@@ -33,17 +33,18 @@ const EncounterOverview = ({ encounter }) => {
       ${typography.largeText}
       font-weight: 600;
       color: ${colors.darkTurquoise};
-      padding-top: 10px;
-
       display: flex;
-      align-items: center;
     `,
     arrow: css`
+      margin-left: 5px;
+      display: flex;
+      align-items: center;
+
       svg {
-        alignment-baseline: bottom;
-        height: 16px;
-        margin-left: 5px;
+        height: 15px;
         fill: ${colors.darkTurquoise};
+        stroke: ${colors.darkTurquoise};
+        stroke-width: 2;
       }
     `,
   };
@@ -70,10 +71,10 @@ const EncounterOverview = ({ encounter }) => {
         )}
       </div>
       <Link css={styles.link} to={generateEditEncounterURL(encounter.id)}>
-        <div>Encounter data sheet </div>
-        <div css={styles.arrow}>
+        <span>Encounter data sheet</span>
+        <span css={styles.arrow}>
           <RightArrow />
-        </div>
+        </span>
       </Link>
     </div>
   );

@@ -37,7 +37,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
 
   return (
     <div css={utilities.sticky.contentContainer}>
-      <h1 css={utilities.form.title}>New Encounter</h1>
+      <h1 css={utilities.form.title}>Edit Encounter</h1>
       <div css={utilities.form.container}>
         <Formik
           initialValues={

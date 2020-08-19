@@ -22,7 +22,9 @@ import utilities from "../materials/utilities";
 const HabitatUseForm = ({ initialValues, handleSubmit }) => {
   return (
     <div css={utilities.sticky.contentContainer}>
-      <h1 css={utilities.form.title}>Habitat Use Form</h1>
+      <h1 css={utilities.form.title}>
+        {initialValues ? "Edit Habitat Use" : "New Habitat Use"}
+      </h1>
       <div css={utilities.form.container}>
         <Formik
           initialValues={
