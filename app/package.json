@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "TZ=UTC firebase emulators:exec --only firestore 'react-scripts test'",
+    "test": "TZ=UTC firebase emulators:exec --only firestore 'react-scripts test --runInBand'",
     "eject": "react-scripts eject",
     "format": "prettier --write 'src/' 'firestore/'",
     "format-check": "prettier --check 'src/' 'firestore/'",

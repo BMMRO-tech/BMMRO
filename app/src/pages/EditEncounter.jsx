@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "@reach/router";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
@@ -9,11 +9,12 @@ import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
 import { getModifiedProperties } from "../utils/math";
-import { generateOpenEncounterURL } from "../constants/routes";
+import { generateOpenEncounterURL, ROUTES } from "../constants/routes";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
+  const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (values) => {
@@ -29,6 +30,8 @@ const EditEncounter = ({ encounterId }) => {
 
       if (!!values.data) {
         setInitialValues(values.data);
+      } else {
+        navigate(ROUTES.newEncounter);
       }
     };
     if (!!datastore) {
