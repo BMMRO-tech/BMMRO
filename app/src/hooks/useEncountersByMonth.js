@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
-  startOfToday,
-  startOfTomorrow,
+  startOfDay,
+  addDays,
   startOfMonth,
   format,
   getYear,
@@ -9,6 +9,7 @@ import {
 } from "date-fns";
 import usLocale from "date-fns/locale/en-US";
 import { CollectionNames } from "../constants/datastore";
+import { getCurrentDate } from "../utils/time";
 
 const extractEncounterProperties = (encounter) => {
   const {
@@ -64,8 +65,8 @@ const useEncountersByMonth = (datastore) => {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    const today = startOfToday();
-    const tomorrow = startOfTomorrow();
+    const today = startOfDay(getCurrentDate());
+    const tomorrow = addDays(today, 1);
 
     if (!!datastore) {
       getEncountersByTimeRange(datastore, today, tomorrow).then(
@@ -80,9 +81,9 @@ const useEncountersByMonth = (datastore) => {
     // eslint-disable-next-line
   }, [datastore]);
 
-  if (counter === 12) return [todaysEncounters, previousEncounters];
+  if (counter === 12) return { todaysEncounters, previousEncounters };
 
-  const getPreviousMonthsData = () => {
+  const loadPreviousMonth = () => {
     if (!timeRange) return;
 
     getEncountersByTimeRange(datastore, ...timeRange).then((data) =>
@@ -93,7 +94,7 @@ const useEncountersByMonth = (datastore) => {
     setCounter(counter + 1);
   };
 
-  return [todaysEncounters, previousEncounters, getPreviousMonthsData];
+  return { todaysEncounters, previousEncounters, loadPreviousMonth };
 };
 
 export default useEncountersByMonth;

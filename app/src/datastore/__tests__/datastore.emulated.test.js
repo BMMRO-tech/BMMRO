@@ -28,9 +28,9 @@ describe("datastore", () => {
     });
   });
 
-  beforeEach(
-    async () => await firebaseTesting.clearFirestoreData({ projectId })
-  );
+  beforeEach(async () => {
+    await firebaseTesting.clearFirestoreData({ projectId });
+  });
 
   afterAll(async () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));

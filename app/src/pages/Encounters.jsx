@@ -26,11 +26,11 @@ const Encounters = () => {
   };
 
   const { datastore } = useContext(FirebaseContext);
-  const [
+  const {
     todaysEncounters,
     previousEncounters,
-    loadNextMonth,
-  ] = useEncountersByMonth(datastore);
+    loadPreviousMonth,
+  } = useEncountersByMonth(datastore);
 
   return (
     <Layout hasDefaultPadding={false}>
@@ -47,7 +47,7 @@ const Encounters = () => {
         <EncounterList
           title="Previous encounters"
           items={previousEncounters}
-          loadMore={loadNextMonth}
+          loadMore={loadPreviousMonth}
         />
       </div>
     </Layout>

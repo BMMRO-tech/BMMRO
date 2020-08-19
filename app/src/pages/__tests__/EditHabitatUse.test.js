@@ -23,7 +23,7 @@ describe("EditHabitatUse", () => {
   });
 
   afterAll(async () => {
-    async () => await firebaseTesting.clearFirestoreData({ projectId });
+    await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 

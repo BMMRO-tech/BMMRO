@@ -29,9 +29,11 @@
   },
   "devDependencies": {
     "@firebase/testing": "^0.20.7",
+    "@testing-library/react-hooks": "^3.4.1",
     "husky": "^4.2.5",
     "mutationobserver-shim": "^0.3.7",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "react-test-renderer": "^16.13.1"
   },
   "husky": {
     "hooks": {
