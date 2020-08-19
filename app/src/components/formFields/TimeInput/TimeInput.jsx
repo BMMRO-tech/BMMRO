@@ -10,15 +10,17 @@ import {
   FormErrorType,
   TIME_FORMAT,
   TIME_PATTERN,
+  TIME_WITH_SECONDS_FORMAT,
+  TIME_WITH_SECONDS_PATTERN,
 } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 import getErrorMessage from "../../../utils/getErrorMessage";
-import { getCurrentDate } from "../../../utils/time";
+import { getCurrentDate, constructDateTime } from "../../../utils/time";
 
-const formatTime = (date) => format(date, TIME_FORMAT);
+const formatTime = (date, timeFormat) => format(date, timeFormat);
 
-const timeStringValid = (val) => {
-  const timePattern = new RegExp(TIME_PATTERN);
+const timeStringValid = (val, pattern) => {
+  const timePattern = new RegExp(pattern);
   return timePattern.test(val);
 };
 
@@ -31,22 +33,23 @@ const TimeInput = ({
   notBefore,
   notAfter,
   associatedDate,
+  timeWithSeconds,
 }) => {
+  const timePattern = timeWithSeconds
+    ? TIME_WITH_SECONDS_PATTERN
+    : TIME_PATTERN;
+
+  const timeFormat = timeWithSeconds ? TIME_WITH_SECONDS_FORMAT : TIME_FORMAT;
+
   const validateTime = (val) => {
-    if (val && !timeStringValid(val)) {
+    if (val && !timeStringValid(val, timePattern)) {
       return getErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
-        format: "hh:mm:ss",
+        format: timeFormat.toLowerCase(),
       });
     }
 
-    const [hours, minutes, seconds] = val.split(":");
-
     if (val && associatedDate) {
-      const dateTime = new Date(associatedDate).setHours(
-        hours,
-        minutes,
-        seconds
-      );
+      const dateTime = constructDateTime(associatedDate, val);
 
       if (notAfter && dateTime > notAfter) {
         return getErrorMessage(FormErrorType.INVALID_END_TIME);
@@ -66,11 +69,18 @@ const TimeInput = ({
   });
 
   useEffect(() => {
-    if (autofill) helpers.setValue(formatTime(getCurrentDate()));
+    if (autofill) helpers.setValue(formatTime(getCurrentDate(), timeFormat));
     // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
-    if (field.value === "__:__:__") helpers.setValue("");
+    if (
+      (timeWithSeconds && field.value === "__:__:__") ||
+      (!timeWithSeconds && field.value === "__:__")
+    ) {
+      helpers.setValue("");
+    }
+
     // eslint-disable-next-line
   }, [field.value]);
 
@@ -83,7 +93,7 @@ const TimeInput = ({
         <div css={fieldStyles.inputContainer}>
           <InputMask
             {...field}
-            mask="99:99:99"
+            mask={timeWithSeconds ? "99:99:99" : "99:99"}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
           />
         </div>

@@ -29,6 +29,7 @@ describe("TimeInput", () => {
         name="favoriteTime"
         labelText="Your favorite time"
         notBefore="15:00:00"
+        timeWithSeconds
       />,
       { favoriteTime: "" }
     );
@@ -72,7 +73,11 @@ describe("TimeInput", () => {
       getByRole,
       getByText,
     } = renderWithinFormik(
-      <TimeInput name="favoriteTime" labelText="Your favorite time" />,
+      <TimeInput
+        name="favoriteTime"
+        labelText="Your favorite time"
+        timeWithSeconds
+      />,
       { favoriteTime: "" }
     );
 
@@ -103,6 +108,7 @@ describe("TimeInput", () => {
         labelText="Your favorite time"
         notBefore={new Date(Date.now())}
         associatedDate={new Date(Date.now())}
+        timeWithSeconds
       />,
       { defaultTime: "11:29:11" }
     );
@@ -133,6 +139,7 @@ describe("TimeInput", () => {
         labelText="Your favorite time"
         notAfter={new Date(Date.now())}
         associatedDate={new Date(Date.now())}
+        timeWithSeconds
       />,
       { defaultTime: "11:31:13" }
     );
@@ -153,7 +160,11 @@ describe("TimeInput", () => {
 
   it("sets form field state to empty string when value is __:__:__", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
-      <TimeInput name="favoriteTime" labelText="Your favorite time" />,
+      <TimeInput
+        name="favoriteTime"
+        labelText="Your favorite time"
+        timeWithSeconds
+      />,
       { favoriteTime: "" }
     );
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
@@ -168,9 +179,40 @@ describe("TimeInput", () => {
     expect(getFormValues().favoriteTime).not.toEqual("__:__:__");
   });
 
-  it("autofills time", () => {
+  it("sets form field state to empty string when value is __:__ and timeWithSeconds is false", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <TimeInput name="favoriteTime" labelText="Your favorite time" />,
+      { favoriteTime: "" }
+    );
+    const timeInput = getByRole("textbox", { name: "Your favorite time" });
+
+    await act(async () => changeInputMaskValue(timeInput, "1234"));
+
+    expect(getFormValues().favoriteTime).toEqual("12:34");
+
+    await act(async () => changeInputMaskValue(timeInput, ""));
+
+    expect(getFormValues().favoriteTime).toEqual("");
+    expect(getFormValues().favoriteTime).not.toEqual("__:__");
+  });
+
+  it("autofills time without seconds when timeWithSeconds is false", () => {
     const { getFormValues } = renderWithinFormik(
       <TimeInput name="defaultTime" labelText="Your favorite time" autofill />,
+      { defaultTime: "" }
+    );
+
+    expect(getFormValues().defaultTime).toEqual("11:30");
+  });
+
+  it("autofills time without seconds when timeWithSeconds is false", () => {
+    const { getFormValues } = renderWithinFormik(
+      <TimeInput
+        name="defaultTime"
+        labelText="Your favorite time"
+        autofill
+        timeWithSeconds
+      />,
       { defaultTime: "" }
     );
 
