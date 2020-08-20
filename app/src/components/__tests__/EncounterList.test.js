@@ -73,7 +73,7 @@ describe("EncounterList", () => {
     expect(actual).not.toBeUndefined();
   });
 
-  it("triggers callback when 'load more' pressed", async () => {
+  it("triggers callback when 'Load previous month' pressed", async () => {
     const mockLoadMore = jest.fn();
     const { getByText } = render(
       <EncounterList
@@ -83,7 +83,7 @@ describe("EncounterList", () => {
       />
     );
 
-    const loadMoreLink = getByText("Load more");
+    const loadMoreLink = getByText("Load previous month");
     await userEvent.click(loadMoreLink);
 
     expect(mockLoadMore.mock.calls.length).toBe(1);

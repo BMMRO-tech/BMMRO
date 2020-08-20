@@ -56,7 +56,9 @@ const EncounterList = ({ title, items, loadMore, shouldLoadMore, isToday }) => {
           </ul>
         ))
       )}
-      {!!loadMore && <LoadMoreButton handleClick={loadMore} />}
+      {!!loadMore && (
+        <LoadMoreButton text="Load previous month" handleClick={loadMore} />
+      )}
     </div>
   );
 };

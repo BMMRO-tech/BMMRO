@@ -17,10 +17,10 @@ const styles = {
   `,
 };
 
-const LoadMoreButton = ({ handleClick }) => {
+const LoadMoreButton = ({ handleClick, text }) => {
   return (
     <button onClick={handleClick} css={styles.loadMoreButton}>
-      Load more
+      {text}
     </button>
   );
 };
