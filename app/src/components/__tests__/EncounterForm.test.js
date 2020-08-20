@@ -13,10 +13,11 @@ describe("EncounterForm", () => {
 
   it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
-    const mockHandleSubmit = (values) => {
+    const mockHandleSubmit = (_, values) => {
       formValues = values;
     };
-    const { getByRole } = render(
+
+    const { getByRole, getAllByRole } = render(
       <EncounterForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -26,7 +27,7 @@ describe("EncounterForm", () => {
       const encounterSequenceInput = getByRole("textbox", {
         name: "Encounter sequence *",
       });
-      const submitButton = getByRole("button");
+      const [submitButton] = getAllByRole("button");
 
       await userEvent.selectOptions(areaInput, "Central Andros");
       await userEvent.selectOptions(speciesInput, "Fin whale");
@@ -45,12 +46,13 @@ describe("EncounterForm", () => {
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
-    const { getByRole, getByLabelText } = render(
+
+    const { getAllByRole, getByLabelText } = render(
       <EncounterForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
-      const submitButton = getByRole("button");
+      const [submitButton] = getAllByRole("button");
       userEvent.click(submitButton);
 
       const errorMessage = getByLabelText("Area", {

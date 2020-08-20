@@ -1,6 +1,7 @@
 /** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+import { useState } from "react";
 import { Formik, Form } from "formik";
-import { jsx } from "@emotion/core";
 import add from "date-fns/add";
 
 import utilities from "../materials/utilities";
@@ -24,13 +25,22 @@ import {
   RESEARCH_ASSISTANT,
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
-import { THREE_DAYS_IN_HOURS } from "../constants/forms";
+import { THREE_DAYS_IN_HOURS, FormSubmitType } from "../constants/forms";
 import { constructDateTime } from "../utils/time";
 
 const EncounterForm = ({ initialValues, handleSubmit }) => {
+  const [submitType, setSubmitType] = useState(null);
+  const styles = {
+    endButton: css`
+      margin-right: 10px;
+    `,
+  };
+
   const transformSubmitValues = (values) => {
     values.startTimestamp.setHours(0, 0, 0, 0);
-    values.endTimestamp.setHours(0, 0, 0, 0);
+    if (values.endTimestamp) {
+      values.endTimestamp.setHours(0, 0, 0, 0);
+    }
 
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
   };
@@ -90,10 +100,10 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
           }
           onSubmit={(values) => {
             transformSubmitValues(values);
-            handleSubmit(values);
+            handleSubmit(submitType, values);
           }}
         >
-          {({ values }) => (
+          {({ values, submitForm }) => (
             <Form>
               <div css={utilities.form.fieldsGrid}>
                 <DateInput
@@ -390,7 +400,31 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                 <span>*</span>required fields
               </div>
               <div css={utilities.sticky.footerContainer}>
-                <Button type="submit">Save encounter</Button>
+                <Button
+                  styles={styles.endButton}
+                  width="150px"
+                  variant="secondary"
+                  type="button"
+                  onClick={() => {
+                    // Setting state and calling submitForm with timeout is required as passing a payload to
+                    // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                    setSubmitType(FormSubmitType.SAVE_AND_END);
+                    setTimeout(submitForm);
+                  }}
+                >
+                  Save & end
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    // Setting state and calling submitForm with timeout is required as passing a payload to
+                    // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                    setSubmitType(FormSubmitType.SAVE);
+                    setTimeout(submitForm);
+                  }}
+                >
+                  Save
+                </Button>
               </div>
             </Form>
           )}

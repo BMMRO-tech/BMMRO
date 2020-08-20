@@ -15,6 +15,11 @@ export const FormErrorType = {
   MIN_VALUE: "min-value",
 };
 
+export const FormSubmitType = {
+  SAVE_AND_END: "save-and-end",
+  SAVE: "save",
+};
+
 export const DATE_FORMAT = "dd/MM/yyyy";
 export const TIME_FORMAT = "HH:mm";
 export const TIME_WITH_SECONDS_FORMAT = "HH:mm:ss";

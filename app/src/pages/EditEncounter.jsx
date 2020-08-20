@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
 import { getModifiedProperties } from "../utils/math";
 import { generateOpenEncounterURL, ROUTES } from "../constants/routes";
+import { FormSubmitType } from "../constants/forms";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -17,11 +18,15 @@ const EditEncounter = ({ encounterId }) => {
   const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (submitType, values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
     datastore.updateDocByPath(encounterPath, modifiedProperties);
 
-    navigate(generateOpenEncounterURL(encounterId));
+    if (submitType === FormSubmitType.SAVE_AND_END) {
+      navigate(ROUTES.encounters);
+    } else if (submitType === FormSubmitType.SAVE) {
+      navigate(generateOpenEncounterURL(encounterId));
+    }
   };
 
   useEffect(() => {
