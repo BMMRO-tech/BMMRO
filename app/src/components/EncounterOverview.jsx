@@ -8,7 +8,7 @@ import colors from "../materials/colors";
 import { RightArrow } from "./icons/RightArrow";
 import { generateEditEncounterURL } from "../constants/routes";
 
-const EncounterOverview = ({ encounter }) => {
+const EncounterOverview = ({ encounter, isNewEncounter }) => {
   const styles = {
     container: css`
       background-color: ${colors.white};
@@ -49,14 +49,10 @@ const EncounterOverview = ({ encounter }) => {
     `,
   };
 
-  const isNewEncounter = () => {
-    return !encounter.sequenceNumber || !encounter.species || !encounter.area;
-  };
-
   return (
     <div css={styles.container}>
       <div css={styles.summaryContainer}>
-        {isNewEncounter() ? (
+        {isNewEncounter ? (
           <h1 css={typography.title}>New encounter</h1>
         ) : (
           <Fragment>

@@ -26,7 +26,8 @@ const Button = ({
     font-weight: 600;
 
     &:disabled {
-      background: darkgrey;
+      background: ${colors.mediumGray};
+      border: 1px solid ${colors.mediumGray};
     }
 
     @media (min-width: ${breakPoints.maxPhone}) {

@@ -47,4 +47,21 @@ describe("OpenEncounter", () => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
   });
+
+  it("does not allow to end the encounter if required fields are missing", async () => {
+    await firestoreEmulator.collection("encounter").doc("a6789").set({
+      species: "Bottlenose dolphin",
+      area: "UK",
+    });
+
+    const { getByTestId } = renderWithMockContexts(
+      <OpenEncounter encounterId={"a6789"} />,
+      { datastore }
+    );
+
+    await waitFor(() => {
+      const endButton = getByTestId("end-button");
+      expect(endButton).toHaveAttribute("disabled");
+    });
+  });
 });

@@ -13,15 +13,27 @@ import EncounterOverview from "../components/EncounterOverview";
 import HabitatUseList from "../components/HabitatUseList";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
+import typography from "../materials/typography";
 
 const OpenEncounter = ({ encounterId }) => {
   const styles = {
+    footerContainer: css`
+      ${utilities.sticky.footerContainer}
+      flex-direction: column;
+      align-items: center;
+    `,
     list: css`
       margin: 10px;
 
       @media (min-width: ${breakPoints.mediumTablet}) {
         margin: 0;
       }
+    `,
+    disabledButtonMessage: css`
+      ${typography.smallText}
+      font-style: italic;
+      margin-top: 10px;
+      text-align: center;
     `,
   };
 
@@ -31,6 +43,10 @@ const OpenEncounter = ({ encounterId }) => {
 
   const onEndEncounterClick = () => {
     navigate(ROUTES.encounters);
+  };
+
+  const isNewEncounter = () => {
+    return !encounter.sequenceNumber || !encounter.species || !encounter.area;
   };
 
   useEffect(() => {
@@ -65,15 +81,30 @@ const OpenEncounter = ({ encounterId }) => {
     <Layout hasDefaultPadding={false}>
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
-          <EncounterOverview encounter={encounter} />
+          <EncounterOverview
+            isNewEncounter={isNewEncounter()}
+            encounter={encounter}
+          />
           <div css={styles.list}>
             <HabitatUseList
               items={encounter.habitatUseEntries}
               encounterId={encounterId}
             />
           </div>
-          <div css={utilities.sticky.footerContainer}>
-            <Button onClick={onEndEncounterClick}>End encounter</Button>
+          <div css={styles.footerContainer}>
+            <Button
+              testId="end-button"
+              disabled={isNewEncounter()}
+              onClick={onEndEncounterClick}
+            >
+              End encounter
+            </Button>
+            {isNewEncounter() && (
+              <div css={styles.disabledButtonMessage}>
+                Please complete all required encounter fields to end the
+                encounter
+              </div>
+            )}
           </div>
         </div>
       ) : (
