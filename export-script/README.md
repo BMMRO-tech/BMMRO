@@ -4,17 +4,23 @@ This script exports data from the Firebase Firestore to a csv file.
 
 ## Installation
 
-It is assumed that at this point, you have `node`, `git`, `npm` and a terminal installed on your system.
+1. Install `node` and `npm` from https://nodejs.org/en/download/
+1. Get the code from GitHub. You can do this by either:
+   a. Going to the [GitHub page for the project](https://github.com/BMMRO-tech/BMMRO), clicking 'Code' and selecting 'Download ZIP'
+   a. [Downloading `git`](https://git-scm.com/downloads) and cloning the repository onto your machine: `git clone https://github.com/BMMRO-tech/BMMRO.git`
+1. Navigate to the `export-script` folder `cd export-script`
+1. Install the dependencies `npm ci`
+1. Create a `.env` file (`vim .env`) with the following:
 
-1. Clone the repository onto your machine: `git clone https://github.com/BMMRO-tech/BMMRO.git`
-2. Navigate to the `export-script` folder `cd export-script`
-3. Install the dependencies `npm ci`
-4. Create a `.env` file (`touch .env`) and set the following values that can be found in project settings inside firebaseConfig object in Firebase console:
+```
+PROJECT_ID=123
+API_KEY=123
+AUTH_DOMAIN=123
+EMAIL=123
+PASSWORD=123
+```
 
-- set `PROJECT_ID` to `projectId`
-- set `API_KEY` to `apiKey`
-- set `AUTH_DOMAIN` to `authDomain`
-- set `EMAIL` and `PASSWORD` to your email address and password that you use to log in to the app
+Please replace `123` with the correct values (these can be found in project settings inside the firebaseConfig object at the bottom of [this page in the Firebase console](https://console.firebase.google.com/u/1/project/bmmro-164ec/settings/general)). `EMAIL` and `PASSWORD` are the email address and password that you use to log in to the app.
 
 ## Running the script
 
