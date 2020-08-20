@@ -14,20 +14,12 @@ const styles = {
     width: 100%;
     border: none;
     border-top: 1px solid ${colors.lightGray};
-
-    &:disabled {
-      color: ${colors.lightGray};
-    }
   `,
 };
 
-const LoadMoreButton = ({ handleClick, hasMaxItems }) => {
+const LoadMoreButton = ({ handleClick }) => {
   return (
-    <button
-      disabled={hasMaxItems}
-      onClick={handleClick}
-      css={styles.loadMoreButton}
-    >
+    <button onClick={handleClick} css={styles.loadMoreButton}>
       Load more
     </button>
   );

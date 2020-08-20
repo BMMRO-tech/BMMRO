@@ -10,9 +10,7 @@ import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 
-const EncounterList = ({ title, items, loadMore, showSubheader }) => {
-  const hasMaxItems = items.length >= 12;
-
+const EncounterList = ({ title, items, loadMore, shouldLoadMore, isToday }) => {
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
@@ -21,9 +19,7 @@ const EncounterList = ({ title, items, loadMore, showSubheader }) => {
       ) : (
         items.map((item, i) => (
           <ul key={`encounterList-${i}`} css={utilities.list.items}>
-            {showSubheader && (
-              <ListSubheader title={`${item.month} ${item.year}`} />
-            )}
+            {!isToday && <ListSubheader title={`${item.month} ${item.year}`} />}
             {!item.entries.length ? (
               <div css={utilities.list.noEntries}>
                 No encounters in {item.month}
@@ -35,19 +31,22 @@ const EncounterList = ({ title, items, loadMore, showSubheader }) => {
                   sequenceNumber,
                   species,
                   area,
+                  startTime,
                 } = entry.data;
+
+                const day = format(startTimestamp, "dd", {
+                  locale: usLocale,
+                });
+                const month = format(startTimestamp, "MMM", {
+                  locale: usLocale,
+                });
 
                 return (
                   <ListItem
                     key={entry.id}
                     destinationUrl={generateOpenEncounterURL(entry.id)}
-                    primaryTime={startTimestamp
-                      .getDate()
-                      .toString()
-                      .padStart(2, "0")}
-                    secondaryTime={format(startTimestamp, "MMM", {
-                      locale: usLocale,
-                    })}
+                    primaryTime={isToday ? startTime : day}
+                    secondaryTime={!isToday && month}
                     primaryContent={`${sequenceNumber} ${species}`}
                     secondaryContent={area}
                   />
@@ -57,9 +56,7 @@ const EncounterList = ({ title, items, loadMore, showSubheader }) => {
           </ul>
         ))
       )}
-      {loadMore ? (
-        <LoadMoreButton hasMaxItems={hasMaxItems} handleClick={loadMore} />
-      ) : null}
+      {!!loadMore && <LoadMoreButton handleClick={loadMore} />}
     </div>
   );
 };

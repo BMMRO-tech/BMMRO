@@ -11,7 +11,13 @@ import usLocale from "date-fns/locale/en-US";
 import { CollectionNames } from "../constants/datastore";
 
 const extractEncounterProperties = (encounter) => {
-  const { startTimestamp, species, area, sequenceNumber } = encounter.data;
+  const {
+    startTimestamp,
+    species,
+    area,
+    sequenceNumber,
+    startTime,
+  } = encounter.data;
   return {
     id: encounter.id,
     data: {
@@ -19,6 +25,7 @@ const extractEncounterProperties = (encounter) => {
       species,
       area,
       sequenceNumber,
+      startTime,
     },
   };
 };
@@ -54,6 +61,7 @@ const useEncountersByMonth = (datastore) => {
   const [todaysEncounters, setTodaysEncounters] = useState([]);
   const [previousEncounters, setPreviousEncounters] = useState([]);
   const [timeRange, setTimeRange] = useState();
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     const today = startOfToday();
@@ -67,9 +75,12 @@ const useEncountersByMonth = (datastore) => {
         setPreviousEncounters
       );
       setTimeRange(calculatePreviousMonthTimeRange(today));
+      setCounter(counter + 1);
     }
     // eslint-disable-next-line
   }, [datastore]);
+
+  if (counter === 12) return [todaysEncounters, previousEncounters];
 
   const getPreviousMonthsData = () => {
     if (!timeRange) return;
@@ -79,6 +90,7 @@ const useEncountersByMonth = (datastore) => {
     );
     const [currentStartOfMonth] = timeRange;
     setTimeRange(calculatePreviousMonthTimeRange(currentStartOfMonth));
+    setCounter(counter + 1);
   };
 
   return [todaysEncounters, previousEncounters, getPreviousMonthsData];
