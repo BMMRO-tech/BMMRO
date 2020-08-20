@@ -154,8 +154,8 @@ describe("NumberInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.MAX_DECIMAL_DIGITS,
-      { maxDecimalDigits: 2 }
+      FormErrorType.MAX_DECIMAL_PLACES,
+      { maxDecimalPlaces: 2 }
     );
 
     expect(getFormErrors().favoriteDecimalNumber).toEqual(expectedErrorMessage);

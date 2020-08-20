@@ -9,7 +9,7 @@ export const FormErrorType = {
   INVALID_POSITION_FORMAT: "invalid-position-format",
   INVALID_TIME_FORMAT: "invalid-time-format",
   MAX_DATE: "max-date",
-  MAX_DECIMAL_DIGITS: "max-decimal-digits",
+  MAX_DECIMAL_PLACES: "max-decimal-places",
   MAX_TIME: "max-time",
   MAX_VALUE: "max-value",
   MIN_VALUE: "min-value",

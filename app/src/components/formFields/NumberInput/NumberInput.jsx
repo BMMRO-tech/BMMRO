@@ -50,8 +50,8 @@ const NumberInput = ({
     }
 
     if (decimalPrecision && numberOfDecimalPlaces(val) > decimalPrecision) {
-      return getErrorMessage(FormErrorType.MAX_DECIMAL_DIGITS, {
-        maxDecimalDigits: decimalPrecision,
+      return getErrorMessage(FormErrorType.MAX_DECIMAL_PLACES, {
+        maxDecimalPlaces: decimalPrecision,
       });
     }
 

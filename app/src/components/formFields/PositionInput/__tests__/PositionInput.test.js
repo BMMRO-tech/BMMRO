@@ -110,7 +110,7 @@ describe("PositionInput", () => {
     );
   });
 
-  it("displays error for less than 6 decimal digits", async () => {
+  it("displays error for less than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
@@ -124,8 +124,8 @@ describe("PositionInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_DECIMAL_DIGITS,
-      { decimalDigits: 6 }
+      FormErrorType.INVALID_DECIMAL_PLACES,
+      { decimalPlaces: 6 }
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
@@ -133,7 +133,7 @@ describe("PositionInput", () => {
     );
   });
 
-  it("displays error for more than 6 decimal digits", async () => {
+  it("displays error for more than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
@@ -147,8 +147,8 @@ describe("PositionInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_DECIMAL_DIGITS,
-      { decimalDigits: 6 }
+      FormErrorType.INVALID_DECIMAL_PLACES,
+      { decimalPlaces: 6 }
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(

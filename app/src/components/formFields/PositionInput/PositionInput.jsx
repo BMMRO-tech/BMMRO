@@ -44,8 +44,8 @@ const PositionInput = ({
     }
 
     if (val && !digitsPattern.test(val)) {
-      return getErrorMessage(FormErrorType.INVALID_DECIMAL_DIGITS, {
-        decimalDigits: 6,
+      return getErrorMessage(FormErrorType.INVALID_DECIMAL_PLACES, {
+        decimalPlaces: 6,
       });
     }
 
