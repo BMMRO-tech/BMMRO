@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
@@ -114,6 +114,27 @@ describe("HabitatUseForm", () => {
       const errorMessage = getByLabelText("Lat");
       expect(errorMessage).toHaveAttribute("role", "alert");
       expect(mockHandleSubmit).not.toHaveBeenCalled();
+    });
+  });
+
+  it("if there is an error, after pressing submit button, will focus on that input", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole } = render(
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />
+    );
+
+    await act(async () => {
+      const submitButton = getByRole("button");
+      userEvent.click(submitButton);
+
+      const latInput = getByRole("textbox", {
+        name: "Lat *",
+      });
+
+      await waitFor(() => {
+        expect(submitButton).not.toHaveFocus();
+        expect(latInput).toHaveFocus();
+      });
     });
   });
 });

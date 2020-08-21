@@ -8,6 +8,7 @@ import TimeInput from "./formFields/TimeInput/TimeInput";
 import PositionInput from "./formFields/PositionInput/PositionInput";
 import Select from "./formFields/Select/Select";
 import Button from "./Button";
+import InputFocusOnError from "./formFields/InputFocusOnError";
 
 import direction from "../constants/formOptions/direction";
 import bottomSubstrate from "../constants/formOptions/bottomSubstrate";
@@ -225,6 +226,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
               <div css={utilities.sticky.footerContainer}>
                 <Button type="submit">Save habitat use</Button>
               </div>
+              <InputFocusOnError />
             </Form>
           )}
         </Formik>
