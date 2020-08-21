@@ -21,12 +21,12 @@ const AppWithoutContext = () => {
   return (
     <Router>
       <Login path={ROUTES.login} />
-      <NewEncounter default path={ROUTES.newEncounter} />
+      <NewEncounter path={ROUTES.newEncounter} />
       <OpenEncounter path={ROUTES.openEncounter} />
       <EditEncounter path={ROUTES.editEncounter} />
       <NewHabitatUse path={ROUTES.newHabitatUse} />
       <EditHabitatUse path={ROUTES.editHabitatUse} />
-      <Encounters path={ROUTES.encounters} />
+      <Encounters default path={ROUTES.encounters} />
     </Router>
   );
 };
