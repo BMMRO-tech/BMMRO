@@ -11,7 +11,7 @@ export const useLoginRedirect = (loggedInUser) => {
       if (location.state && location.pathname !== location.state.from) {
         navigate(-1, { state: { from: location.pathname } });
       } else {
-        navigate(ROUTES.newEncounter, { state: { from: location.pathname } });
+        navigate(ROUTES.encounters, { state: { from: location.pathname } });
       }
     }
     // eslint-disable-next-line
