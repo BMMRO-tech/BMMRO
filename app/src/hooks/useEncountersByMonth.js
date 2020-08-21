@@ -63,38 +63,48 @@ const useEncountersByMonth = (datastore) => {
   const [previousEncounters, setPreviousEncounters] = useState([]);
   const [timeRange, setTimeRange] = useState();
   const [counter, setCounter] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getInitialEncounters = async (today, tomorrow) => {
+    await getEncountersByTimeRange(datastore, today, tomorrow).then(
+      setTodaysEncounters
+    );
+    await getEncountersByTimeRange(datastore, startOfMonth(today), today).then(
+      setPreviousEncounters
+    );
+
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     const today = startOfDay(getCurrentDate());
     const tomorrow = addDays(today, 1);
 
     if (!!datastore) {
-      getEncountersByTimeRange(datastore, today, tomorrow).then(
-        setTodaysEncounters
-      );
-      getEncountersByTimeRange(datastore, startOfMonth(today), today).then(
-        setPreviousEncounters
-      );
+      getInitialEncounters(today, tomorrow);
       setTimeRange(calculatePreviousMonthTimeRange(today));
       setCounter(counter + 1);
     }
     // eslint-disable-next-line
   }, [datastore]);
 
-  if (counter === 12) return { todaysEncounters, previousEncounters };
+  if (counter === 12)
+    return { todaysEncounters, previousEncounters, isLoading };
 
-  const loadPreviousMonth = () => {
+  const loadPreviousMonth = async () => {
     if (!timeRange) return;
-
-    getEncountersByTimeRange(datastore, ...timeRange).then((data) =>
+    setIsLoading(true);
+    await getEncountersByTimeRange(datastore, ...timeRange).then((data) =>
       setPreviousEncounters([...previousEncounters, ...data])
     );
+    setIsLoading(false);
+
     const [currentStartOfMonth] = timeRange;
     setTimeRange(calculatePreviousMonthTimeRange(currentStartOfMonth));
     setCounter(counter + 1);
   };
 
-  return { todaysEncounters, previousEncounters, loadPreviousMonth };
+  return { todaysEncounters, previousEncounters, loadPreviousMonth, isLoading };
 };
 
 export default useEncountersByMonth;

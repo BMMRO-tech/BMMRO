@@ -93,6 +93,28 @@ describe("useEncountersByMonth", () => {
     expect(previousMonthSeqNos).toEqual(["TEST77", "TEST78", "TEST79"]);
   });
 
+  it("returns an isLoading flag while encounters are being loaded", async () => {
+    const { result, waitFor } = renderHook(() =>
+      useEncountersByMonth(datastore)
+    );
+    await waitFor(() => {
+      expect(result.current.todaysEncounters).not.toEqual([]);
+      expect(result.current.previousEncounters).not.toEqual([]);
+    });
+
+    await act(async () => {
+      result.current.loadPreviousMonth();
+
+      await waitFor(() => expect(result.current.isLoading).toEqual(true));
+
+      await waitFor(() =>
+        expect(result.current.previousEncounters[1]).toBeDefined()
+      );
+    });
+
+    expect(result.current.isLoading).toEqual(false);
+  });
+
   it("returns empty entries if there are no entries for a month", async () => {
     const { result, waitFor } = renderHook(() =>
       useEncountersByMonth(datastore)
