@@ -58,7 +58,7 @@ const EncounterOverview = ({ encounter, isNewEncounter }) => {
           <Fragment>
             <h1 css={typography.title}>
               <span css={[typography.caption, styles.caption]}>
-                Encounter {encounter.sequenceNumber}
+                Sequence {encounter.sequenceNumber}
               </span>
               <span css={styles.title}>{encounter.species}</span>
             </h1>
