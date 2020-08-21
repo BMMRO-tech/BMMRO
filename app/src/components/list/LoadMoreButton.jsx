@@ -14,12 +14,20 @@ const styles = {
     width: 100%;
     border: none;
     border-top: 1px solid ${colors.lightGray};
+
+    &:disabled {
+      color: ${colors.lightGray};
+    }
   `,
 };
 
-const LoadMoreButton = ({ handleClick, text }) => {
+const LoadMoreButton = ({ handleClick, text, isLoading }) => {
   return (
-    <button onClick={handleClick} css={styles.loadMoreButton}>
+    <button
+      onClick={handleClick}
+      css={styles.loadMoreButton}
+      disabled={isLoading}
+    >
       {text}
     </button>
   );

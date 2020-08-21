@@ -30,6 +30,7 @@ const Encounters = () => {
     todaysEncounters,
     previousEncounters,
     loadPreviousMonth,
+    isLoading,
   } = useEncountersByMonth(datastore);
 
   return (
@@ -52,6 +53,7 @@ const Encounters = () => {
           title="Previous encounters"
           listOfEncountersByMonth={previousEncounters}
           loadMore={loadPreviousMonth}
+          isLoading={isLoading}
         />
       </div>
     </Layout>

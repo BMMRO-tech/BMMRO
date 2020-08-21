@@ -15,6 +15,7 @@ const EncounterList = ({
   listOfEncountersByMonth,
   loadMore,
   isToday,
+  isLoading,
 }) => {
   return (
     <div css={utilities.list.container}>
@@ -66,7 +67,11 @@ const EncounterList = ({
         ))
       )}
       {!!loadMore && (
-        <LoadMoreButton text="Load previous month" handleClick={loadMore} />
+        <LoadMoreButton
+          text="Load previous month"
+          handleClick={loadMore}
+          isLoading={isLoading}
+        />
       )}
     </div>
   );
