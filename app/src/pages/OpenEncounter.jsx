@@ -92,11 +92,7 @@ const OpenEncounter = ({ encounterId }) => {
             />
           </div>
           <div css={styles.footerContainer}>
-            <Button
-              testId="end-button"
-              disabled={isNewEncounter()}
-              onClick={onEndEncounterClick}
-            >
+            <Button disabled={isNewEncounter()} onClick={onEndEncounterClick}>
               End encounter
             </Button>
             {isNewEncounter() && (

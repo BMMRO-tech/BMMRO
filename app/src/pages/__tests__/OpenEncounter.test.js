@@ -48,19 +48,21 @@ describe("OpenEncounter", () => {
     });
   });
 
-  it("does not allow to end the encounter if required fields are missing", async () => {
+  it("does not allow ending the encounter if required fields are missing", async () => {
     await firestoreEmulator.collection("encounter").doc("a6789").set({
       species: "Bottlenose dolphin",
       area: "UK",
     });
 
-    const { getByTestId } = renderWithMockContexts(
+    const { getByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"a6789"} />,
       { datastore }
     );
 
     await waitFor(() => {
-      const endButton = getByTestId("end-button");
+      const endButton = getByRole("button", {
+        name: "End encounter",
+      });
       expect(endButton).toHaveAttribute("disabled");
     });
   });
