@@ -10,29 +10,38 @@ import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 
-const EncounterList = ({ title, items, loadMore, shouldLoadMore, isToday }) => {
+const EncounterList = ({
+  title,
+  listOfEncountersByMonth,
+  loadMore,
+  isToday,
+}) => {
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
-      {!items.length ? (
+      {!listOfEncountersByMonth.length ? (
         <div css={utilities.list.noEntries}>No encounters yet</div>
       ) : (
-        items.map((item, i) => (
+        listOfEncountersByMonth.map((encountersByMonth, i) => (
           <ul key={`encounterList-${i}`} css={utilities.list.items}>
-            {!isToday && <ListSubheader title={`${item.month} ${item.year}`} />}
-            {!item.entries.length ? (
+            {!isToday && (
+              <ListSubheader
+                title={`${encountersByMonth.month} ${encountersByMonth.year}`}
+              />
+            )}
+            {!encountersByMonth.entries.length ? (
               <div css={utilities.list.noEntries}>
-                No encounters in {item.month}
+                No encounters in {encountersByMonth.month}
               </div>
             ) : (
-              item.entries.map((entry) => {
+              encountersByMonth.entries.map((encounter) => {
                 const {
                   startTimestamp,
                   sequenceNumber,
                   species,
                   area,
                   startTime,
-                } = entry.data;
+                } = encounter.data;
 
                 const day = format(startTimestamp, "dd", {
                   locale: usLocale,
@@ -43,8 +52,8 @@ const EncounterList = ({ title, items, loadMore, shouldLoadMore, isToday }) => {
 
                 return (
                   <ListItem
-                    key={entry.id}
-                    destinationUrl={generateOpenEncounterURL(entry.id)}
+                    key={encounter.id}
+                    destinationUrl={generateOpenEncounterURL(encounter.id)}
                     primaryTime={isToday ? startTime : day}
                     secondaryTime={!isToday && month}
                     primaryContent={`${sequenceNumber} ${species}`}

@@ -12,7 +12,10 @@ import {
 describe("EncounterList", () => {
   it("displays enocounter forms for a single day", () => {
     const { queryAllByRole } = render(
-      <EncounterList title="Today" items={mockSingleDayData} />
+      <EncounterList
+        title="Today"
+        listOfEncountersByMonth={mockSingleDayData}
+      />
     );
 
     const actual = queryAllByRole("listitem");
@@ -27,7 +30,10 @@ describe("EncounterList", () => {
 
   it("displays enocounter forms over multiple days", () => {
     const { queryAllByRole } = render(
-      <EncounterList title="Previous Encounters" items={mockSingleMonthData} />
+      <EncounterList
+        title="Previous Encounters"
+        listOfEncountersByMonth={mockSingleMonthData}
+      />
     );
 
     const actual = queryAllByRole("listitem");
@@ -42,7 +48,7 @@ describe("EncounterList", () => {
     const { queryAllByRole } = render(
       <EncounterList
         title="Previous Encounters"
-        items={mockMultiMonthData}
+        listOfEncountersByMonth={mockMultiMonthData}
         showSubheader
       />
     );
@@ -65,7 +71,7 @@ describe("EncounterList", () => {
 
   it("displays message when no encounters in a month", () => {
     const { queryByText } = render(
-      <EncounterList title="Previous Encounters" items={[]} />
+      <EncounterList title="Previous Encounters" listOfEncountersByMonth={[]} />
     );
 
     const actual = queryByText("No encounters yet");
@@ -78,7 +84,7 @@ describe("EncounterList", () => {
     const { getByText } = render(
       <EncounterList
         title="Previous Encounters"
-        items={[]}
+        listOfEncountersByMonth={[]}
         loadMore={mockLoadMore}
       />
     );
