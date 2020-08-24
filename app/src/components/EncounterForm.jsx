@@ -380,6 +380,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   isShort
                   autofill={!initialValues}
                   notAfter={values.startTimestamp}
+                  isRequired
                 />
                 <ElapsedTime />
                 <RadioGroup

@@ -42,6 +42,10 @@ const TimeInput = ({
   const timeFormat = timeWithSeconds ? TIME_WITH_SECONDS_FORMAT : TIME_FORMAT;
 
   const validateTime = (val) => {
+    if (!val && isRequired) {
+      return getErrorMessage(FormErrorType.EMPTY);
+    }
+
     if (val && !timeStringValid(val, timePattern)) {
       return getErrorMessage(FormErrorType.INVALID_TIME_FORMAT, {
         format: timeFormat.toLowerCase(),

@@ -45,16 +45,12 @@ describe("TimeInput", () => {
 
   it("does not display an error when field value is correct", async () => {
     const { getByRole, queryByRole } = renderWithinFormik(
-      <TimeInput
-        name="favoriteTime"
-        labelText="Your favorite time"
-        isRequired
-      />,
+      <TimeInput name="favoriteTime" labelText="Your favorite time" />,
       { favoriteTime: "" }
     );
 
     const timeInput = getByRole("textbox", {
-      name: "Your favorite time *",
+      name: "Your favorite time",
     });
 
     await act(async () => {
@@ -65,6 +61,29 @@ describe("TimeInput", () => {
     expect(
       queryByRole("alert", { name: "Your favorite time" })
     ).not.toBeInTheDocument();
+  });
+
+  it("validates empty inputs if set as required", async () => {
+    const { getByRole, getFormErrors } = renderWithinFormik(
+      <TimeInput
+        name="favoriteTime"
+        labelText="Your favorite time"
+        isRequired
+      />,
+      { favoriteTime: "" }
+    );
+
+    const timeInput = getByRole("textbox", { name: "Your favorite time *" });
+    await act(async () => {
+      await userEvent.type(timeInput, "", { delay: 1 });
+      userEvent.tab();
+    });
+
+    const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
+    expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
+    expect(
+      getByRole("alert", { name: "Your favorite time" })
+    ).toHaveTextContent(expectedErrorMessage);
   });
 
   it("validates on invalid hour", async () => {
