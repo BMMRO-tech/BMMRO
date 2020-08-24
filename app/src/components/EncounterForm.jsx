@@ -13,6 +13,7 @@ import TimeInput from "./formFields/TimeInput/TimeInput";
 import ElapsedTime from "./formFields/ElapsedTime/ElapsedTime";
 import Select from "./formFields/Select/Select";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
+import InputFocusOnError from "./formFields/InputFocusOnError";
 import Button from "./Button";
 
 import area from "../constants/formOptions/area";
@@ -426,6 +427,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   Save
                 </Button>
               </div>
+              <InputFocusOnError />
             </Form>
           )}
         </Formik>
