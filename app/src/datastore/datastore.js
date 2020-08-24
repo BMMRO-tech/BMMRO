@@ -79,6 +79,7 @@ export class Datastore {
         .collection(collectionName)
         .where(timestampFieldName, ">=", startDate)
         .where(timestampFieldName, "<", endDate)
+        .orderBy(timestampFieldName, "desc")
         .get();
 
       const results = [];

@@ -58,8 +58,8 @@ describe("useEncountersByMonth", () => {
     expect(previousEncounters[0].month).toEqual("January");
     expect(todaysEncounters[0].year).toEqual(2000);
     expect(previousEncounters[0].year).toEqual(2000);
-    expect(todaysEntriesSeqNos).toEqual(["TEST97", "TEST98", "TEST99"]);
-    expect(previousEntriesSeqNos).toEqual(["TEST87", "TEST88", "TEST89"]);
+    expect(todaysEntriesSeqNos).toEqual(["TEST99", "TEST98", "TEST97"]);
+    expect(previousEntriesSeqNos).toEqual(["TEST89", "TEST88", "TEST87"]);
   });
 
   it("returns a callback to read previous month's data", async () => {
@@ -89,8 +89,8 @@ describe("useEncountersByMonth", () => {
     expect(previousEncounters[1].month).toEqual("December");
     expect(previousEncounters[0].year).toEqual(2000);
     expect(previousEncounters[1].year).toEqual(1999);
-    expect(currentMonthSeqNos).toEqual(["TEST87", "TEST88", "TEST89"]);
-    expect(previousMonthSeqNos).toEqual(["TEST77", "TEST78", "TEST79"]);
+    expect(currentMonthSeqNos).toEqual(["TEST89", "TEST88", "TEST87"]);
+    expect(previousMonthSeqNos).toEqual(["TEST79", "TEST78", "TEST77"]);
   });
 
   it("returns an isLoading flag while encounters are being loaded", async () => {

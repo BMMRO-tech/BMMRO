@@ -6,18 +6,18 @@ import path from "path";
 import { Datastore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
 
+const projectId = "datastore-emulated";
+
 const getFirestore = () => {
   return firebaseTesting
     .initializeTestApp({
-      projectId: "project-id",
+      projectId,
       auth: { uid: "test-researcher" },
     })
     .firestore();
 };
 
 describe("datastore", () => {
-  const projectId = "project-id";
-
   beforeAll(async () => {
     await firebaseTesting.loadFirestoreRules({
       projectId,
@@ -63,6 +63,91 @@ describe("datastore", () => {
 
       expect(thrownError.name).toEqual("DatastoreError");
       expect(thrownError.message).toEqual(DatastoreErrorType.COLLECTION_READ);
+    });
+  });
+
+  describe("#readDocsByTimeRange", () => {
+    it("successfully reads document with time range", async () => {
+      const firestoreEmulator = getFirestore();
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Alphonso",
+        timestamp: new Date("2020-01-01:15:00:00.000Z"),
+      });
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Barney",
+        timestamp: new Date("2020-01-03:21:00:00.000Z"),
+      });
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Catherine",
+        timestamp: new Date("2020-10-10:15:00:00.000Z"),
+      });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsByTimeRange(
+        "dolphin",
+        "timestamp",
+        new Date("2020-01-03:01:00:00.000Z"),
+        new Date("2020-12-11:23:00:00.000Z")
+      );
+
+      expect(results).toHaveLength(2);
+      expect(results[0].data).toEqual({
+        name: "Catherine",
+        timestamp: new Date("2020-10-10:15:00:00.000Z"),
+      });
+      expect(results[1].data).toEqual({
+        name: "Barney",
+        timestamp: new Date("2020-01-03:21:00:00.000Z"),
+      });
+    });
+
+    it("returns documents in reverse chronological order", async () => {
+      const firestoreEmulator = getFirestore();
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Barney",
+        timestamp: new Date("2000-01-15:17:11:00.000Z"),
+      });
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Daphne",
+        timestamp: new Date("2001-01-01:23:00:00.000Z"),
+      });
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Catherine",
+        timestamp: new Date("2000-01-20:13:00:00.000Z"),
+      });
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Alphonso",
+        timestamp: new Date("2000-01-15:13:00:00.000Z"),
+      });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsByTimeRange(
+        "dolphin",
+        "timestamp",
+        new Date("2000-01-15:13:00:00.000Z"),
+        new Date("2000-12-30:13:00:00.000Z")
+      );
+
+      expect(results).toHaveLength(3);
+      expect(results[0].data).toEqual({
+        name: "Catherine",
+        timestamp: new Date("2000-01-20:13:00:00.000Z"),
+      });
+      expect(results[1].data).toEqual({
+        name: "Barney",
+        timestamp: new Date("2000-01-15:17:11:00.000Z"),
+      });
+      expect(results[2].data).toEqual({
+        name: "Alphonso",
+        timestamp: new Date("2000-01-15:13:00:00.000Z"),
+      });
     });
   });
 
