@@ -58,7 +58,8 @@ const EncounterList = ({
                     destinationUrl={generateOpenEncounterURL(encounter.id)}
                     primaryTime={isToday ? startTime : day}
                     secondaryTime={!isToday && month}
-                    primaryContent={`${sequenceNumber} ${species}`}
+                    primaryContentLeft={sequenceNumber}
+                    primaryContentRight={species}
                     secondaryContent={area}
                   />
                 );

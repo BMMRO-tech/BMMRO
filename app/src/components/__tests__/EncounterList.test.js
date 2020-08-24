@@ -10,7 +10,7 @@ import {
 } from "../__fixtures__/encounterData";
 
 describe("EncounterList", () => {
-  it("displays enocounter forms for a single day", () => {
+  it("displays encounter forms for a single day", () => {
     const { queryAllByRole } = render(
       <EncounterList
         title="Today"
@@ -21,14 +21,14 @@ describe("EncounterList", () => {
     const actual = queryAllByRole("listitem");
 
     expect(actual[0]).toHaveTextContent(
-      "13AugE777 Bottlenose dolphin - oceanicBimini"
+      "13AugE777Bottlenose dolphin - oceanicBimini"
     );
     expect(actual[1]).toHaveTextContent(
-      "13AugE99 Bottlenose dolphin - oceanicCat Island"
+      "13AugE99Bottlenose dolphin - oceanicCat Island"
     );
   });
 
-  it("displays enocounter forms over multiple days", () => {
+  it("displays encounter forms over multiple days", () => {
     const { queryAllByRole } = render(
       <EncounterList
         title="Previous Encounters"
@@ -38,13 +38,13 @@ describe("EncounterList", () => {
 
     const actual = queryAllByRole("listitem");
 
-    expect(actual[0]).toHaveTextContent("02Jul5f Blainville's beaked whaleEA");
+    expect(actual[0]).toHaveTextContent("02Jul5fBlainville's beaked whaleEA");
     expect(actual[1]).toHaveTextContent(
-      "11Jul23dfsd23423fds Bottlenose dolphin - coastalCay Sal"
+      "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal"
     );
   });
 
-  it("displays enocounter forms over multiple months", () => {
+  it("displays encounter forms over multiple months", () => {
     const { queryAllByRole } = render(
       <EncounterList
         title="Previous Encounters"
@@ -57,15 +57,15 @@ describe("EncounterList", () => {
 
     expect(actual[0].children[0]).toHaveTextContent("August 2020");
     expect(actual[0].children[1]).toHaveTextContent(
-      "02Jul5f Blainville's beaked whaleEA"
+      "02Jul5fBlainville's beaked whaleEA"
     );
     expect(actual[0].children[2]).toHaveTextContent(
-      "11Jul23dfsd23423fds Bottlenose dolphin - coastalCay Sal"
+      "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal"
     );
 
     expect(actual[1].children[0]).toHaveTextContent("June 2020");
     expect(actual[1].children[1]).toHaveTextContent(
-      "12JunE777 Clymene dolphinBimini"
+      "12JunE777Clymene dolphinBimini"
     );
   });
 
