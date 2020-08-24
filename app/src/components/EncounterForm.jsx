@@ -54,7 +54,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
           initialValues={
             initialValues || {
               sequenceNumber: "",
-              startTimestamp: new Date(),
+              startTimestamp: "",
               area: "",
               species: "",
               project: "",

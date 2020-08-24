@@ -124,12 +124,14 @@ describe("HabitatUseForm", () => {
     );
 
     await act(async () => {
-      const submitButton = getByRole("button");
-      userEvent.click(submitButton);
-
       const latInput = getByRole("textbox", {
         name: "Lat *",
       });
+      const submitButton = getByRole("button");
+
+      await userEvent.type(latInput, "0.111", { delay: 1 });
+
+      userEvent.click(submitButton);
 
       await waitFor(() => {
         expect(submitButton).not.toHaveFocus();
