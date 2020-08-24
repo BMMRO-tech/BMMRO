@@ -35,7 +35,7 @@ describe("useEncountersByMonth", () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
-  it("reads data for this month", async () => {
+  it("reads data for this month in reverse chronological order", async () => {
     const { result, waitFor } = renderHook(() =>
       useEncountersByMonth(datastore)
     );

@@ -8,8 +8,9 @@ import {
   subMonths,
 } from "date-fns";
 import usLocale from "date-fns/locale/en-US";
+
 import { CollectionNames } from "../constants/datastore";
-import { getCurrentDate } from "../utils/time";
+import { getCurrentDate, constructDateTime } from "../utils/time";
 
 const extractEncounterProperties = (encounter) => {
   const {
@@ -50,7 +51,26 @@ const getEncountersByTimeRange = async (datastore, startDate, endDate) => {
     extractEncounterProperties(encounter)
   );
 
-  return [{ month, year, entries: extractedEncounters }];
+  const orderedEncounters = orderEncountersByTimestamp(extractedEncounters);
+
+  return [{ month, year, entries: orderedEncounters }];
+};
+
+const orderEncountersByTimestamp = (encounters) => {
+  const sortedEncounters = encounters.sort((encounterA, encounterB) => {
+    const encounterAStartDateTime = constructDateTime(
+      encounterA.data.startTimestamp,
+      encounterA.data.startTime
+    );
+    const encounterBStartDateTime = constructDateTime(
+      encounterB.data.startTimestamp,
+      encounterB.data.startTime
+    );
+
+    return encounterAStartDateTime > encounterBStartDateTime ? -1 : 1;
+  });
+
+  return sortedEncounters;
 };
 
 const calculatePreviousMonthTimeRange = (currentMonth) => {
