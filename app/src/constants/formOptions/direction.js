@@ -7,7 +7,7 @@ export default [
   "NNE",
   "NNW",
   "NW",
-  "Not Directional",
+  "Non Directional",
   "Not Noted",
   "S",
   "SE",
