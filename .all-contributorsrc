@@ -106,6 +106,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "helenzhou6",
+      "name": "Helen Zhou",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/25727036?v=4",
+      "profile": "http://helenzhou.co.uk",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
