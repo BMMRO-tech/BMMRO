@@ -32,7 +32,8 @@ const EncounterList = ({
             )}
             {!encountersByMonth.entries.length ? (
               <div css={utilities.list.noEntries}>
-                No encounters in {encountersByMonth.month}
+                No encounters
+                {isToday ? " today" : ` in ${encountersByMonth.month}`}
               </div>
             ) : (
               encountersByMonth.entries.map((encounter) => {
