@@ -14,6 +14,7 @@ const styles = {
     width: 100%;
     border: none;
     border-top: 1px solid ${colors.lightGray};
+    cursor: pointer;
 
     &:disabled {
       color: ${colors.lightGray};
