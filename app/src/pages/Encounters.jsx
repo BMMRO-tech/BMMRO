@@ -34,7 +34,7 @@ const Encounters = () => {
   } = useEncountersByMonth(datastore);
 
   return (
-    <Layout hasDefaultPadding={false}>
+    <Layout hasDefaultPadding={false} hasStickyButton={false}>
       <div css={styles.titleContainer}>
         <h1 css={typography.largeTitle}>ENCOUNTERS</h1>
         <Link to={ROUTES.newEncounter}>
