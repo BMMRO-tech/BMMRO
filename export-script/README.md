@@ -4,13 +4,12 @@ This script exports data from the Firebase Firestore to a csv file.
 
 ## Installation
 
-1. Install `node` and `npm` from https://nodejs.org/en/download/
-1. Get the code from GitHub. You can do this by either:
-   a. Going to the [GitHub page for the project](https://github.com/BMMRO-tech/BMMRO), clicking 'Code' and selecting 'Download ZIP'
-   a. [Downloading `git`](https://git-scm.com/downloads) and cloning the repository onto your machine: `git clone https://github.com/BMMRO-tech/BMMRO.git`
-1. Navigate to the `export-script` folder `cd export-script`
-1. Install the dependencies `npm ci`
-1. Create a `.env` file (`vim .env`) with the following:
+**NOTE:** You will need to install `node` and `npm` from https://nodejs.org/en/download/ before you run the export script for the first time.
+
+You will need to do the following everytime there's a significant change on the export script:
+
+1. Get the code from GitHub by going to the [GitHub page for the project](https://github.com/BMMRO-tech/BMMRO), clicking 'Code' and selecting 'Download ZIP'. Optionally, you can also clone the repository onto your machine: `git clone https://github.com/BMMRO-tech/BMMRO.git`, but you will need to [download `git`](https://git-scm.com/downloads) first.
+1. Go to the `export-script` folder and create a file named `.env` with the following content:
 
 ```
 PROJECT_ID=123
@@ -20,7 +19,12 @@ EMAIL=123
 PASSWORD=123
 ```
 
-Please replace `123` with the correct values (these can be found in project settings inside the firebaseConfig object at the bottom of [this page in the Firebase console](https://console.firebase.google.com/u/1/project/bmmro-164ec/settings/general)). `EMAIL` and `PASSWORD` are the email address and password that you use to log in to the app.
+Please replace `123` with the correct values which can be found inside the firebaseConfig object at the bottom of the settings page. These values will be different depending on the environment you want to export data from. For example, for the development environment, these values can be found on [this page in the Firebase console](https://console.firebase.google.com/u/1/project/bmmro-164ec/settings/general)). `EMAIL` and `PASSWORD` are the email address and password that you use to log in to the app.
+
+1. Open your terminal/command prompt.
+1. Navigate to the `export-script` folder.
+1. Install the dependencies with `npm ci`.
+1. You should now be able to generate the CSV. Please check the section below to see the different options.
 
 ## Running the script
 
@@ -56,11 +60,7 @@ The documentation for the cloud firestore batch updates can be found [here](http
 
 ## Running tests
 
-Run the following command to run script tests:
-
-```
-npm test
-```
+Run the following command to run script tests: `npm test`
 
 ## Importing a csv file to Microsoft Access database
 
