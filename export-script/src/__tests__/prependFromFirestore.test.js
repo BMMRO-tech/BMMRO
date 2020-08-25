@@ -1,4 +1,4 @@
-const prependFromFirestore = require("../prependFromFirestore");
+const prependFromFirestore = require("../mappings/prependFromFirestore");
 
 describe("prependFromFirestore", () => {
   it("preappends data source info to string", () => {

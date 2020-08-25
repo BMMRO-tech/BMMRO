@@ -1,8 +1,10 @@
-const convertUnixTimestampToMDY = require("../convertUnixTimestampToMDY");
-const convertWaveHeightOption = require("../convertWaveHeightOption");
-const convertEmptyToNotNoted = require("../convertEmptyToNotNoted");
-const convertToDecimal = require("../convertToDecimal");
-const prependFromFirestore = require("../prependFromFirestore");
+const convertUnixTimestampToMDY = require("../mappings/convertUnixTimestampToMDY");
+const convertWaveHeightOption = require("../mappings/convertWaveHeightOption");
+const convertEmptyToNotNoted = require("../mappings/convertEmptyToNotNoted");
+const convertToDecimal = require("../mappings/convertToDecimal");
+const prependFromFirestore = require("../mappings/prependFromFirestore");
+const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
+const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
 
 module.exports = {
   encounter: {
@@ -27,11 +29,14 @@ module.exports = {
     "Video details": { key: "videoRec" },
     "Audio details": { key: "audioRec" },
     "Biopsy attempt": { key: "biopsyAttempt" },
-    "Biopsy Success": { key: "biopsySuccess" },
+    "Biopsy Success": {
+      key: "biopsySuccess",
+      transform: convertNotNotedToZero,
+    },
     "Individual biopsied": { key: "" },
     "Biopsy sheet #": { key: "" },
     "Tag Attempt": { key: "tagAttempt" },
-    "Tag Success": { key: "tagSuccess" },
+    "Tag Success": { key: "tagSuccess", transform: convertNotNotedToNo },
     Comments: { key: "comments", transform: prependFromFirestore },
     "End of search effort": { key: "endOfSearchEffort" },
     "End time": { key: "endTime" },

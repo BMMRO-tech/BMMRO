@@ -1,4 +1,4 @@
-const convertWaveHeightOption = require("../convertWaveHeightOption");
+const convertWaveHeightOption = require("../mappings/convertWaveHeightOption");
 
 describe("convertWaveHeightOption", () => {
   it("converts to 99 when option is '6+'", () => {
