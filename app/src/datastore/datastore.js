@@ -21,13 +21,17 @@ export class Datastore {
     this.handleDelayedError = handleDelayedError;
   }
 
-  convertTimeObjectToDate = (timeObject) => {
-    return fromUnixTime(timeObject.seconds);
-  };
+  convertTimeObjectToDate(docData) {
+    for (const property in docData) {
+      const value = docData[property];
+      const isTimeObject = typeof value === "object" && "seconds" in value;
 
-  isUnixTimestamp = (value) => {
-    return typeof value === "object" && "seconds" in value;
-  };
+      if (isTimeObject) {
+        const date = fromUnixTime(value.seconds);
+        docData[property] = date;
+      }
+    }
+  }
 
   async readDocByPath(path) {
     try {
@@ -35,13 +39,7 @@ export class Datastore {
       const docSnapshot = await docRef.get();
       const docData = docSnapshot.data();
 
-      for (const property in docData) {
-        const value = docData[property];
-
-        if (this.isUnixTimestamp(value)) {
-          docData[property] = this.convertTimeObjectToDate(value);
-        }
-      }
+      this.convertTimeObjectToDate(docData);
 
       return { data: docData, path: docRef.path };
     } catch (e) {
@@ -58,9 +56,13 @@ export class Datastore {
         .get();
 
       const results = [];
-      docsSnapshots.forEach((doc) =>
-        results.push({ data: doc.data(), id: doc.id })
-      );
+      docsSnapshots.forEach((doc) => {
+        const docData = doc.data();
+
+        this.convertTimeObjectToDate(docData);
+
+        results.push({ data: docData, id: doc.id });
+      });
       return results;
     } catch (e) {
       this.enableLogging && console.error(e);
@@ -85,13 +87,7 @@ export class Datastore {
       docsSnapshots.forEach((doc) => {
         const docData = doc.data();
 
-        for (const property in docData) {
-          const value = docData[property];
-
-          if (this.isUnixTimestamp(value)) {
-            docData[property] = this.convertTimeObjectToDate(value);
-          }
-        }
+        this.convertTimeObjectToDate(docData);
 
         results.push({ data: docData, id: doc.id });
       });

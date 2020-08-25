@@ -64,6 +64,19 @@ describe("datastore", () => {
       expect(thrownError.name).toEqual("DatastoreError");
       expect(thrownError.message).toEqual(DatastoreErrorType.COLLECTION_READ);
     });
+
+    it("converts time object to date", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const { id } = await firestoreEmulator
+        .collection("dolphin")
+        .add({ name: "Barney", date: new Date("2000-01-15:00:00:00.000Z") });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const { data: animal } = await datastore.readDocByPath(`dolphin/${id}`);
+
+      expect(animal.date).toEqual(new Date("2000-01-15:00:00:00.000Z"));
+    });
   });
 
   describe("#readDocsByTimeRange", () => {
@@ -102,6 +115,26 @@ describe("datastore", () => {
         name: "Catherine",
         timestamp: new Date("2020-10-10:15:00:00.000Z"),
       });
+    });
+
+    it("converts time object to date", async () => {
+      const firestoreEmulator = getFirestore();
+
+      await firestoreEmulator
+        .collection("dolphin")
+        .add({ name: "Barney", date: new Date("2000-01-15:00:00:00.000Z") });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsByTimeRange(
+        "dolphin",
+        "date",
+        new Date("2000-01-10:01:00:00.000Z"),
+        new Date("2000-12-11:23:00:00.000Z")
+      );
+
+      expect(results[0].data.date).toEqual(
+        new Date("2000-01-15:00:00:00.000Z")
+      );
     });
   });
 
@@ -162,6 +195,29 @@ describe("datastore", () => {
       );
 
       expect(animals).toEqual([]);
+    });
+
+    it("converts time object to date", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const { path: parentPath } = await firestoreEmulator
+        .collection("animal")
+        .add({ location: "Pacific" });
+
+      await firestoreEmulator
+        .doc(parentPath)
+        .collection("whale")
+        .add({
+          name: "Bill",
+          date: new Date("2000-01-10:01:00:00.000Z"),
+        });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const animals = await datastore.readDocsByParentPath(parentPath, "whale");
+
+      expect(animals[0].data.date).toEqual(
+        new Date("2000-01-10:01:00:00.000Z")
+      );
     });
   });
 
