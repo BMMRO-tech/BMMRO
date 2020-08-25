@@ -18,6 +18,7 @@ const styles = {
 
     &:disabled {
       color: ${colors.lightGray};
+      cursor: default;
     }
   `,
 };
