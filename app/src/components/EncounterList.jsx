@@ -49,7 +49,7 @@ const PreviousEncounters = ({ encounters }) => {
 
       {!encountersByMonth.entries.length ? (
         <div css={utilities.list.noEntries}>
-          No encounters in ${encountersByMonth.month}
+          No encounters in {encountersByMonth.month}
         </div>
       ) : (
         <Fragment>
