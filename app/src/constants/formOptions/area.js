@@ -33,6 +33,7 @@ export default [
   "South Eleuthera",
   "South Exuma Cays",
   "South Grand Bahama",
+  "UK",
   "WA",
   "West Andros",
   "West Grand Bahama",
