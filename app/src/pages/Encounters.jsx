@@ -42,16 +42,12 @@ const Encounters = () => {
         </Link>
       </div>
       <div css={styles.list}>
-        <EncounterList
-          title="Today"
-          listOfEncountersByMonth={todaysEncounters}
-          isToday
-        />
+        <EncounterList title="Today" encounters={todaysEncounters} isToday />
       </div>
       <div css={styles.list}>
         <EncounterList
           title="Previous encounters"
-          listOfEncountersByMonth={previousEncounters}
+          encounters={previousEncounters}
           loadMore={loadPreviousMonth}
           isLoading={isLoading}
         />

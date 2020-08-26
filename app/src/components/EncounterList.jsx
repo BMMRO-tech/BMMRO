@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import { Fragment } from "react";
 import usLocale from "date-fns/locale/en-US";
 import { format } from "date-fns";
 
@@ -10,63 +11,91 @@ import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 
-const EncounterList = ({
-  title,
-  listOfEncountersByMonth,
-  loadMore,
-  isToday,
-  isLoading,
-}) => {
+const EncounterListItem = ({ encounter, isToday }) => {
+  const {
+    startTimestamp,
+    sequenceNumber,
+    species,
+    area,
+    startTime,
+  } = encounter.data;
+
+  const day = format(startTimestamp, "dd", {
+    locale: usLocale,
+  });
+  const month = format(startTimestamp, "MMM", {
+    locale: usLocale,
+  });
+
+  return (
+    <ListItem
+      key={encounter.id}
+      destinationUrl={generateOpenEncounterURL(encounter.id)}
+      primaryTime={isToday ? startTime : day}
+      secondaryTime={!isToday && month}
+      primaryContentLeft={sequenceNumber}
+      primaryContentRight={species}
+      secondaryContent={area}
+    />
+  );
+};
+
+const PreviousEncounters = ({ encounters }) => {
+  return encounters.map((encountersByMonth, i) => (
+    <ul key={`encounterList-${i}`} css={utilities.list.items}>
+      <ListSubheader
+        title={`${encountersByMonth.month} ${encountersByMonth.year}`}
+      />
+
+      {!encountersByMonth.entries.length ? (
+        <div css={utilities.list.noEntries}>
+          No encounters in ${encountersByMonth.month}
+        </div>
+      ) : (
+        <Fragment>
+          {encountersByMonth.entries.map((encounter, i) => (
+            <EncounterListItem
+              key={`previous-encounter-${i}`}
+              encounter={encounter}
+              isToday={false}
+            />
+          ))}
+        </Fragment>
+      )}
+    </ul>
+  ));
+};
+
+const TodaysEncounters = ({ encounters }) => {
+  return encounters.map((encountersByMonth, i) => (
+    <ul key={`encounterList-${i}`} css={utilities.list.items}>
+      {!encountersByMonth.entries.length ? (
+        <div css={utilities.list.noEntries}>No encounters yet</div>
+      ) : (
+        <Fragment>
+          {encountersByMonth.entries.map((encounter, i) => (
+            <EncounterListItem
+              key={`todays-encounter-${i}`}
+              encounter={encounter}
+              isToday={true}
+            />
+          ))}
+        </Fragment>
+      )}
+    </ul>
+  ));
+};
+
+const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
-      {!listOfEncountersByMonth.length ? (
+      {!encounters.length ? (
         <div css={utilities.list.noEntries}>No encounters yet</div>
+      ) : isToday ? (
+        <TodaysEncounters encounters={encounters} />
       ) : (
-        listOfEncountersByMonth.map((encountersByMonth, i) => (
-          <ul key={`encounterList-${i}`} css={utilities.list.items}>
-            {!isToday && (
-              <ListSubheader
-                title={`${encountersByMonth.month} ${encountersByMonth.year}`}
-              />
-            )}
-            {!encountersByMonth.entries.length ? (
-              <div css={utilities.list.noEntries}>
-                No encounters
-                {isToday ? " yet" : ` in ${encountersByMonth.month}`}
-              </div>
-            ) : (
-              encountersByMonth.entries.map((encounter) => {
-                const {
-                  startTimestamp,
-                  sequenceNumber,
-                  species,
-                  area,
-                  startTime,
-                } = encounter.data;
-
-                const day = format(startTimestamp, "dd", {
-                  locale: usLocale,
-                });
-                const month = format(startTimestamp, "MMM", {
-                  locale: usLocale,
-                });
-
-                return (
-                  <ListItem
-                    key={encounter.id}
-                    destinationUrl={generateOpenEncounterURL(encounter.id)}
-                    primaryTime={isToday ? startTime : day}
-                    secondaryTime={!isToday && month}
-                    primaryContentLeft={sequenceNumber}
-                    primaryContentRight={species}
-                    secondaryContent={area}
-                  />
-                );
-              })
-            )}
-          </ul>
-        ))
+        <PreviousEncounters encounters={encounters} />
       )}
       {!!loadMore && (
         <LoadMoreButton
