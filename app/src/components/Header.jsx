@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+
 import colors from "../materials/colors";
 import containers from "../materials/containers";
 import { Avatar } from "./icons/Avatar";
+import BMMROLogo from "./icons/BMMROLogo";
 import Logout from "./Logout";
 import Menu from "./Menu/Menu";
 
@@ -30,21 +32,13 @@ const styles = {
     margin-left: 10px;
     color: ${colors.darkGray};
   `,
-  logo: css`
-    height: 40px;
-    width: 40px;
-  `,
 };
 
 const Header = () => {
   return (
     <header css={styles.header}>
       <div css={styles.container}>
-        <img
-          css={styles.logo}
-          src={process.env.PUBLIC_URL + "/logo192.png"}
-          alt="BMMRO logo"
-        />
+        <BMMROLogo />
         <span css={styles.text}>BMMRO</span>
         <Menu menuButtonComponent={<Avatar />} menuItems={[<Logout />]} />
       </div>

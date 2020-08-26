@@ -5,8 +5,8 @@ import {
   waitFor,
 } from "@testing-library/react/pure";
 import React from "react";
+
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
-import Login from "../../pages/Login";
 import {
   buildFirebaseAuthMock,
   buildFirestoreMock,
@@ -18,7 +18,7 @@ jest.mock("@reach/router", () => ({
   useNavigate: jest.fn(),
 }));
 
-describe("Login page", () => {
+describe("Login form", () => {
   beforeEach(() => {
     buildFirestoreMock();
   });
@@ -43,18 +43,6 @@ describe("Login page", () => {
 
     await waitFor(() =>
       expect(queryByTestId("login-error")).toBeInTheDocument()
-    );
-  });
-
-  it("should include an image with with the alt text 'BMMRO logo'", async () => {
-    const { queryByAltText } = render(
-      <FirebaseContext.Provider value={{ datastore: "some-datastore" }}>
-        <Login />
-      </FirebaseContext.Provider>
-    );
-
-    await waitFor(() =>
-      expect(queryByAltText("BMMRO logo")).toBeInTheDocument()
     );
   });
 });

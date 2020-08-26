@@ -3,11 +3,9 @@ import React from "react";
 import Header from "../Header";
 
 describe("Header", () => {
-  it("should include an image with with the alt text 'BMMRO logo'", async () => {
-    const { queryByAltText } = render(<Header />);
+  it("should include the BMMRO logo", async () => {
+    const { queryByTitle } = render(<Header />);
 
-    await waitFor(() =>
-      expect(queryByAltText("BMMRO logo")).toBeInTheDocument()
-    );
+    await waitFor(() => expect(queryByTitle("BMMRO Logo")).toBeInTheDocument());
   });
 });
