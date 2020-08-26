@@ -1,6 +1,7 @@
 export default [
   "SA",
   "EA",
+  "UK",
   "Central Andros",
   "Bimini",
   "Cat Island",
