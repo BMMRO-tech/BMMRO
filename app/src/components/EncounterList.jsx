@@ -68,11 +68,11 @@ const PreviousEncounters = ({ encounters }) => {
 
 const TodaysEncounters = ({ encounters }) => {
   return encounters.map((encountersByMonth, i) => (
-    <ul key={`encounterList-${i}`} css={utilities.list.items}>
+    <Fragment key={`encounterList-${i}`}>
       {!encountersByMonth.entries.length ? (
         <div css={utilities.list.noEntries}>No encounters yet</div>
       ) : (
-        <Fragment>
+        <ul css={utilities.list.items}>
           {encountersByMonth.entries.map((encounter, i) => (
             <EncounterListItem
               key={`todays-encounter-${i}`}
@@ -80,9 +80,9 @@ const TodaysEncounters = ({ encounters }) => {
               isToday={true}
             />
           ))}
-        </Fragment>
+        </ul>
       )}
-    </ul>
+    </Fragment>
   ));
 };
 
