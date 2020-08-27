@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
@@ -14,6 +14,7 @@ import HabitatUseList from "../components/HabitatUseList";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import typography from "../materials/typography";
+import BackLink from "../components/BackLink";
 
 const OpenEncounter = ({ encounterId }) => {
   const styles = {
@@ -77,6 +78,27 @@ const OpenEncounter = ({ encounterId }) => {
     // eslint-disable-next-line
   }, [datastore]);
 
+  const renderButtons = () => {
+    if (encounter.exported) {
+      return (
+        <BackLink text="Return to encounter list" to={ROUTES.encounters} />
+      );
+    }
+
+    return (
+      <Fragment>
+        <Button disabled={isNewEncounter()} onClick={onEndEncounterClick}>
+          End encounter
+        </Button>
+        {isNewEncounter() && (
+          <div css={styles.disabledButtonMessage}>
+            Please complete all required encounter fields to end the encounter
+          </div>
+        )}
+      </Fragment>
+    );
+  };
+
   return (
     <Layout hasDefaultPadding={false}>
       {!!Object.keys(encounter).length ? (
@@ -91,17 +113,7 @@ const OpenEncounter = ({ encounterId }) => {
               encounterId={encounterId}
             />
           </div>
-          <div css={styles.footerContainer}>
-            <Button disabled={isNewEncounter()} onClick={onEndEncounterClick}>
-              End encounter
-            </Button>
-            {isNewEncounter() && (
-              <div css={styles.disabledButtonMessage}>
-                Please complete all required encounter fields to end the
-                encounter
-              </div>
-            )}
-          </div>
+          <div css={styles.footerContainer}>{renderButtons()}</div>
         </div>
       ) : (
         <Loader />

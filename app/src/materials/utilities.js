@@ -50,6 +50,8 @@ const utilities = {
       padding: 10px;
       box-shadow: 0 -1px 5px 1px rgba(40, 54, 104, 0.15);
       left: 0;
+      min-height: 64px;
+      z-index: 999;
 
       @media (min-width: ${breakPoints.mediumTablet}) {
         position: relative;
