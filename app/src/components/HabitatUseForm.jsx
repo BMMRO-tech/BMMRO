@@ -243,9 +243,13 @@ const HabitatUseForm = ({ initialValues, handleSubmit, isViewOnly }) => {
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>
-              <div css={utilities.sticky.footerContainer}>
-                {!isViewOnly && <Button type="submit">Save habitat use</Button>}
-              </div>
+
+              {!isViewOnly && (
+                <div css={utilities.sticky.footerContainer}>
+                  <Button type="submit">Save habitat use</Button>
+                </div>
+              )}
+
               <InputFocusOnError />
             </Form>
           )}
