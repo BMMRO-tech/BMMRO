@@ -84,4 +84,20 @@ describe("TextInput", () => {
       getByRole("alert", { name: "Your favorite color" })
     ).toHaveTextContent(expectedErrorMessage);
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <TextInput
+        name="favoriteColor"
+        labelText="Your favorite color"
+        isDisabled
+      />,
+      { favoriteColor: "" }
+    );
+
+    const textInput = getByRole("textbox", { name: "Your favorite color" });
+    await userEvent.type(textInput, "blue", { delay: 1 });
+
+    expect(getFormValues().favoriteColor).toEqual("");
+  });
 });
