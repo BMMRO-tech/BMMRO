@@ -9,7 +9,7 @@ assignees: ''
 
 ## Background
 
-## Wireframe
+## Wireframe/Behaviour
 
 ## In scope
 
