@@ -46,6 +46,10 @@ const getRadioGroupStyle = () => {
       :checked {
         border-color: ${colors.darkGray};
       }
+
+      :disabled {
+        background: ${colors.lightGray};
+      }
     `,
   };
 };

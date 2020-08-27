@@ -48,6 +48,12 @@ const fieldStyles = {
     border: 1px solid ${!!error && touched ? colors.darkRed : colors.mediumGray};
     border-radius: 2px;
     background: ${colors.white};
+
+    :disabled {
+      background: ${colors.lightGray};
+      opacity: 1;
+      color: ${colors.darkGray};
+    }
   `,
 };
 
