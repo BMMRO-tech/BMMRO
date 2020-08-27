@@ -6,7 +6,11 @@ import { useNavigate } from "@reach/router";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import utilities from "../materials/utilities";
 import { generateEncounterPath } from "../constants/datastore";
-import { ROUTES, generateOpenEncounterURL } from "../constants/routes";
+import {
+  ROUTES,
+  generateOpenEncounterURL,
+  generateEditEncounterURL,
+} from "../constants/routes";
 import Layout from "../components/Layout";
 import Loader from "../components/Loader";
 import EncounterForm from "../components/EncounterForm";
@@ -36,7 +40,11 @@ const ViewEncounter = ({ encounterId }) => {
       const values = await datastore.readDocByPath(path);
 
       if (!!values.data) {
-        setInitialValues(values.data);
+        if (!values.data.exported) {
+          navigate(generateEditEncounterURL(encounterId));
+        } else {
+          setInitialValues(values.data);
+        }
       } else {
         navigate(ROUTES.newEncounter);
       }
