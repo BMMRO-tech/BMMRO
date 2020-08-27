@@ -1,0 +1,74 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import { useEffect, useContext, useState, Fragment } from "react";
+import { useNavigate } from "@reach/router";
+
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import utilities from "../materials/utilities";
+import { generateEncounterPath } from "../constants/datastore";
+import { ROUTES, generateOpenEncounterURL } from "../constants/routes";
+import Layout from "../components/Layout";
+import Loader from "../components/Loader";
+import EncounterForm from "../components/EncounterForm";
+import BackLink from "../components/BackLink";
+
+const ViewEncounter = ({ encounterId }) => {
+  const { datastore } = useContext(FirebaseContext);
+  const [initialValues, setInitialValues] = useState(null);
+  const navigate = useNavigate();
+  const encounterPath = generateEncounterPath(encounterId);
+
+  const styles = {
+    footerContainer: css`
+      ${utilities.sticky.footerContainer}
+      flex-direction: column;
+      align-items: center;
+    `,
+    exportedInfo: css`
+      font-style: italic;
+      padding-left: 10px;
+      margin-top: 0;
+    `,
+  };
+
+  useEffect(() => {
+    const getData = async (path) => {
+      const values = await datastore.readDocByPath(path);
+
+      if (!!values.data) {
+        setInitialValues(values.data);
+      } else {
+        navigate(ROUTES.newEncounter);
+      }
+    };
+    if (!!datastore) {
+      getData(encounterPath);
+    }
+    // eslint-disable-next-line
+  }, [datastore]);
+
+  return (
+    <Layout hasDefaultPadding={false}>
+      {!initialValues ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <h1 css={utilities.form.title}>View Encounter</h1>
+          <p css={styles.exportedInfo}>
+            This encounter has been exported and can no longer be edited in the
+            app.
+          </p>
+          <EncounterForm initialValues={initialValues} isViewOnly />
+          <div css={styles.footerContainer}>
+            <BackLink
+              text="Return to encounter overview"
+              to={generateOpenEncounterURL(encounterId)}
+            />
+          </div>
+        </Fragment>
+      )}
+    </Layout>
+  );
+};
+
+export default ViewEncounter;

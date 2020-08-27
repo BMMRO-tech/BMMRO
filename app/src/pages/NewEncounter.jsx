@@ -9,6 +9,7 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { generateOpenEncounterURL, ROUTES } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
 import { FormSubmitType } from "../constants/forms";
+import utilities from "../materials/utilities";
 
 const NewEncounter = () => {
   const { datastore } = useContext(FirebaseContext);
@@ -25,6 +26,7 @@ const NewEncounter = () => {
 
   return (
     <Layout hasDefaultPadding={false}>
+      <h1 css={utilities.form.title}>New Encounter</h1>
       <EncounterForm handleSubmit={handleSubmit} />
     </Layout>
   );

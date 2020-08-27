@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -8,9 +8,10 @@ import Layout from "../components/Layout";
 import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
-import { getModifiedProperties } from "../utils/math";
 import { generateOpenEncounterURL, ROUTES } from "../constants/routes";
 import { FormSubmitType } from "../constants/forms";
+import { getModifiedProperties } from "../utils/math";
+import utilities from "../materials/utilities";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -50,10 +51,13 @@ const EditEncounter = ({ encounterId }) => {
       {!initialValues ? (
         <Loader />
       ) : (
-        <EncounterForm
-          handleSubmit={handleSubmit}
-          initialValues={initialValues}
-        />
+        <Fragment>
+          <h1 css={utilities.form.title}>Edit Encounter</h1>
+          <EncounterForm
+            handleSubmit={handleSubmit}
+            initialValues={initialValues}
+          />
+        </Fragment>
       )}
     </Layout>
   );
