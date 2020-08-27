@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import getRadioGroupStyle from "./getRadioGroupStyle";
 import fieldStyles from "../fieldStyles";
 
-const RadioGroup = ({ name, labelText, options, isRequired }) => {
+const RadioGroup = ({ name, labelText, options, isRequired, isDisabled }) => {
   const [field] = useField({
     name,
   });
@@ -28,6 +28,7 @@ const RadioGroup = ({ name, labelText, options, isRequired }) => {
                   value={option.value}
                   css={styles.radioButton}
                   checked={field.value === option.value}
+                  disabled={isDisabled}
                 />
                 {option.label}
               </label>

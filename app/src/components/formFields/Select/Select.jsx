@@ -7,7 +7,14 @@ import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 
-const Select = ({ name, labelText, isRequired, isShort, options }) => {
+const Select = ({
+  name,
+  labelText,
+  isRequired,
+  isShort,
+  isDisabled,
+  options,
+}) => {
   const validate = (val) => {
     if (!val) {
       if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
@@ -29,6 +36,7 @@ const Select = ({ name, labelText, isRequired, isShort, options }) => {
           <select
             {...field}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+            disabled={isDisabled}
           >
             <option key="none" value="" aria-label="default empty option">
               -- Select --

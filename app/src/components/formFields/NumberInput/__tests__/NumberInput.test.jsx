@@ -188,4 +188,24 @@ describe("NumberInput", () => {
       getByRole("alert", { name: "Your favorite number" })
     ).toHaveTextContent(expectedErrorMessage);
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <NumberInput
+        name="favoriteNumber"
+        labelText="Your favorite number"
+        minValue={1}
+        maxValue={100}
+        isDisabled
+      />,
+      { favoriteNumber: "" }
+    );
+
+    const numberInput = getByRole("spinbutton", {
+      name: "Your favorite number",
+    });
+    await userEvent.type(numberInput, "55", { delay: 1 });
+
+    expect(getFormValues().favoriteNumber).toEqual("");
+  });
 });

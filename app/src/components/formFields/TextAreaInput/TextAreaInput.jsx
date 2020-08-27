@@ -7,7 +7,13 @@ import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 
-const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
+const TextAreaInput = ({
+  name,
+  labelText,
+  maxLength,
+  isRequired,
+  isDisabled,
+}) => {
   const validateTextArea = (val) => {
     if (!val) {
       if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
@@ -32,6 +38,7 @@ const TextAreaInput = ({ name, labelText, maxLength, isRequired }) => {
           {...field}
           css={fieldStyles.getInputStyles(meta.error, meta.touched)}
           maxLength={maxLength}
+          disabled={isDisabled}
         />
       </label>
       <FieldError

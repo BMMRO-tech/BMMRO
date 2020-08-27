@@ -77,4 +77,22 @@ describe("Select", () => {
     ).toBeInTheDocument();
     expect(getFormErrors().favoriteColor).toEqual(expectedErrorMessage);
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <Select
+        name="favoriteColor"
+        labelText="Your favorite color"
+        isDisabled
+        options={htmlColors}
+      />,
+      { favoriteColor: "" }
+    );
+
+    const select = getByRole("combobox", { name: "Your favorite color" });
+    await act(async () => userEvent.selectOptions(select, "teal"));
+
+    expect(select).toHaveDisplayValue("");
+    expect(getFormValues().favoriteColor).toEqual("");
+  });
 });

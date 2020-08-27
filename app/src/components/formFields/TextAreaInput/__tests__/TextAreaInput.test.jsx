@@ -95,4 +95,24 @@ describe("TextAreaInput", () => {
       getByRole("alert", { name: "Your favorite sentence" })
     ).toHaveTextContent(expectedErrorMessage);
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <TextAreaInput
+        name="favoriteSentence"
+        labelText="Your favorite sentence"
+        isDisabled
+      />,
+      { favoriteSentence: "" }
+    );
+
+    const textInput = getByRole("textbox", { name: "Your favorite sentence" });
+    // This is required so that userEvent does not shuffle the input.
+    // This issue has been fixed in https://github.com/testing-library/user-event/issues/391 but has not yet been updated in jest-dom.
+    textInput.selectionStart = 0;
+
+    await userEvent.type(textInput, "I like the color blue.", { delay: 1 });
+
+    expect(getFormValues().favoriteSentence).toEqual("");
+  });
 });

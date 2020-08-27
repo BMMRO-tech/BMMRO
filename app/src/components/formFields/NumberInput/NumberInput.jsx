@@ -26,6 +26,7 @@ const NumberInput = ({
   isInteger,
   isShort,
   decimalPrecision,
+  isDisabled,
 }) => {
   const validateNumber = (val) => {
     if (val === "") {
@@ -73,6 +74,7 @@ const NumberInput = ({
             {...field}
             type="number"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+            disabled={isDisabled}
           />
         </div>
       </label>

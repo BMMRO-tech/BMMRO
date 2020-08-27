@@ -16,6 +16,7 @@ const PositionInput = ({
   isShort,
   type,
   autofill,
+  isDisabled,
 }) => {
   const position = usePosition();
 
@@ -87,6 +88,7 @@ const PositionInput = ({
             {...field}
             type="text"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+            disabled={isDisabled}
           />
         </div>
       </label>

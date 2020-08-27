@@ -34,6 +34,7 @@ const TimeInput = ({
   notAfter,
   associatedDate,
   timeWithSeconds,
+  isDisabled,
 }) => {
   const timePattern = timeWithSeconds
     ? TIME_WITH_SECONDS_PATTERN
@@ -99,6 +100,7 @@ const TimeInput = ({
             {...field}
             mask={timeWithSeconds ? "99:99:99" : "99:99"}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+            disabled={isDisabled}
           />
         </div>
       </label>

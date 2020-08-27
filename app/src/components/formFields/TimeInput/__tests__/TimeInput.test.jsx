@@ -237,4 +237,21 @@ describe("TimeInput", () => {
 
     expect(getFormValues().defaultTime).toEqual("11:30:43");
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getByRole } = renderWithinFormik(
+      <TimeInput
+        name="favoriteTime"
+        labelText="Your favorite time"
+        notBefore="15:00:00"
+        timeWithSeconds
+        isDisabled
+      />,
+      { favoriteTime: "" }
+    );
+
+    const timeInput = getByRole("textbox", { name: "Your favorite time" });
+
+    expect(timeInput).toHaveAttribute("disabled");
+  });
 });

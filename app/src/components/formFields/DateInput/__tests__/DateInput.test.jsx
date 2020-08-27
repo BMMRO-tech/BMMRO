@@ -82,4 +82,20 @@ describe("DateInput", () => {
 
     expect(getFormValues().defaultDate).toEqual("2020-08-04T11:30:00.000Z");
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getByRole } = renderWithinFormik(
+      <DateInput
+        name="favoriteDate"
+        labelText="Your favorite date"
+        isRequired
+        isDisabled
+      />,
+      { favoriteDate: "" }
+    );
+
+    const dateInput = getByRole("textbox", { name: "Your favorite date *" });
+
+    expect(dateInput).toHaveAttribute("disabled");
+  });
 });

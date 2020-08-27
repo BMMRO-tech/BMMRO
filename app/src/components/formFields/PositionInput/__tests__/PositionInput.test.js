@@ -210,4 +210,22 @@ describe("PositionInput", () => {
       expect(getFormValues().defaultLat).toEqual("1.123456");
     });
   });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        autofill={false}
+        isDisabled
+      />,
+      { lat: "" }
+    );
+
+    const positionInput = getByRole("textbox", { name: "Your latitude" });
+    await userEvent.type(positionInput, "10.123450", { delay: 1 });
+
+    expect(getFormValues().lat).toEqual("");
+  });
 });

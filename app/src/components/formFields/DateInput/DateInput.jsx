@@ -19,6 +19,7 @@ const DateInput = ({
   autofill,
   notBefore,
   notAfter,
+  isDisabled,
 }) => {
   const validateDate = (val) => {
     if (!val && isRequired) {
@@ -65,6 +66,7 @@ const DateInput = ({
             selected={(field.value && new Date(field.value)) || null}
             {...field}
             onChange={helpers.setValue}
+            disabled={isDisabled}
           />
         </label>
       </div>

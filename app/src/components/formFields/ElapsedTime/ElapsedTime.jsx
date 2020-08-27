@@ -12,7 +12,7 @@ const timeStringValid = (val) => {
   return timePattern.test(val);
 };
 
-const ElapsedTime = () => {
+const ElapsedTime = ({ isDisabled }) => {
   const [field, , helpers] = useField("elapsedTime");
   const [startTimestampField] = useField("startTimestamp");
   const [startTimeField] = useField("startTime");
@@ -58,6 +58,7 @@ const ElapsedTime = () => {
         maxValue={4320}
         isShort
         isInteger
+        isDisabled={isDisabled}
       />
     </Fragment>
   );

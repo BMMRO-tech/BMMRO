@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
 
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
@@ -50,6 +51,22 @@ describe("ElapsedTime", () => {
         endTimestamp: new Date(Date.now()),
       }).getFormValues;
     });
+
+    expect(getFormValues().elapsedTime).toEqual("");
+  });
+
+  it("does not allow input when field is disabled", async () => {
+    const { getFormValues, getByRole } = renderWithinFormik(
+      <ElapsedTime isDisabled />,
+      {
+        elapsedTime: "",
+      }
+    );
+
+    const elapsedTimeInput = getByRole("spinbutton", {
+      name: "Elapsed time (mins)",
+    });
+    await userEvent.type(elapsedTimeInput, "12:20", { delay: 1 });
 
     expect(getFormValues().elapsedTime).toEqual("");
   });
