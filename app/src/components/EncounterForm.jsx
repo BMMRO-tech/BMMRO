@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { Formik, Form } from "formik";
 import add from "date-fns/add";
 
 import utilities from "../materials/utilities";
+import { constructDateTime } from "../utils/time";
+import Button from "./Button";
+
 import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import NumberInput from "./formFields/NumberInput/NumberInput";
@@ -14,8 +17,8 @@ import ElapsedTime from "./formFields/ElapsedTime/ElapsedTime";
 import Select from "./formFields/Select/Select";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import InputFocusOnError from "./formFields/InputFocusOnError";
-import Button from "./Button";
 
+import { THREE_DAYS_IN_HOURS, FormSubmitType } from "../constants/forms";
 import area from "../constants/formOptions/area";
 import species from "../constants/formOptions/species";
 import project from "../constants/formOptions/project";
@@ -26,10 +29,8 @@ import {
   RESEARCH_ASSISTANT,
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
-import { THREE_DAYS_IN_HOURS, FormSubmitType } from "../constants/forms";
-import { constructDateTime } from "../utils/time";
 
-const EncounterForm = ({ initialValues, handleSubmit }) => {
+const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
   const [submitType, setSubmitType] = useState(null);
   const styles = {
     endButton: css`
@@ -48,7 +49,6 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
 
   return (
     <div css={utilities.sticky.contentContainer}>
-      <h1 css={utilities.form.title}>Edit Encounter</h1>
       <div css={utilities.form.container}>
         <Formik
           initialValues={
@@ -114,6 +114,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   isShort
                   notAfter={new Date()}
                   autofill={!initialValues}
+                  isDisabled={isViewOnly}
                 />
                 <TextInput
                   name="sequenceNumber"
@@ -121,26 +122,45 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxLength={255}
                   isRequired
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="area"
                   labelText="Area"
                   options={area}
                   isRequired
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="species"
                   labelText="Species"
                   options={species}
                   isRequired
+                  isDisabled={isViewOnly}
                 />
-                <Select name="project" labelText="Project" options={project} />
-                <Select name="cue" labelText="Cue" options={cue} />
-                <Select name="vessel" labelText="Vessel" options={vessel} />
+                <Select
+                  name="project"
+                  labelText="Project"
+                  options={project}
+                  isDisabled={isViewOnly}
+                />
+                <Select
+                  name="cue"
+                  labelText="Cue"
+                  options={cue}
+                  isDisabled={isViewOnly}
+                />
+                <Select
+                  name="vessel"
+                  labelText="Vessel"
+                  options={vessel}
+                  isDisabled={isViewOnly}
+                />
                 <TextInput
                   name="observers"
                   labelText="Observers"
                   maxLength={100}
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="groupSize"
@@ -149,36 +169,43 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <TextInput
                   name="location"
                   labelText="Location"
                   maxLength={100}
+                  isDisabled={isViewOnly}
                 />
                 <TextAreaInput
                   name="comments"
                   labelText="Comments / Observations (names of underwater observers)"
                   maxLength={500}
+                  isDisabled={isViewOnly}
                 />
                 <TextInput
                   name="videoRec"
                   labelText="Video rec"
                   maxLength={50}
+                  isDisabled={isViewOnly}
                 />
                 <TextInput
                   name="audioRec"
                   labelText="Audio rec"
                   maxLength={255}
+                  isDisabled={isViewOnly}
                 />
                 <TextInput
                   name="photographerFrame"
                   labelText="Photographer + Frame"
                   maxLength={255}
+                  isDisabled={isViewOnly}
                 />
                 <TextAreaInput
                   name="visualIdentifications"
                   labelText="Visual identifications"
                   maxLength={200}
+                  isDisabled={isViewOnly}
                 />
                 <RadioGroup
                   name="biopsyAttempt"
@@ -187,6 +214,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                     { label: "Yes", value: "Yes" },
                     { label: "No", value: "No" },
                   ]}
+                  isDisabled={isViewOnly}
                 />
                 <RadioGroup
                   name="biopsySuccess"
@@ -196,6 +224,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                     { label: "No", value: "No" },
                     { label: "Not noted", value: "not-noted" },
                   ]}
+                  isDisabled={isViewOnly}
                 />
                 <RadioGroup
                   name="tagAttempt"
@@ -204,6 +233,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                     { label: "Yes", value: "Yes" },
                     { label: "No", value: "No" },
                   ]}
+                  isDisabled={isViewOnly}
                 />
                 <RadioGroup
                   name="tagSuccess"
@@ -213,6 +243,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                     { label: "No", value: "No" },
                     { label: "Not noted", value: "not-noted" },
                   ]}
+                  isDisabled={isViewOnly}
                 />
                 <RadioGroup
                   name="transect"
@@ -221,12 +252,14 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                     { label: "On", value: "On" },
                     { label: "Off", value: "Off" },
                   ]}
+                  isDisabled={isViewOnly}
                 />
                 <TextInput
                   name="transectNumber"
                   labelText="Transect number"
                   maxLength={8}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numAdultMale"
@@ -235,6 +268,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numAdultFemale"
@@ -243,6 +277,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numAdultUnknown"
@@ -251,6 +286,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numSubAdultMale"
@@ -259,6 +295,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numSubAdultFemale"
@@ -267,6 +304,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numSubAdult"
@@ -275,6 +313,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numJuvenileMale"
@@ -283,6 +322,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numJuvenileFemale"
@@ -291,6 +331,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numJuvenileUnknown"
@@ -299,6 +340,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numYoungOfYear"
@@ -307,6 +349,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numNeonates"
@@ -315,6 +358,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numUnknown"
@@ -323,11 +367,13 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <TimeInput
                   name="endOfSearchEffort"
                   labelText="End of search effort"
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <DateInput
                   name="endTimestamp"
@@ -338,6 +384,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   notAfter={add(new Date(values.startTimestamp), {
                     hours: THREE_DAYS_IN_HOURS,
                   })}
+                  isDisabled={isViewOnly}
                 />
                 <TimeInput
                   name="endTime"
@@ -352,19 +399,32 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                     constructDateTime(values.startTimestamp, values.startTime),
                     { hours: THREE_DAYS_IN_HOURS }
                   )}
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="reasonForLeaving"
                   labelText="Reason for leaving"
                   options={reasonForLeaving}
+                  isDisabled={isViewOnly}
                 />
-                <TimeInput name="highTide" labelText="High tide" isShort />
-                <TimeInput name="lowTide" labelText="Low tide" isShort />
+                <TimeInput
+                  name="highTide"
+                  labelText="High tide"
+                  isShort
+                  isDisabled={isViewOnly}
+                />
+                <TimeInput
+                  name="lowTide"
+                  labelText="Low tide"
+                  isShort
+                  isDisabled={isViewOnly}
+                />
                 <TextInput
                   name="logbookNumber"
                   labelText="Logbook number"
                   maxLength={20}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="encounterNumber"
@@ -373,6 +433,7 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   maxValue={999}
                   isShort
                   isInteger
+                  isDisabled={isViewOnly}
                 />
                 <TimeInput
                   name="startTime"
@@ -381,8 +442,9 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                   autofill={!initialValues}
                   notAfter={values.startTimestamp}
                   isRequired
+                  isDisabled={isViewOnly}
                 />
-                <ElapsedTime />
+                <ElapsedTime isDisabled={isViewOnly} />
                 <RadioGroup
                   name="enteredBy"
                   labelText="Entered by"
@@ -396,39 +458,44 @@ const EncounterForm = ({ initialValues, handleSubmit }) => {
                       value: RESEARCH_SCIENTIST,
                     },
                   ]}
+                  isDisabled={isViewOnly}
                 />
               </div>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>
-              <div css={utilities.sticky.footerContainer}>
-                <Button
-                  styles={styles.endButton}
-                  width="150px"
-                  variant="secondary"
-                  type="button"
-                  onClick={() => {
-                    // Setting state and calling submitForm with timeout is required as passing a payload to
-                    // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
-                    setSubmitType(FormSubmitType.SAVE_AND_END);
-                    setTimeout(submitForm);
-                  }}
-                >
-                  Save & end
-                </Button>
-                <Button
-                  type="button"
-                  onClick={() => {
-                    // Setting state and calling submitForm with timeout is required as passing a payload to
-                    // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
-                    setSubmitType(FormSubmitType.SAVE);
-                    setTimeout(submitForm);
-                  }}
-                >
-                  Save
-                </Button>
-              </div>
-              <InputFocusOnError />
+              {!isViewOnly && (
+                <Fragment>
+                  <div css={utilities.sticky.footerContainer}>
+                    <Button
+                      styles={styles.endButton}
+                      width="150px"
+                      variant="secondary"
+                      type="button"
+                      onClick={() => {
+                        // Setting state and calling submitForm with timeout is required as passing a payload to
+                        // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                        setSubmitType(FormSubmitType.SAVE_AND_END);
+                        setTimeout(submitForm);
+                      }}
+                    >
+                      Save & end
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        // Setting state and calling submitForm with timeout is required as passing a payload to
+                        // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                        setSubmitType(FormSubmitType.SAVE);
+                        setTimeout(submitForm);
+                      }}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  <InputFocusOnError />
+                </Fragment>
+              )}
             </Form>
           )}
         </Formik>

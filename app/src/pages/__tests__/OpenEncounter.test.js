@@ -66,4 +66,44 @@ describe("OpenEncounter", () => {
       expect(endButton).toHaveAttribute("disabled");
     });
   });
+
+  it("shows a button to end the encounter if the encounter contains all required field and it was not yet exported", async () => {
+    await firestoreEmulator.collection("encounter").doc("123").set({
+      species: "some species",
+      area: "some area",
+      sequenceNumber: "123",
+      exported: false,
+    });
+
+    const { getByRole } = renderWithMockContexts(
+      <OpenEncounter encounterId={"123"} />,
+      { datastore }
+    );
+
+    await waitFor(() => {
+      const endButton = getByRole("button", {
+        name: "End encounter",
+      });
+      expect(endButton).not.toHaveAttribute("disabled");
+    });
+  });
+
+  it("has a link to the list of encounters if the encounter was previously exported", async () => {
+    await firestoreEmulator.collection("encounter").doc("123").set({
+      species: "some species",
+      area: "some area",
+      sequenceNumber: "123",
+      exported: true,
+    });
+
+    const { getByRole } = renderWithMockContexts(
+      <OpenEncounter encounterId={"123"} />,
+      { datastore }
+    );
+
+    await waitFor(() => {
+      const backLink = getByRole("link", { name: "Return to encounter list" });
+      expect(backLink.href).toContain("/encounters");
+    });
+  });
 });

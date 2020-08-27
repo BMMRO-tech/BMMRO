@@ -1,19 +1,23 @@
 /** @jsx jsx */
 import { useContext } from "react";
-import { FirebaseContext } from "./firebaseContext/firebaseContext";
 import { jsx } from "@emotion/core";
 import { LocationProvider, Router } from "@reach/router";
+
+import {
+  FirebaseContext,
+  FirebaseContextProvider,
+} from "./firebaseContext/firebaseContext";
+import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
 import { ROUTES } from "./constants/routes";
-import NewHabitatUse from "./pages/NewHabitatUse";
+import Login from "./pages/Login";
+import Encounters from "./pages/Encounters";
 import NewEncounter from "./pages/NewEncounter";
 import OpenEncounter from "./pages/OpenEncounter";
-import Login from "./pages/Login";
-import { FirebaseContextProvider } from "./firebaseContext/firebaseContext";
-import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
-import EditHabitatUse from "./pages/EditHabitatUse";
+import ViewEncounter from "./pages/ViewEncounter";
 import EditEncounter from "./pages/EditEncounter";
-import Encounters from "./pages/Encounters";
+import NewHabitatUse from "./pages/NewHabitatUse";
 import ViewHabitatUse from "./pages/ViewHabitatUse";
+import EditHabitatUse from "./pages/EditHabitatUse";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -25,6 +29,7 @@ const AppWithoutContext = () => {
       <NewEncounter path={ROUTES.newEncounter} />
       <OpenEncounter path={ROUTES.openEncounter} />
       <EditEncounter path={ROUTES.editEncounter} />
+      <ViewEncounter path={ROUTES.viewEncounter} />
       <NewHabitatUse path={ROUTES.newHabitatUse} />
       <EditHabitatUse path={ROUTES.editHabitatUse} />
       <ViewHabitatUse path={ROUTES.viewHabitatUse} />

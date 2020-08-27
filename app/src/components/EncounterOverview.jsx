@@ -6,7 +6,10 @@ import { Link } from "@reach/router";
 import typography from "../materials/typography";
 import colors from "../materials/colors";
 import { RightArrow } from "./icons/RightArrow";
-import { generateEditEncounterURL } from "../constants/routes";
+import {
+  generateEditEncounterURL,
+  generateViewEncounterURL,
+} from "../constants/routes";
 
 const EncounterOverview = ({ encounter, isNewEncounter }) => {
   const styles = {
@@ -79,7 +82,14 @@ const EncounterOverview = ({ encounter, isNewEncounter }) => {
             </Fragment>
           )}
         </div>
-        <Link css={styles.link} to={generateEditEncounterURL(encounter.id)}>
+        <Link
+          css={styles.link}
+          to={
+            encounter.exported
+              ? generateViewEncounterURL(encounter.id)
+              : generateEditEncounterURL(encounter.id)
+          }
+        >
           <span>Encounter data sheet</span>
           <span css={styles.arrow}>
             <RightArrow />
