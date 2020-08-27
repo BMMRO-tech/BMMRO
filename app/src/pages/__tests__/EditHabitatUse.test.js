@@ -52,4 +52,30 @@ describe("EditHabitatUse", () => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
   });
+
+  it("navigates to habitat view page if habitat has been exported", async () => {
+    const { id: encounterId } = await firestoreEmulator
+      .collection("encounter")
+      .add({ name: "Barney", species: "Bottlenose dolphin" });
+
+    const { id: habitatId } = await firestoreEmulator
+      .doc(`encounter/${encounterId}`)
+      .collection("habitatUse")
+      .add({ age: "young", behaviour: "adventurous", exported: true });
+
+    const entryPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/edit`;
+    const redirectPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/view`;
+
+    const { history } = renderWithMockContexts(
+      <EditHabitatUse encounterId={encounterId} habitatUseId={habitatId} />,
+      {
+        datastore,
+        route: entryPath,
+      }
+    );
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual(redirectPath);
+    });
+  });
 });

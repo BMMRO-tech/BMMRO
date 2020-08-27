@@ -7,7 +7,10 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 import Loader from "../components/Loader";
-import { generateOpenEncounterURL } from "../constants/routes";
+import {
+  generateOpenEncounterURL,
+  generateViewHabitatURL,
+} from "../constants/routes";
 import { generateHabitatUsePath } from "../constants/datastore";
 import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
@@ -30,7 +33,11 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
       const values = await datastore.readDocByPath(path);
 
       if (!!values.data) {
-        setInitialValues(values.data);
+        if (values.data.exported) {
+          navigate(generateViewHabitatURL(encounterId, habitatUseId));
+        } else {
+          setInitialValues(values.data);
+        }
       } else {
         navigate(generateOpenEncounterURL(encounterId));
       }
