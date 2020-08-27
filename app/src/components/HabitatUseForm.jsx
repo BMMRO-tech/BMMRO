@@ -20,12 +20,9 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
 import utilities from "../materials/utilities";
 
-const HabitatUseForm = ({ initialValues, handleSubmit }) => {
+const HabitatUseForm = ({ initialValues, handleSubmit, isViewOnly }) => {
   return (
     <div css={utilities.sticky.contentContainer}>
-      <h1 css={utilities.form.title}>
-        {initialValues ? "Edit Habitat Use" : "New Habitat Use"}
-      </h1>
       <div css={utilities.form.container}>
         <Formik
           initialValues={
@@ -68,6 +65,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={99}
                   isInteger
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numberOfCalves"
@@ -76,6 +74,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={99}
                   isInteger
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="numberOfBoats"
@@ -84,17 +83,20 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={999}
                   isInteger
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="directionOfTravel"
                   labelText="Direction of travel"
                   options={direction}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <TextAreaInput
                   name="comments"
                   labelText="Comments"
                   maxLength={500}
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="waterDepth"
@@ -103,6 +105,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isShort
                   decimalPrecision={3}
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="waterTemp"
@@ -111,39 +114,46 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={40}
                   isShort
                   decimalPrecision={5}
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="bottomSubstrate"
                   labelText="Bottom substrate"
                   options={bottomSubstrate}
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="cloudCover"
                   labelText="Cloud cover"
                   options={cloudCover}
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="beaufortSeaState"
                   labelText="Beaufort sea state"
                   options={beaufortSeaState}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="tideState"
                   labelText="Tide state"
                   options={tideState}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="behaviour"
                   labelText="Behaviour"
                   options={behaviour}
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="swellWaveHeight"
                   labelText="Swell / Wave height (ft)"
                   options={swellWaveHeight}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="distance"
@@ -152,6 +162,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={9999}
                   isInteger
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="bearing"
@@ -160,6 +171,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={360}
                   isInteger
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="aspect"
@@ -168,17 +180,20 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={360}
                   isInteger
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <Select
                   name="groupCohesion"
                   labelText="Group cohesion"
                   options={groupCohesion}
+                  isDisabled={isViewOnly}
                 />
                 <TextAreaInput
                   name="groupComposition"
                   labelText="Group composition"
                   maxLength={255}
                   isShort
+                  isDisabled={isViewOnly}
                 />
                 <NumberInput
                   name="surfaceBout"
@@ -187,6 +202,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   maxValue={99}
                   isShort
                   decimalPrecision={5}
+                  isDisabled={isViewOnly}
                 />
                 <TimeInput
                   name="endTime"
@@ -194,6 +210,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   notBefore={values.startTime}
                   isShort
                   timeWithSeconds
+                  isDisabled={isViewOnly}
                 />
                 <TimeInput
                   name="startTime"
@@ -202,6 +219,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   isShort
                   autofill={!initialValues}
                   timeWithSeconds
+                  isDisabled={isViewOnly}
                 />
                 <PositionInput
                   name="latitude"
@@ -210,6 +228,7 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   isRequired
                   isShort
                   autofill={!initialValues}
+                  isDisabled={isViewOnly}
                 />
                 <PositionInput
                   name="longitude"
@@ -218,13 +237,14 @@ const HabitatUseForm = ({ initialValues, handleSubmit }) => {
                   isRequired
                   isShort
                   autofill={!initialValues}
+                  isDisabled={isViewOnly}
                 />
               </div>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>
               <div css={utilities.sticky.footerContainer}>
-                <Button type="submit">Save habitat use</Button>
+                {!isViewOnly && <Button type="submit">Save habitat use</Button>}
               </div>
               <InputFocusOnError />
             </Form>

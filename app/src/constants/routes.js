@@ -5,6 +5,7 @@ export const ROUTES = {
   editEncounter: "/encounters/:encounterId/edit",
   newHabitatUse: "/encounters/:encounterId/habitat-uses/new",
   editHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/edit",
+  viewHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/view",
   login: "/login",
 };
 
@@ -22,4 +23,8 @@ export const generateNewHabitatUseURL = (encounterId) => {
 
 export const generateEditHabitatURL = (encounterId, habitatUseId) => {
   return `/encounters/${encounterId}/habitat-uses/${habitatUseId}/edit`;
+};
+
+export const generateViewHabitatURL = (encounterId, habitatUseId) => {
+  return `/encounters/${encounterId}/habitat-uses/${habitatUseId}/view`;
 };

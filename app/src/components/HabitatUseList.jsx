@@ -6,6 +6,7 @@ import utilities from "../materials/utilities";
 import {
   generateNewHabitatUseURL,
   generateEditHabitatURL,
+  generateViewHabitatURL,
 } from "../constants/routes";
 import ListHeader from "./list/ListHeader";
 import Button from "../components/Button";
@@ -30,7 +31,11 @@ const HabitatUseList = ({ items, encounterId }) => {
           {sortedItems.map((item) => (
             <ListItem
               key={item.id}
-              destinationUrl={generateEditHabitatURL(encounterId, item.id)}
+              destinationUrl={
+                item.data.exported
+                  ? generateViewHabitatURL(encounterId, item.id)
+                  : generateEditHabitatURL(encounterId, item.id)
+              }
               primaryTime={item.data.startTime}
               primaryContentRight="Habitat Use"
             />

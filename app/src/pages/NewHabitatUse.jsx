@@ -9,6 +9,7 @@ import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { generateOpenEncounterURL } from "../constants/routes";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
+import utilities from "../materials/utilities";
 
 const NewHabitatUse = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -38,6 +39,7 @@ const NewHabitatUse = ({ encounterId }) => {
 
   return (
     <Layout hasDefaultPadding={false}>
+      <h1 css={utilities.form.title}>New Habitat Use</h1>
       <HabitatUseForm handleSubmit={handleSubmit} />
     </Layout>
   );
