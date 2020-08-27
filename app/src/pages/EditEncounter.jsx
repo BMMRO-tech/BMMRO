@@ -8,7 +8,11 @@ import Layout from "../components/Layout";
 import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
-import { generateOpenEncounterURL, ROUTES } from "../constants/routes";
+import {
+  generateOpenEncounterURL,
+  ROUTES,
+  generateViewEncounterURL,
+} from "../constants/routes";
 import { FormSubmitType } from "../constants/forms";
 import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
@@ -35,7 +39,11 @@ const EditEncounter = ({ encounterId }) => {
       const values = await datastore.readDocByPath(path);
 
       if (!!values.data) {
-        setInitialValues(values.data);
+        if (values.data.exported) {
+          navigate(generateViewEncounterURL(encounterId));
+        } else {
+          setInitialValues(values.data);
+        }
       } else {
         navigate(ROUTES.newEncounter);
       }
