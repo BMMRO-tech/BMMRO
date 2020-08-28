@@ -2,13 +2,12 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 
-import typography from "../materials/typography";
 import colors from "../materials/colors";
 import { LeftArrow } from "./icons/LeftArrow";
 
 const styles = {
   link: css`
-    ${typography.largeText}
+    font-size: 14px;
     font-weight: 600;
     color: ${colors.darkTurquoise};
     display: flex;
@@ -19,7 +18,7 @@ const styles = {
     align-items: center;
 
     svg {
-      height: 15px;
+      height: 10px;
       fill: ${colors.darkTurquoise};
       stroke: ${colors.darkTurquoise};
       stroke-width: 2;
