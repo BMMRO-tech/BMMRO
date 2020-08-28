@@ -1,7 +1,12 @@
+import React from "react";
 import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+
 import EncounterForm from "../EncounterForm";
+
+jest.mock("@reach/router", () => ({
+  navigate: jest.fn(),
+}));
 
 describe("EncounterForm", () => {
   beforeAll(() => {
@@ -16,7 +21,7 @@ describe("EncounterForm", () => {
       formValues = values;
     };
 
-    const { getByRole, getAllByRole } = render(
+    const { getByRole } = render(
       <EncounterForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -26,8 +31,8 @@ describe("EncounterForm", () => {
       const encounterSequenceInput = getByRole("textbox", {
         name: "Encounter sequence *",
       });
-      const [submitButton] = getAllByRole("button");
 
+      const submitButton = getByRole("button", { name: "Save" });
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(speciesInput, "Fin whale");
       await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
@@ -77,31 +82,34 @@ describe("EncounterForm", () => {
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = render(
       <EncounterForm handleSubmit={mockHandleSubmit} />
     );
 
+    let errorMessage;
+
     await act(async () => {
-      const [submitButton] = getAllByRole("button");
+      const submitButton = getByRole("button", { name: "Save" });
       userEvent.click(submitButton);
 
-      const errorMessage = getByLabelText("Area", {
+      errorMessage = getByLabelText("Area", {
         selector: '[role="alert"]',
       });
-      expect(errorMessage).not.toBeNull();
-      expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
+
+    expect(errorMessage).not.toBeNull();
+    expect(mockHandleSubmit).not.toHaveBeenCalled();
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByRole, getByRole } = render(
+    const { getByRole } = render(
       <EncounterForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
-      const [submitButton] = getAllByRole("button");
+      const submitButton = getByRole("button", { name: "Save" });
       userEvent.click(submitButton);
 
       const encounterSequenceInput = getByRole("textbox", {
@@ -113,5 +121,45 @@ describe("EncounterForm", () => {
         expect(encounterSequenceInput).toHaveFocus();
       });
     });
+  });
+
+  it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <EncounterForm handleSubmit={mockHandleSubmit} />
+    );
+
+    await act(async () => {
+      const areaInput = getByRole("combobox", { name: "Area *" });
+      userEvent.selectOptions(areaInput, "Central Andros");
+
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    await waitFor(() =>
+      expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument()
+    );
+  });
+
+  it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={{ startTimestamp: new Date(), startTime: "10:55" }}
+      />
+    );
+
+    await act(async () => {
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    await waitFor(() =>
+      expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument()
+    );
   });
 });

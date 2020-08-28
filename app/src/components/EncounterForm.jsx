@@ -3,10 +3,14 @@ import { jsx, css } from "@emotion/core";
 import { useState, Fragment } from "react";
 import { Formik, Form } from "formik";
 import add from "date-fns/add";
+import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { constructDateTime } from "../utils/time";
+import { getModifiedProperties } from "../utils/math";
+import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
 import Button from "./Button";
+import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
 
 import TextInput from "./formFields/TextInput/TextInput";
@@ -30,12 +34,22 @@ import {
   RESEARCH_ASSISTANT,
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
-import FormSection from "./FormSection";
 import encounterDefaults from "../constants/encounterDefaultValues";
+import { generateOpenEncounterURL } from "../constants/routes";
 
-const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
+const EncounterForm = ({
+  initialValues,
+  handleSubmit,
+  isViewOnly,
+  encounterId,
+}) => {
   const [submitType, setSubmitType] = useState(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
   const styles = {
+    cancelButton: css`
+      margin-right: 10px;
+    `,
     endButton: css`
       margin-right: 10px;
     `,
@@ -50,11 +64,22 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
   };
 
+  const renderConfirmationModal = () => {
+    return (
+      <CancelFormConfirmationModal
+        closeModal={() => setShowConfirmationModal(false)}
+        handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
+      />
+    );
+  };
+
+  const initValues = initialValues || encounterDefaults;
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
-          initialValues={initialValues || encounterDefaults}
+          initialValues={initValues}
           onSubmit={(values) => {
             transformSubmitValues(values);
             handleSubmit(submitType, values);
@@ -459,31 +484,52 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
               {!isViewOnly && (
                 <Fragment>
                   <div css={utilities.sticky.footerContainer}>
-                    <Button
-                      styles={styles.endButton}
-                      width="150px"
-                      variant="secondary"
-                      type="button"
-                      onClick={() => {
-                        // Setting state and calling submitForm with timeout is required as passing a payload to
-                        // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
-                        setSubmitType(FormSubmitType.SAVE_AND_END);
-                        setTimeout(submitForm);
-                      }}
-                    >
-                      Save & end
-                    </Button>
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        // Setting state and calling submitForm with timeout is required as passing a payload to
-                        // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
-                        setSubmitType(FormSubmitType.SAVE);
-                        setTimeout(submitForm);
-                      }}
-                    >
-                      Save
-                    </Button>
+                    <div>
+                      <Button
+                        styles={styles.cancelButton}
+                        variant="secondary"
+                        type="button"
+                        onClick={() => {
+                          const modifiedFields = getModifiedProperties(
+                            values,
+                            initValues
+                          );
+
+                          Object.keys(modifiedFields).length === 0
+                            ? navigate(generateOpenEncounterURL(encounterId))
+                            : setShowConfirmationModal(true);
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                    <div css={utilities.sticky.rightContainer}>
+                      <Button
+                        styles={styles.endButton}
+                        width="150px"
+                        variant="secondary"
+                        type="button"
+                        onClick={() => {
+                          // Setting state and calling submitForm with timeout is required as passing a payload to
+                          // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                          setSubmitType(FormSubmitType.SAVE_AND_END);
+                          setTimeout(submitForm);
+                        }}
+                      >
+                        Save & End
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          // Setting state and calling submitForm with timeout is required as passing a payload to
+                          // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                          setSubmitType(FormSubmitType.SAVE);
+                          setTimeout(submitForm);
+                        }}
+                      >
+                        Save
+                      </Button>
+                    </div>
                   </div>
                   <InputFocusOnError />
                 </Fragment>
@@ -492,6 +538,8 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
           )}
         </Formik>
       </div>
+
+      {showConfirmationModal && renderConfirmationModal()}
     </div>
   );
 };

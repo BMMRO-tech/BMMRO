@@ -58,6 +58,7 @@ const EditHabitatUse = ({ encounterId, habitatUseId }) => {
           <HabitatUseForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
+            encounterId={encounterId}
           />
         </Fragment>
       )}

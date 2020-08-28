@@ -4,6 +4,10 @@ import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
 
+jest.mock("@reach/router", () => ({
+  navigate: jest.fn(),
+}));
+
 describe("HabitatUseForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
@@ -38,7 +42,7 @@ describe("HabitatUseForm", () => {
         name: "Number of animals",
       });
       const latitudeInput = getByRole("textbox", { name: "Lat *" });
-      const submitButton = getByRole("button");
+      const submitButton = getByRole("button", { name: "Save" });
 
       userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
@@ -94,7 +98,7 @@ describe("HabitatUseForm", () => {
     );
 
     await act(async () => {
-      const submitButton = getByRole("button");
+      const submitButton = getByRole("button", { name: "Save" });
       userEvent.click(submitButton);
     });
 
@@ -108,7 +112,7 @@ describe("HabitatUseForm", () => {
     );
 
     await act(async () => {
-      const submitButton = getByRole("button");
+      const submitButton = getByRole("button", { name: "Save" });
       userEvent.click(submitButton);
 
       const errorMessage = getByLabelText("Lat");
@@ -127,7 +131,7 @@ describe("HabitatUseForm", () => {
       const latInput = getByRole("textbox", {
         name: "Lat *",
       });
-      const submitButton = getByRole("button");
+      const submitButton = getByRole("button", { name: "Save" });
 
       await userEvent.type(latInput, "0.111", { delay: 1 });
 
@@ -138,5 +142,52 @@ describe("HabitatUseForm", () => {
         expect(latInput).toHaveFocus();
       });
     });
+  });
+
+  it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />
+    );
+
+    await act(async () => {
+      const numberOfAnimalsInput = getByRole("spinbutton", {
+        name: "Number of animals",
+      });
+      userEvent.clear(numberOfAnimalsInput);
+      await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
+
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    await waitFor(() =>
+      expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument()
+    );
+  });
+
+  it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <HabitatUseForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={{
+          waterDepth: 22,
+          waterTemp: 17,
+          surfaceBout: 0,
+        }}
+      />
+    );
+
+    await act(async () => {
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    await waitFor(() =>
+      expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument()
+    );
   });
 });

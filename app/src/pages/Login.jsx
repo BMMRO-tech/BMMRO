@@ -7,11 +7,7 @@ import BMMROLogo from "../components/icons/BMMROLogo";
 
 const Login = () => {
   return (
-    <Layout
-      containerSize={containers.small}
-      hasHeader={false}
-      hasStickyButton={false}
-    >
+    <Layout containerSize={containers.small} hasHeader={false}>
       <BMMROLogo loginPage />
       <LoginForm />
     </Layout>
