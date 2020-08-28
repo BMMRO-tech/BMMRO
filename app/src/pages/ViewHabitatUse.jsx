@@ -50,7 +50,7 @@ const ViewHabitatUse = ({ encounterId, habitatUseId }) => {
   }, [datastore]);
 
   return (
-    <Layout hasDefaultPadding={false} hasStickyButton={false}>
+    <Layout hasDefaultPadding={false} hasStickyButton={false} hasBackLink>
       <div css={utilities.backLinkContainer.top}>
         <BackLink
           text="Return to encounter overview"

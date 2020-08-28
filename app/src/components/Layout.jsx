@@ -17,6 +17,7 @@ const Layout = ({
   children,
   hasHeader = true,
   hasStickyButton = true,
+  hasBackLink = false,
 }) => {
   const { datastore, datastoreError } = useContext(FirebaseContext);
 
@@ -49,7 +50,7 @@ const Layout = ({
     `,
     container: css`
       max-width: ${containerSize};
-      padding-top: 25px;
+      padding-top: ${hasBackLink ? "10px" : "25px"};
       padding-left: ${hasDefaultPadding ? "10px" : 0};
       padding-right: ${hasDefaultPadding ? "10px" : 0};
       margin: 0 auto;
