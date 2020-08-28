@@ -102,11 +102,7 @@ const OpenEncounter = ({ encounterId }) => {
   };
 
   return (
-    <Layout
-      hasDefaultPadding={false}
-      hasStickyButton={!encounter.exported}
-      hasBackLink={encounter.exported}
-    >
+    <Layout hasDefaultPadding={false} hasBackLink={encounter.exported}>
       {encounter.exported && (
         <div css={utilities.backLinkContainer.top}>
           <BackLink text="Return to encounter list" to={ROUTES.encounters} />

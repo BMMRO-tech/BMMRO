@@ -8,42 +8,19 @@ import {
   AlertDialogDescription,
 } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
+
 import { AuthenticationErrorType } from "../constants/authentication";
 import getErrorMessage from "../utils/getErrorMessage";
 import colors from "../materials/colors";
 import Button from "../components/Button";
 import Attention from "./icons/Attention";
-import breakPoints from "../materials/breakPoints";
+import utilities from "../materials/utilities";
 
 const LogoutConfirmationModal = ({ closeModal }) => {
   const [logoutError, setLogoutError] = useState(null);
   const cancelRef = useRef();
 
   const styles = {
-    overlayBackground: css`
-      background-color: rgba(0, 0, 0, 0.5);
-    `,
-    overlay: css`
-      z-index: 9999;
-    `,
-    modal: css`
-      position: fixed;
-      background-color: white;
-      display: block;
-      padding: 20px;
-      min-width: 90%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      @media (min-width: ${breakPoints.mediumTablet}) {
-        min-width: auto;
-      }
-    `,
-    modalHeader: css`
-      text-align: center;
-      font-weight: bold;
-    `,
     modalHeaderContainerOffline: css`
       display: flex;
       align-items: center;
@@ -51,13 +28,6 @@ const LogoutConfirmationModal = ({ closeModal }) => {
     `,
     attentionIcon: css`
       padding-right: 20px;
-    `,
-    modalDescription: css`
-      padding: 20px 0 20px 0;
-    `,
-    modalButtons: css`
-      display: flex;
-      justify-content: space-around;
     `,
     modalDescriptionList: css`
       margin: 0;
@@ -85,7 +55,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   const renderOnlineModalTitle = () => {
     return (
       <AlertDialogLabel
-        css={styles.modalHeader}
+        css={utilities.confirmationModal.modalHeader}
         data-testid="online-modal-title"
       >
         Logout?
@@ -100,7 +70,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
           <Attention />
         </div>
         <AlertDialogLabel
-          css={styles.modalHeader}
+          css={utilities.confirmationModal.modalHeader}
           data-testid="offline-modal-title"
         >
           Logout while offline?
@@ -111,7 +81,9 @@ const LogoutConfirmationModal = ({ closeModal }) => {
 
   const renderOnlineModalDescription = () => {
     return (
-      <AlertDialogDescription css={styles.modalDescription}>
+      <AlertDialogDescription
+        css={utilities.confirmationModal.modalDescription}
+      >
         If you lose internet connection you will not be able to log back in
         until you are online again.
       </AlertDialogDescription>
@@ -120,7 +92,9 @@ const LogoutConfirmationModal = ({ closeModal }) => {
 
   const renderOfflineModalDescription = () => {
     return (
-      <AlertDialogDescription css={styles.modalDescription}>
+      <AlertDialogDescription
+        css={utilities.confirmationModal.modalDescription}
+      >
         <ul css={styles.modalDescriptionList}>
           <li>
             You will not be able to login and use the app until you are back
@@ -142,14 +116,14 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   ));
 
   return (
-    <div css={styles.overlayBackground}>
+    <div css={utilities.confirmationModal.overlayBackground}>
       <AlertDialogOverlay
-        css={styles.overlay}
+        css={utilities.confirmationModal.overlay}
         leastDestructiveRef={cancelRef}
         data-testid="confirmation-modal"
       >
-        <div css={styles.modal}>
-          <div css={styles.modalHeader}>
+        <div css={utilities.confirmationModal.modal}>
+          <div css={utilities.confirmationModal.modalHeader}>
             {navigator.onLine
               ? renderOnlineModalTitle()
               : renderOfflineModalTitle()}
@@ -157,7 +131,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
           {navigator.onLine
             ? renderOnlineModalDescription()
             : renderOfflineModalDescription()}
-          <div css={styles.modalButtons}>
+          <div css={utilities.confirmationModal.modalButtons}>
             <Button
               variant={navigator.onLine ? "primary" : "warning"}
               testId="confirm-logout-button"

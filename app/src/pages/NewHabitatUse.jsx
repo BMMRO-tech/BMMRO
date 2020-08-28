@@ -49,7 +49,10 @@ const NewHabitatUse = ({ encounterId }) => {
       ) : (
         <Fragment>
           <h1 css={utilities.form.title}>New Habitat Use</h1>
-          <HabitatUseForm handleSubmit={handleSubmit} />
+          <HabitatUseForm
+            handleSubmit={handleSubmit}
+            encounterId={encounterId}
+          />
         </Fragment>
       )}
     </Layout>

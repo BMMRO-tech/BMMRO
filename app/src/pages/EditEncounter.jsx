@@ -64,6 +64,7 @@ const EditEncounter = ({ encounterId }) => {
           <EncounterForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
+            encounterId={encounterId}
           />
         </Fragment>
       )}

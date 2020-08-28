@@ -1,13 +1,19 @@
 /** @jsx jsx */
+import { useState } from "react";
 import { Formik, Form } from "formik";
-import { jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
+import { navigate } from "@reach/router";
+
+import utilities from "../materials/utilities";
+import { getModifiedProperties } from "../utils/math";
+import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
+import Button from "./Button";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import PositionInput from "./formFields/PositionInput/PositionInput";
 import Select from "./formFields/Select/Select";
-import Button from "./Button";
 import InputFocusOnError from "./formFields/InputFocusOnError";
 
 import direction from "../constants/formOptions/direction";
@@ -18,43 +24,38 @@ import tideState from "../constants/formOptions/tideState";
 import behaviour from "../constants/formOptions/behaviour";
 import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
-import utilities from "../materials/utilities";
+import { generateOpenEncounterURL } from "../constants/routes";
+import habitatUseDefaults from "../constants/habitatUseDefaultValues";
 
-const HabitatUseForm = ({ initialValues, handleSubmit, isViewOnly }) => {
+const HabitatUseForm = ({
+  initialValues,
+  handleSubmit,
+  isViewOnly,
+  encounterId,
+}) => {
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const styles = {
+    cancelButton: css`
+      margin-right: 10px;
+    `,
+  };
+
+  const renderConfirmationModal = () => {
+    return (
+      <CancelFormConfirmationModal
+        closeModal={() => setShowConfirmationModal(false)}
+        handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
+      />
+    );
+  };
+
+  const initValues = initialValues || habitatUseDefaults;
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
-        <Formik
-          initialValues={
-            initialValues || {
-              numberOfAnimals: 1,
-              numberOfCalves: "",
-              numberOfBoats: 1,
-              directionOfTravel: "",
-              comments: "",
-              waterDepth: "",
-              waterTemp: "",
-              bottomSubstrate: "",
-              cloudCover: "",
-              beaufortSeaState: "",
-              tideState: "",
-              behaviour: "",
-              swellWaveHeight: "",
-              distance: "",
-              bearing: "",
-              aspect: "",
-              groupCohesion: "",
-              groupComposition: "",
-              surfaceBout: 0,
-              endTime: "",
-              startTime: "",
-              latitude: "0",
-              longitude: "0",
-              exported: false,
-            }
-          }
-          onSubmit={handleSubmit}
-        >
+        <Formik initialValues={initValues} onSubmit={handleSubmit}>
           {({ values }) => (
             <Form>
               <div css={utilities.form.fieldsGrid}>
@@ -246,7 +247,24 @@ const HabitatUseForm = ({ initialValues, handleSubmit, isViewOnly }) => {
 
               {!isViewOnly && (
                 <div css={utilities.sticky.footerContainer}>
-                  <Button type="submit">Save habitat use</Button>
+                  <Button
+                    styles={styles.cancelButton}
+                    variant="secondary"
+                    type="button"
+                    onClick={() => {
+                      const modifiedFields = getModifiedProperties(
+                        values,
+                        initValues
+                      );
+
+                      Object.keys(modifiedFields).length === 0
+                        ? navigate(generateOpenEncounterURL(encounterId))
+                        : setShowConfirmationModal(true);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit">Save</Button>
                 </div>
               )}
 
@@ -255,6 +273,8 @@ const HabitatUseForm = ({ initialValues, handleSubmit, isViewOnly }) => {
           )}
         </Formik>
       </div>
+
+      {showConfirmationModal && renderConfirmationModal()}
     </div>
   );
 };

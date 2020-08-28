@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import breakPoints from "../materials/breakPoints";
 import containers from "../materials/containers";
 import colors from "../materials/colors";
 import Logo from "./icons/Logo";
 
-const Footer = ({ hasStickyButton = false }) => {
+const Footer = () => {
   const styles = {
     footer: css`
       min-height: 50px;
@@ -15,11 +14,7 @@ const Footer = ({ hasStickyButton = false }) => {
       left: 0;
       bottom: 0;
       width: 100%;
-      margin-bottom: ${hasStickyButton ? "64px" : "0"};
-
-      @media (min-width: ${breakPoints.mediumTablet}) {
-        margin-bottom: 0;
-      }
+      margin-bottom: 0;
     `,
     container: css`
       display: flex;

@@ -59,32 +59,24 @@ const utilities = {
   },
   sticky: {
     contentContainer: css`
-      margin-bottom: 20px;
-
-      @media (min-width: ${breakPoints.mediumTablet}) {
-        margin-bottom: 0;
-      }
+      margin-bottom: 0;
     `,
     footerContainer: css`
       display: flex;
       justify-content: center;
-      margin-top: 10px;
-      position: fixed;
+      position: sticky;
       bottom: 0;
-      background: white;
-      width: 100%;
-      padding: 10px;
-      box-shadow: 0 -1px 5px 1px rgba(40, 54, 104, 0.15);
-      left: 0;
-      min-height: 64px;
+      background: ${colors.lighterGray};
       z-index: 999;
+      padding: 10px;
 
-      @media (min-width: ${breakPoints.mediumTablet}) {
-        position: relative;
-        bottom: auto;
-        background: none;
-        box-shadow: none;
+      @media (min-width: ${breakPoints.maxPhone}) {
+        justify-content: space-between;
+        padding: 10px 0;
       }
+    `,
+    rightContainer: css`
+      display: flex;
     `,
   },
   backLinkContainer: {
@@ -127,6 +119,39 @@ const utilities = {
       padding: 20px;
       margin: 0;
       font-style: italic;
+    `,
+  },
+  confirmationModal: {
+    overlayBackground: css`
+      background-color: rgba(0, 0, 0, 0.5);
+    `,
+    overlay: css`
+      z-index: 9999;
+    `,
+    modal: css`
+      position: fixed;
+      background-color: white;
+      display: block;
+      padding: 20px;
+      min-width: 90%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      @media (min-width: ${breakPoints.mediumTablet}) {
+        min-width: auto;
+      }
+    `,
+    modalHeader: css`
+      text-align: center;
+      font-weight: bold;
+    `,
+    modalDescription: css`
+      padding: 20px 0 20px 0;
+    `,
+    modalButtons: css`
+      display: flex;
+      justify-content: space-around;
     `,
   },
 };

@@ -17,13 +17,14 @@ const Button = ({
   const basicStyles = css`
     ${styles}
     display: block;
-    min-width: 100px;
-    font-size: 16px;
+    min-width: 95px;
+    font-size: 15px;
     width: ${width};
-    padding: ${isSmall ? 0 : "10px"};
+    padding: ${isSmall ? 0 : "0 10px"};
     height: ${isSmall ? "36px" : "44px"};
     border-radius: 2px;
     font-weight: 600;
+    max-width: fit-content;
 
     &:disabled {
       background: ${colors.mediumGray};
@@ -32,7 +33,7 @@ const Button = ({
 
     @media (min-width: ${breakPoints.maxPhone}) {
       min-width: ${isSmall ? "100px" : "150px"};
-      padding: ${isSmall ? 0 : "10px 20px"};
+      max-width: none;
     }
   `;
 

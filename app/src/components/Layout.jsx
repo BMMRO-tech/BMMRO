@@ -16,7 +16,6 @@ const Layout = ({
   hasDefaultPadding = true,
   children,
   hasHeader = true,
-  hasStickyButton = true,
   hasBackLink = false,
 }) => {
   const { datastore, datastoreError } = useContext(FirebaseContext);
@@ -72,7 +71,7 @@ const Layout = ({
           )}
         </div>
       </main>
-      <Footer hasStickyButton={hasStickyButton} />
+      <Footer />
     </Fragment>
   );
 };

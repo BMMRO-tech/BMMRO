@@ -16,7 +16,7 @@ describe("NewEncounterForm", () => {
       formValues = values;
     };
 
-    const { getByRole, getAllByRole } = render(
+    const { getByRole } = render(
       <NewEncounterForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -25,7 +25,9 @@ describe("NewEncounterForm", () => {
       const encounterSequenceInput = getByRole("textbox", {
         name: "Encounter sequence *",
       });
-      const [submitButton] = getAllByRole("button");
+      const submitButton = getByRole("button", {
+        name: "+ New Habitat Use",
+      });
 
       userEvent.selectOptions(areaInput, "Central Andros");
       await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
@@ -43,12 +45,14 @@ describe("NewEncounterForm", () => {
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = render(
       <NewEncounterForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
-      const [submitButton] = getAllByRole("button");
+      const submitButton = getByRole("button", {
+        name: "+ New Habitat Use",
+      });
       userEvent.click(submitButton);
 
       const errorMessage = getByLabelText("Area", {
@@ -62,12 +66,14 @@ describe("NewEncounterForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByRole, getByRole } = render(
+    const { getByRole } = render(
       <NewEncounterForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
-      const [submitButton] = getAllByRole("button");
+      const submitButton = getByRole("button", {
+        name: "+ New Habitat Use",
+      });
       userEvent.click(submitButton);
 
       const encounterSequenceInput = getByRole("textbox", {
@@ -79,5 +85,25 @@ describe("NewEncounterForm", () => {
         expect(encounterSequenceInput).toHaveFocus();
       });
     });
+  });
+
+  it("displays a confirmation modal when user presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <NewEncounterForm handleSubmit={mockHandleSubmit} />
+    );
+
+    await act(async () => {
+      const areaInput = getByRole("combobox", { name: "Area *" });
+      userEvent.selectOptions(areaInput, "Central Andros");
+
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    await waitFor(() =>
+      expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument()
+    );
   });
 });
