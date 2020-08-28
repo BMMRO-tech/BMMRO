@@ -10,7 +10,7 @@ describe("EncounterOverview", () => {
     area: "some area",
   };
 
-  it("does not display a message when the encounter was not yet exported", async () => {
+  it("does not display a message when the encounter was not yet exported", () => {
     const encounter = {
       ...defaultEncounter,
       exported: false,
@@ -23,7 +23,7 @@ describe("EncounterOverview", () => {
     expect(queryByTestId("exported-info")).not.toBeInTheDocument();
   });
 
-  it("displays a message when the encounter was already exported", async () => {
+  it("displays a message when the encounter was already exported", () => {
     const exportedEncounter = {
       ...defaultEncounter,
       exported: true,
@@ -36,7 +36,7 @@ describe("EncounterOverview", () => {
     expect(queryByTestId("exported-info")).toBeInTheDocument();
   });
 
-  it("has a link to the edit page if the encounter was not yet exported", async () => {
+  it("has a link to the edit page if the encounter was not yet exported", () => {
     const encounter = {
       ...defaultEncounter,
       exported: false,
@@ -47,7 +47,7 @@ describe("EncounterOverview", () => {
     expect(getByRole("link").href).toContain("/encounters/1/edit");
   });
 
-  it("has a link to the view page if the encounter was exported", async () => {
+  it("has a link to the view page if the encounter was exported", () => {
     const encounter = {
       ...defaultEncounter,
       exported: true,

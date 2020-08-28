@@ -25,4 +25,18 @@ describe("HabitatUseList", () => {
 
     expect(noEntriesMessage).not.toBeNull();
   });
+
+  it("has a button to add habitat uses if the associated encounter was not yet exported", () => {
+    const { queryByRole } = render(<HabitatUseList items={[]} />);
+
+    expect(queryByRole("button", { name: "+ New" })).toBeInTheDocument();
+  });
+
+  it("does not have a button to add habitat uses if the associated encounter was exported", () => {
+    const { queryByRole } = render(
+      <HabitatUseList items={[]} encounterExported />
+    );
+
+    expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
+  });
 });

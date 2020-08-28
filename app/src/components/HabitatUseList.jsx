@@ -12,7 +12,7 @@ import ListHeader from "./list/ListHeader";
 import Button from "../components/Button";
 import ListItem from "./list/ListItem";
 
-const HabitatUseList = ({ items, encounterId }) => {
+const HabitatUseList = ({ items, encounterId, encounterExported = false }) => {
   const sortedItems = items.sort((a, b) =>
     b.data.startTime.localeCompare(a.data.startTime)
   );
@@ -20,9 +20,11 @@ const HabitatUseList = ({ items, encounterId }) => {
   return (
     <div css={utilities.list.container}>
       <ListHeader title="Habitat Use">
-        <Link to={generateNewHabitatUseURL(encounterId)}>
-          <Button isSmall>+ New</Button>
-        </Link>
+        {!encounterExported && (
+          <Link to={generateNewHabitatUseURL(encounterId)}>
+            <Button isSmall>+ New</Button>
+          </Link>
+        )}
       </ListHeader>
       {sortedItems.length === 0 ? (
         <p css={utilities.list.noEntries}>No habitat use entries yet</p>

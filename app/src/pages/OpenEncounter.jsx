@@ -111,6 +111,7 @@ const OpenEncounter = ({ encounterId }) => {
             <HabitatUseList
               items={encounter.habitatUseEntries}
               encounterId={encounterId}
+              encounterExported={encounter.exported}
             />
           </div>
           <div css={styles.footerContainer}>{renderButtons()}</div>
