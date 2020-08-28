@@ -61,6 +61,10 @@ const utilities = {
     `,
   },
   backLinkContainer: {
+    top: css`
+      margin-bottom: 20px;
+      padding-left: 10px;
+    `,
     bottom: css`
       display: flex;
       justify-content: center;

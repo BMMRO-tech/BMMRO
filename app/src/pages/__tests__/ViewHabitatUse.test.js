@@ -79,7 +79,7 @@ describe("EditHabitatUse", () => {
     });
   });
 
-  it("has a link to the encounter overview page", async () => {
+  it("has two links to the encounter overview page", async () => {
     const { id: encounterId } = await firestoreEmulator
       .collection("encounter")
       .add({
@@ -101,7 +101,7 @@ describe("EditHabitatUse", () => {
 
     const entryPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/view`;
 
-    const { getByRole } = renderWithMockContexts(
+    const { getAllByRole } = renderWithMockContexts(
       <ViewHabitatUse encounterId={encounterId} habitatUseId={habitatId} />,
       {
         datastore,
@@ -110,12 +110,15 @@ describe("EditHabitatUse", () => {
     );
 
     await waitFor(() => {
-      const backLink = getByRole("link", {
+      const expectedLink = `/encounters/${encounterId}/habitat-uses`;
+
+      const backLinks = getAllByRole("link", {
         name: "Return to encounter overview",
       });
-      expect(backLink.href).toContain(
-        `/encounters/${encounterId}/habitat-uses`
-      );
+
+      expect(backLinks).toHaveLength(2);
+      expect(backLinks[0].href).toContain(expectedLink);
+      expect(backLinks[1].href).toContain(expectedLink);
     });
   });
 

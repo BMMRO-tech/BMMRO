@@ -103,6 +103,12 @@ const OpenEncounter = ({ encounterId }) => {
 
   return (
     <Layout hasDefaultPadding={false} hasStickyButton={!encounter.exported}>
+      {encounter.exported && (
+        <div css={utilities.backLinkContainer.top}>
+          <BackLink text="Return to encounter list" to={ROUTES.encounters} />
+        </div>
+      )}
+
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
           <EncounterOverview

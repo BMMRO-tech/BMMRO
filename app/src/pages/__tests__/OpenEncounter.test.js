@@ -88,7 +88,7 @@ describe("OpenEncounter", () => {
     });
   });
 
-  it("has a link to the list of encounters if the encounter was previously exported", async () => {
+  it("has two links to the list of encounters if the encounter was previously exported", async () => {
     await firestoreEmulator.collection("encounter").doc("123").set({
       species: "some species",
       area: "some area",
@@ -96,14 +96,20 @@ describe("OpenEncounter", () => {
       exported: true,
     });
 
-    const { getByRole } = renderWithMockContexts(
+    const { getAllByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"123"} />,
       { datastore }
     );
 
     await waitFor(() => {
-      const backLink = getByRole("link", { name: "Return to encounter list" });
-      expect(backLink.href).toContain("/encounters");
+      const expectedLink = "/encounters";
+      const backLinks = getAllByRole("link", {
+        name: "Return to encounter list",
+      });
+
+      expect(backLinks).toHaveLength(2);
+      expect(backLinks[0].href).toContain(expectedLink);
+      expect(backLinks[1].href).toContain(expectedLink);
     });
   });
 });

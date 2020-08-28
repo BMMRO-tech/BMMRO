@@ -51,6 +51,12 @@ const ViewHabitatUse = ({ encounterId, habitatUseId }) => {
 
   return (
     <Layout hasDefaultPadding={false} hasStickyButton={false}>
+      <div css={utilities.backLinkContainer.top}>
+        <BackLink
+          text="Return to encounter overview"
+          to={generateOpenEncounterURL(encounterId)}
+        />
+      </div>
       {!initialValues ? (
         <Loader />
       ) : (
