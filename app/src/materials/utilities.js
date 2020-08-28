@@ -20,7 +20,6 @@ const utilities = {
       ${typography.title}
       background-color: ${colors.lighterGray};
       padding: 10px;
-      margin-bottom: 15px;
     `,
     legend: css`
       font-size: 14px;
