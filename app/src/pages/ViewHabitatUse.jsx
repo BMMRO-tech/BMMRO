@@ -22,11 +22,6 @@ const ViewHabitatUse = ({ encounterId, habitatUseId }) => {
   const habitatUsePath = generateHabitatUsePath(encounterId, habitatUseId);
 
   const styles = {
-    footerContainer: css`
-      ${utilities.sticky.footerContainer}
-      flex-direction: column;
-      align-items: center;
-    `,
     exportedInfo: css`
       font-style: italic;
       padding-left: 10px;
@@ -55,7 +50,7 @@ const ViewHabitatUse = ({ encounterId, habitatUseId }) => {
   }, [datastore]);
 
   return (
-    <Layout hasDefaultPadding={false}>
+    <Layout hasDefaultPadding={false} hasStickyButton={false}>
       {!initialValues ? (
         <Loader />
       ) : (
@@ -66,7 +61,7 @@ const ViewHabitatUse = ({ encounterId, habitatUseId }) => {
             the app.
           </p>
           <HabitatUseForm initialValues={initialValues} isViewOnly />
-          <div css={styles.footerContainer}>
+          <div css={utilities.backLinkContainer.bottom}>
             <BackLink
               text="Return to encounter overview"
               to={generateOpenEncounterURL(encounterId)}

@@ -60,6 +60,13 @@ const utilities = {
       }
     `,
   },
+  backLinkContainer: {
+    bottom: css`
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    `,
+  },
   list: {
     items: css`
       list-style-type: none;

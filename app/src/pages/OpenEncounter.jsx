@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { useEffect, useContext, useState, Fragment } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
@@ -81,12 +81,14 @@ const OpenEncounter = ({ encounterId }) => {
   const renderButtons = () => {
     if (encounter.exported) {
       return (
-        <BackLink text="Return to encounter list" to={ROUTES.encounters} />
+        <div css={utilities.backLinkContainer.bottom}>
+          <BackLink text="Return to encounter list" to={ROUTES.encounters} />
+        </div>
       );
     }
 
     return (
-      <Fragment>
+      <div css={styles.footerContainer}>
         <Button disabled={isNewEncounter()} onClick={onEndEncounterClick}>
           End encounter
         </Button>
@@ -95,12 +97,12 @@ const OpenEncounter = ({ encounterId }) => {
             Please complete all required encounter fields to end the encounter
           </div>
         )}
-      </Fragment>
+      </div>
     );
   };
 
   return (
-    <Layout hasDefaultPadding={false}>
+    <Layout hasDefaultPadding={false} hasStickyButton={!encounter.exported}>
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
           <EncounterOverview
@@ -114,7 +116,7 @@ const OpenEncounter = ({ encounterId }) => {
               encounterExported={encounter.exported}
             />
           </div>
-          <div css={styles.footerContainer}>{renderButtons()}</div>
+          {renderButtons()}
         </div>
       ) : (
         <Loader />

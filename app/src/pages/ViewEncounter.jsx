@@ -23,11 +23,6 @@ const ViewEncounter = ({ encounterId }) => {
   const encounterPath = generateEncounterPath(encounterId);
 
   const styles = {
-    footerContainer: css`
-      ${utilities.sticky.footerContainer}
-      flex-direction: column;
-      align-items: center;
-    `,
     exportedInfo: css`
       font-style: italic;
       padding-left: 10px;
@@ -56,7 +51,7 @@ const ViewEncounter = ({ encounterId }) => {
   }, [datastore]);
 
   return (
-    <Layout hasDefaultPadding={false}>
+    <Layout hasDefaultPadding={false} hasStickyButton={false}>
       {!initialValues ? (
         <Loader />
       ) : (
@@ -67,7 +62,7 @@ const ViewEncounter = ({ encounterId }) => {
             app.
           </p>
           <EncounterForm initialValues={initialValues} isViewOnly />
-          <div css={styles.footerContainer}>
+          <div css={utilities.backLinkContainer.bottom}>
             <BackLink
               text="Return to encounter overview"
               to={generateOpenEncounterURL(encounterId)}
