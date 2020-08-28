@@ -43,6 +43,7 @@ const TextInput = ({
             type={type ? type : "text"}
             maxLength={maxLength}
             disabled={isDisabled}
+            data-testid={`field-${name}`}
           />
         </div>
       </label>

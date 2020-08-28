@@ -39,6 +39,7 @@ const TextAreaInput = ({
           css={fieldStyles.getInputStyles(meta.error, meta.touched)}
           maxLength={maxLength}
           disabled={isDisabled}
+          data-testid={`field-${name}`}
         />
       </label>
       <FieldError

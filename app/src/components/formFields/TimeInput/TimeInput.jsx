@@ -101,6 +101,7 @@ const TimeInput = ({
             mask={timeWithSeconds ? "99:99:99" : "99:99"}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
+            data-testid={`field-${name}`}
           />
         </div>
       </label>

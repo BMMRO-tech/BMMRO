@@ -80,4 +80,29 @@ describe("ViewEncounter", () => {
       );
     });
   });
+
+  it("renders the encounter form with all fields disabled", async () => {
+    const { id: encounterId } = await firestoreEmulator
+      .collection("encounter")
+      .add({
+        exported: true,
+        startTimestamp: new Date("2020-08-13T23:00:00.000Z"),
+        startTime: "10:14",
+      });
+
+    const entryPath = `/encounters/${encounterId}/view`;
+
+    const { getAllByTestId } = renderWithMockContexts(
+      <ViewEncounter encounterId={encounterId} />,
+      {
+        datastore,
+        route: entryPath,
+      }
+    );
+
+    await waitFor(() => {
+      const fields = getAllByTestId(/^field-/);
+      fields.map((field) => expect(field).toHaveAttribute("disabled"));
+    });
+  });
 });

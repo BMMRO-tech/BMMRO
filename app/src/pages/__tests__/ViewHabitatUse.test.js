@@ -118,4 +118,40 @@ describe("EditHabitatUse", () => {
       );
     });
   });
+
+  it("renders the habitat use form with all fields disabled", async () => {
+    const { id: encounterId } = await firestoreEmulator
+      .collection("encounter")
+      .add({
+        exported: true,
+        startTimestamp: new Date("2020-08-13T23:00:00.000Z"),
+        startTime: "10:14",
+      });
+
+    const { id: habitatId } = await firestoreEmulator
+      .doc(`encounter/${encounterId}`)
+      .collection("habitatUse")
+      .add({
+        waterDepth: "",
+        waterTemp: "",
+        distance: "",
+        surfaceBout: 0,
+        exported: true,
+      });
+
+    const entryPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/view`;
+
+    const { getAllByTestId } = renderWithMockContexts(
+      <ViewHabitatUse encounterId={encounterId} habitatUseId={habitatId} />,
+      {
+        datastore,
+        route: entryPath,
+      }
+    );
+
+    await waitFor(() => {
+      const fields = getAllByTestId(/^field-/);
+      fields.map((field) => expect(field).toHaveAttribute("disabled"));
+    });
+  });
 });

@@ -75,6 +75,7 @@ const NumberInput = ({
             type="number"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
+            data-testid={`field-${name}`}
           />
         </div>
       </label>

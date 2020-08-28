@@ -29,6 +29,7 @@ const RadioGroup = ({ name, labelText, options, isRequired, isDisabled }) => {
                   css={styles.radioButton}
                   checked={field.value === option.value}
                   disabled={isDisabled}
+                  data-testid={`field-${name}`}
                 />
                 {option.label}
               </label>

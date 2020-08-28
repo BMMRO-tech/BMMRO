@@ -62,7 +62,13 @@ const DateInput = ({
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             withPortal
             onFocus={(e) => e.target.blur()}
-            customInput={<input type="text" data-field-type="datepicker" />}
+            customInput={
+              <input
+                type="text"
+                data-field-type="datepicker"
+                data-testid={`field-${name}`}
+              />
+            }
             selected={(field.value && new Date(field.value)) || null}
             {...field}
             onChange={helpers.setValue}
