@@ -8,6 +8,7 @@ import utilities from "../materials/utilities";
 import { constructDateTime } from "../utils/time";
 import Button from "./Button";
 import ListHeader from "./list/ListHeader";
+import ListSubheader from "./list/ListSubheader";
 
 import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
@@ -107,8 +108,10 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
         >
           {({ values, submitForm }) => (
             <Form>
-              <div css={utilities.form.fieldsGrid}>
-                <ListHeader title="Encounter details">
+              <ListHeader title="Encounter details">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
                   <DateInput
                     name="startTimestamp"
                     labelText="Date"
@@ -140,7 +143,11 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isRequired
                     isDisabled={isViewOnly}
                   />
-                  <br />
+                </div>
+                <br />
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
                   <Select
                     name="project"
                     labelText="Project"
@@ -186,32 +193,12 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     maxLength={500}
                     isDisabled={isViewOnly}
                   />
-                </ListHeader>
-                <ListHeader title="Evidence">
-                  <TextInput
-                    name="videoRec"
-                    labelText="Video rec"
-                    maxLength={50}
-                    isDisabled={isViewOnly}
-                  />
-                  <TextInput
-                    name="audioRec"
-                    labelText="Audio rec"
-                    maxLength={255}
-                    isDisabled={isViewOnly}
-                  />
-                  <TextInput
-                    name="photographerFrame"
-                    labelText="Photographer + Frame"
-                    maxLength={255}
-                    isDisabled={isViewOnly}
-                  />
-                  <TextAreaInput
-                    name="visualIdentifications"
-                    labelText="Visual identifications"
-                    maxLength={200}
-                    isDisabled={isViewOnly}
-                  />
+                </div>
+              </ListHeader>
+              <ListHeader title="Evidence">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
                   <RadioGroup
                     name="biopsyAttempt"
                     labelText="Biopsy attempt"
@@ -266,10 +253,38 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isShort
                     isDisabled={isViewOnly}
                   />
-                </ListHeader>
-                <ListHeader title="Age Class">
-                  <fieldset>
-                    <legend>Number of Adult</legend>
+                  <TextInput
+                    name="videoRec"
+                    labelText="Video rec"
+                    maxLength={50}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="audioRec"
+                    labelText="Audio rec"
+                    maxLength={255}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="photographerFrame"
+                    labelText="Photographer + Frame"
+                    maxLength={255}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextAreaInput
+                    name="visualIdentifications"
+                    labelText="Visual identifications"
+                    maxLength={200}
+                    isDisabled={isViewOnly}
+                  />
+                </div>
+              </ListHeader>
+              <ListHeader title="Age Class">
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of Adult" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
                     <NumberInput
                       name="numAdultMale"
                       labelText="Male"
@@ -297,9 +312,13 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                       isInteger
                       isDisabled={isViewOnly}
                     />
-                  </fieldset>
-                  <fieldset>
-                    <legend>Number of sub adult</legend>
+                  </div>
+                </fieldset>
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of sub adult" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
                     <NumberInput
                       name="numSubAdultMale"
                       labelText="Male"
@@ -327,9 +346,13 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                       isInteger
                       isDisabled={isViewOnly}
                     />
-                  </fieldset>
-                  <fieldset>
-                    <legend>Number of juvenile</legend>
+                  </div>
+                </fieldset>
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of juvenile" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
                     <NumberInput
                       name="numJuvenileMale"
                       labelText="Male"
@@ -357,9 +380,13 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                       isInteger
                       isDisabled={isViewOnly}
                     />
-                  </fieldset>
-                  <fieldset>
-                    <legend>Number of Other</legend>
+                  </div>
+                </fieldset>
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of Other" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
                     <NumberInput
                       name="numYoungOfYear"
                       labelText="Young of year"
@@ -387,9 +414,13 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                       isInteger
                       isDisabled={isViewOnly}
                     />
-                  </fieldset>
-                </ListHeader>
-                <ListHeader title="Encounter completion">
+                  </div>
+                </fieldset>
+              </ListHeader>
+              <ListHeader title="Encounter completion">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
                   <Select
                     name="reasonForLeaving"
                     labelText="Reason for leaving"
@@ -487,8 +518,8 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     ]}
                     isDisabled={isViewOnly}
                   />
-                </ListHeader>
-              </div>
+                </div>
+              </ListHeader>
               <div css={utilities.form.h2}>
                 <span>*</span>required fields
               </div>
