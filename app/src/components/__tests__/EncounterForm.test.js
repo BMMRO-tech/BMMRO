@@ -28,8 +28,8 @@ describe("EncounterForm", () => {
       });
       const [submitButton] = getAllByRole("button");
 
-      await userEvent.selectOptions(areaInput, "Central Andros");
-      await userEvent.selectOptions(speciesInput, "Fin whale");
+      userEvent.selectOptions(areaInput, "Central Andros");
+      userEvent.selectOptions(speciesInput, "Fin whale");
       await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
       userEvent.click(submitButton);
     });
