@@ -36,7 +36,7 @@ const utilities = {
     `,
     subsection: css`
       background-color: ${colors.white};
-      padding: 20px 10px;
+      padding: 20px 10px 10px;
       @media (min-width: ${breakPoints.maxPhone}) {
         display: flex;
       }

@@ -43,6 +43,37 @@ describe("EncounterForm", () => {
     expect(formValues.startTime).toEqual("11:30");
   });
 
+  it("Form contains four fieldsets with the correct associated names", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { queryAllByRole, getByRole } = render(
+      <EncounterForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const fieldsets = queryAllByRole("group");
+    expect(fieldsets.length).toBe(4);
+
+    await waitFor(() => {
+      const adultFieldset = getByRole("group", { name: "Number of Adult" });
+      expect(adultFieldset).not.toBeNull();
+
+      const subAdultFieldset = getByRole("group", {
+        name: "Number of sub adult",
+      });
+      expect(subAdultFieldset).not.toBeNull();
+
+      const juvenileFieldset = getByRole("group", {
+        name: "Number of juvenile",
+      });
+      expect(juvenileFieldset).not.toBeNull();
+
+      const otherFieldset = getByRole("group", {
+        name: "Number of Other",
+      });
+      expect(otherFieldset).not.toBeNull();
+    });
+  });
+
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
 

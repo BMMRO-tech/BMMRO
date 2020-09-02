@@ -520,7 +520,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                   />
                 </div>
               </ListHeader>
-              <div css={utilities.form.h2}>
+              <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>
               {!isViewOnly && (
