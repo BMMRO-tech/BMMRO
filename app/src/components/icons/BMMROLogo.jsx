@@ -5,6 +5,7 @@ const BMMROLogoStyles = {
   headerLogo: css`
     height: 40px;
     width: 40px;
+    overflow-anchor: none;
   `,
   loginPageLogo: css`
     display: block;
