@@ -8,24 +8,23 @@ const ListHeader = ({ title, children }) => {
   const styles = {
     listHeader: css`
       margin-top: 20px;
-      width: 100%;
-    `,
-    title: css`
-      background: ${colors.lightTurquoise};
+      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px;
+      background: ${colors.lightTurquoise};
+    `,
+    title: css`
       ${typography.largeText}
       font-weight: 600;
     `,
   };
 
   return (
-    <section css={styles.listHeader}>
+    <div css={styles.listHeader}>
       <h2 css={styles.title}>{title}</h2>
       {children}
-    </section>
+    </div>
   );
 };
 

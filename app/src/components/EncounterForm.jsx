@@ -108,7 +108,8 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
         >
           {({ values, submitForm }) => (
             <Form>
-              <ListHeader title="Encounter details">
+              <section>
+                <ListHeader title="Encounter details" />
                 <FormSection>
                   <DateInput
                     name="startTimestamp"
@@ -142,7 +143,9 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-                <br />
+              </section>
+              <br />
+              <section>
                 <FormSection>
                   <Select
                     name="project"
@@ -190,8 +193,9 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-              </ListHeader>
-              <ListHeader title="Evidence">
+              </section>
+              <section>
+                <ListHeader title="Evidence" />
                 <FormSection>
                   <RadioGroup
                     name="biopsyAttempt"
@@ -272,8 +276,9 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-              </ListHeader>
-              <ListHeader title="Age Class">
+              </section>
+              <section>
+                <ListHeader title="Age Class" />
                 <FormSection legendText="Number of Adult" isOneLine>
                   <NumberInput
                     name="numAdultMale"
@@ -390,8 +395,9 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-              </ListHeader>
-              <ListHeader title="Encounter completion">
+              </section>
+              <section>
+                <ListHeader title="Encounter completion" />
                 <FormSection>
                   <Select
                     name="reasonForLeaving"
@@ -491,7 +497,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-              </ListHeader>
+              </section>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>

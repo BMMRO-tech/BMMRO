@@ -6,6 +6,7 @@ import utilities from "../materials/utilities";
 const styles = {
   legend: css`
     width: 100%;
+    padding: 0;
   `,
 };
 

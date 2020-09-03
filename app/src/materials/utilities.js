@@ -8,6 +8,16 @@ const utilities = {
   form: {
     container: css`
       padding: 0 20px;
+
+      section {
+        background-color: white;
+
+        fieldset:first-of-type {
+          > legend {
+            padding-top: 20px;
+          }
+        }
+      }
     `,
     fieldsGrid: css`
       @media (min-width: ${breakPoints.maxPhone}) {
