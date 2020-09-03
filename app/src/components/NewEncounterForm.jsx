@@ -12,6 +12,7 @@ import Select from "./formFields/Select/Select";
 import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import encounterDefaults from "../constants/encounterDefaultValues";
+import ListHeader from "./list/ListHeader";
 
 const NewEncounterForm = ({ handleSubmit }) => {
   const styles = {
@@ -39,37 +40,41 @@ const NewEncounterForm = ({ handleSubmit }) => {
         >
           {({ values }) => (
             <Form>
-              <div css={utilities.form.fieldsGrid}>
-                <DateInput
-                  name="startTimestamp"
-                  labelText="Date"
-                  isRequired
-                  isShort
-                  notAfter={new Date()}
-                  autofill={true}
-                />
-                <TextInput
-                  name="sequenceNumber"
-                  labelText="Encounter sequence"
-                  maxLength={255}
-                  isRequired
-                  isShort
-                />
-                <Select
-                  name="area"
-                  labelText="Area"
-                  options={area}
-                  isRequired
-                />
-                <TimeInput
-                  name="startTime"
-                  labelText="Start time"
-                  isShort
-                  autofill={true}
-                  notAfter={values.startTimestamp}
-                  isRequired
-                />
-              </div>
+              <ListHeader title="Encounter details">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
+                  <DateInput
+                    name="startTimestamp"
+                    labelText="Date"
+                    isRequired
+                    isShort
+                    notAfter={new Date()}
+                    autofill={true}
+                  />
+                  <TextInput
+                    name="sequenceNumber"
+                    labelText="Encounter sequence"
+                    maxLength={255}
+                    isRequired
+                    isShort
+                  />
+                  <Select
+                    name="area"
+                    labelText="Area"
+                    options={area}
+                    isRequired
+                  />
+                  <TimeInput
+                    name="startTime"
+                    labelText="Start time"
+                    isShort
+                    autofill={true}
+                    notAfter={values.startTimestamp}
+                    isRequired
+                  />
+                </div>
+              </ListHeader>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>
