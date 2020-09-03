@@ -26,12 +26,14 @@ const DateInput = ({
       return getErrorMessage(FormErrorType.EMPTY);
     }
 
-    if (notBefore && val < notBefore) {
-      return getErrorMessage(FormErrorType.END_DATE_BEFORE_START_DATE);
-    }
+    if (val) {
+      if (notBefore && val < notBefore) {
+        return getErrorMessage(FormErrorType.END_DATE_BEFORE_START_DATE);
+      }
 
-    if (notAfter && val > notAfter) {
-      return getErrorMessage(FormErrorType.INVALID_END_DATE);
+      if (notAfter && val > notAfter) {
+        return getErrorMessage(FormErrorType.INVALID_END_DATE);
+      }
     }
 
     return "";
