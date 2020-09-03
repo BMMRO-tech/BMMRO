@@ -109,9 +109,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
           {({ values, submitForm }) => (
             <Form>
               <ListHeader title="Encounter details">
-                <div
-                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
-                >
+                <FormSection>
                   <DateInput
                     name="startTimestamp"
                     labelText="Date"
@@ -143,11 +141,9 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isRequired
                     isDisabled={isViewOnly}
                   />
-                </div>
+                </FormSection>
                 <br />
-                <div
-                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
-                >
+                <FormSection>
                   <Select
                     name="project"
                     labelText="Project"
@@ -193,12 +189,10 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     maxLength={500}
                     isDisabled={isViewOnly}
                   />
-                </div>
+                </FormSection>
               </ListHeader>
               <ListHeader title="Evidence">
-                <div
-                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
-                >
+                <FormSection>
                   <RadioGroup
                     name="biopsyAttempt"
                     labelText="Biopsy attempt"
@@ -277,10 +271,10 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     maxLength={200}
                     isDisabled={isViewOnly}
                   />
-                </div>
+                </FormSection>
               </ListHeader>
               <ListHeader title="Age Class">
-                <FormSection legendText="Number of Adult">
+                <FormSection legendText="Number of Adult" isOneLine>
                   <NumberInput
                     name="numAdultMale"
                     labelText="Male"
@@ -309,7 +303,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-                <FormSection legendText="Number of sub adult">
+                <FormSection legendText="Number of sub adult" isOneLine>
                   <NumberInput
                     name="numSubAdultMale"
                     labelText="Male"
@@ -338,7 +332,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-                <FormSection legendText="Number of juvenile">
+                <FormSection legendText="Number of juvenile" isOneLine>
                   <NumberInput
                     name="numJuvenileMale"
                     labelText="Male"
@@ -367,7 +361,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-                <FormSection legendText="Number of Other">
+                <FormSection legendText="Number of Other" isOneLine>
                   <NumberInput
                     name="numYoungOfYear"
                     labelText="Young of year"
@@ -398,9 +392,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                 </FormSection>
               </ListHeader>
               <ListHeader title="Encounter completion">
-                <div
-                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
-                >
+                <FormSection>
                   <Select
                     name="reasonForLeaving"
                     labelText="Reason for leaving"
@@ -498,7 +490,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     ]}
                     isDisabled={isViewOnly}
                   />
-                </div>
+                </FormSection>
               </ListHeader>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields

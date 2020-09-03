@@ -8,7 +8,12 @@ const styles = {
     width: 100%;
   `,
 };
-const FormSection = ({ legendText, children }) => {
+
+const FormSection = ({ legendText, isOneLine, children }) => {
+  const fieldsLayout = isOneLine
+    ? [utilities.form.subsection, utilities.form.oneLineFieldsGrid]
+    : [utilities.form.subsection, utilities.form.fieldsGrid];
+
   return (
     <fieldset css={utilities.form.fieldset}>
       {legendText && (
@@ -16,7 +21,7 @@ const FormSection = ({ legendText, children }) => {
           <ListSubheader title={legendText} />
         </legend>
       )}
-      <div css={utilities.form.subsection}>{children}</div>
+      <div css={fieldsLayout}>{children}</div>
     </fieldset>
   );
 };

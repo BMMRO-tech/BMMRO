@@ -16,6 +16,12 @@ const utilities = {
         grid-column-gap: 10%;
       }
     `,
+    oneLineFieldsGrid: css`
+      @media (min-width: ${breakPoints.maxPhone}) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    `,
     title: css`
       ${typography.title}
       background-color: ${colors.lighterGray};

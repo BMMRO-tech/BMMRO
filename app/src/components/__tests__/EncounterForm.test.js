@@ -51,7 +51,7 @@ describe("EncounterForm", () => {
     );
 
     const fieldsets = queryAllByRole("group");
-    expect(fieldsets.length).toBe(4);
+    expect(fieldsets.length).toBe(8);
 
     await waitFor(() => {
       const adultFieldset = getByRole("group", { name: "Number of Adult" });
