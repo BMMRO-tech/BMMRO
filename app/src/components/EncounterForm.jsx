@@ -8,7 +8,6 @@ import utilities from "../materials/utilities";
 import { constructDateTime } from "../utils/time";
 import Button from "./Button";
 import ListHeader from "./list/ListHeader";
-import ListSubheader from "./list/ListSubheader";
 
 import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
@@ -31,6 +30,7 @@ import {
   RESEARCH_ASSISTANT,
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
+import FormSection from "./FormSection";
 
 const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
   const [submitType, setSubmitType] = useState(null);
@@ -280,142 +280,122 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                 </div>
               </ListHeader>
               <ListHeader title="Age Class">
-                <fieldset css={utilities.form.fieldset}>
-                  <legend>
-                    <ListSubheader title="Number of Adult" />
-                  </legend>
-                  <div css={utilities.form.subsection}>
-                    <NumberInput
-                      name="numAdultMale"
-                      labelText="Male"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numAdultFemale"
-                      labelText="Female"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numAdultUnknown"
-                      labelText="Unknown"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                  </div>
-                </fieldset>
-                <fieldset css={utilities.form.fieldset}>
-                  <legend>
-                    <ListSubheader title="Number of sub adult" />
-                  </legend>
-                  <div css={utilities.form.subsection}>
-                    <NumberInput
-                      name="numSubAdultMale"
-                      labelText="Male"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numSubAdultFemale"
-                      labelText="Female"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numSubAdult"
-                      labelText="Unknown"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                  </div>
-                </fieldset>
-                <fieldset css={utilities.form.fieldset}>
-                  <legend>
-                    <ListSubheader title="Number of juvenile" />
-                  </legend>
-                  <div css={utilities.form.subsection}>
-                    <NumberInput
-                      name="numJuvenileMale"
-                      labelText="Male"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numJuvenileFemale"
-                      labelText="Female"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numJuvenileUnknown"
-                      labelText="Unknown"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                  </div>
-                </fieldset>
-                <fieldset css={utilities.form.fieldset}>
-                  <legend>
-                    <ListSubheader title="Number of Other" />
-                  </legend>
-                  <div css={utilities.form.subsection}>
-                    <NumberInput
-                      name="numYoungOfYear"
-                      labelText="Young of year"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numNeonates"
-                      labelText="Neonates"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                    <NumberInput
-                      name="numUnknown"
-                      labelText="Unknown"
-                      minValue={0}
-                      maxValue={9999}
-                      isShort
-                      isInteger
-                      isDisabled={isViewOnly}
-                    />
-                  </div>
-                </fieldset>
+                <FormSection legendText="Number of Adult">
+                  <NumberInput
+                    name="numAdultMale"
+                    labelText="Male"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numAdultFemale"
+                    labelText="Female"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numAdultUnknown"
+                    labelText="Unknown"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+                <FormSection legendText="Number of sub adult">
+                  <NumberInput
+                    name="numSubAdultMale"
+                    labelText="Male"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numSubAdultFemale"
+                    labelText="Female"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numSubAdult"
+                    labelText="Unknown"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+                <FormSection legendText="Number of juvenile">
+                  <NumberInput
+                    name="numJuvenileMale"
+                    labelText="Male"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numJuvenileFemale"
+                    labelText="Female"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numJuvenileUnknown"
+                    labelText="Unknown"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+                <FormSection legendText="Number of Other">
+                  <NumberInput
+                    name="numYoungOfYear"
+                    labelText="Young of year"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numNeonates"
+                    labelText="Neonates"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numUnknown"
+                    labelText="Unknown"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
               </ListHeader>
               <ListHeader title="Encounter completion">
                 <div
