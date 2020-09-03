@@ -89,21 +89,22 @@ const TodaysEncounters = ({ encounters }) => {
 const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
   return (
     <div css={utilities.list.container}>
-      <ListHeader title={title} />
-      {!encounters.length ? (
-        <div css={utilities.list.noEntries}>No encounters yet</div>
-      ) : isToday ? (
-        <TodaysEncounters encounters={encounters} />
-      ) : (
-        <PreviousEncounters encounters={encounters} />
-      )}
-      {!!loadMore && (
-        <LoadMoreButton
-          text="Load previous month"
-          handleClick={loadMore}
-          isLoading={isLoading}
-        />
-      )}
+      <ListHeader title={title}>
+        {!encounters.length ? (
+          <div css={utilities.list.noEntries}>No encounters yet</div>
+        ) : isToday ? (
+          <TodaysEncounters encounters={encounters} />
+        ) : (
+          <PreviousEncounters encounters={encounters} />
+        )}
+        {!!loadMore && (
+          <LoadMoreButton
+            text="Load previous month"
+            handleClick={loadMore}
+            isLoading={isLoading}
+          />
+        )}
+      </ListHeader>
     </div>
   );
 };

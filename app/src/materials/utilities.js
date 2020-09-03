@@ -29,6 +29,18 @@ const utilities = {
         margin-right: 5px;
       }
     `,
+    fieldset: css`
+      border: none;
+      margin: 0;
+      padding: 0;
+    `,
+    subsection: css`
+      background-color: ${colors.white};
+      padding: 20px 10px 10px;
+      @media (min-width: ${breakPoints.maxPhone}) {
+        display: flex;
+      }
+    `,
   },
   sticky: {
     contentContainer: css`

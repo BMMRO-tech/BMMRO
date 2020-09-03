@@ -7,6 +7,8 @@ import add from "date-fns/add";
 import utilities from "../materials/utilities";
 import { constructDateTime } from "../utils/time";
 import Button from "./Button";
+import ListHeader from "./list/ListHeader";
+import ListSubheader from "./list/ListSubheader";
 
 import TextInput from "./formFields/TextInput/TextInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
@@ -106,361 +108,418 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
         >
           {({ values, submitForm }) => (
             <Form>
-              <div css={utilities.form.fieldsGrid}>
-                <DateInput
-                  name="startTimestamp"
-                  labelText="Date"
-                  isRequired
-                  isShort
-                  notAfter={new Date()}
-                  autofill={!initialValues}
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="sequenceNumber"
-                  labelText="Encounter sequence"
-                  maxLength={255}
-                  isRequired
-                  isShort
-                  isDisabled={isViewOnly}
-                />
-                <Select
-                  name="area"
-                  labelText="Area"
-                  options={area}
-                  isRequired
-                  isDisabled={isViewOnly}
-                />
-                <Select
-                  name="species"
-                  labelText="Species"
-                  options={species}
-                  isRequired
-                  isDisabled={isViewOnly}
-                />
-                <Select
-                  name="project"
-                  labelText="Project"
-                  options={project}
-                  isDisabled={isViewOnly}
-                />
-                <Select
-                  name="cue"
-                  labelText="Cue"
-                  options={cue}
-                  isDisabled={isViewOnly}
-                />
-                <Select
-                  name="vessel"
-                  labelText="Vessel"
-                  options={vessel}
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="observers"
-                  labelText="Observers"
-                  maxLength={100}
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="groupSize"
-                  labelText="Group size (visual)"
-                  minValue={1}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="location"
-                  labelText="Location"
-                  maxLength={100}
-                  isDisabled={isViewOnly}
-                />
-                <TextAreaInput
-                  name="comments"
-                  labelText="Comments / Observations (names of underwater observers)"
-                  maxLength={500}
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="videoRec"
-                  labelText="Video rec"
-                  maxLength={50}
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="audioRec"
-                  labelText="Audio rec"
-                  maxLength={255}
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="photographerFrame"
-                  labelText="Photographer + Frame"
-                  maxLength={255}
-                  isDisabled={isViewOnly}
-                />
-                <TextAreaInput
-                  name="visualIdentifications"
-                  labelText="Visual identifications"
-                  maxLength={200}
-                  isDisabled={isViewOnly}
-                />
-                <RadioGroup
-                  name="biopsyAttempt"
-                  labelText="Biopsy attempt"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  isDisabled={isViewOnly}
-                />
-                <RadioGroup
-                  name="biopsySuccess"
-                  labelText="Biopsy success"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                    { label: "Not noted", value: "not-noted" },
-                  ]}
-                  isDisabled={isViewOnly}
-                />
-                <RadioGroup
-                  name="tagAttempt"
-                  labelText="Tag attempt"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  isDisabled={isViewOnly}
-                />
-                <RadioGroup
-                  name="tagSuccess"
-                  labelText="Tag success"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                    { label: "Not noted", value: "not-noted" },
-                  ]}
-                  isDisabled={isViewOnly}
-                />
-                <RadioGroup
-                  name="transect"
-                  labelText="Transect"
-                  options={[
-                    { label: "On", value: "On" },
-                    { label: "Off", value: "Off" },
-                  ]}
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="transectNumber"
-                  labelText="Transect number"
-                  maxLength={8}
-                  isShort
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numAdultMale"
-                  labelText="Number of adult male"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numAdultFemale"
-                  labelText="Number of adult female"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numAdultUnknown"
-                  labelText="Number of adult unknown"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numSubAdultMale"
-                  labelText="Number of sub adult male"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numSubAdultFemale"
-                  labelText="Number of sub adult female"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numSubAdult"
-                  labelText="Number of sub adult"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numJuvenileMale"
-                  labelText="Number of juvenile male"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numJuvenileFemale"
-                  labelText="Number of juvenile female"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numJuvenileUnknown"
-                  labelText="Number of juvenile unknown"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numYoungOfYear"
-                  labelText="Number of young of year"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numNeonates"
-                  labelText="Number of neonates"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="numUnknown"
-                  labelText="Number of unknown"
-                  minValue={0}
-                  maxValue={9999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <TimeInput
-                  name="endOfSearchEffort"
-                  labelText="End of search effort"
-                  isShort
-                  isDisabled={isViewOnly}
-                />
-                <DateInput
-                  name="endTimestamp"
-                  labelText="End date"
-                  isShort
-                  autofill={!initialValues}
-                  notBefore={values.startTimestamp}
-                  notAfter={add(new Date(values.startTimestamp), {
-                    hours: THREE_DAYS_IN_HOURS,
-                  })}
-                  isDisabled={isViewOnly}
-                />
-                <TimeInput
-                  name="endTime"
-                  labelText="End time"
-                  isShort
-                  associatedDate={values.endTimestamp}
-                  notBefore={constructDateTime(
-                    values.startTimestamp,
-                    values.startTime
-                  )}
-                  notAfter={add(
-                    constructDateTime(values.startTimestamp, values.startTime),
-                    { hours: THREE_DAYS_IN_HOURS }
-                  )}
-                  isDisabled={isViewOnly}
-                />
-                <Select
-                  name="reasonForLeaving"
-                  labelText="Reason for leaving"
-                  options={reasonForLeaving}
-                  isDisabled={isViewOnly}
-                />
-                <TimeInput
-                  name="highTide"
-                  labelText="High tide"
-                  isShort
-                  isDisabled={isViewOnly}
-                />
-                <TimeInput
-                  name="lowTide"
-                  labelText="Low tide"
-                  isShort
-                  isDisabled={isViewOnly}
-                />
-                <TextInput
-                  name="logbookNumber"
-                  labelText="Logbook number"
-                  maxLength={20}
-                  isShort
-                  isDisabled={isViewOnly}
-                />
-                <NumberInput
-                  name="encounterNumber"
-                  labelText="Encounter number"
-                  minValue={1}
-                  maxValue={999}
-                  isShort
-                  isInteger
-                  isDisabled={isViewOnly}
-                />
-                <TimeInput
-                  name="startTime"
-                  labelText="Start time"
-                  isShort
-                  autofill={!initialValues}
-                  notAfter={values.startTimestamp}
-                  isRequired
-                  isDisabled={isViewOnly}
-                />
-                <ElapsedTime isDisabled={isViewOnly} />
-                <RadioGroup
-                  name="enteredBy"
-                  labelText="Entered by"
-                  options={[
-                    {
-                      label: RESEARCH_ASSISTANT,
-                      value: RESEARCH_ASSISTANT,
-                    },
-                    {
-                      label: RESEARCH_SCIENTIST,
-                      value: RESEARCH_SCIENTIST,
-                    },
-                  ]}
-                  isDisabled={isViewOnly}
-                />
-              </div>
+              <ListHeader title="Encounter details">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
+                  <DateInput
+                    name="startTimestamp"
+                    labelText="Date"
+                    isRequired
+                    isShort
+                    notAfter={new Date()}
+                    autofill={!initialValues}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="sequenceNumber"
+                    labelText="Encounter sequence"
+                    maxLength={255}
+                    isRequired
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <Select
+                    name="area"
+                    labelText="Area"
+                    options={area}
+                    isRequired
+                    isDisabled={isViewOnly}
+                  />
+                  <Select
+                    name="species"
+                    labelText="Species"
+                    options={species}
+                    isRequired
+                    isDisabled={isViewOnly}
+                  />
+                </div>
+                <br />
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
+                  <Select
+                    name="project"
+                    labelText="Project"
+                    options={project}
+                    isDisabled={isViewOnly}
+                  />
+                  <Select
+                    name="cue"
+                    labelText="Cue"
+                    options={cue}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="observers"
+                    labelText="Observers"
+                    maxLength={100}
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="groupSize"
+                    labelText="Group size (visual)"
+                    minValue={1}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="location"
+                    labelText="Location"
+                    maxLength={100}
+                    isDisabled={isViewOnly}
+                  />
+                  <Select
+                    name="vessel"
+                    labelText="Vessel"
+                    options={vessel}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextAreaInput
+                    name="comments"
+                    labelText="Comments / Observations (names of underwater observers)"
+                    maxLength={500}
+                    isDisabled={isViewOnly}
+                  />
+                </div>
+              </ListHeader>
+              <ListHeader title="Evidence">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
+                  <RadioGroup
+                    name="biopsyAttempt"
+                    labelText="Biopsy attempt"
+                    options={[
+                      { label: "Yes", value: "Yes" },
+                      { label: "No", value: "No" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="biopsySuccess"
+                    labelText="Biopsy success"
+                    options={[
+                      { label: "Yes", value: "Yes" },
+                      { label: "No", value: "No" },
+                      { label: "Not noted", value: "not-noted" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="tagAttempt"
+                    labelText="Tag attempt"
+                    options={[
+                      { label: "Yes", value: "Yes" },
+                      { label: "No", value: "No" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="tagSuccess"
+                    labelText="Tag success"
+                    options={[
+                      { label: "Yes", value: "Yes" },
+                      { label: "No", value: "No" },
+                      { label: "Not noted", value: "not-noted" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="transect"
+                    labelText="Transect"
+                    options={[
+                      { label: "On", value: "On" },
+                      { label: "Off", value: "Off" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="transectNumber"
+                    labelText="Transect number"
+                    maxLength={8}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="videoRec"
+                    labelText="Video rec"
+                    maxLength={50}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="audioRec"
+                    labelText="Audio rec"
+                    maxLength={255}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="photographerFrame"
+                    labelText="Photographer + Frame"
+                    maxLength={255}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextAreaInput
+                    name="visualIdentifications"
+                    labelText="Visual identifications"
+                    maxLength={200}
+                    isDisabled={isViewOnly}
+                  />
+                </div>
+              </ListHeader>
+              <ListHeader title="Age Class">
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of Adult" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
+                    <NumberInput
+                      name="numAdultMale"
+                      labelText="Male"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numAdultFemale"
+                      labelText="Female"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numAdultUnknown"
+                      labelText="Unknown"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
+                </fieldset>
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of sub adult" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
+                    <NumberInput
+                      name="numSubAdultMale"
+                      labelText="Male"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numSubAdultFemale"
+                      labelText="Female"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numSubAdult"
+                      labelText="Unknown"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
+                </fieldset>
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of juvenile" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
+                    <NumberInput
+                      name="numJuvenileMale"
+                      labelText="Male"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numJuvenileFemale"
+                      labelText="Female"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numJuvenileUnknown"
+                      labelText="Unknown"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
+                </fieldset>
+                <fieldset css={utilities.form.fieldset}>
+                  <legend>
+                    <ListSubheader title="Number of Other" />
+                  </legend>
+                  <div css={utilities.form.subsection}>
+                    <NumberInput
+                      name="numYoungOfYear"
+                      labelText="Young of year"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numNeonates"
+                      labelText="Neonates"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                    <NumberInput
+                      name="numUnknown"
+                      labelText="Unknown"
+                      minValue={0}
+                      maxValue={9999}
+                      isShort
+                      isInteger
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
+                </fieldset>
+              </ListHeader>
+              <ListHeader title="Encounter completion">
+                <div
+                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
+                >
+                  <Select
+                    name="reasonForLeaving"
+                    labelText="Reason for leaving"
+                    options={reasonForLeaving}
+                    isDisabled={isViewOnly}
+                  />
+                  <TimeInput
+                    name="endOfSearchEffort"
+                    labelText="End of search effort"
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="logbookNumber"
+                    labelText="Logbook number"
+                    maxLength={20}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="encounterNumber"
+                    labelText="Encounter number"
+                    minValue={1}
+                    maxValue={999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+
+                  <TimeInput
+                    name="highTide"
+                    labelText="High tide"
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <TimeInput
+                    name="lowTide"
+                    labelText="Low tide"
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <TimeInput
+                    name="startTime"
+                    labelText="Start time"
+                    isShort
+                    autofill={!initialValues}
+                    notAfter={values.startTimestamp}
+                    isRequired
+                    isDisabled={isViewOnly}
+                  />
+
+                  <TimeInput
+                    name="endTime"
+                    labelText="End time"
+                    isShort
+                    associatedDate={values.endTimestamp}
+                    notBefore={constructDateTime(
+                      values.startTimestamp,
+                      values.startTime
+                    )}
+                    notAfter={add(
+                      constructDateTime(
+                        values.startTimestamp,
+                        values.startTime
+                      ),
+                      { hours: THREE_DAYS_IN_HOURS }
+                    )}
+                    isDisabled={isViewOnly}
+                  />
+
+                  <ElapsedTime isDisabled={isViewOnly} />
+                  <DateInput
+                    name="endTimestamp"
+                    labelText="End date"
+                    isShort
+                    autofill={!initialValues}
+                    notBefore={values.startTimestamp}
+                    notAfter={add(new Date(values.startTimestamp), {
+                      hours: THREE_DAYS_IN_HOURS,
+                    })}
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="enteredBy"
+                    labelText="Entered by"
+                    options={[
+                      {
+                        label: RESEARCH_ASSISTANT,
+                        value: RESEARCH_ASSISTANT,
+                      },
+                      {
+                        label: RESEARCH_SCIENTIST,
+                        value: RESEARCH_SCIENTIST,
+                      },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                </div>
+              </ListHeader>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>

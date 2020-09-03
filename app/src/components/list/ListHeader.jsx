@@ -7,25 +7,25 @@ import typography from "../../materials/typography";
 const ListHeader = ({ title, children }) => {
   const styles = {
     listHeader: css`
+      margin-top: 20px;
+      width: 100%;
+    `,
+    title: css`
       background: ${colors.lightTurquoise};
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
       padding: 10px;
-      margin-top: 20px;
-    `,
-    title: css`
       ${typography.largeText}
       font-weight: 600;
     `,
   };
 
   return (
-    <div css={styles.listHeader}>
-      <p css={styles.title}>{title}</p>
+    <section css={styles.listHeader}>
+      <h2 css={styles.title}>{title}</h2>
       {children}
-    </div>
+    </section>
   );
 };
 
