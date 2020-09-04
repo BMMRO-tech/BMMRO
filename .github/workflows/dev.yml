@@ -20,7 +20,6 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: |
           npm install
-          sudo npm install -g firebase-tools
       - name: Run frontend tests
         working-directory: ${{env.APP_DIR}}
         run: npm run test-ci
@@ -31,7 +30,6 @@ jobs:
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: |
           npm install
-          sudo npm install -g firebase-tools
       - name: Run export script tests
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: npm test
