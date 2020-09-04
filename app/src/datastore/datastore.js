@@ -33,6 +33,20 @@ export class Datastore {
     });
   }
 
+  disableNetworkIfOffline() {
+    if (!window.navigator.onLine) {
+      this.firestore.disableNetwork();
+    }
+
+    window.addEventListener("offline", () => {
+      this.firestore.disableNetwork();
+    });
+
+    window.addEventListener("online", () => {
+      this.firestore.enableNetwork();
+    });
+  }
+
   convertTimeObjectToDate(docData) {
     for (const property in docData) {
       const value = docData[property];

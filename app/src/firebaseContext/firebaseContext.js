@@ -20,6 +20,7 @@ const FirebaseContextProvider = ({ children }) => {
       try {
         const firestore = new Datastore(initFirestore(firebase));
         await firestore.enableOfflineStorage();
+        firestore.disableNetworkIfOffline();
         setDatastore(firestore);
       } catch (e) {
         setDatastoreError(e.message);
