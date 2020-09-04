@@ -52,8 +52,8 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: |
-          firebase use ${{secrets.FIREBASE_UAT_PROJECT_ID}}
-          firebase deploy
+          npx firebase use ${{secrets.FIREBASE_UAT_PROJECT_ID}}
+          npx firebase deploy
       - name: Update uat-pending-* tag to uat-deployed-*
         run: |
           TAG="uat-deployed-${{env.NEW_VERSION}}"

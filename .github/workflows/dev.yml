@@ -50,8 +50,8 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: |
-          firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
-          firebase deploy
+          npx firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
+          npx firebase deploy
       - name: Create dev-deployed-* tag
         env:
           COMMIT_SHA: ${{ github.sha }}

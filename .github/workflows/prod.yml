@@ -52,8 +52,8 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: |
-          firebase use ${{secrets.FIREBASE_PROD_PROJECT_ID}}
-          firebase deploy
+          npx firebase use ${{secrets.FIREBASE_PROD_PROJECT_ID}}
+          npx firebase deploy
       - name: Update prod-pending-* tag to prod-deployed-*
         run: |
           TAG="prod-deployed-${{env.NEW_VERSION}}"
