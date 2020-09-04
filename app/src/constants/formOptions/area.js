@@ -36,4 +36,5 @@ export default [
   "WA",
   "West Andros",
   "West Grand Bahama",
+  "test",
 ];
