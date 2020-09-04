@@ -2,6 +2,9 @@ import { css } from "@emotion/core";
 import colors from "../../materials/colors";
 
 const fieldStyles = {
+  doubleGrid: css`
+    grid-column: span 2;
+  `,
   label: css`
     span {
       float: left;
@@ -39,9 +42,10 @@ const fieldStyles = {
     display: inline-block;
     width: 100%;
   `,
-  getInputStyles: (error, touched, isShort) => css`
+  getInputStyles: (error, touched, isShort, isDouble) => css`
     width: ${isShort ? "50%" : "100%"};
-    max-width: ${isShort ? "200px" : "400px"};
+    max-width: ${isDouble ? null : isShort ? "200px" : "400px"};
+    min-height: ${isDouble ? "100px" : null};
     margin-right: 5px;
     padding: 5px;
     font-size: 16px;

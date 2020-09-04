@@ -13,6 +13,7 @@ const TextAreaInput = ({
   maxLength,
   isRequired,
   isDisabled,
+  isDouble,
 }) => {
   const validateTextArea = (val) => {
     if (!val) {
@@ -29,14 +30,19 @@ const TextAreaInput = ({
   });
 
   return (
-    <div>
+    <div css={isDouble ? fieldStyles.doubleGrid : null}>
       <label css={fieldStyles.label}>
         <span>{labelText}</span>
         {isRequired && <span css={fieldStyles.required}>*</span>}
 
         <textarea
           {...field}
-          css={fieldStyles.getInputStyles(meta.error, meta.touched)}
+          css={fieldStyles.getInputStyles(
+            meta.error,
+            meta.touched,
+            false,
+            isDouble
+          )}
           maxLength={maxLength}
           disabled={isDisabled}
           data-testid={`field-${name}`}

@@ -190,6 +190,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
                     name="comments"
                     labelText="Comments / Observations (names of underwater observers)"
                     maxLength={500}
+                    isDouble
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
