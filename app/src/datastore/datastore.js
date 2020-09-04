@@ -19,7 +19,9 @@ export class Datastore {
     this.firestore = firestore;
     this.enableLogging = enableLogging;
     this.handleDelayedError = handleDelayedError;
+  }
 
+  disableNetworkIfOffline() {
     if (!window.navigator.onLine) {
       this.firestore.disableNetwork();
     }
