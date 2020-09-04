@@ -13,6 +13,7 @@ import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import encounterDefaults from "../constants/encounterDefaultValues";
 import ListHeader from "./list/ListHeader";
+import FormSection from "./FormSection";
 
 const NewEncounterForm = ({ handleSubmit }) => {
   const styles = {
@@ -40,10 +41,9 @@ const NewEncounterForm = ({ handleSubmit }) => {
         >
           {({ values }) => (
             <Form>
-              <ListHeader title="Encounter details">
-                <div
-                  css={[utilities.form.subsection, utilities.form.fieldsGrid]}
-                >
+              <section>
+                <ListHeader title="Encounter details" />
+                <FormSection>
                   <DateInput
                     name="startTimestamp"
                     labelText="Date"
@@ -73,8 +73,8 @@ const NewEncounterForm = ({ handleSubmit }) => {
                     notAfter={values.startTimestamp}
                     isRequired
                   />
-                </div>
-              </ListHeader>
+                </FormSection>
+              </section>
               <div css={utilities.form.legend}>
                 <span>*</span>required fields
               </div>

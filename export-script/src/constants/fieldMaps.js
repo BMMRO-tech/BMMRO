@@ -14,7 +14,7 @@ module.exports = {
     "Encounter/Sighting": { key: "" },
     "Encounter #": { key: "encounterNumber" },
     "Sighting Number": { key: "" },
-    Species: { key: "species" },
+    Species: { key: "species", transform: convertEmptyToNotNoted },
     "Group size": { key: "groupSize" },
     "Begin time": { key: "startTime" },
     Location: { key: "location" },
