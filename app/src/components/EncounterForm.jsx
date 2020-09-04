@@ -31,6 +31,7 @@ import {
   RESEARCH_SCIENTIST,
 } from "../constants/formOptions/roles";
 import FormSection from "./FormSection";
+import encounterDefaults from "../constants/encounterDefaultValues";
 
 const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
   const [submitType, setSubmitType] = useState(null);
@@ -53,54 +54,7 @@ const EncounterForm = ({ initialValues, handleSubmit, isViewOnly }) => {
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
-          initialValues={
-            initialValues || {
-              sequenceNumber: "",
-              startTimestamp: "",
-              area: "",
-              species: "",
-              project: "",
-              cue: "",
-              vessel: "",
-              observers: "",
-              groupSize: "",
-              location: "",
-              comments: "",
-              videoRec: "",
-              audioRec: "",
-              photographerFrame: "",
-              visualIdentifications: "",
-              biopsyAttempt: "No",
-              biopsySuccess: "not-noted",
-              tagAttempt: "No",
-              tagSuccess: "not-noted",
-              transect: "Off",
-              numAdultMale: "",
-              numAdultFemale: "",
-              numAdultUnknown: "",
-              numSubAdultMale: "",
-              numSubAdultFemale: "",
-              numSubAdult: "",
-              numJuvenileMale: "",
-              numJuvenileFemale: "",
-              numJuvenileUnknown: "",
-              numYoungOfYear: "",
-              numNeonates: "",
-              numUnknown: "",
-              endOfSearchEffort: "",
-              endTimestamp: "",
-              endTime: "",
-              reasonForLeaving: "",
-              highTide: "",
-              lowTide: "",
-              logbookNumber: "",
-              encounterNumber: "",
-              startTime: "",
-              elapsedTime: "",
-              enteredBy: RESEARCH_ASSISTANT,
-              exported: false,
-            }
-          }
+          initialValues={initialValues || encounterDefaults}
           onSubmit={(values) => {
             transformSubmitValues(values);
             handleSubmit(submitType, values);
