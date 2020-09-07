@@ -102,8 +102,6 @@ describe("NewEncounterForm", () => {
       userEvent.click(cancelButton);
     });
 
-    await waitFor(() =>
-      expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument()
-    );
+    expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
   });
 });
