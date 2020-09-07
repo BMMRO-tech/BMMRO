@@ -8,7 +8,7 @@ import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
 
 const isNullOrUndefined = (value) => {
-  return value === null || value === undefined;
+  return value === null || value === undefined || value === "";
 };
 
 const numberOfDecimalPlaces = (value) => {
