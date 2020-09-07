@@ -1,4 +1,5 @@
 export default [
+  "TEST BEHAVIOUR",
   "Arch",
   "Behaviour state",
   "Breach",
