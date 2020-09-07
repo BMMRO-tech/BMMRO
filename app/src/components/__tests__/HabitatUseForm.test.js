@@ -162,9 +162,7 @@ describe("HabitatUseForm", () => {
       userEvent.click(cancelButton);
     });
 
-    await waitFor(() =>
-      expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument()
-    );
+    expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
   });
 
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
@@ -186,8 +184,6 @@ describe("HabitatUseForm", () => {
       userEvent.click(cancelButton);
     });
 
-    await waitFor(() =>
-      expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument()
-    );
+    expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
   });
 });
