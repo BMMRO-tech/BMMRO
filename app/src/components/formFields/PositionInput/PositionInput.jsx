@@ -86,10 +86,12 @@ const PositionInput = ({
         <div css={fieldStyles.inputContainer}>
           <input
             {...field}
-            type="text"
+            type="number"
+            step="any"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
+            onChange={(e) => helpers.setValue(e.target.value.toString())}
           />
         </div>
       </label>
