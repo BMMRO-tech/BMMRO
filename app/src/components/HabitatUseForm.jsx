@@ -11,6 +11,7 @@ import Button from "./Button";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
+import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import PositionInput from "./formFields/PositionInput/PositionInput";
 import Select from "./formFields/Select/Select";
@@ -226,7 +227,6 @@ const HabitatUseForm = ({
                   name="latitude"
                   type="latitude"
                   labelText="Lat"
-                  isRequired
                   isShort
                   autofill={!initialValues}
                   isDisabled={isViewOnly}
@@ -235,9 +235,15 @@ const HabitatUseForm = ({
                   name="longitude"
                   type="longitude"
                   labelText="Long"
-                  isRequired
                   isShort
                   autofill={!initialValues}
+                  isDisabled={isViewOnly}
+                />
+                <TextInput
+                  name="gpsMark"
+                  labelText="GPS mark"
+                  maxLength={10}
+                  isShort
                   isDisabled={isViewOnly}
                 />
               </div>
