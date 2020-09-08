@@ -73,6 +73,7 @@ const NumberInput = ({
           <input
             {...field}
             type="number"
+            step="any"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
