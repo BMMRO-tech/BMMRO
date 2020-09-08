@@ -19,7 +19,11 @@ EMAIL=123
 PASSWORD=123
 ```
 
-Please replace `123` with the correct values which can be found inside the firebaseConfig object at the bottom of the settings page. These values will be different depending on the environment you want to export data from. For example, for the development environment, these values can be found on [this page in the Firebase console](https://console.firebase.google.com/u/1/project/bmmro-164ec/settings/general)). `EMAIL` and `PASSWORD` are the email address and password that you use to log in to the app.
+Please replace `123` with the correct values which can be found inside the firebaseConfig object at the bottom of the settings page. These values will be different depending on the environment you want to export data from. For example, for the development environment, these values can be found on [this page in the Firebase console](https://console.firebase.google.com/u/1/project/bmmro-164ec/settings/general)).
+
+![Firebase Project Config](project-config.png)
+
+`EMAIL` and `PASSWORD` are the email address and password that you use to log in to the app.
 
 1. Open your terminal/command prompt.
 1. Navigate to the `export-script` folder.
