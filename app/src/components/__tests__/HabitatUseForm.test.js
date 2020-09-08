@@ -41,7 +41,7 @@ describe("HabitatUseForm", () => {
       const numberOfAnimalsInput = getByRole("spinbutton", {
         name: "Number of animals",
       });
-      const latitudeInput = getByRole("textbox", { name: "Lat *" });
+      const latitudeInput = getByRole("textbox", { name: "Lat" });
       const submitButton = getByRole("button", { name: "Save" });
 
       userEvent.clear(numberOfAnimalsInput);
@@ -105,22 +105,6 @@ describe("HabitatUseForm", () => {
     expect(formValues).toEqual(mockInitialValues);
   });
 
-  it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockHandleSubmit = jest.fn();
-    const { getByRole, getByLabelText } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    await act(async () => {
-      const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
-
-      const errorMessage = getByLabelText("Lat");
-      expect(errorMessage).toHaveAttribute("role", "alert");
-      expect(mockHandleSubmit).not.toHaveBeenCalled();
-    });
-  });
-
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole } = render(
@@ -129,7 +113,7 @@ describe("HabitatUseForm", () => {
 
     await act(async () => {
       const latInput = getByRole("textbox", {
-        name: "Lat *",
+        name: "Lat",
       });
       const submitButton = getByRole("button", { name: "Save" });
 

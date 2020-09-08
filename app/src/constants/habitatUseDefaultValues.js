@@ -20,7 +20,7 @@ export default {
   surfaceBout: 0,
   endTime: "",
   startTime: "",
-  latitude: "0",
-  longitude: "0",
+  latitude: "",
+  longitude: "",
   exported: false,
 };
