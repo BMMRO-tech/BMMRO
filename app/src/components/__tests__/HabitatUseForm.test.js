@@ -41,7 +41,7 @@ describe("HabitatUseForm", () => {
       const numberOfAnimalsInput = getByRole("spinbutton", {
         name: "Number of animals",
       });
-      const latitudeInput = getByRole("textbox", { name: "Lat" });
+      const latitudeInput = getByRole("spinbutton", { name: "Lat" });
       const submitButton = getByRole("button", { name: "Save" });
 
       userEvent.clear(numberOfAnimalsInput);
@@ -112,7 +112,7 @@ describe("HabitatUseForm", () => {
     );
 
     await act(async () => {
-      const latInput = getByRole("textbox", {
+      const latInput = getByRole("spinbutton", {
         name: "Lat",
       });
       const submitButton = getByRole("button", { name: "Save" });

@@ -14,7 +14,7 @@ describe("PositionInput", () => {
       { lat: "" }
     );
 
-    const positionInput = getByRole("textbox", { name: "Your latitude" });
+    const positionInput = getByRole("spinbutton", { name: "Your latitude" });
     await userEvent.type(positionInput, "10.123450", { delay: 1 });
 
     expect(getFormValues().lat).toEqual("10.123450");
@@ -31,7 +31,7 @@ describe("PositionInput", () => {
       { lat: "" }
     );
 
-    const positionInput = getByRole("textbox", {
+    const positionInput = getByRole("spinbutton", {
       name: "Your latitude *",
     });
     await act(async () => {
@@ -51,7 +51,7 @@ describe("PositionInput", () => {
     );
 
     await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude" });
+      const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "-100.123456", { delay: 1 });
       userEvent.click(positionInput);
       userEvent.tab();
@@ -73,7 +73,7 @@ describe("PositionInput", () => {
     );
 
     await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude" });
+      const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "100.123456", { delay: 1 });
       userEvent.click(positionInput);
       userEvent.tab();
@@ -88,28 +88,6 @@ describe("PositionInput", () => {
     );
   });
 
-  it("validates format to only allow digits", async () => {
-    const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
-      { lat: "" }
-    );
-
-    await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude" });
-      await userEvent.type(positionInput, "5.123k56", { delay: 1 });
-      userEvent.click(positionInput);
-      userEvent.tab();
-    });
-
-    const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_POSITION_FORMAT
-    );
-    expect(getFormErrors().lat).toEqual(expectedErrorMessage);
-    expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
-      expectedErrorMessage
-    );
-  });
-
   it("displays error for less than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
@@ -117,7 +95,7 @@ describe("PositionInput", () => {
     );
 
     await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude" });
+      const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "15.12345", { delay: 1 });
       userEvent.click(positionInput);
       userEvent.tab();
@@ -140,7 +118,7 @@ describe("PositionInput", () => {
     );
 
     await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude" });
+      const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "15.1234567", { delay: 1 });
       userEvent.click(positionInput);
       userEvent.tab();
@@ -168,7 +146,9 @@ describe("PositionInput", () => {
     );
 
     await act(async () => {
-      const positionInput = getByRole("textbox", { name: "Your latitude *" });
+      const positionInput = getByRole("spinbutton", {
+        name: "Your latitude *",
+      });
       userEvent.click(positionInput);
       userEvent.tab();
     });
@@ -223,7 +203,7 @@ describe("PositionInput", () => {
       { lat: "" }
     );
 
-    const positionInput = getByRole("textbox", { name: "Your latitude" });
+    const positionInput = getByRole("spinbutton", { name: "Your latitude" });
     await userEvent.type(positionInput, "10.123450", { delay: 1 });
 
     expect(getFormValues().lat).toEqual("");
