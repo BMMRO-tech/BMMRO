@@ -68,6 +68,7 @@ describe("HabitatUseForm", () => {
       directionOfTravel: "N",
       comments: "Cool whale!",
       waterDepth: 22,
+      waterDepthBeyondSoundings: false,
       waterTemp: 17,
       bottomSubstrate: "",
       cloudCover: "",
@@ -157,6 +158,7 @@ describe("HabitatUseForm", () => {
         handleSubmit={mockHandleSubmit}
         initialValues={{
           waterDepth: 22,
+          waterDepthBeyondSoundings: false,
           waterTemp: 17,
           surfaceBout: 0,
         }}
