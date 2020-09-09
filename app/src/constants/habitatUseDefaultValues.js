@@ -22,5 +22,6 @@ export default {
   startTime: "",
   latitude: "",
   longitude: "",
+  gpsMark: "",
   exported: false,
 };
