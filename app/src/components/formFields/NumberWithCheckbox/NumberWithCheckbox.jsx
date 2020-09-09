@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { useEffect, Fragment, useState } from "react";
+import { useEffect, useState } from "react";
 import { useField } from "formik";
 
 import NumberInput from "../NumberInput/NumberInput";
@@ -8,7 +8,7 @@ import FieldError from "../FieldError";
 import fieldStyles from "../fieldStyles";
 
 const NumberWithCheckbox = ({
-  name,
+  numberInputName,
   labelText,
   maxValue,
   minValue,
@@ -17,30 +17,33 @@ const NumberWithCheckbox = ({
   isShort,
   decimalPrecision,
   isDisabled,
+  checkboxName,
   checkboxLabel,
-  checkboxDefaultValue,
 }) => {
-  const [field, meta, helpers] = useField(name);
+  const [numberField, meta, helpers] = useField(numberInputName);
+  const [checkboxField] = useField(checkboxName);
   const [numberDisabled, setNumberDisabled] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  const checkboxChanged = (e) => {
+  const handleCheckboxChange = (e) => {
+    checkboxField.onChange(e);
+    setNumberDisabled(e.target.checked);
     if (e.target.checked) {
-      setUserInput(field.value);
-      helpers.setValue(checkboxDefaultValue);
+      setUserInput(numberField.value);
+      helpers.setValue("");
     } else {
       helpers.setValue(userInput);
     }
   };
 
   useEffect(() => {
-    setNumberDisabled(field.value == checkboxDefaultValue);
-  }, [field.value]);
+    setNumberDisabled(checkboxField.value);
+  }, []);
 
   return (
     <div>
       <NumberInput
-        name={name}
+        {...numberField}
         labelText={labelText}
         minValue={minValue}
         maxValue={maxValue}
@@ -53,11 +56,12 @@ const NumberWithCheckbox = ({
       />
       <label css={fieldStyles.checkboxLabel}>
         <input
+          {...checkboxField}
           css={fieldStyles.checkboxInput}
           disabled={isDisabled}
           type="checkbox"
-          onChange={checkboxChanged}
-          checked={field.value === checkboxDefaultValue}
+          checked={checkboxField.value}
+          onChange={handleCheckboxChange}
         />
         <span>{checkboxLabel}</span>
       </label>

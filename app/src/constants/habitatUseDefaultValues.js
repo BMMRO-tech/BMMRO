@@ -5,6 +5,7 @@ export default {
   directionOfTravel: "",
   comments: "",
   waterDepth: "",
+  waterDepthBeyondSoundings: false,
   waterTemp: "",
   bottomSubstrate: "",
   cloudCover: "",

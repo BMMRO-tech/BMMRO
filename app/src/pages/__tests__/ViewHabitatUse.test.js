@@ -93,6 +93,7 @@ describe("EditHabitatUse", () => {
       .collection("habitatUse")
       .add({
         waterDepth: "",
+        waterDepthBeyondSoundings: false,
         waterTemp: "",
         distance: "",
         surfaceBout: 0,
@@ -136,6 +137,7 @@ describe("EditHabitatUse", () => {
       .collection("habitatUse")
       .add({
         waterDepth: "",
+        waterDepthBeyondSoundings: true,
         waterTemp: "",
         distance: "",
         surfaceBout: 0,

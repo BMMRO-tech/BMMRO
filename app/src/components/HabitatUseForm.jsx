@@ -102,15 +102,15 @@ const HabitatUseForm = ({
                   isDisabled={isViewOnly}
                 />
                 <NumberWithCheckbox
-                  name="waterDepth"
+                  numberInputName="waterDepth"
                   labelText="Water depth (m)"
                   minValue={0}
                   maxValue={9999}
                   isShort
                   decimalPrecision={3}
                   isDisabled={isViewOnly}
+                  checkboxName="waterDepthBeyondSoundings"
                   checkboxLabel="Beyond soundings"
-                  checkboxDefaultValue="beyond-soundings"
                 />
                 <NumberInput
                   name="waterTemp"

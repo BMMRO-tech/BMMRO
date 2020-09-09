@@ -10,14 +10,14 @@ describe("NumberWithCheckbox", () => {
   it("disables number input & sets default value when checkbox is checked", async () => {
     const { getByRole, getFormValues } = renderWithinFormik(
       <NumberWithCheckbox
-        name="favoriteNumber"
+        numberInputName="favoriteNumber"
         labelText="Your favorite number"
         minValue={1}
         maxValue={100}
+        checkboxName="noFavorite"
         checkboxLabel="No Favorite"
-        checkboxDefaultValue="no-favorite"
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "", noFavorite: false }
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -32,20 +32,47 @@ describe("NumberWithCheckbox", () => {
     });
 
     expect(numberInput).toHaveAttribute("disabled");
-    expect(getFormValues().favoriteNumber).toBe("no-favorite");
+    expect(getFormValues().noFavorite).toBe(true);
   });
 
   it("disables field and checks box when checked previously", async () => {
-    const { getByRole } = renderWithinFormik(
+    let numberWithCheckboxInput;
+    await act(async () => {
+      numberWithCheckboxInput = renderWithinFormik(
+        <NumberWithCheckbox
+          numberInputName="favoriteNumber"
+          labelText="Your favorite number"
+          minValue={1}
+          maxValue={100}
+          checkboxName="noFavorite"
+          checkboxLabel="No Favorite"
+        />,
+        { favoriteNumber: "", noFavorite: true }
+      );
+    });
+
+    const numberInput = numberWithCheckboxInput.getByRole("spinbutton", {
+      name: "Your favorite number",
+    });
+    const checkbox = numberWithCheckboxInput.getByRole("checkbox", {
+      name: "No Favorite",
+    });
+
+    expect(numberInput).toHaveAttribute("disabled");
+    expect(checkbox).toHaveAttribute("checked");
+  });
+
+  it("displays the latest user input when checkbox unchecked", async () => {
+    const { getByRole, getFormValues } = renderWithinFormik(
       <NumberWithCheckbox
-        name="favoriteNumber"
+        numberInputName="favoriteNumber"
         labelText="Your favorite number"
         minValue={1}
         maxValue={100}
+        checkboxName="noFavorite"
         checkboxLabel="No Favorite"
-        checkboxDefaultValue="no-favorite"
       />,
-      { favoriteNumber: "no-favorite" }
+      { favoriteNumber: "", noFavorite: false }
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -55,7 +82,13 @@ describe("NumberWithCheckbox", () => {
       name: "No Favorite",
     });
 
-    expect(numberInput).toHaveAttribute("disabled");
-    expect(checkbox).toHaveAttribute("checked");
+    await act(async () => {
+      await userEvent.type(numberInput, "12", { delay: 1 });
+      userEvent.dblClick(checkbox);
+    });
+
+    expect(getFormValues().favoriteNumber).toBe(12);
+    expect(numberInput).not.toHaveAttribute("disabled");
+    expect(checkbox).not.toHaveAttribute("checked");
   });
 });
