@@ -1,5 +1,6 @@
 import { css } from "@emotion/core";
 import colors from "../../materials/colors";
+import typography from "../../materials/typography";
 
 const fieldStyles = {
   doubleGrid: css`
@@ -41,6 +42,15 @@ const fieldStyles = {
   inputContainer: css`
     display: inline-block;
     width: 100%;
+  `,
+  checkboxLabel: css`
+    ${typography.smallText}
+    display: flex;
+    align-items: center;
+  `,
+  checkboxInput: css`
+    margin: 0 3px 0 0;
+    min-height: 44px;
   `,
   getInputStyles: (error, touched, isShort, isDouble) => css`
     width: ${isShort ? "50%" : "100%"};

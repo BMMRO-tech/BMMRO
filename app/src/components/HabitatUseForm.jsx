@@ -27,6 +27,7 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import groupCohesion from "../constants/formOptions/groupCohesion";
 import { generateOpenEncounterURL } from "../constants/routes";
 import habitatUseDefaults from "../constants/habitatUseDefaultValues";
+import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
 
 const HabitatUseForm = ({
   initialValues,
@@ -100,7 +101,7 @@ const HabitatUseForm = ({
                   maxLength={500}
                   isDisabled={isViewOnly}
                 />
-                <NumberInput
+                <NumberWithCheckbox
                   name="waterDepth"
                   labelText="Water depth (m)"
                   minValue={0}
@@ -108,6 +109,8 @@ const HabitatUseForm = ({
                   isShort
                   decimalPrecision={3}
                   isDisabled={isViewOnly}
+                  checkboxLabel="Beyond soundings"
+                  checkboxDefaultValue="beyond-soundings"
                 />
                 <NumberInput
                   name="waterTemp"

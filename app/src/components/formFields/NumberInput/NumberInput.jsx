@@ -27,8 +27,11 @@ const NumberInput = ({
   isShort,
   decimalPrecision,
   isDisabled,
+  isChildInput,
 }) => {
   const validateNumber = (val) => {
+    if (isDisabled) return;
+
     if (val === "") {
       if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
       else return "";
@@ -73,18 +76,20 @@ const NumberInput = ({
           <input
             {...field}
             type="number"
-            step="any"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
           />
         </div>
       </label>
-      <FieldError
-        touched={meta.touched}
-        errorMessage={meta.error}
-        labelText={labelText}
-      />
+
+      {!isChildInput && (
+        <FieldError
+          touched={meta.touched}
+          errorMessage={meta.error}
+          labelText={labelText}
+        />
+      )}
     </div>
   );
 };
