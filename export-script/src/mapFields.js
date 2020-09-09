@@ -5,7 +5,7 @@ const mapFields = (data, config) => {
     const transformedEntry = {};
     tableConfig.forEach(([finalFieldName, fieldConfig]) => {
       const fieldValue = fieldConfig.transform
-        ? fieldConfig.transform(entry[fieldConfig.key])
+        ? fieldConfig.transform(entry[fieldConfig.key], entry)
         : entry[fieldConfig.key];
 
       transformedEntry[finalFieldName] =

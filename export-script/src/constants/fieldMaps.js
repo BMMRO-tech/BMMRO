@@ -5,6 +5,7 @@ const convertToDecimal = require("../mappings/convertToDecimal");
 const prependFromFirestore = require("../mappings/prependFromFirestore");
 const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
 const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
+const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
 
 module.exports = {
   encounter: {
@@ -80,7 +81,10 @@ module.exports = {
     Latitude: { key: "latitude" },
     Longitude: { key: "longitude" },
     "Water temperature": { key: "waterTemp" },
-    "Water depth": { key: "waterDepth" },
+    "Water depth": {
+      key: "waterDepth",
+      transform: convertBeyondSoundingsTo9999,
+    },
     "Bottom substrate": {
       key: "bottomSubstrate",
       transform: convertEmptyToNotNoted,

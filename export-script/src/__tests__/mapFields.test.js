@@ -92,4 +92,20 @@ describe("mapFields", () => {
 
     expect(mappedFields).toEqual([{ A: 1, B: 0, C: "", D: "" }]);
   });
+
+  it("transforms fields based on other field values", () => {
+    const testData = [{ a: 1, b: 1, c: 1 }];
+    const config = {
+      A: { key: "a" },
+      B: { key: "b" },
+      C: {
+        key: "c",
+        transform: (val, data) => data.a + data.b + val,
+      },
+    };
+
+    const mappedFields = mapFields(testData, config);
+
+    expect(mappedFields).toEqual([{ A: 1, B: 1, C: 3 }]);
+  });
 });
