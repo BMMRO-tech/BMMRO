@@ -2,11 +2,14 @@
 import { jsx } from "@emotion/core";
 import { useNavigate } from "@reach/router";
 import { useContext, useEffect, Fragment } from "react";
+import { format } from "date-fns";
 
 import { ROUTES } from "../constants/routes";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { generateOpenEncounterURL } from "../constants/routes";
+import { getCurrentDate } from "../utils/time";
+import { TIME_WITH_SECONDS_FORMAT } from "../constants/forms";
 import Layout from "../components/Layout";
 import HabitatUseForm from "../components/HabitatUseForm";
 import utilities from "../materials/utilities";
@@ -20,6 +23,9 @@ const NewHabitatUse = ({ encounterId }) => {
   const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (values) => {
+    if (!values.endTime) {
+      values.endTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
+    }
     datastore.createSubDoc(encounterPath, CollectionNames.HABITAT_USE, values);
     navigate(generateOpenEncounterURL(encounterId));
   };

@@ -42,7 +42,7 @@ describe("HabitatUseForm", () => {
         name: "Number of animals",
       });
       const latitudeInput = getByRole("spinbutton", { name: "Lat" });
-      const submitButton = getByRole("button", { name: "Save" });
+      const submitButton = getByRole("button", { name: "End Habitat" });
 
       userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
@@ -116,7 +116,7 @@ describe("HabitatUseForm", () => {
       const latInput = getByRole("spinbutton", {
         name: "Lat",
       });
-      const submitButton = getByRole("button", { name: "Save" });
+      const submitButton = getByRole("button", { name: "End Habitat" });
 
       await userEvent.type(latInput, "0.111", { delay: 1 });
 

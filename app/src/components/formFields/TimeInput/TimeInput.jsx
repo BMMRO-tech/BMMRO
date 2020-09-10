@@ -17,8 +17,6 @@ import fieldStyles from "../fieldStyles";
 import getErrorMessage from "../../../utils/getErrorMessage";
 import { getCurrentDate, constructDateTime } from "../../../utils/time";
 
-const formatTime = (date, timeFormat) => format(date, timeFormat);
-
 const timeStringValid = (val, pattern) => {
   const timePattern = new RegExp(pattern);
   return timePattern.test(val);
@@ -74,7 +72,7 @@ const TimeInput = ({
   });
 
   useEffect(() => {
-    if (autofill) helpers.setValue(formatTime(getCurrentDate(), timeFormat));
+    if (autofill) helpers.setValue(format(getCurrentDate(), timeFormat));
     // eslint-disable-next-line
   }, []);
 
