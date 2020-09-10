@@ -30,7 +30,7 @@ const NumberInput = ({
   isChildInput,
 }) => {
   const validateNumber = (val) => {
-    if (isDisabled) return;
+    if (isDisabled) return "";
 
     if (val === "") {
       if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
@@ -76,6 +76,7 @@ const NumberInput = ({
           <input
             {...field}
             type="number"
+            step="any"
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
