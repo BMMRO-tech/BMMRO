@@ -36,25 +36,22 @@ describe("NumberWithCheckbox", () => {
   });
 
   it("disables field and checks box when checked previously", async () => {
-    let numberWithCheckboxInput;
-    await act(async () => {
-      numberWithCheckboxInput = renderWithinFormik(
-        <NumberWithCheckbox
-          numberInputName="favoriteNumber"
-          labelText="Your favorite number"
-          minValue={1}
-          maxValue={100}
-          checkboxName="noFavorite"
-          checkboxLabel="No Favorite"
-        />,
-        { favoriteNumber: "", noFavorite: true }
-      );
-    });
+    const { findByRole } = renderWithinFormik(
+      <NumberWithCheckbox
+        numberInputName="favoriteNumber"
+        labelText="Your favorite number"
+        minValue={1}
+        maxValue={100}
+        checkboxName="noFavorite"
+        checkboxLabel="No Favorite"
+      />,
+      { favoriteNumber: "", noFavorite: true }
+    );
 
-    const numberInput = numberWithCheckboxInput.getByRole("spinbutton", {
+    const numberInput = await findByRole("spinbutton", {
       name: "Your favorite number",
     });
-    const checkbox = numberWithCheckboxInput.getByRole("checkbox", {
+    const checkbox = await findByRole("checkbox", {
       name: "No Favorite",
     });
 
