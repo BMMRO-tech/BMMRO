@@ -169,27 +169,29 @@ const EncounterForm = ({
               <section css={styles.section}>
                 <FormSection legendText="Number of animals" isOneLine>
                   <NumberInput
-                    name="lowEstimate"
+                    name="numberOfAnimalsLow"
                     labelText="Low estimate"
                     minValue={0}
                     maxValue={
-                      values.bestEstimate || values.highEstimate || 9999
+                      values.numberOfAnimalsBest ||
+                      values.numberOfAnimalsHigh ||
+                      9999
                     }
                     isShort
                     isInteger
                     isDisabled={isViewOnly}
                   />
                   <NumberInput
-                    name="bestEstimate"
+                    name="numberOfAnimalsBest"
                     labelText="Best estimate"
                     minValue={0}
-                    maxValue={values.highEstimate || 9999}
+                    maxValue={values.numberOfAnimalsHigh || 9999}
                     isShort
                     isInteger
                     isDisabled={isViewOnly}
                   />
                   <NumberInput
-                    name="highEstimate"
+                    name="numberOfAnimalsHigh"
                     labelText="High estimate"
                     minValue={0}
                     maxValue={9999}
