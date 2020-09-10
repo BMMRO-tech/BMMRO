@@ -53,6 +53,9 @@ const EncounterForm = ({
     endButton: css`
       margin-right: 10px;
     `,
+    section: css`
+      background-color: none;
+    `,
   };
 
   const transformSubmitValues = (values) => {
@@ -87,7 +90,7 @@ const EncounterForm = ({
         >
           {({ values, submitForm }) => (
             <Form>
-              <section>
+              <section css={styles.section}>
                 <ListHeader title="Encounter details" />
                 <FormSection>
                   <DateInput
@@ -114,22 +117,25 @@ const EncounterForm = ({
                     isRequired
                     isDisabled={isViewOnly}
                   />
-                  <Select
-                    name="species"
-                    labelText="Species"
-                    options={species}
+                  <TimeInput
+                    name="startTime"
+                    labelText="Start time"
+                    isShort
+                    autofill={!initialValues}
+                    notAfter={values.startTimestamp}
                     isRequired
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
               </section>
               <br />
-              <section>
+              <section css={styles.section}>
                 <FormSection>
                   <Select
-                    name="project"
-                    labelText="Project"
-                    options={project}
+                    name="species"
+                    labelText="Species"
+                    options={species}
+                    isRequired
                     isDisabled={isViewOnly}
                   />
                   <Select
@@ -139,30 +145,15 @@ const EncounterForm = ({
                     isDisabled={isViewOnly}
                   />
                   <TextInput
-                    name="observers"
-                    labelText="Observers"
-                    maxLength={100}
-                    isDisabled={isViewOnly}
-                  />
-                  <NumberInput
-                    name="groupSize"
-                    labelText="Group size (visual)"
-                    minValue={1}
-                    maxValue={9999}
-                    isShort
-                    isInteger
-                    isDisabled={isViewOnly}
-                  />
-                  <TextInput
                     name="location"
                     labelText="Location"
                     maxLength={100}
                     isDisabled={isViewOnly}
                   />
-                  <Select
-                    name="vessel"
-                    labelText="Vessel"
-                    options={vessel}
+                  <TextInput
+                    name="observers"
+                    labelText="Observers"
+                    maxLength={100}
                     isDisabled={isViewOnly}
                   />
                   <TextAreaInput
@@ -174,7 +165,60 @@ const EncounterForm = ({
                   />
                 </FormSection>
               </section>
-              <section>
+              <br />
+              <section css={styles.section}>
+                <FormSection legendText="Number of animals" isOneLine>
+                  <NumberInput
+                    name="numberOfAnimalsLow"
+                    labelText="Low estimate"
+                    minValue={0}
+                    maxValue={
+                      values.numberOfAnimalsBest ||
+                      values.numberOfAnimalsHigh ||
+                      9999
+                    }
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numberOfAnimalsBest"
+                    labelText="Best estimate"
+                    minValue={0}
+                    maxValue={values.numberOfAnimalsHigh || 9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="numberOfAnimalsHigh"
+                    labelText="High estimate"
+                    minValue={0}
+                    maxValue={9999}
+                    isShort
+                    isInteger
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+              </section>
+              <br />
+              <section css={styles.section}>
+                <FormSection>
+                  <Select
+                    name="project"
+                    labelText="Project"
+                    options={project}
+                    isDisabled={isViewOnly}
+                  />
+                  <Select
+                    name="vessel"
+                    labelText="Vessel"
+                    options={vessel}
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+              </section>
+              <section css={styles.section}>
                 <ListHeader title="Evidence" />
                 <FormSection>
                   <RadioGroup
@@ -196,6 +240,9 @@ const EncounterForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
+                </FormSection>
+                <br />
+                <FormSection>
                   <RadioGroup
                     name="tagAttempt"
                     labelText="Tag attempt"
@@ -215,6 +262,9 @@ const EncounterForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
+                </FormSection>
+                <br />
+                <FormSection>
                   <RadioGroup
                     name="transect"
                     labelText="Transect"
@@ -231,6 +281,9 @@ const EncounterForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
+                </FormSection>
+                <br />
+                <FormSection>
                   <TextInput
                     name="videoRec"
                     labelText="Video rec"
@@ -257,9 +310,9 @@ const EncounterForm = ({
                   />
                 </FormSection>
               </section>
-              <section>
+              <section css={styles.section}>
                 <ListHeader title="Age Class" />
-                <FormSection legendText="Number of Adult" isOneLine>
+                <FormSection legendText="Number of adult" isOneLine>
                   <NumberInput
                     name="numAdultMale"
                     labelText="Male"
@@ -288,6 +341,7 @@ const EncounterForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
+                <br />
                 <FormSection legendText="Number of sub adult" isOneLine>
                   <NumberInput
                     name="numSubAdultMale"
@@ -317,6 +371,7 @@ const EncounterForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
+                <br />
                 <FormSection legendText="Number of juvenile" isOneLine>
                   <NumberInput
                     name="numJuvenileMale"
@@ -346,7 +401,8 @@ const EncounterForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
-                <FormSection legendText="Number of Other" isOneLine>
+                <br />
+                <FormSection legendText="Number of other" isOneLine>
                   <NumberInput
                     name="numYoungOfYear"
                     labelText="Young of year"
@@ -376,21 +432,9 @@ const EncounterForm = ({
                   />
                 </FormSection>
               </section>
-              <section>
+              <section css={styles.section}>
                 <ListHeader title="Encounter completion" />
                 <FormSection>
-                  <Select
-                    name="reasonForLeaving"
-                    labelText="Reason for leaving"
-                    options={reasonForLeaving}
-                    isDisabled={isViewOnly}
-                  />
-                  <TimeInput
-                    name="endOfSearchEffort"
-                    labelText="End of search effort"
-                    isShort
-                    isDisabled={isViewOnly}
-                  />
                   <TextInput
                     name="logbookNumber"
                     labelText="Logbook number"
@@ -407,7 +451,9 @@ const EncounterForm = ({
                     isInteger
                     isDisabled={isViewOnly}
                   />
-
+                </FormSection>
+                <br />
+                <FormSection>
                   <TimeInput
                     name="highTide"
                     labelText="High tide"
@@ -420,16 +466,21 @@ const EncounterForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
+                </FormSection>
+                <br />
+                <FormSection>
                   <TimeInput
-                    name="startTime"
-                    labelText="Start time"
+                    name="endOfSearchEffort"
+                    labelText="End of search effort"
                     isShort
-                    autofill={!initialValues}
-                    notAfter={values.startTimestamp}
-                    isRequired
                     isDisabled={isViewOnly}
                   />
-
+                  <Select
+                    name="reasonForLeaving"
+                    labelText="Reason for leaving"
+                    options={reasonForLeaving}
+                    isDisabled={isViewOnly}
+                  />
                   <TimeInput
                     name="endTime"
                     labelText="End time"
@@ -448,8 +499,6 @@ const EncounterForm = ({
                     )}
                     isDisabled={isViewOnly}
                   />
-
-                  <ElapsedTime isDisabled={isViewOnly} />
                   <DateInput
                     name="endTimestamp"
                     labelText="End date"
@@ -461,6 +510,7 @@ const EncounterForm = ({
                     })}
                     isDisabled={isViewOnly}
                   />
+                  <ElapsedTime isDisabled={isViewOnly} />
                   <RadioGroup
                     name="enteredBy"
                     labelText="Entered by"
