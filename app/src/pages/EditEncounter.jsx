@@ -54,17 +54,23 @@ const EditEncounter = ({ encounterId }) => {
     // eslint-disable-next-line
   }, [datastore]);
 
+  const hasEnded = () =>
+    initialValues.endTimestamp !== "" && initialValues.endTime !== "";
+
   return (
     <Layout hasDefaultPadding={false}>
       {!initialValues ? (
         <Loader />
       ) : (
         <Fragment>
-          <h1 css={utilities.form.title}>Edit Encounter</h1>
+          <h1 css={utilities.form.title}>
+            {hasEnded() ? "Edit Encounter" : "New Encounter"}
+          </h1>
           <EncounterForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             encounterId={encounterId}
+            hasEnded={hasEnded()}
           />
         </Fragment>
       )}

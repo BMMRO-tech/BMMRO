@@ -46,9 +46,11 @@ const OpenEncounter = ({ encounterId }) => {
     navigate(ROUTES.encounters);
   };
 
-  const isNewEncounter = () => {
-    return !encounter.sequenceNumber || !encounter.species || !encounter.area;
-  };
+  const isNewEncounter = () =>
+    !encounter.sequenceNumber || !encounter.species || !encounter.area;
+
+  const hasEnded = () =>
+    encounter.endTimestamp !== "" && encounter.endTime !== "";
 
   useEffect(() => {
     const getData = async (encounterPath) => {
@@ -79,7 +81,7 @@ const OpenEncounter = ({ encounterId }) => {
   }, [datastore]);
 
   const renderButtons = () => {
-    if (encounter.exported) {
+    if (hasEnded() || encounter.exported) {
       return (
         <div css={utilities.backLinkContainer.bottom}>
           <BackLink text="Return to encounter list" to={ROUTES.encounters} />

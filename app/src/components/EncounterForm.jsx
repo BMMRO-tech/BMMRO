@@ -42,6 +42,7 @@ const EncounterForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
+  hasEnded = false,
 }) => {
   const [submitType, setSubmitType] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -554,20 +555,22 @@ const EncounterForm = ({
                       </Button>
                     </div>
                     <div css={utilities.sticky.rightContainer}>
-                      <Button
-                        styles={styles.endButton}
-                        width="150px"
-                        variant="secondary"
-                        type="button"
-                        onClick={() => {
-                          // Setting state and calling submitForm with timeout is required as passing a payload to
-                          // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
-                          setSubmitType(FormSubmitType.SAVE_AND_END);
-                          setTimeout(submitForm);
-                        }}
-                      >
-                        Save & End
-                      </Button>
+                      {!hasEnded && (
+                        <Button
+                          styles={styles.endButton}
+                          width="150px"
+                          variant="secondary"
+                          type="button"
+                          onClick={() => {
+                            // Setting state and calling submitForm with timeout is required as passing a payload to
+                            // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                            setSubmitType(FormSubmitType.SAVE_AND_END);
+                            setTimeout(submitForm);
+                          }}
+                        >
+                          Save & End
+                        </Button>
+                      )}
                       <Button
                         type="button"
                         onClick={() => {
