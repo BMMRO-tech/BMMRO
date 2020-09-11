@@ -175,7 +175,7 @@ describe("datastore", () => {
         .add({ location: "Pacific" });
 
       const thrownError = await datastore
-        .readDocsByParentPath(`invalid-collection/${parentId}`, "whale")
+        .readDocsByParentPath(`invalid-collection/${parentId}`, "snail")
         .catch((err) => err);
 
       expect(thrownError.name).toEqual("DatastoreError");
@@ -344,6 +344,35 @@ describe("datastore", () => {
       await waitFor(() => {
         const callArg = handleDelayedError.mock.calls[0][0];
         expect(callArg.name).toEqual("FirebaseError");
+      });
+    });
+  });
+
+  describe("#subscribeToPendingRecords", () => {
+    it("successfully checks and updates pending records", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const datastore = new Datastore(firestoreEmulator, false);
+      let hasPendingRecs = [];
+
+      const pendingRecords = (hasPending) => {
+        hasPendingRecs.push(hasPending);
+      };
+
+      datastore.subscribeToPendingRecords("animal", "whale", pendingRecords);
+
+      datastore.firestore.disableNetwork();
+
+      datastore.createDoc("animal", {
+        name: "Sally",
+        species: "Killer Whale",
+        exported: false,
+      });
+
+      datastore.firestore.enableNetwork();
+
+      await waitFor(() => {
+        expect(hasPendingRecs).toEqual([true, false]);
       });
     });
   });

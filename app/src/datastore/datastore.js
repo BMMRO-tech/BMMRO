@@ -140,6 +140,60 @@ export class Datastore {
       }
     }
   }
+
+  subscribeToPendingRecords(
+    collectionName,
+    subcollectionName,
+    hasPendingCallback
+  ) {
+    let collectionPending = false;
+    let subcollectionPending = false;
+    const snapshotSettings = {
+      includeMetadataChanges: true,
+    };
+
+    this.firestore
+      .collection(collectionName)
+      .where("exported", "==", false)
+      .onSnapshot(
+        snapshotSettings,
+        (querySnapshot) => {
+          if (querySnapshot.docChanges(snapshotSettings).length !== 0) {
+            if (querySnapshot.metadata.hasPendingWrites) {
+              collectionPending = true;
+              hasPendingCallback(true);
+            } else {
+              collectionPending = false;
+              hasPendingCallback(subcollectionPending);
+            }
+          }
+        },
+        (e) => {
+          console.log("Error for ", collectionName, " -- ", e);
+        }
+      );
+
+    this.firestore
+      .collectionGroup(subcollectionName)
+      .where("exported", "==", false)
+      .onSnapshot(
+        snapshotSettings,
+        (querySnapshot) => {
+          if (querySnapshot.docChanges(snapshotSettings).length !== 0) {
+            if (querySnapshot.metadata.hasPendingWrites) {
+              subcollectionPending = true;
+              hasPendingCallback(true);
+            } else {
+              subcollectionPending = false;
+              hasPendingCallback(collectionPending);
+            }
+          }
+        },
+        (e) => {
+          console.log("Error for ", subcollectionName, " -- ", e);
+        }
+      );
+  }
 }
 
 export const initFirestore = (firebase) => {
