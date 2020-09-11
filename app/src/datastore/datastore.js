@@ -2,6 +2,7 @@ import "firebase/firestore";
 import { fromUnixTime } from "date-fns";
 
 import { DatastoreErrorType } from "../constants/datastore";
+import { PendingManager } from "./PendingManager";
 
 export class DatastoreError extends Error {
   constructor(errorType) {
@@ -19,6 +20,7 @@ export class Datastore {
     this.firestore = firestore;
     this.enableLogging = enableLogging;
     this.handleDelayedError = handleDelayedError;
+    this.pendingManager = new PendingManager(firestore);
   }
 
   disableNetworkIfOffline() {
@@ -141,58 +143,16 @@ export class Datastore {
     }
   }
 
-  subscribeToPendingRecords(
-    collectionName,
-    subcollectionName,
-    hasPendingCallback
-  ) {
-    let collectionPending = false;
-    let subcollectionPending = false;
-    const snapshotSettings = {
-      includeMetadataChanges: true,
-    };
+  registerCollection(collectionName, isSubcollection) {
+    this.pendingManager.addCollection({
+      name: collectionName,
+      pending: false,
+      subcollection: isSubcollection,
+    });
+  }
 
-    this.firestore
-      .collection(collectionName)
-      .where("exported", "==", false)
-      .onSnapshot(
-        snapshotSettings,
-        (querySnapshot) => {
-          if (querySnapshot.docChanges(snapshotSettings).length !== 0) {
-            if (querySnapshot.metadata.hasPendingWrites) {
-              collectionPending = true;
-              hasPendingCallback(true);
-            } else {
-              collectionPending = false;
-              hasPendingCallback(subcollectionPending);
-            }
-          }
-        },
-        (e) => {
-          console.log("Error for ", collectionName, " -- ", e);
-        }
-      );
-
-    this.firestore
-      .collectionGroup(subcollectionName)
-      .where("exported", "==", false)
-      .onSnapshot(
-        snapshotSettings,
-        (querySnapshot) => {
-          if (querySnapshot.docChanges(snapshotSettings).length !== 0) {
-            if (querySnapshot.metadata.hasPendingWrites) {
-              subcollectionPending = true;
-              hasPendingCallback(true);
-            } else {
-              subcollectionPending = false;
-              hasPendingCallback(collectionPending);
-            }
-          }
-        },
-        (e) => {
-          console.log("Error for ", subcollectionName, " -- ", e);
-        }
-      );
+  hasPending() {
+    return this.pendingManager.hasPendingRecords();
   }
 }
 

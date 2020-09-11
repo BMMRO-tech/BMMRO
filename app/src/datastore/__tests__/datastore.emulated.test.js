@@ -347,33 +347,4 @@ describe("datastore", () => {
       });
     });
   });
-
-  describe("#subscribeToPendingRecords", () => {
-    it("successfully checks and updates pending records", async () => {
-      const firestoreEmulator = getFirestore();
-
-      const datastore = new Datastore(firestoreEmulator, false);
-      let hasPendingRecs = [];
-
-      const pendingRecords = (hasPending) => {
-        hasPendingRecs.push(hasPending);
-      };
-
-      datastore.subscribeToPendingRecords("animal", "whale", pendingRecords);
-
-      datastore.firestore.disableNetwork();
-
-      datastore.createDoc("animal", {
-        name: "Sally",
-        species: "Killer Whale",
-        exported: false,
-      });
-
-      datastore.firestore.enableNetwork();
-
-      await waitFor(() => {
-        expect(hasPendingRecs).toEqual([true, false]);
-      });
-    });
-  });
 });
