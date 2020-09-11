@@ -172,4 +172,31 @@ describe("HabitatUseForm", () => {
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
   });
+
+  it("displays an 'end habitat' button when there are no initial values", async () => {
+    const { findByRole, queryByRole } = render(<HabitatUseForm />);
+
+    expect(
+      await findByRole("button", { name: "End Habitat" })
+    ).toBeInTheDocument();
+    expect(queryByRole("button", { name: "Save" })).not.toBeInTheDocument();
+  });
+
+  it("displays a 'save' button when there are initial values", async () => {
+    const { findByRole, queryByRole } = render(
+      <HabitatUseForm
+        initialValues={{
+          waterDepth: 22,
+          waterDepthBeyondSoundings: false,
+          waterTemp: 17,
+          surfaceBout: 0,
+        }}
+      />
+    );
+
+    expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
+    expect(
+      queryByRole("button", { name: "End Habitat" })
+    ).not.toBeInTheDocument();
+  });
 });
