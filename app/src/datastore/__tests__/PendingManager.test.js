@@ -3,7 +3,6 @@ import * as firebaseTesting from "@firebase/testing";
 import fs from "fs";
 import path from "path";
 
-import { Datastore } from "../datastore";
 import { PendingManager } from "../PendingManager";
 
 const projectId = "pending-emulated";
@@ -35,88 +34,99 @@ describe("PendingManager", () => {
 
   it("pending records should be true if adding when offline", async () => {
     const firestoreEmulator = getFirestore();
-    const datastore = new Datastore(firestoreEmulator, false);
-    const pendingManager = new PendingManager(datastore.firestore);
+    const mockPendingCallback = jest.fn();
+    const pendingManager = new PendingManager(
+      firestoreEmulator,
+      mockPendingCallback
+    );
 
-    pendingManager.addCollection({ name: "animal", subcollection: false });
-    datastore.firestore.disableNetwork();
+    pendingManager.addCollection("animal", { isSubcollection: false });
+    firestoreEmulator.disableNetwork();
 
-    datastore.createDoc("animal", {
+    firestoreEmulator.collection("animal").doc().set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
     });
 
     await waitFor(() => {
-      expect(pendingManager.hasPendingRecords()).toEqual(true);
+      expect(mockPendingCallback).toHaveBeenCalledWith(true);
     });
   });
 
   it("pending records should be false if adding when online", async () => {
     const firestoreEmulator = getFirestore();
-    const datastore = new Datastore(firestoreEmulator, false);
-    const pendingManager = new PendingManager(datastore.firestore);
+    const mockPendingCallback = jest.fn();
+    const pendingManager = new PendingManager(
+      firestoreEmulator,
+      mockPendingCallback
+    );
 
-    pendingManager.addCollection({
-      name: "animal",
-      subcollection: false,
+    pendingManager.addCollection("animal", {
+      isSubcollection: false,
       pending: true,
     });
 
-    datastore.createDoc("animal", {
+    firestoreEmulator.collection("animal").doc().set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
     });
 
     await waitFor(() => {
-      expect(pendingManager.hasPendingRecords()).toEqual(false);
+      expect(mockPendingCallback).toHaveBeenCalledWith(false);
     });
   });
 
   it("pending records should be true if adding when offline to subcollection", async () => {
     const firestoreEmulator = getFirestore();
-    const datastore = new Datastore(firestoreEmulator, false);
-    const pendingManager = new PendingManager(datastore.firestore);
+    const mockPendingCallback = jest.fn();
+    const pendingManager = new PendingManager(
+      firestoreEmulator,
+      mockPendingCallback
+    );
 
-    pendingManager.addCollection({ name: "whale", subcollection: true });
-    datastore.firestore.disableNetwork();
+    pendingManager.addCollection("whale", { isSubcollection: true });
+    firestoreEmulator.disableNetwork();
 
-    datastore.createDoc("whale", {
+    firestoreEmulator.collection("animal/123/whale").doc().set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
     });
 
     await waitFor(() => {
-      expect(pendingManager.hasPendingRecords()).toEqual(true);
+      expect(mockPendingCallback).toHaveBeenCalledWith(true);
     });
   });
 
   it("pending records should be true when one collection has pending records and another does not", async () => {
     const firestoreEmulator = getFirestore();
-    const datastore = new Datastore(firestoreEmulator, false);
-    const pendingManager = new PendingManager(datastore.firestore);
+    const mockPendingCallback = jest.fn();
+    const pendingManager = new PendingManager(
+      firestoreEmulator,
+      mockPendingCallback
+    );
 
-    pendingManager.addCollection({ name: "animal", subcollection: false });
-    pendingManager.addCollection({ name: "whale", subcollection: true });
+    pendingManager.addCollection("animal", { isSubcollection: false });
+    pendingManager.addCollection("whale", { isSubcollection: true });
 
-    datastore.createDoc("whale", {
+    firestoreEmulator.collection("animal/123/whale").doc().set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
     });
 
-    datastore.firestore.disableNetwork();
+    firestoreEmulator.disableNetwork();
 
-    datastore.createDoc("animal", {
+    firestoreEmulator.collection("animal").doc().set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
     });
 
     await waitFor(() => {
-      expect(pendingManager.hasPendingRecords()).toEqual(true);
+      expect(mockPendingCallback).toHaveBeenCalledWith(true);
     });
   });
 });

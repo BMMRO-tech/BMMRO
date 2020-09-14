@@ -1,38 +1,33 @@
 export class PendingManager {
-  constructor(firestore) {
+  constructor(firestore, callback) {
     this.firestore = firestore;
-    this.collections = [];
+    this.collections = {};
+    this.setPendingCallback = callback;
   }
 
-  addCollection(newCollection) {
-    const index = this.collections.push(newCollection) - 1;
+  addCollection(name, details) {
+    this.collections[name] = details;
 
-    if (newCollection.subcollection) {
-      this._addCollectionListener(
-        index,
-        this.firestore.collectionGroup(this.collections[index].name)
-      );
+    if (details.isSubcollection) {
+      this._addCollectionListener(name, this.firestore.collectionGroup(name));
     } else {
-      this._addCollectionListener(
-        index,
-        this.firestore.collection(this.collections[index].name)
-      );
+      this._addCollectionListener(name, this.firestore.collection(name));
     }
   }
 
-  hasPendingRecords() {
+  _checkPendingRecords() {
     let hasPending = false;
 
-    this.collections.forEach((collection) => {
-      if (collection.pending === true) {
+    Object.keys(this.collections).forEach((key) => {
+      if (this.collections[key].pending === true) {
         hasPending = true;
       }
     });
 
-    return hasPending;
+    this.setPendingCallback(hasPending);
   }
 
-  _addCollectionListener(collectionIndex, collectionReference) {
+  _addCollectionListener(collectionName, collectionReference) {
     collectionReference.where("exported", "==", false).onSnapshot(
       { includeMetadataChanges: true },
       (querySnapshot) => {
@@ -41,10 +36,11 @@ export class PendingManager {
           0
         ) {
           if (querySnapshot.metadata.hasPendingWrites) {
-            this.collections[collectionIndex].pending = true;
+            this.collections[collectionName].pending = true;
           } else {
-            this.collections[collectionIndex].pending = false;
+            this.collections[collectionName].pending = false;
           }
+          this._checkPendingRecords();
         }
       },
       (e) => {

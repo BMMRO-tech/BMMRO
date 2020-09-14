@@ -14,13 +14,14 @@ export class DatastoreError extends Error {
 export class Datastore {
   constructor(
     firestore,
+    pendingRecordsCallback,
     enableLogging = true,
     handleDelayedError = console.error
   ) {
     this.firestore = firestore;
     this.enableLogging = enableLogging;
     this.handleDelayedError = handleDelayedError;
-    this.pendingManager = new PendingManager(firestore);
+    this.pendingManager = new PendingManager(firestore, pendingRecordsCallback);
   }
 
   disableNetworkIfOffline() {
@@ -144,15 +145,10 @@ export class Datastore {
   }
 
   registerCollection(collectionName, isSubcollection) {
-    this.pendingManager.addCollection({
-      name: collectionName,
+    this.pendingManager.addCollection(collectionName, {
       pending: false,
-      subcollection: isSubcollection,
+      isSubcollection,
     });
-  }
-
-  hasPending() {
-    return this.pendingManager.hasPendingRecords();
   }
 }
 
