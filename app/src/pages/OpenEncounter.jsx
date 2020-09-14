@@ -42,15 +42,16 @@ const OpenEncounter = ({ encounterId }) => {
   const [encounter, setEncounter] = useState({});
   const navigate = useNavigate();
 
-  const onEndEncounterClick = () => {
+  const handleEndEncounter = () => {
+    datastore.updateDocByPath(generateEncounterPath(encounterId), {
+      ...encounter,
+      hasEnded: true,
+    });
     navigate(ROUTES.encounters);
   };
 
   const isNewEncounter = () =>
     !encounter.sequenceNumber || !encounter.species || !encounter.area;
-
-  const hasEnded = () =>
-    encounter.endTimestamp !== "" && encounter.endTime !== "";
 
   useEffect(() => {
     const getData = async (encounterPath) => {
@@ -81,7 +82,7 @@ const OpenEncounter = ({ encounterId }) => {
   }, [datastore]);
 
   const renderButtons = () => {
-    if (hasEnded() || encounter.exported) {
+    if (encounter.hasEnded || encounter.exported) {
       return (
         <div css={utilities.backLinkContainer.bottom}>
           <BackLink text="Return to encounter list" to={ROUTES.encounters} />
@@ -91,7 +92,7 @@ const OpenEncounter = ({ encounterId }) => {
 
     return (
       <div css={styles.footerContainer}>
-        <Button disabled={isNewEncounter()} onClick={onEndEncounterClick}>
+        <Button disabled={isNewEncounter()} onClick={handleEndEncounter}>
           End encounter
         </Button>
         {isNewEncounter() && (
