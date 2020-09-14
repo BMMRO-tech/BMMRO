@@ -15,6 +15,7 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import typography from "../materials/typography";
 import BackLink from "../components/BackLink";
+import endEntry from "../utils/endEntry";
 
 const OpenEncounter = ({ encounterId }) => {
   const styles = {
@@ -43,10 +44,10 @@ const OpenEncounter = ({ encounterId }) => {
   const navigate = useNavigate();
 
   const handleEndEncounter = () => {
-    datastore.updateDocByPath(generateEncounterPath(encounterId), {
-      ...encounter,
-      hasEnded: true,
-    });
+    datastore.updateDocByPath(
+      generateEncounterPath(encounterId),
+      endEntry(encounter)
+    );
     navigate(ROUTES.encounters);
   };
 

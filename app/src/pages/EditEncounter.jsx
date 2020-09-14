@@ -16,6 +16,7 @@ import {
 import { FormSubmitType } from "../constants/forms";
 import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
+import endEntry from "../utils/endEntry";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -27,10 +28,7 @@ const EditEncounter = ({ encounterId }) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
 
     if (submitType === FormSubmitType.SAVE_AND_END) {
-      datastore.updateDocByPath(encounterPath, {
-        ...modifiedProperties,
-        hasEnded: true,
-      });
+      datastore.updateDocByPath(encounterPath, endEntry(modifiedProperties));
       navigate(ROUTES.encounters);
     } else if (submitType === FormSubmitType.SAVE) {
       datastore.updateDocByPath(encounterPath, modifiedProperties);
