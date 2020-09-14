@@ -16,15 +16,17 @@ export class PendingManager {
   }
 
   _checkPendingRecords() {
-    let hasPending = false;
+    let pendingCount = 0;
 
     Object.keys(this.collections).forEach((key) => {
-      if (this.collections[key].pending === true) {
-        hasPending = true;
-      }
+      Object.keys(this.collections[key].pending).forEach((pendingKey) => {
+        if (this.collections[key].pending[pendingKey]) {
+          pendingCount++;
+        }
+      });
     });
 
-    this.setPendingCallback(hasPending);
+    this.setPendingCallback(pendingCount);
   }
 
   _addCollectionListener(collectionName, collectionReference) {
@@ -35,11 +37,13 @@ export class PendingManager {
           querySnapshot.docChanges({ includeMetadataChanges: true }).length !==
           0
         ) {
-          if (querySnapshot.metadata.hasPendingWrites) {
-            this.collections[collectionName].pending = true;
-          } else {
-            this.collections[collectionName].pending = false;
-          }
+          querySnapshot.forEach((doc) => {
+            if (doc.metadata.hasPendingWrites) {
+              this.collections[collectionName].pending[doc.id] = true;
+            } else {
+              this.collections[collectionName].pending[doc.id] = false;
+            }
+          });
           this._checkPendingRecords();
         }
       },

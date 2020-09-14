@@ -7,7 +7,7 @@ const Synced = () => {
     svg: css`
       height: 44px;
       width: auto;
-      margin-right: 10px;
+      margin: 0 10px;
     `,
   };
 

@@ -3,6 +3,7 @@ import { css } from "@emotion/core";
 import breakPoints from "./breakPoints";
 import typography from "./typography";
 import colors from "./colors";
+import containers from "./containers";
 
 const utilities = {
   form: {
@@ -143,6 +144,34 @@ const utilities = {
     modalButtons: css`
       display: flex;
       justify-content: space-around;
+    `,
+  },
+  header: {
+    clearButton: css`
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    `,
+    popupContainer: css`
+      top: 56px;
+      right: 10px;
+      position: absolute;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0.5px 1px 1.5px 2px rgba(40, 54, 104, 0.15);
+      z-index: 10;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (min-width: ${containers.default}) {
+        max-width: 500px;
+        /* padding on the right outside of the container
+      device width - container width = padding on both sides */
+        right: calc((100vw - ${containers.default}) / 2);
+      }
     `,
   },
 };

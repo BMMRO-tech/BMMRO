@@ -146,7 +146,7 @@ export class Datastore {
 
   registerCollection(collectionName, isSubcollection) {
     this.pendingManager.addCollection(collectionName, {
-      pending: false,
+      pending: {},
       isSubcollection,
     });
   }

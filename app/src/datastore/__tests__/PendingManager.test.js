@@ -28,8 +28,11 @@ describe("PendingManager", () => {
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+  });
+
+  afterEach(async () => {
+    await firebaseTesting.clearFirestoreData({ projectId });
   });
 
   it("pending records should be true if adding when offline", async () => {
@@ -40,7 +43,10 @@ describe("PendingManager", () => {
       mockPendingCallback
     );
 
-    pendingManager.addCollection("animal", { isSubcollection: false });
+    pendingManager.addCollection("animal", {
+      isSubcollection: false,
+      pending: {},
+    });
     firestoreEmulator.disableNetwork();
 
     firestoreEmulator.collection("animal").doc().set({
@@ -50,7 +56,7 @@ describe("PendingManager", () => {
     });
 
     await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(true);
+      expect(mockPendingCallback).toHaveBeenCalledWith(1);
     });
   });
 
@@ -64,17 +70,17 @@ describe("PendingManager", () => {
 
     pendingManager.addCollection("animal", {
       isSubcollection: false,
-      pending: true,
+      pending: {},
     });
 
-    firestoreEmulator.collection("animal").doc().set({
+    firestoreEmulator.collection("animal").doc("123").set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
     });
 
     await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(false);
+      expect(mockPendingCallback).toHaveBeenCalledWith(0);
     });
   });
 
@@ -86,7 +92,10 @@ describe("PendingManager", () => {
       mockPendingCallback
     );
 
-    pendingManager.addCollection("whale", { isSubcollection: true });
+    pendingManager.addCollection("whale", {
+      isSubcollection: true,
+      pending: {},
+    });
     firestoreEmulator.disableNetwork();
 
     firestoreEmulator.collection("animal/123/whale").doc().set({
@@ -96,7 +105,7 @@ describe("PendingManager", () => {
     });
 
     await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(true);
+      expect(mockPendingCallback).toHaveBeenCalledWith(1);
     });
   });
 
@@ -108,13 +117,23 @@ describe("PendingManager", () => {
       mockPendingCallback
     );
 
-    pendingManager.addCollection("animal", { isSubcollection: false });
-    pendingManager.addCollection("whale", { isSubcollection: true });
+    pendingManager.addCollection("animal", {
+      isSubcollection: false,
+      pending: {},
+    });
+    pendingManager.addCollection("whale", {
+      isSubcollection: true,
+      pending: {},
+    });
 
     firestoreEmulator.collection("animal/123/whale").doc().set({
       name: "Sally",
       species: "Killer Whale",
       exported: false,
+    });
+
+    await waitFor(() => {
+      expect(mockPendingCallback).toHaveBeenCalledWith(0);
     });
 
     firestoreEmulator.disableNetwork();
@@ -126,7 +145,7 @@ describe("PendingManager", () => {
     });
 
     await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(true);
+      expect(mockPendingCallback.mock.calls).toEqual([[1], [0], [1]]);
     });
   });
 });

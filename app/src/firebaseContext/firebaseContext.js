@@ -15,13 +15,13 @@ const FirebaseContextProvider = ({ children }) => {
   const [datastore, setDatastore] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [datastoreError, setDatastoreError] = useState(null);
-  const [hasPending, setHasPending] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
     (async () => {
       try {
         const firestore = new Datastore(initFirestore(firebase), (val) => {
-          setHasPending(val);
+          setPendingCount(val);
         });
         await firestore.enableOfflineStorage();
         firestore.disableNetworkIfOffline();
@@ -48,7 +48,12 @@ const FirebaseContextProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ loggedInUser, datastore, datastoreError, hasPending }}
+      value={{
+        loggedInUser,
+        datastore,
+        datastoreError,
+        pendingCount,
+      }}
     >
       {children}
     </FirebaseContext.Provider>
