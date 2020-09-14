@@ -3,6 +3,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import EncounterForm from "../EncounterForm";
+import encounterDefaultValues from "../../constants/encounterDefaultValues";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -218,5 +219,32 @@ describe("EncounterForm", () => {
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
+  });
+
+  it("displays 'Save & End' button if encounter hasn't ended", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { findByRole } = render(
+      <EncounterForm handleSubmit={mockHandleSubmit} />
+    );
+
+    expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
+    expect(
+      await findByRole("button", { name: "Save & End" })
+    ).toBeInTheDocument();
+  });
+
+  it("doesn't display 'save and end' button if encounter has already ended", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { findByRole, queryByRole } = render(
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={{ ...encounterDefaultValues, hasEnded: true }}
+      />
+    );
+
+    expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
+    expect(
+      queryByRole("button", { name: "Save & End" })
+    ).not.toBeInTheDocument();
   });
 });

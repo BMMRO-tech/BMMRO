@@ -42,7 +42,6 @@ const EncounterForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
-  hasEnded = false,
 }) => {
   const [submitType, setSubmitType] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -78,6 +77,7 @@ const EncounterForm = ({
   };
 
   const initValues = initialValues || encounterDefaults;
+  const hasEnded = initialValues ? initialValues.hasEnded : false;
 
   return (
     <div css={utilities.sticky.contentContainer}>

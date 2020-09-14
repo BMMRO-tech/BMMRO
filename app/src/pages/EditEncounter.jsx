@@ -25,11 +25,15 @@ const EditEncounter = ({ encounterId }) => {
 
   const handleSubmit = (submitType, values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
-    datastore.updateDocByPath(encounterPath, modifiedProperties);
 
     if (submitType === FormSubmitType.SAVE_AND_END) {
+      datastore.updateDocByPath(encounterPath, {
+        ...modifiedProperties,
+        hasEnded: true,
+      });
       navigate(ROUTES.encounters);
     } else if (submitType === FormSubmitType.SAVE) {
+      datastore.updateDocByPath(encounterPath, modifiedProperties);
       navigate(generateOpenEncounterURL(encounterId));
     }
   };
@@ -54,9 +58,6 @@ const EditEncounter = ({ encounterId }) => {
     // eslint-disable-next-line
   }, [datastore]);
 
-  const hasEnded = () =>
-    initialValues.endTimestamp !== "" && initialValues.endTime !== "";
-
   return (
     <Layout hasDefaultPadding={false}>
       {!initialValues ? (
@@ -64,13 +65,12 @@ const EditEncounter = ({ encounterId }) => {
       ) : (
         <Fragment>
           <h1 css={utilities.form.title}>
-            {hasEnded() ? "Edit Encounter" : "New Encounter"}
+            {initialValues.hasEnded ? "Edit Encounter" : "New Encounter"}
           </h1>
           <EncounterForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             encounterId={encounterId}
-            hasEnded={hasEnded()}
           />
         </Fragment>
       )}
