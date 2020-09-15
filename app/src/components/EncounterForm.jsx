@@ -511,7 +511,7 @@ const EncounterForm = ({
                     })}
                     isDisabled={isViewOnly}
                   />
-                  <ElapsedTime isDisabled={isViewOnly} />
+                  <ElapsedTime />
                   <RadioGroup
                     name="enteredBy"
                     labelText="Entered by"

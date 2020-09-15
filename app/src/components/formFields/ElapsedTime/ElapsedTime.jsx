@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { useEffect, Fragment } from "react";
+import { useEffect } from "react";
 import { useField } from "formik";
 
-import NumberInput from "../NumberInput/NumberInput";
 import { TIME_PATTERN } from "../../../constants/forms";
 import { constructDateTime } from "../../../utils/time";
 
@@ -12,7 +11,7 @@ const timeStringValid = (val) => {
   return timePattern.test(val);
 };
 
-const ElapsedTime = ({ isDisabled }) => {
+const ElapsedTime = () => {
   const [field, , helpers] = useField("elapsedTime");
   const [startTimestampField] = useField("startTimestamp");
   const [startTimeField] = useField("startTime");
@@ -40,7 +39,10 @@ const ElapsedTime = ({ isDisabled }) => {
         const elapsedMinutes = Math.round(elapsedTime / 60000);
         helpers.setValue(elapsedMinutes);
       }
+    } else {
+      helpers.setValue("");
     }
+
     // eslint-disable-next-line
   }, [
     startTimestampField.value,
@@ -48,20 +50,8 @@ const ElapsedTime = ({ isDisabled }) => {
     endTimestampField.value,
     endTimeField.value,
   ]);
-  return (
-    <Fragment>
-      <NumberInput
-        {...field}
-        name="elapsedTime"
-        labelText="Elapsed time (mins)"
-        minValue={0}
-        maxValue={4320}
-        isShort
-        isInteger
-        isDisabled={isDisabled}
-      />
-    </Fragment>
-  );
+
+  return field.value ? <p>{`Elapsed time: ${field.value} minutes`}</p> : null;
 };
 
 export default ElapsedTime;
