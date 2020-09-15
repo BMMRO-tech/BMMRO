@@ -5,6 +5,8 @@ import { TIME_FORMAT } from "../constants/forms";
 const endEntry = (entry, options) => {
   if (entry.hasEnded) return entry;
 
+  const modifiedProperties = {};
+
   const timeFormat =
     options && options.endTimeFormat ? options.endTimeFormat : TIME_FORMAT;
   const realEndTimestamp = getCurrentDate();
@@ -12,18 +14,19 @@ const endEntry = (entry, options) => {
   endTimestampAtMidnight.setHours(0, 0, 0, 0);
   const endTime = format(getCurrentDate(), timeFormat);
 
-  let elapsedTime;
-  if (entry.startTimestamp) {
+  modifiedProperties.hasEnded = true;
+  if (!entry.endTimestamp)
+    modifiedProperties.endTimestamp = endTimestampAtMidnight;
+  if (!entry.endTime) modifiedProperties.endTime = endTime;
+  if (!entry.elapsedTime && entry.startTimestamp) {
     const elapsedMilliseconds = realEndTimestamp - entry.startTimestamp;
-    elapsedTime = Math.round(elapsedMilliseconds / 60000);
+    const elapsedTime = Math.round(elapsedMilliseconds / 60000);
+    modifiedProperties.elapsedTime = elapsedTime;
   }
 
   return {
     ...entry,
-    hasEnded: true,
-    endTimestamp: endTimestampAtMidnight,
-    endTime,
-    elapsedTime: elapsedTime ? elapsedTime : "",
+    ...modifiedProperties,
   };
 };
 

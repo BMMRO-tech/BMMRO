@@ -59,14 +59,6 @@ describe("endEntry", () => {
     expect(output.elapsedTime).toEqual(14);
   });
 
-  it("sets elapsed time to empty string if startTimestamp is not defined", () => {
-    const input = { a: 1, b: 2 };
-
-    const output = endEntry(input);
-
-    expect(output.elapsedTime).toEqual("");
-  });
-
   it("doesn't end the entry if hasEnded is already true", () => {
     const input = { a: 1, b: 2, hasEnded: true };
 
@@ -75,5 +67,30 @@ describe("endEntry", () => {
     expect(output.elapsedTime).not.toBeDefined();
     expect(output.endTime).not.toBeDefined();
     expect(output.endTimestamp).not.toBeDefined();
+  });
+
+  it("doesn't override elapsedTime if startTimestamp is not defined", () => {
+    const input = { a: 1, b: 2, elapsedTime: "🥭" };
+
+    const output = endEntry(input);
+
+    expect(output.elapsedTime).toEqual("🥭");
+  });
+
+  it("doesn't override endTime, endTimestamp or elapsedTime if provided", () => {
+    const input = {
+      a: 1,
+      b: 2,
+      endTime: "🥭",
+      endTimestamp: "🍅",
+      elapsedTime: "🍆",
+    };
+
+    const output = endEntry(input);
+
+    expect(output.hasEnded).toBe(true);
+    expect(output.endTime).toEqual("🥭");
+    expect(output.endTimestamp).toEqual("🍅");
+    expect(output.elapsedTime).toEqual("🍆");
   });
 });
