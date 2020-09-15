@@ -32,7 +32,7 @@ const DateInput = ({
       }
 
       if (notAfter && val > notAfter) {
-        return getErrorMessage(FormErrorType.INVALID_END_DATE);
+        return getErrorMessage(FormErrorType.END_DATE_AFTER_LIMIT);
       }
     }
 

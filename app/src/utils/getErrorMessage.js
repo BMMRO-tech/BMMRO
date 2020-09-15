@@ -12,6 +12,8 @@ const getErrorMessage = (type, params) => {
       return "Invalid number format";
     case FormErrorType.INVALID_TIME_FORMAT:
       return `Time must be in the following format ${params.format}`;
+    case FormErrorType.END_DATE_AFTER_LIMIT:
+      return "End date must be within 3 days of start date";
     case FormErrorType.INVALID_END_DATE:
       return "Invalid end date";
     case FormErrorType.INVALID_END_TIME:
