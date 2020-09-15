@@ -2,6 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
+import add from "date-fns/add";
 
 import utilities from "../materials/utilities";
 import breakPoints from "../materials/breakPoints";
@@ -16,6 +17,8 @@ import Loader from "../components/Loader";
 import typography from "../materials/typography";
 import BackLink from "../components/BackLink";
 import endEntry from "../utils/endEntry";
+import { constructDateTime } from "../utils/time";
+import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 
 const OpenEncounter = ({ encounterId }) => {
   const styles = {
@@ -44,10 +47,24 @@ const OpenEncounter = ({ encounterId }) => {
   const [habitatUseEntries, setHabitatUseEntries] = useState([]);
   const navigate = useNavigate();
 
-  const handleEndEncounter = async () => {
+  const handleEndEncounter = () => {
     const encounterPath = generateEncounterPath(encounterId);
 
-    datastore.updateDocByPath(encounterPath, endEntry(encounter));
+    const endedEncounter = endEntry(encounter);
+    const endDateTime = constructDateTime(
+      endedEncounter.endTimestamp,
+      endedEncounter.endTime
+    );
+
+    const endDateLimit = add(new Date(endedEncounter.startTimestamp), {
+      hours: THREE_DAYS_IN_HOURS,
+    });
+
+    if (endDateTime > endDateLimit) {
+      return;
+    }
+
+    datastore.updateDocByPath(encounterPath, endedEncounter);
     navigate(ROUTES.encounters);
   };
 
