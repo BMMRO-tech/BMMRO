@@ -470,16 +470,15 @@ const EncounterForm = ({
                 </FormSection>
                 <br />
                 <FormSection>
-                  <TimeInput
-                    name="endOfSearchEffort"
-                    labelText="End of search effort"
+                  <DateInput
+                    name="endTimestamp"
+                    labelText="End date"
                     isShort
-                    isDisabled={isViewOnly}
-                  />
-                  <Select
-                    name="reasonForLeaving"
-                    labelText="Reason for leaving"
-                    options={reasonForLeaving}
+                    autofill={!initialValues}
+                    notBefore={values.startTimestamp}
+                    notAfter={add(new Date(values.startTimestamp), {
+                      hours: THREE_DAYS_IN_HOURS,
+                    })}
                     isDisabled={isViewOnly}
                   />
                   <TimeInput
@@ -500,18 +499,22 @@ const EncounterForm = ({
                     )}
                     isDisabled={isViewOnly}
                   />
-                  <DateInput
-                    name="endTimestamp"
-                    labelText="End date"
+                  <ElapsedTime />
+                </FormSection>
+                <br />
+                <FormSection>
+                  <TimeInput
+                    name="endOfSearchEffort"
+                    labelText="End of search effort"
                     isShort
-                    autofill={!initialValues}
-                    notBefore={values.startTimestamp}
-                    notAfter={add(new Date(values.startTimestamp), {
-                      hours: THREE_DAYS_IN_HOURS,
-                    })}
                     isDisabled={isViewOnly}
                   />
-                  <ElapsedTime />
+                  <Select
+                    name="reasonForLeaving"
+                    labelText="Reason for leaving"
+                    options={reasonForLeaving}
+                    isDisabled={isViewOnly}
+                  />
                   <RadioGroup
                     name="enteredBy"
                     labelText="Entered by"

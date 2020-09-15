@@ -33,9 +33,11 @@ describe("ElapsedTime", () => {
         endTimestamp: new Date(Date.now()),
       });
     });
-    const { queryByText, getFormValues } = container;
+    const { findByText, getFormValues } = container;
 
-    expect(queryByText(/Elapsed time:/)).not.toBeInTheDocument();
+    const elapsedTimeText = await findByText("Elapsed time: -- minutes");
+
+    expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
   });
 
@@ -50,9 +52,11 @@ describe("ElapsedTime", () => {
         endTimestamp: new Date(Date.now()),
       });
     });
-    const { getFormValues, queryByText } = container;
+    const { getFormValues, findByText } = container;
 
-    expect(queryByText(/Elapsed time:/)).not.toBeInTheDocument();
+    const elapsedTimeText = await findByText("Elapsed time: -- minutes");
+
+    expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
   });
 });

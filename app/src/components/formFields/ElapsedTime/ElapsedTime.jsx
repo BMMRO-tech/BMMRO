@@ -51,7 +51,7 @@ const ElapsedTime = () => {
     endTimeField.value,
   ]);
 
-  return field.value ? <p>{`Elapsed time: ${field.value} minutes`}</p> : null;
+  return <p>{`Elapsed time: ${field.value ? field.value : "--"} minutes`}</p>;
 };
 
 export default ElapsedTime;
