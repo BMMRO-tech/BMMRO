@@ -4,7 +4,6 @@ import EncounterOverview from "../EncounterOverview";
 
 describe("EncounterOverview", () => {
   const defaultEncounter = {
-    id: 1,
     sequenceNumber: "E123",
     species: "some species",
     area: "some area",
@@ -17,7 +16,7 @@ describe("EncounterOverview", () => {
     };
 
     const { queryByTestId } = render(
-      <EncounterOverview encounter={encounter} />
+      <EncounterOverview encounter={encounter} encounterId={1} />
     );
 
     expect(queryByTestId("exported-info")).not.toBeInTheDocument();
@@ -30,7 +29,7 @@ describe("EncounterOverview", () => {
     };
 
     const { queryByTestId } = render(
-      <EncounterOverview encounter={exportedEncounter} />
+      <EncounterOverview encounter={exportedEncounter} encounterId={1} />
     );
 
     expect(queryByTestId("exported-info")).toBeInTheDocument();
@@ -42,7 +41,9 @@ describe("EncounterOverview", () => {
       exported: false,
     };
 
-    const { getByRole } = render(<EncounterOverview encounter={encounter} />);
+    const { getByRole } = render(
+      <EncounterOverview encounter={encounter} encounterId={1} />
+    );
 
     expect(getByRole("link").href).toContain("/encounters/1/edit");
   });
@@ -53,7 +54,9 @@ describe("EncounterOverview", () => {
       exported: true,
     };
 
-    const { getByRole } = render(<EncounterOverview encounter={encounter} />);
+    const { getByRole } = render(
+      <EncounterOverview encounter={encounter} encounterId={1} />
+    );
 
     expect(getByRole("link").href).toContain("/encounters/1/view");
   });

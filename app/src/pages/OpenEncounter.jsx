@@ -41,13 +41,13 @@ const OpenEncounter = ({ encounterId }) => {
 
   const { datastore } = useContext(FirebaseContext);
   const [encounter, setEncounter] = useState({});
+  const [habitatUseEntries, setHabitatUseEntries] = useState([]);
   const navigate = useNavigate();
 
-  const handleEndEncounter = () => {
-    datastore.updateDocByPath(
-      generateEncounterPath(encounterId),
-      endEntry(encounter)
-    );
+  const handleEndEncounter = async () => {
+    const encounterPath = generateEncounterPath(encounterId);
+
+    datastore.updateDocByPath(encounterPath, endEntry(encounter));
     navigate(ROUTES.encounters);
   };
 
@@ -69,11 +69,8 @@ const OpenEncounter = ({ encounterId }) => {
         return;
       }
 
-      setEncounter({
-        ...encounterResult.data,
-        id: encounterId,
-        habitatUseEntries: habitatUseResult,
-      });
+      setEncounter(encounterResult.data);
+      setHabitatUseEntries(habitatUseResult);
     };
 
     if (!!datastore) {
@@ -118,10 +115,11 @@ const OpenEncounter = ({ encounterId }) => {
           <EncounterOverview
             isNewEncounter={isNewEncounter()}
             encounter={encounter}
+            encounterId={encounterId}
           />
           <div css={styles.list}>
             <HabitatUseList
-              items={encounter.habitatUseEntries}
+              items={habitatUseEntries}
               encounterId={encounterId}
               encounterExported={encounter.exported}
             />
