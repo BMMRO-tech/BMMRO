@@ -19,6 +19,7 @@ import BackLink from "../components/BackLink";
 import endEntry from "../utils/endEntry";
 import { constructDateTime } from "../utils/time";
 import { THREE_DAYS_IN_HOURS } from "../constants/forms";
+import DateInvalidModal from "../components/DateInvalidModal";
 
 const OpenEncounter = ({ encounterId }) => {
   const styles = {
@@ -45,6 +46,7 @@ const OpenEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [encounter, setEncounter] = useState({});
   const [habitatUseEntries, setHabitatUseEntries] = useState([]);
+  const [showDateModal, setShowDateModal] = useState(false);
   const navigate = useNavigate();
 
   const handleEndEncounter = () => {
@@ -61,6 +63,7 @@ const OpenEncounter = ({ encounterId }) => {
     });
 
     if (endDateTime > endDateLimit) {
+      setShowDateModal(true);
       return;
     }
 
@@ -121,6 +124,9 @@ const OpenEncounter = ({ encounterId }) => {
 
   return (
     <Layout hasDefaultPadding={false} hasBackLink={encounter.exported}>
+      {showDateModal && (
+        <DateInvalidModal closeModal={() => setShowDateModal(false)} />
+      )}
       {encounter.exported && (
         <div css={utilities.backLinkContainer.top}>
           <BackLink text="Return to encounter list" to={ROUTES.encounters} />

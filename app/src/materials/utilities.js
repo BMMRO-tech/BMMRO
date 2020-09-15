@@ -133,12 +133,23 @@ const utilities = {
         min-width: auto;
       }
     `,
+    modalHeaderContainer: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `,
     modalHeader: css`
       text-align: center;
       font-weight: bold;
     `,
     modalDescription: css`
       padding: 20px 0 20px 0;
+    `,
+    modalDescriptionList: css`
+      margin: 0;
+      li:not(:first-child) {
+        margin-top: 10px;
+      }
     `,
     modalButtons: css`
       display: flex;
