@@ -17,7 +17,7 @@
   ],
   "fieldOverrides": [
     {
-      "collectionGroup": "posts",
+      "collectionGroup": "habitatUse",
       "fieldPath": "exported",
       "indexes": [
         {
