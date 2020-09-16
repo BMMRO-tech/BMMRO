@@ -16,7 +16,7 @@ const getFirestore = () => {
     .firestore();
 };
 
-describe("PendingManager", () => {
+describe("PendingManager ", () => {
   beforeAll(async () => {
     await firebaseTesting.loadFirestoreRules({
       projectId,
@@ -35,7 +35,7 @@ describe("PendingManager", () => {
     await firebaseTesting.clearFirestoreData({ projectId });
   });
 
-  it("pending records should be true if adding when offline", async () => {
+  it("sets pendingCount to 1, when one added while offline", async () => {
     const firestoreEmulator = getFirestore();
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
@@ -60,7 +60,7 @@ describe("PendingManager", () => {
     });
   });
 
-  it("pending records should be false if adding when online", async () => {
+  it("sets pendingCount to 0, when one added while online", async () => {
     const firestoreEmulator = getFirestore();
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
@@ -84,7 +84,7 @@ describe("PendingManager", () => {
     });
   });
 
-  it("pending records should be true if adding when offline to subcollection", async () => {
+  it("sets pending count to 1, when one subdoc is added while offline", async () => {
     const firestoreEmulator = getFirestore();
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
@@ -109,7 +109,7 @@ describe("PendingManager", () => {
     });
   });
 
-  it("pending records should be true when one collection has pending records and another does not", async () => {
+  it("sets pending count to 1, when one collection has pending records and the other doesn't", async () => {
     const firestoreEmulator = getFirestore();
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
