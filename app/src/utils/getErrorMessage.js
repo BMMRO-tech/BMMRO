@@ -24,6 +24,8 @@ const getErrorMessage = (type, params) => {
       return `Field can only have a maximum of ${params.maxDecimalPlaces} decimal places`;
     case FormErrorType.EMPTY:
       return "Required";
+    case FormErrorType.CONDITIONALLY_REQUIRED:
+      return `Please fill out both ${params.first} and ${params.second} fields or leave both blank`;
     case FormErrorType.END_TIME_BEFORE_START_TIME:
       return "End time cannot be before start time";
     case FormErrorType.END_DATE_BEFORE_START_DATE:

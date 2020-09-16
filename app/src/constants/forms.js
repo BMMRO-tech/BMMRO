@@ -1,5 +1,6 @@
 export const FormErrorType = {
   EMPTY: "empty",
+  CONDITIONALLY_REQUIRED: "conditionally-required",
   END_DATE_BEFORE_START_DATE: "end-date-before-start-date",
   END_TIME_BEFORE_START_TIME: "end-time-before-start-time",
   END_DATE_AFTER_LIMIT: "end-date-after-limit",

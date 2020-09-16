@@ -11,10 +11,14 @@ const InputFocusOnError = () => {
     validateForm().then((errors) => {
       if (isSubmitting) {
         const errorField = Object.keys(errors)[0];
-
         if (errorField) {
+          const fieldToFocus =
+            errorField === "elapsedTime" ? "endTime" : errorField;
+
           // ReactDOM.findDOMNode is deprecated in Strict Mode
-          const firstFieldWithError = document.getElementsByName(errorField)[0];
+          const firstFieldWithError = document.getElementsByName(
+            fieldToFocus
+          )[0];
           if (isDatepicker(firstFieldWithError)) {
             firstFieldWithError.scrollIntoView({ block: "center" });
           } else {

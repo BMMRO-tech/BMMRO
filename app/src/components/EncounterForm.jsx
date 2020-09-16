@@ -473,11 +473,7 @@ const EncounterForm = ({
                     labelText="End date"
                     isShort
                     notBefore={values.startTimestamp}
-                    notAfter={add(new Date(values.startTimestamp), {
-                      hours: THREE_DAYS_IN_HOURS,
-                    })}
                     isDisabled={isViewOnly}
-                    isRequired={!!values.endTime}
                   />
                   <TimeInput
                     name="endTime"
@@ -488,6 +484,9 @@ const EncounterForm = ({
                       values.startTimestamp,
                       values.startTime
                     )}
+                    isDisabled={isViewOnly}
+                  />
+                  <ElapsedTime
                     notAfter={add(
                       constructDateTime(
                         values.startTimestamp,
@@ -495,10 +494,7 @@ const EncounterForm = ({
                       ),
                       { hours: THREE_DAYS_IN_HOURS }
                     )}
-                    isDisabled={isViewOnly}
-                    isRequired={!!values.endTimestamp}
                   />
-                  <ElapsedTime />
                 </FormSection>
                 <br />
                 <FormSection>
