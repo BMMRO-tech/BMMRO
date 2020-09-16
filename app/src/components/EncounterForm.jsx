@@ -94,14 +94,6 @@ const EncounterForm = ({
               <section css={styles.section}>
                 <ListHeader title="Encounter details" />
                 <FormSection>
-                  <DateInput
-                    name="startTimestamp"
-                    labelText="Date"
-                    isRequired
-                    isShort
-                    notAfter={new Date()}
-                    isDisabled={isViewOnly}
-                  />
                   <TextInput
                     name="sequenceNumber"
                     labelText="Encounter sequence"
@@ -114,14 +106,6 @@ const EncounterForm = ({
                     name="area"
                     labelText="Area"
                     options={area}
-                    isRequired
-                    isDisabled={isViewOnly}
-                  />
-                  <TimeInput
-                    name="startTime"
-                    labelText="Start time"
-                    isShort
-                    notAfter={values.startTimestamp}
                     isRequired
                     isDisabled={isViewOnly}
                   />
@@ -468,6 +452,22 @@ const EncounterForm = ({
                 </FormSection>
                 <br />
                 <FormSection>
+                  <DateInput
+                    name="startTimestamp"
+                    labelText="Start date"
+                    isRequired
+                    isShort
+                    notAfter={new Date()}
+                    isDisabled={isViewOnly}
+                  />
+                  <TimeInput
+                    name="startTime"
+                    labelText="Start time"
+                    isShort
+                    notAfter={values.startTimestamp}
+                    isRequired
+                    isDisabled={isViewOnly}
+                  />
                   <DateInput
                     name="endTimestamp"
                     labelText="End date"
