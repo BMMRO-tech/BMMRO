@@ -60,7 +60,7 @@ const EncounterForm = ({
 
   const transformSubmitValues = (values) => {
     values.startTimestamp.setHours(0, 0, 0, 0);
-    if (values.endTimestamp) {
+    if (!!values.endTimestamp) {
       values.endTimestamp.setHours(0, 0, 0, 0);
     }
 
@@ -100,7 +100,6 @@ const EncounterForm = ({
                     isRequired
                     isShort
                     notAfter={new Date()}
-                    autofill={!initialValues}
                     isDisabled={isViewOnly}
                   />
                   <TextInput
@@ -122,7 +121,6 @@ const EncounterForm = ({
                     name="startTime"
                     labelText="Start time"
                     isShort
-                    autofill={!initialValues}
                     notAfter={values.startTimestamp}
                     isRequired
                     isDisabled={isViewOnly}
@@ -474,12 +472,12 @@ const EncounterForm = ({
                     name="endTimestamp"
                     labelText="End date"
                     isShort
-                    autofill={!initialValues}
                     notBefore={values.startTimestamp}
                     notAfter={add(new Date(values.startTimestamp), {
                       hours: THREE_DAYS_IN_HOURS,
                     })}
                     isDisabled={isViewOnly}
+                    isRequired={!!values.endTime}
                   />
                   <TimeInput
                     name="endTime"
@@ -498,6 +496,7 @@ const EncounterForm = ({
                       { hours: THREE_DAYS_IN_HOURS }
                     )}
                     isDisabled={isViewOnly}
+                    isRequired={!!values.endTimestamp}
                   />
                   <ElapsedTime />
                 </FormSection>

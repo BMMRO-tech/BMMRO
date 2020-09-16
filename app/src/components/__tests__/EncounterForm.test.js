@@ -10,11 +10,13 @@ jest.mock("@reach/router", () => ({
 }));
 
 describe("EncounterForm", () => {
-  beforeAll(() => {
-    global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
-    );
-  });
+  const mockEncounterValues = {
+    ...encounterDefaultValues,
+    sequenceNumber: "123",
+    species: "Bimini",
+    startTimestamp: new Date("2020-05-04T00:00:00.000Z"),
+    startTime: "09:44",
+  };
 
   it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
@@ -23,7 +25,15 @@ describe("EncounterForm", () => {
     };
 
     const { getByRole } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={{
+          ...mockEncounterValues,
+          sequenceNumber: "",
+          area: "",
+          species: "",
+        }}
+      />
     );
 
     await act(async () => {
@@ -32,8 +42,8 @@ describe("EncounterForm", () => {
       const encounterSequenceInput = getByRole("textbox", {
         name: "Encounter sequence *",
       });
-
       const submitButton = getByRole("button", { name: "Save" });
+
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(speciesInput, "Fin whale");
       await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
@@ -43,17 +53,16 @@ describe("EncounterForm", () => {
     expect(formValues.area).toEqual("Central Andros");
     expect(formValues.species).toEqual("Fin whale");
     expect(formValues.sequenceNumber).toEqual("123");
-    expect(formValues.startTimestamp).toEqual(
-      new Date("2020-05-04T00:00:00.000Z")
-    );
-    expect(formValues.startTime).toEqual("11:30");
   });
 
   it("contains four fieldsets with the correct associated names", async () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockEncounterValues}
+      />
     );
 
     await waitFor(() => {
@@ -81,7 +90,10 @@ describe("EncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, getByLabelText } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockEncounterValues}
+      />
     );
 
     let errorMessage;
@@ -103,19 +115,20 @@ describe("EncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={{ ...mockEncounterValues, sequenceNumber: "" }}
+      />
     );
 
     let submitButton;
     let encounterSequenceInput;
 
-    await act(async () => {
-      submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
+    submitButton = getByRole("button", { name: "Save" });
+    userEvent.click(submitButton);
 
-      encounterSequenceInput = getByRole("textbox", {
-        name: "Encounter sequence *",
-      });
+    encounterSequenceInput = getByRole("textbox", {
+      name: "Encounter sequence *",
     });
 
     await waitFor(() => {
@@ -128,7 +141,10 @@ describe("EncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getAllByRole, getByRole, getByLabelText } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockEncounterValues}
+      />
     );
 
     await act(async () => {
@@ -158,7 +174,10 @@ describe("EncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getAllByRole, getByRole, getByLabelText } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockEncounterValues}
+      />
     );
 
     await act(async () => {
@@ -189,12 +208,17 @@ describe("EncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, queryByTestId } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockEncounterValues}
+      />
     );
 
     await act(async () => {
-      const areaInput = getByRole("combobox", { name: "Area *" });
-      userEvent.selectOptions(areaInput, "Central Andros");
+      const commentsInput = getByRole("textbox", {
+        name: "Comments / Observations (names of underwater observers)",
+      });
+      await userEvent.type(commentsInput, "Test comment", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
       userEvent.click(cancelButton);
@@ -209,7 +233,7 @@ describe("EncounterForm", () => {
     const { getByRole, queryByTestId } = render(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
-        initialValues={{ startTimestamp: new Date(), startTime: "10:55" }}
+        initialValues={mockEncounterValues}
       />
     );
 
@@ -224,7 +248,10 @@ describe("EncounterForm", () => {
   it("displays 'Save & End' button if encounter hasn't ended", async () => {
     const mockHandleSubmit = jest.fn();
     const { findByRole } = render(
-      <EncounterForm handleSubmit={mockHandleSubmit} />
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockEncounterValues}
+      />
     );
 
     expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
@@ -238,7 +265,7 @@ describe("EncounterForm", () => {
     const { findByRole, queryByRole } = render(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
-        initialValues={{ ...encounterDefaultValues, hasEnded: true }}
+        initialValues={{ ...mockEncounterValues, hasEnded: true }}
       />
     );
 
