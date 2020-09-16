@@ -2,6 +2,7 @@ import "firebase/firestore";
 import { fromUnixTime } from "date-fns";
 
 import { DatastoreErrorType } from "../constants/datastore";
+import { PendingManager } from "./PendingManager";
 
 export class DatastoreError extends Error {
   constructor(errorType) {
@@ -13,12 +14,14 @@ export class DatastoreError extends Error {
 export class Datastore {
   constructor(
     firestore,
+    pendingRecordsCallback,
     enableLogging = true,
     handleDelayedError = console.error
   ) {
     this.firestore = firestore;
     this.enableLogging = enableLogging;
     this.handleDelayedError = handleDelayedError;
+    this.pendingManager = new PendingManager(firestore, pendingRecordsCallback);
   }
 
   disableNetworkIfOffline() {
@@ -139,6 +142,13 @@ export class Datastore {
         throw new DatastoreError(DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT);
       }
     }
+  }
+
+  registerCollection(collectionName, isSubcollection) {
+    this.pendingManager.addCollection(collectionName, {
+      pending: {},
+      isSubcollection,
+    });
   }
 }
 

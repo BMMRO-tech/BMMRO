@@ -1,11 +1,11 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Menu from "../Menu/Menu";
+import UserMenu from "../UserMenu";
 
-describe("Menu", () => {
+describe("UserMenu", () => {
   it("renders the menu popup when you click on the menu button", () => {
     const { getByTestId, queryByTestId, getByRole, queryByRole } = render(
-      <Menu
+      <UserMenu
         menuButtonComponent={<div data-testid="menu-button" />}
         menuItems={[<div data-testid="menu-item" />]}
       />
@@ -26,7 +26,7 @@ describe("Menu", () => {
 
   it("closes the menu popup when you click outside the menu", () => {
     const { getByTestId, queryByTestId, getByRole, queryByRole } = render(
-      <Menu
+      <UserMenu
         menuButtonComponent={<div data-testid="menu-button" />}
         menuItems={[<div data-testid="menu-item" />]}
       />

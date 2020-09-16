@@ -7,6 +7,7 @@ import "firebase/auth";
 import { ROUTES } from "../constants/routes";
 import { initFirestore, Datastore } from "../datastore/datastore";
 import clientPersistence from "../clientPersistence/clientPersistence";
+import { CollectionNames } from "../constants/datastore";
 
 const FirebaseContext = createContext();
 
@@ -14,13 +15,18 @@ const FirebaseContextProvider = ({ children }) => {
   const [datastore, setDatastore] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [datastoreError, setDatastoreError] = useState(null);
+  const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
     (async () => {
       try {
-        const firestore = new Datastore(initFirestore(firebase));
+        const firestore = new Datastore(initFirestore(firebase), (val) => {
+          setPendingCount(val);
+        });
         await firestore.enableOfflineStorage();
         firestore.disableNetworkIfOffline();
+        firestore.registerCollection(CollectionNames.ENCOUNTER, false);
+        firestore.registerCollection(CollectionNames.HABITAT_USE, true);
         setDatastore(firestore);
       } catch (e) {
         setDatastoreError(e.message);
@@ -42,7 +48,12 @@ const FirebaseContextProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ loggedInUser, datastore, datastoreError }}
+      value={{
+        loggedInUser,
+        datastore,
+        datastoreError,
+        pendingCount,
+      }}
     >
       {children}
     </FirebaseContext.Provider>

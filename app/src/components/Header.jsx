@@ -6,7 +6,8 @@ import containers from "../materials/containers";
 import { Avatar } from "./icons/Avatar";
 import BMMROLogo from "./icons/BMMROLogo";
 import Logout from "./Logout";
-import Menu from "./Menu/Menu";
+import Menu from "./UserMenu";
+import PendingIndicator from "./PendingIndicator";
 
 const styles = {
   header: css`
@@ -40,6 +41,7 @@ const Header = () => {
       <div css={styles.container}>
         <BMMROLogo />
         <span css={styles.text}>BMMRO</span>
+        <PendingIndicator />
         <Menu menuButtonComponent={<Avatar />} menuItems={[<Logout />]} />
       </div>
     </header>

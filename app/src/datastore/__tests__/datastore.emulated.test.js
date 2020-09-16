@@ -53,7 +53,7 @@ describe("datastore", () => {
     it("throws datastore error if security rules reject read", async () => {
       const firestoreEmulator = getFirestore();
 
-      const datastore = new Datastore(firestoreEmulator, false);
+      const datastore = new Datastore(firestoreEmulator, null, false);
       const thrownError = await datastore
         .readDocByPath("collection-without-read-permissions/non-existent-id")
         .catch((err) => err);
@@ -168,14 +168,14 @@ describe("datastore", () => {
     it("throws datastore error if security rules reject read", async () => {
       const firestoreEmulator = getFirestore();
 
-      const datastore = new Datastore(firestoreEmulator, false);
+      const datastore = new Datastore(firestoreEmulator, null, false);
 
       const { id: parentId } = await firestoreEmulator
         .collection("animal")
         .add({ location: "Pacific" });
 
       const thrownError = await datastore
-        .readDocsByParentPath(`invalid-collection/${parentId}`, "whale")
+        .readDocsByParentPath(`invalid-collection/${parentId}`, "snail")
         .catch((err) => err);
 
       expect(thrownError.name).toEqual("DatastoreError");
@@ -185,7 +185,7 @@ describe("datastore", () => {
     it("returns empty array if parent path id is invalid", async () => {
       const firestoreEmulator = getFirestore();
 
-      const datastore = new Datastore(firestoreEmulator, false);
+      const datastore = new Datastore(firestoreEmulator, null, false);
       const animals = await datastore.readDocsByParentPath(
         "animal/invalid-id",
         "whale"
@@ -222,7 +222,7 @@ describe("datastore", () => {
     it("successfully creates document", async () => {
       const firestoreEmulator = getFirestore();
 
-      const datastore = new Datastore(firestoreEmulator, false);
+      const datastore = new Datastore(firestoreEmulator, null, false);
 
       const id = datastore.createDoc("dolphin", {
         name: "Sally",
@@ -243,6 +243,7 @@ describe("datastore", () => {
       const handleDelayedError = jest.fn();
       const datastore = new Datastore(
         firestoreEmulator,
+        null,
         false,
         handleDelayedError
       );
@@ -263,7 +264,7 @@ describe("datastore", () => {
     it("successfully creates subdocument", async () => {
       const firestoreEmulator = getFirestore();
 
-      const datastore = new Datastore(firestoreEmulator, false);
+      const datastore = new Datastore(firestoreEmulator, null, false);
 
       const { id: parentId } = await firestoreEmulator
         .collection("animal")
@@ -290,6 +291,7 @@ describe("datastore", () => {
       const handleDelayedError = jest.fn();
       const datastore = new Datastore(
         firestoreEmulator,
+        null,
         false,
         handleDelayedError
       );
@@ -335,6 +337,7 @@ describe("datastore", () => {
       const handleDelayedError = jest.fn();
       const datastore = new Datastore(
         firestoreEmulator,
+        null,
         false,
         handleDelayedError
       );
