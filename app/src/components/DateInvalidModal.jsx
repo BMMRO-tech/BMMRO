@@ -12,7 +12,7 @@ import Attention from "./icons/Attention";
 import colors from "../materials/colors";
 import Button from "./Button";
 
-const DateInvalidModal = ({ closeModal }) => {
+const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
   const cancelRef = useRef();
 
   const styles = {
@@ -26,10 +26,14 @@ const DateInvalidModal = ({ closeModal }) => {
   };
 
   const CancelButton = forwardRef((_, ref) => (
-    <Button variant="primary" ref={ref} onClick={closeModal}>
+    <Button variant="secondary" ref={ref} onClick={closeModal}>
       Close
     </Button>
   ));
+
+  const modalText = !!navigateToEncounter
+    ? "End date & time cannot be autofilled as it would make encounter longer than 72 hours. Please check start date & fill end date/time."
+    : "End date and time cannot be more than 72 hours after start date and time.";
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
@@ -48,17 +52,28 @@ const DateInvalidModal = ({ closeModal }) => {
                 css={utilities.confirmationModal.modalHeader}
                 data-testid="offline-modal-title"
               >
-                Encounter End Date Invalid
+                Encounter is over 72 hours
               </AlertDialogLabel>
             </div>
           </div>
           <AlertDialogDescription
             css={utilities.confirmationModal.modalDescription}
           >
-            Please set end date within 3 days of the start date.
+            {modalText}
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
             <CancelButton />
+            {!!navigateToEncounter && (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  closeModal();
+                  navigateToEncounter();
+                }}
+              >
+                Go to encounter
+              </Button>
+            )}
           </div>
         </div>
       </AlertDialogOverlay>

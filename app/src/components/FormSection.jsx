@@ -18,13 +18,13 @@ const styles = {
   `,
 };
 
-const FormSection = ({ legendText, isOneLine, children }) => {
+const FormSection = ({ legendText, isOneLine, children, id }) => {
   const fieldsLayout = isOneLine
     ? [utilities.form.subsection, utilities.form.oneLineFieldsGrid]
     : [utilities.form.subsection, utilities.form.fieldsGrid];
 
   return (
-    <fieldset css={utilities.form.fieldset}>
+    <fieldset id={id} css={utilities.form.fieldset}>
       {legendText && (
         <legend css={styles.legend}>
           <div css={styles.section}>{legendText}</div>

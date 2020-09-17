@@ -6,7 +6,7 @@ import add from "date-fns/add";
 
 import utilities from "../materials/utilities";
 import breakPoints from "../materials/breakPoints";
-import { ROUTES } from "../constants/routes";
+import { generateEditEncounterURL, ROUTES } from "../constants/routes";
 import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
@@ -125,7 +125,12 @@ const OpenEncounter = ({ encounterId }) => {
   return (
     <Layout hasDefaultPadding={false} hasBackLink={encounter.exported}>
       {showDateModal && (
-        <DateInvalidModal closeModal={() => setShowDateModal(false)} />
+        <DateInvalidModal
+          closeModal={() => setShowDateModal(false)}
+          navigateToEncounter={() => {
+            navigate(`${generateEditEncounterURL(encounterId)}#dates`);
+          }}
+        />
       )}
       {encounter.exported && (
         <div css={utilities.backLinkContainer.top}>

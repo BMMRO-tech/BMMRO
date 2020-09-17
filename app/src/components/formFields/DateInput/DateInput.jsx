@@ -26,16 +26,6 @@ const DateInput = ({
       return getErrorMessage(FormErrorType.EMPTY);
     }
 
-    if (val) {
-      if (notBefore && val < notBefore) {
-        return getErrorMessage(FormErrorType.END_DATE_BEFORE_START_DATE);
-      }
-
-      if (notAfter && val > notAfter) {
-        return getErrorMessage(FormErrorType.INVALID_END_DATE);
-      }
-    }
-
     return "";
   };
 
@@ -47,7 +37,7 @@ const DateInput = ({
   useEffect(() => {
     if (autofill) helpers.setValue(getCurrentDate());
     // eslint-disable-next-line
-  }, []);
+  }, [autofill]);
 
   return (
     <div>

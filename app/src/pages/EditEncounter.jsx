@@ -13,14 +13,19 @@ import {
   ROUTES,
   generateViewEncounterURL,
 } from "../constants/routes";
-import { FormSubmitType } from "../constants/forms";
+import { FormSubmitType, THREE_DAYS_IN_HOURS } from "../constants/forms";
 import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
 import endEntry from "../utils/endEntry";
+import { constructDateTime } from "../utils/time";
+import { add } from "date-fns";
+import DateInvalidModal from "../components/DateInvalidModal";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
+  const [showDateModal, setShowDateModal] = useState(false);
+  const [autofillEnd, setAutofillEnd] = useState(false);
   const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
 
@@ -28,6 +33,24 @@ const EditEncounter = ({ encounterId }) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
 
     if (submitType === FormSubmitType.SAVE_AND_END) {
+      const encounterPath = generateEncounterPath(encounterId);
+
+      const endedEncounter = endEntry(values);
+      const endDateTime = constructDateTime(
+        endedEncounter.endTimestamp,
+        endedEncounter.endTime
+      );
+
+      const endDateLimit = add(new Date(endedEncounter.startTimestamp), {
+        hours: THREE_DAYS_IN_HOURS,
+      });
+
+      if (endDateTime > endDateLimit) {
+        setAutofillEnd(true);
+        setShowDateModal(true);
+        return;
+      }
+
       datastore.updateDocByPath(encounterPath, endEntry(modifiedProperties));
       navigate(ROUTES.encounters);
     } else if (submitType === FormSubmitType.SAVE) {
@@ -58,6 +81,9 @@ const EditEncounter = ({ encounterId }) => {
 
   return (
     <Layout hasDefaultPadding={false}>
+      {showDateModal && (
+        <DateInvalidModal closeModal={() => setShowDateModal(false)} />
+      )}
       {!initialValues ? (
         <Loader />
       ) : (
@@ -69,6 +95,7 @@ const EditEncounter = ({ encounterId }) => {
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             encounterId={encounterId}
+            autofillEnd={autofillEnd}
           />
         </Fragment>
       )}

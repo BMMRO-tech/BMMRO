@@ -42,6 +42,7 @@ const EncounterForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
+  autofillEnd,
 }) => {
   const [submitType, setSubmitType] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -451,7 +452,7 @@ const EncounterForm = ({
                   />
                 </FormSection>
                 <br />
-                <FormSection>
+                <FormSection id="dates">
                   <DateInput
                     name="startTimestamp"
                     labelText="Start date"
@@ -473,7 +474,11 @@ const EncounterForm = ({
                     labelText="End date"
                     isShort
                     notBefore={values.startTimestamp}
+                    notAfter={add(new Date(values.startTimestamp), {
+                      hours: THREE_DAYS_IN_HOURS,
+                    })}
                     isDisabled={isViewOnly}
+                    autofill={autofillEnd}
                   />
                   <TimeInput
                     name="endTime"
@@ -485,6 +490,7 @@ const EncounterForm = ({
                       values.startTime
                     )}
                     isDisabled={isViewOnly}
+                    autofill={autofillEnd}
                   />
                   <ElapsedTime
                     notAfter={add(
