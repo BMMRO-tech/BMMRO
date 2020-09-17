@@ -1,4 +1,5 @@
 export default [
+  "ABPF - Dolphin Decline",
   "ABPF - Stranding",
   "ABPF - research",
   "AUTEC Health",
@@ -29,6 +30,7 @@ export default [
   "Sea of Abaco",
   "Shared Waters",
   "Silverback",
+  "Vital Rates",
   "Whale Camp",
   "Wild Dolphin Project",
 ];
