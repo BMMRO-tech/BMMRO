@@ -1,22 +1,8 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import { Fragment, useState } from "react";
 
 import utilities from "../materials/utilities";
-
-const styles = {
-  mask: css`
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
-    z-index: 5;
-    background-color: transparent;
-    width: 99vw;
-    height: 100vh;
-  `,
-};
 
 const UserMenu = ({ menuButtonComponent, menuItems }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -35,7 +21,7 @@ const UserMenu = ({ menuButtonComponent, menuItems }) => {
       {showMenu && (
         <Fragment>
           <div
-            css={styles.mask}
+            css={utilities.header.mask}
             onClick={() => setShowMenu(false)}
             data-testid="menu-mask"
           />

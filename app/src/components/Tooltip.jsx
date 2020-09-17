@@ -11,8 +11,7 @@ const Tooltip = ({ children, text }) => {
       <button
         css={utilities.header.clearButton}
         aria-label="Show tooltip"
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
+        onClick={() => setShowTooltip(true)}
         aria-haspopup
       >
         {children}
@@ -20,6 +19,10 @@ const Tooltip = ({ children, text }) => {
 
       {showTooltip && (
         <Fragment>
+          <div
+            css={utilities.header.mask}
+            onClick={() => setShowTooltip(false)}
+          />
           <div css={utilities.header.popupContainer}>{text}</div>
         </Fragment>
       )}

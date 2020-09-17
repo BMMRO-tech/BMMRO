@@ -154,6 +154,17 @@ const utilities = {
       border: none;
       padding: 0;
     `,
+    mask: css`
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: fixed;
+      z-index: 5;
+      background-color: transparent;
+      width: 99vw;
+      height: 100vh;
+    `,
     popupContainer: css`
       top: 56px;
       right: 10px;
