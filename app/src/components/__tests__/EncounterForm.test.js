@@ -1,9 +1,12 @@
 import React from "react";
-import { act, render, waitFor } from "@testing-library/react";
+import { act, render, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import EncounterForm from "../EncounterForm";
 import encounterDefaultValues from "../../constants/encounterDefaultValues";
+import getErrorMessage from "../../utils/getErrorMessage";
+import { FormErrorType } from "../../constants/forms";
+import { changeInputMaskValue } from "../../utils/test/changeInputMaskValue";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -201,6 +204,40 @@ describe("EncounterForm", () => {
         expect(errorMessage).not.toBeNull();
         expect(mockHandleSubmit).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  it("shows an error when encounter is longer than 72 hours", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, getByLabelText } = render(
+      <EncounterForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={{
+          ...mockEncounterValues,
+          endTimestamp: new Date("2020-05-10T00:00:00.000Z"),
+        }}
+      />
+    );
+
+    await act(async () => {
+      const timeInput = getByRole("textbox", { name: "End time" });
+      changeInputMaskValue(timeInput, "1800");
+
+      const saveAndEndButton = getByRole("button", { name: "Save & End" });
+      userEvent.click(saveAndEndButton);
+    });
+
+    const expectedErrorMessage = getErrorMessage(
+      FormErrorType.INVALID_END_TIME
+    );
+
+    await waitFor(() => {
+      const errorMessage = getByLabelText("elapsedTime", {
+        selector: '[role="alert"]',
+      });
+      expect(errorMessage).toHaveTextContent(expectedErrorMessage);
+      expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
   });
 

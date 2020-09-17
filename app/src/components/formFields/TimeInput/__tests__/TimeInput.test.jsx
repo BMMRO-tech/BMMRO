@@ -8,13 +8,7 @@ import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import TimeInput from "../TimeInput";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
-
-const changeInputMaskValue = (element, value) => {
-  element.value = value;
-  element.selectionStart = element.selectionEnd = value.length;
-  TestUtils.Simulate.change(element);
-  TestUtils.Simulate.keyUp(element, { key: "Enter", keyCode: 13, which: 13 });
-};
+import { changeInputMaskValue } from "../../../../utils/test/changeInputMaskValue";
 
 describe("TimeInput", () => {
   beforeAll(() => {
