@@ -2,6 +2,7 @@
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
+import { add } from "date-fns";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
@@ -18,8 +19,8 @@ import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
 import endEntry from "../utils/endEntry";
 import { constructDateTime } from "../utils/time";
-import { add } from "date-fns";
 import DateInvalidModal from "../components/DateInvalidModal";
+import handleEditEncounterSubmit from "./handleEncounterSubmit";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
@@ -30,33 +31,15 @@ const EditEncounter = ({ encounterId }) => {
   const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (submitType, values) => {
-    const modifiedProperties = getModifiedProperties(values, initialValues);
-
-    if (submitType === FormSubmitType.SAVE_AND_END) {
-      const encounterPath = generateEncounterPath(encounterId);
-
-      const endedEncounter = endEntry(values);
-      const endDateTime = constructDateTime(
-        endedEncounter.endTimestamp,
-        endedEncounter.endTime
-      );
-
-      const endDateLimit = add(new Date(endedEncounter.startTimestamp), {
-        hours: THREE_DAYS_IN_HOURS,
-      });
-
-      if (endDateTime > endDateLimit) {
-        setAutofillEnd(true);
-        setShowDateModal(true);
-        return;
-      }
-
-      datastore.updateDocByPath(encounterPath, endEntry(modifiedProperties));
-      navigate(ROUTES.encounters);
-    } else if (submitType === FormSubmitType.SAVE) {
-      datastore.updateDocByPath(encounterPath, modifiedProperties);
-      navigate(generateOpenEncounterURL(encounterId));
-    }
+    handleEditEncounterSubmit(values, {
+      datastore,
+      setAutofillEnd,
+      setShowDateModal,
+      navigate,
+      submitType,
+      initialValues,
+      encounterId,
+    });
   };
 
   useEffect(() => {

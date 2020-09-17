@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { act } from "react-dom/test-utils";
-import userEvent from "@testing-library/user-event";
 
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
@@ -12,8 +11,8 @@ describe("ElapsedTime", () => {
       elapsedTime: "",
       startTime: "11:00",
       endTime: "11:30",
-      startTimestamp: new Date(Date.now()),
-      endTimestamp: new Date(Date.now()),
+      startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+      endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
     });
 
     const elapsedTimeText = await findByText("Elapsed time: 30 minutes");
@@ -29,8 +28,8 @@ describe("ElapsedTime", () => {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "11:__",
-        startTimestamp: new Date(Date.now()),
-        endTimestamp: new Date(Date.now()),
+        startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+        endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
       });
     });
     const { findByText, getFormValues } = container;
@@ -48,8 +47,8 @@ describe("ElapsedTime", () => {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "10:59",
-        startTimestamp: new Date(Date.now()),
-        endTimestamp: new Date(Date.now()),
+        startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+        endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
       });
     });
     const { getFormValues, findByText } = container;
