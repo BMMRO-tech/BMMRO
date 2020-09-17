@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { act } from "react-dom/test-utils";
+import { act } from "@testing-library/react";
 
+import { FormErrorType } from "../../../../constants/forms";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
 
@@ -40,7 +42,7 @@ describe("ElapsedTime", () => {
     expect(getFormValues().elapsedTime).toEqual("");
   });
 
-  it("does not set time when end time is before start time", async () => {
+  it("does not set elapsed time when end time is before start time", async () => {
     let container;
     await act(async () => {
       container = renderWithinFormik(<ElapsedTime />, {
@@ -57,5 +59,32 @@ describe("ElapsedTime", () => {
 
     expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
+  });
+
+  it("fails validation if end date but not end time is filled", async () => {
+    let container;
+    await act(async () => {
+      container = renderWithinFormik(<ElapsedTime />, {
+        elapsedTime: "",
+        startTime: "11:00",
+        endTime: "",
+        startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+        endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+      });
+    });
+    const { getFormValues, findByText, getFormErrors, getByRole } = container;
+
+    const elapsedTimeText = await findByText("Elapsed time: -- minutes");
+    const expectedErrorMessage = getErrorMessage(
+      FormErrorType.CONDITIONALLY_REQUIRED,
+      { first: "end date", second: "end time" }
+    );
+
+    expect(elapsedTimeText).toBeInTheDocument();
+    expect(getFormValues().elapsedTime).toEqual("");
+    expect(getFormErrors().elapsedTime).toEqual(expectedErrorMessage);
+    expect(getByRole("alert", { name: "elapsedTime" })).toHaveTextContent(
+      expectedErrorMessage
+    );
   });
 });
