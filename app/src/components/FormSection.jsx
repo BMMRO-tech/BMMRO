@@ -4,9 +4,15 @@ import utilities from "../materials/utilities";
 import colors from "../materials/colors";
 import { useFormikContext } from "formik";
 
-const FormSection = ({ legendText, isOneLine, children, id, errorName }) => {
+const FormSection = ({
+  legendText,
+  isOneLine,
+  children,
+  id,
+  errorFieldName,
+}) => {
   const { errors } = useFormikContext();
-  const hasSectionError = errorName && !!errors[errorName];
+  const hasSectionError = errorFieldName && !!errors[errorFieldName];
 
   const fieldsLayout = isOneLine
     ? [utilities.form.subsection, utilities.form.oneLineFieldsGrid]
