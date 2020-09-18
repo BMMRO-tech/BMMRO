@@ -7,7 +7,7 @@ import { LeftArrow } from "./icons/LeftArrow";
 
 const styles = {
   link: css`
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: ${colors.darkTurquoise};
     display: flex;

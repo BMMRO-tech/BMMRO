@@ -2,23 +2,14 @@
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
-import { add } from "date-fns";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
-import {
-  generateOpenEncounterURL,
-  ROUTES,
-  generateViewEncounterURL,
-} from "../constants/routes";
-import { FormSubmitType, THREE_DAYS_IN_HOURS } from "../constants/forms";
-import { getModifiedProperties } from "../utils/math";
+import { ROUTES, generateViewEncounterURL } from "../constants/routes";
 import utilities from "../materials/utilities";
-import endEntry from "../utils/endEntry";
-import { constructDateTime } from "../utils/time";
 import DateInvalidModal from "../components/DateInvalidModal";
 import handleEditEncounterSubmit from "./handleEncounterSubmit";
 

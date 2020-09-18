@@ -11,13 +11,16 @@ import utilities from "../materials/utilities";
 import Attention from "./icons/Attention";
 import colors from "../materials/colors";
 import Button from "./Button";
+import breakPoints from "../materials/breakPoints";
 
 const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
   const cancelRef = useRef();
 
   const styles = {
     attentionIcon: css`
-      padding-right: 20px;
+      @media (min-width: ${breakPoints.maxPhone}) {
+        padding-right: 20px;
+      }
     `,
     error: css`
       color: ${colors.darkRed};
@@ -26,13 +29,13 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
   };
 
   const CancelButton = forwardRef((_, ref) => (
-    <Button variant="secondary" ref={ref} onClick={closeModal}>
+    <Button variant="primary" ref={ref} onClick={closeModal}>
       Close
     </Button>
   ));
 
   const modalText = !!navigateToEncounter
-    ? "End date & time cannot be autofilled as it would make encounter longer than 72 hours. Please check start date & fill end date/time."
+    ? "Encounter cannot be ended as end date and time is more than 72 hours after start date and time. Please update in the encounter data sheet."
     : "End date and time cannot be more than 72 hours after start date and time.";
 
   return (
@@ -62,8 +65,7 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
             {modalText}
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
-            <CancelButton />
-            {!!navigateToEncounter && (
+            {!!navigateToEncounter ? (
               <Button
                 variant="primary"
                 onClick={() => {
@@ -71,8 +73,10 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
                   navigateToEncounter();
                 }}
               >
-                Go to encounter
+                Go to encounter data sheet
               </Button>
+            ) : (
+              <CancelButton />
             )}
           </div>
         </div>

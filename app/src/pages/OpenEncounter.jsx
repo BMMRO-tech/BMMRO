@@ -40,6 +40,7 @@ const OpenEncounter = ({ encounterId }) => {
       font-style: italic;
       margin-top: 10px;
       text-align: center;
+      max-width: 300px;
     `,
   };
 
@@ -115,7 +116,8 @@ const OpenEncounter = ({ encounterId }) => {
         </Button>
         {isNewEncounter() && (
           <div css={styles.disabledButtonMessage}>
-            Please complete all required encounter fields to end the encounter
+            Please complete all required fields in encounter data sheet before
+            ending the encounter
           </div>
         )}
       </div>
@@ -123,7 +125,7 @@ const OpenEncounter = ({ encounterId }) => {
   };
 
   return (
-    <Layout hasDefaultPadding={false} hasBackLink={encounter.exported}>
+    <Layout hasDefaultPadding={false}>
       {showDateModal && (
         <DateInvalidModal
           closeModal={() => setShowDateModal(false)}
@@ -132,12 +134,9 @@ const OpenEncounter = ({ encounterId }) => {
           }}
         />
       )}
-      {encounter.exported && (
-        <div css={utilities.backLinkContainer.top}>
-          <BackLink text="Return to encounter list" to={ROUTES.encounters} />
-        </div>
-      )}
-
+      <div css={utilities.backLinkContainer.top}>
+        <BackLink text="Return to encounter list" to={ROUTES.encounters} />
+      </div>
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
           <EncounterOverview
