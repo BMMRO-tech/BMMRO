@@ -74,7 +74,7 @@ const TimeInput = ({
   useEffect(() => {
     if (autofill) helpers.setValue(format(getCurrentDate(), timeFormat));
     // eslint-disable-next-line
-  }, []);
+  }, [autofill]);
 
   useEffect(() => {
     if (

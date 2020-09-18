@@ -1,23 +1,52 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { useEffect, Fragment } from "react";
+import { useEffect } from "react";
 import { useField } from "formik";
 
-import NumberInput from "../NumberInput/NumberInput";
+import FieldError from "../FieldError";
 import { TIME_PATTERN } from "../../../constants/forms";
+import { FormErrorType } from "../../../constants/forms";
 import { constructDateTime } from "../../../utils/time";
+import getErrorMessage from "../../../utils/getErrorMessage";
+import fieldStyles from "../fieldStyles";
 
 const timeStringValid = (val) => {
   const timePattern = new RegExp(TIME_PATTERN);
   return timePattern.test(val);
 };
 
-const ElapsedTime = ({ isDisabled }) => {
-  const [field, , helpers] = useField("elapsedTime");
+const ElapsedTime = ({ notAfter }) => {
   const [startTimestampField] = useField("startTimestamp");
   const [startTimeField] = useField("startTime");
   const [endTimestampField] = useField("endTimestamp");
   const [endTimeField] = useField("endTime");
+  const fieldName = "elapsedTime";
+
+  const realEndTimestamp = constructDateTime(
+    endTimestampField.value,
+    endTimeField.value
+  );
+
+  const validateEndDateAndTime = () => {
+    if (
+      (!!endTimestampField.value && !endTimeField.value) ||
+      (!endTimestampField.value && !!endTimeField.value)
+    ) {
+      return getErrorMessage(FormErrorType.CONDITIONALLY_REQUIRED, {
+        first: "end date",
+        second: "end time",
+      });
+    } else if (notAfter && realEndTimestamp > notAfter) {
+      return getErrorMessage(FormErrorType.INVALID_END_TIME);
+    }
+
+    return "";
+  };
+
+  const [field, meta, helpers] = useField({
+    name: fieldName,
+    validate: validateEndDateAndTime,
+  });
 
   useEffect(() => {
     if (
@@ -40,7 +69,10 @@ const ElapsedTime = ({ isDisabled }) => {
         const elapsedMinutes = Math.round(elapsedTime / 60000);
         helpers.setValue(elapsedMinutes);
       }
+    } else {
+      helpers.setValue("");
     }
+
     // eslint-disable-next-line
   }, [
     startTimestampField.value,
@@ -48,19 +80,14 @@ const ElapsedTime = ({ isDisabled }) => {
     endTimestampField.value,
     endTimeField.value,
   ]);
+
   return (
-    <Fragment>
-      <NumberInput
-        {...field}
-        name="elapsedTime"
-        labelText="Elapsed time (mins)"
-        minValue={0}
-        maxValue={4320}
-        isShort
-        isInteger
-        isDisabled={isDisabled}
-      />
-    </Fragment>
+    <div css={fieldStyles.doubleGrid}>
+      <p name={fieldName}>{`Elapsed time: ${
+        field.value ? field.value : "--"
+      } minutes`}</p>
+      <FieldError touched errorMessage={meta.error} labelText={fieldName} />
+    </div>
   );
 };
 

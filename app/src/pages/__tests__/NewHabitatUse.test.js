@@ -1,7 +1,8 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
-import { waitFor } from "@testing-library/react";
+import { waitFor, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { Datastore } from "../../datastore/datastore";
 import NewHabitatUse from "../NewHabitatUse";
@@ -46,5 +47,34 @@ describe("NewHabitatUse", () => {
     await waitFor(() => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
+  });
+
+  it("sets hasEnded to true when ending habitat", async () => {
+    await firestoreEmulator.collection("encounter").doc("789").set({
+      name: "Barney",
+      species: "Bottlenose dolphin",
+    });
+
+    const { findByRole } = renderWithMockContexts(
+      <NewHabitatUse encounterId={"789"} />,
+      { datastore }
+    );
+
+    const endHabitatButton = await findByRole("button", {
+      name: "End Habitat",
+    });
+    await act(async () => {
+      userEvent.click(endHabitatButton);
+    });
+
+    let habitatUses = [];
+    const habitatData = await firestoreEmulator
+      .doc("encounter/789")
+      .collection("habitatUse")
+      .get();
+    habitatData.forEach((doc) => habitatUses.push(doc.data()));
+
+    expect(habitatUses[0].hasEnded).toBe(true);
+    expect(habitatUses.length).toBe(1);
   });
 });

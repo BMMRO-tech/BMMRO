@@ -1,7 +1,8 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
-import { waitFor } from "@testing-library/react";
+import { waitFor, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { Datastore } from "../../datastore/datastore";
 import OpenEncounter from "../OpenEncounter";
@@ -11,7 +12,7 @@ describe("OpenEncounter", () => {
   let firestoreEmulator;
   let datastore;
 
-  beforeEach(() => {
+  beforeAll(() => {
     firestoreEmulator = firebaseTesting
       .initializeTestApp({
         projectId,
@@ -53,16 +54,15 @@ describe("OpenEncounter", () => {
       species: "Bottlenose dolphin",
       area: "UK",
     });
-
-    const { getByRole } = renderWithMockContexts(
+    const { findByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"a6789"} />,
       { datastore }
     );
+    const endButton = await findByRole("button", {
+      name: "End encounter",
+    });
 
     await waitFor(() => {
-      const endButton = getByRole("button", {
-        name: "End encounter",
-      });
       expect(endButton).toHaveAttribute("disabled");
     });
   });
@@ -74,16 +74,15 @@ describe("OpenEncounter", () => {
       sequenceNumber: "123",
       exported: false,
     });
-
-    const { getByRole } = renderWithMockContexts(
+    const { findByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"123"} />,
       { datastore }
     );
+    const endButton = await findByRole("button", {
+      name: "End encounter",
+    });
 
     await waitFor(() => {
-      const endButton = getByRole("button", {
-        name: "End encounter",
-      });
       expect(endButton).not.toHaveAttribute("disabled");
     });
   });
@@ -95,7 +94,6 @@ describe("OpenEncounter", () => {
       sequenceNumber: "123",
       exported: true,
     });
-
     const { getAllByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"123"} />,
       { datastore }
@@ -111,5 +109,30 @@ describe("OpenEncounter", () => {
       expect(backLinks[0].href).toContain(expectedLink);
       expect(backLinks[1].href).toContain(expectedLink);
     });
+  });
+
+  it("sets hasEnded to true when ending encounter", async () => {
+    await firestoreEmulator.collection("encounter").doc("abcd1234").set({
+      species: "some species",
+      area: "some area",
+      sequenceNumber: "abcd1234",
+      exported: false,
+    });
+    const { findByRole } = renderWithMockContexts(
+      <OpenEncounter encounterId={"abcd1234"} />,
+      { datastore }
+    );
+
+    const endEncounterButton = await findByRole("button", {
+      name: "End encounter",
+    });
+    await act(async () => {
+      userEvent.click(endEncounterButton);
+    });
+
+    const endedEncounter = (
+      await firestoreEmulator.doc("encounter/abcd1234").get()
+    ).data();
+    expect(endedEncounter.hasEnded).toBe(true);
   });
 });

@@ -1,73 +1,90 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { act } from "react-dom/test-utils";
-import userEvent from "@testing-library/user-event";
+import { act } from "@testing-library/react";
 
+import { FormErrorType } from "../../../../constants/forms";
+import getErrorMessage from "../../../../utils/getErrorMessage";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
 
 describe("ElapsedTime", () => {
-  it("synchronizes field value with form state & autofills", async () => {
-    let timeRender;
-
-    await act(async () => {
-      timeRender = renderWithinFormik(<ElapsedTime />, {
-        elapsedTime: "",
-        startTime: "11:00",
-        endTime: "11:30",
-        startTimestamp: new Date(Date.now()),
-        endTimestamp: new Date(Date.now()),
-      });
+  it("displays elapsed time and synchronizes it with form state", async () => {
+    const { findByText, getFormValues } = renderWithinFormik(<ElapsedTime />, {
+      elapsedTime: "",
+      startTime: "11:00",
+      endTime: "11:30",
+      startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+      endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
     });
 
-    expect(timeRender.getFormValues().elapsedTime).toEqual(30);
-    expect(timeRender.getFormErrors()).toEqual({});
+    const elapsedTimeText = await findByText("Elapsed time: 30 minutes");
+
+    expect(elapsedTimeText).toBeInTheDocument();
+    expect(getFormValues().elapsedTime).toEqual(30);
   });
 
-  it("does not set time when time is invalid", async () => {
-    let getFormValues;
-
+  it("does not set elapsed time when time is invalid", async () => {
+    let container;
     await act(async () => {
-      getFormValues = renderWithinFormik(<ElapsedTime />, {
+      container = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "11:__",
-        startTimestamp: new Date(Date.now()),
-        endTimestamp: new Date(Date.now()),
-      }).getFormValues;
+        startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+        endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+      });
     });
+    const { findByText, getFormValues } = container;
 
+    const elapsedTimeText = await findByText("Elapsed time: -- minutes");
+
+    expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
   });
 
-  it("does not set time when end time is before start time", async () => {
-    let getFormValues;
+  it("does not set elapsed time when end time is before start time", async () => {
+    let container;
     await act(async () => {
-      getFormValues = renderWithinFormik(<ElapsedTime />, {
+      container = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
         startTime: "11:00",
         endTime: "10:59",
-        startTimestamp: new Date(Date.now()),
-        endTimestamp: new Date(Date.now()),
-      }).getFormValues;
+        startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+        endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+      });
     });
+    const { getFormValues, findByText } = container;
 
+    const elapsedTimeText = await findByText("Elapsed time: -- minutes");
+
+    expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
   });
 
-  it("does not allow input when field is disabled", async () => {
-    const { getFormValues, getByRole } = renderWithinFormik(
-      <ElapsedTime isDisabled />,
-      {
+  it("fails validation if end date but not end time is filled", async () => {
+    let container;
+    await act(async () => {
+      container = renderWithinFormik(<ElapsedTime />, {
         elapsedTime: "",
-      }
+        startTime: "11:00",
+        endTime: "",
+        startTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+        endTimestamp: new Date("2020-01-01T00:00:00.000Z"),
+      });
+    });
+    const { getFormValues, findByText, getFormErrors, getByRole } = container;
+
+    const elapsedTimeText = await findByText("Elapsed time: -- minutes");
+    const expectedErrorMessage = getErrorMessage(
+      FormErrorType.CONDITIONALLY_REQUIRED,
+      { first: "end date", second: "end time" }
     );
 
-    const elapsedTimeInput = getByRole("spinbutton", {
-      name: "Elapsed time (mins)",
-    });
-    await userEvent.type(elapsedTimeInput, "12:20", { delay: 1 });
-
+    expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
+    expect(getFormErrors().elapsedTime).toEqual(expectedErrorMessage);
+    expect(getByRole("alert", { name: "elapsedTime" })).toHaveTextContent(
+      expectedErrorMessage
+    );
   });
 });

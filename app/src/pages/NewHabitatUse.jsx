@@ -23,6 +23,7 @@ const NewHabitatUse = ({ encounterId }) => {
   const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (values) => {
+    values.hasEnded = true;
     if (!values.endTime) {
       values.endTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
     }

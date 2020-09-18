@@ -70,7 +70,7 @@ const ListItem = ({
     `,
     rightContainer: css`
       ${typography.smallText}
-      
+
       @media (min-width: ${breakPoints.maxPhone}) {
         text-align: right;
       }

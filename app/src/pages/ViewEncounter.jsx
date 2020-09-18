@@ -51,7 +51,7 @@ const ViewEncounter = ({ encounterId }) => {
   }, [datastore]);
 
   return (
-    <Layout hasDefaultPadding={false} hasBackLink>
+    <Layout hasDefaultPadding={false}>
       <div css={utilities.backLinkContainer.top}>
         <BackLink
           text="Return to encounter overview"

@@ -25,4 +25,5 @@ export default {
   longitude: "",
   gpsMark: "",
   exported: false,
+  hasEnded: false,
 };

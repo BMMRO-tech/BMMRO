@@ -21,19 +21,8 @@ const LogoutConfirmationModal = ({ closeModal }) => {
   const cancelRef = useRef();
 
   const styles = {
-    modalHeaderContainerOffline: css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `,
     attentionIcon: css`
       padding-right: 20px;
-    `,
-    modalDescriptionList: css`
-      margin: 0;
-      li:not(:first-child) {
-        margin-top: 10px;
-      }
     `,
     error: css`
       color: ${colors.darkRed};
@@ -65,7 +54,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
 
   const renderOfflineModalTitle = () => {
     return (
-      <div css={styles.modalHeaderContainerOffline}>
+      <div css={utilities.confirmationModal.modalHeaderContainer}>
         <div css={styles.attentionIcon}>
           <Attention />
         </div>
@@ -95,7 +84,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       <AlertDialogDescription
         css={utilities.confirmationModal.modalDescription}
       >
-        <ul css={styles.modalDescriptionList}>
+        <ul css={utilities.confirmationModal.modalDescriptionList}>
           <li>
             You will not be able to login and use the app until you are back
             online.

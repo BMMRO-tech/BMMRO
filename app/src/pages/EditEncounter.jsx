@@ -8,30 +8,29 @@ import Layout from "../components/Layout";
 import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
 import { generateEncounterPath } from "../constants/datastore";
-import {
-  generateOpenEncounterURL,
-  ROUTES,
-  generateViewEncounterURL,
-} from "../constants/routes";
-import { FormSubmitType } from "../constants/forms";
-import { getModifiedProperties } from "../utils/math";
+import { ROUTES, generateViewEncounterURL } from "../constants/routes";
 import utilities from "../materials/utilities";
+import DateInvalidModal from "../components/DateInvalidModal";
+import handleEditEncounterSubmit from "./handleEncounterSubmit";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
+  const [showDateModal, setShowDateModal] = useState(false);
+  const [autofillEnd, setAutofillEnd] = useState(false);
   const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (submitType, values) => {
-    const modifiedProperties = getModifiedProperties(values, initialValues);
-    datastore.updateDocByPath(encounterPath, modifiedProperties);
-
-    if (submitType === FormSubmitType.SAVE_AND_END) {
-      navigate(ROUTES.encounters);
-    } else if (submitType === FormSubmitType.SAVE) {
-      navigate(generateOpenEncounterURL(encounterId));
-    }
+    handleEditEncounterSubmit(values, {
+      datastore,
+      setAutofillEnd,
+      setShowDateModal,
+      navigate,
+      submitType,
+      initialValues,
+      encounterId,
+    });
   };
 
   useEffect(() => {
@@ -56,15 +55,21 @@ const EditEncounter = ({ encounterId }) => {
 
   return (
     <Layout hasDefaultPadding={false}>
+      {showDateModal && (
+        <DateInvalidModal closeModal={() => setShowDateModal(false)} />
+      )}
       {!initialValues ? (
         <Loader />
       ) : (
         <Fragment>
-          <h1 css={utilities.form.title}>Edit Encounter</h1>
+          <h1 css={utilities.form.title}>
+            {initialValues.hasEnded ? "Edit Encounter" : "New Encounter"}
+          </h1>
           <EncounterForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             encounterId={encounterId}
+            autofillEnd={autofillEnd}
           />
         </Fragment>
       )}

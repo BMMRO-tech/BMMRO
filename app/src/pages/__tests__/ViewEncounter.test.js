@@ -59,6 +59,8 @@ describe("ViewEncounter", () => {
         exported: true,
         startTimestamp: new Date("2020-08-13T23:00:00.000Z"),
         startTime: "10:14",
+        endTimestamp: new Date("2020-08-14T10:14:00.000Z"),
+        endTime: "10:14",
       });
 
     const entryPath = `/encounters/${encounterId}/view`;
@@ -91,6 +93,8 @@ describe("ViewEncounter", () => {
         exported: true,
         startTimestamp: new Date("2020-08-13T23:00:00.000Z"),
         startTime: "10:14",
+        endTimestamp: new Date("2020-08-14T10:14:00.000Z"),
+        endTime: "10:14",
       });
 
     const entryPath = `/encounters/${encounterId}/view`;

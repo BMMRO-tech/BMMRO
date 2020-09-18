@@ -13,9 +13,9 @@ const getErrorMessage = (type, params) => {
     case FormErrorType.INVALID_TIME_FORMAT:
       return `Time must be in the following format ${params.format}`;
     case FormErrorType.INVALID_END_DATE:
-      return "Invalid end date";
+      return "End date must be within 3 days of start date";
     case FormErrorType.INVALID_END_TIME:
-      return "Invalid end time";
+      return "End time must be within 72 hours of start time";
     case FormErrorType.INVALID_POSITION_FORMAT:
       return "Invalid position format";
     case FormErrorType.INVALID_DECIMAL_PLACES:
@@ -24,6 +24,8 @@ const getErrorMessage = (type, params) => {
       return `Field can only have a maximum of ${params.maxDecimalPlaces} decimal places`;
     case FormErrorType.EMPTY:
       return "Required";
+    case FormErrorType.CONDITIONALLY_REQUIRED:
+      return `Please fill out both ${params.first} and ${params.second} fields or leave both blank`;
     case FormErrorType.END_TIME_BEFORE_START_TIME:
       return "End time cannot be before start time";
     case FormErrorType.END_DATE_BEFORE_START_DATE:

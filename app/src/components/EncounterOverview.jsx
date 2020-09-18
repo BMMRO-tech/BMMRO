@@ -11,7 +11,7 @@ import {
   generateViewEncounterURL,
 } from "../constants/routes";
 
-const EncounterOverview = ({ encounter, isNewEncounter }) => {
+const EncounterOverview = ({ encounter, isNewEncounter, encounterId }) => {
   const styles = {
     exportedInfo: css`
       font-style: italic;
@@ -86,8 +86,8 @@ const EncounterOverview = ({ encounter, isNewEncounter }) => {
           css={styles.link}
           to={
             encounter.exported
-              ? generateViewEncounterURL(encounter.id)
-              : generateEditEncounterURL(encounter.id)
+              ? generateViewEncounterURL(encounterId)
+              : generateEditEncounterURL(encounterId)
           }
         >
           <span>Encounter data sheet</span>

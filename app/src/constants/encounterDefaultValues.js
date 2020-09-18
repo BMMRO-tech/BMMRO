@@ -48,4 +48,5 @@ export default {
   enteredBy: RESEARCH_ASSISTANT,
   needsToBeChecked: true,
   exported: false,
+  hasEnded: false,
 };

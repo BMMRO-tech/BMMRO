@@ -134,12 +134,33 @@ const utilities = {
         min-width: auto;
       }
     `,
+    modalHeaderContainer: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      @media (min-width: ${breakPoints.maxPhone}) {
+        flex-direction: row;
+      }
+    `,
     modalHeader: css`
       text-align: center;
       font-weight: bold;
+      padding-top: 5px;
+
+      @media (min-width: ${breakPoints.maxPhone}) {
+        padding-top: 0;
+      }
     `,
     modalDescription: css`
-      padding: 20px 0 20px 0;
+      padding: 20px 0;
+    `,
+    modalDescriptionList: css`
+      margin: 0;
+      li:not(:first-child) {
+        margin-top: 10px;
+      }
     `,
     modalButtons: css`
       display: flex;

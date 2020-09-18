@@ -42,6 +42,7 @@ const EncounterForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
+  autofillEnd,
 }) => {
   const [submitType, setSubmitType] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -60,7 +61,7 @@ const EncounterForm = ({
 
   const transformSubmitValues = (values) => {
     values.startTimestamp.setHours(0, 0, 0, 0);
-    if (values.endTimestamp) {
+    if (!!values.endTimestamp) {
       values.endTimestamp.setHours(0, 0, 0, 0);
     }
 
@@ -77,6 +78,7 @@ const EncounterForm = ({
   };
 
   const initValues = initialValues || encounterDefaults;
+  const hasEnded = initialValues ? initialValues.hasEnded : false;
 
   return (
     <div css={utilities.sticky.contentContainer}>
@@ -93,15 +95,6 @@ const EncounterForm = ({
               <section css={styles.section}>
                 <ListHeader title="Encounter details" />
                 <FormSection>
-                  <DateInput
-                    name="startTimestamp"
-                    labelText="Date"
-                    isRequired
-                    isShort
-                    notAfter={new Date()}
-                    autofill={!initialValues}
-                    isDisabled={isViewOnly}
-                  />
                   <TextInput
                     name="sequenceNumber"
                     labelText="Encounter sequence"
@@ -114,15 +107,6 @@ const EncounterForm = ({
                     name="area"
                     labelText="Area"
                     options={area}
-                    isRequired
-                    isDisabled={isViewOnly}
-                  />
-                  <TimeInput
-                    name="startTime"
-                    labelText="Start time"
-                    isShort
-                    autofill={!initialValues}
-                    notAfter={values.startTimestamp}
                     isRequired
                     isDisabled={isViewOnly}
                   />
@@ -468,6 +452,57 @@ const EncounterForm = ({
                   />
                 </FormSection>
                 <br />
+                <FormSection id="dates" errorFieldName="elapsedTime">
+                  <DateInput
+                    name="startTimestamp"
+                    labelText="Start date"
+                    isRequired
+                    isShort
+                    notAfter={new Date()}
+                    isDisabled={isViewOnly}
+                  />
+                  <TimeInput
+                    name="startTime"
+                    labelText="Start time"
+                    isShort
+                    notAfter={values.startTimestamp}
+                    isRequired
+                    isDisabled={isViewOnly}
+                  />
+                  <DateInput
+                    name="endTimestamp"
+                    labelText="End date"
+                    isShort
+                    notBefore={values.startTimestamp}
+                    notAfter={add(new Date(values.startTimestamp), {
+                      hours: THREE_DAYS_IN_HOURS,
+                    })}
+                    isDisabled={isViewOnly}
+                    autofill={autofillEnd}
+                  />
+                  <TimeInput
+                    name="endTime"
+                    labelText="End time"
+                    isShort
+                    associatedDate={values.endTimestamp}
+                    notBefore={constructDateTime(
+                      values.startTimestamp,
+                      values.startTime
+                    )}
+                    isDisabled={isViewOnly}
+                    autofill={autofillEnd}
+                  />
+                  <ElapsedTime
+                    notAfter={add(
+                      constructDateTime(
+                        values.startTimestamp,
+                        values.startTime
+                      ),
+                      { hours: THREE_DAYS_IN_HOURS }
+                    )}
+                  />
+                </FormSection>
+                <br />
                 <FormSection>
                   <TimeInput
                     name="endOfSearchEffort"
@@ -481,36 +516,6 @@ const EncounterForm = ({
                     options={reasonForLeaving}
                     isDisabled={isViewOnly}
                   />
-                  <TimeInput
-                    name="endTime"
-                    labelText="End time"
-                    isShort
-                    associatedDate={values.endTimestamp}
-                    notBefore={constructDateTime(
-                      values.startTimestamp,
-                      values.startTime
-                    )}
-                    notAfter={add(
-                      constructDateTime(
-                        values.startTimestamp,
-                        values.startTime
-                      ),
-                      { hours: THREE_DAYS_IN_HOURS }
-                    )}
-                    isDisabled={isViewOnly}
-                  />
-                  <DateInput
-                    name="endTimestamp"
-                    labelText="End date"
-                    isShort
-                    autofill={!initialValues}
-                    notBefore={values.startTimestamp}
-                    notAfter={add(new Date(values.startTimestamp), {
-                      hours: THREE_DAYS_IN_HOURS,
-                    })}
-                    isDisabled={isViewOnly}
-                  />
-                  <ElapsedTime isDisabled={isViewOnly} />
                   <RadioGroup
                     name="enteredBy"
                     labelText="Entered by"
@@ -554,20 +559,22 @@ const EncounterForm = ({
                       </Button>
                     </div>
                     <div css={utilities.sticky.rightContainer}>
-                      <Button
-                        styles={styles.endButton}
-                        width="150px"
-                        variant="secondary"
-                        type="button"
-                        onClick={() => {
-                          // Setting state and calling submitForm with timeout is required as passing a payload to
-                          // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
-                          setSubmitType(FormSubmitType.SAVE_AND_END);
-                          setTimeout(submitForm);
-                        }}
-                      >
-                        Save & End
-                      </Button>
+                      {!hasEnded && (
+                        <Button
+                          styles={styles.endButton}
+                          width="150px"
+                          variant="secondary"
+                          type="button"
+                          onClick={() => {
+                            // Setting state and calling submitForm with timeout is required as passing a payload to
+                            // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
+                            setSubmitType(FormSubmitType.SAVE_AND_END);
+                            setTimeout(submitForm);
+                          }}
+                        >
+                          Save & End
+                        </Button>
+                      )}
                       <Button
                         type="button"
                         onClick={() => {
