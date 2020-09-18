@@ -452,7 +452,7 @@ const EncounterForm = ({
                   />
                 </FormSection>
                 <br />
-                <FormSection id="dates">
+                <FormSection id="dates" errorName="elapsedTime">
                   <DateInput
                     name="startTimestamp"
                     labelText="Start date"
