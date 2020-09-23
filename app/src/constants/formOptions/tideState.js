@@ -1,1 +1,9 @@
-export default ["High", "Ebb", "Low", "Flood", "Slack", "High Slack", "Low Slack", "Not Noted"];
+export default [
+  "High",
+  "Ebb",
+  "Low",
+  "Flood",
+  "High Slack",
+  "Low Slack",
+  "Not Noted",
+];
