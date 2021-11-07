@@ -17,6 +17,7 @@ export default [
   "Sexy Lexy",
   "Sharp",
   "Shearwater",
+  "Sima",
   "Slumber Venture",
   "Steno II",
   "Walton Smith",
