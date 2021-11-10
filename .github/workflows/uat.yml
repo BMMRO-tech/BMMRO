@@ -36,9 +36,9 @@ jobs:
       - name: Set environment variable with new version
         run: |
           PENDING_TAG=$(git fetch origin --tags -q && git describe --tags --match "uat-pending-*" $(git rev-list --tags="uat-pending-*" --max-count=1))
-          echo "::set-env name=PENDING_TAG::$PENDING_TAG"
+          echo "PENDING_TAG=$PENDING_TAG" >> $GITHUB_ENV
           PENDING_TAG_VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
-          echo "::set-env name=NEW_VERSION::$PENDING_TAG_VERSION"
+          echo "NEW_VERSION=$PENDING_TAG_VERSION" >> $GITHUB_ENV
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
