@@ -60,8 +60,24 @@ To run the app locally you need to setup your own Firebase project:
 - set `REACT_APP_API_KEY` to `apiKey`
 - set `REACT_APP_AUTH_DOMAIN` to `authDomain`
 
-6.  Go to Authentication tab in Firebase console and setup sign-in method to email/password.
-7.  Go to Users tab and add new user. You will be able to login locally with these credentials.
+e.g
+
+````REACT_APP_PROJECT_ID="bmmro-c96e8"
+REACT_APP_API_KEY="AIzaSyBefihyXysbRYUaBgcFIM3UqhMeWfSVM08"
+REACT_APP_AUTH_DOMAIN="bmmro-c96e8.firebaseapp.com"```
+
+6.  In the main Firebase console, navigate to the Build tab on the left-hand side and then to Authentication, and set up sign-in method to email/password.
+7.  Go to Users tab and add new user. You will be able to log in locally with these credentials.
+
+##Setting up your database
+With npm start running, you will be able to see the BMMRO webapp at localhost. However, it is not connected to a database.
+
+1. Open the JavaScript console in Chrome and follow the link to set up the Cloud Firestore API.
+2. Accept the T&Cs and click 'enable'.
+3. Go back to your Fire*base* console. Select the Build tab, then Firestore Database. Click create database, and select to start in test mode then choose your region.
+4. Go to the 'Rules' tab, delete lines 5 AND 6 and replace with `allow read, write: if true;`. Click publish.
+5. Refresh localhost and follow the link in the error after 'You can create it here:'. Click Save.
+6. Once the wheels have stopped spinning, your database is set up and your app is ready to use! XD
 
 In the `app` directory, install all dependencies:
 
@@ -111,3 +127,4 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+````
