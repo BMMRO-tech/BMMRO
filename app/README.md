@@ -63,9 +63,9 @@ To run the app locally you need to setup your own Firebase project:
 e.g
 
 ```
-REACT_APP_PROJECT_ID="bmmro-c96e8"
-REACT_APP_API_KEY="AIzaSyBefihyXysbRYUaBgcFIM3UqhMeWfSVM08"
-REACT_APP_AUTH_DOMAIN="bmmro-c96e8.firebaseapp.com"
+REACT_APP_PROJECT_ID="bmmro-x9xx9"
+REACT_APP_API_KEY="AIzpSyBefqhyPysbRYUaWgcFIM2UqhMe8fSAM37"
+REACT_APP_AUTH_DOMAIN="bmmro-x9xx9.firebaseapp.com"
 ```
 
 6.  In the main Firebase console, navigate to the Build tab on the left-hand side and then to Authentication, and set up sign-in method to email/password.
