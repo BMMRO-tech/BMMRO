@@ -82,6 +82,10 @@ With `npm start` running, you will be able to see the BMMRO webapp at localhost.
 5. Refresh localhost and follow the link in the error after 'You can create it here:'. Click Save.
 6. Once the wheels have stopped spinning, your database is set up and your app is ready to use! XD
 
+### Setting up your database emulator
+
+The app uses a Firestore emulator for running tests against. To authenticate this, run `npx firestore login` and follow the commands.
+
 In the `app` directory, install all dependencies:
 
 ### `npm install`
