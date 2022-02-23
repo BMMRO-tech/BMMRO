@@ -116,6 +116,7 @@ firebase-debug.log*
 ## misc
 .DS_Store
 .vscode
+.idea
 
 # Scripts
 
