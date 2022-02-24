@@ -81,11 +81,7 @@ describe("TimeInput", () => {
   });
 
   it("validates on invalid hour", async () => {
-    const {
-      getFormErrors,
-      getByRole,
-      getByText,
-    } = renderWithinFormik(
+    const { getFormErrors, getByRole, getByText } = renderWithinFormik(
       <TimeInput
         name="favoriteTime"
         labelText="Your favorite time"
@@ -111,11 +107,7 @@ describe("TimeInput", () => {
   });
 
   it("validates time is not before the notBefore date", async () => {
-    const {
-      getFormErrors,
-      getByRole,
-      getByText,
-    } = renderWithinFormik(
+    const { getFormErrors, getByRole, getByText } = renderWithinFormik(
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
@@ -142,11 +134,7 @@ describe("TimeInput", () => {
   });
 
   it("validates time is not after the notAfter date", async () => {
-    const {
-      getFormErrors,
-      getByRole,
-      getByText,
-    } = renderWithinFormik(
+    const { getFormErrors, getByRole, getByText } = renderWithinFormik(
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
