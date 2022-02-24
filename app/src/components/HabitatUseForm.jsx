@@ -153,7 +153,7 @@ const HabitatUseForm = ({
                   <TextAreaInput
                     name="comments"
                     labelText="Comments"
-                    maxLength={500}
+                    maxLength={1000}
                     isDisabled={isViewOnly}
                     isDouble
                   />

@@ -199,4 +199,17 @@ describe("HabitatUseForm", () => {
       queryByRole("button", { name: "End Habitat" })
     ).not.toBeInTheDocument();
   });
+
+
+  it("has a comment field with maxlength 1000 chars", async () => {
+    await act(async () => {  
+      const { getByRole } = render(
+        <HabitatUseForm />
+      );
+      const commentsInput = getByRole("textbox", {
+        name: "Comments",
+      });
+      expect(commentsInput.maxLength).toBe(1000);
+    }); 
+  })
 });

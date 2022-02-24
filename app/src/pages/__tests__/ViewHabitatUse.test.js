@@ -6,8 +6,8 @@ import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts"
 import { Datastore } from "../../datastore/datastore";
 import ViewHabitatUse from "../ViewHabitatUse";
 
-describe("EditHabitatUse", () => {
-  const projectId = "edit-habitat-use-test-id";
+describe("ViewHabitatUse", () => {
+  const projectId = "view-habitat-use-test-id";
   let firestoreEmulator;
   let datastore;
 
@@ -22,7 +22,7 @@ describe("EditHabitatUse", () => {
     datastore = new Datastore(firestoreEmulator);
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
