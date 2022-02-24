@@ -130,7 +130,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/lroyTW"><img src="https://avatars2.githubusercontent.com/u/4237356?v=4" width="100px;" alt=""/><br /><sub><b>lroyTW</b></sub></a><br /><a href="#business-lroyTW" title="Business development">💼</a></td>
     <td align="center"><a href="https://github.com/jhughes-tw"><img src="https://avatars3.githubusercontent.com/u/28755518?v=4" width="100px;" alt=""/><br /><sub><b>jhughes-tw</b></sub></a><br /><a href="#design-jhughes-tw" title="Design">🎨</a></td>
     <td align="center"><a href="http://helenzhou.co.uk"><img src="https://avatars1.githubusercontent.com/u/25727036?v=4" width="100px;" alt=""/><br /><sub><b>Helen Zhou</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=helenzhou6" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/nenyiTW"><img src="https://avatars1.githubusercontent.com/u/25727036?v=4" width="100px;" alt=""/><br /><sub><b>Nenyi Arkaah</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=helenzhou6" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nenyiTW"><img src="https://avatars.githubusercontent.com/u/60198996?v=4" width="100px;" alt=""/><br /><sub><b>Nenyi Arkaah</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=nenyiTW" title="Code">💻</a></td>
   </tr>
 </table>
 
