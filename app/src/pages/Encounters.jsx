@@ -26,8 +26,12 @@ const Encounters = () => {
   };
 
   const { datastore } = useContext(FirebaseContext);
-  const { todaysEncounters, previousEncounters, loadPreviousMonth, isLoading } =
-    useEncountersByMonth(datastore);
+  const {
+    todaysEncounters,
+    previousEncounters,
+    loadPreviousMonth,
+    isLoading,
+  } = useEncountersByMonth(datastore);
 
   return (
     <Layout hasDefaultPadding={false}>
