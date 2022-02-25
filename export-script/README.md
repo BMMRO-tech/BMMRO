@@ -34,6 +34,8 @@ Please replace `123` with the correct values which can be found inside the fireb
 
 The script can be executed in this manner: `node index.js <start date> <end date> [options]`.
 
+The first time the script is run, there will be a prompt in the command line to index your database. Follow the link; this will take a few minutes.
+
 You will need to specify a date range to export the data entries from. First argument passed to the command is a start date (entries from this date will be included) and second argument is an end date (entries from this date will be excluded). Dates need to be in `dd/mm/yyyy` format, for example:
 
 ```

@@ -311,4 +311,14 @@ describe("EncounterForm", () => {
       queryByRole("button", { name: "Save & End" })
     ).not.toBeInTheDocument();
   });
+
+  it("has a comment field with maxlength 1000 chars", async () => {
+    await act(async () => {
+      const { getByRole } = render(<EncounterForm />);
+      const commentsInput = getByRole("textbox", {
+        name: "Comments / Observations (names of underwater observers)",
+      });
+      expect(commentsInput.maxLength).toBe(1000);
+    });
+  });
 });
