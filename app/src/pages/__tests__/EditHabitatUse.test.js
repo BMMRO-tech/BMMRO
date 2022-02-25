@@ -5,6 +5,7 @@ import { waitFor } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
 import EditHabitatUse from "../EditHabitatUse";
+import { render } from "@testing-library/react";
 
 describe("EditHabitatUse", () => {
   const projectId = "edit-habitat-use-test-id";
