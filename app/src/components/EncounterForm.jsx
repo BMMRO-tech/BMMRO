@@ -143,7 +143,7 @@ const EncounterForm = ({
                   <TextAreaInput
                     name="comments"
                     labelText="Comments / Observations (names of underwater observers)"
-                    maxLength={1000}
+                    maxLength={500}
                     isDouble
                     isDisabled={isViewOnly}
                   />
