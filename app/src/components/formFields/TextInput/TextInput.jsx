@@ -39,6 +39,7 @@ const TextInput = ({
         <div css={fieldStyles.inputContainer}>
           <input
             {...field}
+            id={name}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             type={type ? type : "text"}
             maxLength={maxLength}

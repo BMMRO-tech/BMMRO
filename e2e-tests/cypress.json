@@ -1,0 +1,7 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "env": {
+        "email":"romane.castera@thoughtworks.com",
+        "password":"FIRE-04.base"
+    }
+}
