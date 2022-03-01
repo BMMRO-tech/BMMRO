@@ -137,6 +137,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/acavbmmro"><img src="https://avatars.githubusercontent.com/u/100130427?v=4" width="100px;" alt=""/><br /><sub><b>Annie Cavalla</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=acavalla" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Strawb99"><img src="https://avatars.githubusercontent.com/u/96117207?v=4" width="100px;" alt=""/><br /><sub><b>Sophie Strawbridge</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=Strawb99" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/romanecastera"><img src="https://avatars.githubusercontent.com/u/100352571?v=4" width="100px;" alt=""/><br /><sub><b>Romane Castera</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=romanecastera" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/josh-simpson-TW"><img src="https://avatars.githubusercontent.com/u/100127157?s=400&u=781b8a2304b960140267ac4d21836826ad85452a&v=4" width="100px;" alt=""/><br /><sub><b>Josh Simpson</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=josh-simpson-TW" title="Business Development">💼</a></td>
   </tr>
 </table>
 
