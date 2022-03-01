@@ -122,3 +122,7 @@ firebase-debug.log*
 
 ## Exported data
 /scripts/exported
+
+/e2e-tests/cypress.json
+
+serviceAccount.json

@@ -15,5 +15,8 @@ describe('The Log In Page', () => {
       };
       console.log(defaultEmail)
       loginUser(defaultEmail, defaultPassword)
+      cy.location().should((loc) => {
+              expect(loc.pathname).to.eq('/encounters')
+       })
     })
   })
