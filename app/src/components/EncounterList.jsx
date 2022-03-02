@@ -12,13 +12,8 @@ import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 
 const EncounterListItem = ({ encounter, isToday }) => {
-  const {
-    startTimestamp,
-    sequenceNumber,
-    species,
-    area,
-    startTime,
-  } = encounter.data;
+  const { startTimestamp, sequenceNumber, species, area, startTime } =
+    encounter.data;
 
   const day = format(startTimestamp, "dd", {
     locale: usLocale,
