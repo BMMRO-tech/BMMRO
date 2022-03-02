@@ -1,8 +1,12 @@
 const addGpsMarkToComments = (
-    gpsMark,
-    comment
-  ) => {    
-    return "GPS mark: " + gpsMark + ". " + comment;
+    gpsMark = "",
+    comment = ""
+  ) => {
+    let final = "";
+    final += gpsMark == "" ? "" : "GPS mark: " + gpsMark + ". ";
+    final += comment == "" ? "" : comment;
+
+    return final;
   };
   
   module.exports = addGpsMarkToComments;
