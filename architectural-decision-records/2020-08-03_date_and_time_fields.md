@@ -57,7 +57,6 @@ We are unable to generate timestamp based only on start time and end time field 
 ## Decision
 
 We decided to go with option 1 for the following reasons:
-
 - it requires the least amount of dev work
 - there is no indication that querying by either start or end time will be needed
 - we will still be able to convert time fields to timestamps if requirements change in the future
