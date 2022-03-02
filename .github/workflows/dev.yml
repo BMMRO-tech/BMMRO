@@ -60,5 +60,6 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           TAG="dev-deployed-${{env.NEW_VERSION}}"
+          git fetch --unshallow origin
           git tag $TAG $COMMIT_SHA
           git push origin $TAG
