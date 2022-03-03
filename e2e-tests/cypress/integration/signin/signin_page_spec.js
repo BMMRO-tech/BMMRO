@@ -1,5 +1,4 @@
 
-
 describe('The Log In Page', () => {
   const defaultEmail = Cypress.env('email')
   const defaultPassword = Cypress.env('password')
@@ -20,3 +19,21 @@ describe('The Log In Page', () => {
        })
     })
   })
+describe('creating an Encounter', () => {
+  it('goes to create encounter page', () => {
+    cy.contains("New").click()
+    cy.url().should("include","/encounters/new")
+  })
+
+  it('fills out encounter details', () => {
+    cy.get('#sequenceNumber').type("123").should("have.value","123")
+    cy.get('select').select(1)
+    cy.contains("New Habitat Use").click()
+
+
+  })
+
+  
+
+}
+ )
