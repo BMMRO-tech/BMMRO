@@ -71,6 +71,8 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env-dev
+.env-local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -123,6 +125,8 @@ firebase-debug.log*
 ## Exported data
 /scripts/exported
 
-/e2e-tests/cypress.json
+cypress.json
 
 serviceAccount.json
+
+/e2e-tests/cypress/videos

@@ -1,7 +1,0 @@
-{
-    "baseUrl": "http://localhost:3000",
-    "env": {
-        "email":"sophie.strawbridge@thoughtworks.com",
-        "password":"MiloLikes2Walk!"
-    }
-}
