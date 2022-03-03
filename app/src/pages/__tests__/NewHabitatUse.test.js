@@ -1,7 +1,7 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
-import { waitFor, act } from "@testing-library/react";
+import { waitFor, act, findByLabelText } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Datastore } from "../../datastore/datastore";
@@ -76,5 +76,40 @@ describe("NewHabitatUse", () => {
 
     expect(habitatUses[0].hasEnded).toBe(true);
     expect(habitatUses.length).toBe(1);
+  });
+
+  it("does not submit the form when required fields are missing", async () => {
+    const id = "790";
+    await firestoreEmulator.collection("encounter").doc(id).set({
+      name: "Barney",
+      species: "Bottlenose dolphin",
+    });
+
+    const entryPath = `/encounters/${id}/habitat-uses`;
+
+    const { history, findByRole, getByLabelText } = renderWithMockContexts(
+      <NewHabitatUse encounterId={id} />,
+      {
+        datastore,
+        route: entryPath,
+      }
+    );
+
+    // const startTimeInput = await getByLabelText("Start time (hh:mm:ss)");
+
+    const endHabitatButton = await findByRole("button", {
+      name: "End Habitat",
+    });
+
+    await act(async () => {
+      // userEvent(startTimeInput, "23:00:00", { delay: 1 });
+      userEvent.click(endHabitatButton);
+    });
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual(entryPath);
+      console.log(history.location);
+      // console.log(endHabitatButton);
+    });
   });
 });

@@ -13,13 +13,8 @@ import { CollectionNames } from "../constants/datastore";
 import { getCurrentDate, constructDateTime } from "../utils/time";
 
 const extractEncounterProperties = (encounter) => {
-  const {
-    startTimestamp,
-    species,
-    area,
-    sequenceNumber,
-    startTime,
-  } = encounter.data;
+  const { startTimestamp, species, area, sequenceNumber, startTime } =
+    encounter.data;
   return {
     id: encounter.id,
     data: {
