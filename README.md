@@ -41,6 +41,8 @@ We are passionate about technology. We understand that the system that protects 
 - [Kanban board](https://github.com/BMMRO-tech/BMMRO/projects/1)
 - [Contributing guidelines](https://github.com/BMMRO-tech/BMMRO/blob/master/CONTRIBUTING.md)
 - [Google drive](https://drive.google.com/drive/folders/158V1HhQiZe8HlKXTzOMhXw2lyf51NNlc?usp=sharing)
+- [System Diagram](https://drive.google.com/file/d/1c9fiaSNFbRRh9hRaMdJCQphT4Tn4NWJk/view?usp=sharing)
+- [Release Process Diagram](https://drive.google.com/file/d/1sW1jIa8dd5GhMacBuVxv30MQUpsB1-SO/view)
 
 ## Milestones
 
