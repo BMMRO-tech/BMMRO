@@ -16,8 +16,9 @@ const InputFocusOnError = () => {
             errorField === "elapsedTime" ? "endTime" : errorField;
 
           // ReactDOM.findDOMNode is deprecated in Strict Mode
-          const firstFieldWithError =
-            document.getElementsByName(fieldToFocus)[0];
+          const firstFieldWithError = document.getElementsByName(
+            fieldToFocus
+          )[0];
           if (isDatepicker(firstFieldWithError)) {
             firstFieldWithError.scrollIntoView({ block: "center" });
           } else {

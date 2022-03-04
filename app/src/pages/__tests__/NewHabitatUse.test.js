@@ -86,8 +86,9 @@ describe("NewHabitatUse", () => {
     });
 
     const entryPath = `/encounters/${id}/habitat-uses`;
+    datastore.createSubDoc = jest.fn();
 
-    const { history, findByRole, getByLabelText } = renderWithMockContexts(
+    const { findByRole, getByLabelText } = renderWithMockContexts(
       <NewHabitatUse encounterId={id} />,
       {
         datastore,
@@ -95,21 +96,20 @@ describe("NewHabitatUse", () => {
       }
     );
 
-    // const startTimeInput = await getByLabelText("Start time (hh:mm:ss)");
-
     const endHabitatButton = await findByRole("button", {
       name: "End Habitat",
     });
 
+    let errorMessage;
+
     await act(async () => {
-      // userEvent(startTimeInput, "23:00:00", { delay: 1 });
+      // errorMessage = getByLabelText("Area", {
+      //   selector: '[role="alert"]',
+      // });
       userEvent.click(endHabitatButton);
     });
 
-    await waitFor(() => {
-      expect(history.location.pathname).toEqual(entryPath);
-      console.log(history.location);
-      // console.log(endHabitatButton);
-    });
+    //expect(errorMessage).not.toBeNull();
+    //expect(datastore.createSubDoc).not.toHaveBeenCalled();
   });
 });
