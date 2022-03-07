@@ -55,15 +55,23 @@ describe("NewHabitatUse", () => {
       species: "Bottlenose dolphin",
     });
 
-    const { findByRole } = renderWithMockContexts(
-      <NewHabitatUse encounterId={"789"} />,
-      { datastore }
-    );
+    const {
+      findByRole,
+      findByLabelText,
+    } = renderWithMockContexts(<NewHabitatUse encounterId={"789"} />, {
+      datastore,
+    });
 
     const endHabitatButton = await findByRole("button", {
       name: "End Habitat",
     });
+    const latField = await findByLabelText("Lat", { selector: "input" });
+    const longField = await findByLabelText("Long", { selector: "input" });
+
     await act(async () => {
+      await userEvent.type(longField, "0.111111", { delay: 1 });
+      await userEvent.type(latField, "0.111111", { delay: 1 });
+
       userEvent.click(endHabitatButton);
     });
 
@@ -109,7 +117,7 @@ describe("NewHabitatUse", () => {
       userEvent.click(endHabitatButton);
     });
 
-    //expect(errorMessage).not.toBeNull();
-    //expect(datastore.createSubDoc).not.toHaveBeenCalled();
+    // expect(errorMessage).not.toBeNull();
+    expect(datastore.createSubDoc).not.toHaveBeenCalled();
   });
 });

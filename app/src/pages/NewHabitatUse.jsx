@@ -27,6 +27,11 @@ const NewHabitatUse = ({ encounterId }) => {
     if (!values.endTime) {
       values.endTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
     }
+
+    if (!(values.latitude && values.longitude) && !values.gpsMark) {
+      return;
+    }
+
     datastore.createSubDoc(encounterPath, CollectionNames.HABITAT_USE, values);
     navigate(generateOpenEncounterURL(encounterId));
   };
