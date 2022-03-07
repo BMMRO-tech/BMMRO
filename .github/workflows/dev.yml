@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+    - master
 
 jobs:
   build-test-deploy:
@@ -36,7 +39,7 @@ jobs:
       - name: Set environment variable with new version
         run: |
           PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
-          echo "::set-env name=NEW_VERSION::$(($PREVIOUS_VERSION+1))"
+          echo "NEW_VERSION=$(($PREVIOUS_VERSION+1))" >> $GITHUB_ENV
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
@@ -57,5 +60,6 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           TAG="dev-deployed-${{env.NEW_VERSION}}"
+          git fetch --unshallow origin
           git tag $TAG $COMMIT_SHA
           git push origin $TAG
