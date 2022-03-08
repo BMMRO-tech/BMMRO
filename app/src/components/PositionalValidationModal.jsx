@@ -22,7 +22,7 @@ const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
   };
 
   const StayButton = forwardRef((props, ref) => (
-    <Button variant="neutral" ref={ref} onClick={closeModal}>
+    <Button variant="neutral" ref={ref} onClick={closeModal} testId="add-data-button">
       Add positional data
     </Button>
   ));
@@ -39,11 +39,11 @@ const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
             No positional data present!
           </AlertDialogLabel>
           <AlertDialogDescription css={styles.description}>
-            Do you want to add positional data?
+            End without positional data?
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
             <Button variant="primary" onClick={handleLeavePage}>
-              Leave
+              End
             </Button>
             <StayButton />
           </div>

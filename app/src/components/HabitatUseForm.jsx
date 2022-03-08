@@ -31,6 +31,7 @@ import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckb
 import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
 import PositionalValidationModal from "./PositionalValidationModal";
+import fieldStyles from "./formFields/fieldStyles";
 
 const HabitatUseForm = ({
   initialValues,
@@ -40,6 +41,7 @@ const HabitatUseForm = ({
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showPositionalModal, setShowPositionalModal] = useState(false);
+  const [closedPositionalModal, setClosedPositionalModal] = useState(false);
 
   const styles = {
     cancelButton: css`
@@ -62,7 +64,10 @@ const HabitatUseForm = ({
   const renderPositionalValidationModal = () => {
     return (
       <PositionalValidationModal
-        closeModal={() => setShowPositionalModal(false)}
+        closeModal={() => {
+           setShowPositionalModal(false)
+           setClosedPositionalModal(true) 
+          }}
         handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
       />
     );
@@ -130,6 +135,7 @@ const HabitatUseForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
+                {closedPositionalModal && <span css={fieldStyles.required}> Please add either latitude and longitude, or a GPS mark </span>}
               </section>
               <section css={styles.section}>
                 <ListHeader title="Observation" />

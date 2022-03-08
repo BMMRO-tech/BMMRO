@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import PositionalValidationModal from "../PositionalValidationModal";
 
-describe("Positional Valiadation Modal", () => {
+describe("Positional Validation Modal", () => {
   it("navigates to '/encounters' when user selects end", async () => {
     const mockCloseModal = jest.fn();
     const mockHandleLeavePage = jest.fn();
@@ -16,14 +16,14 @@ describe("Positional Valiadation Modal", () => {
       />
     );
 
-    const closeButton = getByRole("button", { name: "Leave" });
+    const closeButton = getByRole("button", { name: "End" });
 
     userEvent.click(closeButton);
 
     expect(mockHandleLeavePage).toHaveBeenCalledTimes(1);
   });
 
-  it("It stays on the page and moves the focus", async () => {
+  it("stays on the page", async () => {
     const mockCloseModal = jest.fn();
     const mockHandleLeavePage = jest.fn();
 
