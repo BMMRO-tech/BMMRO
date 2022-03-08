@@ -30,6 +30,7 @@ import habitatUseDefaults from "../constants/habitatUseDefaultValues";
 import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
 import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
+import PositionalValidationModal from "./PositionalValidationModal";
 
 const HabitatUseForm = ({
   initialValues,
@@ -38,6 +39,7 @@ const HabitatUseForm = ({
   encounterId,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showPositionalModal, setShowPositionalModal] = useState(false);
 
   const styles = {
     cancelButton: css`
@@ -57,12 +59,28 @@ const HabitatUseForm = ({
     );
   };
 
+  const renderPositionalValidationModal = () => {
+    return (
+      <PositionalValidationModal
+        closeModal={() => setShowPositionalModal(false)}
+        handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
+      />
+    );
+  };
+
   const initValues = initialValues || habitatUseDefaults;
 
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
-        <Formik initialValues={initValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initValues}
+          onSubmit={(values) => {
+            (values.longitude && values.latitude) || values.gpsMark
+              ? handleSubmit(values)
+              : setShowPositionalModal(true);
+          }}
+        >
           {({ values }) => (
             <Form>
               <section css={styles.section}>
@@ -314,6 +332,7 @@ const HabitatUseForm = ({
         </Formik>
       </div>
 
+      {showPositionalModal && renderPositionalValidationModal()}
       {showConfirmationModal && renderConfirmationModal()}
     </div>
   );

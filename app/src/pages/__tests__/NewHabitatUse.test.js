@@ -1,7 +1,13 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
-import { waitFor, act, findByLabelText } from "@testing-library/react";
+import {
+  waitFor,
+  act,
+  findByLabelText,
+  getByTestId,
+  queryByTestId,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Datastore } from "../../datastore/datastore";
@@ -55,12 +61,12 @@ describe("NewHabitatUse", () => {
       species: "Bottlenose dolphin",
     });
 
-    const {
-      findByRole,
-      findByLabelText,
-    } = renderWithMockContexts(<NewHabitatUse encounterId={"789"} />, {
-      datastore,
-    });
+    const { findByRole, findByLabelText } = renderWithMockContexts(
+      <NewHabitatUse encounterId={"789"} />,
+      {
+        datastore,
+      }
+    );
 
     const endHabitatButton = await findByRole("button", {
       name: "End Habitat",
@@ -87,6 +93,7 @@ describe("NewHabitatUse", () => {
   });
 
   it("does not submit the form when required fields are missing", async () => {
+    const ModalText = "positional-data-modal";
     const id = "790";
     await firestoreEmulator.collection("encounter").doc(id).set({
       name: "Barney",
@@ -96,7 +103,7 @@ describe("NewHabitatUse", () => {
     const entryPath = `/encounters/${id}/habitat-uses`;
     datastore.createSubDoc = jest.fn();
 
-    const { findByRole, getByLabelText } = renderWithMockContexts(
+    const { findByRole, queryByTestId } = renderWithMockContexts(
       <NewHabitatUse encounterId={id} />,
       {
         datastore,
@@ -111,13 +118,10 @@ describe("NewHabitatUse", () => {
     let errorMessage;
 
     await act(async () => {
-      // errorMessage = getByLabelText("Area", {
-      //   selector: '[role="alert"]',
-      // });
       userEvent.click(endHabitatButton);
     });
 
-    // expect(errorMessage).not.toBeNull();
+    expect(queryByTestId(ModalText)).toBeInTheDocument();
     expect(datastore.createSubDoc).not.toHaveBeenCalled();
   });
 });
