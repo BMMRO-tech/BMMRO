@@ -67,6 +67,7 @@ const Button = ({
 
   return (
     <button
+      id={testId}
       css={variantStyles[variant]}
       type={type}
       disabled={disabled}

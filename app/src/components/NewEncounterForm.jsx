@@ -118,7 +118,12 @@ const NewEncounterForm = ({ handleSubmit }) => {
                   >
                     Cancel
                   </Button>
-                  <Button styles={styles.endButton} width="200px" type="submit">
+                  <Button
+                    styles={styles.endButton}
+                    width="200px"
+                    type="submit"
+                    testId={"newHabitat"}
+                  >
                     + New Habitat Use
                   </Button>
                 </div>
