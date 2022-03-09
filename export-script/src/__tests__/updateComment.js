@@ -10,4 +10,16 @@ describe("updateComment", () => {
       "From cloud firestore: GPS mark: 12. Test comment"
     );
   });
+
+  it("only prepends from cloud firestore if latitude, longitude and gps mark are all present", () => {
+    const gpsMark = 12;
+    const comment = {
+      comments: "Test comment",
+      latitude: "0.111111",
+      longitude: "0.111111",
+    };
+    const finalString = updateComment(gpsMark, comment);
+
+    expect(finalString).toEqual("From cloud firestore: Test comment");
+  });
 });
