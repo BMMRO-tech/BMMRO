@@ -16,7 +16,7 @@ describe("Positional Validation Modal", () => {
       />
     );
 
-    const closeButton = getByRole("button", { name: "End" });
+    const closeButton = getByRole("button", { name: "End habitat" });
 
     userEvent.click(closeButton);
 
@@ -34,7 +34,7 @@ describe("Positional Validation Modal", () => {
       />
     );
 
-    const closeButton = getByRole("button", { name: "Add positional data" });
+    const closeButton = getByRole("button", { name: "Stay on this page" });
 
     userEvent.click(closeButton);
 
