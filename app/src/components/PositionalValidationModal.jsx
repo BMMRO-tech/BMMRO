@@ -22,7 +22,12 @@ const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
   };
 
   const StayButton = forwardRef((props, ref) => (
-    <Button variant="neutral" ref={ref} onClick={closeModal} testId="add-data-button">
+    <Button
+      variant="neutral"
+      ref={ref}
+      onClick={closeModal}
+      testId="add-data-button"
+    >
       Add positional data
     </Button>
   ));

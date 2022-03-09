@@ -65,9 +65,10 @@ const HabitatUseForm = ({
     return (
       <PositionalValidationModal
         closeModal={() => {
-           setShowPositionalModal(false)
-           setClosedPositionalModal(true) 
-          }}
+          setShowPositionalModal(false);
+          setClosedPositionalModal(true);
+          document.getElementsByName("latitude")[0].focus();
+        }}
         handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
       />
     );
@@ -134,8 +135,13 @@ const HabitatUseForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
+                  {closedPositionalModal && (
+                    <label css={fieldStyles.longRequired}>
+                      {" "}
+                      Please add either latitude and longitude, or a GPS mark{" "}
+                    </label>
+                  )}
                 </FormSection>
-                {closedPositionalModal && <span css={fieldStyles.required}> Please add either latitude and longitude, or a GPS mark </span>}
               </section>
               <section css={styles.section}>
                 <ListHeader title="Observation" />
@@ -332,7 +338,9 @@ const HabitatUseForm = ({
                 </div>
               )}
 
-              <InputFocusOnError />
+              <InputFocusOnError
+                closedPositionalModal={closedPositionalModal}
+              />
             </Form>
           )}
         </Formik>
