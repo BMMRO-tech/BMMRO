@@ -90,7 +90,7 @@ const EncounterOverview = ({ encounter, isNewEncounter, encounterId }) => {
               : generateEditEncounterURL(encounterId)
           }
         >
-          <span>Encounter data sheet</span>
+          <span id="encounterDataSheet">Encounter data sheet</span>
           <span css={styles.arrow}>
             <RightArrow />
           </span>

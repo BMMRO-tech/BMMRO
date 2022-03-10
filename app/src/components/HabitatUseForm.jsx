@@ -346,7 +346,7 @@ const HabitatUseForm = ({
                   >
                     Cancel
                   </Button>
-                  <Button type="submit">
+                  <Button type="submit" testId={"saveHabitat"}>
                     {!!initialValues ? "Save" : "End Habitat"}
                   </Button>
                 </div>

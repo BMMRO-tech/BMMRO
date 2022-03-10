@@ -77,7 +77,7 @@ const ListItem = ({
     `,
   };
   return (
-    <Link css={styles.link} to={destinationUrl}>
+    <Link css={styles.link} to={destinationUrl} id="habitatUse">
       <li css={styles.container}>
         <div css={styles.leftContainer}>
           <span>{primaryTime}</span>

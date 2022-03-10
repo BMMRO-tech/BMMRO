@@ -565,6 +565,7 @@ const EncounterForm = ({
                           width="150px"
                           variant="secondary"
                           type="button"
+                          testId={"saveEndEncounter"}
                           onClick={() => {
                             // Setting state and calling submitForm with timeout is required as passing a payload to
                             // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132
