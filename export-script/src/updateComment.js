@@ -1,13 +1,13 @@
 const addGpsMarkToComments = require("./addGpsMarkToComments");
-const prependFromFirestore = require("./mappings/prependFromFirestore");
+const prependFromApp = require("./mappings/prependFromApp");
 
 const updateComment = (gpsMark = "", comment = "") => {
   if (!comment.latitude || !comment.longitude) {
-    return prependFromFirestore(
+    return prependFromApp(
       addGpsMarkToComments(gpsMark, comment.comments)
     );
   } else {
-    return prependFromFirestore(comment.comments);
+    return prependFromApp(comment.comments);
   }
 };
 
