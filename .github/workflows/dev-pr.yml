@@ -1,9 +1,6 @@
-name: Deployment to dev environment
+name: Build Test Bundle in Dev
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
     - master
