@@ -61,6 +61,7 @@ jobs:
           git tag $TAG $COMMIT_SHA
           git push origin $TAG
   end-to-end:
+    needs: build-test-deploy
     runs-on: macos-latest
     env:
       E2E_TESTS_DIR: ./e2e-tests
