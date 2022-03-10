@@ -34,7 +34,9 @@ const Encounters = () => {
       <div css={styles.titleContainer}>
         <h1 css={typography.largeTitle}>ENCOUNTERS</h1>
         <Link to={ROUTES.newEncounter}>
-          <Button isSmall>+ New</Button>
+          <Button isSmall testId={"newEncounter"}>
+            + New
+          </Button>
         </Link>
       </div>
       <div css={styles.list}>

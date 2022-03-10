@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+    - master
 
 jobs:
-  build-test-deploy:
+  build-test-bundle:
     runs-on: ubuntu-latest
     env:
       APP_DIR: ./app
@@ -45,46 +48,3 @@ jobs:
           REACT_APP_VERSION: ${{env.NEW_VERSION}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
-      - name: Deploy to firebase
-        env:
-          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
-        working-directory: ${{env.APP_DIR}}
-        run: |
-          npx firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
-          npx firebase deploy
-      - name: Create dev-deployed-* tag
-        env:
-          COMMIT_SHA: ${{ github.sha }}
-        run: |
-          TAG="dev-deployed-${{env.NEW_VERSION}}"
-          git fetch --unshallow origin
-          git tag $TAG $COMMIT_SHA
-          git push origin $TAG
-  end-to-end:
-    runs-on: macos-latest
-    env:
-      E2E_TESTS_DIR: ./e2e-tests
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Install e2e-tests dependencies
-        working-directory: ${{env.E2E_TESTS_DIR}}
-        run: |
-          npm install
-      - name: Install safari driver
-        working-directory: ${{env.E2E_TESTS_DIR}}
-        run: |
-          sudo safaridriver --enable
-          safaridriver -p 0 &
-      - name: Run end to end tests
-        env:
-          ENDPOINT: ${{secrets.FIREBASE_DEV_ENDPOINT}}
-          EMAIL: "test@test.com"
-          PASSWORD: ${{secrets.FIREBASE_DEV_TEST_ACCOUNT_PASSWORD}}
-          PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
-          API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
-          AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
-        working-directory: ${{env.E2E_TESTS_DIR}}
-        run: node --experimental-vm-modules node_modules/jest/bin/jest.js

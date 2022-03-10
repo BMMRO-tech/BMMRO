@@ -38,6 +38,7 @@ const Select = ({
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
+            id={name}
           >
             <option key="none" value="" aria-label="default empty option">
               -- Select --
