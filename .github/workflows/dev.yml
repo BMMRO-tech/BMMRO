@@ -65,6 +65,7 @@ jobs:
     runs-on: macos-latest
     env:
       E2E_TESTS_DIR: ./e2e-tests
+      ENDPOINT: https://bmmro-164ec.web.app
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -81,7 +82,7 @@ jobs:
           safaridriver -p 0 &
       - name: Run end to end tests
         env:
-          ENDPOINT: ${{secrets.FIREBASE_DEV_ENDPOINT}}
+          ENDPOINT: ${{env.ENDPOINT}}
           EMAIL: "test@test.com"
           PASSWORD: ${{secrets.FIREBASE_DEV_TEST_ACCOUNT_PASSWORD}}
           PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
