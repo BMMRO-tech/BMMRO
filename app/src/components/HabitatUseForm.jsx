@@ -40,7 +40,10 @@ const HabitatUseForm = ({
   encounterId,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [showPositionalModal, setShowPositionalModal] = useState(false);
+  const [showPositionalModal, setShowPositionalModal] = useState({
+    boolean: false,
+    values: "",
+  });
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
 
   const styles = {
@@ -65,11 +68,15 @@ const HabitatUseForm = ({
     return (
       <PositionalValidationModal
         closeModal={() => {
-          setShowPositionalModal(false);
+          const elementValue = document.getElementsByName("latitude")[0];
+          window.setTimeout(() => elementValue.focus(), 0);
+          setShowPositionalModal({
+            boolean: false,
+            values: showPositionalModal.values,
+          });
           setClosedPositionalModal(true);
-          document.getElementsByName("latitude")[0].focus();
         }}
-        handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
+        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
       />
     );
   };
@@ -81,10 +88,11 @@ const HabitatUseForm = ({
       <div css={utilities.form.container}>
         <Formik
           initialValues={initValues}
+          async
           onSubmit={(values) => {
             (values.longitude && values.latitude) || values.gpsMark
               ? handleSubmit(values)
-              : setShowPositionalModal(true);
+              : setShowPositionalModal({ boolean: true, values: values });
           }}
         >
           {({ values }) => (
@@ -338,15 +346,13 @@ const HabitatUseForm = ({
                 </div>
               )}
 
-              <InputFocusOnError
-                closedPositionalModal={closedPositionalModal}
-              />
+              <InputFocusOnError />
             </Form>
           )}
         </Formik>
       </div>
 
-      {showPositionalModal && renderPositionalValidationModal()}
+      {showPositionalModal.boolean && renderPositionalValidationModal()}
       {showConfirmationModal && renderConfirmationModal()}
     </div>
   );

@@ -23,13 +23,10 @@ const NewHabitatUse = ({ encounterId }) => {
   const encounterPath = generateEncounterPath(encounterId);
 
   const handleSubmit = (values) => {
+    console.log("in the handle submit");
     values.hasEnded = true;
     if (!values.endTime) {
       values.endTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
-    }
-
-    if (!(values.latitude && values.longitude) && !values.gpsMark) {
-      return;
     }
 
     datastore.createSubDoc(encounterPath, CollectionNames.HABITAT_USE, values);

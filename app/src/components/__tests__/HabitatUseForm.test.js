@@ -3,7 +3,6 @@ import { act, getByTestId, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
-//import { it } from "date-fns/locale";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -306,7 +305,9 @@ describe("HabitatUseForm", () => {
     userEvent.click(modalButton, { delay: 1 });
     expect(submitButton).not.toHaveFocus();
     expect(modalButton).not.toHaveFocus();
-    expect(latInput).toHaveFocus();
+    await waitFor(() => {
+      expect(latInput).toHaveFocus();
+    });
   });
 
   it("shows an info message around location data boxes if user chooses to stay on page", async () => {
