@@ -14,6 +14,7 @@ jobs:
     env:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
+      E2E_TESTS_DIR: ./e2e-tests
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -55,6 +56,20 @@ jobs:
         run: |
           npx firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
           npx firebase deploy
+      - name: Install e2e-tests dependencies
+        working-directory: ${{env.E2E_TESTS_DIR}}
+        run: |
+          npm install
+      - name: Run end to end tests
+        env:
+          ENDPOINT: ${{secrets.FIREBASE_DEV_ENDPOINT}}
+          EMAIL: "test@test.com"
+          PASSWORD: ${{secrets.FIREBASE_DEV_TEST_ACCOUNT_PASSWORD}}
+          PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
+          API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
+          AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
+        working-directory: ${{env.E2E_TESTS_DIR}}
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js
       - name: Create dev-deployed-* tag
         env:
           COMMIT_SHA: ${{ github.sha }}
