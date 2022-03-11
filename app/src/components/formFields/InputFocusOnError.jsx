@@ -5,8 +5,8 @@ const isDatepicker = (errorField) => {
   return errorField.getAttribute("data-field-type") === "datepicker";
 };
 
-const InputFocusOnError = () => {
-  const { isSubmitting, validateForm } = useFormikContext();
+const InputFocusOnError = (props) => {
+  const { isSubmitting, values, validateForm } = useFormikContext();
 
   useEffect(() => {
     validateForm().then((errors) => {
@@ -23,6 +23,17 @@ const InputFocusOnError = () => {
             firstFieldWithError.scrollIntoView({ block: "center" });
           } else {
             firstFieldWithError.focus();
+          }
+        }
+        if (props.page === "habitat") {
+          if (
+            !values.hasEnded &&
+            !(values.longitude && values.latitude) &&
+            !values.gpsMark
+          ) {
+            props.hasTriedToSubmit(true);
+          } else {
+            props.hasTriedToSubmit(false);
           }
         }
       }

@@ -55,6 +55,10 @@ const HabitatUseForm = ({
     `,
   };
 
+  const checkingValidation = (isSubmitting) => {
+    setClosedPositionalModal(isSubmitting);
+  };
+
   const renderConfirmationModal = () => {
     return (
       <CancelFormConfirmationModal
@@ -90,7 +94,9 @@ const HabitatUseForm = ({
           initialValues={initValues}
           async
           onSubmit={(values) => {
-            (values.longitude && values.latitude) || values.gpsMark
+            values.hasEnded ||
+            (values.longitude && values.latitude) ||
+            values.gpsMark
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
           }}
@@ -346,7 +352,10 @@ const HabitatUseForm = ({
                 </div>
               )}
 
-              <InputFocusOnError />
+              <InputFocusOnError
+                page={"habitat"}
+                hasTriedToSubmit={checkingValidation}
+              />
             </Form>
           )}
         </Formik>
