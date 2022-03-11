@@ -25,16 +25,11 @@ const InputFocusOnError = (props) => {
             firstFieldWithError.focus();
           }
         }
-        if (props.page === "habitat") {
-          if (
-            !values.hasEnded &&
-            !(values.longitude && values.latitude) &&
-            !values.gpsMark
-          ) {
-            props.hasTriedToSubmit(true);
-          } else {
-            props.hasTriedToSubmit(false);
-          }
+        const page = window.location.href;
+        if (page.includes("habitat-uses/new")) {
+          props.hasTriedToSubmit(
+            !(values.longitude && values.latitude) && !values.gpsMark
+          );
         }
       }
     });

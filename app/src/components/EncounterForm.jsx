@@ -589,7 +589,7 @@ const EncounterForm = ({
                       </Button>
                     </div>
                   </div>
-                  <InputFocusOnError page={"encounterForm"} />
+                  <InputFocusOnError />
                 </Fragment>
               )}
             </Form>

@@ -55,8 +55,8 @@ const HabitatUseForm = ({
     `,
   };
 
-  const checkingValidation = (isSubmitting) => {
-    setClosedPositionalModal(isSubmitting);
+  const checkingValidation = (isPositionalData) => {
+    setClosedPositionalModal(isPositionalData);
   };
 
   const renderConfirmationModal = () => {
@@ -74,11 +74,12 @@ const HabitatUseForm = ({
         closeModal={() => {
           const elementValue = document.getElementsByName("latitude")[0];
           window.setTimeout(() => elementValue.focus(), 0);
-          setShowPositionalModal({
-            boolean: false,
-            values: showPositionalModal.values,
+          setShowPositionalModal((prevState) => {
+            return {
+              ...prevState,
+              boolean: false,
+            };
           });
-          setClosedPositionalModal(true);
         }}
         handleLeavePage={() => handleSubmit(showPositionalModal.values)}
       />
@@ -150,7 +151,10 @@ const HabitatUseForm = ({
                     isDisabled={isViewOnly}
                   />
                   {closedPositionalModal && (
-                    <label css={fieldStyles.longRequired}>
+                    <label
+                      css={fieldStyles.longRequired}
+                      data-testid={"positional-data-validation"}
+                    >
                       {" "}
                       Please add either latitude and longitude, or a GPS mark{" "}
                     </label>
@@ -352,10 +356,7 @@ const HabitatUseForm = ({
                 </div>
               )}
 
-              <InputFocusOnError
-                page={"habitat"}
-                hasTriedToSubmit={checkingValidation}
-              />
+              <InputFocusOnError hasTriedToSubmit={checkingValidation} />
             </Form>
           )}
         </Formik>

@@ -1,8 +1,15 @@
 import React from "react";
-import { act, getByTestId, render, waitFor } from "@testing-library/react";
+import {
+  act,
+  getByLabelText,
+  getByTestId,
+  render,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
+import PositionInput from "../formFields/PositionInput/PositionInput";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -309,14 +316,21 @@ describe("HabitatUseForm", () => {
       expect(latInput).toHaveFocus();
     });
   });
-
   it("shows an info message around location data boxes if user chooses to stay on page", async () => {
+    let location;
+    const mockLocation = new URL("https://example.com/habitat-uses/new");
+
+    location = window.location;
+    mockLocation.replace = jest.fn();
+    delete window.location;
+    window.location = mockLocation;
+
+    let submitButton;
+
     const mockHandleSubmit = jest.fn();
     const { getByRole, queryByTestId, getByText } = render(
       <HabitatUseForm handleSubmit={mockHandleSubmit} />
     );
-
-    let submitButton;
 
     await act(async () => {
       submitButton = getByRole("button", { name: "End Habitat" });
@@ -327,9 +341,12 @@ describe("HabitatUseForm", () => {
     expect(queryByTestId("add-data-button")).toBeInTheDocument();
 
     const modalButton = queryByTestId("add-data-button");
-    userEvent.click(modalButton, { delay: 1 });
-    expect(
-      getByText("Please add either latitude and longitude, or a GPS mark")
-    ).toBeInTheDocument();
+    userEvent.click(modalButton, { delay: 5 });
+
+    const PositionData = queryByTestId("positional-data-validation");
+
+    expect(queryByTestId("positional-data-modal")).not.toBeInTheDocument();
+
+    expect(PositionData).toBeInTheDocument();
   });
 });
