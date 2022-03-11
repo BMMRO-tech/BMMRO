@@ -38,6 +38,7 @@ const HabitatUseForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
+  page,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showPositionalModal, setShowPositionalModal] = useState({
@@ -356,7 +357,10 @@ const HabitatUseForm = ({
                 </div>
               )}
 
-              <InputFocusOnError hasTriedToSubmit={checkingValidation} />
+              <InputFocusOnError
+                hasTriedToSubmit={checkingValidation}
+                page={page}
+              />
             </Form>
           )}
         </Formik>

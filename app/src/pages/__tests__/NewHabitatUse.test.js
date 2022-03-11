@@ -124,4 +124,42 @@ describe("NewHabitatUse", () => {
     expect(queryByTestId(ModalText)).toBeInTheDocument();
     expect(datastore.createSubDoc).not.toHaveBeenCalled();
   });
+
+  it("shows an info message around location data boxes if user chooses to stay on page", async () => {
+    const id = "790";
+
+    await firestoreEmulator.collection("encounter").doc(id).set({
+      name: "Barney",
+      species: "Bottlenose dolphin",
+    });
+
+    const entryPath = `/encounters/${id}/habitat-uses`;
+    datastore.createSubDoc = jest.fn();
+    let submitButton;
+
+    const { findByRole, queryByTestId } = renderWithMockContexts(
+      <NewHabitatUse encounterId={id} />,
+      {
+        datastore,
+        route: entryPath,
+      }
+    );
+
+    await act(async () => {
+      submitButton = await findByRole("button", { name: "End Habitat" });
+      userEvent.click(submitButton, { delay: 1 });
+    });
+
+    expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
+    expect(queryByTestId("add-data-button")).toBeInTheDocument();
+
+    const modalButton = queryByTestId("add-data-button");
+    userEvent.click(modalButton, { delay: 5 });
+
+    const positionData = await queryByTestId("positional-data-validation");
+
+    expect(queryByTestId("positional-data-modal")).not.toBeInTheDocument();
+
+    expect(positionData).toBeInTheDocument();
+  });
 });

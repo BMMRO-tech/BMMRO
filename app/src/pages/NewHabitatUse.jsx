@@ -21,7 +21,7 @@ const NewHabitatUse = ({ encounterId }) => {
   const [isEncounterValid, setIsEncounterValid] = useState(false);
   const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
-
+  const page = "NewHabitatUse";
   const handleSubmit = (values) => {
     values.hasEnded = true;
     if (!values.endTime) {
@@ -60,6 +60,7 @@ const NewHabitatUse = ({ encounterId }) => {
           <HabitatUseForm
             handleSubmit={handleSubmit}
             encounterId={encounterId}
+            page={page}
           />
         </Fragment>
       )}

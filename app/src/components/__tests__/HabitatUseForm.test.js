@@ -316,37 +316,4 @@ describe("HabitatUseForm", () => {
       expect(latInput).toHaveFocus();
     });
   });
-  it("shows an info message around location data boxes if user chooses to stay on page", async () => {
-    let location;
-    const mockLocation = new URL("https://example.com/habitat-uses/new");
-
-    location = window.location;
-    mockLocation.replace = jest.fn();
-    delete window.location;
-    window.location = mockLocation;
-
-    let submitButton;
-
-    const mockHandleSubmit = jest.fn();
-    const { getByRole, queryByTestId, getByText } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    await act(async () => {
-      submitButton = getByRole("button", { name: "End Habitat" });
-      userEvent.click(submitButton, { delay: 1 });
-    });
-
-    expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
-    expect(queryByTestId("add-data-button")).toBeInTheDocument();
-
-    const modalButton = queryByTestId("add-data-button");
-    userEvent.click(modalButton, { delay: 5 });
-
-    const PositionData = queryByTestId("positional-data-validation");
-
-    expect(queryByTestId("positional-data-modal")).not.toBeInTheDocument();
-
-    expect(PositionData).toBeInTheDocument();
-  });
 });

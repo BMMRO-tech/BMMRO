@@ -25,8 +25,8 @@ const InputFocusOnError = (props) => {
             firstFieldWithError.focus();
           }
         }
-        const page = window.location.href;
-        if (page.includes("habitat-uses/new")) {
+        const page = props.page;
+        if (page && page.includes("NewHabitatUse")) {
           props.hasTriedToSubmit(
             !(values.longitude && values.latitude) && !values.gpsMark
           );
