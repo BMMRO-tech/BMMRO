@@ -7,7 +7,7 @@
 There was no e2e testing in the app, this meant we had to do a lot of manual testing before deploying the app, which was very repeative and time consuming. E2E testing would allow more security when pushing the application, making sure we are not pushing broken code. 
 
 We needed a E2E testing framework that:
-- Supports the browsers that the client was using.
+- Supports the browsers that the client was using: Safari.
 - Supports the language of the app, Javascript.
 - Gives access to the firebase datastore.
 - Gives feedback on what issues in e2e tests.
@@ -18,22 +18,23 @@ We needed a E2E testing framework that:
 
 ### Option 1 - Taiko
 Benefits:
-- Compatible with Chromium based browsers including Firefox
 - Highly readable and maintainable
 - Supports Javascript
 - Creates reports for things that have gone wrong 
 
 Drawbacks: 
-- Some known issues with FireFox 
+- Doesn't support Safari
 - No documentation on how to link Taiko and Firebase
 
 
 ### Option 2 - Selenium 
 Benefits: 
-- Compatiable with all browser
+- Compatiable with all browsers
 - Supports various frameworks and proggramming languages including Javascript
 - Creates reports for things that have gone wrong
 - Support access to Firebase
+- Used with Jest which concords with the unit tests in the project
+- Widely used so well documented
 
 Drawbacks 
 - Require more setup 
@@ -41,22 +42,21 @@ Drawbacks
 
 ### Option 3 - Cypress 
 Benefits:
-- Compatible with Chromium based browsers including Firefox
 - Highly readable and maintainable
 - Supports Javascript
 - Creates reports for things that have gone wrong 
 - Supports access to Firebase
 
 Drawbacks: 
+- Doesn't support Safari
 - Does not support mobile actions such as swiping
 
 ## Decision
 
-### ✅ Cypress 
+### ✅ Selenium 
 
-We chose Cypress as it fitted with all of our criteria, as well as being well documented and easy to pick up. 
+We chose Selenium as it fitted with all of our criteria, as well as being well documented. 
 
 ## Links
 
-- [Accessing Firebase from Cypress documentation](https://github.com/prescottprue/cypress-firebase) 
-- [Cypress Guide](https://www.cypress.io/)
+- [Selenium Guide](https://www.selenium.dev/documentation/webdriver/getting_started/)
