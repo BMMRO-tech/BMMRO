@@ -84,7 +84,7 @@ describe('create a new encounter user journey', () => {
     expect(newHabitatUrl).toContain("/habitat-uses/new");
   }, testTimeout)
 
-  it.skip('stores encounter and habitat ID', async () => {
+  it('stores encounter and habitat ID', async () => {
 
     await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -95,7 +95,7 @@ describe('create a new encounter user journey', () => {
 
   }, testTimeout)
 
-  it.skip('user edits encounter', async () => {
+  it('user edits encounter', async () => {
 
     await driver.findElement(wd.By.css('#encounterDataSheet')).click();
 
@@ -106,13 +106,13 @@ describe('create a new encounter user journey', () => {
     expect(editEncouterUrl).toContain("/edit");
   }, testTimeout)
 
-  it.skip('user ends encounter', async () => {
+  it('user ends encounter', async () => {
 
     await driver.findElement(wd.By.css('#species>option[value="Atlantic spotted dolphin"]')).click();
 
     await driver.findElement(wd.By.css('#saveEndEncounter')).click();
-
-    await driver.wait(wd.until.elementLocated(wd.By.css('.css-iwuz5a-Encounters')), 10000);
+    
+    await driver.wait(wd.until.elementLocated(wd.By.css('h1')), pageTimeout);
 
     let homeUrl = await driver.getCurrentUrl();
 
