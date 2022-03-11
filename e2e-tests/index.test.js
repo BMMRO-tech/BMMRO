@@ -55,7 +55,7 @@ describe('create a new encounter user journey', () => {
     expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
   }, testTimeout)
 
-  it.skip('user creates a new encounter', async () => {
+  it('user creates a new encounter', async () => {
 
     await driver.findElement(wd.By.css('#newEncounter')).click();
 
@@ -66,7 +66,7 @@ describe('create a new encounter user journey', () => {
     expect(newEncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/new`);
   }, testTimeout)
 
-  it.skip('user creates a new habitat', async () => {
+  it('user creates a new habitat', async () => {
 
     let seqNum = await driver.findElement(wd.By.name('sequenceNumber'));
 
