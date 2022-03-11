@@ -209,4 +209,57 @@ describe("HabitatUseForm", () => {
       expect(commentsInput.maxLength).toBe(1000);
     });
   });
+
+  it.each([
+    ["1.123451", "-1.123451"],
+    ["-3.125456", "-3.125456"],
+    ["", ""],
+  ])("longitude defaults to negative value", async (val, expected) => {
+    const mockInitialValues = {
+      numberOfAnimals: 1,
+      numberOfCalves: 3,
+      numberOfBoats: 1,
+      directionOfTravel: "N",
+      comments: "Cool whale!",
+      waterDepth: 22,
+      waterDepthBeyondSoundings: false,
+      waterTemp: 17,
+      bottomSubstrate: "",
+      cloudCover: "",
+      beaufortSeaState: "",
+      tideState: "",
+      behaviour: "",
+      swellWaveHeight: "",
+      distance: "",
+      bearing: "",
+      aspect: "",
+      groupCohesion: "",
+      groupComposition: "",
+      surfaceBout: 0,
+      endTime: "",
+      startTime: "12:30:33",
+      latitude: "1.123456",
+      longitude: "",
+    };
+    let formValues;
+    const mockHandleSubmit = (values) => {
+      formValues = values;
+    };
+    const { getByRole } = render(
+      <HabitatUseForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+      />
+    );
+
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    await userEvent.type(longitudeInput, val, { delay: 1 });
+
+    await act(async () => {
+      const submitButton = getByRole("button", { name: "Save" });
+      userEvent.click(submitButton);
+    });
+
+    expect(formValues.longitude).toEqual(expected);
+  });
 });
