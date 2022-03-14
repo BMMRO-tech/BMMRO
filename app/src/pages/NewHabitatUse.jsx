@@ -21,7 +21,7 @@ const NewHabitatUse = ({ encounterId }) => {
   const [isEncounterValid, setIsEncounterValid] = useState(false);
   const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
-  const page = "NewHabitatUse";
+  const page = true;
   const handleSubmit = (values) => {
     values.hasEnded = true;
     if (!values.endTime) {

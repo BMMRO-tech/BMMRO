@@ -46,7 +46,6 @@ const EncounterForm = ({
 }) => {
   const [submitType, setSubmitType] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const page = "EncounterForm";
 
   const styles = {
     cancelButton: css`

@@ -127,7 +127,7 @@ const NewEncounterForm = ({ handleSubmit }) => {
                     + New Habitat Use
                   </Button>
                 </div>
-                <InputFocusOnError page={"newEncounterForm"} />
+                <InputFocusOnError />
               </Fragment>
             </Form>
           )}
