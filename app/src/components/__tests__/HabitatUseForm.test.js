@@ -1,15 +1,12 @@
 import React from "react";
 import {
   act,
-  getByLabelText,
-  getByTestId,
   render,
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
-import PositionInput from "../formFields/PositionInput/PositionInput";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -218,102 +215,6 @@ describe("HabitatUseForm", () => {
         name: "Comments",
       });
       expect(commentsInput.maxLength).toBe(1000);
-    });
-  });
-
-  it("displays the positionalValidationModal if no positional Data is entered", async () => {
-    const mockHandleSubmit = jest.fn();
-
-    const { getByRole, queryByTestId } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    await act(async () => {
-      const submitButton = getByRole("button", { name: "End Habitat" });
-      userEvent.click(submitButton);
-    });
-
-    expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
-  });
-
-  it("displays the positionalValidationModal if only the  Latitude is present", async () => {
-    const mockHandleSubmit = jest.fn();
-
-    const { getByRole, queryByTestId } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    await act(async () => {
-      const latitudeInput = getByRole("spinbutton", { name: "Lat" });
-      await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-
-      const submitButton = getByRole("button", { name: "End Habitat" });
-      userEvent.click(submitButton);
-    });
-
-    expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
-  });
-
-  it("displays the positionalValidationModal if only the  Longitude is present", async () => {
-    const mockHandleSubmit = jest.fn();
-
-    const { getByRole, queryByTestId } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    await act(async () => {
-      const longInput = getByRole("spinbutton", { name: "Long" });
-      await userEvent.type(longInput, "15.123456", { delay: 1 });
-      const submitButton = getByRole("button", { name: "End Habitat" });
-      userEvent.click(submitButton);
-    });
-
-    expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
-    expect(queryByTestId("add-data-button")).toBeInTheDocument();
-  });
-
-  it("does not display the positionalValidationModal if gpsMark is present", async () => {
-    const mockHandleSubmit = jest.fn();
-
-    const { getByRole, queryByTestId } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    await act(async () => {
-      const gps = getByRole("textbox", { name: "GPS mark" });
-      await userEvent.type(gps, "9", { delay: 1 });
-      const submitButton = getByRole("button", { name: "End Habitat" });
-      userEvent.click(submitButton);
-    });
-
-    expect(queryByTestId("positional-data-modal")).not.toBeInTheDocument();
-  });
-
-  it("if there is no positional data, after dismissing modal, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
-    const { getByRole, queryByTestId } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
-    );
-
-    let submitButton;
-    let latInput;
-
-    await act(async () => {
-      latInput = getByRole("spinbutton", {
-        name: "Lat",
-      });
-      submitButton = getByRole("button", { name: "End Habitat" });
-      userEvent.click(submitButton, { delay: 1 });
-    });
-    expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
-    expect(queryByTestId("add-data-button")).toBeInTheDocument();
-
-    const modalButton = queryByTestId("add-data-button");
-    userEvent.click(modalButton, { delay: 1 });
-    expect(submitButton).not.toHaveFocus();
-    expect(modalButton).not.toHaveFocus();
-    await waitFor(() => {
-      expect(latInput).toHaveFocus();
     });
   });
 });

@@ -25,8 +25,8 @@ const InputFocusOnError = (props) => {
             firstFieldWithError.focus();
           }
         }
-        const page = props.page;
-        if (!(typeof page === "undefined")) {
+        const isPageNewHabitatUse = props.isPageNewHabitatUse;
+        if (!(typeof isPageNewHabitatUse === "undefined")) {
           props.hasTriedToSubmit(
             !(values.longitude && values.latitude) && !values.gpsMark
           );

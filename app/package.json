@@ -35,7 +35,7 @@
     "firebase-tools": "^8.10.0",
     "husky": "^4.2.5",
     "mutationobserver-shim": "^0.3.7",
-    "prettier": "2.5.1",
+    "prettier": "^2.5.1",
     "react-test-renderer": "^16.13.1"
   },
   "husky": {
