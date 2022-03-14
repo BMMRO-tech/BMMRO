@@ -2,6 +2,8 @@ import * as webdriver from 'selenium-webdriver';
 import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc, deleteDoc } from 'firebase/firestore/lite';
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 
 let wd = webdriver.default;
 
@@ -13,6 +15,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth();
 
 async function startDriver() {
   let driver = await new wd.Builder().forBrowser('safari').build();
@@ -28,6 +31,13 @@ describe('create a new encounter user journey', () => {
   let testTimeout = 20000;
 
   beforeAll(async () => {
+    signInWithEmailAndPassword(auth, process.env.EMAIL, process.env.PASSWORD)
+    .then(() => {
+      console.log("firebase authentication success")
+    })
+    .catch((error) => {
+      console.log("firebase authentication error: ", error)
+    });
     driver = await startDriver();
   }, testTimeout)
 
@@ -119,7 +129,8 @@ describe('create a new encounter user journey', () => {
     expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
   }, testTimeout)
 
-  it.skip('checks database for new encounter', async () => {
+
+  it('checks database for new encounter', async () => {
 
     const docRefEncounter = doc(db, "encounter", encounterId);
     const docSnapEncounter = await getDoc(docRefEncounter);
@@ -127,7 +138,8 @@ describe('create a new encounter user journey', () => {
     expect(docSnapEncounter.exists()).toBeTruthy()
   }, testTimeout)
 
-  it.skip('checks database for new habitat', async () => {
+
+  it('checks database for new habitat', async () => {
 
     const docRefHabitat = doc(db, "encounter", encounterId, "habitatUse", habitatId);
     const docSnapHabitat = await getDoc(docRefHabitat);
@@ -135,8 +147,8 @@ describe('create a new encounter user journey', () => {
     expect(docSnapHabitat.exists()).toBeTruthy()
   }, testTimeout)
 
-  it.skip('deletes habitat and encounter from database', async () => {
 
+  it('deletes habitat and encounter from database', async () => {
     await deleteDoc(doc(db, "encounter", encounterId, "habitatUse", habitatId));
     await deleteDoc(doc(db, "encounter", encounterId));
 
@@ -149,6 +161,12 @@ describe('create a new encounter user journey', () => {
 
   afterAll(async () => {
     await driver.quit();
+
+    signOut(auth).then(() => {
+      console.log("firebase sign out success")
+    }).catch((error) => {
+      console.log("firebase sign out error: ", error)
+    });
   }, testTimeout)
 
 })
