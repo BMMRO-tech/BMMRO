@@ -66,7 +66,7 @@ const PositionInput = ({
   };
 
   const defaultToNegativeValue = (val) => {
-    return val == "" || val.startsWith("-") || name !== "longitude"
+    return val === "" || val.startsWith("-") || name !== "longitude"
       ? val
       : `-${val}`;
   };
