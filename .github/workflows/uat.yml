@@ -65,7 +65,7 @@ jobs:
     runs-on: macos-latest
     env:
       E2E_TESTS_DIR: ./e2e-tests
-      ENDPOINT: https://bmmro-uat.web.app/
+      ENDPOINT: https://bmmro-uat.web.app
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
