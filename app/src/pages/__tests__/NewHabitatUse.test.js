@@ -1,10 +1,7 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
-import {
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Datastore } from "../../datastore/datastore";
@@ -118,7 +115,7 @@ describe("NewHabitatUse", () => {
     expect(datastore.createSubDoc).not.toHaveBeenCalled();
   });
 
-  describe("positional data requirements and modal", () => { 
+  describe("positional data requirements and modal", () => {
     const id = "790";
     let submitButton;
 

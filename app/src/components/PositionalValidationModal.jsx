@@ -48,7 +48,12 @@ const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
             End habitat without positional data?
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
-            <Button variant="primary" onClick={handleLeavePage} isMedium={true}>
+            <Button
+              variant="primary"
+              onClick={handleLeavePage}
+              isMedium={true}
+              testId={"saveAnyway"}
+            >
               End habitat
             </Button>
             <StayButton />

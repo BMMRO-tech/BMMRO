@@ -90,6 +90,9 @@ describe('create a new encounter user journey', () => {
     let newHabitatUrl = await driver.getCurrentUrl();
 
     await driver.findElement(wd.By.css('#saveHabitat')).click();
+
+    await driver.wait(wd.until.elementLocated(wd.By.css('#saveAnyway')), pageTimeout);
+
     await driver.findElement(wd.By.css('#saveAnyway')).click();
 
     expect(newHabitatUrl).toContain("/habitat-uses/new");
