@@ -240,6 +240,7 @@ describe("HabitatUseForm", () => {
       startTime: "12:30:33",
       latitude: "1.123456",
       longitude: "",
+      gpsMark: "test",
     };
     let formValues;
     const mockHandleSubmit = (values) => {
