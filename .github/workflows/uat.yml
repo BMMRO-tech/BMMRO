@@ -84,7 +84,7 @@ jobs:
         env:
           ENDPOINT: ${{env.ENDPOINT}}
           EMAIL: "test@test.com"
-          PASSWORD: ${{secrets.FIREBASE_DEV_TEST_ACCOUNT_PASSWORD}}
+          PASSWORD: ${{secrets.FIREBASE_UAT_TEST_ACCOUNT_PASSWORD}}
           PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
           API_KEY: ${{secrets.FIREBASE_UAT_API_KEY}}
           AUTH_DOMAIN: ${{secrets.FIREBASE_UAT_AUTH_DOMAIN}}
