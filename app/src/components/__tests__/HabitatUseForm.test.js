@@ -259,7 +259,7 @@ describe("HabitatUseForm", () => {
       const submitButton = getByRole("button", { name: "Save" });
       userEvent.click(submitButton);
     });
-
+    console.log(formValues);
     expect(formValues.longitude).toEqual(expected);
   });
 });
