@@ -214,7 +214,7 @@ describe("HabitatUseForm", () => {
     ["1.123451", "-1.123451"],
     ["-3.125456", "-3.125456"],
     ["", ""],
-  ])("longitude defaults to negative value", async (val, expected) => {
+  ])("the longitude defaults to negative value", async (val, expected) => {
     const mockInitialValues = {
       numberOfAnimals: 1,
       numberOfCalves: 3,
