@@ -5,8 +5,9 @@ const isDatepicker = (errorField) => {
   return errorField.getAttribute("data-field-type") === "datepicker";
 };
 
-const InputFocusOnError = () => {
-  const { isSubmitting, validateForm } = useFormikContext();
+const InputFocusOnError = (props) => {
+  const { isSubmitting, values, validateForm } = useFormikContext();
+
   useEffect(() => {
     validateForm().then((errors) => {
       if (isSubmitting) {
@@ -24,11 +25,16 @@ const InputFocusOnError = () => {
             firstFieldWithError.focus();
           }
         }
+        const isPageNewHabitatUse = props.isPageNewHabitatUse;
+        if (!(typeof isPageNewHabitatUse === "undefined")) {
+          props.hasTriedToSubmit(
+            !(values.longitude && values.latitude) && !values.gpsMark
+          );
+        }
       }
     });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitting]);
+  }, [isSubmitting, validateForm]);
   return null;
 };
 export default InputFocusOnError;

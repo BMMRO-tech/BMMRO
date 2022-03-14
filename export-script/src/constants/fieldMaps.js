@@ -6,6 +6,7 @@ const prependFromApp = require("../mappings/prependFromApp");
 const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
 const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
 const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
+const updateComment = require("../updateComment");
 
 module.exports = {
   encounter: {
@@ -115,8 +116,8 @@ module.exports = {
     "Group Composition": { key: "groupComposition" },
     "# animals": { key: "numberOfAnimals" },
     Comment: {
-      key: "comments",
-      transform: prependFromApp,
+      key: "gpsMark",
+      transform: updateComment,
     },
     "Non-Tagged Surfacing Counts": { key: "" },
     "Tagged Whale?": { key: "" },
