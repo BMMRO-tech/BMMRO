@@ -65,6 +65,12 @@ const PositionInput = ({
     return "";
   };
 
+  const defaultToNegativeValue = (val) => {
+    return val === "" || val.startsWith("-") || name !== "longitude"
+      ? val
+      : `-${val}`;
+  };
+
   const [field, meta, helpers] = useField({
     name,
     validate: validatePosition,
@@ -91,7 +97,11 @@ const PositionInput = ({
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
-            onChange={(e) => helpers.setValue(e.target.value.toString())}
+            onChange={(e) =>
+              helpers.setValue(
+                defaultToNegativeValue(e.target.value.toString())
+              )
+            }
           />
         </div>
       </label>

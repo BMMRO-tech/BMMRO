@@ -143,7 +143,7 @@ const EncounterForm = ({
                   <TextAreaInput
                     name="comments"
                     labelText="Comments / Observations (names of underwater observers)"
-                    maxLength={500}
+                    maxLength={1000}
                     isDouble
                     isDisabled={isViewOnly}
                   />
@@ -565,6 +565,7 @@ const EncounterForm = ({
                           width="150px"
                           variant="secondary"
                           type="button"
+                          testId={"saveEndEncounter"}
                           onClick={() => {
                             // Setting state and calling submitForm with timeout is required as passing a payload to
                             // submitForm is not yet supported: https://github.com/BMMRO-tech/BMMRO/issues/132

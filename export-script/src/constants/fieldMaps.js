@@ -2,10 +2,11 @@ const convertUnixTimestampToMDY = require("../mappings/convertUnixTimestampToMDY
 const convertWaveHeightOption = require("../mappings/convertWaveHeightOption");
 const convertEmptyToNotNoted = require("../mappings/convertEmptyToNotNoted");
 const convertToDecimal = require("../mappings/convertToDecimal");
-const prependFromFirestore = require("../mappings/prependFromFirestore");
+const prependFromApp = require("../mappings/prependFromApp");
 const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
 const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
 const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
+const updateComment = require("../updateComment");
 
 module.exports = {
   encounter: {
@@ -40,7 +41,7 @@ module.exports = {
     "Biopsy sheet #": { key: "" },
     "Tag Attempt": { key: "tagAttempt" },
     "Tag Success": { key: "tagSuccess", transform: convertNotNotedToNo },
-    Comments: { key: "comments", transform: prependFromFirestore },
+    Comments: { key: "comments", transform: prependFromApp },
     "End of search effort": { key: "endOfSearchEffort" },
     "End time": { key: "endTime" },
     "Elapsed time": { key: "elapsedTime" },
@@ -115,8 +116,8 @@ module.exports = {
     "Group Composition": { key: "groupComposition" },
     "# animals": { key: "numberOfAnimals" },
     Comment: {
-      key: "comments",
-      transform: prependFromFirestore,
+      key: "gpsMark",
+      transform: updateComment,
     },
     "Non-Tagged Surfacing Counts": { key: "" },
     "Tagged Whale?": { key: "" },

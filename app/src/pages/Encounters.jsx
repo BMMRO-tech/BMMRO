@@ -26,19 +26,17 @@ const Encounters = () => {
   };
 
   const { datastore } = useContext(FirebaseContext);
-  const {
-    todaysEncounters,
-    previousEncounters,
-    loadPreviousMonth,
-    isLoading,
-  } = useEncountersByMonth(datastore);
+  const { todaysEncounters, previousEncounters, loadPreviousMonth, isLoading } =
+    useEncountersByMonth(datastore);
 
   return (
     <Layout hasDefaultPadding={false}>
       <div css={styles.titleContainer}>
         <h1 css={typography.largeTitle}>ENCOUNTERS</h1>
         <Link to={ROUTES.newEncounter}>
-          <Button isSmall>+ New</Button>
+          <Button isSmall testId={"newEncounter"}>
+            + New
+          </Button>
         </Link>
       </div>
       <div css={styles.list}>
