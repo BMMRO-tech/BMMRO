@@ -17,8 +17,9 @@ const PositionInput = ({
   type,
   autofill,
   isDisabled,
+  refreshLatLong,
 }) => {
-  const position = usePosition();
+  const position = usePosition(refreshLatLong);
 
   const positionConfig = {
     latitude: {
@@ -78,7 +79,7 @@ const PositionInput = ({
 
   useEffect(() => {
     if (autofill && position[type]) {
-      !meta.touched && helpers.setValue(position[type]);
+      helpers.setValue(position[type]);
     }
     // eslint-disable-next-line
   }, [position[type]]);

@@ -17,9 +17,9 @@ const FormSection = ({
 
   const fieldsLayout = isOneLine
     ? [utilities.form.subsection, utilities.form.oneLine3ElementsFieldsGrid]
-    : isOneLine4Elements 
+    : isOneLine4Elements
     ? [utilities.form.subsection, utilities.form.oneLine4ElementsFieldsGrid]
-    :[utilities.form.subsection, utilities.form.fieldsGrid];
+    : [utilities.form.subsection, utilities.form.fieldsGrid];
 
   const styles = {
     legend: css`
