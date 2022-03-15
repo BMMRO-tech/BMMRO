@@ -245,6 +245,7 @@ describe("HabitatUseForm", () => {
       startTime: "12:30:33",
       latitude: "1.123456",
       longitude: "",
+      gpsMark: "test",
     };
     let formValues;
     const mockHandleSubmit = (values) => {
@@ -268,11 +269,42 @@ describe("HabitatUseForm", () => {
     expect(formValues.longitude).toEqual(expected);
   });
 
-  it("has a refresh button for long & lat", () => {
-    const { getByTestId } = render(
-      <HabitatUseForm />
-    );
+  // it("refresh long & lat on click on the refresh button", async() => {
 
-    expect(getByTestId("Refresh")).toBeInTheDocument();
-  })
+  //   const realGeolocation = global.navigator.geolocation;
+
+  //   global.navigator.geolocation = {
+  //     getCurrentPosition: jest.fn().mockImplementation((success) =>
+  //       success({
+  //         coords: {
+  //           latitude: 1.123456,
+  //           longitude: 1.123456,
+  //         },
+  //       })
+  //     ),
+  //   };
+
+  //   const { getByTestId, getByRole } = render(
+  //     <HabitatUseForm />
+  //   );
+
+  //   const longitudeInputBeforeRefresh = getByRole("spinbutton", { name: "Long" }).value;
+  //   const latitudeInputBeforeRefresh = getByRole("spinbutton", { name: "Lat" }).value;
+
+  //   const refreshButton = getByTestId("Refresh");
+
+  //   await act(async () => {
+  //     userEvent.click(refreshButton);
+  //   });
+
+  //   const longitudeInputAfterRefresh = getByRole("spinbutton", { name: "Long" }).value;
+  //   const latitudeInputAfterRefresh = getByRole("spinbutton", { name: "Lat" }).value;
+
+  //   expect(refreshButton).toBeInTheDocument();
+
+  //   expect(longitudeInputBeforeRefresh).not.toBe(longitudeInputAfterRefresh);    
+  //   expect(latitudeInputBeforeRefresh).not.toBe(latitudeInputAfterRefresh);  
+
+  //   global.navigator.geolocation = realGeolocation;
+  // })
 });

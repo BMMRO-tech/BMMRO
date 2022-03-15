@@ -3,13 +3,19 @@ import { css, jsx } from "@emotion/core";
 import colors from "../../materials/colors";
 
 export const Refresh = ({ testId }) => {
+  
+  const handleClick = () => {
+    console.log("clicked the refresh button")
+  }
+  
   return (
     <svg
-    width="100px"
-    height="100px"
-      //onClick={handleClick}
+      width="90px"
+      height="90px"
+      style={{marginLeft:"-100px", marginTop:"10px"}}
+      onClick={handleClick}
       data-testid={testId}
-      fill={colors.mediumTurquoise}
+      fill={colors.black}
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       viewBox="0 -200 1308.48 1308.48"

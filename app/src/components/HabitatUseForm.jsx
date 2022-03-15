@@ -129,7 +129,8 @@ const HabitatUseForm = ({
                   />
                 </FormSection>
                 <br />
-                <FormSection isOneLine>
+                <FormSection isOneLine4Elements>
+
                   <PositionInput
                     name="latitude"
                     type="latitude"
@@ -138,18 +139,23 @@ const HabitatUseForm = ({
                     autofill={!initialValues}
                     isDisabled={isViewOnly}
                   />
-                  <PositionInput
-                    name="longitude"
-                    type="longitude"
-                    labelText="Long"
-                    isShort
-                    autofill={!initialValues}
-                    isDisabled={isViewOnly}
-                  />
-                  <Refresh
-                    //styles={styles.cancelButton}
-                    testId = "Refresh"
-                  />
+
+                  <div style={{display:"flex"}}>
+
+                  
+                    <PositionInput
+                      name="longitude"
+                      type="longitude"
+                      labelText="Long"
+                      isShort
+                      autofill={!initialValues}
+                      isDisabled={isViewOnly}
+                    />  
+                    <Refresh
+                      //styles={styles.cancelButton}
+                      testId = "Refresh"
+                    />
+                  </div>
                   <TextInput
                     name="gpsMark"
                     labelText="GPS mark"

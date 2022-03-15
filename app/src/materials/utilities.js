@@ -17,10 +17,16 @@ const utilities = {
         grid-column-gap: 10%;
       }
     `,
-    oneLineFieldsGrid: css`
+    oneLine3ElementsFieldsGrid: css`
       @media (min-width: ${breakPoints.maxPhone}) {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+      }
+    `,
+    oneLine4ElementsFieldsGrid: css`
+      @media (min-width: ${breakPoints.maxPhone}) {
+        display: grid;
+        grid-template-columns: 2fr 3fr 2fr;
       }
     `,
     title: css`

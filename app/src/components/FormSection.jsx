@@ -7,6 +7,7 @@ import { useFormikContext } from "formik";
 const FormSection = ({
   legendText,
   isOneLine,
+  isOneLine4Elements,
   children,
   id,
   errorFieldName,
@@ -15,8 +16,10 @@ const FormSection = ({
   const hasSectionError = errorFieldName && !!errors[errorFieldName];
 
   const fieldsLayout = isOneLine
-    ? [utilities.form.subsection, utilities.form.oneLineFieldsGrid]
-    : [utilities.form.subsection, utilities.form.fieldsGrid];
+    ? [utilities.form.subsection, utilities.form.oneLine3ElementsFieldsGrid]
+    : isOneLine4Elements 
+    ? [utilities.form.subsection, utilities.form.oneLine4ElementsFieldsGrid]
+    :[utilities.form.subsection, utilities.form.fieldsGrid];
 
   const styles = {
     legend: css`
