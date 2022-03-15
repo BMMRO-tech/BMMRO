@@ -3,6 +3,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
+//import { it } from "date-fns/locale";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -266,4 +267,12 @@ describe("HabitatUseForm", () => {
 
     expect(formValues.longitude).toEqual(expected);
   });
+
+  it("has a refresh button for long & lat", () => {
+    const { getByTestId } = render(
+      <HabitatUseForm />
+    );
+
+    expect(getByTestId("Refresh")).toBeInTheDocument();
+  })
 });

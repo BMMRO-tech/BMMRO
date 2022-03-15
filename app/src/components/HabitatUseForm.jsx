@@ -33,6 +33,8 @@ import FormSection from "./FormSection";
 import PositionalValidationModal from "./PositionalValidationModal";
 import fieldStyles from "./formFields/fieldStyles";
 
+import { Refresh } from "./icons/Refresh";
+
 const HabitatUseForm = ({
   initialValues,
   handleSubmit,
@@ -143,6 +145,10 @@ const HabitatUseForm = ({
                     isShort
                     autofill={!initialValues}
                     isDisabled={isViewOnly}
+                  />
+                  <Refresh
+                    //styles={styles.cancelButton}
+                    testId = "Refresh"
                   />
                   <TextInput
                     name="gpsMark"
