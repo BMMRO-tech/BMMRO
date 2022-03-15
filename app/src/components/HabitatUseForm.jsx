@@ -30,14 +30,22 @@ import habitatUseDefaults from "../constants/habitatUseDefaultValues";
 import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
 import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
+import PositionalValidationModal from "./PositionalValidationModal";
+import fieldStyles from "./formFields/fieldStyles";
 
 const HabitatUseForm = ({
   initialValues,
   handleSubmit,
   isViewOnly,
   encounterId,
+  isPageNewHabitatUse,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showPositionalModal, setShowPositionalModal] = useState({
+    boolean: false,
+    values: "",
+  });
+  const [closedPositionalModal, setClosedPositionalModal] = useState(false);
 
   const styles = {
     cancelButton: css`
@@ -46,6 +54,10 @@ const HabitatUseForm = ({
     section: css`
       background-color: none;
     `,
+  };
+
+  const checkingValidation = (isPositionalData) => {
+    setClosedPositionalModal(isPositionalData);
   };
 
   const renderConfirmationModal = () => {
@@ -57,12 +69,40 @@ const HabitatUseForm = ({
     );
   };
 
+  const renderPositionalValidationModal = () => {
+    return (
+      <PositionalValidationModal
+        closeModal={() => {
+          const elementValue = document.getElementsByName("latitude")[0];
+          window.setTimeout(() => elementValue.focus(), 0);
+          setShowPositionalModal((prevState) => {
+            return {
+              ...prevState,
+              boolean: false,
+            };
+          });
+        }}
+        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
+      />
+    );
+  };
+
   const initValues = initialValues || habitatUseDefaults;
 
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
-        <Formik initialValues={initValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initValues}
+          async
+          onSubmit={(values) => {
+            values.hasEnded ||
+            (values.longitude && values.latitude) ||
+            values.gpsMark
+              ? handleSubmit(values)
+              : setShowPositionalModal({ boolean: true, values: values });
+          }}
+        >
           {({ values }) => (
             <Form>
               <section css={styles.section}>
@@ -111,6 +151,15 @@ const HabitatUseForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
+                  {closedPositionalModal && (
+                    <label
+                      css={fieldStyles.longRequired}
+                      data-testid={"positional-data-validation"}
+                    >
+                      {" "}
+                      Please add either latitude and longitude, or a GPS mark{" "}
+                    </label>
+                  )}
                 </FormSection>
               </section>
               <section css={styles.section}>
@@ -308,12 +357,16 @@ const HabitatUseForm = ({
                 </div>
               )}
 
-              <InputFocusOnError />
+              <InputFocusOnError
+                hasTriedToSubmit={checkingValidation}
+                isPageNewHabitatUse={isPageNewHabitatUse}
+              />
             </Form>
           )}
         </Formik>
       </div>
 
+      {showPositionalModal.boolean && renderPositionalValidationModal()}
       {showConfirmationModal && renderConfirmationModal()}
     </div>
   );

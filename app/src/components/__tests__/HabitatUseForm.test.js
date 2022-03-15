@@ -201,8 +201,12 @@ describe("HabitatUseForm", () => {
   });
 
   it("has a comment field with maxlength 1000 chars", async () => {
+    const mockHandleSubmit = jest.fn();
+
     await act(async () => {
-      const { getByRole } = render(<HabitatUseForm />);
+      const { getByRole } = render(
+        <HabitatUseForm handleSubmit={mockHandleSubmit} />
+      );
       const commentsInput = getByRole("textbox", {
         name: "Comments",
       });

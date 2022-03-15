@@ -164,7 +164,7 @@ const utilities = {
     `,
     modalButtons: css`
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
     `,
   },
   header: {
