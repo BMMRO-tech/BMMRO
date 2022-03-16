@@ -76,6 +76,7 @@ describe('create a new encounter user journey', () => {
     expect(newEncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/new`);
   }, testTimeout)
 
+
   it('user creates a new habitat', async () => {
 
     let seqNum = await driver.findElement(wd.By.name('sequenceNumber'));
@@ -87,7 +88,20 @@ describe('create a new encounter user journey', () => {
 
     await driver.manage().setTimeouts({ implicit: pageTimeout });
 
-    let newHabitatUrl = await driver.getCurrentUrl();
+    let newEncounterUrl = await driver.getCurrentUrl();
+
+    expect(newEncounterUrl).toContain(`/habitat-uses/new`);
+  }, testTimeout)
+
+  it('stores encounter ID', async () => {
+
+    let newEncounterUrl = await driver.getCurrentUrl();
+
+    encounterId = newEncounterUrl.split('/')[4];
+
+  }, testTimeout)
+
+  it('user fills out and end habitat', async () => {
 
     await driver.findElement(wd.By.css('#saveHabitat')).click();
 
@@ -95,16 +109,17 @@ describe('create a new encounter user journey', () => {
 
     await driver.findElement(wd.By.css('#saveAnyway')).click();
 
-    expect(newHabitatUrl).toContain("/habitat-uses/new");
+    await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+    let newHabitatUrl = await driver.getCurrentUrl();
+
+    expect(newHabitatUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
   }, testTimeout)
 
-  it('stores encounter and habitat ID', async () => {
-
-    await driver.manage().setTimeouts({ implicit: pageTimeout });
+  it('stores habitat ID', async () => {
 
     let newHabitatUrl = await driver.findElement(wd.By.css('#habitatUse')).getAttribute("href");
 
-    encounterId = newHabitatUrl.split('/')[4];
     habitatId = newHabitatUrl.split('/')[6];
 
   }, testTimeout)
@@ -153,8 +168,14 @@ describe('create a new encounter user journey', () => {
 
 
   it('deletes habitat and encounter from database', async () => {
-    await deleteDoc(doc(db, "encounter", encounterId, "habitatUse", habitatId));
-    await deleteDoc(doc(db, "encounter", encounterId));
+
+    if(habitatId){
+      await deleteDoc(doc(db, "encounter", encounterId, "habitatUse", habitatId));
+    }
+
+    if(encounterId){
+      await deleteDoc(doc(db, "encounter", encounterId));
+    }
 
     const docRefEncounter = doc(db, "encounter", encounterId);
 
