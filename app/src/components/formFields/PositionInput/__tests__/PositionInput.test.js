@@ -8,9 +8,17 @@ import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("PositionInput", () => {
+  const mockFn = jest.fn();
+
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
-      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
+      />,
       { lat: "" }
     );
 
@@ -27,6 +35,8 @@ describe("PositionInput", () => {
         labelText="Your latitude"
         type="latitude"
         isRequired
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -46,7 +56,13 @@ describe("PositionInput", () => {
 
   it("validates min value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
+      />,
       { lat: "" }
     );
 
@@ -68,7 +84,13 @@ describe("PositionInput", () => {
 
   it("validates max value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
+      />,
       { lat: "" }
     );
 
@@ -90,7 +112,13 @@ describe("PositionInput", () => {
 
   it("displays error for less than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
+      />,
       { lat: "" }
     );
 
@@ -113,7 +141,13 @@ describe("PositionInput", () => {
 
   it("displays error for more than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
+      <PositionInput
+        name="lat"
+        labelText="Your latitude"
+        type="latitude"
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
+      />,
       { lat: "" }
     );
 
@@ -141,6 +175,8 @@ describe("PositionInput", () => {
         labelText="Your latitude"
         type="latitude"
         isRequired
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -182,6 +218,8 @@ describe("PositionInput", () => {
         labelText="Default latitude"
         type="latitude"
         autofill
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { defaultLat: "" }
     );
@@ -199,6 +237,8 @@ describe("PositionInput", () => {
         type="latitude"
         autofill={false}
         isDisabled
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );

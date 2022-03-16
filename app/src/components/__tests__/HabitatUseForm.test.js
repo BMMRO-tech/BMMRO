@@ -290,4 +290,52 @@ describe("HabitatUseForm", () => {
 
     global.navigator.geolocation = realGeolocation;
   });
+
+  it("Shows error message when the refresh button cannot obtain positional data", async () => {
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = null;
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    const refreshErrorMessage = getByTestId("refreshError");
+
+    expect(refreshErrorMessage).toBeInTheDocument();
+
+    global.navigator.geolocation = realGeolocation;
+  });
+
+  it("refresh button should be disbled while waiting for new location to update and then reenabled", async () => {
+    jest.useFakeTimers();
+
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = {
+      getCurrentPosition: jest.fn(),
+    };
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    expect(refreshButton).toHaveAttribute("disabled");
+
+    await act(async () => {
+      jest.runAllTimers();
+    });
+
+    expect(refreshButton).not.toHaveAttribute("disabled");
+
+    global.navigator.geolocation = realGeolocation;
+  });
 });

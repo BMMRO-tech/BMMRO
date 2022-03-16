@@ -49,6 +49,8 @@ const HabitatUseForm = ({
   });
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
   const [refreshLatLong, setRefreshLatLong] = useState(0);
+  const [refreshErrorMessage, setRefreshErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const styles = {
     cancelButton: css`
@@ -61,6 +63,9 @@ const HabitatUseForm = ({
 
   const checkingValidation = (isPositionalData) => {
     setClosedPositionalModal(isPositionalData);
+  };
+  const isRefreshError = (isError) => {
+    setRefreshErrorMessage(isError);
   };
 
   const renderConfirmationModal = () => {
@@ -139,6 +144,8 @@ const HabitatUseForm = ({
                     refreshLatLong={refreshLatLong}
                     autofill={!initialValues || refreshLatLong !== 0}
                     isDisabled={isViewOnly}
+                    isRefreshError={isRefreshError}
+                    setIsLoading={setIsLoading}
                   />
 
                   <div style={{ display: "flex" }}>
@@ -150,8 +157,12 @@ const HabitatUseForm = ({
                       refreshLatLong={refreshLatLong}
                       autofill={!initialValues || refreshLatLong !== 0}
                       isDisabled={isViewOnly}
+                      isRefreshError={isRefreshError}
+                      setIsLoading={setIsLoading}
                     />
                     <Refresh
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
                       setRefreshLatLong={setRefreshLatLong}
                       refreshLatLong={refreshLatLong}
                       testId="Refresh"
@@ -170,7 +181,16 @@ const HabitatUseForm = ({
                       data-testid={"positional-data-validation"}
                     >
                       {" "}
-                      Please add either latitude and longitude, or a GPS mark{" "}
+                      Please add either latitude and longitude, or a GPS mark.{" "}
+                    </label>
+                  )}
+                  {refreshErrorMessage && (
+                    <label
+                      css={fieldStyles.longRequired}
+                      data-testid={"refreshError"}
+                    >
+                      {" "}
+                      Geolocation could not be retrieved.{" "}
                     </label>
                   )}
                 </FormSection>
