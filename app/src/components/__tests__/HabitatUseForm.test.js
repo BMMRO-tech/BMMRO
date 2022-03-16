@@ -3,6 +3,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
+//import { it } from "date-fns/locale";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -266,5 +267,27 @@ describe("HabitatUseForm", () => {
     });
 
     expect(formValues.longitude).toEqual(expected);
+  });
+
+  it("refresh long & lat on click on the refresh button", async () => {
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = {
+      getCurrentPosition: jest.fn(),
+    };
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    expect(
+      global.navigator.geolocation.getCurrentPosition
+    ).toHaveBeenCalledTimes(4);
+
+    global.navigator.geolocation = realGeolocation;
   });
 });

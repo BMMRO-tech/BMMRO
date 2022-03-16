@@ -9,7 +9,7 @@ const formatCoordinate = (value) => {
   );
 };
 
-export const usePosition = () => {
+export const usePosition = (refresh) => {
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
 
@@ -32,7 +32,7 @@ export const usePosition = () => {
       geo.getCurrentPosition(onChange, onError);
     }
     // eslint-disable-next-line
-  }, []);
+  }, [refresh]);
 
   return { ...position, error };
 };

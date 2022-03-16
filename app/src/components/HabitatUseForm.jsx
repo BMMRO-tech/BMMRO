@@ -33,6 +33,8 @@ import FormSection from "./FormSection";
 import PositionalValidationModal from "./PositionalValidationModal";
 import fieldStyles from "./formFields/fieldStyles";
 
+import { Refresh } from "./icons/Refresh";
+
 const HabitatUseForm = ({
   initialValues,
   handleSubmit,
@@ -46,6 +48,7 @@ const HabitatUseForm = ({
     values: "",
   });
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  const [refreshLatLong, setRefreshLatLong] = useState(0);
 
   const styles = {
     cancelButton: css`
@@ -127,23 +130,33 @@ const HabitatUseForm = ({
                   />
                 </FormSection>
                 <br />
-                <FormSection isOneLine>
+                <FormSection isOneLine4Elements>
                   <PositionInput
                     name="latitude"
                     type="latitude"
                     labelText="Lat"
                     isShort
-                    autofill={!initialValues}
+                    refreshLatLong={refreshLatLong}
+                    autofill={!initialValues || refreshLatLong !== 0}
                     isDisabled={isViewOnly}
                   />
-                  <PositionInput
-                    name="longitude"
-                    type="longitude"
-                    labelText="Long"
-                    isShort
-                    autofill={!initialValues}
-                    isDisabled={isViewOnly}
-                  />
+
+                  <div style={{ display: "flex" }}>
+                    <PositionInput
+                      name="longitude"
+                      type="longitude"
+                      labelText="Long"
+                      isShort
+                      refreshLatLong={refreshLatLong}
+                      autofill={!initialValues || refreshLatLong !== 0}
+                      isDisabled={isViewOnly}
+                    />
+                    <Refresh
+                      setRefreshLatLong={setRefreshLatLong}
+                      refreshLatLong={refreshLatLong}
+                      testId="Refresh"
+                    />
+                  </div>
                   <TextInput
                     name="gpsMark"
                     labelText="GPS mark"
