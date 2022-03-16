@@ -3,7 +3,7 @@ name: Build Test Bundle in Dev
 on:
   pull_request:
     branches:
-      - 'master'
+      - master
 
 jobs:
   build-test-bundle:
