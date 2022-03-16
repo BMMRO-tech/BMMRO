@@ -26,7 +26,7 @@ const utilities = {
     oneLine4ElementsFieldsGrid: css`
       @media (min-width: ${breakPoints.maxPhone}) {
         display: grid;
-        grid-template-columns: 2fr 3fr 2fr;
+        grid-template-columns: 2.5fr 3fr 2.5fr;
       }
     `,
     title: css`
