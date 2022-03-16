@@ -14,7 +14,7 @@ export const Refresh = ({
     setRefreshLatLong(refreshLatLong + 1);
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 30000);
   };
 
   const basicStyles = css`

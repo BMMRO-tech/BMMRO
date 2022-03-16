@@ -29,7 +29,7 @@ export const usePosition = (refresh) => {
     if (!geo) {
       setError("Geolocation is not supported");
     } else {
-      geo.getCurrentPosition(onChange, onError);
+      geo.getCurrentPosition(onChange, onError, { timeout: 30000 });
       setError(null);
     }
     // eslint-disable-next-line

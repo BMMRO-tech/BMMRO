@@ -291,7 +291,7 @@ describe("HabitatUseForm", () => {
     global.navigator.geolocation = realGeolocation;
   });
 
-  it("Shows error message when ther refresh button cannot obtain positional data", async () => {
+  it("Shows error message when the refresh button cannot obtain positional data", async () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = null;
