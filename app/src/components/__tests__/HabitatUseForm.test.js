@@ -276,7 +276,7 @@ describe("HabitatUseForm", () => {
       getCurrentPosition: jest.fn(),
     };
 
-    const { getByTestId } = render(<HabitatUseForm />);
+    const { getByTestId, getByRole } = render(<HabitatUseForm />);
 
     const refreshButton = getByTestId("Refresh");
 
@@ -287,6 +287,26 @@ describe("HabitatUseForm", () => {
     expect(
       global.navigator.geolocation.getCurrentPosition
     ).toHaveBeenCalledTimes(4);
+
+    global.navigator.geolocation = realGeolocation;
+  });
+
+  it("Shows error message when ther refresh button cannot obtain positional data", async () => {
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = null;
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    const refreshErrorMessage = getByTestId("refreshError");
+
+    expect(refreshErrorMessage).toBeInTheDocument();
 
     global.navigator.geolocation = realGeolocation;
   });
