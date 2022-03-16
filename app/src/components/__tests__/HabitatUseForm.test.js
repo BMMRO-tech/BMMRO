@@ -276,7 +276,7 @@ describe("HabitatUseForm", () => {
       getCurrentPosition: jest.fn(),
     };
 
-    const { getByTestId, getByRole } = render(<HabitatUseForm />);
+    const { getByTestId } = render(<HabitatUseForm />);
 
     const refreshButton = getByTestId("Refresh");
 
@@ -307,6 +307,34 @@ describe("HabitatUseForm", () => {
     const refreshErrorMessage = getByTestId("refreshError");
 
     expect(refreshErrorMessage).toBeInTheDocument();
+
+    global.navigator.geolocation = realGeolocation;
+  });
+
+  it("refresh button should be disbled while waiting for new location to update and then reenabled", async () => {
+    jest.useFakeTimers();
+
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = {
+      getCurrentPosition: jest.fn(),
+    };
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    expect(refreshButton).toHaveAttribute("disabled");
+
+    await act(async () => {
+      jest.runAllTimers();
+    });
+
+    expect(refreshButton).not.toHaveAttribute("disabled");
 
     global.navigator.geolocation = realGeolocation;
   });

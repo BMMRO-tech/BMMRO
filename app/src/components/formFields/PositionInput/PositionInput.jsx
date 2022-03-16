@@ -19,6 +19,7 @@ const PositionInput = ({
   isDisabled,
   refreshLatLong,
   isRefreshError,
+  setIsLoading,
 }) => {
   const position = usePosition(refreshLatLong);
 
@@ -81,13 +82,17 @@ const PositionInput = ({
   useEffect(() => {
     if (autofill && position[type]) {
       helpers.setValue(position[type]);
+      setIsLoading(false);
     }
     // eslint-disable-next-line
   }, [position[type]]);
 
   useEffect(() => {
     isRefreshError(position.error !== null ? true : false);
-  }, [position.error, isRefreshError]);
+    if (position.error !== null) {
+      setIsLoading(false);
+    }
+  }, [position.error, isRefreshError, setIsLoading]);
 
   return (
     <div>

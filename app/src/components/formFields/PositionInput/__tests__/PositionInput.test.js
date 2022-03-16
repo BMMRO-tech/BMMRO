@@ -8,7 +8,7 @@ import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("PositionInput", () => {
-  const refresh = jest.fn();
+  const mockFn = jest.fn();
 
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
@@ -16,7 +16,8 @@ describe("PositionInput", () => {
         name="lat"
         labelText="Your latitude"
         type="latitude"
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -34,7 +35,8 @@ describe("PositionInput", () => {
         labelText="Your latitude"
         type="latitude"
         isRequired
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -58,7 +60,8 @@ describe("PositionInput", () => {
         name="lat"
         labelText="Your latitude"
         type="latitude"
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -85,7 +88,8 @@ describe("PositionInput", () => {
         name="lat"
         labelText="Your latitude"
         type="latitude"
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -112,7 +116,8 @@ describe("PositionInput", () => {
         name="lat"
         labelText="Your latitude"
         type="latitude"
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -140,7 +145,8 @@ describe("PositionInput", () => {
         name="lat"
         labelText="Your latitude"
         type="latitude"
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -169,7 +175,8 @@ describe("PositionInput", () => {
         labelText="Your latitude"
         type="latitude"
         isRequired
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -211,7 +218,8 @@ describe("PositionInput", () => {
         labelText="Default latitude"
         type="latitude"
         autofill
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { defaultLat: "" }
     );
@@ -229,7 +237,8 @@ describe("PositionInput", () => {
         type="latitude"
         autofill={false}
         isDisabled
-        isRefreshError={refresh}
+        isRefreshError={mockFn}
+        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
