@@ -9,12 +9,13 @@ export const Refresh = ({
   isLoading,
   setIsLoading,
 }) => {
+  const timeoutDuration = 10000;
   const handleClick = async () => {
     setIsLoading(true);
     setRefreshLatLong(refreshLatLong + 1);
     setTimeout(() => {
       setIsLoading(false);
-    }, 30000);
+    }, timeoutDuration);
   };
 
   const basicStyles = css`
