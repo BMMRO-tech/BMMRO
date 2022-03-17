@@ -18,10 +18,10 @@ const PositionInput = ({
   autofill,
   isDisabled,
   refreshLatLong,
-  isRefreshError,
   setIsLoading,
+  position,
 }) => {
-  const position = usePosition(refreshLatLong);
+  // const position = usePosition(refreshLatLong);
 
   const positionConfig = {
     latitude: {
@@ -80,19 +80,19 @@ const PositionInput = ({
   });
 
   useEffect(() => {
-    if (autofill && position[type]) {
-      helpers.setValue(position[type]);
+    if (autofill && position) {
+      helpers.setValue(position);
       setIsLoading(false);
     }
     // eslint-disable-next-line
-  }, [position[type]]);
+  }, [position]);
 
-  useEffect(() => {
-    isRefreshError(position.error !== null ? true : false);
-    if (position.error !== null) {
-      setIsLoading(false);
-    }
-  }, [position.error, isRefreshError, setIsLoading]);
+  // useEffect(() => {
+  //   isRefreshError(position.error !== null ? true : false);
+  //   if (position.error !== null) {
+  //     setIsLoading(false);
+  //   }
+  // }, [position.error, isRefreshError, setIsLoading]);
 
   return (
     <div>

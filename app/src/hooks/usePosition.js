@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
 import { POSITION_DECIMAL_PRECISION } from "../constants/forms";
 import { appendZeros, roundNumber } from "../utils/math";
+
+let position = { latitude: "", longitude: "" };
+let error;
 
 const formatCoordinate = (value) => {
   return appendZeros(
@@ -9,32 +11,25 @@ const formatCoordinate = (value) => {
   );
 };
 
-export const usePosition = (refresh) => {
-  const [position, setPosition] = useState({});
-  const [error, setError] = useState(null);
+const onChange = ({ coords }) => {
+  console.log(coords);
+  position.latitude = formatCoordinate(coords.latitude);
+  position.longitude = formatCoordinate(coords.longitude);
+};
 
-  const onChange = ({ coords }) => {
-    setPosition({
-      latitude: formatCoordinate(coords.latitude),
-      longitude: formatCoordinate(coords.longitude),
-    });
-  };
+const onError = (err) => {
+  error = err.message;
+};
 
-  const onError = (error) => {
-    setError(error.message);
-  };
-
-  useEffect(() => {
-    const geo = navigator.geolocation;
-    const timeoutDuration = 10000;
-    if (!geo) {
-      setError("Geolocation is not supported");
-    } else {
-      geo.getCurrentPosition(onChange, onError, { timeout: timeoutDuration });
-      setError(null);
-    }
-    // eslint-disable-next-line
-  }, [refresh]);
+export const getPosition = () => {
+  const geo = navigator.geolocation;
+  const timeoutDuration = 10000;
+  if (!geo) {
+    error = "Geolocation is not supported";
+  } else {
+    geo.getCurrentPosition(onChange, onError, { timeout: timeoutDuration });
+    error = null;
+  }
 
   return { ...position, error };
 };

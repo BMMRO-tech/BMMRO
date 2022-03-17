@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { navigate } from "@reach/router";
@@ -32,6 +32,7 @@ import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
 import PositionalValidationModal from "./PositionalValidationModal";
 import fieldStyles from "./formFields/fieldStyles";
+import { getPosition } from "../hooks/usePosition";
 
 import { Refresh } from "./icons/Refresh";
 
@@ -49,8 +50,10 @@ const HabitatUseForm = ({
   });
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
   const [refreshLatLong, setRefreshLatLong] = useState(0);
-  const [refreshErrorMessage, setRefreshErrorMessage] = useState(null);
+  // const [refreshErrorMessage, setRefreshErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState({ latitude: "", longitude: "" });
+  const [error, setError] = useState(null);
 
   const styles = {
     cancelButton: css`
@@ -64,9 +67,17 @@ const HabitatUseForm = ({
   const checkingValidation = (isPositionalData) => {
     setClosedPositionalModal(isPositionalData);
   };
-  const isRefreshError = (isError) => {
-    setRefreshErrorMessage(isError);
-  };
+  // const isRefreshError = (isError) => {
+  //   setRefreshErrorMessage(isError);
+  // };
+
+  useEffect(() => {
+    console.log(refreshLatLong);
+    const tempPosition = getPosition();
+    console.log("position", tempPosition);
+    setPosition(tempPosition);
+    setError(tempPosition.error);
+  }, [refreshLatLong]);
 
   const renderConfirmationModal = () => {
     return (
@@ -144,8 +155,8 @@ const HabitatUseForm = ({
                     refreshLatLong={refreshLatLong}
                     autofill={!initialValues || refreshLatLong !== 0}
                     isDisabled={isViewOnly}
-                    isRefreshError={isRefreshError}
                     setIsLoading={setIsLoading}
+                    position={position?.latitude}
                   />
 
                   <div style={{ display: "flex" }}>
@@ -157,8 +168,8 @@ const HabitatUseForm = ({
                       refreshLatLong={refreshLatLong}
                       autofill={!initialValues || refreshLatLong !== 0}
                       isDisabled={isViewOnly}
-                      isRefreshError={isRefreshError}
                       setIsLoading={setIsLoading}
+                      position={position?.longitude}
                     />
                     <Refresh
                       isLoading={isLoading}
@@ -184,7 +195,7 @@ const HabitatUseForm = ({
                       Please add either latitude and longitude, or a GPS mark.{" "}
                     </label>
                   )}
-                  {refreshErrorMessage && (
+                  {error && (
                     <label
                       css={fieldStyles.longRequired}
                       data-testid={"refreshError"}
