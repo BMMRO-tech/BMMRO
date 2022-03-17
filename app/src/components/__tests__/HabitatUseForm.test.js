@@ -313,7 +313,7 @@ describe("HabitatUseForm", () => {
     global.navigator.geolocation = realGeolocation;
   });
 
-  it("refresh button shouldn't be disbled once it received the new location", async () => {
+  it("refresh button shouldn't be disabled once it received the new location", async () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
