@@ -2,9 +2,6 @@ name: Build Test Bundle in Dev
 
 on:
   pull_request:
-    branches:
-      - master
-
 jobs:
   build-test-bundle:
     runs-on: ubuntu-latest
