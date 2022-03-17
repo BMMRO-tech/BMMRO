@@ -32,7 +32,7 @@ import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
 import PositionalValidationModal from "./PositionalValidationModal";
 import fieldStyles from "./formFields/fieldStyles";
-import { getPosition } from "../hooks/usePosition";
+import { getPosition } from "./formFields/PositionInput/getPosition";
 
 import { Refresh } from "./icons/Refresh";
 
@@ -50,7 +50,6 @@ const HabitatUseForm = ({
   });
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
   const [refreshLatLong, setRefreshLatLong] = useState(0);
-  // const [refreshErrorMessage, setRefreshErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState({ latitude: "", longitude: "" });
   const [error, setError] = useState(null);
@@ -67,16 +66,17 @@ const HabitatUseForm = ({
   const checkingValidation = (isPositionalData) => {
     setClosedPositionalModal(isPositionalData);
   };
-  // const isRefreshError = (isError) => {
-  //   setRefreshErrorMessage(isError);
-  // };
 
   useEffect(() => {
-    console.log(refreshLatLong);
-    const tempPosition = getPosition();
-    console.log("position", tempPosition);
-    setPosition(tempPosition);
-    setError(tempPosition.error);
+    (async () => {
+      const tempPosition = await getPosition();
+
+      if (tempPosition.position !== null) {
+        setPosition(tempPosition.position);
+      }
+      setError(tempPosition.error);
+      setIsLoading(false);
+    })();
   }, [refreshLatLong]);
 
   const renderConfirmationModal = () => {
@@ -152,10 +152,8 @@ const HabitatUseForm = ({
                     type="latitude"
                     labelText="Lat"
                     isShort
-                    refreshLatLong={refreshLatLong}
                     autofill={!initialValues || refreshLatLong !== 0}
                     isDisabled={isViewOnly}
-                    setIsLoading={setIsLoading}
                     position={position?.latitude}
                   />
 
@@ -165,10 +163,8 @@ const HabitatUseForm = ({
                       type="longitude"
                       labelText="Long"
                       isShort
-                      refreshLatLong={refreshLatLong}
                       autofill={!initialValues || refreshLatLong !== 0}
                       isDisabled={isViewOnly}
-                      setIsLoading={setIsLoading}
                       position={position?.longitude}
                     />
                     <Refresh

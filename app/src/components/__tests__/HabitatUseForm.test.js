@@ -269,7 +269,7 @@ describe("HabitatUseForm", () => {
     expect(formValues.longitude).toEqual(expected);
   });
 
-  it("refresh long & lat on click on the refresh button", async () => {
+  it("refresh long & lat on click on the refresh button and disables button", async () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
@@ -286,7 +286,9 @@ describe("HabitatUseForm", () => {
 
     expect(
       global.navigator.geolocation.getCurrentPosition
-    ).toHaveBeenCalledTimes(4);
+    ).toHaveBeenCalledTimes(2);
+
+    expect(refreshButton).toHaveAttribute("disabled");
 
     global.navigator.geolocation = realGeolocation;
   });
@@ -311,13 +313,18 @@ describe("HabitatUseForm", () => {
     global.navigator.geolocation = realGeolocation;
   });
 
-  it("refresh button should be disbled while waiting for new location to update and then reenabled", async () => {
-    jest.useFakeTimers();
-
+  it("refresh button shouldn't be disbled once it received the new location", async () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
-      getCurrentPosition: jest.fn(),
+      getCurrentPosition: jest.fn().mockImplementation((success) =>
+        success({
+          coords: {
+            latitude: 1.293859,
+            longitude: -23.049282,
+          },
+        })
+      ),
     };
 
     const { getByTestId } = render(<HabitatUseForm />);
@@ -326,12 +333,6 @@ describe("HabitatUseForm", () => {
 
     await act(async () => {
       userEvent.click(refreshButton);
-    });
-
-    expect(refreshButton).toHaveAttribute("disabled");
-
-    await act(async () => {
-      jest.runAllTimers();
     });
 
     expect(refreshButton).not.toHaveAttribute("disabled");

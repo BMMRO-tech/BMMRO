@@ -12,13 +12,7 @@ describe("PositionInput", () => {
 
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        type="latitude"
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -35,8 +29,6 @@ describe("PositionInput", () => {
         labelText="Your latitude"
         type="latitude"
         isRequired
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -56,13 +48,7 @@ describe("PositionInput", () => {
 
   it("validates min value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        type="latitude"
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -84,13 +70,7 @@ describe("PositionInput", () => {
 
   it("validates max value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        type="latitude"
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -112,13 +92,7 @@ describe("PositionInput", () => {
 
   it("displays error for less than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        type="latitude"
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -141,13 +115,7 @@ describe("PositionInput", () => {
 
   it("displays error for more than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
-      <PositionInput
-        name="lat"
-        labelText="Your latitude"
-        type="latitude"
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
-      />,
+      <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
       { lat: "" }
     );
 
@@ -175,8 +143,6 @@ describe("PositionInput", () => {
         labelText="Your latitude"
         type="latitude"
         isRequired
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
       />,
       { lat: "" }
     );
@@ -197,20 +163,7 @@ describe("PositionInput", () => {
   });
 
   it("autofills position if set as autofilled", async () => {
-    const latitude = 1.123456;
-    const longitude = 1.123456;
-
-    const mockGeolocation = {
-      getCurrentPosition: jest.fn().mockImplementation((success) =>
-        success({
-          coords: {
-            latitude,
-            longitude,
-          },
-        })
-      ),
-    };
-    global.navigator.geolocation = mockGeolocation;
+    const latitude = "1.123456";
 
     const { getFormValues } = renderWithinFormik(
       <PositionInput
@@ -218,8 +171,7 @@ describe("PositionInput", () => {
         labelText="Default latitude"
         type="latitude"
         autofill
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
+        position={latitude}
       />,
       { defaultLat: "" }
     );
@@ -230,6 +182,8 @@ describe("PositionInput", () => {
   });
 
   it("does not allow input when field is disabled", async () => {
+    const latitude = "1.123456";
+
     const { getFormValues, getByRole } = renderWithinFormik(
       <PositionInput
         name="lat"
@@ -237,8 +191,7 @@ describe("PositionInput", () => {
         type="latitude"
         autofill={false}
         isDisabled
-        isRefreshError={mockFn}
-        setIsLoading={mockFn}
+        position={latitude}
       />,
       { lat: "" }
     );

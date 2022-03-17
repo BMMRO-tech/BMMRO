@@ -2,8 +2,6 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 import { useEffect } from "react";
-
-import { usePosition } from "../../../hooks/usePosition";
 import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
@@ -17,12 +15,8 @@ const PositionInput = ({
   type,
   autofill,
   isDisabled,
-  refreshLatLong,
-  setIsLoading,
   position,
 }) => {
-  // const position = usePosition(refreshLatLong);
-
   const positionConfig = {
     latitude: {
       min: -90,
@@ -82,17 +76,9 @@ const PositionInput = ({
   useEffect(() => {
     if (autofill && position) {
       helpers.setValue(position);
-      setIsLoading(false);
     }
     // eslint-disable-next-line
   }, [position]);
-
-  // useEffect(() => {
-  //   isRefreshError(position.error !== null ? true : false);
-  //   if (position.error !== null) {
-  //     setIsLoading(false);
-  //   }
-  // }, [position.error, isRefreshError, setIsLoading]);
 
   return (
     <div>
