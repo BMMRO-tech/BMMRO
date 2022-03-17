@@ -167,13 +167,15 @@ const HabitatUseForm = ({
                       isDisabled={isViewOnly}
                       position={position?.longitude}
                     />
-                    <Refresh
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      setRefreshLatLong={setRefreshLatLong}
-                      refreshLatLong={refreshLatLong}
-                      testId="Refresh"
-                    />
+                    {!isViewOnly && (
+                      <Refresh
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        setRefreshLatLong={setRefreshLatLong}
+                        refreshLatLong={refreshLatLong}
+                        testId="Refresh"
+                      />
+                    )}
                   </div>
                   <TextInput
                     name="gpsMark"

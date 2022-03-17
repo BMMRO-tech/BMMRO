@@ -8,15 +8,16 @@ const formatCoordinate = (value) => {
   );
 };
 
-function currentPosition() {
+function currentPosition(options) {
   return new Promise((resolve, reject) =>
-    navigator.geolocation.getCurrentPosition(resolve, reject)
+    navigator.geolocation.getCurrentPosition(resolve, reject, options)
   );
 }
 
 export const getPosition = async () => {
+  const timeout = 10000;
   try {
-    const response = await currentPosition();
+    const response = await currentPosition({ timeout });
     const position = {
       latitude: formatCoordinate(response.coords.latitude),
       longitude: formatCoordinate(response.coords.longitude),
