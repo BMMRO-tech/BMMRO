@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { navigate } from "@reach/router";
@@ -32,6 +32,9 @@ import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
 import PositionalValidationModal from "./PositionalValidationModal";
 import fieldStyles from "./formFields/fieldStyles";
+import { getPosition } from "./formFields/PositionInput/getPosition";
+
+import { Refresh } from "./icons/Refresh";
 
 const HabitatUseForm = ({
   initialValues,
@@ -46,6 +49,10 @@ const HabitatUseForm = ({
     values: "",
   });
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  const [refreshLatLong, setRefreshLatLong] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState({ latitude: "", longitude: "" });
+  const [error, setError] = useState(null);
 
   const styles = {
     cancelButton: css`
@@ -59,6 +66,18 @@ const HabitatUseForm = ({
   const checkingValidation = (isPositionalData) => {
     setClosedPositionalModal(isPositionalData);
   };
+
+  useEffect(() => {
+    (async () => {
+      const tempPosition = await getPosition();
+
+      if (tempPosition.position !== null) {
+        setPosition(tempPosition.position);
+      }
+      setError(tempPosition.error);
+      setIsLoading(false);
+    })();
+  }, [refreshLatLong]);
 
   const renderConfirmationModal = () => {
     return (
@@ -127,23 +146,37 @@ const HabitatUseForm = ({
                   />
                 </FormSection>
                 <br />
-                <FormSection isOneLine>
+                <FormSection isOneLine4Elements>
                   <PositionInput
                     name="latitude"
                     type="latitude"
                     labelText="Lat"
                     isShort
-                    autofill={!initialValues}
+                    autofill={!initialValues || refreshLatLong !== 0}
                     isDisabled={isViewOnly}
+                    position={position?.latitude}
                   />
-                  <PositionInput
-                    name="longitude"
-                    type="longitude"
-                    labelText="Long"
-                    isShort
-                    autofill={!initialValues}
-                    isDisabled={isViewOnly}
-                  />
+
+                  <div style={{ display: "flex" }}>
+                    <PositionInput
+                      name="longitude"
+                      type="longitude"
+                      labelText="Long"
+                      isShort
+                      autofill={!initialValues || refreshLatLong !== 0}
+                      isDisabled={isViewOnly}
+                      position={position?.longitude}
+                    />
+                    {!isViewOnly && (
+                      <Refresh
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        setRefreshLatLong={setRefreshLatLong}
+                        refreshLatLong={refreshLatLong}
+                        testId="Refresh"
+                      />
+                    )}
+                  </div>
                   <TextInput
                     name="gpsMark"
                     labelText="GPS mark"
@@ -157,7 +190,16 @@ const HabitatUseForm = ({
                       data-testid={"positional-data-validation"}
                     >
                       {" "}
-                      Please add either latitude and longitude, or a GPS mark{" "}
+                      Please add either latitude and longitude, or a GPS mark.{" "}
+                    </label>
+                  )}
+                  {error && (
+                    <label
+                      css={fieldStyles.longRequired}
+                      data-testid={"refreshError"}
+                    >
+                      {" "}
+                      Geolocation could not be retrieved.{" "}
                     </label>
                   )}
                 </FormSection>
