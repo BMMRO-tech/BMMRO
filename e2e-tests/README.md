@@ -14,3 +14,6 @@ PASSWORD=123
 
 ## Running the script
 - run node --experimental-vm-modules node_modules/jest/bin/jest.js
+
+
+## Random txt
