@@ -31,6 +31,7 @@ const EncounterListItem = ({ encounter, isToday }) => {
       primaryContentLeft={sequenceNumber}
       primaryContentRight={species}
       secondaryContent={area}
+      id={encounter.id}
     />
   );
 };

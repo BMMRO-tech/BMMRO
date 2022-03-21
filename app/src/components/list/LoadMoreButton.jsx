@@ -29,6 +29,7 @@ const LoadMoreButton = ({ handleClick, text, isLoading }) => {
       onClick={handleClick}
       css={styles.loadMoreButton}
       disabled={isLoading}
+      id={"loadEncounter"}
     >
       {text}
     </button>

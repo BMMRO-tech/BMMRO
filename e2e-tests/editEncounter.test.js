@@ -17,10 +17,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
 
+
 async function startDriver() {
   let driver = await new wd.Builder().forBrowser('safari').build();
   return driver;
 }
+
+const getPreviousMonth = (currentDate) =>{
+  currentDate.setDate(1);
+  return new Date(currentDate.setMonth(currentDate.getMonth()-1));
+};
 
 describe('edit encounter user journey', () => {
 
@@ -32,7 +38,7 @@ describe('edit encounter user journey', () => {
         enteredBy: "Research Assistant",
         exported: false,
         startTime:"10:56",
-        startTimestamp: Timestamp.fromDate(new Date("March 10, 2022")),
+        startTimestamp: Timestamp.fromDate(getPreviousMonth(new Date())),
         hasEnded: false,
         sequenceNumber: "111",
         comments: "this is an e2e test",
@@ -117,7 +123,6 @@ describe('edit encounter user journey', () => {
         console.log("firebase authentication error: ", error)
       });
       
-
       driver = await startDriver();
     }, testTimeout)
 
@@ -143,6 +148,26 @@ describe('edit encounter user journey', () => {
         let homeUrl = await driver.getCurrentUrl();
     
         expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
+      }, testTimeout)
+
+      it('user loads previous months encounters', async () => {
+
+        const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+        const today = new Date()
+        const currentMonthYear = month[today.getMonth()] + " " + today.getFullYear();
+
+        await driver.wait(wd.until.elementLocated(wd.By.xpath(`//*[text()='${currentMonthYear}']`)), pageTimeout);
+
+        await driver.findElement(wd.By.css('#loadEncounter')).click();
+
+
+        const e2etestListElement = wd.By.css('#e2etest');
+        await driver.wait(wd.until.elementLocated(e2etestListElement),pageTimeout);
+        await driver.findElement(e2etestListElement).click();
+
+        let EncounterUrl = await driver.getCurrentUrl();
+        expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/habitat-uses`);
       }, testTimeout)
 
       afterAll(async () => {

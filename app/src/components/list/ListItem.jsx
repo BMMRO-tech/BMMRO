@@ -14,6 +14,7 @@ const ListItem = ({
   primaryContentLeft,
   primaryContentRight,
   secondaryContent,
+  id,
 }) => {
   const styles = {
     link: css`
@@ -78,7 +79,7 @@ const ListItem = ({
   };
   return (
     <Link css={styles.link} to={destinationUrl} id="habitatUse">
-      <li css={styles.container}>
+      <li css={styles.container} id={id}>
         <div css={styles.leftContainer}>
           <span>{primaryTime}</span>
           {secondaryTime && <span>{secondaryTime}</span>}
