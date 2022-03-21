@@ -33,13 +33,14 @@ describe('edit encounter user journey', () => {
     let driver;
     let pageTimeout = 5000;
     let testTimeout = 20000;
+    const testTimestamp = Timestamp.fromDate(getPreviousMonth(new Date()));
     const encounterData = {
         area: "EA",
         enteredBy: "Research Assistant",
         exported: false,
         startTime:"10:56",
-        startTimestamp: Timestamp.fromDate(getPreviousMonth(new Date())),
-        hasEnded: false,
+        startTimestamp: testTimestamp,
+        hasEnded: true,
         sequenceNumber: "111",
         comments: "this is an e2e test",
         highTide: "",
@@ -65,7 +66,8 @@ describe('edit encounter user journey', () => {
         numberOfAnimalsHigh: "",
         transect: "Off",
         numJuvenileFemale: "",
-        endTime: "",
+        endTimestamp: testTimestamp,
+        endTime: "11:56",
         videoRec: "",
         numAdultMale: "",
         tagAttempt: "No",
@@ -169,6 +171,50 @@ describe('edit encounter user journey', () => {
         let EncounterUrl = await driver.getCurrentUrl();
         expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/habitat-uses`);
       }, testTimeout)
+
+      it('user edits habitat', async () => {
+
+        await driver.findElement(wd.By.css('#e2etest')).click()
+
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+        let habitatUrl = await driver.getCurrentUrl();
+
+        expect(habitatUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/habitat-uses/e2etesthabitat/edit`);
+
+        await driver.findElement(wd.By.css('#Refresh')).click()
+    
+        await driver.findElement(wd.By.name('comments')).sendKeys("test edit habitat");
+
+        await driver.findElement(wd.By.css('#saveHabitat')).click();
+
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+        let EncounterUrl = await driver.getCurrentUrl();
+        expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/habitat-uses`);
+
+      }, testTimeout);
+
+      it('user edits encounter', async () => {
+
+        await driver.findElement(wd.By.css('#encounterDataSheet')).click()
+
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+        let habitatUrl = await driver.getCurrentUrl();
+
+        expect(habitatUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/edit`);
+    
+        await driver.findElement(wd.By.name('sequenceNumber')).sendKeys("abc");
+
+        await driver.findElement(wd.By.css('#saveEncounter')).click();
+
+        await driver.wait(wd.until.elementLocated(wd.By.css('#e2etest')),pageTimeout);
+        
+        let EncounterUrl = await driver.getCurrentUrl();
+        expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/habitat-uses`);
+
+      }, testTimeout);
 
       afterAll(async () => {
         await driver.quit();

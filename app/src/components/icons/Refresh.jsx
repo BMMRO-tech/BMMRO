@@ -53,6 +53,7 @@ export const Refresh = ({
   return (
     <button
       type="button"
+      id={testId}
       data-testid={testId}
       onClick={handleClick}
       css={isLoading ? spinningStyle : basicStyles}

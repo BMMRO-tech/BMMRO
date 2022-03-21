@@ -33,6 +33,7 @@ const HabitatUseList = ({ items, encounterId, encounterExported = false }) => {
           {sortedItems.map((item) => (
             <ListItem
               key={item.id}
+              id={encounterId}
               destinationUrl={
                 item.data.exported
                   ? generateViewHabitatURL(encounterId, item.id)
