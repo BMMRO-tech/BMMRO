@@ -1,9 +1,10 @@
 import * as webdriver from 'selenium-webdriver';
 import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, setDoc, Timestamp, getDoc, deleteDoc } from 'firebase/firestore/lite';
+import { getFirestore, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore/lite';
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-
+import {encounterData} from "./__fixtures__/encounter";
+import {habitatData} from "./__fixtures__/habitat";
 
 let wd = webdriver.default;
 
@@ -23,96 +24,11 @@ async function startDriver() {
   return driver;
 }
 
-const getPreviousMonth = (currentDate) =>{
-  currentDate.setDate(1);
-  return new Date(currentDate.setMonth(currentDate.getMonth()-1));
-};
-
 describe('edit encounter user journey', () => {
 
     let driver;
     let pageTimeout = 5000;
     let testTimeout = 20000;
-    const testTimestamp = Timestamp.fromDate(getPreviousMonth(new Date()));
-    const encounterData = {
-        area: "EA",
-        enteredBy: "Research Assistant",
-        exported: false,
-        startTime:"10:56",
-        startTimestamp: testTimestamp,
-        hasEnded: true,
-        sequenceNumber: "111",
-        comments: "this is an e2e test",
-        highTide: "",
-        tagSuccess: "not-noted",
-        audioRec: "",
-        encounterNumber: "",
-        lowTide: "",
-        numSubAdultMale: "",
-        biopsySuccess: "not-noted",
-        project: "",
-        visualIdentifications: "",
-        numYoungOfYear: "",
-        logbookNumber: "",
-        numSubAdult: "",
-        species: "Bottlenose dolphin - oceanic",
-        location: "",
-        needsToBeChecked: true,
-        numAdultFemale: "",
-        elapsedTime: "",
-        numSubAdultFemale: "",
-        numberOfAnimalsLow: "",
-        numberOfAnimalsBest: "",
-        numberOfAnimalsHigh: "",
-        transect: "Off",
-        numJuvenileFemale: "",
-        endTimestamp: testTimestamp,
-        endTime: "11:56",
-        videoRec: "",
-        numAdultMale: "",
-        tagAttempt: "No",
-        numNeonates: "",
-        vessel: "",
-        numUnknown: "",
-        cue: "",
-        reasonForLeaving: "",
-        numJuvenileMale: "",
-        observers: "",
-        endOfSearchEffort: "",
-        biopsyAttempt: "No",
-        numAdultUnknown: "",
-        photographerFrame: "",
-        numJuvenileUnknown: "",
-    };
-    const habitatData = {
-        aspect:"",
-        bearing:"",
-        beaufortSeaState:"",
-        behaviour:"",
-        bottomSubstrate:"",
-        cloudCover:"",
-        comments:"",
-        directionOfTravel:"",
-        distance:"",
-        endTime:"16:12:44",
-        exported: false,
-        gpsMark:"",
-        groupCohesion:"",
-        groupComposition:"",
-        hasEnded:true,
-        latitude:"51.513290",
-        longitude:"-0.133864",
-        numberOfAnimals:1,
-        numberOfBoats:1,
-        numberOfCalves:"",
-        startTime:"16:12:39",
-        surfaceBout:0,
-        swellWaveHeight:"",
-        tideState:"",
-        waterDepth:"",
-        waterDepthBeyondSoundings:false,
-        waterTemp:""
-    };
 
     beforeAll(async () => {
       signInWithEmailAndPassword(auth, process.env.EMAIL, process.env.PASSWORD)
