@@ -1,4 +1,9 @@
-export const habitatData = {
+import { Timestamp } from 'firebase/firestore/lite';
+
+const todayTimestamp = Timestamp.fromDate(new Date());
+
+export const habitatData = [
+    {
     aspect:"",
     bearing:"",
     beaufortSeaState:"",
@@ -26,4 +31,35 @@ export const habitatData = {
     waterDepth:"",
     waterDepthBeyondSoundings:false,
     waterTemp:""
-};
+    },
+    {
+    aspect:"",
+    bearing:"",
+    beaufortSeaState:"",
+    behaviour:"",
+    bottomSubstrate:"",
+    cloudCover:"",
+    comments:"",
+    directionOfTravel:"",
+    distance:"",
+    endTime:"16:12:44",
+    exported: true,
+    exportedOn: todayTimestamp,
+    gpsMark:"",
+    groupCohesion:"",
+    groupComposition:"",
+    hasEnded:true,
+    latitude:"51.513290",
+    longitude:"-0.133864",
+    numberOfAnimals:1,
+    numberOfBoats:1,
+    numberOfCalves:"",
+    startTime:"16:12:39",
+    surfaceBout:0,
+    swellWaveHeight:"",
+    tideState:"",
+    waterDepth:"",
+    waterDepthBeyondSoundings:false,
+    waterTemp:""
+    }
+];

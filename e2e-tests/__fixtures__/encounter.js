@@ -6,8 +6,10 @@ const getPreviousMonth = (currentDate) =>{
 };
 
 const testTimestamp = Timestamp.fromDate(getPreviousMonth(new Date()));
+const todayTimestamp = Timestamp.fromDate(new Date());
 
-export const encounterData = {
+export const encounterData = [
+    {
     area: "EA",
     enteredBy: "Research Assistant",
     exported: false,
@@ -56,4 +58,56 @@ export const encounterData = {
     numAdultUnknown: "",
     photographerFrame: "",
     numJuvenileUnknown: "",
-};
+    },
+    {
+    area: "Bimini",
+    enteredBy: "Research Assistant",
+    exported: true,
+    exportedOn: todayTimestamp,
+    startTime:"12:56",
+    startTimestamp: todayTimestamp,
+    hasEnded: true,
+    sequenceNumber: "111",
+    comments: "this is an e2e test",
+    highTide: "",
+    tagSuccess: "not-noted",
+    audioRec: "",
+    encounterNumber: "",
+    lowTide: "",
+    numSubAdultMale: "",
+    biopsySuccess: "not-noted",
+    project: "",
+    visualIdentifications: "",
+    numYoungOfYear: "",
+    logbookNumber: "",
+    numSubAdult: "",
+    species: "Blainville's beaked whale",
+    location: "",
+    needsToBeChecked: true,
+    numAdultFemale: "",
+    elapsedTime: "",
+    numSubAdultFemale: "",
+    numberOfAnimalsLow: "",
+    numberOfAnimalsBest: "",
+    numberOfAnimalsHigh: "",
+    transect: "Off",
+    numJuvenileFemale: "",
+    endTimestamp: todayTimestamp,
+    endTime: "14:56",
+    videoRec: "",
+    numAdultMale: "",
+    tagAttempt: "No",
+    numNeonates: "",
+    vessel: "",
+    numUnknown: "",
+    cue: "",
+    reasonForLeaving: "",
+    numJuvenileMale: "",
+    observers: "",
+    endOfSearchEffort: "",
+    biopsyAttempt: "No",
+    numAdultUnknown: "",
+    photographerFrame: "",
+    numJuvenileUnknown: "",   
+    }
+];

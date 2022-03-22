@@ -34,8 +34,10 @@ describe('edit encounter user journey', () => {
       signInWithEmailAndPassword(auth, process.env.EMAIL, process.env.PASSWORD)
       .then(async() => {
         console.log("firebase authentication success")
-        await setDoc(doc(db, "encounter", "e2etest"), encounterData);
-        await setDoc(doc(db, "encounter", "e2etest", "habitatUse", "e2etesthabitat"), habitatData);
+        await setDoc(doc(db, "encounter", "e2etest"), encounterData[0]);
+        await setDoc(doc(db, "encounter", "e2etest", "habitatUse", "e2etesthabitat"), habitatData[0]);
+        await setDoc(doc(db, "encounter", "e2etestExported"), encounterData[1]);
+        await setDoc(doc(db, "encounter", "e2etestExported", "habitatUse", "e2etesthabitatExported"), habitatData[1]);
       })
       .catch((error) => {
         console.log("firebase authentication error: ", error)
@@ -67,6 +69,23 @@ describe('edit encounter user journey', () => {
     
         expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
       }, testTimeout)
+
+      // it('user checks an exported encounters', async () => {
+
+      //   await driver.findElement(wd.By.css('#e2etestExported')).click();
+
+      //   let EncounterUrl = await driver.getCurrentUrl();
+      //   expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/habitat-uses`);
+
+      //   await driver.findElement(wd.By.css('#e2etestExported')).click()
+
+      //   await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      //   let habitatUrl = await driver.getCurrentUrl();
+
+      //   expect(habitatUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/habitat-uses/e2etesthabitatExported/view`);
+
+      // }, testTimeout)
 
       it('user loads previous months encounters', async () => {
 
@@ -158,8 +177,17 @@ describe('edit encounter user journey', () => {
         const docRefEncounter = doc(db, "encounter", "e2etest");
     
         const deletedEncounter = await getDoc(docRefEncounter);
+
+        await deleteDoc(doc(db, "encounter", "e2etestExported", "habitatUse", "e2etesthabitatExported"));
+
+        await deleteDoc(doc(db, "encounter", "e2etestExported"));
+
+        const docRefEncounterExported = doc(db, "encounter", "e2etestExported");
+    
+        const deletedEncounterExported = await getDoc(docRefEncounterExported);
     
         expect(deletedEncounter.exists()).toBeFalsy()
+        expect(deletedEncounterExported.exists()).toBeFalsy()
       }, testTimeout)
 
       afterAll(async () => {
