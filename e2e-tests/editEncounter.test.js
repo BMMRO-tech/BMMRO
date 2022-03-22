@@ -1,7 +1,7 @@
 import * as webdriver from 'selenium-webdriver';
 import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, setDoc, Timestamp, deleteDoc } from 'firebase/firestore/lite';
+import { getFirestore, doc, setDoc, Timestamp, getDoc, deleteDoc } from 'firebase/firestore/lite';
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 
@@ -215,6 +215,36 @@ describe('edit encounter user journey', () => {
         expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etest/habitat-uses`);
 
       }, testTimeout);
+
+      it('checks database for edited encounter', async () => {
+
+        const docRefEncounter = doc(db, "encounter", "e2etest");
+        const docSnapEncounter = await getDoc(docRefEncounter);
+    
+        expect(docSnapEncounter.data().sequenceNumber).toBe("111abc")
+      }, testTimeout)
+    
+    
+      it('checks database for edited habitat', async () => {
+    
+        const docRefHabitat = doc(db, "encounter", "e2etest", "habitatUse", "e2etesthabitat");
+        const docSnapHabitat = await getDoc(docRefHabitat);
+    
+        expect(docSnapHabitat.data().comments).toBe("test edit habitat")
+      }, testTimeout)
+
+      it('deletes habitat and encounter from database', async () => {
+
+        await deleteDoc(doc(db, "encounter", "e2etest", "habitatUse", "e2etesthabitat"));
+
+        await deleteDoc(doc(db, "encounter", "e2etest"));
+
+        const docRefEncounter = doc(db, "encounter", "e2etest");
+    
+        const deletedEncounter = await getDoc(docRefEncounter);
+    
+        expect(deletedEncounter.exists()).toBeFalsy()
+      }, testTimeout)
 
       afterAll(async () => {
         await driver.quit();
