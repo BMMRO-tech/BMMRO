@@ -10,11 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.17.5",
+    "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "babel-jest": "^27.5.1",
     "dotenv": "^16.0.0",
-    "firebase": "^9.6.8",
+    "firebase": "^9.6.9",
     "selenium-webdriver": "^4.1.1"
   },
   "devDependencies": {

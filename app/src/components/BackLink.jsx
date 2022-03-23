@@ -28,7 +28,7 @@ const styles = {
 
 const BackLink = ({ text, to }) => {
   return (
-    <Link css={styles.link} to={to}>
+    <Link css={styles.link} to={to} id="backLink">
       <span css={styles.arrow}>
         <LeftArrow />
       </span>

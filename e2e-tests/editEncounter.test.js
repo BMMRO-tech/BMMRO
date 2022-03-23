@@ -70,22 +70,58 @@ describe('edit encounter user journey', () => {
         expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
       }, testTimeout)
 
-      // it('user checks an exported encounters', async () => {
+      it('user goes to an exported encounters', async () => {
 
-      //   await driver.findElement(wd.By.css('#e2etestExported')).click();
+        await driver.findElement(wd.By.css('#e2etestExported')).click();
 
-      //   let EncounterUrl = await driver.getCurrentUrl();
-      //   expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/habitat-uses`);
+        let EncounterUrl = await driver.getCurrentUrl();
+        expect(EncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/habitat-uses`);
 
-      //   await driver.findElement(wd.By.css('#e2etestExported')).click()
+      }, testTimeout)
 
-      //   await driver.manage().setTimeouts({ implicit: pageTimeout });
+      it('user checks encounter is not editable', async () => {
 
-      //   let habitatUrl = await driver.getCurrentUrl();
+        await driver.findElement(wd.By.css('#encounterDataSheet')).click()
 
-      //   expect(habitatUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/habitat-uses/e2etesthabitatExported/view`);
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
 
-      // }, testTimeout)
+        let encounterUrl = await driver.getCurrentUrl();
+
+        expect(encounterUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/view`);
+
+        const encounterSequence = await driver.findElement(wd.By.name('sequenceNumber')).isEnabled();
+
+        expect(encounterSequence).toBe(false);
+
+        await driver.findElement(wd.By.css('#backLink')).click();
+
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      }, testTimeout)
+
+      it('user checks habitat is not editable', async () => {
+
+        await driver.findElement(wd.By.css('#e2etestExported')).click()
+
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+        let habitatUrl = await driver.getCurrentUrl();
+
+        expect(habitatUrl).toBe(`${process.env.ENDPOINT}/encounters/e2etestExported/habitat-uses/e2etesthabitatExported/view`);
+
+        const latitude = await driver.findElement(wd.By.name('latitude')).isEnabled();
+
+        expect(latitude).toBe(false);
+
+        await driver.findElement(wd.By.css('#backLink')).click()
+
+        await driver.wait(wd.until.elementLocated(wd.By.xpath(`//*[text()='This encounter has been exported and can no longer be edited in the app.']`)), pageTimeout);
+
+        await driver.findElement(wd.By.css('#backLink')).click();
+
+        await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      }, testTimeout)
 
       it('user loads previous months encounters', async () => {
 
