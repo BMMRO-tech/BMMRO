@@ -23,19 +23,11 @@ import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 import DateInvalidModal from "../components/DateInvalidModal";
 
 const OpenEncounter = ({ encounterId }) => {
+ 
 
-  const firebaseConfig = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    toggle: process.env.BIOPSY_FORM_FEATURE_TOGGLE,
-  };
-  
+  var biopsyBannerFeatureToggle = (process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === 'TRUE');
 
-  const biopsyBannerFeatureToggle = process.secrets;
   
-  const testToggle = process.env.REACT_APP_VERSION;
-  console.log("process", firebaseConfig);
 
   const styles = {
     footerContainer: css`
@@ -64,7 +56,6 @@ const OpenEncounter = ({ encounterId }) => {
   const [habitatUseEntries, setHabitatUseEntries] = useState([]);
   const [showDateModal, setShowDateModal] = useState(false);
   const navigate = useNavigate();
-  
 
   const handleEndEncounter = () => {
     const encounterPath = generateEncounterPath(encounterId);
@@ -166,9 +157,7 @@ const OpenEncounter = ({ encounterId }) => {
               encounterId={encounterId}
               encounterExported={encounter.exported}
             />
-            <h1>{testToggle}</h1> 
-            {biopsyBannerFeatureToggle && <BiopsyList />}
-           
+            {biopsyBannerFeatureToggle && <BiopsyList  encounterId={encounterId}/>}
           </div>
           {renderButtons()}
         </div>
