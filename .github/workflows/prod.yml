@@ -50,6 +50,7 @@ jobs:
       - name: Deploy to firebase
         env:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+          BIOPSY_FORM_FEATURE_TOGGLE: ${{secrets.BIOPSY_FORM_FEATURE_TOGGLE_PROD}}
         working-directory: ${{env.APP_DIR}}
         run: |
           npx firebase use ${{secrets.FIREBASE_PROD_PROJECT_ID}}

@@ -48,9 +48,8 @@ describe('create a new encounter user journey', () => {
     await driver.manage().setTimeouts({ implicit: pageTimeout });
 
     let email = driver.findElement(wd.By.name('email'));
-    let password = driver.findElement(wd.By.name('password'));
-
     await email.sendKeys(process.env.EMAIL);
+    let password = driver.findElement(wd.By.name('password'));
     await password.sendKeys(process.env.PASSWORD);
 
     await driver.findElement(wd.By.css('button')).click();

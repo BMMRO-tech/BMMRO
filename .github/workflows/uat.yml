@@ -88,5 +88,6 @@ jobs:
           PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
           API_KEY: ${{secrets.FIREBASE_UAT_API_KEY}}
           AUTH_DOMAIN: ${{secrets.FIREBASE_UAT_AUTH_DOMAIN}}
+          BIOPSY_FORM_FEATURE_TOGGLE: ${{secrets.BIOPSY_FORM_FEATURE_TOGGLE_UAT}}
         working-directory: ${{env.E2E_TESTS_DIR}}
         run: node --experimental-vm-modules node_modules/jest/bin/jest.js
