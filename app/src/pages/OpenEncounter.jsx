@@ -12,6 +12,7 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterOverview from "../components/EncounterOverview";
 import HabitatUseList from "../components/HabitatUseList";
+import BiopsyList from "../components/BiopsyList";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import typography from "../materials/typography";
@@ -150,6 +151,7 @@ const OpenEncounter = ({ encounterId }) => {
               encounterId={encounterId}
               encounterExported={encounter.exported}
             />
+            <BiopsyList />
           </div>
           {renderButtons()}
         </div>
