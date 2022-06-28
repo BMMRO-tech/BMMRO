@@ -49,6 +49,7 @@ describe('create a new encounter user journey', () => {
 
     let email = driver.findElement(wd.By.name('email'));
     await email.sendKeys(process.env.EMAIL);
+  
     let password = driver.findElement(wd.By.name('password'));
     await password.sendKeys(process.env.PASSWORD);
 
@@ -120,6 +121,25 @@ describe('create a new encounter user journey', () => {
     let newHabitatUrl = await driver.findElement(wd.By.css('#habitatUse')).getAttribute("href");
 
     habitatId = newHabitatUrl.split('/')[6];
+
+  }, testTimeout)
+
+  it('user creates a new biopsy', async () => {
+    
+
+    await driver.findElement(wd.By.css('#newBiopsy')).click();
+
+    let newBiopsyUrl = await driver.getCurrentUrl();
+
+    expect(newBiopsyUrl).toContain(`/biopsies/new`);
+
+    await driver.findElement(wd.By.css('#cancelBiopsy')).click();
+
+    let newHabitatUrl = await driver.getCurrentUrl();
+
+    expect(newHabitatUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
+
+
 
   }, testTimeout)
 
