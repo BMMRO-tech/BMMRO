@@ -1,17 +1,16 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import Button from "../components/Button";
-// import { Link } from "@reach/router";
-// import { generateOpenEncounterURL } from "../constants/routes";
+import { Link } from "@reach/router";
+import { generateOpenEncounterURL } from "../constants/routes";
+import BiopsyForm from "../components/BiopsyForm";
 
-const NewBiopsyForm = () => {
+const NewBiopsyForm = ({ encounterId }) => {
   return (
-    <p>
-      <h1>Hello</h1>
-      {/* <Link to={generateOpenEncounterURL()}> */}
-      <Button testId={"cancelBiopsy"}> Cancel </Button>
-      {/* </Link> */}
-    </p>
+    <Layout hasDefaultPadding={false}>
+      <h1 css={utilities.form.title}>Add New Biopsy Record</h1>
+        <BiopsyForm encounterId={encounterId}/>
+    </Layout>
   );
 };
 

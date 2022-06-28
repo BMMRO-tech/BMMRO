@@ -154,9 +154,11 @@ const OpenEncounter = ({ encounterId }) => {
               encounterId={encounterId}
               encounterExported={encounter.exported}
             />
-            {biopsyBannerFeatureToggle && (
+             {
+//              biopsyBannerFeatureToggle && (
               <BiopsyList encounterId={encounterId} />
-            )}
+//              )
+             }
           </div>
           {renderButtons()}
         </div>
