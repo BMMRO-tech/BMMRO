@@ -5,16 +5,14 @@ import Button from "../components/Button";
 // import { generateOpenEncounterURL } from "../constants/routes";
 
 const NewBiopsyForm = () => {
-
-    return (
-        <p>
-            <h1>Hello</h1>
-            {/* <Link to={generateOpenEncounterURL()}> */}
-            <Button testId={"cancelBiopsy"}> Cancel </Button>
-            {/* </Link> */}
-        </p>
-    )
-  
+  return (
+    <p>
+      <h1>Hello</h1>
+      {/* <Link to={generateOpenEncounterURL()}> */}
+      <Button testId={"cancelBiopsy"}> Cancel </Button>
+      {/* </Link> */}
+    </p>
+  );
 };
 
 export default NewBiopsyForm;

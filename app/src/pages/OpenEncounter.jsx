@@ -23,11 +23,8 @@ import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 import DateInvalidModal from "../components/DateInvalidModal";
 
 const OpenEncounter = ({ encounterId }) => {
- 
-
-  var biopsyBannerFeatureToggle = (process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === 'TRUE');
-
-  
+  var biopsyBannerFeatureToggle =
+    process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === "TRUE";
 
   const styles = {
     footerContainer: css`
@@ -157,7 +154,9 @@ const OpenEncounter = ({ encounterId }) => {
               encounterId={encounterId}
               encounterExported={encounter.exported}
             />
-            {biopsyBannerFeatureToggle && <BiopsyList  encounterId={encounterId}/>}
+            {biopsyBannerFeatureToggle && (
+              <BiopsyList encounterId={encounterId} />
+            )}
           </div>
           {renderButtons()}
         </div>
