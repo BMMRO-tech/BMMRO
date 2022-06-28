@@ -211,7 +211,7 @@ const HabitatUseForm = ({
                     name="numberOfAnimals"
                     labelText="Number of animals"
                     minValue={0}
-                    maxValue={99}
+                    maxValue={999}
                     isInteger
                     isShort
                     isDisabled={isViewOnly}
