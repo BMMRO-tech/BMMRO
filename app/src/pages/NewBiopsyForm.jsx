@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import Button from "../components/Button";
-import { Link } from "@reach/router";
-import { generateOpenEncounterURL } from "../constants/routes";
+import Layout from "../components/Layout";
+import utilities from "../materials/utilities";
 import BiopsyForm from "../components/BiopsyForm";
 
 const NewBiopsyForm = ({ encounterId }) => {

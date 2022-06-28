@@ -6,11 +6,14 @@ import { generateOpenEncounterURL } from "../constants/routes";
 
 
 const BiopsyForm = ({ encounterId }) => {
-    return
+    return (
         <div>
             
                 <Link to={generateOpenEncounterURL(encounterId)}>
                     <Button testId={"cancelBiopsy"}> Cancel </Button>
                 </Link>
         </div>
+    );
 }
+
+export default BiopsyForm;
