@@ -18,7 +18,7 @@ import EditEncounter from "./pages/EditEncounter";
 import NewHabitatUse from "./pages/NewHabitatUse";
 import ViewHabitatUse from "./pages/ViewHabitatUse";
 import EditHabitatUse from "./pages/EditHabitatUse";
-import NewBiopsyForm from "./pages/NewBiopsyForm";
+import NewBiopsy from "./pages/NewBiopsy";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -34,7 +34,7 @@ const AppWithoutContext = () => {
       <NewHabitatUse path={ROUTES.newHabitatUse} />
       <EditHabitatUse path={ROUTES.editHabitatUse} />
       <ViewHabitatUse path={ROUTES.viewHabitatUse} />
-      <NewBiopsyForm path={ROUTES.newBiopsyForm} />
+      <NewBiopsy path={ROUTES.newBiopsy} />
       <Encounters default path={ROUTES.encounters} />
     </Router>
   );

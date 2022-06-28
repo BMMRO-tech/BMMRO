@@ -7,7 +7,7 @@ export const ROUTES = {
   newHabitatUse: "/encounters/:encounterId/habitat-uses/new",
   editHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/edit",
   viewHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/view",
-  newBiopsyForm: "/encounters/:encounterId/biopsies/new",
+  newBiopsy: "/encounters/:encounterId/biopsies/new",
   login: "/login",
 };
 
