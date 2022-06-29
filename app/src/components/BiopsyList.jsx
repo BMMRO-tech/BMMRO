@@ -13,9 +13,9 @@ const BiopsyList = ({ encounterId }) => {
     <div css={utilities.list.container}>
       <ListHeader title="Biopsies">
         <Link to={generateNewBiopsiesURL(encounterId)}>
-            <Button testId={"newBiopsy"} isSmall>
-              + New
-            </Button>
+          <Button testId={"newBiopsy"} isSmall>
+            + New
+          </Button>
         </Link>
       </ListHeader>
     </div>

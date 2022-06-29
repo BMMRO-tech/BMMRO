@@ -7,6 +7,8 @@ import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 let wd = webdriver.default;
 
+const biopsyBannerFeatureToggle = (process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === "TRUE");
+
 const firebaseConfig = {
   projectId: process.env.PROJECT_ID,
   apiKey: process.env.API_KEY,
@@ -124,24 +126,22 @@ describe('create a new encounter user journey', () => {
 
   }, testTimeout)
 
+  {biopsyBannerFeatureToggle &&
   it('user creates a new biopsy', async () => {
     
-
     await driver.findElement(wd.By.css('#newBiopsy')).click();
 
     let newBiopsyUrl = await driver.getCurrentUrl();
-
+    
     expect(newBiopsyUrl).toContain(`/biopsies/new`);
 
     await driver.findElement(wd.By.css('#cancelBiopsy')).click();
 
     let newHabitatUrl = await driver.getCurrentUrl();
-
+    
     expect(newHabitatUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
 
-
-
-  }, testTimeout)
+  }, testTimeout) }
 
   it('user edits encounter', async () => {
 
