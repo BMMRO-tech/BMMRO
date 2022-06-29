@@ -12,6 +12,7 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterOverview from "../components/EncounterOverview";
 import HabitatUseList from "../components/HabitatUseList";
+import BiopsyList from "../components/BiopsyList";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import typography from "../materials/typography";
@@ -22,6 +23,9 @@ import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 import DateInvalidModal from "../components/DateInvalidModal";
 
 const OpenEncounter = ({ encounterId }) => {
+  const biopsyBannerFeatureToggle =
+    process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === "TRUE";
+
   const styles = {
     footerContainer: css`
       ${utilities.sticky.footerContainer}
@@ -150,6 +154,9 @@ const OpenEncounter = ({ encounterId }) => {
               encounterId={encounterId}
               encounterExported={encounter.exported}
             />
+            {biopsyBannerFeatureToggle && (
+              <BiopsyList encounterId={encounterId} />
+            )}
           </div>
           {renderButtons()}
         </div>

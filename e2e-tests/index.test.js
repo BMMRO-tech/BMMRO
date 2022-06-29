@@ -7,6 +7,8 @@ import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 let wd = webdriver.default;
 
+const biopsyBannerFeatureToggle = (process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === "TRUE");
+
 const firebaseConfig = {
   projectId: process.env.PROJECT_ID,
   apiKey: process.env.API_KEY,
@@ -48,9 +50,9 @@ describe('create a new encounter user journey', () => {
     await driver.manage().setTimeouts({ implicit: pageTimeout });
 
     let email = driver.findElement(wd.By.name('email'));
-    let password = driver.findElement(wd.By.name('password'));
-
     await email.sendKeys(process.env.EMAIL);
+  
+    let password = driver.findElement(wd.By.name('password'));
     await password.sendKeys(process.env.PASSWORD);
 
     await driver.findElement(wd.By.css('button')).click();
@@ -123,6 +125,23 @@ describe('create a new encounter user journey', () => {
     habitatId = newHabitatUrl.split('/')[6];
 
   }, testTimeout)
+
+  {biopsyBannerFeatureToggle &&
+  it('user creates a new biopsy', async () => {
+    
+    await driver.findElement(wd.By.css('#newBiopsy')).click();
+
+    let newBiopsyUrl = await driver.getCurrentUrl();
+    
+    expect(newBiopsyUrl).toContain(`/biopsies/new`);
+
+    await driver.findElement(wd.By.css('#cancelBiopsy')).click();
+
+    let newHabitatUrl = await driver.getCurrentUrl();
+    
+    expect(newHabitatUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
+
+  }, testTimeout) }
 
   it('user edits encounter', async () => {
 
