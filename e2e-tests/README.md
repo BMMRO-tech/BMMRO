@@ -3,7 +3,11 @@
 - run npm install
 - run safaridriver --enable and type computer password when prompted
 - create .env file with the following format
-- The Project_ID, API_KEY and AUTH_DOMAIN values should be the app .env file pulled from your firebase setup
+- The Project_ID, API_KEY and AUTH_DOMAIN values should be the app .env file pulled from your
+- In your firebase console, open build -> authentication -> users and a new dummy test user with the email (e2e@test.ie) with the password: 123456 *
+    * OR set the email and password below to any valid user from your firebase
+
+firebase setup
 ```
 ENDPOINT="http://localhost:3000"
 PROJECT_ID="bmmro-xxxxx"

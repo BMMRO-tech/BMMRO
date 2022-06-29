@@ -33,4 +33,4 @@ Setting the secret to TRUE makes the feature appear
 
 ## Links
 
-- 
+- https://github.com/BMMRO-tech/BMMRO/settings/secrets/actions
