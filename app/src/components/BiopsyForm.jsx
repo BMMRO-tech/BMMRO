@@ -17,21 +17,20 @@ const styles = {
 
 const BiopsyForm = ({ encounterId }) => {
     return (
-        <div css={utilities.sticky.contentContainer}>
-            <div css={utilities.form.container}>
-                <h1>HI</h1>
-            <div css={utilities.sticky.footerContainer}>
-                <Link to={generateOpenEncounterURL(encounterId)}>
-                    <Button 
-                        styles={styles.cancelButton}
-                        variant="secondary"
-                        testId={"cancelBiopsy"}> 
-                        Cancel
-                    </Button>
-                </Link>
+            <div css={utilities.sticky.contentContainer}>
+                <div css={utilities.form.container}>
+                    <div css={utilities.sticky.footerContainer}>
+                        <Link to={generateOpenEncounterURL(encounterId)}>
+                            <Button
+                                styles={styles.cancelButton}
+                                variant="secondary"
+                                testId={"cancelBiopsy"}>
+                                Cancel
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
     );
 }
 
