@@ -9,8 +9,13 @@ import Button from "./Button";
 import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
 import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
+import DateInput from "./formFields/DateInput/DateInput";
+import TimeInput from "./formFields/TimeInput/TimeInput";
+import TextInput from "./formFields/TextInput/TextInput";
+import PositionInput from "./formFields/PositionInput/PositionInput";
 
 import Select from "./formFields/Select/Select";
+import { Refresh } from "./icons/Refresh";
 
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
@@ -60,13 +65,88 @@ const BiopsyForm = ({
           {({ values }) => (
             <Form>
               <section css={styles.section}>
-                <ListHeader title="Encounter details" />
+                <ListHeader title="Biopsy Details" />
                 <FormSection>
                   <Select
                     name="species"
                     labelText="Species"
                     options={species}
                     isRequired
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+                {/* <br /> */}
+                <FormSection>
+                  <DateInput
+                    name="startTimestamp"
+                    labelText="Date"
+                    isRequired
+                    isShort
+                    notAfter={new Date()}
+                    autofill={true}
+                  />
+                  <TimeInput
+                    name="startTime"
+                    labelText="Time"
+                    isShort
+                    autofill={true}
+                    notAfter={values.startTimestamp}
+                    isRequired
+                  />
+                </FormSection>
+                <FormSection>
+                  <TextInput
+                    name="attemptNumber"
+                    labelText="Attempt #"
+                    maxLength={255}
+                    isShort
+                  />
+                  <TextInput
+                    name="samplerNamer"
+                    labelText="Sampler Name"
+                    maxLength={255}
+                    isShort
+                  />
+                </FormSection>
+                <br />
+                <FormSection isOneLine4Elements>
+                  <PositionInput
+                    name="latitude"
+                    type="latitude"
+                    labelText="Lat"
+                    isShort
+                    autofill={!initialValues || refreshLatLong !== 0}
+                    isDisabled={isViewOnly}
+                    position={position?.latitude}
+                    isRequired
+                  />
+
+                  <div style={{ display: "flex" }}>
+                    <PositionInput
+                      name="longitude"
+                      type="longitude"
+                      labelText="Long"
+                      isShort
+                      autofill={!initialValues || refreshLatLong !== 0}
+                      isDisabled={isViewOnly}
+                      position={position?.longitude}
+                      isRequired
+                    />
+                    {!isViewOnly && (
+                      <Refresh
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        setRefreshLatLong={setRefreshLatLong}
+                        refreshLatLong={refreshLatLong}
+                        testId="Refresh"
+                      />
+                    )}
+                  </div>
+                  <TextInput
+                    name="gpsMark"
+                    labelText="GPS Mark"
+                    maxLength={10}
+                    isShort
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
