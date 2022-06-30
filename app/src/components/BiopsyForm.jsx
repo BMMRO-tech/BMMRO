@@ -8,32 +8,56 @@ import utilities from "../materials/utilities";
 import Button from "./Button";
 import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
+import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
 
 import Select from "./formFields/Select/Select";
 
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 
-const styles = {
-  cancelButton: css`
-    margin-right: 10px;
-  `,
-  section: css`
-    background-color: none;
-  `,
-};
+const BiopsyForm = ({
+  initialValues,
+  handleSubmit,
+  isViewOnly,
+  encounterId,
+  isPageNewBiopsyForm,
+}) => {
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showPositionalModal, setShowPositionalModal] = useState({
+    boolean: false,
+    values: "",
+  });
+  const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  const [refreshLatLong, setRefreshLatLong] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState({ latitude: "", longitude: "" });
+  const [error, setError] = useState(null);
 
-const BiopsyForm = ({ encounterId, handleSubmit, isViewOnly }) => {
-  const [submitType, setSubmitType] = useState(null);
+  const styles = {
+    cancelButton: css`
+      margin-right: 10px;
+    `,
+    section: css`
+      background-color: none;
+    `,
+  };
+  const initValues = initialValues || biopsyFormDefaults;
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
+          initialValues={initValues}
+          async
           onSubmit={(values) => {
-            handleSubmit(submitType, values);
+            values.hasEnded ||
+            (values.longitude && values.latitude) ||
+            values.gpsMark
+              ? handleSubmit(values)
+              : setShowPositionalModal({ boolean: true, values: values });
           }}
         >
-          {({ values, submitForm }) => (
+          {({ values }) => (
             <Form>
               <section css={styles.section}>
                 <ListHeader title="Encounter details" />
@@ -58,7 +82,7 @@ const BiopsyForm = ({ encounterId, handleSubmit, isViewOnly }) => {
                   </Button>
                 </Link>
                 <Button type="submit" testId={"saveBiopsy"}>
-                    Save
+                  {!!initialValues ? "Save" : "Save"}
                 </Button>
               </div>
             </Form>
