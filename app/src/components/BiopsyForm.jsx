@@ -5,6 +5,7 @@ import { Link } from "@reach/router";
 import { generateOpenEncounterURL } from "../constants/routes";
 
 import utilities from "../materials/utilities";
+import WhaleImageMap from "./WhaleImageMap";
 
 const styles = {
   cancelButton: css`
@@ -19,6 +20,7 @@ const BiopsyForm = ({ encounterId }) => {
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
+        <WhaleImageMap />
         <div css={utilities.sticky.footerContainer}>
           <Link to={generateOpenEncounterURL(encounterId)}>
             <Button
