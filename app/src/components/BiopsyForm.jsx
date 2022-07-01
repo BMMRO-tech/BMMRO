@@ -9,16 +9,11 @@ import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
 import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
 
-
 import Select from "./formFields/Select/Select";
-
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 
-const BiopsyForm = ({
-  handleSubmit,
-  encounterId,
-}) => {
+const BiopsyForm = ({ handleSubmit, encounterId }) => {
   const styles = {
     cancelButton: css`
       margin-right: 10px;
@@ -27,11 +22,12 @@ const BiopsyForm = ({
       background-color: none;
     `,
   };
-  
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
+          initialValues={{}}
           onSubmit={(values) => {
             handleSubmit(values);
           }}
@@ -46,10 +42,9 @@ const BiopsyForm = ({
                     labelText="Species"
                     options={species}
                     isRequired
+                    isDisabled={false}
                   />
                 </FormSection>
-               
-            
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>
@@ -61,7 +56,7 @@ const BiopsyForm = ({
                     Cancel
                   </Button>
                 </Link>
-                <Button type="submit" testId={"saveBiopsy"}>
+                <Button type="submit" testId={"saveBiopsy"} >
                   Save
                 </Button>
               </div>
