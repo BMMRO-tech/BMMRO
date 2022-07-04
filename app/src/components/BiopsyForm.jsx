@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useEffect, useState } from "react";
 import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import { Formik, Form } from "formik";
@@ -10,18 +11,19 @@ import ListHeader from "./list/ListHeader";
 import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
 
 import DateInput from "./formFields/DateInput/DateInput";
+import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
+import PositionInput from "./formFields/PositionInput/PositionInput";
 
 import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
+import { Refresh } from "./icons/Refresh";
 
-const BiopsyForm = (
-  { 
-    initialValues,
-    handleSubmit,
-    encounterId 
-  }) => {
+const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
+  const [position, setPosition] = useState({ latitude: "", longitude: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [refreshLatLong, setRefreshLatLong] = useState(0);
   const styles = {
     cancelButton: css`
       margin-right: 10px;
@@ -56,24 +58,82 @@ const BiopsyForm = (
                   />
                 </FormSection>
                 <FormSection>
-                 <DateInput
-                   name="Date"
-                   labelText="Date"
-                   isRequired
-                   isShort
-                   notAfter={new Date()}
-                   autofill={true}
-                 />
-                 <TimeInput
-                   name="Time"
-                   labelText="Time"
-                   isShort
-                   autofill={true}
-                   timeWithSeconds
-                   notAfter={values.startTimestamp}
-                   isRequired
-                 />
-               </FormSection>
+                  <DateInput
+                    name="dateTaken"
+                    labelText="Date"
+                    isRequired
+                    isShort
+                    notAfter={new Date()}
+                    autofill={true}
+                  />
+                  <TimeInput
+                    name="timeTaken"
+                    labelText="Time"
+                    isShort
+                    autofill={true}
+                    timeWithSeconds
+                    notAfter={values.startTimestamp}
+                    isRequired
+                  />
+                </FormSection>
+                <FormSection>
+                  <TextInput
+                    name="attempt"
+                    labelText="Attempt Number"
+                    maxLength={255}
+                    isShort
+                  />
+                  <TextInput
+                    name="samplerName"
+                    labelText="Sampler Name"
+                    maxLength={255}
+                    isShort
+                  />
+                </FormSection>
+
+                <br />
+                <FormSection isOneLine4Elements>
+                  <PositionInput
+                    name="latitude"
+                    type="latitude"
+                    labelText="Lat"
+                    isShort
+                    isRequired
+                    autofill={!initialValues || refreshLatLong !== 0}
+                    position={position?.latitude}
+                  />
+                  <div style={{ display: "flex" }}>
+                    <PositionInput
+                      name="longitude"
+                      type="longitude"
+                      labelText="Long"
+                      isShort
+                      isRequired
+                      autofill={!initialValues || refreshLatLong !== 0}
+                      position={position?.longitude}
+                    />
+
+                    <Refresh
+                      isLoading={isLoading}
+                      setIsLoading={setIsLoading}
+                      setRefreshLatLong={setRefreshLatLong}
+                      refreshLatLong={refreshLatLong}
+                      testId="Refresh"
+                    />
+                  </div>
+                  <TextInput
+                    name="gpsMark"
+                    labelText="GPS Mark"
+                    maxLength={10}
+                    isShort
+                  />
+                  <TextInput
+                    name="totalSpecimens"
+                    labelText="Total Specimens"
+                    maxLength={10}
+                    isShort
+                  />
+                </FormSection>
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>
@@ -85,7 +145,7 @@ const BiopsyForm = (
                     Cancel
                   </Button>
                 </Link>
-                <Button type="submit" testId={"saveBiopsy"} >
+                <Button type="submit" testId={"saveBiopsy"}>
                   Save
                 </Button>
               </div>
