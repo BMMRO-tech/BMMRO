@@ -19,11 +19,13 @@ import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 import { Refresh } from "./icons/Refresh";
+import { getPosition } from "./formFields/PositionInput/getPosition";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
   const [position, setPosition] = useState({ latitude: "", longitude: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [refreshLatLong, setRefreshLatLong] = useState(0);
+
   const styles = {
     cancelButton: css`
       margin-right: 10px;
@@ -32,6 +34,17 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
       background-color: none;
     `,
   };
+
+  useEffect(() => {
+    (async () => {
+      const tempPosition = await getPosition();
+
+      if (tempPosition.position !== null) {
+        setPosition(tempPosition.position);
+      }
+      setIsLoading(false);
+    })();
+  }, [refreshLatLong]);
 
   const initValues = initialValues || biopsyFormDefaults;
 
