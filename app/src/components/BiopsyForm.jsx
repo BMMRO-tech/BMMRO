@@ -9,11 +9,19 @@ import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
 import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
 
+import DateInput from "./formFields/DateInput/DateInput";
+import TimeInput from "./formFields/TimeInput/TimeInput";
+
 import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 
-const BiopsyForm = ({ handleSubmit, encounterId }) => {
+const BiopsyForm = (
+  { 
+    initialValues,
+    handleSubmit,
+    encounterId 
+  }) => {
   const styles = {
     cancelButton: css`
       margin-right: 10px;
@@ -23,11 +31,13 @@ const BiopsyForm = ({ handleSubmit, encounterId }) => {
     `,
   };
 
+  const initValues = initialValues || biopsyFormDefaults;
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
-          initialValues={{}}
+          initialValues={initValues}
           onSubmit={(values) => {
             handleSubmit(values);
           }}
@@ -45,6 +55,25 @@ const BiopsyForm = ({ handleSubmit, encounterId }) => {
                     isDisabled={false}
                   />
                 </FormSection>
+                <FormSection>
+                 <DateInput
+                   name="Date"
+                   labelText="Date"
+                   isRequired
+                   isShort
+                   notAfter={new Date()}
+                   autofill={true}
+                 />
+                 <TimeInput
+                   name="Time"
+                   labelText="Time"
+                   isShort
+                   autofill={true}
+                   timeWithSeconds
+                   notAfter={values.startTimestamp}
+                   isRequired
+                 />
+               </FormSection>
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>
