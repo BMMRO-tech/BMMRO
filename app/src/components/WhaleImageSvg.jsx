@@ -66,11 +66,11 @@ const WhaleImageSvg = ({ createTag, sectionClicked }) => {
             height="4000"
             x="0"
             y="-500"
-            fill={fillSection("bottom left")}
+            fill={fillSection("Lower Peduncle")}
             opacity="0.6"
             id="bottomLeft"
             onClick={() => {
-              createTag("bottom left");
+              createTag("Lower Peduncle");
             }}
             button="true"
           />
@@ -86,10 +86,10 @@ const WhaleImageSvg = ({ createTag, sectionClicked }) => {
             height="2900"
             x="0"
             y="3500"
-            fill={fillSection("top left")}
+            fill={fillSection("Upper Peduncle")}
             opacity="0.6"
             onClick={() => {
-              createTag("top left");
+              createTag("Upper Peduncle");
             }}
           />
         </g>
@@ -105,10 +105,10 @@ const WhaleImageSvg = ({ createTag, sectionClicked }) => {
             height="2900"
             x="7581"
             y="3500"
-            fill={fillSection("top middle")}
+            fill={fillSection("Upper Dorsal")}
             opacity="0.6"
             onClick={() => {
-              createTag("top middle");
+              createTag("Upper Dorsal");
             }}
           />
         </g>
@@ -123,10 +123,10 @@ const WhaleImageSvg = ({ createTag, sectionClicked }) => {
             height="2900"
             x="14000"
             y="3500"
-            fill={fillSection("top right")}
+            fill={fillSection("Upper Thoracic")}
             opacity="0.6"
             onClick={() => {
-              createTag("top right");
+              createTag("Upper Thoracic");
             }}
           />
         </g>
@@ -141,10 +141,10 @@ const WhaleImageSvg = ({ createTag, sectionClicked }) => {
             height="4000"
             x="7581"
             y="-500"
-            fill={fillSection("bottom middle")}
+            fill={fillSection("Lower Dorsal")}
             opacity="0.6"
             onClick={() => {
-              createTag("bottom middle");
+              createTag("Lower Dorsal");
             }}
           />
         </g>
@@ -159,10 +159,10 @@ const WhaleImageSvg = ({ createTag, sectionClicked }) => {
             height="4000"
             x="14000"
             y="-500"
-            fill={fillSection("bottom right")}
+            fill={fillSection("Lower Thoracic")}
             opacity="0.6"
             onClick={() => {
-              createTag("bottom right");
+              createTag("Lower Thoracic");
             }}
           />
         </g>
