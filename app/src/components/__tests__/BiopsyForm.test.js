@@ -66,14 +66,14 @@ describe("BiopsyForm", () => {
     const submitButton = getByRole("button", { name: "Save" });
 
     userEvent.selectOptions(speciesInput, "Fin whale");
-    await userEvent.type(attemptInput, "1");
-    await userEvent.type(samplerNameInput, "Test Name");
+    await userEvent.type(attemptInput, "1", { delay: 1 });
+    await userEvent.type(samplerNameInput, "Test Name", { delay: 1 });
     userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
     userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
-    await userEvent.type(gpsMarkInput, "2");
-    await userEvent.type(totalSpecimensInput, "3");
+    userEvent.type(gpsMarkInput, "2");
+    userEvent.type(totalSpecimensInput, "3");
     userEvent.click(submitButton);
 
     await waitFor(() => {

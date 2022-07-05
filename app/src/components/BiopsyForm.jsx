@@ -85,7 +85,6 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     isShort
                     autofill={true}
                     timeWithSeconds
-                    notAfter={values.startTimestamp}
                     isRequired
                   />
                 </FormSection>

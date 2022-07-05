@@ -2,10 +2,12 @@ export default {
   species: "",
   samplerName: "",
   attempt: "",
-  startTime: "",
+  dateTaken: "",
+  timeTaken: "",
   latitude: "",
   longitude: "",
   gpsMark: "",
+  totalSpecimens: "",
   exported: false,
   hasEnded: false,
 };

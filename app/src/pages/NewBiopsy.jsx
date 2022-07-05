@@ -1,14 +1,25 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import { useContext } from "react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BiopsyForm from "../components/BiopsyForm";
 
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import { CollectionNames, generateEncounterPath } from "../constants/datastore";
+
 const NewBiopsy = ({ encounterId }) => {
+  const { datastore } = useContext(FirebaseContext);
+  const encounterPath = generateEncounterPath(encounterId);
+
+  const handleSubmit = (values) => {
+    datastore.createSubDoc(encounterPath, CollectionNames.BIOPSY, values);
+  };
+
   return (
     <Layout hasDefaultPadding={false}>
       <h1 css={utilities.form.title}>Add New Biopsy Record</h1>
-      <BiopsyForm encounterId={encounterId} />
+      <BiopsyForm encounterId={encounterId} handleSubmit={handleSubmit} />
     </Layout>
   );
 };
