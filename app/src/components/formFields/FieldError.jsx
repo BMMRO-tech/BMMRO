@@ -2,12 +2,12 @@
 import { css, jsx } from "@emotion/core";
 import colors from "../../materials/colors";
 
-const FieldError = ({ touched, errorMessage, labelText }) => {
+const FieldError = ({ errorMessage, labelText }) => {
   const styles = {
     error: css`
       color: ${colors.darkRed};
       font-size: 13px;
-      display: ${touched && errorMessage ? "block" : "none"};
+      display: ${errorMessage ? "block" : "none"};
     `,
     container: css`
       margin-top: 3px;
