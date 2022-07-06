@@ -20,6 +20,7 @@ import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 import { Refresh } from "./icons/Refresh";
 import { getPosition } from "./formFields/PositionInput/getPosition";
+import GpsFormSection from "./GpsFormSection";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
   const [position, setPosition] = useState({ latitude: "", longitude: "" });
@@ -104,7 +105,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                 </FormSection>
 
                 <br />
-                <FormSection isOneLine4Elements>
+                {/* <FormSection isOneLine4Elements>
                   <PositionInput
                     name="latitude"
                     type="latitude"
@@ -145,7 +146,8 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     maxLength={10}
                     isShort
                   />
-                </FormSection>
+                </FormSection> */}
+                <GpsFormSection />
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>
