@@ -2,7 +2,6 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import { Formik, Form } from "formik";
-import utilities from "../materials/utilities";
 import Button from "./Button";
 import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
@@ -17,6 +16,8 @@ import GpsFormSection from "./GpsFormSection";
 import InputFocusOnError from "./formFields/InputFocusOnError";
 import { useState } from "react";
 import PositionalValidationModal from "./PositionalValidationModal";
+import utilities from "../materials/utilities";
+import DartHitSection from "./DartHitSection";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
@@ -124,6 +125,11 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     isShort
                   />
                 </FormSection>
+
+                <ListHeader title="Dart Hit Area" />
+                  <FormSection>
+                    <DartHitSection />
+                  </FormSection>
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>

@@ -1,19 +1,24 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import DartHitSection from "../DartHitSection";
 
 describe("Dart Hit Section", () => {
-  it.skip("shows biopsy banner and new button", () => {
+  it("shows select dart hit area text", () => {
     const { queryByText } = render(<DartHitSection />);
 
     expect(queryByText("Select Dart Hit Area")).toBeInTheDocument();
   });
 
-  it.skip("shows lower Peduncle when bottom right section of the svg is clicked", () => {
+  it("shows lower Peduncle when bottom right section of the svg is clicked", () => {
     const { queryByText, getByTestId } = render(<DartHitSection />);
 
-    getByTestId("lowerPeducle").click();
-
+    fireEvent(
+      getByTestId("lowerPeducle"),
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
     expect(queryByText("Lower Peduncle")).toBeInTheDocument();
   });
 });
