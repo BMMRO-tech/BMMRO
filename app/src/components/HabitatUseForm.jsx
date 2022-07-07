@@ -41,7 +41,7 @@ const HabitatUseForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
-  isPageNewHabitatUse,
+  pageHasPositionalValues,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showPositionalModal, setShowPositionalModal] = useState({
@@ -402,7 +402,7 @@ const HabitatUseForm = ({
 
               <InputFocusOnError
                 hasTriedToSubmit={checkingValidation}
-                isPageNewHabitatUse={isPageNewHabitatUse}
+                pageHasPositionalValues={pageHasPositionalValues}
               />
             </Form>
           )}
