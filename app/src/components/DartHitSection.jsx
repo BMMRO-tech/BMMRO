@@ -2,25 +2,47 @@
 import { jsx } from "@emotion/core";
 import { useState } from "react";
 import WhaleSvg from "./WhaleSvg";
-import TextInput from "./formFields/TextInput/TextInput";
+import RadioGroup from "./formFields/RadioGroup/RadioGroup";
+import FormSection from "./FormSection";
 
 const DartHitSection = () => {
   const [selectedSection, setSelectedSection] = useState("");
+  const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(false);
 
   return (
     <div>
-      {/* <TextInput
-                    name="WhaleID"
-                    labelText="Whale ID"
-                    maxLength={10}
-                    isShort
-                  /> */}
-      <h3>Select Dart Hit Area</h3>
-      <WhaleSvg
-        setSelectedSection={setSelectedSection}
-        selectedSection={selectedSection}
-      />
-      <p>{selectedSection}</p>
+      <FormSection>
+        <WhaleSvg
+          setSelectedSection={setSelectedSection}
+          selectedSection={selectedSection}
+          setIsUpperPeduncleSelected={setIsUpperPeduncleSelected}
+        />
+      </FormSection>
+      <FormSection>
+        <RadioGroup
+          name="whaleSide"
+          labelText="Which side was hit?"
+          data-testid="whaleSideTestID"
+          options={[
+            { label: "Left", value: "Left" },
+            { label: "Right", value: "Right" },
+          ]}
+        />
+        {isUpperPeduncleSelected && (
+          <RadioGroup
+            name="dorsalHit"
+            labelText="Did it hit the fin?"
+            options={[
+              { label: "Yes", value: "Yes" },
+              { label: "No", value: "No" },
+            ]}
+          />
+        )}
+      </FormSection>
+      <br />
+      <FormSection>
+        <p style={{ color: "red" }}>Area Hit : {selectedSection}</p>
+      </FormSection>
     </div>
   );
 };

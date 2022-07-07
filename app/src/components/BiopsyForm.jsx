@@ -126,10 +126,8 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                   />
                 </FormSection>
 
-                <ListHeader title="Dart Hit Area" />
-                  <FormSection>
-                    <DartHitSection />
-                  </FormSection>
+                <ListHeader title="Select dart hit area" />
+                <DartHitSection />
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>

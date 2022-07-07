@@ -1,9 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 
-const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
+const WhaleSvg = ({
+  setSelectedSection,
+  selectedSection,
+  setIsUpperPeduncleSelected,
+}) => {
   const fillSection = (sectionName) => {
-    return selectedSection === sectionName ? "grey" : "transparent";
+    return selectedSection === sectionName ? "aqua" : "transparent";
   };
   return (
     <svg
@@ -66,8 +70,10 @@ const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
           y="-500"
           fill={fillSection("Lower Thoracic")}
           opacity="0.6"
+          data-testid="Lower Thoracic"
           id="bottomLeft"
           onClick={() => {
+            setIsUpperPeduncleSelected(false);
             setSelectedSection("Lower Thoracic");
           }}
           button="true"
@@ -85,7 +91,9 @@ const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
           y="3000"
           fill={fillSection("Upper Thoracic")}
           opacity="0.6"
+          data-testid="Upper Thoracic"
           onClick={() => {
+            setIsUpperPeduncleSelected(false);
             setSelectedSection("Upper Thoracic");
           }}
         />
@@ -103,7 +111,9 @@ const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
           y="3000"
           fill={fillSection("Upper Dorsal")}
           opacity="0.6"
+          data-testid="Upper Dorsal"
           onClick={() => {
+            setIsUpperPeduncleSelected(true);
             setSelectedSection("Upper Dorsal");
           }}
         />
@@ -120,7 +130,9 @@ const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
           y="3000"
           fill={fillSection("Upper Peduncle")}
           opacity="0.6"
+          data-testid="Upper Peduncle"
           onClick={() => {
+            setIsUpperPeduncleSelected(false);
             setSelectedSection("Upper Peduncle");
           }}
         />
@@ -137,7 +149,9 @@ const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
           y="-500"
           fill={fillSection("Lower Dorsal")}
           opacity="0.6"
+          data-testid="Lower Dorsal"
           onClick={() => {
+            setIsUpperPeduncleSelected(false);
             setSelectedSection("Lower Dorsal");
           }}
         />
@@ -154,8 +168,9 @@ const WhaleSvg = ({ setSelectedSection, selectedSection }) => {
           y="-500"
           fill={fillSection("Lower Peduncle")}
           opacity="0.6"
-          data-testid="lowerPeducle"
+          data-testid="Lower Peduncle"
           onClick={() => {
+            setIsUpperPeduncleSelected(false);
             setSelectedSection("Lower Peduncle");
           }}
         />
