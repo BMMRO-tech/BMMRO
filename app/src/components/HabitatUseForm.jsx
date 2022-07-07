@@ -102,6 +102,7 @@ const HabitatUseForm = ({
           });
         }}
         handleLeavePage={() => handleSubmit(showPositionalModal.values)}
+        pageName="habitat"
       />
     );
   };

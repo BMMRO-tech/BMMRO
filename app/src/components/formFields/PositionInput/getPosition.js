@@ -22,7 +22,7 @@ export const getPosition = async () => {
       latitude: formatCoordinate(response.coords.latitude),
       longitude: formatCoordinate(response.coords.longitude),
     };
-    return { position, error: null };
+    return { position, error: false };
   } catch (err) {
     return { position: null, error: true };
   }

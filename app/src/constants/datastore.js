@@ -1,6 +1,7 @@
 export const CollectionNames = {
   ENCOUNTER: "encounter",
   HABITAT_USE: "habitatUse",
+  BIOPSY: "biopsy",
 };
 
 export const generateEncounterPath = (id) => {
