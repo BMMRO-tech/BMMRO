@@ -14,8 +14,16 @@ import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 import GpsFormSection from "./GpsFormSection";
+import InputFocusOnError from "./formFields/InputFocusOnError";
+import { useState } from "react";
+import PositionalValidationModal from "./PositionalValidationModal";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
+  const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  const [showPositionalModal, setShowPositionalModal] = useState({
+    boolean: false,
+    values: "",
+  });
   const styles = {
     cancelButton: css`
       margin-right: 10px;
@@ -24,8 +32,32 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
       background-color: none;
     `,
   };
+  const checkingValidation = (isPositionalData) => {
+    setClosedPositionalModal(isPositionalData);
+  };
 
   const initValues = initialValues || biopsyFormDefaults;
+
+  const renderPositionalValidationModal = () => {
+    return (
+      <PositionalValidationModal
+        closeModal={() => {
+          const elementValue = document.getElementsByName("latitude")[0];
+          window.setTimeout(() => elementValue.focus(), 0);
+          setShowPositionalModal((prevState) => {
+            return {
+              ...prevState,
+              boolean: false,
+            };
+          });
+        }}
+        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
+      />
+    );
+  };
+
+  const isValidPositionalData = (values) =>
+    (values.longitude && values.latitude) || values.gpsMark;
 
   return (
     <div css={utilities.sticky.contentContainer}>
@@ -33,7 +65,9 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
         <Formik
           initialValues={initValues}
           onSubmit={(values) => {
-            handleSubmit(values);
+            isValidPositionalData(values)
+              ? handleSubmit(values)
+              : setShowPositionalModal({ boolean: true, values: values });
           }}
         >
           {({ values }) => (
@@ -59,7 +93,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                   />
                 </FormSection>
                 <br />
-                <GpsFormSection />
+                <GpsFormSection isRenderInfoLabel={closedPositionalModal} />
                 <ListHeader title="Biopsy details" />
                 <FormSection>
                   <Select
@@ -104,10 +138,16 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                   Save
                 </Button>
               </div>
+              <InputFocusOnError
+                hasTriedToSubmit={checkingValidation}
+                isPageNewHabitatUse={true}
+              />
             </Form>
           )}
         </Formik>
       </div>
+
+      {showPositionalModal.boolean && renderPositionalValidationModal()}
     </div>
   );
 };

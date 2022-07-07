@@ -96,4 +96,26 @@ describe("BiopsyForm", () => {
 
     expect(queryByRole("button", { name: "Cancel" })).toBeInTheDocument();
   });
+
+  it("if there is an error, after pressing submit button, will focus on that input", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole } = render(
+      <BiopsyForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const latInput = getByRole("spinbutton", {
+      name: "Lat",
+    });
+
+    const submitButton = getByRole("button", { name: "Save" });
+
+    await userEvent.type(latInput, "0.111", { delay: 1 });
+
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(submitButton).not.toHaveFocus();
+      expect(latInput).toHaveFocus();
+    });
+  });
 });
