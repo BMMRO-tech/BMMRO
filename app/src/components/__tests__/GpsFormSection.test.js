@@ -1,7 +1,6 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
-import { getByText, waitFor } from "@testing-library/react";
-
+import { waitFor } from "@testing-library/react";
 import GpsFormSection from "../GpsFormSection";
 import renderWithinFormik from "../../utils/test/renderWithinFormik";
 import { getPosition } from "../formFields/PositionInput/getPosition.js";
@@ -56,16 +55,28 @@ describe("GpsFormSection", () => {
   it("Shows error message when the refresh button cannot obtain positional data", async () => {
     getPosition.mockReturnValue({ position: null, error: true });
 
-    const { getByText } = renderWithinFormik(
-      <GpsFormSection />
-    );
+    const { getByText } = renderWithinFormik(<GpsFormSection />);
 
     await waitFor(async () => {
-        expect(getPosition).toHaveBeenCalled();
+      expect(getPosition).toHaveBeenCalled();
     });
 
     await waitFor(async () => {
-        expect(getByText("Geolocation could not be retrieved.")).toBeInTheDocument();
+      expect(
+        getByText("Geolocation could not be retrieved.")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("shows info label if isRenderInfoLabel is true", async () => {
+    const { getByText } = renderWithinFormik(
+      <GpsFormSection isRenderInfoLabel={true} />
+    );
+
+    await waitFor(async () => {
+      expect(
+        getByText("Please add either latitude and longitude, or a GPS mark.")
+      ).toBeInTheDocument();
     });
   });
 });

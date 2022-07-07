@@ -58,8 +58,8 @@ describe("NewBiopsy", () => {
     );
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
-    const latitudeInput = getByRole("spinbutton", { name: "Lat *" });
-    const longitudeInput = getByRole("spinbutton", { name: "Long *" });
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
     const saveBiopsyButton = await findByRole("button", {

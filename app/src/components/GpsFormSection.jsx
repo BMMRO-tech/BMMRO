@@ -7,8 +7,9 @@ import FormSection from "./FormSection";
 import { Refresh } from "./icons/Refresh";
 import { getPosition } from "./formFields/PositionInput/getPosition";
 import fieldStyles from "./formFields/fieldStyles";
+import TextInput from "./formFields/TextInput/TextInput";
 
-const GpsFormSection = ({ initialValues, isViewOnly }) => {
+const GpsFormSection = ({ initialValues, isViewOnly, isRenderInfoLabel }) => {
   const [position, setPosition] = useState({ latitude: "", longitude: "" });
   const [refreshLatLong, setRefreshLatLong] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ const GpsFormSection = ({ initialValues, isViewOnly }) => {
         setPosition(tempPosition.position);
       }
 
-      if (tempPosition.error === true){
+      if (tempPosition.error === true) {
         setError(true);
       }
 
@@ -41,24 +42,42 @@ const GpsFormSection = ({ initialValues, isViewOnly }) => {
         isDisabled={isViewOnly}
         position={position?.latitude}
       />
-      <PositionInput
-        name="longitude"
-        type="longitude"
-        labelText="Long"
-        isShort
-        autofill={!initialValues || refreshLatLong !== 0}
-        isDisabled={isViewOnly}
-        position={position?.longitude}
-      />
-
-      {!isViewOnly && (
-        <Refresh
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          setRefreshLatLong={setRefreshLatLong}
-          refreshLatLong={refreshLatLong}
-          testId="Refresh"
+      <div style={{ display: "flex" }}>
+        <PositionInput
+          name="longitude"
+          type="longitude"
+          labelText="Long"
+          isShort
+          autofill={!initialValues || refreshLatLong !== 0}
+          isDisabled={isViewOnly}
+          position={position?.longitude}
         />
+
+        {!isViewOnly && (
+          <Refresh
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            setRefreshLatLong={setRefreshLatLong}
+            refreshLatLong={refreshLatLong}
+            testId="Refresh"
+          />
+        )}
+      </div>
+      <TextInput
+        name="gpsMark"
+        labelText="GPS mark"
+        maxLength={10}
+        isShort
+        isDisabled={isViewOnly}
+      />
+      {isRenderInfoLabel && (
+        <label
+          css={fieldStyles.longRequired}
+          data-testid={"positional-data-validation"}
+        >
+          {" "}
+          Please add either latitude and longitude, or a GPS mark.{" "}
+        </label>
       )}
       {error && (
         <label css={fieldStyles.longRequired} data-testid={"refreshError"}>

@@ -1,32 +1,21 @@
 /** @jsx jsx */
-import { useEffect, useState } from "react";
 import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import { Formik, Form } from "formik";
-
 import utilities from "../materials/utilities";
 import Button from "./Button";
 import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
 import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
-
 import DateInput from "./formFields/DateInput/DateInput";
 import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
-import PositionInput from "./formFields/PositionInput/PositionInput";
-
 import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
-import { Refresh } from "./icons/Refresh";
-import { getPosition } from "./formFields/PositionInput/getPosition";
 import GpsFormSection from "./GpsFormSection";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
-  const [position, setPosition] = useState({ latitude: "", longitude: "" });
-  const [isLoading, setIsLoading] = useState(false);
-  const [refreshLatLong, setRefreshLatLong] = useState(0);
-
   const styles = {
     cancelButton: css`
       margin-right: 10px;
@@ -35,17 +24,6 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
       background-color: none;
     `,
   };
-
-  useEffect(() => {
-    (async () => {
-      const tempPosition = await getPosition();
-
-      if (tempPosition.position !== null) {
-        setPosition(tempPosition.position);
-      }
-      setIsLoading(false);
-    })();
-  }, [refreshLatLong]);
 
   const initValues = initialValues || biopsyFormDefaults;
 
@@ -61,16 +39,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
           {({ values }) => (
             <Form>
               <section css={styles.section}>
-                <ListHeader title="Biopsy Details" />
-                <FormSection>
-                  <Select
-                    name="species"
-                    labelText="Species"
-                    options={species}
-                    isRequired
-                    isDisabled={false}
-                  />
-                </FormSection>
+                <ListHeader title="Time & position" />
                 <FormSection>
                   <DateInput
                     name="dateTaken"
@@ -89,7 +58,18 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     isRequired
                   />
                 </FormSection>
+                <br />
+                <GpsFormSection />
+                <ListHeader title="Biopsy details" />
                 <FormSection>
+                  <Select
+                    name="species"
+                    labelText="Species"
+                    options={species}
+                    isRequired
+                    isDisabled={false}
+                  />
+
                   <TextInput
                     name="attempt"
                     labelText="Attempt Number"
@@ -102,52 +82,13 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     maxLength={255}
                     isShort
                   />
-                </FormSection>
-
-                <br />
-                {/* <FormSection isOneLine4Elements>
-                  <PositionInput
-                    name="latitude"
-                    type="latitude"
-                    labelText="Lat"
-                    isShort
-                    isRequired
-                    autofill={!initialValues || refreshLatLong !== 0}
-                    position={position?.latitude}
-                  />
-                  <div style={{ display: "flex" }}>
-                    <PositionInput
-                      name="longitude"
-                      type="longitude"
-                      labelText="Long"
-                      isShort
-                      isRequired
-                      autofill={!initialValues || refreshLatLong !== 0}
-                      position={position?.longitude}
-                    />
-
-                    <Refresh
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      setRefreshLatLong={setRefreshLatLong}
-                      refreshLatLong={refreshLatLong}
-                      testId="Refresh"
-                    />
-                  </div>
-                  <TextInput
-                    name="gpsMark"
-                    labelText="GPS Mark"
-                    maxLength={10}
-                    isShort
-                  />
                   <TextInput
                     name="totalSpecimens"
                     labelText="Total Specimens"
-                    maxLength={10}
+                    maxLength={255}
                     isShort
                   />
-                </FormSection> */}
-                <GpsFormSection />
+                </FormSection>
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>

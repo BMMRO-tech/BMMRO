@@ -23,8 +23,8 @@ describe("BiopsyForm", () => {
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
     const submitButton = getByRole("button", { name: "Save" });
-    const latitudeInput = getByRole("spinbutton", { name: "Lat *" });
-    const longitudeInput = getByRole("spinbutton", { name: "Long *" });
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
 
     userEvent.selectOptions(speciesInput, "Fin whale");
     userEvent.clear(latitudeInput);
@@ -57,9 +57,9 @@ describe("BiopsyForm", () => {
     const speciesInput = getByRole("combobox", { name: "Species *" });
     const attemptInput = getByRole("textbox", { name: "Attempt Number" });
     const samplerNameInput = getByRole("textbox", { name: "Sampler Name" });
-    const latitudeInput = getByRole("spinbutton", { name: "Lat *" });
-    const longitudeInput = getByRole("spinbutton", { name: "Long *" });
-    const gpsMarkInput = getByRole("textbox", { name: "GPS Mark" });
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    const gpsMarkInput = getByRole("textbox", { name: "GPS mark" });
     const totalSpecimensInput = getByRole("textbox", {
       name: "Total Specimens",
     });
