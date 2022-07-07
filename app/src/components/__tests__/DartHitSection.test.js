@@ -1,50 +1,63 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import DartHitSection from "../DartHitSection";
-import { it } from "date-fns/locale";
+import renderWithinFormik from "../../utils/test/renderWithinFormik";
 
-describe.skip("Dart Hit Section", () => {
-  it("contains a whale id input box", () => {
-    const { queryByRole } = render(<DartHitSection />);
+describe("Dart Hit Section", () => {
+  it.each([
+    ["Lower Peduncle"],
+    ["Upper Peduncle"],
+    ["Lower Dorsal"],
+    ["Upper Dorsal"],
+    ["Lower Thoracic"],
+    ["Upper Thoracic"],
+  ])(
+    "shows lower Peduncle when bottom right section of the svg is clicked",
+    async (val) => {
+      const { queryByText, getByTestId } = renderWithinFormik(
+        <DartHitSection />
+      );
 
-    expect(queryByRole("textbox", { name: "WhaleID" })).toBeInTheDocument();
+      fireEvent(
+        getByTestId(val),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+      expect(queryByText("Area Hit : " + val)).toBeInTheDocument();
+    }
+  );
+
+  it("contains left and right radio buttons", () => {
+    const { queryByText } = renderWithinFormik(<DartHitSection />);
+    expect(queryByText("Left")).toBeInTheDocument();
+    expect(queryByText("Right")).toBeInTheDocument();
   });
 
-  it("shows select dart hit area text", () => {
-    const { queryByText } = render(<DartHitSection />);
-
-    expect(queryByText("Select Dart Hit Area")).toBeInTheDocument();
-  });
-
-  it("shows lower Peduncle when bottom right section of the svg is clicked", () => {
-    const { queryByText, getByTestId } = render(<DartHitSection />);
+  it("contains option did it hit the fin when upper dorsal is selected", () => {
+    const { queryByText, getByTestId } = renderWithinFormik(<DartHitSection />);
 
     fireEvent(
-      getByTestId("lowerPeducle"),
+      getByTestId("Upper Dorsal"),
       new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
       })
     );
-    expect(queryByText("Lower Peduncle")).toBeInTheDocument();
+    expect(queryByText("Did it hit the fin?")).toBeInTheDocument();
   });
 
-  // it("contains left and right radio buttons", () => {
-  //   const { queryByRole } = render(<DartHitSection />);
+  it("does not contain option did it hit the fin when other then upper dorsal is selected", () => {
+    const { queryByText, getByTestId } = renderWithinFormik(<DartHitSection />);
 
-  //   expect(queryByRole("radiobutton", { name: "WhaleSide" })).toBeInTheDocument();
-  // });
-
-  // it("contains did it hit the fin when upper dorsal is selected"), () => {
-  //   const { queryByText, getByTestId } = render(<DartHitSection />);
-
-  //   fireEvent(
-  //     getByTestId("upperDorsal"),
-  //     new MouseEvent("click", {
-  //       bubbles: true,
-  //       cancelable: true,
-  //     })
-  //   );
-  //   expect(queryByText("Did it hit the fin?")).toBeInTheDocument();
-  // });
+    fireEvent(
+      getByTestId("Lower Dorsal"),
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+    expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();
+  });
 });
