@@ -91,10 +91,12 @@ describe("BiopsyForm", () => {
     });
   });
 
-  it("contains cancel button", () => {
+  it("contains cancel button", async () => {
     const { queryByRole } = render(<BiopsyForm />);
 
-    expect(queryByRole("button", { name: "Cancel" })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(queryByRole("button", { name: "Cancel" })).toBeInTheDocument();
+    });
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
@@ -116,6 +118,148 @@ describe("BiopsyForm", () => {
     await waitFor(() => {
       expect(submitButton).not.toHaveFocus();
       expect(latInput).toHaveFocus();
+    });
+  });
+
+  it("displays the positionalValidationModal if no positional data is entered", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, getByText } = render(
+      <BiopsyForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    userEvent.clear(latitudeInput);
+    userEvent.clear(longitudeInput);
+
+    const speciesInput = getByRole("combobox", { name: "Species *" });
+    userEvent.selectOptions(speciesInput, "Fin whale");
+
+    const submitButton = getByRole("button", { name: "Save" });
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(getByText("No positional data present!")).toBeInTheDocument();
+      expect(
+        getByText("End biopsy without positional data?")
+      ).toBeInTheDocument();
+      expect(getByText("End biopsy")).toBeInTheDocument();
+    });
+  });
+  it("displays the positionalValidationModal if no latitide data is entered", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, getByText } = render(
+      <BiopsyForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    userEvent.clear(latitudeInput);
+    userEvent.clear(longitudeInput);
+    await userEvent.type(longitudeInput, "-1.530266", { delay: 1 });
+
+    const speciesInput = getByRole("combobox", { name: "Species *" });
+    userEvent.selectOptions(speciesInput, "Fin whale");
+
+    const submitButton = getByRole("button", { name: "Save" });
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(getByText("No positional data present!")).toBeInTheDocument();
+      expect(
+        getByText("End biopsy without positional data?")
+      ).toBeInTheDocument();
+      expect(getByText("End biopsy")).toBeInTheDocument();
+    });
+  });
+  it("displays the positionalValidationModal if no longitide data is entered", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, getByText } = render(
+      <BiopsyForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    userEvent.clear(latitudeInput);
+    userEvent.clear(longitudeInput);
+    await userEvent.type(latitudeInput, "1.530266", { delay: 1 });
+
+    const speciesInput = getByRole("combobox", { name: "Species *" });
+    userEvent.selectOptions(speciesInput, "Fin whale");
+
+    const submitButton = getByRole("button", { name: "Save" });
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(getByText("No positional data present!")).toBeInTheDocument();
+      expect(
+        getByText("End biopsy without positional data?")
+      ).toBeInTheDocument();
+      expect(getByText("End biopsy")).toBeInTheDocument();
+    });
+  });
+  it("does not display the positionalValidationModal if GPS mark is entered", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, queryByText } = render(
+      <BiopsyForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    const gpsMark = getByRole("textbox", { name: "GPS mark" });
+    userEvent.clear(latitudeInput);
+    userEvent.clear(longitudeInput);
+    await userEvent.type(gpsMark, "21", { delay: 1 });
+
+    const speciesInput = getByRole("combobox", { name: "Species *" });
+    userEvent.selectOptions(speciesInput, "Fin whale");
+
+    const submitButton = getByRole("button", { name: "Save" });
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(
+        queryByText("No positional data present!")
+      ).not.toBeInTheDocument();
+      expect(
+        queryByText("End biopsy without positional data?")
+      ).not.toBeInTheDocument();
+      expect(queryByText("End biopsy")).not.toBeInTheDocument();
+    });
+  });
+
+  it("displays the positionalValidationModal if no positional data is entered", async () => {
+    const mockHandleSubmit = jest.fn();
+    const { getByRole, getByText } = render(
+      <BiopsyForm handleSubmit={mockHandleSubmit} />
+    );
+
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    userEvent.clear(latitudeInput);
+    userEvent.clear(longitudeInput);
+    await userEvent.type(latitudeInput, "1.530266", { delay: 1 });
+
+    const speciesInput = getByRole("combobox", { name: "Species *" });
+    userEvent.selectOptions(speciesInput, "Fin whale");
+
+    const submitButton = getByRole("button", { name: "Save" });
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(getByText("No positional data present!")).toBeInTheDocument();
+      expect(
+        getByText("End biopsy without positional data?")
+      ).toBeInTheDocument();
+      expect(getByText("End biopsy")).toBeInTheDocument();
+    });
+    const stayOnPageButton = getByRole("button", { name: "Stay on this page" });
+
+    await userEvent.click(stayOnPageButton);
+
+    await waitFor(() => {
+      expect(stayOnPageButton).not.toHaveFocus();
+      expect(latitudeInput).toHaveFocus();
     });
   });
 });

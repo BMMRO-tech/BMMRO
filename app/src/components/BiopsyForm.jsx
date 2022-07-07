@@ -52,6 +52,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
           });
         }}
         handleLeavePage={() => handleSubmit(showPositionalModal.values)}
+        pageName="biopsy"
       />
     );
   };
