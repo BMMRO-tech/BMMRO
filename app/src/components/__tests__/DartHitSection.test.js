@@ -1,8 +1,15 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import DartHitSection from "../DartHitSection";
+import { it } from "date-fns/locale";
 
-describe("Dart Hit Section", () => {
+describe.skip("Dart Hit Section", () => {
+  it("contains a whale id input box", () => {
+    const { queryByRole } = render(<DartHitSection />);
+
+    expect(queryByRole("textbox", { name: "WhaleID" })).toBeInTheDocument();
+  });
+
   it("shows select dart hit area text", () => {
     const { queryByText } = render(<DartHitSection />);
 
@@ -21,4 +28,23 @@ describe("Dart Hit Section", () => {
     );
     expect(queryByText("Lower Peduncle")).toBeInTheDocument();
   });
+
+  // it("contains left and right radio buttons", () => {
+  //   const { queryByRole } = render(<DartHitSection />);
+
+  //   expect(queryByRole("radiobutton", { name: "WhaleSide" })).toBeInTheDocument();
+  // });
+
+  // it("contains did it hit the fin when upper dorsal is selected"), () => {
+  //   const { queryByText, getByTestId } = render(<DartHitSection />);
+
+  //   fireEvent(
+  //     getByTestId("upperDorsal"),
+  //     new MouseEvent("click", {
+  //       bubbles: true,
+  //       cancelable: true,
+  //     })
+  //   );
+  //   expect(queryByText("Did it hit the fin?")).toBeInTheDocument();
+  // });
 });
