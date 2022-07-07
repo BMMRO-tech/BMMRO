@@ -5,7 +5,7 @@ const isDatepicker = (errorField) => {
   return errorField.getAttribute("data-field-type") === "datepicker";
 };
 
-const InputFocusOnError = (props) => {
+const InputFocusOnError = ({ pageHasPositionalValues, hasTriedToSubmit }) => {
   const { isSubmitting, values, validateForm } = useFormikContext();
 
   useEffect(() => {
@@ -25,9 +25,8 @@ const InputFocusOnError = (props) => {
             firstFieldWithError.focus();
           }
         }
-        const isPageNewHabitatUse = props.isPageNewHabitatUse;
-        if (!(typeof isPageNewHabitatUse === "undefined")) {
-          props.hasTriedToSubmit(
+        if (!(typeof pageHasPositionalValues === "undefined")) {
+          hasTriedToSubmit(
             !(values.longitude && values.latitude) && !values.gpsMark
           );
         }

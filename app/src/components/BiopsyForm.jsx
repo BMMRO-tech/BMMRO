@@ -141,7 +141,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
               </div>
               <InputFocusOnError
                 hasTriedToSubmit={checkingValidation}
-                isPageNewHabitatUse={true}
+                pageHasPositionalValues={true}
               />
             </Form>
           )}
