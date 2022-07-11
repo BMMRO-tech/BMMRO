@@ -21,6 +21,7 @@ import DartHitSection from "./DartHitSection";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  const [areaHitResult, setAreaHitResult] = useState("")
   const [showPositionalModal, setShowPositionalModal] = useState({
     boolean: false,
     values: "",
@@ -67,6 +68,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
         <Formik
           initialValues={initValues}
           onSubmit={(values) => {
+            values.areaHit = areaHitResult;
             isValidPositionalData(values)
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
@@ -127,7 +129,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                 </FormSection>
 
                 <ListHeader title="Select dart hit area" />
-                <DartHitSection />
+                <DartHitSection areaHitResult={areaHitResult} setAreaHitResult={setAreaHitResult}/>
               </section>
               <div css={utilities.sticky.footerContainer}>
                 <Link to={generateOpenEncounterURL(encounterId)}>

@@ -29,8 +29,8 @@ describe("GpsFormSection", () => {
       { latitude: "", longitude: "" }
     );
 
-    let latitudeInput = getByRole("spinbutton", { name: "Lat" });
-    let longitudeInput = getByRole("spinbutton", { name: "Long" });
+    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
 
     await waitFor(() => {
       expect(latitudeInput.value).toEqual(expectedCoordsOnLoad.latitude);
@@ -43,13 +43,13 @@ describe("GpsFormSection", () => {
       expect(getByTestId("Refresh")).toHaveAttribute("disabled");
     });
 
-    latitudeInput = getByRole("spinbutton", { name: "Lat" });
-    longitudeInput = getByRole("spinbutton", { name: "Long" });
+    const updatedLatitudeInput = getByRole("spinbutton", { name: "Lat" });
+    const updatedLongitudeInput = getByRole("spinbutton", { name: "Long" });
 
     await waitFor(async () => {
       expect(getPosition).toHaveBeenCalledTimes(2);
-      expect(latitudeInput.value).toEqual(expectedCoordsOnRefresh.latitude);
-      expect(longitudeInput.value).toEqual(expectedCoordsOnRefresh.longitude);
+      expect(updatedLatitudeInput.value).toEqual(expectedCoordsOnRefresh.latitude);
+      expect(updatedLongitudeInput.value).toEqual(expectedCoordsOnRefresh.longitude);
       expect(getByTestId("Refresh")).not.toHaveAttribute("disabled");
     });
   });

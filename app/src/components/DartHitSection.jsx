@@ -5,16 +5,15 @@ import WhaleSvg from "./WhaleSvg";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import FormSection from "./FormSection";
 
-const DartHitSection = () => {
-  const [selectedSection, setSelectedSection] = useState("");
+const DartHitSection = ({areaHitResult, setAreaHitResult}) => {
   const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(false);
 
   return (
     <div>
       <FormSection>
         <WhaleSvg
-          setSelectedSection={setSelectedSection}
-          selectedSection={selectedSection}
+          setAreaHitResult={setAreaHitResult}
+          areaHitResult={areaHitResult}
           setIsUpperPeduncleSelected={setIsUpperPeduncleSelected}
         />
       </FormSection>
@@ -41,7 +40,7 @@ const DartHitSection = () => {
       </FormSection>
       <br />
       <FormSection>
-        <p style={{ color: "red" }}>Area Hit : {selectedSection}</p>
+        <p style={{ color: "red" }}>Area Hit : {areaHitResult}</p>
       </FormSection>
     </div>
   );
