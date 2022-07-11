@@ -1,10 +1,12 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
 import { waitFor } from "@testing-library/react";
+import { configure } from "@testing-library/dom";
 import GpsFormSection from "../GpsFormSection";
 import renderWithinFormik from "../../utils/test/renderWithinFormik";
 import { getPosition } from "../formFields/PositionInput/getPosition.js";
 
+configure({ asyncUtilTimeout: 5000 });
 jest.mock("../formFields/PositionInput/getPosition.js");
 
 describe("GpsFormSection", () => {
