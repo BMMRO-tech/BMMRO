@@ -124,7 +124,18 @@ module.exports = {
     "Tagged Surfacing Counts": { key: "" },
     Area: { key: "area" },
   },
-  habitatUseToEncounter: {
+  biopsy: {
+    Area: { key: "area" },
+    Date: { key: "dateTaken", transform: convertUnixTimestampToMDY },
+    "Sequence #": { key: "encSeqNo" },
+    Time: { key: "timeTaken" },
+    Latitude: { key: "latitude" },
+    Longitude: { key: "longitude" },
+    "Attempt #": { key: "attempt" },
+    "Sampler's name": { key: "samplerName" },
+    "Total specimens": { key: "totalSpecimens" },
+  },
+  subCollectionToEncounter: {
     area: "area",
     encSeqNo: "sequenceNumber",
     date: "startTimestamp",
