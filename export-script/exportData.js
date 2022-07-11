@@ -16,6 +16,7 @@ const config = require("./src/constants/fieldMaps");
 
 const encounterCollection = "encounter";
 const habitatUseSubcollection = "habitatUse";
+const biopsySubcollection = "biopsy";
 const timestampFieldName = "startTimestamp";
 const dirName = "./exported";
 
@@ -55,6 +56,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
   if (encounterEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
   let habitatUseEntries = [];
+  let biopsyEntries = [];
   for (const encounter of encounterEntries) {
     const habitatUse = await querySubcollectionByDocPath(
       firebase.firestore(),
@@ -62,13 +64,26 @@ const exportData = async (startDateArg, endDateArg, options) => {
       habitatUseSubcollection
     );
     habitatUseEntries.push(...habitatUse);
+
+    const biopsy = await querySubcollectionByDocPath(
+      firebase.firestore(),
+      encounter.path,
+      biopsySubcollection
+    );
+    biopsyEntries.push(...biopsy);
   }
 
   logSection("Transforming to csv format");
   const extendedHabitatUseEntries = populateCollectionValues(
     encounterEntries,
     habitatUseEntries,
-    config.habitatUseToEncounter
+    config.subCollectionToEncounter
+  );
+
+  const extendedBiopsiesEntries = populateCollectionValues(
+    encounterEntries,
+    biopsyEntries,
+    config.subCollectionToEncounter
   );
 
   const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
@@ -81,9 +96,18 @@ const exportData = async (startDateArg, endDateArg, options) => {
     );
   }
 
+  let csvBiopsies;
+  if (!!biopsyEntries.length) {
+    csvBiopsies = transformJsonToCsv(extendedBiopsiesEntries, config.biopsy);
+  }
+
   if (options.mark) {
     logSection("Marking records as exported");
-    const allEntries = [...encounterEntries, ...habitatUseEntries];
+    const allEntries = [
+      ...encounterEntries,
+      ...habitatUseEntries,
+      ...biopsyEntries,
+    ];
     if (allEntries.length > 500) {
       logToStdErrAndExit(
         getMessage("BATCH_UPDATE_LIMIT_EXCEEDED", {
@@ -115,10 +139,19 @@ const exportData = async (startDateArg, endDateArg, options) => {
     );
   }
 
+  let biopsyFileName;
+  if (!!biopsyEntries.length) {
+    biopsyFileName = generateFilename(biopsySubcollection, startDate, endDate);
+  }
+
   writeDataToFile(dirName, encountersFileName, csvEncounters);
 
   if (!!habitatUseEntries.length) {
     writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
+  }
+
+  if (!!biopsyEntries.length) {
+    writeDataToFile(dirName, biopsyFileName, csvBiopsies);
   }
 
   logAndExit("\nScript complete!");
