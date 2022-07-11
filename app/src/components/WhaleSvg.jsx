@@ -8,12 +8,12 @@ const styles = {
 };
 
 const WhaleSvg = ({
-  setSelectedSection,
-  selectedSection,
+  setAreaHitResult,
+  areaHitResult,
   setIsUpperPeduncleSelected,
 }) => {
   const fillSection = (sectionName) => {
-    return selectedSection === sectionName ? "aqua" : "transparent";
+    return areaHitResult === sectionName ? "aqua" : "transparent";
   };
   return (
     <div css={styles.container}>
@@ -81,7 +81,7 @@ const WhaleSvg = ({
             id="bottomLeft"
             onClick={() => {
               setIsUpperPeduncleSelected(false);
-              setSelectedSection("Lower Thoracic");
+              setAreaHitResult("Lower Thoracic");
             }}
             button="true"
           />
@@ -101,7 +101,7 @@ const WhaleSvg = ({
             data-testid="Upper Thoracic"
             onClick={() => {
               setIsUpperPeduncleSelected(false);
-              setSelectedSection("Upper Thoracic");
+              setAreaHitResult("Upper Thoracic");
             }}
           />
         </g>
@@ -121,7 +121,7 @@ const WhaleSvg = ({
             data-testid="Upper Dorsal"
             onClick={() => {
               setIsUpperPeduncleSelected(true);
-              setSelectedSection("Upper Dorsal");
+              setAreaHitResult("Upper Dorsal");
             }}
           />
         </g>
@@ -140,7 +140,7 @@ const WhaleSvg = ({
             data-testid="Upper Peduncle"
             onClick={() => {
               setIsUpperPeduncleSelected(false);
-              setSelectedSection("Upper Peduncle");
+              setAreaHitResult("Upper Peduncle");
             }}
           />
         </g>
@@ -159,7 +159,7 @@ const WhaleSvg = ({
             data-testid="Lower Dorsal"
             onClick={() => {
               setIsUpperPeduncleSelected(false);
-              setSelectedSection("Lower Dorsal");
+              setAreaHitResult("Lower Dorsal");
             }}
           />
         </g>
@@ -178,7 +178,7 @@ const WhaleSvg = ({
             data-testid="Lower Peduncle"
             onClick={() => {
               setIsUpperPeduncleSelected(false);
-              setSelectedSection("Lower Peduncle");
+              setAreaHitResult("Lower Peduncle");
             }}
           />
         </g>

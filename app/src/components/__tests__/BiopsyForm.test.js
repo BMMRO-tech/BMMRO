@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, waitFor } from "@testing-library/react";
+import { act, render, waitFor, fireEvent } from "@testing-library/react";
 import BiopsyForm from "../BiopsyForm";
 
 import userEvent from "@testing-library/user-event";
@@ -50,7 +50,7 @@ describe("BiopsyForm", () => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole, getByTestId, getByLabelText } = render(
       <BiopsyForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -63,6 +63,7 @@ describe("BiopsyForm", () => {
     const totalSpecimensInput = getByRole("textbox", {
       name: "Total Specimens",
     });
+
     const submitButton = getByRole("button", { name: "Save" });
 
     userEvent.selectOptions(speciesInput, "Fin whale");
@@ -74,6 +75,21 @@ describe("BiopsyForm", () => {
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
     userEvent.type(gpsMarkInput, "2");
     userEvent.type(totalSpecimensInput, "3");
+
+    fireEvent(
+      getByTestId("Upper Dorsal"),
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+
+    const sideHitRadio = getByLabelText('Right')
+    fireEvent.click(sideHitRadio);
+
+    const dorsalHitRadio = getByLabelText('Yes')
+    fireEvent.click(dorsalHitRadio);
+
     userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -88,6 +104,9 @@ describe("BiopsyForm", () => {
       expect(formValues.longitude).toEqual("-1.123456");
       expect(formValues.gpsMark).toEqual("2");
       expect(formValues.totalSpecimens).toEqual("3");
+      expect(formValues.whaleSide).toEqual("Right");
+      expect(formValues.dorsalHit).toEqual("Yes");
+      expect(formValues.areaHit).toEqual("Upper Dorsal");
     });
   });
 
@@ -228,38 +247,71 @@ describe("BiopsyForm", () => {
     });
   });
 
-  it("displays the positionalValidationModal if no positional data is entered", async () => {
-    const mockHandleSubmit = jest.fn();
-    const { getByRole, getByText } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+  describe("Dart Hit Section", () => {
+    it.each([
+      ["Lower Peduncle"],
+      ["Upper Peduncle"],
+      ["Lower Dorsal"],
+      ["Upper Dorsal"],
+      ["Lower Thoracic"],
+      ["Upper Thoracic"],
+    ])(
+      "displays correct area hit when corresponding section of the svg is clicked",
+      async (val) => {
+        const { queryByText, getByTestId } = render(<BiopsyForm />
+        );
+  
+        fireEvent(
+          getByTestId(val),
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+
+        await waitFor(() => {
+          expect(queryByText("Area Hit : " + val)).toBeInTheDocument();
+        });
+      }
     );
-
-    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
-    const longitudeInput = getByRole("spinbutton", { name: "Long" });
-    userEvent.clear(latitudeInput);
-    userEvent.clear(longitudeInput);
-    await userEvent.type(latitudeInput, "1.530266", { delay: 1 });
-
-    const speciesInput = getByRole("combobox", { name: "Species *" });
-    userEvent.selectOptions(speciesInput, "Fin whale");
-
-    const submitButton = getByRole("button", { name: "Save" });
-    userEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(getByText("No positional data present!")).toBeInTheDocument();
-      expect(
-        getByText("End biopsy without positional data?")
-      ).toBeInTheDocument();
-      expect(getByText("End biopsy")).toBeInTheDocument();
+  
+    it("contains left and right radio buttons", async () => {
+      const { queryByText } = render(<BiopsyForm />);
+      await waitFor(() => {
+      expect(queryByText("Left")).toBeInTheDocument();
+      expect(queryByText("Right")).toBeInTheDocument();
+      });
     });
-    const stayOnPageButton = getByRole("button", { name: "Stay on this page" });
-
-    await userEvent.click(stayOnPageButton);
-
-    await waitFor(() => {
-      expect(stayOnPageButton).not.toHaveFocus();
-      expect(latitudeInput).toHaveFocus();
+  
+    it("contains option did it hit the fin when upper dorsal is selected", async () => {
+      const { queryByText, getByTestId } = render(<BiopsyForm />);
+  
+      fireEvent(
+        getByTestId("Upper Dorsal"),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+      await waitFor(() => {
+        expect(queryByText("Did it hit the fin?")).toBeInTheDocument();
+      });
+    });
+  
+    it("does not contain option did it hit the fin when other then upper dorsal is selected", async () => {
+  
+      const { queryByText, getByTestId } = render(<BiopsyForm />);
+  
+      fireEvent(
+        getByTestId("Lower Dorsal"),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        })
+      );
+      await waitFor(() => {
+      expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();
+      });
     });
   });
 });
