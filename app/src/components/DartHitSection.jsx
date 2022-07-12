@@ -5,7 +5,7 @@ import WhaleSvg from "./WhaleSvg";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import FormSection from "./FormSection";
 
-const DartHitSection = ({areaHitResult, setAreaHitResult}) => {
+const DartHitSection = ({ areaHitResult, setAreaHitResult }) => {
   const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(false);
 
   return (

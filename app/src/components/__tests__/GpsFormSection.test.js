@@ -48,8 +48,12 @@ describe("GpsFormSection", () => {
 
     await waitFor(async () => {
       expect(getPosition).toHaveBeenCalledTimes(2);
-      expect(updatedLatitudeInput.value).toEqual(expectedCoordsOnRefresh.latitude);
-      expect(updatedLongitudeInput.value).toEqual(expectedCoordsOnRefresh.longitude);
+      expect(updatedLatitudeInput.value).toEqual(
+        expectedCoordsOnRefresh.latitude
+      );
+      expect(updatedLongitudeInput.value).toEqual(
+        expectedCoordsOnRefresh.longitude
+      );
       expect(getByTestId("Refresh")).not.toHaveAttribute("disabled");
     });
   });
