@@ -84,10 +84,10 @@ describe("BiopsyForm", () => {
       })
     );
 
-    const sideHitRadio = getByLabelText('Right')
+    const sideHitRadio = getByLabelText("Right");
     fireEvent.click(sideHitRadio);
 
-    const dorsalHitRadio = getByLabelText('Yes')
+    const dorsalHitRadio = getByLabelText("Yes");
     fireEvent.click(dorsalHitRadio);
 
     userEvent.click(submitButton);
@@ -165,6 +165,7 @@ describe("BiopsyForm", () => {
       expect(getByText("End biopsy")).toBeInTheDocument();
     });
   });
+
   it("displays the positionalValidationModal if no latitide data is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, getByText } = render(
@@ -191,6 +192,7 @@ describe("BiopsyForm", () => {
       expect(getByText("End biopsy")).toBeInTheDocument();
     });
   });
+
   it("displays the positionalValidationModal if no longitide data is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, getByText } = render(
@@ -217,6 +219,7 @@ describe("BiopsyForm", () => {
       expect(getByText("End biopsy")).toBeInTheDocument();
     });
   });
+
   it("does not display the positionalValidationModal if GPS mark is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, queryByText } = render(
@@ -258,9 +261,8 @@ describe("BiopsyForm", () => {
     ])(
       "displays correct area hit when corresponding section of the svg is clicked",
       async (val) => {
-        const { queryByText, getByTestId } = render(<BiopsyForm />
-        );
-  
+        const { queryByText, getByTestId } = render(<BiopsyForm />);
+
         fireEvent(
           getByTestId(val),
           new MouseEvent("click", {
@@ -274,18 +276,18 @@ describe("BiopsyForm", () => {
         });
       }
     );
-  
+
     it("contains left and right radio buttons", async () => {
       const { queryByText } = render(<BiopsyForm />);
       await waitFor(() => {
-      expect(queryByText("Left")).toBeInTheDocument();
-      expect(queryByText("Right")).toBeInTheDocument();
+        expect(queryByText("Left")).toBeInTheDocument();
+        expect(queryByText("Right")).toBeInTheDocument();
       });
     });
-  
+
     it("contains option did it hit the fin when upper dorsal is selected", async () => {
       const { queryByText, getByTestId } = render(<BiopsyForm />);
-  
+
       fireEvent(
         getByTestId("Upper Dorsal"),
         new MouseEvent("click", {
@@ -297,11 +299,10 @@ describe("BiopsyForm", () => {
         expect(queryByText("Did it hit the fin?")).toBeInTheDocument();
       });
     });
-  
-    it("does not contain option did it hit the fin when other then upper dorsal is selected", async () => {
-  
+
+    it("does not contain option did it hit the fin when a section other than upper dorsal is selected", async () => {
       const { queryByText, getByTestId } = render(<BiopsyForm />);
-  
+
       fireEvent(
         getByTestId("Lower Dorsal"),
         new MouseEvent("click", {
@@ -310,7 +311,7 @@ describe("BiopsyForm", () => {
         })
       );
       await waitFor(() => {
-      expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();
+        expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();
       });
     });
   });
