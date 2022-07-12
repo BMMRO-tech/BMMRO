@@ -134,6 +134,8 @@ module.exports = {
     "Attempt #": { key: "attempt" },
     "Sampler's name": { key: "samplerName" },
     "Total specimens": { key: "totalSpecimens" },
+    "Area Hit": { key: "areaHit" },
+    "Side Hit": { key: "whaleSide" },
   },
   subCollectionToEncounter: {
     area: "area",
