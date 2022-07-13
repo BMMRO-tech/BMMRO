@@ -4,28 +4,18 @@ import renderWithinFormik from "../../utils/test/renderWithinFormik";
 import userEvent from "@testing-library/user-event";
 import { waitFor, render } from "@testing-library/react";
 
-jest.mock("@reach/router", () => ({
-  navigate: jest.fn(),
-}));
-
 describe("SpecimensTableSection", () => {
-  it.skip("contains specimen#, tissue type and tissue storage sections on open", async () => {
-    const { getByRole, getByText } = renderWithinFormik(
-      <SpecimensTableSection />
-    );
+  it("adds new row when add specimen record button is clicked", async () => {
+    const { getAllByRole, getByRole } = renderWithinFormik(<SpecimensTableSection />);
 
-    const specimenNumberInput = getByRole("textbox", { name: "Specimen #" });
-    // const tissueTypeInput = getByRole("combobox", { name: "Tissue type" });
-    // const tissueStorageInput = getByRole("combobox", { name: "Tissue storage" });
+    const addSpecimensInput = getByRole("button", { name: "Add Specimen"});
+    userEvent.click(addSpecimensInput);
 
-    await userEvent.type(specimenNumberInput, "123", { delay: 1 });
-    // userEvent.selectOptions(tissueTypeInput, "Skin");
-    // userEvent.selectOptions(tissueStorageInput, "-80");
+    const items = getAllByRole("textbox", { name: "Specimen #" });
 
-    await waitFor(() => {
-      expect(getByText("123")).toBeInTheDocument();
-      // expect(getByText("Skin")).toBeInTheDocument();
-      // expect(getByText("-80")).toBeInTheDocument();
+    await waitFor(async () => {
+      expect(items).toHaveLength(2);
     });
+
   });
 });
