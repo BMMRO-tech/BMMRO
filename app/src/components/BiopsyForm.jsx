@@ -20,8 +20,11 @@ import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 
 const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
+  const initialAreaHit =
+    initialValues && initialValues.areaHit ? initialValues.areaHit : "";
+
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
-  const [areaHitResult, setAreaHitResult] = useState("");
+  const [areaHitResult, setAreaHitResult] = useState(initialAreaHit);
   const [showPositionalModal, setShowPositionalModal] = useState({
     boolean: false,
     values: "",

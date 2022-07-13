@@ -6,7 +6,9 @@ import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import FormSection from "./FormSection";
 
 const DartHitSection = ({ areaHitResult, setAreaHitResult }) => {
-  const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(false);
+  const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(
+    areaHitResult === "Upper Dorsal"
+  );
 
   return (
     <div>
