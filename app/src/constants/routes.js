@@ -8,6 +8,7 @@ export const ROUTES = {
   editHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/edit",
   viewHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/view",
   newBiopsy: "/encounters/:encounterId/biopsies/new",
+  editBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/edit",
   login: "/login",
 };
 
