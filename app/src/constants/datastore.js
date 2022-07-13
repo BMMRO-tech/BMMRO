@@ -12,6 +12,10 @@ export const generateHabitatUsePath = (encounterId, habitatUseId) => {
   return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`;
 };
 
+export const generateBiopsyPath = (encounterId, biopsyId) => {
+  return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.BIOPSY}/${biopsyId}`;
+};
+
 export const DatastoreErrorType = {
   INITIALIZATION: "initialization",
   UNKNOWN_OFFLINE_SUPPORT: "unknown-offline-support",
