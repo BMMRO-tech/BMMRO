@@ -6,9 +6,11 @@ import { waitFor, render } from "@testing-library/react";
 
 describe("SpecimensTableSection", () => {
   it("adds new row when add specimen record button is clicked", async () => {
-    const { getAllByRole, getByRole } = renderWithinFormik(<SpecimensTableSection />);
+    const { getAllByRole, getByRole } = renderWithinFormik(
+      <SpecimensTableSection />
+    );
 
-    const addSpecimensInput = getByRole("button", { name: "Add Specimen"});
+    const addSpecimensInput = getByRole("button", { name: "Add Specimen" });
     userEvent.click(addSpecimensInput);
 
     const items = getAllByRole("textbox", { name: "Specimen #" });
@@ -16,6 +18,5 @@ describe("SpecimensTableSection", () => {
     await waitFor(async () => {
       expect(items).toHaveLength(2);
     });
-
   });
 });

@@ -50,21 +50,22 @@ const SpecimensTableSection = (specimensValues) => {
                     </button>
                     {values.specimens.length > 0 &&
                       values.specimens.map((specimen, index) => (
-                        <FormSection isOneLine4Elements key={index}>
+                        <div className="row" key={index}>
+                        <FormSection isOneLine4Elements>
                           <TextInput
-                            name="specimenNumber"
+                            name= {`specimens.${index}.specimenNumber`}
                             labelText="Specimen #"
                             maxLength={20}
                             isShort
                           />
                           <Select
-                            name="tissueType"
+                            name= {`specimens.${index}.sampleType`}
                             labelText="Tissue type"
                             options={tissueTypes}
                             isShort
                           />
                           <Select
-                            name="tissueStorage"
+                            name={`specimens.${index}.storageType`}
                             labelText="Tissue storage"
                             options={tissueStorages}
                             isShort
@@ -77,6 +78,7 @@ const SpecimensTableSection = (specimensValues) => {
                             X
                           </button>
                         </FormSection>
+                        </div>
                       ))}
                   </div>
                 )}
