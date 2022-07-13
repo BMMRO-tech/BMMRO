@@ -146,9 +146,9 @@ describe('create a new encounter user journey', () => {
 
     await driver.manage().setTimeouts({ implicit: pageTimeout });
 
-    let newHabitatUrl = await driver.getCurrentUrl();
+    let currentUrl = await driver.getCurrentUrl();
 
-    expect(newHabitatUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
+    expect(currentUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
 
   }, testTimeout) 
 
