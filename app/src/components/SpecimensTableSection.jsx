@@ -5,13 +5,22 @@ import TextInput from "./formFields/TextInput/TextInput";
 import Select from "./formFields/Select/Select";
 import tissueTypes from "../constants/formOptions/tissueTypes";
 import tissueStorages from "../constants/formOptions/tissueStorages";
+import colors from "../materials/colors";
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import { useState } from "react";
+
+import Button from "./Button";
 
 import ListHeader from "./list/ListHeader";
 
 const styles = {
   container: css`
     grid-column: span 2;
+  `,
+  primary: css`
+      background: ${colors.mediumTurquoise};
+      color: ${colors.white};
+      border: 1px solid ${colors.mediumTurquoise};
   `,
 };
 
@@ -26,6 +35,7 @@ const initialValues = {
 };
 
 const SpecimensTableSection = (specimensValues) => {
+  const [isTableHidden, setIsTableHidden] = useState(false); 
   return (
     <FormSection>
       <div css={styles.container}>
@@ -34,10 +44,10 @@ const SpecimensTableSection = (specimensValues) => {
             <Form>
               <FieldArray name="specimens">
                 {({ insert, remove, push, unshift }) => (
-                  <div>
-                    <button
-                      type="button"
-                      className="secondary"
+                  <div >
+                    <FormSection isOneLine4Elements>
+                    <Button
+                      styles={styles.primary}
                       onClick={() =>
                         unshift({
                           specimenNumber: "",
@@ -47,36 +57,51 @@ const SpecimensTableSection = (specimensValues) => {
                       }
                     >
                       Add Specimen
-                    </button>
+                    </Button>
+                    <div></div>
+                    <Button
+                      styles={styles.primary}
+                      onClick={() =>
+                        setIsTableHidden(current => !current)
+                      }
+                    >
+                      {isTableHidden ? "Show" : "Hide"}
+                    </Button>
+                    </FormSection>
+                    <FormSection>
+                      <h3>Total Specimens Recorded : {values.specimens.length}</h3>
+                    </FormSection>
+                    <FormSection isOneLine4Elements>
+                      <label>Specimen #</label>
+                      <label>Sample Type</label>
+                      <label>Tissue storage</label>
+                    </FormSection>
                     {values.specimens.length > 0 &&
                       values.specimens.map((specimen, index) => (
-                        <div className="row" key={index}>
+                        <div className="row" key={index} hidden={isTableHidden}>
                         <FormSection isOneLine4Elements>
                           <TextInput
                             name= {`specimens.${index}.specimenNumber`}
-                            labelText="Specimen #"
+                            labelText=""
                             maxLength={20}
                             isShort
                           />
                           <Select
                             name= {`specimens.${index}.sampleType`}
-                            labelText="Tissue type"
+                            labelText=""
                             options={tissueTypes}
                             isShort
                           />
                           <Select
                             name={`specimens.${index}.storageType`}
-                            labelText="Tissue storage"
+                            labelText=""
                             options={tissueStorages}
-                            isShort
                           />
-                          <button
-                            type="button"
-                            className="secondary"
+                          {/* <Button
                             onClick={() => remove(index)}
                           >
                             X
-                          </button>
+                          </Button> */}
                         </FormSection>
                         </div>
                       ))}
