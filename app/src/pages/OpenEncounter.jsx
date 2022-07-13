@@ -11,8 +11,7 @@ import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterOverview from "../components/EncounterOverview";
-import HabitatUseList from "../components/HabitatUseList";
-import BiopsyList from "../components/BiopsyList";
+import SubCollectionList from "../components/SubCollectionList";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import typography from "../materials/typography";
@@ -51,6 +50,7 @@ const OpenEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [encounter, setEncounter] = useState({});
   const [habitatUseEntries, setHabitatUseEntries] = useState([]);
+  const [biopsyEntries, setBiopsyEntries] = useState([]);
   const [showDateModal, setShowDateModal] = useState(false);
   const navigate = useNavigate();
 
@@ -81,13 +81,15 @@ const OpenEncounter = ({ encounterId }) => {
 
   useEffect(() => {
     const getData = async (encounterPath) => {
-      const [encounterResult, habitatUseResult] = await Promise.all([
-        datastore.readDocByPath(encounterPath),
-        datastore.readDocsByParentPath(
-          encounterPath,
-          CollectionNames.HABITAT_USE
-        ),
-      ]);
+      const [encounterResult, habitatUseResult, biopsyResult] =
+        await Promise.all([
+          datastore.readDocByPath(encounterPath),
+          datastore.readDocsByParentPath(
+            encounterPath,
+            CollectionNames.HABITAT_USE
+          ),
+          datastore.readDocsByParentPath(encounterPath, CollectionNames.BIOPSY),
+        ]);
 
       if (!encounterResult.data) {
         navigate(ROUTES.newEncounter);
@@ -96,6 +98,7 @@ const OpenEncounter = ({ encounterId }) => {
 
       setEncounter(encounterResult.data);
       setHabitatUseEntries(habitatUseResult);
+      setBiopsyEntries(biopsyResult);
     };
 
     if (!!datastore) {
@@ -149,13 +152,18 @@ const OpenEncounter = ({ encounterId }) => {
             encounterId={encounterId}
           />
           <div css={styles.list}>
-            <HabitatUseList
+            <SubCollectionList
               items={habitatUseEntries}
               encounterId={encounterId}
               encounterExported={encounter.exported}
+              isHabitatUse
             />
             {biopsyBannerFeatureToggle && (
-              <BiopsyList encounterId={encounterId} />
+              <SubCollectionList
+                items={biopsyEntries}
+                encounterId={encounterId}
+                encounterExported={encounter.exported}
+              />
             )}
           </div>
           {renderButtons()}
