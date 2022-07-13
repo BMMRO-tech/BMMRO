@@ -32,6 +32,7 @@ const SubCollectionList = ({
   };
 
   const title = isHabitatUse ? "Habitat Use" : "Biopsy";
+  const buttonTestId = isHabitatUse ? "newHabitat" : "newBiopsy";
 
   const getDestinationUrl = (isHabitatUse, item) => {
     if (isHabitatUse) {
@@ -54,7 +55,9 @@ const SubCollectionList = ({
                 : generateNewBiopsyURL(encounterId)
             }
           >
-            <Button isSmall>+ New</Button>
+            <Button isSmall testId={buttonTestId}>
+              + New
+            </Button>
           </Link>
         )}
       </ListHeader>

@@ -29,6 +29,7 @@ describe('create a new encounter user journey', () => {
   let driver;
   let encounterId;
   let habitatId;
+  let biopsyId;
   let pageTimeout = 5000;
   let testTimeout = 20000;
 
@@ -44,6 +45,8 @@ describe('create a new encounter user journey', () => {
   }, testTimeout)
 
   it('user successfully logs in', async () => {
+
+    driver.manage().window().maximize();
 
     await driver.get(process.env.ENDPOINT);
 
@@ -135,13 +138,28 @@ describe('create a new encounter user journey', () => {
     
     expect(newBiopsyUrl).toContain(`/biopsies/new`);
 
-    await driver.findElement(wd.By.css('#cancelBiopsy')).click();
+    await driver.findElement(wd.By.css('select>option[value="Atlantic spotted dolphin"]')).click();
+
+    await driver.wait(wd.until.elementLocated(wd.By.css('#saveBiopsy')), pageTimeout);
+
+    await driver.findElement(wd.By.css('#saveBiopsy')).click();
+
+    await driver.manage().setTimeouts({ implicit: pageTimeout });
 
     let newHabitatUrl = await driver.getCurrentUrl();
-    
+
     expect(newHabitatUrl).toBe(`${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`);
 
-  }, testTimeout) }
+  }, testTimeout) 
+
+  it('stores biopsy ID', async () => {
+
+    let newBiopsyUrl = await driver.findElement(wd.By.css('#biopsy')).getAttribute("href");
+
+    biopsyId = newBiopsyUrl.split('/')[6];
+
+  }, testTimeout)
+}
 
   it('user edits encounter', async () => {
 
@@ -185,8 +203,22 @@ describe('create a new encounter user journey', () => {
     expect(docSnapHabitat.exists()).toBeTruthy()
   }, testTimeout)
 
+  {biopsyBannerFeatureToggle && 
+    it('checks database for new biopsy', async () => {
+    
+      const docRefHabitat = doc(db, "encounter", encounterId, "biopsy", biopsyId);
+      const docSnapHabitat = await getDoc(docRefHabitat);
+    
+      expect(docSnapHabitat.exists()).toBeTruthy()
+    }, testTimeout) 
+  }
 
-  it('deletes habitat and encounter from database', async () => {
+
+  it('deletes biopsy, habitat and encounter from database', async () => {
+
+    if(biopsyBannerFeatureToggle && biopsyId){
+      await deleteDoc(doc(db, "encounter", encounterId, "biopsy", biopsyId));
+    }
 
     if(habitatId){
       await deleteDoc(doc(db, "encounter", encounterId, "habitatUse", habitatId));
