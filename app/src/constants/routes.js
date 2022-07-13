@@ -34,6 +34,11 @@ export const generateEditHabitatURL = (encounterId, habitatUseId) => {
 export const generateViewHabitatURL = (encounterId, habitatUseId) => {
   return `/encounters/${encounterId}/habitat-uses/${habitatUseId}/view`;
 };
-export const generateNewBiopsiesURL = (encounterId) => {
+
+export const generateNewBiopsyURL = (encounterId) => {
   return `/encounters/${encounterId}/biopsies/new`;
+};
+
+export const generateEditBiopsyURL = (encounterId, biopsyId) => {
+  return `/encounters/${encounterId}/biopsies/${biopsyId}/edit`;
 };
