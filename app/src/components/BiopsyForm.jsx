@@ -191,7 +191,7 @@ const BiopsyForm = ({
                   isViewOnly={isViewOnly}
                 />
                 <br />
-                <SpecimensTableSection />
+                <SpecimensTableSection/>
               </section>
               {!isViewOnly && (
                 <div css={utilities.sticky.footerContainer}>
