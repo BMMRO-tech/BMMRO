@@ -19,6 +19,7 @@ import PositionalValidationModal from "./PositionalValidationModal";
 import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
+import SpecimensTableSection from "./SpecimensTableSection";
 
 const BiopsyForm = ({
   initialValues,
@@ -189,6 +190,8 @@ const BiopsyForm = ({
                   setAreaHitResult={setAreaHitResult}
                   isViewOnly={isViewOnly}
                 />
+                <br />
+                <SpecimensTableSection />
               </section>
               {!isViewOnly && (
                 <div css={utilities.sticky.footerContainer}>
