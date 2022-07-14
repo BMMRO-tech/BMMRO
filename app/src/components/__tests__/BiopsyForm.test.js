@@ -110,6 +110,44 @@ describe("BiopsyForm", () => {
     });
   });
 
+  it("submits with correct values if initial values are passed", async () => {
+    const mockInitialValues = {
+      areaHit: "Upper Dorsal",
+      dorsalHit: "Yes",
+      whaleSide: "Right",
+      species: "Sperm whale",
+      samplerName: "Bruce Wayne",
+      attempt: 4,
+      dateTaken: "Thu Jul 14 2022 11:56:43 GMT+0100",
+      timeTaken: "10:52:04",
+      latitude: "1.234567",
+      longitude: "-2.345678",
+      gpsMark: 12,
+      totalSpecimens: 3,
+      exported: false,
+      hasEnded: false,
+    };
+
+    let formValues;
+    const mockHandleSubmit = (values) => {
+      formValues = values;
+    };
+
+    const { getByRole } = render(
+      <BiopsyForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+      />
+    );
+
+    await act(async () => {
+      const submitButton = getByRole("button", { name: "Save" });
+      userEvent.click(submitButton);
+    });
+
+    expect(formValues).toEqual(mockInitialValues);
+  });
+
   it("contains cancel button", async () => {
     const { queryByRole } = render(<BiopsyForm />);
 
