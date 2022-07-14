@@ -88,19 +88,22 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     isRequired
                     isShort
                     notAfter={new Date()}
-                    autofill={true}
+                    autofill={!initialValues}
                   />
                   <TimeInput
                     name="timeTaken"
                     labelText="Time"
                     isShort
-                    autofill={true}
+                    autofill={!initialValues}
                     timeWithSeconds
                     isRequired
                   />
                 </FormSection>
                 <br />
-                <GpsFormSection isRenderInfoLabel={closedPositionalModal} />
+                <GpsFormSection
+                  isRenderInfoLabel={closedPositionalModal}
+                  initialValues={initialValues}
+                />
                 <ListHeader title="Biopsy details" />
                 <FormSection>
                   <Select

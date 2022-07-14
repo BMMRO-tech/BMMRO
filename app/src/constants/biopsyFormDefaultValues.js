@@ -1,4 +1,7 @@
 export default {
+  areaHit: "",
+  dorsalHit: "",
+  whaleSide: "",
   species: "",
   samplerName: "",
   attempt: "",
