@@ -144,6 +144,10 @@ describe('create a new encounter user journey', () => {
 
     await driver.findElement(wd.By.css('#saveBiopsy')).click();
 
+    await driver.wait(wd.until.elementLocated(wd.By.css('#saveAnyway')), pageTimeout);
+
+    await driver.findElement(wd.By.css('#saveAnyway')).click();
+
     await driver.manage().setTimeouts({ implicit: pageTimeout });
 
     let currentUrl = await driver.getCurrentUrl();
