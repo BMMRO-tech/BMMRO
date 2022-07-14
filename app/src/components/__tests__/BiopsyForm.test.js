@@ -44,7 +44,7 @@ describe("BiopsyForm", () => {
     });
   });
 
-  it.skip("submits the form with correct values if all fields are completed", async () => {
+  it("submits the form with correct values if all fields are completed", async () => {
     let formValues;
     const mockHandleSubmit = (values) => {
       formValues = values;
@@ -68,11 +68,25 @@ describe("BiopsyForm", () => {
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinRadio = getByLabelText("Skin");
 
-    const specimenNumberInput = getByRole("textbox", { name: "Specimen #" });
-    const tissueTypeInput = getByRole("combobox", { name: "Tissue type" });
-    const tissueStorageInput = getByRole("combobox", {
-      name: "Tissue storage",
-    });
+    const specimenNumberInputForFirstSpecimen = getByTestId(
+      "field-specimens.0.specimenNumber"
+    );
+    const sampleTypeInputForFirstSpecimen = getByTestId(
+      "field-specimens.0.sampleType"
+    );
+    const storageTypeInputForFirstSpecimen = getByTestId(
+      "field-specimens.0.storageType"
+    );
+
+    const specimenNumberInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.specimenNumber"
+    );
+    const sampleTypeInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.sampleType"
+    );
+    const storageTypeInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.storageType"
+    );
 
     const submitButton = getByRole("button", { name: "Save" });
 
@@ -85,9 +99,20 @@ describe("BiopsyForm", () => {
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
     userEvent.type(gpsMarkInput, "2");
     userEvent.type(totalSpecimensInput, "3");
-    await userEvent.type(specimenNumberInput, "4", { delay: 1 });
-    userEvent.selectOptions(tissueTypeInput, "Skin");
-    userEvent.selectOptions(tissueStorageInput, "-80");
+    await userEvent.type(specimenNumberInputForFirstSpecimen, "4", {
+      delay: 1,
+    });
+    userEvent.selectOptions(sampleTypeInputForFirstSpecimen, "Skin");
+    userEvent.selectOptions(storageTypeInputForFirstSpecimen, "-80");
+
+    const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
+    userEvent.click(addSpecimensInput);
+
+    await userEvent.type(specimenNumberInputForSecondSpecimen, "5", {
+      delay: 1,
+    });
+    userEvent.selectOptions(sampleTypeInputForSecondSpecimen, "Skin/Blubber");
+    userEvent.selectOptions(storageTypeInputForSecondSpecimen, "-20");
 
     userEvent.click(dartHitYesRadio);
     userEvent.click(dartStuckYesRadio);
@@ -129,9 +154,12 @@ describe("BiopsyForm", () => {
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");
-      expect(formValues.specimenNumber).toEqual("4");
-      expect(formValues.tissueType).toEqual("Skin");
-      expect(formValues.tissueStorage).toEqual("-80");
+      expect(formValues.specimens[1].specimenNumber).toEqual("4");
+      expect(formValues.specimens[1].sampleType).toEqual("Skin");
+      expect(formValues.specimens[1].storageType).toEqual("-80");
+      expect(formValues.specimens[0].specimenNumber).toEqual("5");
+      expect(formValues.specimens[0].sampleType).toEqual("Skin/Blubber");
+      expect(formValues.specimens[0].storageType).toEqual("-20");
     });
   });
 
@@ -379,6 +407,33 @@ describe("BiopsyForm", () => {
       );
       await waitFor(() => {
         expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("SpecimensTableSection", () => {
+    it("adds new row when add specimen record button is clicked", async () => {
+      const mockArray = [
+        {
+          specimenNumber: "",
+          sampleType: "",
+          storageType: "",
+        },
+      ];
+
+      const { getByTestId, queryByTestId, getByRole } = render(<BiopsyForm />);
+
+      const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
+      userEvent.click(addSpecimensInput);
+
+      const specimenField0 = queryByTestId("field-specimens.0.specimenNumber");
+      const specimenField1 = queryByTestId("field-specimens.1.specimenNumber");
+      const specimenField2 = queryByTestId("field-specimens.2.specimenNumber");
+
+      await waitFor(async () => {
+        expect(specimenField0).toBeTruthy();
+        expect(specimenField1).toBeTruthy();
+        expect(specimenField2).toBeFalsy();
       });
     });
   });
