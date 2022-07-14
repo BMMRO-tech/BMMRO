@@ -17,4 +17,11 @@ export default {
   sampleType: "",
   exported: false,
   hasEnded: false,
+  specimens: [
+    {
+      specimenNumber: "",
+      sampleType: "",
+      storageType: "",
+    },
+  ],
 };
