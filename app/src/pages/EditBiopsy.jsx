@@ -2,10 +2,9 @@
 import { jsx } from "@emotion/core";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
-
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { getModifiedProperties } from "../utils/math";
-import { generateBiopsyPath } from "../constants/datastore";
+import { CollectionNames, generateBiopsyPath } from "../constants/datastore";
 import { generateOpenEncounterURL } from "../constants/routes";
 import Layout from "../components/Layout";
 import BiopsyForm from "../components/BiopsyForm";
@@ -28,6 +27,21 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   useEffect(() => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
+      console.log("here now");
+      console.log(values);
+
+      if (!(typeof values.data === "undefined")) {
+        const specimens = await datastore.readDocsByParentPath(
+          path,
+          CollectionNames.SPECIMENS
+        );
+        let specimensArray = [];
+        for (const specimen of specimens) {
+          specimensArray.push(specimen.data);
+        }
+
+        values.data.specimens = specimensArray;
+      }
 
       if (!!values.data) {
         setInitialValues(values.data);
@@ -36,6 +50,7 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
       }
     };
     if (!!datastore) {
+      console.log("here");
       getData(biopsyPath);
     }
     // eslint-disable-next-line
