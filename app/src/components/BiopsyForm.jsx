@@ -19,7 +19,12 @@ import PositionalValidationModal from "./PositionalValidationModal";
 import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 
-const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
+const BiopsyForm = ({
+  initialValues,
+  handleSubmit,
+  encounterId,
+  isViewOnly,
+}) => {
   const initialAreaHit =
     initialValues && initialValues.areaHit ? initialValues.areaHit : "";
 
@@ -89,6 +94,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     isShort
                     notAfter={new Date()}
                     autofill={!initialValues}
+                    isDisabled={isViewOnly}
                   />
                   <TimeInput
                     name="timeTaken"
@@ -97,12 +103,14 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     autofill={!initialValues}
                     timeWithSeconds
                     isRequired
+                    isDisabled={isViewOnly}
                   />
                 </FormSection>
                 <br />
                 <GpsFormSection
                   isRenderInfoLabel={closedPositionalModal}
                   initialValues={initialValues}
+                  isViewOnly={isViewOnly}
                 />
                 <ListHeader title="Biopsy details" />
                 <FormSection>
@@ -111,7 +119,7 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     labelText="Species"
                     options={species}
                     isRequired
-                    isDisabled={false}
+                    isDisabled={isViewOnly}
                   />
 
                   <TextInput
@@ -119,18 +127,21 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                     labelText="Attempt Number"
                     maxLength={255}
                     isShort
+                    isDisabled={isViewOnly}
                   />
                   <TextInput
                     name="samplerName"
                     labelText="Sampler Name"
                     maxLength={255}
                     isShort
+                    isDisabled={isViewOnly}
                   />
                   <TextInput
                     name="totalSpecimens"
                     labelText="Total Specimens"
                     maxLength={255}
                     isShort
+                    isDisabled={isViewOnly}
                   />
                 </FormSection>
 
@@ -138,22 +149,25 @@ const BiopsyForm = ({ initialValues, handleSubmit, encounterId }) => {
                 <DartHitSection
                   areaHitResult={areaHitResult}
                   setAreaHitResult={setAreaHitResult}
+                  isViewOnly={isViewOnly}
                 />
               </section>
-              <div css={utilities.sticky.footerContainer}>
-                <Link to={generateOpenEncounterURL(encounterId)}>
-                  <Button
-                    styles={styles.cancelButton}
-                    variant="secondary"
-                    testId={"cancelBiopsy"}
-                  >
-                    Cancel
+              {!isViewOnly && (
+                <div css={utilities.sticky.footerContainer}>
+                  <Link to={generateOpenEncounterURL(encounterId)}>
+                    <Button
+                      styles={styles.cancelButton}
+                      variant="secondary"
+                      testId={"cancelBiopsy"}
+                    >
+                      Cancel
+                    </Button>
+                  </Link>
+                  <Button type="submit" testId={"saveBiopsy"}>
+                    Save
                   </Button>
-                </Link>
-                <Button type="submit" testId={"saveBiopsy"}>
-                  Save
-                </Button>
-              </div>
+                </div>
+              )}
               <InputFocusOnError
                 hasTriedToSubmit={checkingValidation}
                 pageHasPositionalValues={true}

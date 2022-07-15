@@ -4,10 +4,10 @@ import { waitFor } from "@testing-library/react";
 
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import { Datastore } from "../../datastore/datastore";
-import ViewHabitatUse from "../ViewHabitatUse";
+import ViewBiopsy from "../ViewBiopsy";
 
-describe("ViewHabitatUse", () => {
-  const projectId = "view-habitat-use-test-id";
+describe("ViewBiopsy", () => {
+  const projectId = "view-biopsy-test-id";
   let firestoreEmulator;
   let datastore;
 
@@ -27,21 +27,21 @@ describe("ViewHabitatUse", () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
-  it("navigates to encounter overview page if no habitat use is found in firestore for a given ID", async () => {
+  it("navigates to encounter overview page if no biopsy is found in firestore for a given ID", async () => {
     const { id } = await firestoreEmulator
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
     await firestoreEmulator
       .doc(`encounter/${id}`)
-      .collection("habitatUse")
-      .add({ age: "young", behaviour: "adventurous" });
+      .collection("biopsy")
+      .add({ samplerName: "Homer Simpson", species: "Bottlenose dolphin" });
 
-    const entryPath = `/encounters/${id}/habitat-uses/123/edit`;
+    const entryPath = `/encounters/${id}/biopsies/123/edit`;
     const redirectPath = `/encounters/${id}/habitat-uses`;
 
     const { history } = renderWithMockContexts(
-      <ViewHabitatUse encounterId={id} habitatUseId={"123"} />,
+      <ViewBiopsy encounterId={id} biopsyId={"123"} />,
       {
         datastore,
         route: entryPath,
@@ -53,21 +53,25 @@ describe("ViewHabitatUse", () => {
     });
   });
 
-  it("navigates to habitat edit page if habitat has not been exported", async () => {
+  it("navigates to biopsy edit page if biopsy has not been exported", async () => {
     const { id: encounterId } = await firestoreEmulator
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });
 
-    const { id: habitatId } = await firestoreEmulator
+    const { id: biopsyId } = await firestoreEmulator
       .doc(`encounter/${encounterId}`)
-      .collection("habitatUse")
-      .add({ age: "young", behaviour: "adventurous", exported: false });
+      .collection("biopsy")
+      .add({
+        samplerName: "Homer Simpson",
+        species: "Bottlenose dolphin",
+        exported: false,
+      });
 
-    const entryPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/view`;
-    const redirectPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/edit`;
+    const entryPath = `/encounters/${encounterId}/biopsies/${biopsyId}/view`;
+    const redirectPath = `/encounters/${encounterId}/biopsies/${biopsyId}/edit`;
 
     const { history } = renderWithMockContexts(
-      <ViewHabitatUse encounterId={encounterId} habitatUseId={habitatId} />,
+      <ViewBiopsy encounterId={encounterId} biopsyId={biopsyId} />,
       {
         datastore,
         route: entryPath,
@@ -88,22 +92,19 @@ describe("ViewHabitatUse", () => {
         startTime: "10:14",
       });
 
-    const { id: habitatId } = await firestoreEmulator
+    const { id: biopsyId } = await firestoreEmulator
       .doc(`encounter/${encounterId}`)
-      .collection("habitatUse")
+      .collection("biopsy")
       .add({
-        waterDepth: "",
-        waterDepthBeyondSoundings: false,
-        waterTemp: "",
-        distance: "",
-        surfaceBout: 0,
+        samplerName: "Homer Simpson",
+        species: "Bottlenose dolphin",
         exported: true,
       });
 
-    const entryPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/view`;
+    const entryPath = `/encounters/${encounterId}/biopsies/${biopsyId}/view`;
 
     const { getAllByRole } = renderWithMockContexts(
-      <ViewHabitatUse encounterId={encounterId} habitatUseId={habitatId} />,
+      <ViewBiopsy encounterId={encounterId} biopsyId={biopsyId} />,
       {
         datastore,
         route: entryPath,
@@ -123,7 +124,7 @@ describe("ViewHabitatUse", () => {
     });
   });
 
-  it("renders the habitat use form with all fields disabled", async () => {
+  it("renders the biopsy form with all fields disabled", async () => {
     const { id: encounterId } = await firestoreEmulator
       .collection("encounter")
       .add({
@@ -132,22 +133,30 @@ describe("ViewHabitatUse", () => {
         startTime: "10:14",
       });
 
-    const { id: habitatId } = await firestoreEmulator
+    const { id: biopsyId } = await firestoreEmulator
       .doc(`encounter/${encounterId}`)
-      .collection("habitatUse")
+      .collection("biopsy")
       .add({
-        waterDepth: "",
-        waterDepthBeyondSoundings: true,
-        waterTemp: "",
-        distance: "",
-        surfaceBout: 0,
+        areaHit: "Upper Dorsal",
+        dorsalHit: "Yes",
+        whaleSide: "Right",
+        species: "Sperm whale",
+        samplerName: "Bruce Wayne",
+        attempt: 4,
+        dateTaken: "Thu Jul 14 2022 11:56:43 GMT+0100",
+        timeTaken: "10:52:04",
+        latitude: "1.234567",
+        longitude: "-2.345678",
+        gpsMark: 12,
+        totalSpecimens: 3,
+        hasEnded: false,
         exported: true,
       });
 
-    const entryPath = `/encounters/${encounterId}/habitat-uses/${habitatId}/view`;
+    const entryPath = `/encounters/${encounterId}/biopsies/${biopsyId}/view`;
 
     const { getAllByTestId } = renderWithMockContexts(
-      <ViewHabitatUse encounterId={encounterId} habitatUseId={habitatId} />,
+      <ViewBiopsy encounterId={encounterId} biopsyId={biopsyId} />,
       {
         datastore,
         route: entryPath,
