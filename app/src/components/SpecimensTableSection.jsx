@@ -22,8 +22,23 @@ const styles = {
   `,
 };
 
-const SpecimensTableSection = ({ specimen }) => {
+const SpecimensTableSection = ({ specimens, isViewOnly }) => {
   const [isTableHidden, setIsTableHidden] = useState(false);
+  
+  const getTotalSpecimens = (specimens) => {
+    let total = 0;
+
+    if (typeof specimens === "undefined") return total;
+    
+    for (const specimen of specimens){
+      if (specimen.specimenNumber || specimen.sampleType || specimen.storageType){
+          total++;
+        }
+    }
+    
+    return total;
+  }
+
   return (
     <FieldArray name="specimens">
       {({ unshift }) => (
@@ -40,6 +55,7 @@ const SpecimensTableSection = ({ specimen }) => {
                 });
                 setIsTableHidden(false);
               }}
+              disabled={isViewOnly}
             >
               Add Specimen +
             </Button>
@@ -48,13 +64,14 @@ const SpecimensTableSection = ({ specimen }) => {
               styles={styles.primary}
               type="button"
               onClick={() => setIsTableHidden((current) => !current)}
+              disabled={isViewOnly}
             >
               {isTableHidden ? "Show ↓" : "Hide ↑"}
             </Button>
           </FormSection>
           <div hidden={isTableHidden}>
             <FormSection>
-              <h3>Total Specimens Recorded : {specimen.length}</h3>
+              <h3>Total Specimens Recorded : {getTotalSpecimens(specimens)}</h3>
             </FormSection>
             <FormSection isOneLine4Elements>
               <label>Specimen #</label>
@@ -62,23 +79,26 @@ const SpecimensTableSection = ({ specimen }) => {
               <label>Tissue storage</label>
             </FormSection>
           </div>
-          {specimen.length > 0 &&
-            specimen.map((specimen, index) => (
+          {specimens.length > 0 &&
+            specimens.map((specimens, index) => (
               <div className="row" key={index} hidden={isTableHidden}>
                 <FormSection isOneLine4Elements>
                   <TextInput
                     name={`specimens.${index}.specimenNumber`}
                     maxLength={20}
                     isShort
+                    isDisabled={isViewOnly}
                   />
                   <Select
                     name={`specimens.${index}.sampleType`}
                     options={tissueTypes}
                     isShort
+                    isDisabled={isViewOnly}
                   />
                   <Select
                     name={`specimens.${index}.storageType`}
                     options={tissueStorages}
+                    isDisabled={isViewOnly}
                   />
                 </FormSection>
               </div>
