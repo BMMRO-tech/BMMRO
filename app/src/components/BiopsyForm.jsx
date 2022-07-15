@@ -18,6 +18,7 @@ import { useState } from "react";
 import PositionalValidationModal from "./PositionalValidationModal";
 import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
+import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 
 const BiopsyForm = ({
   initialValues,
@@ -144,7 +145,48 @@ const BiopsyForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
+                <br/>
+                
+                <FormSection>
+                <RadioGroup
+          name="dartHit"
+          labelText="Dart hit?"
+          data-testid="dartHitId"
+          options={[
+            { label: "Yes", value: "Yes" },
+            { label: "No", value: "No" },
+          ]}
+          isDisabled={isViewOnly}
+        />
+               <RadioGroup
+          name="dartStuck"
+          labelText="Dart stuck?"
+          options={[
+            { label: "Yes", value: "Yes" },
+            { label: "No", value: "No" },
+          ]}
+          isDisabled={isViewOnly}
+        />
+               <RadioGroup
+          name="dartRetrieved"
+          labelText="Dart retrieved?"
+          options={[
+            { label: "Yes", value: "Yes" },
+            { label: "No", value: "No" },
+          ]}
+          isDisabled={isViewOnly}
+        />
+               <RadioGroup
+          name="sampleType"
+          labelText="Sample type?"
+          options={[
+            { label: "Skin", value: "Skin" },
+            { label: "Skin & blubber", value: "Skin & blubber" },
+          ]}
+          isDisabled={isViewOnly}
+        />
 
+                </FormSection>
                 <ListHeader title="Select dart hit area" />
                 <DartHitSection
                   areaHitResult={areaHitResult}

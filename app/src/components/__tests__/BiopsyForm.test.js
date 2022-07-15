@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, waitFor, fireEvent } from "@testing-library/react";
+import { act, render, waitFor, fireEvent, getByText } from "@testing-library/react";
 import BiopsyForm from "../BiopsyForm";
 
 import userEvent from "@testing-library/user-event";
@@ -63,6 +63,10 @@ describe("BiopsyForm", () => {
     const totalSpecimensInput = getByRole("textbox", {
       name: "Total Specimens",
     });
+    const dartHitYesRadio = getByTestId("field-dartHit-Yes");
+    const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
+    const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
+    const sampleTypeSkinRadio = getByLabelText("Skin");
 
     const submitButton = getByRole("button", { name: "Save" });
 
@@ -76,6 +80,11 @@ describe("BiopsyForm", () => {
     userEvent.type(gpsMarkInput, "2");
     userEvent.type(totalSpecimensInput, "3");
 
+    userEvent.click(dartHitYesRadio);
+    userEvent.click(dartStuckYesRadio);
+    userEvent.click(dartRetrievedNoRadio);
+    userEvent.click(sampleTypeSkinRadio);
+
     fireEvent(
       getByTestId("Upper Dorsal"),
       new MouseEvent("click", {
@@ -87,7 +96,7 @@ describe("BiopsyForm", () => {
     const sideHitRadio = getByLabelText("Right");
     fireEvent.click(sideHitRadio);
 
-    const dorsalHitRadio = getByLabelText("Yes");
+    const dorsalHitRadio = getByTestId("field-dorsalHit-Yes");
     fireEvent.click(dorsalHitRadio);
 
     userEvent.click(submitButton);
@@ -104,6 +113,10 @@ describe("BiopsyForm", () => {
       expect(formValues.longitude).toEqual("-1.123456");
       expect(formValues.gpsMark).toEqual("2");
       expect(formValues.totalSpecimens).toEqual("3");
+      expect(formValues.dartHit).toEqual("Yes");
+      expect(formValues.dartStuck).toEqual("Yes");
+      expect(formValues.dartRetrieved).toEqual("No");
+      expect(formValues.sampleType).toEqual("Skin");
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");
