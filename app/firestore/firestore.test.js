@@ -143,6 +143,4 @@ describe("Encounter collection with habitat use subcollection", () => {
       );
     });
   });
-
-
 });
