@@ -11,6 +11,10 @@ export default {
   longitude: "",
   gpsMark: "",
   totalSpecimens: "",
+  dartHit: "",
+  dartStuck: "",
+  dartRetrieved: "",
+  sampleType: "",
   exported: false,
   hasEnded: false,
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, waitFor, fireEvent, getByText } from "@testing-library/react";
+import { act, render, waitFor, fireEvent } from "@testing-library/react";
 import BiopsyForm from "../BiopsyForm";
 
 import userEvent from "@testing-library/user-event";
@@ -128,6 +128,10 @@ describe("BiopsyForm", () => {
       areaHit: "Upper Dorsal",
       dorsalHit: "Yes",
       whaleSide: "Right",
+      dartHit: "Yes",
+      dartStuck: "Yes",
+      dartRetrieved: "No",
+      sampleType: "Skin",
       species: "Sperm whale",
       samplerName: "Bruce Wayne",
       attempt: 4,
