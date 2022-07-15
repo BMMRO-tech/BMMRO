@@ -9,6 +9,7 @@ import {
   generateViewHabitatURL,
   generateNewBiopsyURL,
   generateEditBiopsyURL,
+  generateViewBiopsyURL,
 } from "../constants/routes";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
@@ -41,7 +42,9 @@ const SubCollectionList = ({
         : generateEditHabitatURL(encounterId, item.id);
     }
 
-    return generateEditBiopsyURL(encounterId, item.id);
+    return item.data.exported
+      ? generateViewBiopsyURL(encounterId, item.id)
+      : generateEditBiopsyURL(encounterId, item.id);
   };
 
   return (

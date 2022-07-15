@@ -11,6 +11,7 @@ const WhaleSvg = ({
   setAreaHitResult,
   areaHitResult,
   setIsUpperPeduncleSelected,
+  isViewOnly,
 }) => {
   const fillSection = (sectionName) => {
     return areaHitResult === sectionName ? "aqua" : "transparent";
@@ -80,8 +81,10 @@ const WhaleSvg = ({
             data-testid="Lower Thoracic"
             id="bottomLeft"
             onClick={() => {
-              setIsUpperPeduncleSelected(false);
-              setAreaHitResult("Lower Thoracic");
+              if (!isViewOnly) {
+                setIsUpperPeduncleSelected(false);
+                setAreaHitResult("Lower Thoracic");
+              }
             }}
             button="true"
           />
@@ -100,8 +103,10 @@ const WhaleSvg = ({
             opacity="0.6"
             data-testid="Upper Thoracic"
             onClick={() => {
-              setIsUpperPeduncleSelected(false);
-              setAreaHitResult("Upper Thoracic");
+              if (!isViewOnly) {
+                setIsUpperPeduncleSelected(false);
+                setAreaHitResult("Upper Thoracic");
+              }
             }}
           />
         </g>
@@ -120,8 +125,10 @@ const WhaleSvg = ({
             opacity="0.6"
             data-testid="Upper Dorsal"
             onClick={() => {
-              setIsUpperPeduncleSelected(true);
-              setAreaHitResult("Upper Dorsal");
+              if (!isViewOnly) {
+                setIsUpperPeduncleSelected(true);
+                setAreaHitResult("Upper Dorsal");
+              }
             }}
           />
         </g>
@@ -139,8 +146,10 @@ const WhaleSvg = ({
             opacity="0.6"
             data-testid="Upper Peduncle"
             onClick={() => {
-              setIsUpperPeduncleSelected(false);
-              setAreaHitResult("Upper Peduncle");
+              if (!isViewOnly) {
+                setIsUpperPeduncleSelected(false);
+                setAreaHitResult("Upper Peduncle");
+              }
             }}
           />
         </g>
@@ -158,8 +167,10 @@ const WhaleSvg = ({
             opacity="0.6"
             data-testid="Lower Dorsal"
             onClick={() => {
-              setIsUpperPeduncleSelected(false);
-              setAreaHitResult("Lower Dorsal");
+              if (!isViewOnly) {
+                setIsUpperPeduncleSelected(false);
+                setAreaHitResult("Lower Dorsal");
+              }
             }}
           />
         </g>
@@ -177,8 +188,10 @@ const WhaleSvg = ({
             opacity="0.6"
             data-testid="Lower Peduncle"
             onClick={() => {
-              setIsUpperPeduncleSelected(false);
-              setAreaHitResult("Lower Peduncle");
+              if (!isViewOnly) {
+                setIsUpperPeduncleSelected(false);
+                setAreaHitResult("Lower Peduncle");
+              }
             }}
           />
         </g>

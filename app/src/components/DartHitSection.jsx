@@ -5,7 +5,7 @@ import WhaleSvg from "./WhaleSvg";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import FormSection from "./FormSection";
 
-const DartHitSection = ({ areaHitResult, setAreaHitResult }) => {
+const DartHitSection = ({ areaHitResult, setAreaHitResult, isViewOnly }) => {
   const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(
     areaHitResult === "Upper Dorsal"
   );
@@ -17,6 +17,7 @@ const DartHitSection = ({ areaHitResult, setAreaHitResult }) => {
           setAreaHitResult={setAreaHitResult}
           areaHitResult={areaHitResult}
           setIsUpperPeduncleSelected={setIsUpperPeduncleSelected}
+          isViewOnly={isViewOnly}
         />
       </FormSection>
       <FormSection>
@@ -28,6 +29,7 @@ const DartHitSection = ({ areaHitResult, setAreaHitResult }) => {
             { label: "Left", value: "Left" },
             { label: "Right", value: "Right" },
           ]}
+          isDisabled={isViewOnly}
         />
         {isUpperPeduncleSelected && (
           <RadioGroup
@@ -37,6 +39,7 @@ const DartHitSection = ({ areaHitResult, setAreaHitResult }) => {
               { label: "Yes", value: "Yes" },
               { label: "No", value: "No" },
             ]}
+            isDisabled={isViewOnly}
           />
         )}
       </FormSection>

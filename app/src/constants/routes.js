@@ -9,6 +9,7 @@ export const ROUTES = {
   viewHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/view",
   newBiopsy: "/encounters/:encounterId/biopsies/new",
   editBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/edit",
+  viewBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/view",
   login: "/login",
 };
 
@@ -42,4 +43,8 @@ export const generateNewBiopsyURL = (encounterId) => {
 
 export const generateEditBiopsyURL = (encounterId, biopsyId) => {
   return `/encounters/${encounterId}/biopsies/${biopsyId}/edit`;
+};
+
+export const generateViewBiopsyURL = (encounterId, biopsyId) => {
+  return `/encounters/${encounterId}/biopsies/${biopsyId}/view`;
 };
