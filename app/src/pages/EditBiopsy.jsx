@@ -17,8 +17,30 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   const navigate = useNavigate();
   const biopsyPath = generateBiopsyPath(encounterId, biopsyId);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
+
+    if (!!modifiedProperties.specimens){
+      const modifiedSpecimens = modifiedProperties.specimens;
+      
+      const specimens = await datastore.readDocsByParentPath(
+        biopsyPath,
+        CollectionNames.SPECIMENS
+      );
+
+      let modifiedSpecimensIndex = modifiedSpecimens.length - 1
+      for (let i = specimens.length - 1; i >= 0; i--){
+        const pathToSpecimen = biopsyPath + "/specimen/" + specimens[i].id;
+        datastore.updateDocByPath(pathToSpecimen, modifiedSpecimens[modifiedSpecimensIndex]);
+        console.log(modifiedSpecimens.splice(modifiedSpecimensIndex, modifiedSpecimensIndex-1))
+        modifiedSpecimensIndex--
+      }
+
+      for (const modifiedSpecimen of modifiedSpecimens) {
+        datastore.createSubDoc(biopsyPath, CollectionNames.SPECIMENS, modifiedSpecimen);
+      }
+
+    }
 
     datastore.updateDocByPath(biopsyPath, modifiedProperties);
     navigate(generateOpenEncounterURL(encounterId));
@@ -27,8 +49,6 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   useEffect(() => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
-      console.log("here now");
-      console.log(values);
 
       if (!(typeof values.data === "undefined")) {
         const specimens = await datastore.readDocsByParentPath(
@@ -50,7 +70,6 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
       }
     };
     if (!!datastore) {
-      console.log("here");
       getData(biopsyPath);
     }
     // eslint-disable-next-line
