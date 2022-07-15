@@ -4,7 +4,11 @@ import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { getModifiedProperties } from "../utils/math";
-import { CollectionNames, generateBiopsyPath } from "../constants/datastore";
+import {
+  CollectionNames,
+  generateBiopsyPath,
+  generateSpecimenPath,
+} from "../constants/datastore";
 import { generateOpenEncounterURL } from "../constants/routes";
 import Layout from "../components/Layout";
 import BiopsyForm from "../components/BiopsyForm";
@@ -17,31 +21,46 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   const navigate = useNavigate();
   const biopsyPath = generateBiopsyPath(encounterId, biopsyId);
 
+  const saveSpecimens = async (modifiedSpecimens) => {
+    const specimens = await datastore.readDocsByParentPath(
+      biopsyPath,
+      CollectionNames.SPECIMEN
+    );
+
+    for (const specimen of specimens.reverse()) {
+      datastore.updateDocByPath(
+        generateSpecimenPath(encounterId, biopsyId, specimen.id),
+        modifiedSpecimens[0]
+      );
+      modifiedSpecimens.shift();
+    }
+
+    for (const modifiedSpecimen of modifiedSpecimens) {
+      if (
+        modifiedSpecimen.specimenNumber ||
+        modifiedSpecimen.sampleType ||
+        modifiedSpecimen.storageType
+      ) {
+        datastore.createSubDoc(
+          biopsyPath,
+          CollectionNames.SPECIMEN,
+          modifiedSpecimen
+        );
+      }
+    }
+  };
+
   const handleSubmit = async (values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
 
-    if (!!modifiedProperties.specimens){
-      const modifiedSpecimens = modifiedProperties.specimens;
-      
-      const specimens = await datastore.readDocsByParentPath(
-        biopsyPath,
-        CollectionNames.SPECIMENS
-      );
-
-      let modifiedSpecimensIndex = modifiedSpecimens.length - 1
-      for (let i = specimens.length - 1; i >= 0; i--){
-        const pathToSpecimen = biopsyPath + "/specimen/" + specimens[i].id;
-        datastore.updateDocByPath(pathToSpecimen, modifiedSpecimens[modifiedSpecimensIndex]);
-        modifiedSpecimens.pop()
-        modifiedSpecimensIndex--
-      }
-
-      for (const modifiedSpecimen of modifiedSpecimens) {
-        datastore.createSubDoc(biopsyPath, CollectionNames.SPECIMENS, modifiedSpecimen);
-      }
+    if (!!modifiedProperties.specimens) {
+      await saveSpecimens(modifiedProperties.specimens.reverse());
     }
 
-    datastore.updateDocByPath(biopsyPath, modifiedProperties);
+    let modifiedPropertiesToSubmit = { ...modifiedProperties };
+    delete modifiedPropertiesToSubmit.specimens;
+
+    datastore.updateDocByPath(biopsyPath, modifiedPropertiesToSubmit);
     navigate(generateOpenEncounterURL(encounterId));
   };
 
@@ -52,7 +71,7 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
       if (!(typeof values.data === "undefined")) {
         const specimens = await datastore.readDocsByParentPath(
           path,
-          CollectionNames.SPECIMENS
+          CollectionNames.SPECIMEN
         );
         let specimensArray = [];
         for (const specimen of specimens) {

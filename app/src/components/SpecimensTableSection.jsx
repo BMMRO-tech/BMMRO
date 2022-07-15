@@ -24,20 +24,24 @@ const styles = {
 
 const SpecimensTableSection = ({ specimens, isViewOnly }) => {
   const [isTableHidden, setIsTableHidden] = useState(false);
-  
+
   const getTotalSpecimens = (specimens) => {
     let total = 0;
 
     if (typeof specimens === "undefined") return total;
-    
-    for (const specimen of specimens){
-      if (specimen.specimenNumber || specimen.sampleType || specimen.storageType){
-          total++;
-        }
+
+    for (const specimen of specimens) {
+      if (
+        specimen.specimenNumber ||
+        specimen.sampleType ||
+        specimen.storageType
+      ) {
+        total++;
+      }
     }
-    
+
     return total;
-  }
+  };
 
   return (
     <FieldArray name="specimens">
@@ -64,7 +68,6 @@ const SpecimensTableSection = ({ specimens, isViewOnly }) => {
               styles={styles.primary}
               type="button"
               onClick={() => setIsTableHidden((current) => !current)}
-              disabled={isViewOnly}
             >
               {isTableHidden ? "Show ↓" : "Hide ↑"}
             </Button>

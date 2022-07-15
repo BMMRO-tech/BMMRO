@@ -44,6 +44,7 @@ describe("Encounter collection with habitat use subcollection", () => {
   const collectionName = "encounter";
   const habitatUseSubcollectionName = "habitatUse";
   const biopsySubcollectionName = "biopsy";
+  const specimenSubcollectionName = "specimen";
 
   const initializeFirestore = (auth) => {
     return firebase.initializeTestApp({ projectId, auth }).firestore();
@@ -142,4 +143,6 @@ describe("Encounter collection with habitat use subcollection", () => {
       );
     });
   });
+
+
 });
