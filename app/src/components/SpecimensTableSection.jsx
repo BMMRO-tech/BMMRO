@@ -72,10 +72,10 @@ const SpecimensTableSection = ({ specimens, isViewOnly }) => {
               {isTableHidden ? "Show ↓" : "Hide ↑"}
             </Button>
           </FormSection>
+          <FormSection>
+            <h3>Total Specimens Recorded : {getTotalSpecimens(specimens)}</h3>
+          </FormSection>
           <div hidden={isTableHidden}>
-            <FormSection>
-              <h3>Total Specimens Recorded : {getTotalSpecimens(specimens)}</h3>
-            </FormSection>
             <FormSection isOneLine4Elements>
               <label>Specimen #</label>
               <label>Sample Type</label>
