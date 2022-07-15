@@ -31,7 +31,13 @@ const NewBiopsy = ({ encounterId }) => {
     const biopsyPath = generateBiopsyPath(encounterId, id);
 
     for (const specimen of specimens) {
-      datastore.createSubDoc(biopsyPath, CollectionNames.SPECIMENS, specimen);
+      if (
+        specimen.specimenNumber ||
+        specimen.sampleType ||
+        specimen.storageType
+      ) {
+        datastore.createSubDoc(biopsyPath, CollectionNames.SPECIMEN, specimen);
+      }
     }
 
     navigate(generateOpenEncounterURL(encounterId));

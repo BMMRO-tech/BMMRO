@@ -192,8 +192,8 @@ const BiopsyForm = ({
                 />
                 <br />
                 <ListHeader title="Specimens" />
-                <SpecimensTableSection 
-                  specimens={values.specimens} 
+                <SpecimensTableSection
+                  specimens={values.specimens}
                   isViewOnly={isViewOnly}
                 />
               </section>
