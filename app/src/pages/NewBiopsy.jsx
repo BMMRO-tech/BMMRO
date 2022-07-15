@@ -23,6 +23,8 @@ const NewBiopsy = ({ encounterId }) => {
     let valuesToSubmit = { ...values };
 
     delete valuesToSubmit.specimens;
+    console.log(values);
+    console.log(valuesToSubmit);
     const id = datastore.createSubDoc(
       encounterPath,
       CollectionNames.BIOPSY,

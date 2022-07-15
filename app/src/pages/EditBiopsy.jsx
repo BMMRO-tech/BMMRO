@@ -20,29 +20,38 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   const handleSubmit = async (values) => {
     const modifiedProperties = getModifiedProperties(values, initialValues);
 
-    if (!!modifiedProperties.specimens){
+    if (!!modifiedProperties.specimens) {
       const modifiedSpecimens = modifiedProperties.specimens;
-      
+
       const specimens = await datastore.readDocsByParentPath(
         biopsyPath,
         CollectionNames.SPECIMENS
       );
 
-      let modifiedSpecimensIndex = modifiedSpecimens.length - 1
-      for (let i = specimens.length - 1; i >= 0; i--){
+      let modifiedSpecimensIndex = modifiedSpecimens.length - 1;
+      for (let i = specimens.length - 1; i >= 0; i--) {
         const pathToSpecimen = biopsyPath + "/specimen/" + specimens[i].id;
-        datastore.updateDocByPath(pathToSpecimen, modifiedSpecimens[modifiedSpecimensIndex]);
-        console.log(modifiedSpecimens.splice(modifiedSpecimensIndex, modifiedSpecimensIndex-1))
-        modifiedSpecimensIndex--
+        datastore.updateDocByPath(
+          pathToSpecimen,
+          modifiedSpecimens[modifiedSpecimensIndex]
+        );
+        modifiedSpecimens.pop();
+        modifiedSpecimensIndex--;
       }
 
       for (const modifiedSpecimen of modifiedSpecimens) {
-        datastore.createSubDoc(biopsyPath, CollectionNames.SPECIMENS, modifiedSpecimen);
+        datastore.createSubDoc(
+          biopsyPath,
+          CollectionNames.SPECIMENS,
+          modifiedSpecimen
+        );
       }
-
     }
+    let modifiedPropertiesToSubmit = { ...modifiedProperties };
 
-    datastore.updateDocByPath(biopsyPath, modifiedProperties);
+    delete modifiedPropertiesToSubmit.specimens;
+
+    datastore.updateDocByPath(biopsyPath, modifiedPropertiesToSubmit);
     navigate(generateOpenEncounterURL(encounterId));
   };
 
