@@ -67,7 +67,7 @@ describe("BiopsyForm", () => {
     const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinRadio = getByLabelText("Skin");
-    const sampleNumberInput = getByRole("textbox", { name: "Sample #" });
+    const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
       "field-specimens.0.specimenNumber"

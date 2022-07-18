@@ -4,6 +4,7 @@ export default {
   whaleSide: "",
   species: "",
   samplerName: "",
+  sampleNumber: "",
   attempt: "",
   dateTaken: "",
   timeTaken: "",
