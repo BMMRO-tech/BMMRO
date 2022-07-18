@@ -67,6 +67,7 @@ describe("BiopsyForm", () => {
     const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinRadio = getByLabelText("Skin");
+    const sampleNumberInput = getByRole("textbox", { name: "Sample #" });
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
       "field-specimens.0.specimenNumber"
@@ -92,13 +93,13 @@ describe("BiopsyForm", () => {
 
     userEvent.selectOptions(speciesInput, "Fin whale");
     await userEvent.type(attemptInput, "1", { delay: 1 });
+    await userEvent.type(sampleNumberInput, "md0397", { delay: 1 });
     await userEvent.type(samplerNameInput, "Test Name", { delay: 1 });
     userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
     userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
     userEvent.type(gpsMarkInput, "2");
-    userEvent.type(totalSpecimensInput, "3");
     await userEvent.type(specimenNumberInputForFirstSpecimen, "4", {
       delay: 1,
     });
@@ -151,6 +152,8 @@ describe("BiopsyForm", () => {
       expect(formValues.dartStuck).toEqual("Yes");
       expect(formValues.dartRetrieved).toEqual("No");
       expect(formValues.sampleType).toEqual("Skin");
+      expect(formValues.sampleNumber).toEqual("md0397");
+      expect(formValues.totalSpecimens).toEqual(2);
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");

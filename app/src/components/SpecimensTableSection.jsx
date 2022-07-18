@@ -22,14 +22,15 @@ const styles = {
   `,
 };
 
-const SpecimensTableSection = ({ specimens, isViewOnly }) => {
+const SpecimensTableSection = ({
+  specimens,
+  isViewOnly,
+  setTotalSpecimens,
+}) => {
   const [isTableHidden, setIsTableHidden] = useState(false);
 
   const getTotalSpecimens = (specimens) => {
     let total = 0;
-
-    if (typeof specimens === "undefined") return total;
-
     for (const specimen of specimens) {
       if (
         specimen.specimenNumber ||
@@ -39,7 +40,7 @@ const SpecimensTableSection = ({ specimens, isViewOnly }) => {
         total++;
       }
     }
-
+    setTotalSpecimens(total);
     return total;
   };
 
