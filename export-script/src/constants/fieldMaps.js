@@ -7,6 +7,8 @@ const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
 const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
 const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
 const updateComment = require("../updateComment");
+const convertSkinToBool = require("../mappings/convertSkinToBool");
+const convertSkinAndBlubberToBool = require("../mappings/convertSkinAndBlubberToBool");
 
 module.exports = {
   encounter: {
@@ -136,6 +138,14 @@ module.exports = {
     "Total specimens": { key: "totalSpecimens" },
     "Area Hit": { key: "areaHit" },
     "Side Hit": { key: "whaleSide" },
+    "Dart hit?": { key: "dartHit" },
+    "Dart stuck?": { key: "dartStuck" },
+    "Retrieved?": { key: "dartRetrieved" },
+    "Skin sample?": { key: "sampleType", transform: convertSkinToBool },
+    "Blub sample?": {
+      key: "sampleType",
+      transform: convertSkinAndBlubberToBool,
+    },
   },
   subCollectionToEncounter: {
     area: "area",
