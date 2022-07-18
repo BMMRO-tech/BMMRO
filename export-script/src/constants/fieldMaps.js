@@ -140,7 +140,7 @@ module.exports = {
     "Side Hit": { key: "whaleSide" },
     "Dart hit?": { key: "dartHit" },
     "Dart stuck?": { key: "dartStuck" },
-    "Dart retrieved?": { key: "dartRetrieved" },
+    "Retrieved?": { key: "dartRetrieved" },
     "Skin?": { key: "sampleType", transform: convertSkinToBool },
     "Blub?": { key: "sampleType", transform: convertSkinAndBlubberToBool },
   },
