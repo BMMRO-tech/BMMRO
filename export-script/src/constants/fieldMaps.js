@@ -141,8 +141,11 @@ module.exports = {
     "Dart hit?": { key: "dartHit" },
     "Dart stuck?": { key: "dartStuck" },
     "Retrieved?": { key: "dartRetrieved" },
-    "Skin?": { key: "sampleType", transform: convertSkinToBool },
-    "Blub?": { key: "sampleType", transform: convertSkinAndBlubberToBool },
+    "Skin sample?": { key: "sampleType", transform: convertSkinToBool },
+    "Blub sample?": {
+      key: "sampleType",
+      transform: convertSkinAndBlubberToBool,
+    },
   },
   subCollectionToEncounter: {
     area: "area",
