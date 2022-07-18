@@ -25,24 +25,9 @@ const styles = {
 const SpecimensTableSection = ({
   specimens,
   isViewOnly,
-  setTotalSpecimens,
+  getTotalSpecimens,
 }) => {
   const [isTableHidden, setIsTableHidden] = useState(false);
-
-  const getTotalSpecimens = (specimens) => {
-    let total = 0;
-    for (const specimen of specimens) {
-      if (
-        specimen.specimenNumber ||
-        specimen.sampleType ||
-        specimen.storageType
-      ) {
-        total++;
-      }
-    }
-    setTotalSpecimens(total);
-    return total;
-  };
 
   return (
     <FieldArray name="specimens">
