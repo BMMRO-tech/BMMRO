@@ -60,13 +60,10 @@ describe("BiopsyForm", () => {
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
     const gpsMarkInput = getByRole("textbox", { name: "GPS mark" });
-    const totalSpecimensInput = getByRole("textbox", {
-      name: "Total Specimens",
-    });
     const dartHitYesRadio = getByTestId("field-dartHit-Yes");
     const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
-    const sampleTypeSkinRadio = getByLabelText("Skin");
+    const sampleTypeSkinAndBlubberRadio = getByLabelText("Skin & blubber");
     const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
@@ -118,7 +115,7 @@ describe("BiopsyForm", () => {
     userEvent.click(dartHitYesRadio);
     userEvent.click(dartStuckYesRadio);
     userEvent.click(dartRetrievedNoRadio);
-    userEvent.click(sampleTypeSkinRadio);
+    userEvent.click(sampleTypeSkinAndBlubberRadio);
 
     fireEvent(
       getByTestId("Upper Dorsal"),
@@ -147,11 +144,10 @@ describe("BiopsyForm", () => {
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
       expect(formValues.gpsMark).toEqual("2");
-      expect(formValues.totalSpecimens).toEqual("3");
       expect(formValues.dartHit).toEqual("Yes");
       expect(formValues.dartStuck).toEqual("Yes");
       expect(formValues.dartRetrieved).toEqual("No");
-      expect(formValues.sampleType).toEqual("Skin");
+      expect(formValues.sampleType).toEqual("Skin & blubber");
       expect(formValues.sampleNumber).toEqual("md0397");
       expect(formValues.totalSpecimens).toEqual(2);
       expect(formValues.whaleSide).toEqual("Right");
