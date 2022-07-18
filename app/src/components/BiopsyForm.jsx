@@ -32,6 +32,7 @@ const BiopsyForm = ({
 
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
   const [areaHitResult, setAreaHitResult] = useState(initialAreaHit);
+  const [totalSpecimens, setTotalSpecimens] = useState(0);
   const [showPositionalModal, setShowPositionalModal] = useState({
     boolean: false,
     values: "",
@@ -80,6 +81,7 @@ const BiopsyForm = ({
           initialValues={initValues}
           onSubmit={(values) => {
             values.areaHit = areaHitResult;
+            values.totalSpecimens = totalSpecimens;
             isValidPositionalData(values)
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
@@ -140,8 +142,8 @@ const BiopsyForm = ({
                     isDisabled={isViewOnly}
                   />
                   <TextInput
-                    name="totalSpecimens"
-                    labelText="Total Specimens"
+                    name="sampleNumber"
+                    labelText="Sample #"
                     maxLength={255}
                     isShort
                     isDisabled={isViewOnly}
@@ -195,6 +197,7 @@ const BiopsyForm = ({
                 <SpecimensTableSection
                   specimens={values.specimens}
                   isViewOnly={isViewOnly}
+                  setTotalSpecimens={setTotalSpecimens}
                 />
               </section>
               {!isViewOnly && (
