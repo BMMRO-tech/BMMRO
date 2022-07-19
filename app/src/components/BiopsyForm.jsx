@@ -19,6 +19,8 @@ import PositionalValidationModal from "./PositionalValidationModal";
 import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
+import Checkbox from "./formFields/Checkbox/Checkbox";
+import AnimalReactionFormSection from "./AnimalReactionFormSection";
 
 const BiopsyForm = ({
   initialValues,
@@ -187,6 +189,13 @@ const BiopsyForm = ({
                 <DartHitSection
                   areaHitResult={areaHitResult}
                   setAreaHitResult={setAreaHitResult}
+                  isViewOnly={isViewOnly}
+                />
+                <ListHeader title="Animal reactions" />
+                <FormSection>
+                <h3> Target animal reaction</h3>
+                </FormSection>
+                <AnimalReactionFormSection
                   isViewOnly={isViewOnly}
                 />
               </section>
