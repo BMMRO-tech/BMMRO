@@ -135,7 +135,7 @@ module.exports = {
     Longitude: { key: "longitude" },
     "Attempt #": { key: "attempt" },
     "Sampler's name": { key: "samplerName" },
-    "Sample #" : { key: "sampleNumber" },
+    "Sample #": { key: "sampleNumber" },
     "Total specimens": { key: "totalSpecimens" },
     "Area Hit": { key: "areaHit" },
     "Side Hit": { key: "whaleSide" },
@@ -149,25 +149,25 @@ module.exports = {
     },
     "Whale ID": { key: "whaleID" },
     Sex: { key: "sex" },
-    Age: { key: "age" }
+    Age: { key: "age" },
   },
   specimen: {
-    Area: {key: "area"},
-    Date: { key : "dateTaken", transform: convertUnixTimestampToMDY },
-    Species: {key: "species"},
-    "Sample #": {key: "sampleNumber"},
+    Area: { key: "area" },
+    Date: { key: "dateTaken", transform: convertUnixTimestampToMDY },
+    Species: { key: "species" },
+    "Sample #": { key: "sampleNumber" },
     "Sequence #": { key: "encSeqNo" },
     Latitude: { key: "latitude" },
     Longitude: { key: "longitude" },
     Time: { key: "timeTaken" },
     "Attempt #": { key: "attempt" },
-    "Collection Type": { key: "collectionType"},
+    "Collection Type": { key: "collectionType" },
     "Specimen #": { key: "specimenNumber" },
-    Type : { key: "sampleType" },
+    Type: { key: "sampleType" },
     Storage: { key: "storageType" },
     "Whale ID": { key: "whaleID" },
     Sex: { key: "sex" },
-    Age: { key: "age" }
+    Age: { key: "age" },
   },
   subCollectionToEncounter: {
     area: "area",
@@ -175,7 +175,7 @@ module.exports = {
     date: "startTimestamp",
   },
   biopsyToSpecimen: {
-    species : "species",
+    species: "species",
     sampleNumber: "sampleNumber",
     encSeqNo: "encSeqNo",
     dateTaken: "dateTaken",
@@ -185,7 +185,7 @@ module.exports = {
     timeTaken: "timeTaken",
     attempt: "attempt",
     whaleID: "whaleID",
-    Sex: { key: "sex" },
-    Age: { key: "age" }
-  }
+    sex: "sex",
+    age: "age",
+  },
 };
