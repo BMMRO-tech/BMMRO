@@ -12,7 +12,7 @@ import {
   generateOpenEncounterURL,
   generateEditBiopsyURL,
 } from "../constants/routes";
-import { generateBiopsyPath } from "../constants/datastore";
+import { generateBiopsyPath, CollectionNames } from "../constants/datastore";
 import BackLink from "../components/BackLink";
 
 const ViewBiopsy = ({ encounterId, biopsyId }) => {
@@ -29,11 +29,25 @@ const ViewBiopsy = ({ encounterId, biopsyId }) => {
     `,
   };
 
+  const getSpecimens = async () => {
+    const specimens = await datastore.readDocsByParentPath(
+      biopsyPath,
+      CollectionNames.SPECIMEN
+    );
+    let specimensArray = [];
+    for (const specimen of specimens) {
+      specimensArray.push(specimen.data);
+    }
+
+    return specimensArray;
+  };
+
   useEffect(() => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
 
       if (!!values.data) {
+        values.data.specimens = await getSpecimens();
         if (!values.data.exported) {
           navigate(generateEditBiopsyURL(encounterId, biopsyId));
         } else {

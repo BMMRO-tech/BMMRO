@@ -64,24 +64,25 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
     navigate(generateOpenEncounterURL(encounterId));
   };
 
+  const getSpecimens = async () => {
+    const specimens = await datastore.readDocsByParentPath(
+      biopsyPath,
+      CollectionNames.SPECIMEN
+    );
+    let specimensArray = [];
+    for (const specimen of specimens) {
+      specimensArray.push(specimen.data);
+    }
+
+    return specimensArray;
+  };
+
   useEffect(() => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
 
-      if (!(typeof values.data === "undefined")) {
-        const specimens = await datastore.readDocsByParentPath(
-          path,
-          CollectionNames.SPECIMEN
-        );
-        let specimensArray = [];
-        for (const specimen of specimens) {
-          specimensArray.push(specimen.data);
-        }
-
-        values.data.specimens = specimensArray;
-      }
-
       if (!!values.data) {
+        values.data.specimens = await getSpecimens();
         setInitialValues(values.data);
       } else {
         navigate(generateOpenEncounterURL(encounterId));
