@@ -9,10 +9,7 @@ import Checkbox from "../Checkbox";
 describe("CheckBox", () => {
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
-      <Checkbox
-        name="testResult"
-        labelText="BooleanTest"
-      />,
+      <Checkbox name="testResult" labelText="BooleanTest" />,
       { testResult: false }
     );
 

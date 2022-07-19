@@ -68,6 +68,13 @@ describe("BiopsyForm", () => {
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinRadio = getByLabelText("Skin");
 
+    const reactionStrengthStrongRadio = getByTestId(
+      "field-reactionStrength-Strong"
+    );
+    const extentAllAnimalsRadio = getByTestId("field-extent-All animals");
+
+    const breachCheckbox = getByRole("checkbox", { name: "Breach" });
+
     const submitButton = getByRole("button", { name: "Save" });
 
     userEvent.selectOptions(speciesInput, "Fin whale");
@@ -84,6 +91,9 @@ describe("BiopsyForm", () => {
     userEvent.click(dartStuckYesRadio);
     userEvent.click(dartRetrievedNoRadio);
     userEvent.click(sampleTypeSkinRadio);
+    userEvent.click(breachCheckbox);
+    userEvent.click(reactionStrengthStrongRadio);
+    userEvent.click(extentAllAnimalsRadio);
 
     fireEvent(
       getByTestId("Upper Dorsal"),
@@ -120,6 +130,10 @@ describe("BiopsyForm", () => {
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");
+      expect(formValues.reactionStrength).toEqual("Strong");
+      expect(formValues.extent).toEqual("All animals");
+      expect(formValues.targetAnimalBehaviour.Breach).toEqual(true);
+      expect(formValues.targetAnimalBehaviour.Dive).toEqual(false);
     });
   });
 

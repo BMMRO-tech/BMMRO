@@ -25,7 +25,7 @@ const Select = ({
   };
 
   const [field, meta] = useField({ name, validate });
- 
+
   return (
     <div>
       <label css={fieldStyles.label}>
