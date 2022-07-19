@@ -199,6 +199,38 @@ const BiopsyForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
+                <ListHeader title="Whale details" />
+                <FormSection>
+                  <TextInput
+                    name="whaleID"
+                    labelText="WhaleID"
+                    maxLength={255}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="sex"
+                    labelText="Sex"
+                    options={[
+                      { label: "Male", value: "male" },
+                      { label: "Female", value: "female" },
+                      { label: "Unknown", value: "unknown" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="age"
+                    labelText="Age"
+                    options={[
+                      { label: "Calf", value: "calf" },
+                      { label: "Juvenile", value: "juvenile" },
+                      { label: "SubAdult", value: "subadult" },
+                      { label: "Adult", value: "Adult" },
+                      { label: "Unknown", value: "unknown" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
                 <ListHeader title="Select dart hit area" />
                 <DartHitSection
                   areaHitResult={areaHitResult}

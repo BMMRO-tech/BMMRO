@@ -147,6 +147,9 @@ module.exports = {
       key: "sampleType",
       transform: convertSkinAndBlubberToBool,
     },
+    "Whale ID": { key: "whaleID" },
+    Sex: { key: "sex" },
+    Age: { key: "age" }
   },
   specimen: {
     Area: {key: "area"},
@@ -161,7 +164,10 @@ module.exports = {
     "Collection Type": { key: "collectionType"},
     "Specimen #": { key: "specimenNumber" },
     Type : { key: "sampleType" },
-    Storage: { key: "storageType" }
+    Storage: { key: "storageType" },
+    "Whale ID": { key: "whaleID" },
+    Sex: { key: "sex" },
+    Age: { key: "age" }
   },
   subCollectionToEncounter: {
     area: "area",
@@ -177,6 +183,9 @@ module.exports = {
     longitude: "longitude",
     area: "area",
     timeTaken: "timeTaken",
-    attempt: "attempt"
+    attempt: "attempt",
+    whaleID: "whaleID",
+    Sex: { key: "sex" },
+    Age: { key: "age" }
   }
 };

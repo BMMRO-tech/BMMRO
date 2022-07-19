@@ -65,6 +65,9 @@ describe("BiopsyForm", () => {
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinAndBlubberRadio = getByLabelText("Skin & blubber");
     const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
+    const whaleIdInput = getByRole("textbox", { name: "WhaleID" });
+    const sexMaleFemaleRadio = getByTestId("field-sex-male");
+    const whaleAgeRadio = getByTestId("field-age-juvenile");
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
       "field-specimens.0.specimenNumber"
@@ -116,6 +119,10 @@ describe("BiopsyForm", () => {
     userEvent.click(dartStuckYesRadio);
     userEvent.click(dartRetrievedNoRadio);
     userEvent.click(sampleTypeSkinAndBlubberRadio);
+
+    await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
+    userEvent.click(sexMaleFemaleRadio);
+    userEvent.click(whaleAgeRadio);
 
     fireEvent(
       getByTestId("Upper Dorsal"),
@@ -170,6 +177,9 @@ describe("BiopsyForm", () => {
       dartHit: "Yes",
       dartStuck: "Yes",
       dartRetrieved: "No",
+      whaleId: "whale id",
+      sex: "male",
+      age: "juvenile",
       sampleType: "Skin",
       species: "Sperm whale",
       samplerName: "Bruce Wayne",
