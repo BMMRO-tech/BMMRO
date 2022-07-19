@@ -51,9 +51,6 @@ const BiopsyForm = ({
 
   const getTotalSpecimens = (specimens) => {
     let total = 0;
-    if (specimens === undefined || specimens === null) {
-      return total;
-    }
     for (const specimen of specimens) {
       if (
         specimen.specimenNumber ||
