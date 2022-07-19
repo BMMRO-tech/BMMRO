@@ -66,7 +66,7 @@ describe("BiopsyForm", () => {
     const sampleTypeSkinAndBlubberRadio = getByLabelText("Skin & blubber");
     const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
     const whaleIdInput = getByRole("textbox", { name: "WhaleID" });
-    const sexMaleFemaleRadio = getByTestId("field-sex-male");
+    const sexMaleRadio = getByTestId("field-sex-male");
     const whaleAgeRadio = getByTestId("field-age-juvenile");
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
@@ -121,7 +121,7 @@ describe("BiopsyForm", () => {
     userEvent.click(sampleTypeSkinAndBlubberRadio);
 
     await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
-    userEvent.click(sexMaleFemaleRadio);
+    userEvent.click(sexMaleRadio);
     userEvent.click(whaleAgeRadio);
 
     fireEvent(
@@ -156,6 +156,9 @@ describe("BiopsyForm", () => {
       expect(formValues.dartRetrieved).toEqual("No");
       expect(formValues.sampleType).toEqual("Skin & blubber");
       expect(formValues.sampleNumber).toEqual("md0397");
+      expect(formValues.whaleID).toEqual("whale id");
+      expect(formValues.sex).toEqual("male");
+      expect(formValues.age).toEqual("juvenile");
       expect(formValues.totalSpecimens).toEqual(2);
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");

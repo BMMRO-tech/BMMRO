@@ -44,6 +44,9 @@ const BiopsyForm = ({
     section: css`
       background-color: none;
     `,
+    whaleAgeRadioGroup: css`
+      grid-column: span 2;
+    `,
   };
   const checkingValidation = (isPositionalData) => {
     setClosedPositionalModal(isPositionalData);
@@ -218,18 +221,20 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
-                  <RadioGroup
-                    name="age"
-                    labelText="Age"
-                    options={[
-                      { label: "Calf", value: "calf" },
-                      { label: "Juvenile", value: "juvenile" },
-                      { label: "SubAdult", value: "subadult" },
-                      { label: "Adult", value: "Adult" },
-                      { label: "Unknown", value: "unknown" },
-                    ]}
-                    isDisabled={isViewOnly}
-                  />
+                  <div css={styles.whaleAgeRadioGroup}>
+                    <RadioGroup
+                      name="age"
+                      labelText="Age"
+                      options={[
+                        { label: "Calf", value: "calf" },
+                        { label: "Juvenile", value: "juvenile" },
+                        { label: "SubAdult", value: "subadult" },
+                        { label: "Adult", value: "Adult" },
+                        { label: "Unknown", value: "unknown" },
+                      ]}
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
                 </FormSection>
                 <ListHeader title="Select dart hit area" />
                 <DartHitSection
