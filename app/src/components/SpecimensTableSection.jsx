@@ -68,7 +68,8 @@ const SpecimensTableSection = ({
               <label>Tissue storage</label>
             </FormSection>
           </div>
-          {specimens.length > 0 &&
+          {specimens &&
+            specimens.length > 0 &&
             specimens.map((specimens, index) => (
               <div className="row" key={index} hidden={isTableHidden}>
                 <FormSection isOneLine4Elements>
