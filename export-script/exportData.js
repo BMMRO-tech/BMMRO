@@ -83,7 +83,8 @@ const exportData = async (startDateArg, endDateArg, options) => {
       biopsySubcollection,
       specimenSubcollection
     );
-    specimen.collectionType = "biopsy";
+
+    specimen.forEach(specimen => specimen.collectionType = "biopsy");
     specimenEntries.push(...specimen);
   }
 
