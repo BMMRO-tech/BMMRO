@@ -17,4 +17,17 @@ export default {
   sampleType: "",
   exported: false,
   hasEnded: false,
+  animalReactions: [
+    {Shake: false}, 
+    {Startle: false}, 
+    {"Tail Splash": false}, 
+    {"Tail Slap": false}, 
+    {Lunge: false}, 
+    {Breach: false}, 
+    {Dive: false}, 
+    {Porpoising: false}, 
+    {Flight: false}, 
+    {"Prolonged Flight": false}, 
+    {"Direction Change": false}
+  ]
 };

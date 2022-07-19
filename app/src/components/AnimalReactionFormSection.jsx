@@ -9,7 +9,7 @@ const AnimalReactionFormSection = ({ isViewOnly }) => {
     return (
         <FormSection>
                <div>
-               <h4> Behvaiour </h4>
+               <h4> Behaviour </h4>
                 {animalReactions.map((reaction) => (
                     <Checkbox
                         key={reaction}

@@ -8,8 +8,8 @@ import animalReactions from "../../constants/formOptions/animalReactions";
 import AnimalReactionFormSection from "../AnimalReactionFormSection";
 import { fireEvent } from "@testing-library/react";
 
-describe.skip("AnimalReactionFormSection", () => {
-    it("has a list of animal behvaiour checkboxes present", async () => {
+describe("AnimalReactionFormSection", () => {
+    it.skip("has a list of animal behvaiour checkboxes present", async () => {
         const { getByRole, getFormValues, getByTestId, getByLabelText } = renderWithinFormik(
             <AnimalReactionFormSection isViewOnly={false} title="Behaviour"/>,
           );
