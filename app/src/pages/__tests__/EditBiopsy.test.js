@@ -28,7 +28,7 @@ describe("EditBiopsy", () => {
   it("navigates to encounter overview page if no biopsy is found in firestore for a given ID", async () => {
     const { id } = await firestoreEmulator
       .collection("encounter")
-      .add({ name: "Barney", species: "Bottlenose f" });
+      .add({ name: "Barney", species: "Bottlenose dolphin" });
 
     await firestoreEmulator
       .doc(`encounter/${id}`)
