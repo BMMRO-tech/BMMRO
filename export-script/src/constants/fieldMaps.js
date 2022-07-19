@@ -135,6 +135,7 @@ module.exports = {
     Longitude: { key: "longitude" },
     "Attempt #": { key: "attempt" },
     "Sampler's name": { key: "samplerName" },
+    "Sample #" : { key: "sampleNumber" },
     "Total specimens": { key: "totalSpecimens" },
     "Area Hit": { key: "areaHit" },
     "Side Hit": { key: "whaleSide" },
@@ -147,9 +148,35 @@ module.exports = {
       transform: convertSkinAndBlubberToBool,
     },
   },
+  specimen: {
+    Area: {key: "area"},
+    Date: { key : "dateTaken", transform: convertUnixTimestampToMDY },
+    Species: {key: "species"},
+    "Sample #": {key: "sampleNumber"},
+    "Sequence #": { key: "encSeqNo" },
+    Latitude: { key: "latitude" },
+    Longitude: { key: "longitude" },
+    Time: { key: "timeTaken" },
+    "Attempt #": { key: "attempt" },
+    "Collection Type": { key: "collectionType"},
+    "Specimen #": { key: "specimenNumber" },
+    Type : { key: "sampleType" },
+    Storage: { key: "storageType" }
+  },
   subCollectionToEncounter: {
     area: "area",
     encSeqNo: "sequenceNumber",
     date: "startTimestamp",
   },
+  biopsyToSpecimen: {
+    species : "species",
+    sampleNumber: "sampleNumber",
+    encSeqNo: "encSeqNo",
+    dateTaken: "dateTaken",
+    latitude: "latitude",
+    longitude: "longitude",
+    area: "area",
+    timeTaken: "timeTaken",
+    attempt: "attempt"
+  }
 };
