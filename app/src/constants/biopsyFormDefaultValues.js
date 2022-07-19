@@ -16,6 +16,9 @@ export default {
   dartStuck: "",
   dartRetrieved: "",
   sampleType: "",
+  whaleID: "",
+  sex: "",
+  age: "",
   exported: false,
   hasEnded: false,
   specimens: [
