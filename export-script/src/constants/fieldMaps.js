@@ -154,7 +154,7 @@ module.exports = {
     "Projector Model": { key: "model"},
     "Tip dimensions": { key: "tipLength"},
     "Range (m)": { key: "range"},
-    "Angle": { key: "angle"},
+    Angle: { key: "angle"},
   },
   specimen: {
     Area: { key: "area" },

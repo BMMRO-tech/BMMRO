@@ -290,7 +290,7 @@ const BiopsyForm = ({
                     name="angle"
                     labelText="Angle"
                     minValue={0}
-                    maxValue={180}
+                    maxValue={360}
                     isShort
                     isDisabled={isViewOnly}
                   />
