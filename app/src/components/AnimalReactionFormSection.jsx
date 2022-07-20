@@ -12,25 +12,24 @@ const styles = {
     display: inline-flex;
     padding-right: 100px;
     flex-wrap: wrap;
-  `
+  `,
 };
 
 const AnimalReactionFormSection = ({ isViewOnly, subject }) => {
   return (
-    
-      <div css={styles.doubleGrid}>
-        <label css={fieldStyles.label}>Behaviour</label>
-        <div css={styles.checkboxes}>
+    <div css={styles.doubleGrid}>
+      <label css={fieldStyles.label}>Behaviour</label>
+      <div css={styles.checkboxes}>
         {animalReactions.map((reaction) => (
           <Checkbox
-            key={subject+"-"+reaction}
-            name={subject+"-"+reaction}
+            key={subject + "Behaviour." + reaction}
+            name={subject + "Behaviour." + reaction}
             labelText={reaction}
             isDisabled={isViewOnly}
           ></Checkbox>
         ))}
-        </div>
       </div>
+    </div>
   );
 };
 

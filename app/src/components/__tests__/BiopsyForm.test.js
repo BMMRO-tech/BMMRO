@@ -73,9 +73,10 @@ describe("BiopsyForm", () => {
     );
     const extentAllAnimalsRadio = getByTestId("field-extent-All animals");
 
-    const targetAnimalBreachCheckbox = getByTestId("field-targetAnimal-Breach");
-    const nonTargetAnimalBreachCheckbox = getByTestId("field-non-targetAnimal-Breach");
-    
+    const targetAnimalBreachCheckbox = getByTestId("field-targetAnimalBehaviour.Breach");
+    const nonTargetAnimalBreachCheckbox = getByTestId(
+      "field-nonTargetAnimalBehaviour.Breach"
+    );
 
     const submitButton = getByRole("button", { name: "Save" });
 

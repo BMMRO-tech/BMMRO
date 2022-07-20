@@ -76,37 +76,6 @@ const BiopsyForm = ({
   const isValidPositionalData = (values) =>
     (values.longitude && values.latitude) || values.gpsMark;
 
-  const submitFormBehaviourValues = (subject, values) => {
-
-    const objectProduct = {
-      "Shake": values[subject + "Shake"],
-      "Startle": values[subject + "Startle"],
-      "Tail Splash": values[subject + "Tail Splash"],
-      "Tail Slap": values[subject + "Tail Slap"],
-      "Lunge": values[subject + "Lunge"],
-      "Breach": values[subject + "Breach"],
-      "Dive": values[subject + "Dive"],
-      "Porpoising": values[subject + "Porpoising"],
-      "Flight": values[subject + "Flight"],
-      "Prolonged Flight": values[subject + "Prolonged Flight"],
-      "Direction Change": values[subject + "Direction Change"],
-    };
-
-    delete values[subject + "Shake"];
-    delete values[subject + "Startle"];
-    delete values[subject + "Tail Splash"];
-    delete values[subject + "Tail Slap"];
-    delete values[subject + "Lunge"];
-    delete values[subject + "Breach"];
-    delete values[subject + "Dive"];
-    delete values[subject + "Porpoising"];
-    delete values[subject + "Flight"];
-    delete values[subject + "Prolonged Flight"];
-    delete values[subject + "Direction Change"];
-
-    return objectProduct;
-  };
-
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
@@ -114,8 +83,6 @@ const BiopsyForm = ({
           initialValues={initValues}
           onSubmit={(values) => {
             values.areaHit = areaHitResult;
-            values.targetAnimalBehaviour = submitFormBehaviourValues("targetAnimal-", values);
-            values.nonTargetAnimalBehaviour = submitFormBehaviourValues("non-targetAnimal-", values);
             isValidPositionalData(values)
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
@@ -229,21 +196,24 @@ const BiopsyForm = ({
                 <ListHeader title="Target animal reaction" />
                 <FormSection>
                   <div css={styles.inlineContainer}>
-                  <RadioGroup
-                    name="reactionStrength"
-                    labelText="Strength"
-                    options={[
-                      { label: "None", value: "None" },
-                      { label: "Slight", value: "Slight" },
-                      { label: "Moderate", value: "Moderate" },
-                      { label: "Strong", value: "Strong" },
-                    ]}
-                    isDisabled={isViewOnly}
-                  />
+                    <RadioGroup
+                      name="reactionStrength"
+                      labelText="Strength"
+                      options={[
+                        { label: "None", value: "None" },
+                        { label: "Slight", value: "Slight" },
+                        { label: "Moderate", value: "Moderate" },
+                        { label: "Strong", value: "Strong" },
+                      ]}
+                      isDisabled={isViewOnly}
+                    />
                   </div>
-                  <AnimalReactionFormSection isViewOnly={isViewOnly} subject="targetAnimal"/>
+                  <AnimalReactionFormSection
+                    isViewOnly={isViewOnly}
+                    subject="targetAnimal"
+                  />
                 </FormSection>
-                
+
                 <ListHeader title="Non-Target animal reaction" />
                 <FormSection>
                   <RadioGroup
@@ -256,10 +226,11 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
-                    <AnimalReactionFormSection isViewOnly={isViewOnly} subject="non-targetAnimal" />
-                  </FormSection>
-  
-                 
+                  <AnimalReactionFormSection
+                    isViewOnly={isViewOnly}
+                    subject="nonTargetAnimal"
+                  />
+                </FormSection>
               </section>
               {!isViewOnly && (
                 <div css={utilities.sticky.footerContainer}>
