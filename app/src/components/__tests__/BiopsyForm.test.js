@@ -1,8 +1,11 @@
 import React from "react";
 import { act, render, waitFor, fireEvent } from "@testing-library/react";
+import { configure } from "@testing-library/dom";
 import BiopsyForm from "../BiopsyForm";
 
 import userEvent from "@testing-library/user-event";
+
+configure({ asyncUtilTimeout: 12000 });
 
 describe("BiopsyForm", () => {
   beforeAll(() => {
