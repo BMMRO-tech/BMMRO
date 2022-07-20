@@ -167,7 +167,7 @@ module.exports = {
     Storage: { key: "storageType" },
     "Whale ID": { key: "whaleID" },
     Sex: { key: "sex" },
-    Age: { key: "age" },
+    "Age Class": { key: "age" },
   },
   subCollectionToEncounter: {
     area: "area",
