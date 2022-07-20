@@ -19,6 +19,11 @@ export default {
   whaleID: "",
   sex: "",
   age: "",
+  projectorType: "",
+  model: "",
+  tipLength: "",
+  range: "",
+  angle: "",
   exported: false,
   hasEnded: false,
   specimens: [

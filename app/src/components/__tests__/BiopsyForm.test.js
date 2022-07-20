@@ -71,6 +71,13 @@ describe("BiopsyForm", () => {
     const whaleIdInput = getByRole("textbox", { name: "WhaleID" });
     const sexMaleRadio = getByTestId("field-sex-male");
     const whaleAgeRadio = getByTestId("field-age-juvenile");
+    const projectorTypeCrossbowRadio = getByTestId(
+      "field-projectorType-Crossbow"
+    );
+    const modelInput = getByRole("textbox", { name: "Model" });
+    const tipLengthInput = getByTestId("field-tipLength");
+    const rangeInput = getByTestId("field-range");
+    const angleInput = getByTestId("field-angle");
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
       "field-specimens.0.specimenNumber"
@@ -141,6 +148,12 @@ describe("BiopsyForm", () => {
     const dorsalHitRadio = getByTestId("field-dorsalHit-Yes");
     fireEvent.click(dorsalHitRadio);
 
+    userEvent.click(projectorTypeCrossbowRadio);
+    await userEvent.type(modelInput, "15.12", { delay: 1 });
+    await userEvent.type(tipLengthInput, "12.2", { delay: 1 });
+    await userEvent.type(rangeInput, "20", { delay: 1 });
+    await userEvent.type(angleInput, "90", { delay: 1 });
+
     userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -166,6 +179,11 @@ describe("BiopsyForm", () => {
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");
+      expect(formValues.model).toEqual("15.12");
+      expect(formValues.tipLength).toEqual(12.2);
+      expect(formValues.range).toEqual(20);
+      expect(formValues.angle).toEqual(90);
+      expect(formValues.projectorType).toEqual("Crossbow");
       expect(formValues.specimens[1].specimenNumber).toEqual("4");
       expect(formValues.specimens[1].sampleType).toEqual("Skin");
       expect(formValues.specimens[1].storageType).toEqual("-80");
@@ -195,6 +213,11 @@ describe("BiopsyForm", () => {
       latitude: "1.234567",
       longitude: "-2.345678",
       gpsMark: 12,
+      projectorType: "Crossbow",
+      model: 12,
+      tipLength: 15,
+      range: 50,
+      angle: 45,
       totalSpecimens: 3,
       specimens: [
         {

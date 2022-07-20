@@ -9,6 +9,7 @@ import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
 import DateInput from "./formFields/DateInput/DateInput";
 import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
+import NumberInput from "./formFields/NumberInput/NumberInput";
 import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
@@ -249,6 +250,51 @@ const BiopsyForm = ({
                   isViewOnly={isViewOnly}
                   getTotalSpecimens={getTotalSpecimens}
                 />
+
+                <ListHeader title="Projector Details" />
+                <FormSection>
+                  <RadioGroup
+                    name="projectorType"
+                    labelText=""
+                    options={[
+                      { label: "Rifle", value: "Rifle" },
+                      { label: "Crossbow", value: "Crossbow" },
+                      { label: "Pole", value: "Pole" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="model"
+                    labelText="Model"
+                    maxLength={255}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="tipLength"
+                    labelText="Tip (mm)"
+                    minValue={0}
+                    maxValue={1000}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="range"
+                    labelText="Range (m)"
+                    minValue={0}
+                    maxValue={100}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="angle"
+                    labelText="Angle"
+                    minValue={0}
+                    maxValue={180}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
               </section>
               {!isViewOnly && (
                 <div css={utilities.sticky.footerContainer}>
