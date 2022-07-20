@@ -150,6 +150,11 @@ module.exports = {
     "Whale ID": { key: "whaleID" },
     Sex: { key: "sex" },
     Age: { key: "age" },
+    "Projector Type": { key: "projectorType"},
+    "Projector Model": { key: "model"},
+    "Tip dimensions": { key: "tipLength"},
+    "Range (m)": { key: "range"},
+    "Angle": { key: "angle"},
   },
   specimen: {
     Area: { key: "area" },
