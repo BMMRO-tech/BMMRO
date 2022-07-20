@@ -91,14 +91,26 @@ const BiopsyForm = ({
   const isValidPositionalData = (values) =>
     (values.longitude && values.latitude) || values.gpsMark;
 
+  const decorateValuesToSubmit = (values) => {
+    const output = { ...values };
+
+    output.areaHit = areaHitResult;
+    if (output.areaHit !== "Upper Dorsal") {
+      output.dorsalHit = "";
+    }
+
+    output.totalSpecimens = getTotalSpecimens(values.specimens);
+
+    return output;
+  };
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
           initialValues={initValues}
           onSubmit={(values) => {
-            values.areaHit = areaHitResult;
-            values.totalSpecimens = getTotalSpecimens(values.specimens);
+            values = decorateValuesToSubmit(values);
             isValidPositionalData(values)
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
