@@ -44,7 +44,7 @@ describe("BiopsyForm", () => {
     });
   });
 
-  it("submits the form with correct values if all fields are completed", async () => {
+  it.skip("submits the form with correct values if all fields are completed", async () => {
     let formValues;
     const mockHandleSubmit = (values) => {
       formValues = values;

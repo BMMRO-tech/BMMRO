@@ -10,15 +10,15 @@ const styles = {
   `,
 };
 
-const AnimalReactionFormSection = ({ isViewOnly }) => {
+const AnimalReactionFormSection = ({ isViewOnly, subject }) => {
   return (
     <FormSection css={styles.doubleGrid}>
       <div>
         <h4> Behaviour </h4>
         {animalReactions.map((reaction) => (
           <Checkbox
-            key={reaction}
-            name={reaction}
+            key={{subject}+"."+{reaction}}
+            name={{subject}+"."+{reaction}}
             labelText={reaction}
             isDisabled={isViewOnly}
           ></Checkbox>

@@ -75,29 +75,29 @@ const BiopsyForm = ({
 
   const submitFormBehaviourValues = (values) => {
     const objectProduct = {
-      Shake: values["Shake"],
-      Startle: values["Startle"],
-      "Tail Splash": values["Tail Splash"],
-      "Tail Slap": values["Tail Slap"],
-      Breach: values["Breach"],
-      Dive: values["Dive"],
-      Porpoising: values["Porpoising"],
-      Flight: values["Flight"],
-      "Prolonged Flight": values["Prolonged Flight"],
-      "Direction Change": values["Direction Change"],
+      "targetAnimal.Shake": values["targetAnimal.Shake"],
+      "targetAnimal.Startle": values["targetAnimal.Startle"],
+      "targetAnimal.Tail Splash": values["targetAnimal.Tail Splash"],
+      "targetAnimal.Tail Slap": values["targetAnimal.Tail Slap"],
+      "targetAnimal.Breach": values["targetAnimal.Breach"],
+      "targetAnimal.Dive": values["targetAnimal.Dive"],
+      "targetAnimal.Porpoising": values["targetAnimal.Porpoising"],
+      "targetAnimal.Flight": values["targetAnimal.Flight"],
+      "targetAnimal.Prolonged Flight": values["targetAnimal.Prolonged Flight"],
+      "targetAnimal.Direction Change": values["targetAnimal.Direction Change"],
     };
 
-    delete values["Shake"];
-    delete values["Startle"];
-    delete values["Tail Splash"];
-    delete values["Tail Slap"];
-    delete values["Lunge"];
-    delete values["Breach"];
-    delete values["Dive"];
-    delete values["Porpoising"];
-    delete values["Flight"];
-    delete values["Prolonged Flight"];
-    delete values["Direction Change"];
+    delete values["targetAnimal.Shake"];
+    delete values["targetAnimal.Startle"];
+    delete values["targetAnimal.Tail Splash"];
+    delete values["targetAnimal.Tail Slap"];
+    delete values["targetAnimal.Lunge"];
+    delete values["targetAnimal.Breach"];
+    delete values["targetAnimal.Dive"];
+    delete values["targetAnimal.Porpoising"];
+    delete values["targetAnimal.Flight"];
+    delete values["targetAnimal.Prolonged Flight"];
+    delete values["targetAnimal.Direction Change"];
 
     values.targetAnimalBehaviour = objectProduct;
     return values;
@@ -236,7 +236,7 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
-                  <AnimalReactionFormSection isViewOnly={isViewOnly} />
+                  <AnimalReactionFormSection isViewOnly={isViewOnly} subject="targetAnimal" />
                 </FormSection>
                 <FormSection>
                   <RadioGroup
