@@ -44,7 +44,7 @@ describe("BiopsyForm", () => {
     });
   });
 
-  it.skip("submits the form with correct values if all fields are completed", async () => {
+  it("submits the form with correct values if all fields are completed", async () => {
     let formValues;
     const mockHandleSubmit = (values) => {
       formValues = values;
@@ -73,7 +73,9 @@ describe("BiopsyForm", () => {
     );
     const extentAllAnimalsRadio = getByTestId("field-extent-All animals");
 
-    const breachCheckbox = getByRole("checkbox", { name: "Breach" });
+    const targetAnimalBreachCheckbox = getByTestId("field-targetAnimal-Breach");
+    const nonTargetAnimalBreachCheckbox = getByTestId("field-non-targetAnimal-Breach");
+    
 
     const submitButton = getByRole("button", { name: "Save" });
 
@@ -91,9 +93,10 @@ describe("BiopsyForm", () => {
     userEvent.click(dartStuckYesRadio);
     userEvent.click(dartRetrievedNoRadio);
     userEvent.click(sampleTypeSkinRadio);
-    userEvent.click(breachCheckbox);
+    userEvent.click(targetAnimalBreachCheckbox);
     userEvent.click(reactionStrengthStrongRadio);
     userEvent.click(extentAllAnimalsRadio);
+    userEvent.click(nonTargetAnimalBreachCheckbox);
 
     fireEvent(
       getByTestId("Upper Dorsal"),
@@ -134,6 +137,8 @@ describe("BiopsyForm", () => {
       expect(formValues.extent).toEqual("All animals");
       expect(formValues.targetAnimalBehaviour.Breach).toEqual(true);
       expect(formValues.targetAnimalBehaviour.Dive).toEqual(false);
+      expect(formValues.nonTargetAnimalBehaviour.Breach).toEqual(true);
+      expect(formValues.nonTargetAnimalBehaviour.Dive).toEqual(false);
     });
   });
 

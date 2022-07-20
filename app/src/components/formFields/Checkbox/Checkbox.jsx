@@ -1,7 +1,15 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import fieldStyles from "../fieldStyles";
 import { useField } from "formik";
+
+
+const styles = {
+  checkboxContainer: css`
+    padding: 10px 0px 10px 15px
+  `
+};
+
 
 const Checkbox = ({ name, labelText, isDisabled }) => {
   const [field] = useField({
@@ -9,7 +17,7 @@ const Checkbox = ({ name, labelText, isDisabled }) => {
   });
 
   return (
-    <div>
+    <div css={styles.checkboxContainer}>
       <label css={fieldStyles.label}>
         <div css={fieldStyles.inputContainer}>
           {labelText}

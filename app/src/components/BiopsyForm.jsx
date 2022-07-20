@@ -44,6 +44,9 @@ const BiopsyForm = ({
     section: css`
       background-color: none;
     `,
+    inlineContainer: css`
+      grid-column: span 2;
+    `,
   };
   const checkingValidation = (isPositionalData) => {
     setClosedPositionalModal(isPositionalData);
@@ -73,34 +76,35 @@ const BiopsyForm = ({
   const isValidPositionalData = (values) =>
     (values.longitude && values.latitude) || values.gpsMark;
 
-  const submitFormBehaviourValues = (values) => {
+  const submitFormBehaviourValues = (subject, values) => {
+
     const objectProduct = {
-      "targetAnimal.Shake": values["targetAnimal.Shake"],
-      "targetAnimal.Startle": values["targetAnimal.Startle"],
-      "targetAnimal.Tail Splash": values["targetAnimal.Tail Splash"],
-      "targetAnimal.Tail Slap": values["targetAnimal.Tail Slap"],
-      "targetAnimal.Breach": values["targetAnimal.Breach"],
-      "targetAnimal.Dive": values["targetAnimal.Dive"],
-      "targetAnimal.Porpoising": values["targetAnimal.Porpoising"],
-      "targetAnimal.Flight": values["targetAnimal.Flight"],
-      "targetAnimal.Prolonged Flight": values["targetAnimal.Prolonged Flight"],
-      "targetAnimal.Direction Change": values["targetAnimal.Direction Change"],
+      "Shake": values[subject + "Shake"],
+      "Startle": values[subject + "Startle"],
+      "Tail Splash": values[subject + "Tail Splash"],
+      "Tail Slap": values[subject + "Tail Slap"],
+      "Lunge": values[subject + "Lunge"],
+      "Breach": values[subject + "Breach"],
+      "Dive": values[subject + "Dive"],
+      "Porpoising": values[subject + "Porpoising"],
+      "Flight": values[subject + "Flight"],
+      "Prolonged Flight": values[subject + "Prolonged Flight"],
+      "Direction Change": values[subject + "Direction Change"],
     };
 
-    delete values["targetAnimal.Shake"];
-    delete values["targetAnimal.Startle"];
-    delete values["targetAnimal.Tail Splash"];
-    delete values["targetAnimal.Tail Slap"];
-    delete values["targetAnimal.Lunge"];
-    delete values["targetAnimal.Breach"];
-    delete values["targetAnimal.Dive"];
-    delete values["targetAnimal.Porpoising"];
-    delete values["targetAnimal.Flight"];
-    delete values["targetAnimal.Prolonged Flight"];
-    delete values["targetAnimal.Direction Change"];
+    delete values[subject + "Shake"];
+    delete values[subject + "Startle"];
+    delete values[subject + "Tail Splash"];
+    delete values[subject + "Tail Slap"];
+    delete values[subject + "Lunge"];
+    delete values[subject + "Breach"];
+    delete values[subject + "Dive"];
+    delete values[subject + "Porpoising"];
+    delete values[subject + "Flight"];
+    delete values[subject + "Prolonged Flight"];
+    delete values[subject + "Direction Change"];
 
-    values.targetAnimalBehaviour = objectProduct;
-    return values;
+    return objectProduct;
   };
 
   return (
@@ -110,7 +114,8 @@ const BiopsyForm = ({
           initialValues={initValues}
           onSubmit={(values) => {
             values.areaHit = areaHitResult;
-            values = submitFormBehaviourValues(values);
+            values.targetAnimalBehaviour = submitFormBehaviourValues("targetAnimal-", values);
+            values.nonTargetAnimalBehaviour = submitFormBehaviourValues("non-targetAnimal-", values);
             isValidPositionalData(values)
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
@@ -221,10 +226,9 @@ const BiopsyForm = ({
                   setAreaHitResult={setAreaHitResult}
                   isViewOnly={isViewOnly}
                 />
-                <ListHeader title="Animal reactions" />
+                <ListHeader title="Target animal reaction" />
                 <FormSection>
-                  <h3> Target animal reaction</h3>
-
+                  <div css={styles.inlineContainer}>
                   <RadioGroup
                     name="reactionStrength"
                     labelText="Strength"
@@ -236,8 +240,11 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
-                  <AnimalReactionFormSection isViewOnly={isViewOnly} subject="targetAnimal" />
+                  </div>
+                  <AnimalReactionFormSection isViewOnly={isViewOnly} subject="targetAnimal"/>
                 </FormSection>
+                
+                <ListHeader title="Non-Target animal reaction" />
                 <FormSection>
                   <RadioGroup
                     name="extent"
@@ -249,7 +256,10 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
-                </FormSection>
+                    <AnimalReactionFormSection isViewOnly={isViewOnly} subject="non-targetAnimal" />
+                  </FormSection>
+  
+                 
               </section>
               {!isViewOnly && (
                 <div css={utilities.sticky.footerContainer}>
