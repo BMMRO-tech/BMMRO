@@ -66,6 +66,8 @@ describe("BiopsyForm", () => {
     const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinAndBlubberRadio = getByLabelText("Skin & blubber");
+    const photographerInitialsInput = getByRole("textbox", { name: "Photographer" });
+    const videoTakenYesRadio = getByTestId("field-video-Yes");
     const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
     const whaleIdInput = getByRole("textbox", { name: "WhaleID" });
     const sexMaleRadio = getByTestId("field-sex-male");
@@ -145,6 +147,9 @@ describe("BiopsyForm", () => {
     userEvent.click(nonTargetAnimalBreachCheckbox);
     userEvent.click(sampleTypeSkinAndBlubberRadio);
 
+    await userEvent.type(photographerInitialsInput, "Test Initials", { delay: 1 });
+    userEvent.click(videoTakenYesRadio);
+
     await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
     userEvent.click(sexMaleRadio);
     userEvent.click(whaleAgeRadio);
@@ -187,6 +192,8 @@ describe("BiopsyForm", () => {
       expect(formValues.dartRetrieved).toEqual("No");
       expect(formValues.sampleType).toEqual("Skin & blubber");
       expect(formValues.sampleNumber).toEqual("md0397");
+      expect(formValues.photographerInitials).toEqual("Test Initials");
+      expect(formValues.video).toEqual("Yes");
       expect(formValues.whaleID).toEqual("whale id");
       expect(formValues.sex).toEqual("male");
       expect(formValues.age).toEqual("juvenile");

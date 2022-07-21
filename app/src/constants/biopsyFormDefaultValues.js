@@ -16,6 +16,8 @@ export default {
   dartStuck: "",
   dartRetrieved: "",
   sampleType: "",
+  photographerInitials: "",
+  video: "",
   whaleID: "",
   sex: "",
   age: "",
