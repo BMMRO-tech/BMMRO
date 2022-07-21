@@ -5,7 +5,7 @@ import BiopsyForm from "../BiopsyForm";
 
 import userEvent from "@testing-library/user-event";
 
-configure({ asyncUtilTimeout: 12000 });
+configure({ asyncUtilTimeout: 20000 });
 
 describe("BiopsyForm", () => {
   beforeAll(() => {
