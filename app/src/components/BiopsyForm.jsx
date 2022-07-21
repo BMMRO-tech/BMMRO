@@ -20,6 +20,7 @@ import PositionalValidationModal from "./PositionalValidationModal";
 import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
+import AnimalReactionFormSection from "./AnimalReactionFormSection";
 import SpecimensTableSection from "./SpecimensTableSection";
 
 const BiopsyForm = ({
@@ -45,7 +46,7 @@ const BiopsyForm = ({
     section: css`
       background-color: none;
     `,
-    whaleAgeRadioGroup: css`
+    inlineContainer: css`
       grid-column: span 2;
     `,
   };
@@ -234,7 +235,7 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
-                  <div css={styles.whaleAgeRadioGroup}>
+                  <div css={styles.inlineContainer}>
                     <RadioGroup
                       name="age"
                       labelText="Age"
@@ -255,7 +256,44 @@ const BiopsyForm = ({
                   setAreaHitResult={setAreaHitResult}
                   isViewOnly={isViewOnly}
                 />
-                <br />
+                <ListHeader title="Target animal reaction" />
+                <FormSection>
+                  <div css={styles.inlineContainer}>
+                    <RadioGroup
+                      name="reactionStrength"
+                      labelText="Strength"
+                      options={[
+                        { label: "None", value: "None" },
+                        { label: "Slight", value: "Slight" },
+                        { label: "Moderate", value: "Moderate" },
+                        { label: "Strong", value: "Strong" },
+                      ]}
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
+                  <AnimalReactionFormSection
+                    isViewOnly={isViewOnly}
+                    subject="targetAnimal"
+                  />
+                </FormSection>
+
+                <ListHeader title="Non-Target animal reaction" />
+                <FormSection>
+                  <RadioGroup
+                    name="extent"
+                    labelText="Extent"
+                    options={[
+                      { label: "None", value: "None" },
+                      { label: "Sub-group", value: "Sub-group" },
+                      { label: "All animals", value: "All animals" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <AnimalReactionFormSection
+                    isViewOnly={isViewOnly}
+                    subject="nonTargetAnimal"
+                  />
+                </FormSection>
                 <ListHeader title="Specimens" />
                 <SpecimensTableSection
                   specimens={values.specimens}

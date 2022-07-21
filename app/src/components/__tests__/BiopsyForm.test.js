@@ -1,11 +1,10 @@
 import React from "react";
 import { act, render, waitFor, fireEvent } from "@testing-library/react";
-import { configure } from "@testing-library/dom";
 import BiopsyForm from "../BiopsyForm";
-
+import { configure } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 
-configure({ asyncUtilTimeout: 12000 });
+configure({ asyncUtilTimeout: 40000 });
 
 describe("BiopsyForm", () => {
   beforeAll(() => {
@@ -99,6 +98,18 @@ describe("BiopsyForm", () => {
       "field-specimens.0.storageType"
     );
 
+    const reactionStrengthStrongRadio = getByTestId(
+      "field-reactionStrength-Strong"
+    );
+    const extentAllAnimalsRadio = getByTestId("field-extent-All animals");
+
+    const targetAnimalBreachCheckbox = getByTestId(
+      "field-targetAnimalBehaviour.breach"
+    );
+    const nonTargetAnimalBreachCheckbox = getByTestId(
+      "field-nonTargetAnimalBehaviour.breach"
+    );
+
     const submitButton = getByRole("button", { name: "Save" });
 
     userEvent.selectOptions(speciesInput, "Fin whale");
@@ -128,6 +139,10 @@ describe("BiopsyForm", () => {
     userEvent.click(dartHitYesRadio);
     userEvent.click(dartStuckYesRadio);
     userEvent.click(dartRetrievedNoRadio);
+    userEvent.click(targetAnimalBreachCheckbox);
+    userEvent.click(reactionStrengthStrongRadio);
+    userEvent.click(extentAllAnimalsRadio);
+    userEvent.click(nonTargetAnimalBreachCheckbox);
     userEvent.click(sampleTypeSkinAndBlubberRadio);
 
     await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
@@ -179,6 +194,12 @@ describe("BiopsyForm", () => {
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");
+      expect(formValues.reactionStrength).toEqual("Strong");
+      expect(formValues.extent).toEqual("All animals");
+      expect(formValues.targetAnimalBehaviour.breach).toEqual(true);
+      expect(formValues.targetAnimalBehaviour.dive).toEqual(false);
+      expect(formValues.nonTargetAnimalBehaviour.breach).toEqual(true);
+      expect(formValues.nonTargetAnimalBehaviour.dive).toEqual(false);
       expect(formValues.model).toEqual("15.12");
       expect(formValues.tipLength).toEqual(12.2);
       expect(formValues.range).toEqual(20);
@@ -219,6 +240,34 @@ describe("BiopsyForm", () => {
       range: 50,
       angle: 45,
       totalSpecimens: 3,
+      targetAnimalBehaviour: {
+        accelerated: true,
+        shake: false,
+        startle: false,
+        tailSplash: false,
+        tailSlap: false,
+        lunge: false,
+        breach: false,
+        dive: true,
+        porpoising: false,
+        flight: false,
+        prolongedFlight: false,
+        directionChange: false,
+      },
+      nonTargetAnimalBehaviour: {
+        accelerated: true,
+        shake: false,
+        startle: false,
+        tailSplash: false,
+        tailSlap: true,
+        lunge: false,
+        breach: false,
+        dive: true,
+        porpoising: false,
+        flight: true,
+        prolongedFlight: false,
+        directionChange: true,
+      },
       specimens: [
         {
           specimenNumber: "S1",

@@ -11,7 +11,6 @@ const RadioGroup = ({ name, labelText, options, isRequired, isDisabled }) => {
   });
 
   const styles = getRadioGroupStyle();
-
   return (
     <div css={styles.radioGroupContainer}>
       <span css={styles.label}>{labelText}</span>
