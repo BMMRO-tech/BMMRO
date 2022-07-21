@@ -322,11 +322,11 @@ const BiopsyForm = ({
                   getTotalSpecimens={getTotalSpecimens}
                 />
 
-                <ListHeader title="Projector Details" />
+                <ListHeader title="Projector details" />
                 <FormSection>
                   <RadioGroup
                     name="projectorType"
-                    labelText=""
+                    labelText="Projector Type"
                     options={[
                       { label: "Rifle", value: "Rifle" },
                       { label: "Crossbow", value: "Crossbow" },
@@ -334,6 +334,8 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
+                </FormSection>
+                <FormSection>
                   <TextInput
                     name="model"
                     labelText="Model"
@@ -373,7 +375,6 @@ const BiopsyForm = ({
                     labelText="Before Biopsy"
                     isDisabled={isViewOnly}
                     isDouble
-                    maxLength={1000}
                   />
                   <TextAreaInput
                     name="groupBehaviourAfterBiopsy"
