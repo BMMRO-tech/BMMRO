@@ -83,13 +83,13 @@ describe("BiopsyForm", () => {
     const angleInput = getByTestId("field-angle");
 
     const groupBehaviourBeforeBiopsyInput = getByRole("textbox", {
-      name: "before biopsy:",
+      name: "Before Biopsy",
     });
     const groupBehaviourAfterBiopsyInput = getByRole("textbox", {
-      name: "after biopsy:",
+      name: "After Biopsy",
     });
     const otherObservationsInput = getByRole("textbox", {
-      name: "Other observations",
+      name: "Other Observations",
     });
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
