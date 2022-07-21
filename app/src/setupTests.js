@@ -7,4 +7,4 @@ import "@testing-library/jest-dom/extend-expect";
 import "mutationobserver-shim";
 global.MutationObserver = window.MutationObserver;
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);

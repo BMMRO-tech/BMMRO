@@ -22,6 +22,7 @@ import DartHitSection from "./DartHitSection";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import AnimalReactionFormSection from "./AnimalReactionFormSection";
 import SpecimensTableSection from "./SpecimensTableSection";
+import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 
 const BiopsyForm = ({
   initialValues,
@@ -218,20 +219,19 @@ const BiopsyForm = ({
                 </FormSection>
                 <ListHeader title="Evidence" />
                 <FormSection>
-                <TextInput
+                  <TextInput
                     name="photographerInitials"
                     labelText="Photographer"
                     maxLength={255}
                     isShort
                     isDisabled={isViewOnly}
                   />
-                   <RadioGroup
+                  <RadioGroup
                     name="video"
                     labelText="Video?"
                     options={[
                       { label: "Yes", value: "Yes" },
                       { label: "No", value: "No" },
-                  
                     ]}
                     isDisabled={isViewOnly}
                   />
@@ -349,6 +349,12 @@ const BiopsyForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
+                  <TextAreaInput
+                    name="groupBehaviourAfterBiopsy"
+                    labelText="after biopsy:"
+                    isDisabled={isViewOnly}
+                    isDouble
+                  />
                   <NumberInput
                     name="range"
                     labelText="Range (m)"
@@ -364,6 +370,25 @@ const BiopsyForm = ({
                     maxValue={360}
                     isShort
                     isDisabled={isViewOnly}
+                  />
+                </FormSection>
+                <ListHeader title="Group behaviour" />
+                <FormSection>
+                  <TextAreaInput
+                    name="groupBehaviourBeforeBiopsy"
+                    labelText="before biopsy:"
+                    isDisabled={isViewOnly}
+                    isDouble
+                    maxLength={1000}
+                  />
+                </FormSection>
+                <ListHeader title="Other observations" />
+                <FormSection>
+                  <TextAreaInput
+                    name="otherObservations"
+                    labelText="Other observations"
+                    isDisabled={isViewOnly}
+                    isDouble
                   />
                 </FormSection>
               </section>

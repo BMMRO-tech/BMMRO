@@ -66,7 +66,9 @@ describe("BiopsyForm", () => {
     const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
     const sampleTypeSkinAndBlubberRadio = getByLabelText("Skin & blubber");
-    const photographerInitialsInput = getByRole("textbox", { name: "Photographer" });
+    const photographerInitialsInput = getByRole("textbox", {
+      name: "Photographer",
+    });
     const videoTakenYesRadio = getByTestId("field-video-Yes");
     const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
     const whaleIdInput = getByRole("textbox", { name: "WhaleID" });
@@ -79,6 +81,16 @@ describe("BiopsyForm", () => {
     const tipLengthInput = getByTestId("field-tipLength");
     const rangeInput = getByTestId("field-range");
     const angleInput = getByTestId("field-angle");
+
+    const groupBehaviourBeforeBiopsyInput = getByRole("textbox", {
+      name: "before biopsy:",
+    });
+    const groupBehaviourAfterBiopsyInput = getByRole("textbox", {
+      name: "after biopsy:",
+    });
+    const otherObservationsInput = getByRole("textbox", {
+      name: "Other observations",
+    });
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
       "field-specimens.0.specimenNumber"
@@ -147,8 +159,14 @@ describe("BiopsyForm", () => {
     userEvent.click(nonTargetAnimalBreachCheckbox);
     userEvent.click(sampleTypeSkinAndBlubberRadio);
 
-    await userEvent.type(photographerInitialsInput, "Test Initials", { delay: 1 });
+    await userEvent.type(photographerInitialsInput, "Test Initials", {
+      delay: 1,
+    });
     userEvent.click(videoTakenYesRadio);
+
+    await userEvent.type(groupBehaviourBeforeBiopsyInput, "C", { delay: 1 });
+    await userEvent.type(groupBehaviourAfterBiopsyInput, "T", { delay: 1 });
+    await userEvent.type(otherObservationsInput, "H", { delay: 1 });
 
     await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
     userEvent.click(sexMaleRadio);
@@ -212,6 +230,9 @@ describe("BiopsyForm", () => {
       expect(formValues.range).toEqual(20);
       expect(formValues.angle).toEqual(90);
       expect(formValues.projectorType).toEqual("Crossbow");
+      expect(formValues.groupBehaviourBeforeBiopsy).toEqual("C");
+      expect(formValues.groupBehaviourAfterBiopsy).toEqual("T");
+      expect(formValues.otherObservations).toEqual("H");
       expect(formValues.specimens[1].specimenNumber).toEqual("4");
       expect(formValues.specimens[1].sampleType).toEqual("Skin");
       expect(formValues.specimens[1].storageType).toEqual("-80");
@@ -233,6 +254,8 @@ describe("BiopsyForm", () => {
       sex: "male",
       age: "juvenile",
       sampleType: "Skin",
+      photographerInitials: "Test Initials",
+      video: "Yes",
       species: "Sperm whale",
       samplerName: "Bruce Wayne",
       attempt: 4,
@@ -242,6 +265,9 @@ describe("BiopsyForm", () => {
       longitude: "-2.345678",
       gpsMark: 12,
       projectorType: "Crossbow",
+      groupBehaviourBeforeBiopsy: "C",
+      groupBehaviourAfterBiopsy: "T",
+      otherObservations: "H",
       model: 12,
       tipLength: 15,
       range: 50,
