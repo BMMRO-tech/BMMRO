@@ -9,6 +9,7 @@ import biopsyFormDefaults from "../constants/biopsyFormDefaultValues";
 import DateInput from "./formFields/DateInput/DateInput";
 import TextInput from "./formFields/TextInput/TextInput";
 import TimeInput from "./formFields/TimeInput/TimeInput";
+import NumberInput from "./formFields/NumberInput/NumberInput";
 import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
@@ -20,6 +21,7 @@ import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import AnimalReactionFormSection from "./AnimalReactionFormSection";
+import SpecimensTableSection from "./SpecimensTableSection";
 
 const BiopsyForm = ({
   initialValues,
@@ -52,6 +54,20 @@ const BiopsyForm = ({
     setClosedPositionalModal(isPositionalData);
   };
 
+  const getTotalSpecimens = (specimens) => {
+    let total = 0;
+    for (const specimen of specimens) {
+      if (
+        specimen.specimenNumber ||
+        specimen.sampleType ||
+        specimen.storageType
+      ) {
+        total++;
+      }
+    }
+    return total;
+  };
+
   const initValues = initialValues || biopsyFormDefaults;
 
   const renderPositionalValidationModal = () => {
@@ -76,13 +92,26 @@ const BiopsyForm = ({
   const isValidPositionalData = (values) =>
     (values.longitude && values.latitude) || values.gpsMark;
 
+  const decorateValuesToSubmit = (values) => {
+    const output = { ...values };
+
+    output.areaHit = areaHitResult;
+    if (output.areaHit !== "Upper Dorsal") {
+      output.dorsalHit = "";
+    }
+
+    output.totalSpecimens = getTotalSpecimens(values.specimens);
+
+    return output;
+  };
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
           initialValues={initValues}
           onSubmit={(values) => {
-            values.areaHit = areaHitResult;
+            values = decorateValuesToSubmit(values);
             isValidPositionalData(values)
               ? handleSubmit(values)
               : setShowPositionalModal({ boolean: true, values: values });
@@ -143,8 +172,8 @@ const BiopsyForm = ({
                     isDisabled={isViewOnly}
                   />
                   <TextInput
-                    name="totalSpecimens"
-                    labelText="Total Specimens"
+                    name="sampleNumber"
+                    labelText="Sample Number"
                     maxLength={255}
                     isShort
                     isDisabled={isViewOnly}
@@ -186,6 +215,40 @@ const BiopsyForm = ({
                     ]}
                     isDisabled={isViewOnly}
                   />
+                </FormSection>
+                <ListHeader title="Whale details" />
+                <FormSection>
+                  <TextInput
+                    name="whaleID"
+                    labelText="WhaleID"
+                    maxLength={255}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <RadioGroup
+                    name="sex"
+                    labelText="Sex"
+                    options={[
+                      { label: "Male", value: "male" },
+                      { label: "Female", value: "female" },
+                      { label: "Unknown", value: "unknown" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <div css={styles.inlineContainer}>
+                    <RadioGroup
+                      name="age"
+                      labelText="Age"
+                      options={[
+                        { label: "Calf", value: "calf" },
+                        { label: "Juvenile", value: "juvenile" },
+                        { label: "SubAdult", value: "subadult" },
+                        { label: "Adult", value: "Adult" },
+                        { label: "Unknown", value: "unknown" },
+                      ]}
+                      isDisabled={isViewOnly}
+                    />
+                  </div>
                 </FormSection>
                 <ListHeader title="Select dart hit area" />
                 <DartHitSection
@@ -229,6 +292,57 @@ const BiopsyForm = ({
                   <AnimalReactionFormSection
                     isViewOnly={isViewOnly}
                     subject="nonTargetAnimal"
+                  />
+                </FormSection>
+                <ListHeader title="Specimens" />
+                <SpecimensTableSection
+                  specimens={values.specimens}
+                  isViewOnly={isViewOnly}
+                  getTotalSpecimens={getTotalSpecimens}
+                />
+
+                <ListHeader title="Projector Details" />
+                <FormSection>
+                  <RadioGroup
+                    name="projectorType"
+                    labelText=""
+                    options={[
+                      { label: "Rifle", value: "Rifle" },
+                      { label: "Crossbow", value: "Crossbow" },
+                      { label: "Pole", value: "Pole" },
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                  <TextInput
+                    name="model"
+                    labelText="Model"
+                    maxLength={255}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="tipLength"
+                    labelText="Tip (mm)"
+                    minValue={0}
+                    maxValue={1000}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="range"
+                    labelText="Range (m)"
+                    minValue={0}
+                    maxValue={100}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                  <NumberInput
+                    name="angle"
+                    labelText="Angle"
+                    minValue={0}
+                    maxValue={360}
+                    isShort
+                    isDisabled={isViewOnly}
                   />
                 </FormSection>
               </section>

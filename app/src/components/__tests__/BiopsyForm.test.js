@@ -1,8 +1,11 @@
 import React from "react";
 import { act, render, waitFor, fireEvent } from "@testing-library/react";
+import { configure } from "@testing-library/dom";
 import BiopsyForm from "../BiopsyForm";
 
 import userEvent from "@testing-library/user-event";
+
+configure({ asyncUtilTimeout: 12000 });
 
 describe("BiopsyForm", () => {
   beforeAll(() => {
@@ -60,13 +63,41 @@ describe("BiopsyForm", () => {
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
     const gpsMarkInput = getByRole("textbox", { name: "GPS mark" });
-    const totalSpecimensInput = getByRole("textbox", {
-      name: "Total Specimens",
-    });
     const dartHitYesRadio = getByTestId("field-dartHit-Yes");
     const dartStuckYesRadio = getByTestId("field-dartStuck-Yes");
     const dartRetrievedNoRadio = getByTestId("field-dartRetrieved-No");
-    const sampleTypeSkinRadio = getByLabelText("Skin");
+    const sampleTypeSkinAndBlubberRadio = getByLabelText("Skin & blubber");
+    const sampleNumberInput = getByRole("textbox", { name: "Sample Number" });
+    const whaleIdInput = getByRole("textbox", { name: "WhaleID" });
+    const sexMaleRadio = getByTestId("field-sex-male");
+    const whaleAgeRadio = getByTestId("field-age-juvenile");
+    const projectorTypeCrossbowRadio = getByTestId(
+      "field-projectorType-Crossbow"
+    );
+    const modelInput = getByRole("textbox", { name: "Model" });
+    const tipLengthInput = getByTestId("field-tipLength");
+    const rangeInput = getByTestId("field-range");
+    const angleInput = getByTestId("field-angle");
+
+    const specimenNumberInputForFirstSpecimen = getByTestId(
+      "field-specimens.0.specimenNumber"
+    );
+    const sampleTypeInputForFirstSpecimen = getByTestId(
+      "field-specimens.0.sampleType"
+    );
+    const storageTypeInputForFirstSpecimen = getByTestId(
+      "field-specimens.0.storageType"
+    );
+
+    const specimenNumberInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.specimenNumber"
+    );
+    const sampleTypeInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.sampleType"
+    );
+    const storageTypeInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.storageType"
+    );
 
     const reactionStrengthStrongRadio = getByTestId(
       "field-reactionStrength-Strong"
@@ -84,22 +115,40 @@ describe("BiopsyForm", () => {
 
     userEvent.selectOptions(speciesInput, "Fin whale");
     await userEvent.type(attemptInput, "1", { delay: 1 });
+    await userEvent.type(sampleNumberInput, "md0397", { delay: 1 });
     await userEvent.type(samplerNameInput, "Test Name", { delay: 1 });
     userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
     userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
     userEvent.type(gpsMarkInput, "2");
-    userEvent.type(totalSpecimensInput, "3");
+    await userEvent.type(specimenNumberInputForFirstSpecimen, "4", {
+      delay: 1,
+    });
+    userEvent.selectOptions(sampleTypeInputForFirstSpecimen, "Skin");
+    userEvent.selectOptions(storageTypeInputForFirstSpecimen, "-80");
+
+    const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
+    userEvent.click(addSpecimensInput);
+
+    await userEvent.type(specimenNumberInputForSecondSpecimen, "5", {
+      delay: 1,
+    });
+    userEvent.selectOptions(sampleTypeInputForSecondSpecimen, "Skin/Blubber");
+    userEvent.selectOptions(storageTypeInputForSecondSpecimen, "-20");
 
     userEvent.click(dartHitYesRadio);
     userEvent.click(dartStuckYesRadio);
     userEvent.click(dartRetrievedNoRadio);
-    userEvent.click(sampleTypeSkinRadio);
     userEvent.click(targetAnimalBreachCheckbox);
     userEvent.click(reactionStrengthStrongRadio);
     userEvent.click(extentAllAnimalsRadio);
     userEvent.click(nonTargetAnimalBreachCheckbox);
+    userEvent.click(sampleTypeSkinAndBlubberRadio);
+
+    await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
+    userEvent.click(sexMaleRadio);
+    userEvent.click(whaleAgeRadio);
 
     fireEvent(
       getByTestId("Upper Dorsal"),
@@ -115,6 +164,12 @@ describe("BiopsyForm", () => {
     const dorsalHitRadio = getByTestId("field-dorsalHit-Yes");
     fireEvent.click(dorsalHitRadio);
 
+    userEvent.click(projectorTypeCrossbowRadio);
+    await userEvent.type(modelInput, "15.12", { delay: 1 });
+    await userEvent.type(tipLengthInput, "12.2", { delay: 1 });
+    await userEvent.type(rangeInput, "20", { delay: 1 });
+    await userEvent.type(angleInput, "90", { delay: 1 });
+
     userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -128,11 +183,15 @@ describe("BiopsyForm", () => {
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
       expect(formValues.gpsMark).toEqual("2");
-      expect(formValues.totalSpecimens).toEqual("3");
       expect(formValues.dartHit).toEqual("Yes");
       expect(formValues.dartStuck).toEqual("Yes");
       expect(formValues.dartRetrieved).toEqual("No");
-      expect(formValues.sampleType).toEqual("Skin");
+      expect(formValues.sampleType).toEqual("Skin & blubber");
+      expect(formValues.sampleNumber).toEqual("md0397");
+      expect(formValues.whaleID).toEqual("whale id");
+      expect(formValues.sex).toEqual("male");
+      expect(formValues.age).toEqual("juvenile");
+      expect(formValues.totalSpecimens).toEqual(2);
       expect(formValues.whaleSide).toEqual("Right");
       expect(formValues.dorsalHit).toEqual("Yes");
       expect(formValues.areaHit).toEqual("Upper Dorsal");
@@ -142,6 +201,17 @@ describe("BiopsyForm", () => {
       expect(formValues.targetAnimalBehaviour.dive).toEqual(false);
       expect(formValues.nonTargetAnimalBehaviour.breach).toEqual(true);
       expect(formValues.nonTargetAnimalBehaviour.dive).toEqual(false);
+      expect(formValues.model).toEqual("15.12");
+      expect(formValues.tipLength).toEqual(12.2);
+      expect(formValues.range).toEqual(20);
+      expect(formValues.angle).toEqual(90);
+      expect(formValues.projectorType).toEqual("Crossbow");
+      expect(formValues.specimens[1].specimenNumber).toEqual("4");
+      expect(formValues.specimens[1].sampleType).toEqual("Skin");
+      expect(formValues.specimens[1].storageType).toEqual("-80");
+      expect(formValues.specimens[0].specimenNumber).toEqual("5");
+      expect(formValues.specimens[0].sampleType).toEqual("Skin/Blubber");
+      expect(formValues.specimens[0].storageType).toEqual("-20");
     });
   });
 
@@ -153,6 +223,9 @@ describe("BiopsyForm", () => {
       dartHit: "Yes",
       dartStuck: "Yes",
       dartRetrieved: "No",
+      whaleId: "whale id",
+      sex: "male",
+      age: "juvenile",
       sampleType: "Skin",
       species: "Sperm whale",
       samplerName: "Bruce Wayne",
@@ -162,6 +235,11 @@ describe("BiopsyForm", () => {
       latitude: "1.234567",
       longitude: "-2.345678",
       gpsMark: 12,
+      projectorType: "Crossbow",
+      model: 12,
+      tipLength: 15,
+      range: 50,
+      angle: 45,
       totalSpecimens: 3,
       targetAnimalBehaviour: {
         accelerated: true,
@@ -191,6 +269,23 @@ describe("BiopsyForm", () => {
         prolongedFlight: false,
         directionChange: true,
       },
+      specimens: [
+        {
+          specimenNumber: "S1",
+          sampleType: "Skin",
+          storageType: "-80",
+        },
+        {
+          specimenNumber: "S2",
+          sampleType: "Skin",
+          storageType: "-20",
+        },
+        {
+          specimenNumber: "S3",
+          sampleType: "Skin",
+          storageType: "-20",
+        },
+      ],
       exported: false,
       hasEnded: false,
     };
@@ -417,6 +512,33 @@ describe("BiopsyForm", () => {
       );
       await waitFor(() => {
         expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("SpecimensTableSection", () => {
+    it("adds new row when add specimen record button is clicked", async () => {
+      const mockArray = [
+        {
+          specimenNumber: "",
+          sampleType: "",
+          storageType: "",
+        },
+      ];
+
+      const { getByTestId, queryByTestId, getByRole } = render(<BiopsyForm />);
+
+      const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
+      userEvent.click(addSpecimensInput);
+
+      const specimenField0 = queryByTestId("field-specimens.0.specimenNumber");
+      const specimenField1 = queryByTestId("field-specimens.1.specimenNumber");
+      const specimenField2 = queryByTestId("field-specimens.2.specimenNumber");
+
+      await waitFor(async () => {
+        expect(specimenField0).toBeTruthy();
+        expect(specimenField1).toBeTruthy();
+        expect(specimenField2).toBeFalsy();
       });
     });
   });

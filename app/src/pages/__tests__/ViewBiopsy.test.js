@@ -98,6 +98,13 @@ describe("ViewBiopsy", () => {
       .add({
         samplerName: "Homer Simpson",
         species: "Bottlenose dolphin",
+        specimens: [
+          {
+            specimenNumber: "",
+            sampleType: "",
+            storageType: "",
+          },
+        ],
         exported: true,
       });
 
@@ -149,6 +156,23 @@ describe("ViewBiopsy", () => {
         longitude: "-2.345678",
         gpsMark: 12,
         totalSpecimens: 3,
+        specimens: [
+          {
+            specimenNumber: "S1",
+            sampleType: "Skin",
+            storageType: "-80",
+          },
+          {
+            specimenNumber: "S2",
+            sampleType: "Skin",
+            storageType: "-20",
+          },
+          {
+            specimenNumber: "S3",
+            sampleType: "Skin",
+            storageType: "-20",
+          },
+        ],
         hasEnded: false,
         exported: true,
       });
