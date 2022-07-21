@@ -216,6 +216,27 @@ const BiopsyForm = ({
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
+                <ListHeader title="Evidence" />
+                <FormSection>
+                <TextInput
+                    name="photographerInitials"
+                    labelText="Photographer"
+                    maxLength={255}
+                    isShort
+                    isDisabled={isViewOnly}
+                  />
+                   <RadioGroup
+                    name="video"
+                    labelText="Video?"
+                    options={[
+                      { label: "Yes", value: "Yes" },
+                      { label: "No", value: "No" },
+                  
+                    ]}
+                    isDisabled={isViewOnly}
+                  />
+                </FormSection>
+
                 <ListHeader title="Whale details" />
                 <FormSection>
                   <TextInput
