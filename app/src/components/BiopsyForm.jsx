@@ -349,12 +349,6 @@ const BiopsyForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
-                  <TextAreaInput
-                    name="groupBehaviourAfterBiopsy"
-                    labelText="after biopsy:"
-                    isDisabled={isViewOnly}
-                    isDouble
-                  />
                   <NumberInput
                     name="range"
                     labelText="Range (m)"
@@ -376,17 +370,23 @@ const BiopsyForm = ({
                 <FormSection>
                   <TextAreaInput
                     name="groupBehaviourBeforeBiopsy"
-                    labelText="before biopsy:"
+                    labelText="Before Biopsy"
                     isDisabled={isViewOnly}
                     isDouble
                     maxLength={1000}
+                  />
+                  <TextAreaInput
+                    name="groupBehaviourAfterBiopsy"
+                    labelText="After Biopsy"
+                    isDisabled={isViewOnly}
+                    isDouble
                   />
                 </FormSection>
                 <ListHeader title="Other observations" />
                 <FormSection>
                   <TextAreaInput
                     name="otherObservations"
-                    labelText="Other observations"
+                    labelText="Other Observations"
                     isDisabled={isViewOnly}
                     isDouble
                   />
