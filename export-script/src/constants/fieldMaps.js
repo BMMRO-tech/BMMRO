@@ -2,7 +2,6 @@ const convertUnixTimestampToMDY = require("../mappings/convertUnixTimestampToMDY
 const convertWaveHeightOption = require("../mappings/convertWaveHeightOption");
 const convertEmptyToNotNoted = require("../mappings/convertEmptyToNotNoted");
 const convertToDecimal = require("../mappings/convertToDecimal");
-const prependFromApp = require("../mappings/prependFromApp");
 const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
 const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
 const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
@@ -45,7 +44,7 @@ module.exports = {
     "Biopsy sheet #": { key: "" },
     "Tag Attempt": { key: "tagAttempt" },
     "Tag Success": { key: "tagSuccess", transform: convertNotNotedToNo },
-    Comments: { key: "comments", transform: prependFromApp },
+    Comments: { key: "comments" },
     "End of search effort": { key: "endOfSearchEffort" },
     "End time": { key: "endTime" },
     "Elapsed time": { key: "elapsedTime" },
