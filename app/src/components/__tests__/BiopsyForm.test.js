@@ -73,9 +73,11 @@ describe("BiopsyForm", () => {
     );
     const extentAllAnimalsRadio = getByTestId("field-extent-All animals");
 
-    const targetAnimalBreachCheckbox = getByTestId("field-targetAnimalBehaviour.Breach");
+    const targetAnimalBreachCheckbox = getByTestId(
+      "field-targetAnimalBehaviour.breach"
+    );
     const nonTargetAnimalBreachCheckbox = getByTestId(
-      "field-nonTargetAnimalBehaviour.Breach"
+      "field-nonTargetAnimalBehaviour.breach"
     );
 
     const submitButton = getByRole("button", { name: "Save" });
@@ -136,10 +138,10 @@ describe("BiopsyForm", () => {
       expect(formValues.areaHit).toEqual("Upper Dorsal");
       expect(formValues.reactionStrength).toEqual("Strong");
       expect(formValues.extent).toEqual("All animals");
-      expect(formValues.targetAnimalBehaviour.Breach).toEqual(true);
-      expect(formValues.targetAnimalBehaviour.Dive).toEqual(false);
-      expect(formValues.nonTargetAnimalBehaviour.Breach).toEqual(true);
-      expect(formValues.nonTargetAnimalBehaviour.Dive).toEqual(false);
+      expect(formValues.targetAnimalBehaviour.breach).toEqual(true);
+      expect(formValues.targetAnimalBehaviour.dive).toEqual(false);
+      expect(formValues.nonTargetAnimalBehaviour.breach).toEqual(true);
+      expect(formValues.nonTargetAnimalBehaviour.dive).toEqual(false);
     });
   });
 
@@ -161,6 +163,34 @@ describe("BiopsyForm", () => {
       longitude: "-2.345678",
       gpsMark: 12,
       totalSpecimens: 3,
+      targetAnimalBehaviour: {
+        accelerated: true,
+        shake: false,
+        startle: false,
+        tailSplash: false,
+        tailSlap: false,
+        lunge: false,
+        breach: false,
+        dive: true,
+        porpoising: false,
+        flight: false,
+        prolongedFlight: false,
+        directionChange: false,
+      },
+      nonTargetAnimalBehaviour: {
+        accelerated: true,
+        shake: false,
+        startle: false,
+        tailSplash: false,
+        tailSlap: true,
+        lunge: false,
+        breach: false,
+        dive: true,
+        porpoising: false,
+        flight: true,
+        prolongedFlight: false,
+        directionChange: true,
+      },
       exported: false,
       hasEnded: false,
     };

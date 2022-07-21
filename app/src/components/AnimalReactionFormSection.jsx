@@ -22,9 +22,9 @@ const AnimalReactionFormSection = ({ isViewOnly, subject }) => {
       <div css={styles.checkboxes}>
         {animalReactions.map((reaction) => (
           <Checkbox
-            key={subject + "Behaviour." + reaction}
-            name={subject + "Behaviour." + reaction}
-            labelText={reaction}
+            key={subject + "Behaviour." + reaction.replace(/\s/g, "")}
+            name={subject + "Behaviour." + reaction.replace(/\s/g, "")}
+            labelText={reaction.charAt(0).toUpperCase() + reaction.slice(1)}
             isDisabled={isViewOnly}
           ></Checkbox>
         ))}
