@@ -181,6 +181,11 @@ module.exports = {
     "Tip dimensions (mm)": { key: "tipLength"},
     "Range (m)": { key: "range"},
     Angle: { key: "angle"},
+    "Photographer a" : { key : "photographerInitials"},
+    "Video details a" : {key: "video"},
+    "Group behaviour before biopsy" : { key : "groupBehaviourBeforeBiopsy"},
+    "Group behaviour after biopsy" : {key : "groupBehaviourAfterBiopsy"},
+    "Other observations" : {key : "otherObservations"}
   },
   specimen: {
     Area: { key: "area" },
@@ -199,6 +204,7 @@ module.exports = {
     "Whale ID": { key: "whaleID" },
     Sex: { key: "sex" },
     "Age Class": { key: "age" },
+    "Other observations" : { key : "otherObservations"}
   },
   subCollectionToEncounter: {
     area: "area",
@@ -218,5 +224,6 @@ module.exports = {
     whaleID: "whaleID",
     sex: "sex",
     age: "age",
+    otherObservations: "otherObservations"
   },
 };
