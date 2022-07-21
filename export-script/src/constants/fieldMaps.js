@@ -161,7 +161,7 @@ module.exports = {
     "Target Flight": {key: "targetAnimalBehaviour.flight"},
     "Target Prolonged Flight": {key: "targetAnimalBehaviour.prolongedFlight"},
     "Target Direction Change": {key: "targetAnimalBehaviour.directionChange"},
-    "NonTarget accelerated": {key: "targetAnimalBehaviour.accelerated"},
+    "NonTarget accelerated": {key: "nonTargetAnimalBehaviour.accelerated"},
     "NonTarget Shake": {key: "nonTargetAnimalBehaviour.shake"},
     "NonTarget Startle": {key: "nonTargetAnimalBehaviour.startle"},
     "NonTarget Tail Splash": {key: "nonTargetAnimalBehaviour.tailSplash"},
