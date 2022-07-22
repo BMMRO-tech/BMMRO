@@ -8,6 +8,8 @@ const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundings
 const updateComment = require("../updateComment");
 const convertSkinToBool = require("../mappings/convertSkinToBool");
 const convertSkinAndBlubberToBool = require("../mappings/convertSkinAndBlubberToBool");
+const convertAgeToInitial = require("../mappings/convertAgeToInitial");
+const convertSexToInitials = require("../mappings/convertSexToInitials")
 
 module.exports = {
   encounter: {
@@ -173,8 +175,8 @@ module.exports = {
     "NonTarget Prolonged Flight": {key: "nonTargetAnimalBehaviour.prolongedFlight"},
     "NonTarget Direction Change": {key: "nonTargetAnimalBehaviour.directionChange"},
     "Whale ID": { key: "whaleID" },
-    Sex: { key: "sex" },
-    Age: { key: "age" },
+    Sex: { key: "sex", transform: convertSexToInitials },
+    Age: { key: "age", transform: convertAgeToInitial },
     "Projector Type": { key: "projectorType"},
     "Projector Model": { key: "model"},
     "Tip dimensions (mm)": { key: "tipLength"},
@@ -201,7 +203,7 @@ module.exports = {
     Type: { key: "sampleType" },
     Storage: { key: "storageType" },
     "Whale ID": { key: "whaleID" },
-    Sex: { key: "sex" },
+    Sex: { key: "sex", transform: convertSexToInitials },
     "Age Class": { key: "age" },
     "Other observations" : { key : "otherObservations"}
   },
