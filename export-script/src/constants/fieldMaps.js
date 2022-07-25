@@ -176,8 +176,8 @@ module.exports = {
     "NonTarget Prolonged Flight": {key: "nonTargetAnimalBehaviour.prolongedFlight"},
     "NonTarget Direction Change": {key: "nonTargetAnimalBehaviour.directionChange"},
     "Whale ID": { key: "whaleID" },
-    Sex: { key: "sex", transform: convertSexToInitials },
-    Age: { key: "age", transform: convertAgeToInitial },
+    Sex: { key: "sex" },
+    Age: { key: "age" },
     "Projector Type": { key: "projectorType"},
     "Projector Model": { key: "model"},
     "Tip dimensions (mm)": { key: "tipLength"},
@@ -205,7 +205,7 @@ module.exports = {
     Storage: { key: "storageType" },
     "Whale ID": { key: "whaleID" },
     Sex: { key: "sex", transform: convertSexToInitials },
-    "Age Class": { key: "age" },
+    "Age Class": { key: "age", transform: convertAgeToInitial },
     "Other observations" : { key : "otherObservations"}
   },
   subCollectionToEncounter: {
