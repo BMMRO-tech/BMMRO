@@ -1,17 +1,14 @@
-
-
 const convertSexToInitials = (sexInput) => {
-
-    let sexInitial = "";
-
-    if (sexInput === "male"){
-        return sexInitial="M"
-    } else if (sexInput === "female"){
-        return sexInitial="F"
+    switch(sexInput) {
+        case "male":
+        return "M"
+        case "female":
+        return "F"
+        case "unknown":
+        return "U"
+        default:
+        return ""
     }
-    return sexInitial="U"
-
-
 };
 
 module.exports = convertSexToInitials;
