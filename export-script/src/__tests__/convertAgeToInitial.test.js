@@ -25,4 +25,9 @@ describe("convertAgeToInitial", () => {
     const result = convertAgeToInitial("unknown");
     expect(result).toEqual('U');
   });
+
+  it("converts '' to ''", () => {
+    const result = convertAgeToInitial("");
+    expect(result).toEqual('');
+  });
 });

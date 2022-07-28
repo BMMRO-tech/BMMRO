@@ -5,10 +5,12 @@ describe("convertSexToInitials", () => {
     const convertedMaleToM = convertSexToInitials("male");
     const convertedFemaleToF = convertSexToInitials("female");
     const convertedUnknownToU = convertSexToInitials("unknown");
+    const convertedEmptyToBlank = convertSexToInitials("");
 
     expect(convertedMaleToM).toEqual("M");
     expect(convertedFemaleToF).toEqual("F");
     expect(convertedUnknownToU).toEqual("U");
+    expect(convertedEmptyToBlank).toEqual("");
     
   });
 });

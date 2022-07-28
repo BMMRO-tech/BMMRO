@@ -1,14 +1,17 @@
 const convertAgeToInitial = (ageInput) => {
-    if (ageInput === "calf") {
-        return 'C'
-    } else if (ageInput === "juvenile") {
-        return 'J'
-    } else if (ageInput === "subadult") {
-        return 'SA'
-    } else if (ageInput === "Adult") {
-        return 'A'
-    } else if (ageInput === "unknown") {
-        return 'U'
+    switch(ageInput) {
+        case "calf":
+        return "C"
+        case "juvenile":
+        return "J"
+        case "subadult":
+        return "SA"
+        case "Adult":
+        return "A"
+        case "unknown":
+        return "U"
+        default:
+        return ""
     }
  }
 
