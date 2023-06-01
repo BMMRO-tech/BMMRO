@@ -48,25 +48,28 @@ For all persistence-related things, we're using firebase. Submitted forms are al
 
 ## Running and Building the app
 
-To run the app locally you need to setup your own Firebase project:
+### To run the app locally you need to setup your own Firebase project:
 
 1. Create a Firebase account [here](https://console.firebase.google.com/) if you don't have one.
 2. Create a new project.
 3. Add a web app to your project (register web app without setting up Firebase Hosting). This will generate firebaseConfig.
-4. Create `.env` file in `app` directory. It will be ignored in version control.
-5. Add the following properties to `.env` file and set them to values that can be found in project settings inside firebaseConfig object in Firebase console:
+4. FirebaseConfig requires `apiKey`, `authDomain`, `projectId` to initialize the app. 
+5. Create `.env` file in `app` directory. It will be ignored in version control. Add the authDomain, apikey and projectId to the `.env` file. 
+6. apikey and projectId can be found in the project settings in the firebase console and authDomain can be found in the Authorization settings in the firebase console.
+7. Set those values found from the Firebase Console as shown in the below example into the `.env` file :
+
+e.g
+```
+REACT_APP_PROJECT_ID="bmmro-xxxx"
+REACT_APP_API_KEY="AIzp-xxxxxxxxxxxxxxxxxxxxx"
+REACT_APP_AUTH_DOMAIN="bmmro-xxxx"
+```
 
 - set `REACT_APP_PROJECT_ID` to `projectId`
 - set `REACT_APP_API_KEY` to `apiKey`
 - set `REACT_APP_AUTH_DOMAIN` to `authDomain`
 
-e.g
 
-```
-REACT_APP_PROJECT_ID="bmmro-x9xx9"
-REACT_APP_API_KEY="AIzpSyBefqhyPysbRYUaWgcFIM2UqhMe8fSAM37"
-REACT_APP_AUTH_DOMAIN="bmmro-x9xx9.firebaseapp.com"
-```
 
 6.  In the main Firebase console, navigate to the Build tab on the left-hand side and then to Authentication, and set up sign-in method to email/password.
 7.  Go to Users tab and add new user. You will be able to log in locally with these credentials.
