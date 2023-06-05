@@ -4,10 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc, deleteDoc } from 'firebase/firestore/lite';
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
-
 let wd = webdriver.default;
-
-const biopsyBannerFeatureToggle = (process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === "TRUE");
 
 const firebaseConfig = {
   projectId: process.env.PROJECT_ID,
@@ -129,7 +126,6 @@ describe('create a new encounter user journey', () => {
 
   }, testTimeout)
 
-  {biopsyBannerFeatureToggle &&
   it('user creates a new biopsy', async () => {
     
     await driver.findElement(wd.By.css('#newBiopsy')).click();
@@ -163,7 +159,6 @@ describe('create a new encounter user journey', () => {
     biopsyId = newBiopsyUrl.split('/')[6];
 
   }, testTimeout)
-}
 
   it('user edits encounter', async () => {
 
@@ -207,20 +202,17 @@ describe('create a new encounter user journey', () => {
     expect(docSnapHabitat.exists()).toBeTruthy()
   }, testTimeout)
 
-  {biopsyBannerFeatureToggle && 
-    it('checks database for new biopsy', async () => {
-    
-      const docRefHabitat = doc(db, "encounter", encounterId, "biopsy", biopsyId);
-      const docSnapHabitat = await getDoc(docRefHabitat);
-    
-      expect(docSnapHabitat.exists()).toBeTruthy()
-    }, testTimeout) 
-  }
+  it('checks database for new biopsy', async () => {
 
+    const docRefHabitat = doc(db, "encounter", encounterId, "biopsy", biopsyId);
+    const docSnapHabitat = await getDoc(docRefHabitat);
+
+    expect(docSnapHabitat.exists()).toBeTruthy()
+  }, testTimeout)
 
   it('deletes biopsy, habitat and encounter from database', async () => {
 
-    if(biopsyBannerFeatureToggle && biopsyId){
+    if(biopsyId){
       await deleteDoc(doc(db, "encounter", encounterId, "biopsy", biopsyId));
     }
 
