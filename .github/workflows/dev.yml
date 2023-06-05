@@ -48,7 +48,7 @@ jobs:
         run: npm run build
       - name: Deploy to firebase
         env:
-          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN_NEW}}
         working-directory: ${{env.APP_DIR}}
         run: |
           npx firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
