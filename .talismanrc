@@ -1,0 +1,6 @@
+fileignoreconfig:
+- filename: app/package-lock.json
+  checksum: cb5ef1b5dfe3a02a684036bff0ab3045ef1e89535e1755a12adc491fe4307eb9
+- filename: export-script/package-lock.json
+  checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
+version: "1.0"
