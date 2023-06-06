@@ -22,9 +22,6 @@ import { THREE_DAYS_IN_HOURS } from "../constants/forms";
 import DateInvalidModal from "../components/DateInvalidModal";
 
 const OpenEncounter = ({ encounterId }) => {
-  const biopsyBannerFeatureToggle =
-    process.env.REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE === "TRUE";
-
   const styles = {
     footerContainer: css`
       ${utilities.sticky.footerContainer}
@@ -158,13 +155,12 @@ const OpenEncounter = ({ encounterId }) => {
               encounterExported={encounter.exported}
               isHabitatUse
             />
-            {biopsyBannerFeatureToggle && (
               <SubCollectionList
                 items={biopsyEntries}
                 encounterId={encounterId}
                 encounterExported={encounter.exported}
               />
-            )}
+
           </div>
           {renderButtons()}
         </div>

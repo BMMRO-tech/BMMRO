@@ -8,6 +8,7 @@ As the app is a live for the client we need feature toggle functionality to allo
 - Allow multiple pairs to work on same feature which contain multiple stories that will need to be merged with the master branch before the full feature is implemented
 - Feature toggling needed to be a light weight solution
 - Feature toggles needed to have different values per enviroment
+- On 5/06/23 Feature toggles for the biopsy form have been removed because the biopsy feature works in all environments
 
 ## Decision
 
