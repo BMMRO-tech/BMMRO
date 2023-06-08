@@ -2,7 +2,7 @@ name: Backup database
 
 on:
   schedule:
-    - cron:  '00 14 * * *'
+    - cron:  '20 14 * * *'
 
 env:
   PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
