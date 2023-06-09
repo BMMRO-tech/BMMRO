@@ -35,30 +35,32 @@ const EncounterListItem = ({ encounter, isToday }) => {
   );
 };
 
-const PreviousEncounters = ({ encounters }) => {
-  return encounters.map((encountersByMonth, i) => (
-    <ul key={`encounterList-${i}`} css={utilities.list.items}>
-      <ListSubheader
+function previousEncountersByMonth(i, encountersByMonth) {
+  return <ul key={`encounterList-${i}`} css={utilities.list.items}>
+    <ListSubheader
         title={`${encountersByMonth.month} ${encountersByMonth.year}`}
-      />
+    />
 
-      {!encountersByMonth.entries.length ? (
+    {!encountersByMonth.entries.length ? (
         <div css={utilities.list.noEntries}>
           No encounters in {encountersByMonth.month}
         </div>
-      ) : (
+    ) : (
         <Fragment>
           {encountersByMonth.entries.map((encounter, i) => (
-            <EncounterListItem
-              key={`previous-encounter-${i}`}
-              encounter={encounter}
-              isToday={false}
-            />
+              <EncounterListItem
+                  key={`previous-encounter-${i}`}
+                  encounter={encounter}
+                  isToday={false}
+              />
           ))}
         </Fragment>
-      )}
-    </ul>
-  ));
+    )}
+  </ul>;
+}
+
+const PreviousEncounters = ({ encounters }) => {
+  return encounters.map((encountersByMonth, i) => previousEncountersByMonth(i, encountersByMonth));
 };
 
 const TodaysEncounters = ({ encounters }) => {

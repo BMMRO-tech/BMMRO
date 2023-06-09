@@ -2,7 +2,7 @@ name: Backup database
 
 on:
   schedule:
-    - cron:  '00 14 * * *'
+    - cron:  '40 15 * * *'
 
 env:
   PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
@@ -17,7 +17,11 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.BACKUP_KEY }}
-      - uses: google-github-actions/setup-gcloud@v1
+      - name: 'Set up google sdk'
+        uses: google-github-actions/setup-gcloud@v1
+
+      - id: 'backup'
+        name: 'backup database'
         run: |-
           gcloud info
           gcloud config set project $PROJECT_ID
