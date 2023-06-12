@@ -1,15 +1,29 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import EncounterList from "../EncounterList";
 import {
+  mockMultiMonthData,
   mockSingleDayData,
   mockSingleMonthData,
-  mockMultiMonthData,
 } from "../__fixtures__/encounterData";
 
+const originalEnv = process.env;
+
 describe("EncounterList", () => {
+  beforeEach(() => {
+    jest.resetModules();
+    process.env = {
+      ...originalEnv,
+      REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "FALSE",
+    };
+  });
+
+  afterEach(() => {
+    process.env = originalEnv;
+  });
+
   it("displays encounter forms for a single day", () => {
     const { queryAllByRole } = render(
       <EncounterList title="Today" encounters={mockSingleDayData} />
@@ -90,5 +104,34 @@ describe("EncounterList", () => {
     await userEvent.click(loadMoreLink);
 
     expect(mockLoadMore.mock.calls.length).toBe(1);
+  });
+
+  it("should not have Load Previous Month button when the 'encounterMonthDropDownFeatureToggle' is 'TRUE'", () => {
+    process.env = {
+      ...originalEnv,
+      REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "TRUE",
+    };
+
+    render(
+      <EncounterList
+        title="Previous Encounters"
+        encounters={[]}
+        loadMore={() => {}}
+      />
+    );
+
+    expect(screen.queryByText("Load previous month")).not.toBeInTheDocument();
+  });
+
+  it("should have Load Previous Month button when the 'encounterMonthDropDownFeatureToggle' is 'FALSE'", () => {
+    render(
+      <EncounterList
+        title="Previous Encounters"
+        encounters={[]}
+        loadMore={() => {}}
+      />
+    );
+
+    expect(screen.queryByText("Load previous month")).toBeInTheDocument();
   });
 });

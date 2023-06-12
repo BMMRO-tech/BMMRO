@@ -36,31 +36,35 @@ const EncounterListItem = ({ encounter, isToday }) => {
 };
 
 function previousEncountersByMonth(i, encountersByMonth) {
-  return <ul key={`encounterList-${i}`} css={utilities.list.items}>
-    <ListSubheader
+  return (
+    <ul key={`encounterList-${i}`} css={utilities.list.items}>
+      <ListSubheader
         title={`${encountersByMonth.month} ${encountersByMonth.year}`}
-    />
+      />
 
-    {!encountersByMonth.entries.length ? (
+      {!encountersByMonth.entries.length ? (
         <div css={utilities.list.noEntries}>
           No encounters in {encountersByMonth.month}
         </div>
-    ) : (
+      ) : (
         <Fragment>
           {encountersByMonth.entries.map((encounter, i) => (
-              <EncounterListItem
-                  key={`previous-encounter-${i}`}
-                  encounter={encounter}
-                  isToday={false}
-              />
+            <EncounterListItem
+              key={`previous-encounter-${i}`}
+              encounter={encounter}
+              isToday={false}
+            />
           ))}
         </Fragment>
-    )}
-  </ul>;
+      )}
+    </ul>
+  );
 }
 
 const PreviousEncounters = ({ encounters }) => {
-  return encounters.map((encountersByMonth, i) => previousEncountersByMonth(i, encountersByMonth));
+  return encounters.map((encountersByMonth, i) =>
+    previousEncountersByMonth(i, encountersByMonth)
+  );
 };
 
 const TodaysEncounters = ({ encounters }) => {
@@ -84,6 +88,9 @@ const TodaysEncounters = ({ encounters }) => {
 };
 
 const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
+  const encountersByMonthDropDownFeatureToggle =
+    process.env.REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE ===
+    "TRUE";
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
@@ -94,7 +101,7 @@ const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
       ) : (
         <PreviousEncounters encounters={encounters} />
       )}
-      {!!loadMore && (
+      {!!loadMore && !encountersByMonthDropDownFeatureToggle && (
         <LoadMoreButton
           text="Load previous month"
           handleClick={loadMore}
