@@ -5,6 +5,4 @@ fileignoreconfig:
   checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
 - filename: .github/workflows/backup.yml
   checksum: 774329aa26a96c3c5d5431e82bc49c200c521fc55455d3648fd3fb771d94b42e
-- filename: app/src/components/EncounterList.jsx
-  checksum: e11653c4c09430ec54b0b6b4c444e43879953f917f68492e76180aba431e195d
 version: "1.0"
