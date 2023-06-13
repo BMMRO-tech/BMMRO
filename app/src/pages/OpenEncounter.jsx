@@ -155,12 +155,11 @@ const OpenEncounter = ({ encounterId }) => {
               encounterExported={encounter.exported}
               isHabitatUse
             />
-              <SubCollectionList
-                items={biopsyEntries}
-                encounterId={encounterId}
-                encounterExported={encounter.exported}
-              />
-
+            <SubCollectionList
+              items={biopsyEntries}
+              encounterId={encounterId}
+              encounterExported={encounter.exported}
+            />
           </div>
           {renderButtons()}
         </div>
