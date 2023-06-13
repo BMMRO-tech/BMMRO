@@ -40,7 +40,6 @@ function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
   const previousMonths = ["June 2023"];
   return (
     <Fragment>
-      Ò
       {enableDropdown && (
         <Dropdown
           name="PreviousEncountersDropDown"
