@@ -10,6 +10,7 @@ import ListItem from "./list/ListItem";
 import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
+import { Dropdown } from "./formFields/Select/Select";
 
 const EncounterListItem = ({ encounter, isToday }) => {
   const { startTimestamp, sequenceNumber, species, area, startTime } =
@@ -35,35 +36,50 @@ const EncounterListItem = ({ encounter, isToday }) => {
   );
 };
 
-function previousEncountersByMonth(i, encountersByMonth) {
+function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
+  const previousMonths = ["June 2023"];
   return (
-    <ul key={`encounterList-${i}`} css={utilities.list.items}>
-      <ListSubheader
-        title={`${encountersByMonth.month} ${encountersByMonth.year}`}
-      />
-
-      {!encountersByMonth.entries.length ? (
-        <div css={utilities.list.noEntries}>
-          No encounters in {encountersByMonth.month}
-        </div>
-      ) : (
-        <Fragment>
-          {encountersByMonth.entries.map((encounter, i) => (
-            <EncounterListItem
-              key={`previous-encounter-${i}`}
-              encounter={encounter}
-              isToday={false}
-            />
-          ))}
-        </Fragment>
+    <Fragment>
+      Ò
+      {enableDropdown && (
+        <Dropdown
+          name="PreviousEncountersDropDown"
+          labelText="Month"
+          options={previousMonths}
+          isRequired={false}
+          isShort={true}
+          isDisabled={false}
+          meta={""}
+        />
       )}
-    </ul>
+      <ul key={`encounterList-${i}`} css={utilities.list.items}>
+        <ListSubheader
+          title={`${encountersByMonth.month} ${encountersByMonth.year}`}
+        />
+
+        {!encountersByMonth.entries.length ? (
+          <div css={utilities.list.noEntries}>
+            No encounters in {encountersByMonth.month}
+          </div>
+        ) : (
+          <Fragment>
+            {encountersByMonth.entries.map((encounter, i) => (
+              <EncounterListItem
+                key={`previous-encounter-${i}`}
+                encounter={encounter}
+                isToday={false}
+              />
+            ))}
+          </Fragment>
+        )}
+      </ul>
+    </Fragment>
   );
 }
 
-const PreviousEncounters = ({ encounters }) => {
+const PreviousEncounters = ({ encounters, enableDropdown }) => {
   return encounters.map((encountersByMonth, i) =>
-    previousEncountersByMonth(i, encountersByMonth)
+    previousEncountersByMonth(i, encountersByMonth, enableDropdown)
   );
 };
 
@@ -99,7 +115,10 @@ const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
       ) : isToday ? (
         <TodaysEncounters encounters={encounters} />
       ) : (
-        <PreviousEncounters encounters={encounters} />
+        <PreviousEncounters
+          encounters={encounters}
+          enableDropdown={encountersByMonthDropDownFeatureToggle}
+        />
       )}
       {!!loadMore && !encountersByMonthDropDownFeatureToggle && (
         <LoadMoreButton

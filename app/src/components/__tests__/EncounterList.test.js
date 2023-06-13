@@ -134,4 +134,30 @@ describe("EncounterList", () => {
 
     expect(screen.queryByText("Load previous month")).toBeInTheDocument();
   });
+
+  it("should have 'Previous encounters' as a dropdown when the toggle is 'TRUE'", () => {
+    process.env = {
+      ...originalEnv,
+      REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "TRUE",
+    };
+    render(
+      <EncounterList
+        title="Previous Encounters"
+        encounters={[mockSingleMonthData]}
+        loadMore={() => {}}
+      />
+    );
+    expect(screen.getByLabelText("Month")).toBeInTheDocument();
+  });
+
+  it("should not have 'Previous encounters' as a dropdown when the toggle is 'FALSE'", () => {
+    render(
+      <EncounterList
+        title="Previous Encounters"
+        encounters={[mockSingleMonthData]}
+        loadMore={() => {}}
+      />
+    );
+    expect(screen.queryByLabelText("Month")).not.toBeInTheDocument();
+  });
 });
