@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
-import { Fragment } from "react";
+import {jsx} from "@emotion/core";
+import {Fragment} from "react";
 import usLocale from "date-fns/locale/en-US";
-import { format } from "date-fns";
+import {format} from "date-fns";
 
 import utilities from "../materials/utilities";
-import { generateOpenEncounterURL } from "../constants/routes";
+import {generateOpenEncounterURL} from "../constants/routes";
 import ListItem from "./list/ListItem";
 import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
-import { Dropdown } from "./formFields/Select/Select";
-import { monthNames } from "../constants/monthNames";
+import {Dropdown} from "./formFields/Select/Select";
+import {monthNames} from "../constants/monthNames";
 
 const EncounterListItem = ({ encounter, isToday }) => {
   const { startTimestamp, sequenceNumber, species, area, startTime } =
@@ -52,7 +52,6 @@ const getMonthList = () => {
 };
 
 function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
-  const previousMonths = ["June 2023"];
   return (
     <Fragment>
       {enableDropdown && (
