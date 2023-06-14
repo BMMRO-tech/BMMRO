@@ -1,5 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import {
+  getByLabelText,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import EncounterList from "../EncounterList";
@@ -8,6 +13,8 @@ import {
   mockSingleDayData,
   mockSingleMonthData,
 } from "../__fixtures__/encounterData";
+import { fireEvent } from "@testing-library/react/pure";
+import { monthNames } from "../../constants/monthNames";
 
 const originalEnv = process.env;
 
@@ -159,5 +166,28 @@ describe("EncounterList", () => {
       />
     );
     expect(screen.queryByLabelText("Month")).not.toBeInTheDocument();
+  });
+
+  it("Should list the previous 12 months when user clicks on the 'Dropdown", async () => {
+    process.env = {
+      ...originalEnv,
+      REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "TRUE",
+    };
+
+    const today = new Date();
+    const dropDownValue =
+      monthNames[today.getMonth()] + " " + today.getFullYear();
+
+    render(
+      <EncounterList
+        title="Previous Encounters"
+        encounters={[mockSingleMonthData]}
+        loadMore={() => {}}
+      />
+    );
+    const monthDropdown = screen.getByLabelText("Month");
+    expect(monthDropdown).toBeInTheDocument();
+    await waitFor(() => userEvent.click(monthDropdown));
+    expect(screen.getByText(dropDownValue)).toBeInTheDocument();
   });
 });

@@ -29,7 +29,11 @@ function Dropdown(props) {
           <option key="none" value="" aria-label="default empty option">
             -- Select --
           </option>
-          {props.map}
+          {props.options.map((option) => (
+            <option key={option} value={option} aria-label={option}>
+              {option}
+            </option>
+          ))}
         </select>
       </div>
     </label>
@@ -44,7 +48,7 @@ Dropdown.propTypes = {
   short: PropTypes.any,
   disabled: PropTypes.any,
   name: PropTypes.any,
-  map: PropTypes.any,
+  options: PropTypes.any,
 };
 const Select = ({
   name,
@@ -75,11 +79,7 @@ const Select = ({
         short={isShort}
         disabled={isDisabled}
         name={name}
-        map={options.map((option) => (
-          <option key={option} value={option} aria-label={option}>
-            {option}
-          </option>
-        ))}
+        options={options}
       />
       <FieldError
         touched={meta.touched}

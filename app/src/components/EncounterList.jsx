@@ -11,6 +11,7 @@ import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
 import { Dropdown } from "./formFields/Select/Select";
+import { monthNames } from "../constants/monthNames";
 
 const EncounterListItem = ({ encounter, isToday }) => {
   const { startTimestamp, sequenceNumber, species, area, startTime } =
@@ -36,6 +37,20 @@ const EncounterListItem = ({ encounter, isToday }) => {
   );
 };
 
+const getMonthList = () => {
+  const today = new Date();
+  let monthList = [];
+  let date, month, year;
+  for (let i = 0; i < 12; i++) {
+    date = new Date(today.getUTCFullYear(), today.getMonth() - i, 1);
+    year = date.getFullYear();
+    month = monthNames[date.getMonth()];
+    monthList.push(month + " " + year);
+  }
+
+  return monthList;
+};
+
 function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
   const previousMonths = ["June 2023"];
   return (
@@ -44,11 +59,8 @@ function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
         <Dropdown
           name="PreviousEncountersDropDown"
           labelText="Month"
-          options={previousMonths}
-          isRequired={false}
-          isShort={true}
-          isDisabled={false}
           meta={""}
+          options={getMonthList()}
         />
       )}
       <ul key={`encounterList-${i}`} css={utilities.list.items}>
