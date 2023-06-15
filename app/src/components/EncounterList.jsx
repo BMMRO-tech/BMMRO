@@ -1,17 +1,19 @@
 /** @jsx jsx */
-import {jsx} from "@emotion/core";
-import {Fragment} from "react";
+import { jsx } from "@emotion/core";
+import { Fragment, useContext, useState } from "react";
 import usLocale from "date-fns/locale/en-US";
-import {format} from "date-fns";
+import { endOfMonth, format, parse } from "date-fns";
 
 import utilities from "../materials/utilities";
-import {generateOpenEncounterURL} from "../constants/routes";
+import { generateOpenEncounterURL } from "../constants/routes";
 import ListItem from "./list/ListItem";
 import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import LoadMoreButton from "./list/LoadMoreButton";
-import {Dropdown} from "./formFields/Select/Select";
-import {monthNames} from "../constants/monthNames";
+import { monthNames } from "../constants/monthNames";
+import fieldStyles from "./formFields/fieldStyles";
+import { getEncountersByTimeRange } from "../hooks/useEncountersByMonth";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 
 const EncounterListItem = ({ encounter, isToday }) => {
   const { startTimestamp, sequenceNumber, species, area, startTime } =
@@ -51,29 +53,72 @@ const getMonthList = () => {
   return monthList;
 };
 
-function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
+const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
+  return (
+    <label css={fieldStyles.label}>
+      <span>{labelText}</span>
+      <div css={fieldStyles.inputContainer}>
+        <select
+          css={fieldStyles.getInputStyles(meta.error, meta.touched, short)}
+          data-testid={`field-${name}`}
+          id={name}
+          onChange={onChange}
+        >
+          <option key="none" value="" aria-label="default empty option">
+            -- Select --
+          </option>
+          {options.map((option) => (
+            <option key={option} value={option} aria-label={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+    </label>
+  );
+};
+
+const PreviousEncountersByMonth = (i, encountersByMonth, enableDropdown) => {
+  const { datastore } = useContext(FirebaseContext);
+
+  const [encounters, setEncounters] = useState(encountersByMonth);
+
+  const getMonthData = async (event) => {
+    const startDate = parse(
+      "1 " + event.target.value,
+      "d MMMM yyyy",
+      new Date()
+    );
+    const endDate = endOfMonth(startDate);
+
+    const encounterList = await getEncountersByTimeRange(
+      datastore,
+      startDate,
+      endDate
+    );
+    setEncounters(encounterList[0]);
+  };
   return (
     <Fragment>
       {enableDropdown && (
-        <Dropdown
+        <MonthDropdown
           name="PreviousEncountersDropDown"
           labelText="Month"
-          meta={""}
           options={getMonthList()}
+          onChange={getMonthData}
+          meta={""}
         />
       )}
       <ul key={`encounterList-${i}`} css={utilities.list.items}>
-        <ListSubheader
-          title={`${encountersByMonth.month} ${encountersByMonth.year}`}
-        />
+        <ListSubheader title={`${encounters.month} ${encounters.year}`} />
 
-        {!encountersByMonth.entries.length ? (
+        {!encounters.entries.length ? (
           <div css={utilities.list.noEntries}>
-            No encounters in {encountersByMonth.month}
+            No encounters in {encounters.month}
           </div>
         ) : (
           <Fragment>
-            {encountersByMonth.entries.map((encounter, i) => (
+            {encounters.entries.map((encounter, i) => (
               <EncounterListItem
                 key={`previous-encounter-${i}`}
                 encounter={encounter}
@@ -85,11 +130,11 @@ function previousEncountersByMonth(i, encountersByMonth, enableDropdown) {
       </ul>
     </Fragment>
   );
-}
+};
 
 const PreviousEncounters = ({ encounters, enableDropdown }) => {
   return encounters.map((encountersByMonth, i) =>
-    previousEncountersByMonth(i, encountersByMonth, enableDropdown)
+    PreviousEncountersByMonth(i, encountersByMonth, enableDropdown)
   );
 };
 
