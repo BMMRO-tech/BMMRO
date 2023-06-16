@@ -6,46 +6,7 @@ import FieldError from "../FieldError";
 import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
-import * as PropTypes from "prop-types";
 
-function Dropdown(props) {
-  return (
-    <label css={fieldStyles.label}>
-      <span>{props.labelText}</span>
-      {props.required && <span css={fieldStyles.required}>*</span>}
-
-      <div css={fieldStyles.inputContainer}>
-        <select
-          {...props.field}
-          css={fieldStyles.getInputStyles(
-            props.meta.error,
-            props.meta.touched,
-            props.short
-          )}
-          disabled={props.disabled}
-          data-testid={`field-${props.name}`}
-          id={props.name}
-        >
-          <option key="none" value="" aria-label="default empty option">
-            -- Select --
-          </option>
-          {props.map}
-        </select>
-      </div>
-    </label>
-  );
-}
-
-Dropdown.propTypes = {
-  labelText: PropTypes.any,
-  required: PropTypes.any,
-  field: PropTypes.any,
-  meta: PropTypes.any,
-  short: PropTypes.any,
-  disabled: PropTypes.any,
-  name: PropTypes.any,
-  map: PropTypes.any,
-};
 const Select = ({
   name,
   labelText,
@@ -67,20 +28,29 @@ const Select = ({
 
   return (
     <div>
-      <Dropdown
-        labelText={labelText}
-        required={isRequired}
-        field={field}
-        meta={meta}
-        short={isShort}
-        disabled={isDisabled}
-        name={name}
-        map={options.map((option) => (
-          <option key={option} value={option} aria-label={option}>
-            {option}
-          </option>
-        ))}
-      />
+      <label css={fieldStyles.label}>
+        <span>{labelText}</span>
+        {isRequired && <span css={fieldStyles.required}>*</span>}
+
+        <div css={fieldStyles.inputContainer}>
+          <select
+            {...field}
+            css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
+            disabled={isDisabled}
+            data-testid={`field-${name}`}
+            id={name}
+          >
+            <option key="none" value="" aria-label="default empty option">
+              -- Select --
+            </option>
+            {options.map((option) => (
+              <option key={option} value={option} aria-label={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+      </label>
       <FieldError
         touched={meta.touched}
         errorMessage={meta.error}
@@ -92,4 +62,3 @@ const Select = ({
 };
 
 export default Select;
-export { Dropdown };
