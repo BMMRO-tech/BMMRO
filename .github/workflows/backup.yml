@@ -2,11 +2,11 @@ name: Backup database
 
 on:
   schedule:
-    - cron:  '40 15 * * *'
+    - cron:  '15 4 * * *'
 
-env:
-  PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
-  BUCKET: gs://${{secrets.BUCKET_DEV}}
+env:          
+  PROJECT_ID: ${{secrets.FIREBASE_PROD_PROJECT_ID}}
+  BUCKET: gs://${{secrets.BACKUP_BUCKET_PROD}}
 
 jobs:
   backup:

@@ -51,3 +51,12 @@ This approach is about automated backup using blaze plan which can then be used 
 # Final Decision
 
 We have decided to go ahead with Option 2. Github workflow with a cron job will be run every day to automate the export of the firestore data. The data will then be stored in the gcp storage buckets. In case of disaster recovery, the import will have to be done manually.
+
+
+# Backup Recovery
+
+Due to various considerations regarding the cost, time consumption and effort, it has been decided that the backup recovery, should it be needed, is performed manually, by following the steps detailed in the document:
+
+https://docs.google.com/document/d/1cLcZQ02GPC5HHhI_QSGX96U3baU3XyCl8zgMB1j8D7s/edit#heading=h.pewbr289rkwh
+
+
