@@ -6,7 +6,7 @@ fileignoreconfig:
 - filename: .github/workflows/backup.yml
   checksum: 774329aa26a96c3c5d5431e82bc49c200c521fc55455d3648fd3fb771d94b42e
 - filename: app/src/components/EncounterList.jsx
-  checksum: b344d6caf9f0bde3ca724e8159dcf6a10627a9b458aba36ff5f76dbc9cb5ae2d
+  checksum: 6c0edeb9f0acf26a24e651c9e66fd12b1ce4a41b9ac81d18db1636a5dd938357
 - filename: app/src/components/formFields/Select/Select.jsx
   checksum: ec346f3524f581864153d5ef7de6a612b167d73f0780fcad2cbec57872e05af2
 version: "1.0"

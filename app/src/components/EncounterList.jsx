@@ -78,7 +78,7 @@ const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
   );
 };
 
-const PreviousEncountersByMonth = (i, encountersByMonth, enableDropdown) => {
+const EncountersByMonth = (encountersByMonth) => {
   const { datastore } = useContext(FirebaseContext);
 
   const [encounters, setEncounters] = useState(encountersByMonth);
@@ -100,15 +100,38 @@ const PreviousEncountersByMonth = (i, encountersByMonth, enableDropdown) => {
   };
   return (
     <Fragment>
-      {enableDropdown && (
-        <MonthDropdown
-          name="PreviousEncountersDropDown"
-          labelText="Month"
-          options={getMonthList()}
-          onChange={getMonthData}
-          meta={""}
-        />
-      )}
+      <MonthDropdown
+        name="PreviousEncountersDropDown"
+        labelText="Month"
+        options={getMonthList()}
+        onChange={getMonthData}
+        meta={""}
+      />
+      <ul key={`encounterList-1`} css={utilities.list.items}>
+        <ListSubheader title={`${encounters.month} ${encounters.year}`} />
+
+        {!encounters.entries.length ? (
+          <div css={utilities.list.noEntries}>
+            No encounters in {encounters.month}
+          </div>
+        ) : (
+          <Fragment>
+            {encounters.entries.map((encounter, i) => (
+              <EncounterListItem
+                key={`previous-encounter-${i}`}
+                encounter={encounter}
+                isToday={false}
+              />
+            ))}
+          </Fragment>
+        )}
+      </ul>
+    </Fragment>
+  );
+};
+const PreviousEncountersByMonth = (i, encounters) => {
+  return (
+    <Fragment>
       <ul key={`encounterList-${i}`} css={utilities.list.items}>
         <ListSubheader title={`${encounters.month} ${encounters.year}`} />
 
@@ -133,9 +156,12 @@ const PreviousEncountersByMonth = (i, encountersByMonth, enableDropdown) => {
 };
 
 const PreviousEncounters = ({ encounters, enableDropdown }) => {
-  return encounters.map((encountersByMonth, i) =>
-    PreviousEncountersByMonth(i, encountersByMonth, enableDropdown)
-  );
+  const previousEncountersView = !enableDropdown
+    ? encounters.map((encountersByMonth, i) =>
+        PreviousEncountersByMonth(i, encountersByMonth, enableDropdown)
+      )
+    : EncountersByMonth(encounters[0]);
+  return previousEncountersView;
 };
 
 const TodaysEncounters = ({ encounters }) => {
