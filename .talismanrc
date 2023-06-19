@@ -1,12 +1,14 @@
 fileignoreconfig:
-- filename: .github/workflows/backup.yml
-  checksum: 4e111eec57ede513b3d36bafc423a1dd415e89c9fcad8b4d9cd4b29e9eb50644
 - filename: app/package-lock.json
   checksum: cb5ef1b5dfe3a02a684036bff0ab3045ef1e89535e1755a12adc491fe4307eb9
-- filename: app/src/components/EncounterList.jsx
-  checksum: b344d6caf9f0bde3ca724e8159dcf6a10627a9b458aba36ff5f76dbc9cb5ae2d
-- filename: app/src/components/formFields/Select/Select.jsx
-  checksum: ec346f3524f581864153d5ef7de6a612b167d73f0780fcad2cbec57872e05af2
 - filename: export-script/package-lock.json
   checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
+- filename: .github/workflows/backup.yml
+  checksum: dd483d9c17f41594a1202b3fd8701a9ae165481aff65993d44af3a1ce3d02910
+- filename: app/src/components/EncounterList.jsx
+  checksum: 6c0edeb9f0acf26a24e651c9e66fd12b1ce4a41b9ac81d18db1636a5dd938357
+- filename: app/src/components/formFields/Select/Select.jsx
+  checksum: ec346f3524f581864153d5ef7de6a612b167d73f0780fcad2cbec57872e05af2
+- filename: architectural-decision-records/2023-06-08_database_backup_strategy.md
+  checksum: b74ed91a09ae5482395cb7e51aa4414049706e6b7ed5216ddcd637cdc8201d8f
 version: "1.0"
