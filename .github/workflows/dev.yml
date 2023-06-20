@@ -35,9 +35,8 @@ jobs:
         run: npm test
       - name: Set environment variable with new version
         run: |
-          git fetch --tags --force
           PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
-          echo "$PREVIOUS_VERSION"
+          echo "Previous_version: $PREVIOUS_VERSION"
           echo "NEW_VERSION=$(($PREVIOUS_VERSION+1))" >> $GITHUB_ENV
       - name: Build production bundle
         env:
@@ -65,7 +64,7 @@ jobs:
           git push origin $TAG
   end-to-end:
     needs: build-test-deploy
-    runs-on: macos-latest
+    runs-on: macos-12.6.5
     env:
       E2E_TESTS_DIR: ./e2e-tests
       ENDPOINT: https://bmmro-164ec.web.app
