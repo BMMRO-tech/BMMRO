@@ -4,7 +4,7 @@ fileignoreconfig:
 - filename: export-script/package-lock.json
   checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
 - filename: .github/workflows/backup.yml
-  checksum: dd483d9c17f41594a1202b3fd8701a9ae165481aff65993d44af3a1ce3d02910
+  checksum: 774329aa26a96c3c5d5431e82bc49c200c521fc55455d3648fd3fb771d94b42e
 - filename: app/src/components/EncounterList.jsx
   checksum: 6c0edeb9f0acf26a24e651c9e66fd12b1ce4a41b9ac81d18db1636a5dd938357
 - filename: app/src/components/formFields/Select/Select.jsx
