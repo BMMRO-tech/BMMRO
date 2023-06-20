@@ -11,6 +11,4 @@ fileignoreconfig:
   checksum: ec346f3524f581864153d5ef7de6a612b167d73f0780fcad2cbec57872e05af2
 - filename: architectural-decision-records/2023-06-08_database_backup_strategy.md
   checksum: b74ed91a09ae5482395cb7e51aa4414049706e6b7ed5216ddcd637cdc8201d8f
-- filename: e2e-tests/index.test.js
-  checksum: 7c3536b0df766b5e108de4cdb9fc999b34241c4a01b440514a587757eea31437
 version: "1.0"
