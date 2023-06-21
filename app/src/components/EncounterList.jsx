@@ -188,10 +188,6 @@ const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
   const encountersByMonthDropDownFeatureToggle =
     process.env.REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE ===
     "TRUE";
-  console.log(
-    "###### Feature toggle value :" +
-      `${encountersByMonthDropDownFeatureToggle}`
-  );
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
