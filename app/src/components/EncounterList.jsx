@@ -64,9 +64,6 @@ const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
           id={name}
           onChange={onChange}
         >
-          <option key="none" value="" aria-label="default empty option">
-            -- Select --
-          </option>
           {options.map((option) => (
             <option key={option} value={option} aria-label={option}>
               {option}
@@ -83,12 +80,8 @@ const EncountersByMonth = (encountersByMonth) => {
 
   const [encounters, setEncounters] = useState(encountersByMonth);
 
-  const getMonthData = async (event) => {
-    const startDate = parse(
-      "1 " + event.target.value,
-      "d MMMM yyyy",
-      new Date()
-    );
+  async function getEncountersForTheMonth(monthOption) {
+    const startDate = parse("1 " + monthOption, "d MMMM yyyy", new Date());
     const endDate = endOfMonth(startDate);
 
     const encounterList = await getEncountersByTimeRange(
@@ -97,6 +90,10 @@ const EncountersByMonth = (encountersByMonth) => {
       endDate
     );
     setEncounters(encounterList[0]);
+  }
+
+  const getMonthData = async (event) => {
+    await getEncountersForTheMonth(event.target.value);
   };
   return (
     <Fragment>
