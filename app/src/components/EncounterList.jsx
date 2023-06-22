@@ -64,9 +64,6 @@ const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
           id={name}
           onChange={onChange}
         >
-          <option key="none" value="" aria-label="default empty option">
-            -- Select --
-          </option>
           {options.map((option) => (
             <option key={option} value={option} aria-label={option}>
               {option}
