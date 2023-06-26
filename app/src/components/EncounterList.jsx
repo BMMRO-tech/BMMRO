@@ -91,6 +91,7 @@ const EncountersByMonth = (encountersByMonth) => {
     EncounterMonthContext
   );
 
+  const [loading, setLoading] = useState(true);
   const [encounters, setEncounters] = useState([]);
 
   useEffect(() => {
@@ -103,6 +104,7 @@ const EncountersByMonth = (encountersByMonth) => {
         endDate
       );
       setEncounters(response[0]);
+      setLoading(false);
     };
     fetchData().then();
   });
@@ -132,26 +134,28 @@ const EncountersByMonth = (encountersByMonth) => {
         onChange={getMonthData}
         meta={""}
         defaultValue={encounterMonth}
-      />
-      <ul key={`encounterList-1`} css={utilities.list.items}>
-        <ListSubheader title={`${encounters.month} ${encounters.year}`} />
+      />{" "}
+      {!loading && (
+        <ul key={`encounterList-1`} css={utilities.list.items}>
+          <ListSubheader title={`${encounters?.month} ${encounters?.year}`} />
 
-        {!encounters.entries.length ? (
-          <div css={utilities.list.noEntries}>
-            No encounters in {encounters.month}
-          </div>
-        ) : (
-          <Fragment>
-            {encounters.entries.map((encounter, i) => (
-              <EncounterListItem
-                key={`previous-encounter-${i}`}
-                encounter={encounter}
-                isToday={false}
-              />
-            ))}
-          </Fragment>
-        )}
-      </ul>
+          {!encounters?.entries.length ? (
+            <div css={utilities.list.noEntries}>
+              No encounters in {encounters?.month}
+            </div>
+          ) : (
+            <Fragment>
+              {encounters?.entries.map((encounter, i) => (
+                <EncounterListItem
+                  key={`previous-encounter-${i}`}
+                  encounter={encounter}
+                  isToday={false}
+                />
+              ))}
+            </Fragment>
+          )}
+        </ul>
+      )}
     </Fragment>
   );
 };
