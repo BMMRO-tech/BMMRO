@@ -144,6 +144,9 @@ describe("EncounterList", () => {
       ...originalEnv,
       REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "TRUE",
     };
+    jest
+      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
+      .mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"
@@ -174,7 +177,9 @@ describe("EncounterList", () => {
     const today = new Date();
     const dropDownValue =
       monthNames[today.getMonth()] + " " + today.getFullYear();
-
+    jest
+      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
+      .mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"
@@ -216,6 +221,30 @@ describe("EncounterList", () => {
       expect(queryAllByRole("list")[0]).toHaveTextContent(
         "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal"
       );
+    });
+  });
+
+  it("Should not print undefined undefined for Month and year if the encounter list call to firestore fails and toggle is on", async () => {
+    process.env = {
+      ...originalEnv,
+      REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "TRUE",
+    };
+    jest
+      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
+      .mockResolvedValue([]);
+    const today = new Date();
+    const dropDownValue =
+      monthNames[today.getMonth() - 1] + " " + today.getFullYear();
+    const { queryAllByRole } = renderWithMockContexts(
+      <EncounterList
+        title="Previous Encounters"
+        encounters={[mockSingleMonthData]}
+        loadMore={() => {}}
+      />
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByText("undefined")).not.toBeInTheDocument();
     });
   });
 });

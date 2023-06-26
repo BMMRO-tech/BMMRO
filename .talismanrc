@@ -6,7 +6,7 @@ fileignoreconfig:
 - filename: .github/workflows/backup.yml
   checksum: 774329aa26a96c3c5d5431e82bc49c200c521fc55455d3648fd3fb771d94b42e
 - filename: app/src/components/EncounterList.jsx
-  checksum: 6c0edeb9f0acf26a24e651c9e66fd12b1ce4a41b9ac81d18db1636a5dd938357
+  checksum: f5ff111202a15cc70c93dc74fd523a1e6be5a9ae9108cea23368dd92e62ae582
 - filename: app/src/components/formFields/Select/Select.jsx
   checksum: ec346f3524f581864153d5ef7de6a612b167d73f0780fcad2cbec57872e05af2
 - filename: architectural-decision-records/2023-06-08_database_backup_strategy.md
