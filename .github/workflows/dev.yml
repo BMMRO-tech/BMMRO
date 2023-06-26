@@ -35,8 +35,7 @@ jobs:
         run: npm test
       - name: Set environment variable with new version
         run: |
-          git fetch --tags --force
-          PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
+          PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --all --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
           echo "Previous_version: $PREVIOUS_VERSION"
           echo "NEW_VERSION=$(($PREVIOUS_VERSION+1))" >> $GITHUB_ENV
       - name: Build production bundle
