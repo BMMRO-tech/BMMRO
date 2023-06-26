@@ -144,6 +144,9 @@ describe("EncounterList", () => {
       ...originalEnv,
       REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: "TRUE",
     };
+    jest
+      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
+      .mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"
@@ -174,7 +177,9 @@ describe("EncounterList", () => {
     const today = new Date();
     const dropDownValue =
       monthNames[today.getMonth()] + " " + today.getFullYear();
-
+    jest
+      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
+      .mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"

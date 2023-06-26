@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import usLocale from "date-fns/locale/en-US";
 import { endOfMonth, format, parse } from "date-fns";
 
@@ -14,6 +14,7 @@ import { monthNames } from "../constants/monthNames";
 import fieldStyles from "./formFields/fieldStyles";
 import { getEncountersByTimeRange } from "../hooks/useEncountersByMonth";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import { EncounterMonthContext } from "../encounterMonthContext/encounterMonthContext";
 
 const EncounterListItem = ({ encounter, isToday }) => {
   const { startTimestamp, sequenceNumber, species, area, startTime } =
@@ -53,7 +54,15 @@ const getMonthList = () => {
   return monthList;
 };
 
-const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
+const MonthDropdown = ({
+  name,
+  labelText,
+  onChange,
+  options,
+  meta,
+  short,
+  defaultValue,
+}) => {
   return (
     <label css={fieldStyles.label}>
       <span>{labelText}</span>
@@ -63,6 +72,7 @@ const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
           data-testid={`field-${name}`}
           id={name}
           onChange={onChange}
+          defaultValue={defaultValue || "Select"}
         >
           {options.map((option) => (
             <option key={option} value={option} aria-label={option}>
@@ -77,10 +87,28 @@ const MonthDropdown = ({ name, labelText, onChange, options, meta, short }) => {
 
 const EncountersByMonth = (encountersByMonth) => {
   const { datastore } = useContext(FirebaseContext);
+  const { encounterMonth, setEncounterMonth } = useContext(
+    EncounterMonthContext
+  );
 
-  const [encounters, setEncounters] = useState(encountersByMonth);
+  const [encounters, setEncounters] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const startDate = parse("1 " + encounterMonth, "d MMMM yyyy", new Date());
+      const endDate = endOfMonth(startDate);
+      const response = await getEncountersByTimeRange(
+        datastore,
+        startDate,
+        endDate
+      );
+      setEncounters(response[0]);
+    };
+    fetchData().then();
+  });
 
   async function getEncountersForTheMonth(monthOption) {
+    setEncounterMonth(monthOption);
     const startDate = parse("1 " + monthOption, "d MMMM yyyy", new Date());
     const endDate = endOfMonth(startDate);
 
@@ -103,6 +131,7 @@ const EncountersByMonth = (encountersByMonth) => {
         options={getMonthList()}
         onChange={getMonthData}
         meta={""}
+        defaultValue={encounterMonth}
       />
       <ul key={`encounterList-1`} css={utilities.list.items}>
         <ListSubheader title={`${encounters.month} ${encounters.year}`} />
