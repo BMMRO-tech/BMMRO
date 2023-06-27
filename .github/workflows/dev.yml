@@ -57,7 +57,9 @@ jobs:
       - name: Create dev-deployed-* tag
         env:
           COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
+          echo "Commit message: $COMMIT_MESSAGE"
           TAG="dev-deployed-${{env.NEW_VERSION}}"
           git fetch --unshallow origin
           git tag $TAG $COMMIT_SHA
