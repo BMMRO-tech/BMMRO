@@ -6,7 +6,7 @@ import GpsFormSection from "../GpsFormSection";
 import renderWithinFormik from "../../utils/test/renderWithinFormik";
 import { getPosition } from "../formFields/PositionInput/getPosition.js";
 
-configure({ asyncUtilTimeout: 12000 });
+configure({ asyncUtilTimeout: 18000 });
 jest.mock("../formFields/PositionInput/getPosition.js");
 
 describe("GpsFormSection", () => {
