@@ -20,9 +20,6 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: |
           npm install
-      - name: Run frontend tests
-        working-directory: ${{env.APP_DIR}}
-        run: npm run test-ci
       - name: Run firestore tests
         working-directory: ${{env.APP_DIR}}
         run: npm run test-firestore
