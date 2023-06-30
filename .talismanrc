@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: app/package-lock.json
-  checksum: 8f2ee269bf494fb23abe0d23b040742c8e1ed2c01d79256e2ad1a2faa1dfcb24
+  checksum: 668fff5d4ef0cc276ad6516b63e1c50cbea3cf23951cb9e97915394fbb19ac88
 - filename: export-script/package-lock.json
   checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
 - filename: .github/workflows/backup.yml
