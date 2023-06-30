@@ -39,6 +39,12 @@ const fieldStyles = {
     color: ${colors.darkRed};
     margin-left: 5px;
   `,
+  longRequired: css`
+    color: ${colors.darkRed};
+    margin-left: 5px;
+    grid-column: 1 / 3;
+    font-size: 13px;
+  `,
   inputContainer: css`
     display: inline-block;
     width: 100%;

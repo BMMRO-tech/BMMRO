@@ -12,10 +12,10 @@ jobs:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12"
+          node-version: "18"
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
@@ -35,14 +35,16 @@ jobs:
         run: npm test
       - name: Set environment variable with new version
         run: |
-          PREVIOUS_VERSION=$(git fetch origin --tags -q && git describe --tags --match "dev-deployed-*" $(git rev-list --tags="dev-deployed-*" --max-count=1) | sed 's/[^0-9]*//g')
-          echo "::set-env name=NEW_VERSION::$(($PREVIOUS_VERSION+1))"
+          PREVIOUS_VERSION=$(git fetch --tags -q && git tag -l | grep "dev-deployed-*" | sort -V | tail -1 | sed 's/[^0-9]*//g')
+          echo "Previous_version: $PREVIOUS_VERSION"
+          echo "NEW_VERSION=$(($PREVIOUS_VERSION+1))" >> $GITHUB_ENV
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
           REACT_APP_API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
           REACT_APP_VERSION: ${{env.NEW_VERSION}}
+          REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: ${{secrets.ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE_DEV}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
@@ -57,5 +59,38 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           TAG="dev-deployed-${{env.NEW_VERSION}}"
+          git fetch --unshallow origin
           git tag $TAG $COMMIT_SHA
           git push origin $TAG
+  end-to-end:
+    needs: build-test-deploy
+    runs-on: macos-13
+    env:
+      E2E_TESTS_DIR: ./e2e-tests
+      ENDPOINT: https://bmmro-164ec.web.app
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install e2e-tests dependencies
+        working-directory: ${{env.E2E_TESTS_DIR}}
+        run: |
+          npm install
+      - name: Install safari driver
+        working-directory: ${{env.E2E_TESTS_DIR}}
+        run: |
+          sudo safaridriver --enable
+          safaridriver -p 0 &
+      - name: Run end to end tests
+        env:
+          ENDPOINT: ${{env.ENDPOINT}}
+          EMAIL: "test@test.com"
+          PASSWORD: ${{secrets.FIREBASE_DEV_TEST_ACCOUNT_PASSWORD}}
+          PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}
+          API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
+          AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
+          REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: ${{secrets.ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE_DEV}}
+        working-directory: ${{env.E2E_TESTS_DIR}}
+        run: npm run test
+

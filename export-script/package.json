@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@firebase/testing": "^0.20.7",
-    "firebase-tools": "^8.10.0",
+    "firebase-tools": "^12.4.2",
     "jest": "^25.0.0"
   }
 }

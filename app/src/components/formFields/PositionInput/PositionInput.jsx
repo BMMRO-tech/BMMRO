@@ -2,8 +2,6 @@
 import { jsx } from "@emotion/core";
 import { useField } from "formik";
 import { useEffect } from "react";
-
-import { usePosition } from "../../../hooks/usePosition";
 import getErrorMessage from "../../../utils/getErrorMessage";
 import { FormErrorType } from "../../../constants/forms";
 import fieldStyles from "../fieldStyles";
@@ -17,9 +15,8 @@ const PositionInput = ({
   type,
   autofill,
   isDisabled,
+  position,
 }) => {
-  const position = usePosition();
-
   const positionConfig = {
     latitude: {
       min: -90,
@@ -65,17 +62,23 @@ const PositionInput = ({
     return "";
   };
 
+  const defaultToNegativeValue = (val) => {
+    return val === "" || val.startsWith("-") || name !== "longitude"
+      ? val
+      : `-${val}`;
+  };
+
   const [field, meta, helpers] = useField({
     name,
     validate: validatePosition,
   });
 
   useEffect(() => {
-    if (autofill && position[type]) {
-      !meta.touched && helpers.setValue(position[type]);
+    if (autofill && position) {
+      helpers.setValue(position);
     }
     // eslint-disable-next-line
-  }, [position[type]]);
+  }, [position]);
 
   return (
     <div>
@@ -91,7 +94,11 @@ const PositionInput = ({
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
-            onChange={(e) => helpers.setValue(e.target.value.toString())}
+            onChange={(e) =>
+              helpers.setValue(
+                defaultToNegativeValue(e.target.value.toString())
+              )
+            }
           />
         </div>
       </label>
@@ -99,6 +106,7 @@ const PositionInput = ({
         touched={meta.touched}
         errorMessage={meta.error}
         labelText={labelText}
+        isRequired={isRequired}
       />
     </div>
   );

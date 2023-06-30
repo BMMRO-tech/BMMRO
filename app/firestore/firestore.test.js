@@ -42,7 +42,9 @@ describe("Habitat Use Collection", () => {
 describe("Encounter collection with habitat use subcollection", () => {
   let db;
   const collectionName = "encounter";
-  const subcollectionName = "habitatUse";
+  const habitatUseSubcollectionName = "habitatUse";
+  const biopsySubcollectionName = "biopsy";
+  const specimenSubcollectionName = "specimen";
 
   const initializeFirestore = (auth) => {
     return firebase.initializeTestApp({ projectId, auth }).firestore();
@@ -89,7 +91,7 @@ describe("Encounter collection with habitat use subcollection", () => {
         db
           .collection(collectionName)
           .doc(id)
-          .collection(subcollectionName)
+          .collection(habitatUseSubcollectionName)
           .add(defaultValues)
       );
     });
@@ -105,7 +107,85 @@ describe("Encounter collection with habitat use subcollection", () => {
         db
           .collection(collectionName)
           .doc(id)
-          .collection(subcollectionName)
+          .collection(habitatUseSubcollectionName)
+          .add(defaultValues)
+      );
+    });
+  });
+
+  describe("Biopsy subcollection", () => {
+    it("should successfully submit data when user is authenticated", async () => {
+      db = initializeFirestore({ uid: "testId" });
+      const { id } = await db.collection(collectionName).add(defaultValues);
+
+      await firebase.assertSucceeds(
+        db
+          .collection(collectionName)
+          .doc(id)
+          .collection(biopsySubcollectionName)
+          .add(defaultValues)
+      );
+    });
+
+    it("should fail to submit data when user is not authenticated", async () => {
+      db = initializeFirestore({ uid: "testId" });
+      const { id } = await db.collection(collectionName).add(defaultValues);
+
+      // Firebase emulator doesn't provide a way to sign the user out
+      db = initializeFirestore(null);
+
+      await firebase.assertFails(
+        db
+          .collection(collectionName)
+          .doc(id)
+          .collection(biopsySubcollectionName)
+          .add(defaultValues)
+      );
+    });
+  });
+
+  describe("Specimen table subcollection", () => {
+    it("should successfully submit data when user is authenticated", async () => {
+      db = initializeFirestore({ uid: "testId" });
+      const { id } = await db.collection(collectionName).add(defaultValues);
+      const biopsy = await db
+        .collection(collectionName)
+        .doc(id)
+        .collection(biopsySubcollectionName)
+        .add(defaultValues);
+      console.log(biopsy.id);
+
+      await firebase.assertSucceeds(
+        db
+          .collection(collectionName)
+          .doc(id)
+          .collection(biopsySubcollectionName)
+          .doc(biopsy.id)
+          .collection(specimenSubcollectionName)
+          .add(defaultValues)
+      );
+    });
+
+    it("should fail to submit data when user is not authenticated", async () => {
+      db = initializeFirestore({ uid: "testId" });
+      const { id } = await db.collection(collectionName).add(defaultValues);
+      const biopsy = await db
+        .collection(collectionName)
+        .doc(id)
+        .collection(biopsySubcollectionName)
+        .add(defaultValues);
+      console.log(biopsy.id);
+
+      // Firebase emulator doesn't provide a way to sign the user out
+      db = initializeFirestore(null);
+
+      await firebase.assertFails(
+        db
+          .collection(collectionName)
+          .doc(id)
+          .collection(biopsySubcollectionName)
+          .doc(biopsy.id)
+          .collection(specimenSubcollectionName)
           .add(defaultValues)
       );
     });

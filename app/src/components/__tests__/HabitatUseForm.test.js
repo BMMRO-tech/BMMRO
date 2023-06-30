@@ -3,6 +3,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
+//import { it } from "date-fns/locale";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
@@ -198,5 +199,144 @@ describe("HabitatUseForm", () => {
     expect(
       queryByRole("button", { name: "End Habitat" })
     ).not.toBeInTheDocument();
+  });
+
+  it("has a comment field with maxlength 1000 chars", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    await act(async () => {
+      const { getByRole } = render(
+        <HabitatUseForm handleSubmit={mockHandleSubmit} />
+      );
+      const commentsInput = getByRole("textbox", {
+        name: "Comments",
+      });
+      expect(commentsInput.maxLength).toBe(1000);
+    });
+  });
+
+  it.each([
+    ["1.123451", "-1.123451"],
+    ["-3.125456", "-3.125456"],
+    ["", ""],
+  ])("the longitude defaults to negative value", async (val, expected) => {
+    const mockInitialValues = {
+      numberOfAnimals: 1,
+      numberOfCalves: 3,
+      numberOfBoats: 1,
+      directionOfTravel: "N",
+      comments: "Cool whale!",
+      waterDepth: 22,
+      waterDepthBeyondSoundings: false,
+      waterTemp: 17,
+      bottomSubstrate: "",
+      cloudCover: "",
+      beaufortSeaState: "",
+      tideState: "",
+      behaviour: "",
+      swellWaveHeight: "",
+      distance: "",
+      bearing: "",
+      aspect: "",
+      groupCohesion: "",
+      groupComposition: "",
+      surfaceBout: 0,
+      endTime: "",
+      startTime: "12:30:33",
+      latitude: "1.123456",
+      longitude: "",
+      gpsMark: "test",
+    };
+    let formValues;
+    const mockHandleSubmit = (values) => {
+      formValues = values;
+    };
+    const { getByRole } = render(
+      <HabitatUseForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+      />
+    );
+
+    const longitudeInput = getByRole("spinbutton", { name: "Long" });
+    await userEvent.type(longitudeInput, val, { delay: 1 });
+
+    await act(async () => {
+      const submitButton = getByRole("button", { name: "Save" });
+      userEvent.click(submitButton);
+    });
+
+    expect(formValues.longitude).toEqual(expected);
+  });
+
+  it("refresh long & lat on click on the refresh button and disables button", async () => {
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = {
+      getCurrentPosition: jest.fn(),
+    };
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    expect(
+      global.navigator.geolocation.getCurrentPosition
+    ).toHaveBeenCalledTimes(2);
+
+    expect(refreshButton).toHaveAttribute("disabled");
+
+    global.navigator.geolocation = realGeolocation;
+  });
+
+  it("Shows error message when the refresh button cannot obtain positional data", async () => {
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = null;
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    const refreshErrorMessage = getByTestId("refreshError");
+
+    expect(refreshErrorMessage).toBeInTheDocument();
+
+    global.navigator.geolocation = realGeolocation;
+  });
+
+  it("refresh button shouldn't be disabled once it received the new location", async () => {
+    const realGeolocation = global.navigator.geolocation;
+
+    global.navigator.geolocation = {
+      getCurrentPosition: jest.fn().mockImplementation((success) =>
+        success({
+          coords: {
+            latitude: 1.293859,
+            longitude: -23.049282,
+          },
+        })
+      ),
+    };
+
+    const { getByTestId } = render(<HabitatUseForm />);
+
+    const refreshButton = getByTestId("Refresh");
+
+    await act(async () => {
+      userEvent.click(refreshButton);
+    });
+
+    expect(refreshButton).not.toHaveAttribute("disabled");
+
+    global.navigator.geolocation = realGeolocation;
   });
 });

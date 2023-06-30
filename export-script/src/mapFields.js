@@ -4,9 +4,18 @@ const mapFields = (data, config) => {
   return data.map((entry) => {
     const transformedEntry = {};
     tableConfig.forEach(([finalFieldName, fieldConfig]) => {
-      const fieldValue = fieldConfig.transform
-        ? fieldConfig.transform(entry[fieldConfig.key], entry)
-        : entry[fieldConfig.key];
+
+      let fieldValue = undefined;
+
+      if(fieldConfig.transform) {
+        fieldValue = fieldConfig.transform(entry[fieldConfig.key], entry)
+      }
+      else if (fieldConfig.key.includes(".")) {
+        const keys = fieldConfig.key.split(".");
+        fieldValue = entry[keys[0]][keys[1]];
+      } else {
+        fieldValue = entry[fieldConfig.key];
+      }
 
       transformedEntry[finalFieldName] =
         fieldValue === undefined ? "" : fieldValue;

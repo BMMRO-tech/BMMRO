@@ -8,7 +8,7 @@ import Layout from "../components/Layout";
 import EncounterList from "../components/EncounterList";
 import Button from "../components/Button";
 import { ROUTES } from "../constants/routes";
-import useEncountersByMonth from "../hooks/useEncountersByMonth";
+import { useEncountersByMonth } from "../hooks/useEncountersByMonth";
 import typography from "../materials/typography";
 
 const Encounters = () => {
@@ -26,19 +26,17 @@ const Encounters = () => {
   };
 
   const { datastore } = useContext(FirebaseContext);
-  const {
-    todaysEncounters,
-    previousEncounters,
-    loadPreviousMonth,
-    isLoading,
-  } = useEncountersByMonth(datastore);
+  const { todaysEncounters, previousEncounters, loadPreviousMonth, isLoading } =
+    useEncountersByMonth(datastore);
 
   return (
     <Layout hasDefaultPadding={false}>
       <div css={styles.titleContainer}>
         <h1 css={typography.largeTitle}>ENCOUNTERS</h1>
         <Link to={ROUTES.newEncounter}>
-          <Button isSmall>+ New</Button>
+          <Button isSmall testId={"newEncounter"}>
+            + New
+          </Button>
         </Link>
       </div>
       <div css={styles.list}>

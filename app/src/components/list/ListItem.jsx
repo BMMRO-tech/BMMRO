@@ -14,6 +14,7 @@ const ListItem = ({
   primaryContentLeft,
   primaryContentRight,
   secondaryContent,
+  isHabitatUse,
 }) => {
   const styles = {
     link: css`
@@ -77,7 +78,11 @@ const ListItem = ({
     `,
   };
   return (
-    <Link css={styles.link} to={destinationUrl}>
+    <Link
+      css={styles.link}
+      to={destinationUrl}
+      id={isHabitatUse ? "habitatUse" : "biopsy"}
+    >
       <li css={styles.container}>
         <div css={styles.leftContainer}>
           <span>{primaryTime}</span>

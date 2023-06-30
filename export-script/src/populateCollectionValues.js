@@ -13,6 +13,7 @@ const populateCollectionValues = (
 
     filteredSubcollectionEntries.forEach((subcollectionEntry) => {
       const populatedSubcollectionEntry = { ...subcollectionEntry };
+     
       for (const [key, value] of Object.entries(fieldsToPopulateMap)) {
         populatedSubcollectionEntry[key] = collectionEntry[value];
       }
