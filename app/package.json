@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "TZ=UTC firebase emulators:exec --only firestore 'react-scripts test'",
     "test-ci": "TZ=UTC CI=true firebase emulators:exec --only firestore 'react-scripts test --runInBand'",
     "test-nowatch": "TZ=UTC firebase emulators:exec --only firestore 'react-scripts test --watchAll=false'",
