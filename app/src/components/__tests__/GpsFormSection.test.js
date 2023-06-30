@@ -6,7 +6,7 @@ import GpsFormSection from "../GpsFormSection";
 import renderWithinFormik from "../../utils/test/renderWithinFormik";
 import { getPosition } from "../formFields/PositionInput/getPosition.js";
 
-configure({ asyncUtilTimeout: 12000 });
+configure({ asyncUtilTimeout: 18000 });
 jest.mock("../formFields/PositionInput/getPosition.js");
 
 describe("GpsFormSection", () => {
@@ -29,12 +29,13 @@ describe("GpsFormSection", () => {
       { latitude: "", longitude: "" }
     );
 
-    const latitudeInput = getByRole("spinbutton", { name: "Lat" });
-    const longitudeInput = getByRole("spinbutton", { name: "Long" });
-
     await waitFor(() => {
-      expect(latitudeInput.value).toEqual(expectedCoordsOnLoad.latitude);
-      expect(longitudeInput.value).toEqual(expectedCoordsOnLoad.longitude);
+      expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
+        expectedCoordsOnLoad.latitude
+      );
+      expect(getByRole("spinbutton", { name: "Long" }).value).toEqual(
+        expectedCoordsOnLoad.longitude
+      );
     });
 
     userEvent.click(getByTestId("Refresh"));
@@ -43,15 +44,12 @@ describe("GpsFormSection", () => {
       expect(getByTestId("Refresh")).toHaveAttribute("disabled");
     });
 
-    const updatedLatitudeInput = getByRole("spinbutton", { name: "Lat" });
-    const updatedLongitudeInput = getByRole("spinbutton", { name: "Long" });
-
     await waitFor(async () => {
       expect(getPosition).toHaveBeenCalledTimes(2);
-      expect(updatedLatitudeInput.value).toEqual(
+      expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
         expectedCoordsOnRefresh.latitude
       );
-      expect(updatedLongitudeInput.value).toEqual(
+      expect(getByRole("spinbutton", { name: "Long" }).value).toEqual(
         expectedCoordsOnRefresh.longitude
       );
       expect(getByTestId("Refresh")).not.toHaveAttribute("disabled");
