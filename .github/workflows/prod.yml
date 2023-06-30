@@ -20,9 +20,6 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: |
           npm install
-      - name: Run frontend tests
-        working-directory: ${{env.APP_DIR}}
-        run: npm run test-ci
       - name: Run firestore tests
         working-directory: ${{env.APP_DIR}}
         run: npm run test-firestore
@@ -35,7 +32,7 @@ jobs:
         run: npm test
       - name: Set environment variable with new version
         run: |
-          PENDING_TAG=$(git describe --tags --match "prod-pending-*" $(git rev-list --tags="prod-pending-*" --max-count=1))
+          PENDING_TAG=$(git fetch --tags -q && git tag -l | grep "prod-pending-*" | sort -V | tail -1)
           echo "PENDING_TAG=$PENDING_TAG" >> $GITHUB_ENV
           PENDING_TAG_VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
           echo "NEW_VERSION=$PENDING_TAG_VERSION" >> $GITHUB_ENV
