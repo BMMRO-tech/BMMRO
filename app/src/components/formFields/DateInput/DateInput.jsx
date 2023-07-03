@@ -72,6 +72,7 @@ const DateInput = ({
         touched={meta.touched}
         errorMessage={meta.error}
         labelText={labelText}
+        isRequired={isRequired}
       />
     </div>
   );

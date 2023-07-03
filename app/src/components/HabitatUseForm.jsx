@@ -41,7 +41,7 @@ const HabitatUseForm = ({
   handleSubmit,
   isViewOnly,
   encounterId,
-  isPageNewHabitatUse,
+  pageHasPositionalValues,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showPositionalModal, setShowPositionalModal] = useState({
@@ -102,6 +102,7 @@ const HabitatUseForm = ({
           });
         }}
         handleLeavePage={() => handleSubmit(showPositionalModal.values)}
+        pageName="habitat"
       />
     );
   };
@@ -211,7 +212,7 @@ const HabitatUseForm = ({
                     name="numberOfAnimals"
                     labelText="Number of animals"
                     minValue={0}
-                    maxValue={99}
+                    maxValue={999}
                     isInteger
                     isShort
                     isDisabled={isViewOnly}
@@ -401,7 +402,7 @@ const HabitatUseForm = ({
 
               <InputFocusOnError
                 hasTriedToSubmit={checkingValidation}
-                isPageNewHabitatUse={isPageNewHabitatUse}
+                pageHasPositionalValues={pageHasPositionalValues}
               />
             </Form>
           )}

@@ -6,7 +6,7 @@ export default [
   "Atlantic spotted dolphin",
   "Bottlenose dolphin - oceanic",
   "Clymene dolphin",
-  "Curvier's beaked whale",
+  "Cuvier's beaked whale",
   "False killer whale",
   "Fin whale",
   "Fraser's dolphin",

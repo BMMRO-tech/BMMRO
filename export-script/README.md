@@ -42,7 +42,7 @@ You will need to specify a date range to export the data entries from. First arg
 node index.js 01/06/2020 01/07/2020
 ```
 
-This will generate two files inside a folder called `exported`. One file will contain `habitatUse` entries and the other will contain `encounter` entries.
+This will generate four files inside a folder called `exported`. These files will contain `habitatUse`, `biopsy` and `specimen` entries. The final file will contain `encounter` entries.
 
 By default, the script will only export entries that have not previously been exported (`exported` field set as false). To get _all_ entries in the specified date range, regardless of whether they've previously been exported, you may specify a `--all` flag for the command, for example:
 
