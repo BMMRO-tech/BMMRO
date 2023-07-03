@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { act } from "@testing-library/react";
+import { act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import PositionInput from "../PositionInput";
@@ -200,5 +200,28 @@ describe("PositionInput", () => {
     await userEvent.type(positionInput, "10.123450", { delay: 1 });
 
     expect(getFormValues().lat).toEqual("");
+  });
+
+  it.each([
+    ["1.123451", "-1.123451"],
+    ["-3.125456", "-3.125456"],
+    ["", ""],
+  ])("the longitude defaults to negative value", async (val, expected) => {
+    const { getByRole } = renderWithinFormik(
+      <PositionInput
+        name="longitude"
+        labelText="Your longitude"
+        type="longitude"
+      />,
+      { longitude: "" }
+    );
+
+    let longitudeInput = getByRole("spinbutton", { name: "Your longitude" });
+    await userEvent.type(longitudeInput, val, { delay: 1 });
+    longitudeInput = getByRole("spinbutton", { name: "Your longitude" });
+
+    await waitFor(() => {
+      expect(longitudeInput.value).toEqual(expected);
+    });
   });
 });
