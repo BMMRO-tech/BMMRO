@@ -122,4 +122,4 @@ const useEncountersByMonth = (datastore) => {
   return { todaysEncounters, previousEncounters, loadPreviousMonth, isLoading };
 };
 
-export default useEncountersByMonth;
+export { useEncountersByMonth, getEncountersByTimeRange };

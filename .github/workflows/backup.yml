@@ -1,0 +1,28 @@
+name: Backup database
+
+on:
+  schedule:
+    - cron:  '15 4 * * *'
+
+env:          
+  PROJECT_ID: ${{secrets.FIREBASE_PROD_PROJECT_ID}}
+  BUCKET: gs://${{secrets.BACKUP_BUCKET_PROD}}
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - id: 'auth'
+        name: 'Authenticate to google cloud'
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.BACKUP_KEY }}
+      - name: 'Set up google sdk'
+        uses: google-github-actions/setup-gcloud@v1
+
+      - id: 'backup'
+        name: 'backup database'
+        run: |-
+          gcloud info
+          gcloud config set project $PROJECT_ID
+          gcloud firestore export $BUCKET
