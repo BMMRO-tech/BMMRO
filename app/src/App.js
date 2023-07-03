@@ -18,6 +18,10 @@ import EditEncounter from "./pages/EditEncounter";
 import NewHabitatUse from "./pages/NewHabitatUse";
 import ViewHabitatUse from "./pages/ViewHabitatUse";
 import EditHabitatUse from "./pages/EditHabitatUse";
+import NewBiopsy from "./pages/NewBiopsy";
+import EditBiopsy from "./pages/EditBiopsy";
+import ViewBiopsy from "./pages/ViewBiopsy";
+import { EncounterMonthProvider } from "./encounterMonthContext/encounterMonthContext";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -33,6 +37,9 @@ const AppWithoutContext = () => {
       <NewHabitatUse path={ROUTES.newHabitatUse} />
       <EditHabitatUse path={ROUTES.editHabitatUse} />
       <ViewHabitatUse path={ROUTES.viewHabitatUse} />
+      <NewBiopsy path={ROUTES.newBiopsy} />
+      <EditBiopsy path={ROUTES.editBiopsy} />
+      <ViewBiopsy path={ROUTES.viewBiopsy} />
       <Encounters default path={ROUTES.encounters} />
     </Router>
   );
@@ -42,7 +49,9 @@ export default () => {
   return (
     <FirebaseContextProvider>
       <LocationProvider>
-        <AppWithoutContext />
+        <EncounterMonthProvider>
+          <AppWithoutContext />
+        </EncounterMonthProvider>
       </LocationProvider>
     </FirebaseContextProvider>
   );

@@ -89,6 +89,8 @@ const EncounterForm = ({
             transformSubmitValues(values);
             handleSubmit(submitType, values);
           }}
+          validateOnChange={false}
+          validateOnBlur={true}
         >
           {({ values, submitForm }) => (
             <Form>

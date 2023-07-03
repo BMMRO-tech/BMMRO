@@ -11,7 +11,6 @@ const RadioGroup = ({ name, labelText, options, isRequired, isDisabled }) => {
   });
 
   const styles = getRadioGroupStyle();
-
   return (
     <div css={styles.radioGroupContainer}>
       <span css={styles.label}>{labelText}</span>
@@ -29,7 +28,7 @@ const RadioGroup = ({ name, labelText, options, isRequired, isDisabled }) => {
                   css={styles.radioButton}
                   checked={field.value === option.value}
                   disabled={isDisabled}
-                  data-testid={`field-${name}`}
+                  data-testid={`field-${name}-${option.value}`}
                 />
                 {option.label}
               </label>

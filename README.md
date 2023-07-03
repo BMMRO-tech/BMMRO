@@ -10,11 +10,12 @@
 
 ## Overview
 
-Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull, but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. This page is here because we believe technology can help them better than it currently is. Join us...
+Bahamas Marine Mammal Research Organization (BMMRO) is not just a mouthfull, but is also a non-profit scientific research organisation run by world renowned scientists finding marine mammals in and around Abaco Island, Bahamas, understanding their primary areas of habitation and using what they learn to make a difference. This page is here because we believe technology can help them better than it currently is. Join us.
 
 ## About them
 
 - Website: http://www.bahamaswhales.org/home.aspx
+- Our Story: https://www.youtube.com/watch?v=D6KgNQpWynY
 - Facebook: www.facebook.com/BMMRO
 - Instagram: [@BMMRO](https://www.instagram.com/bmmro/)
 - Twitter: [@BMMRO](https://twitter.com/BMMRO)
@@ -37,6 +38,7 @@ We are passionate about technology. We understand that the system that protects 
 ## Onboarding Pathway
 
 - [Intro Video](https://drive.google.com/drive/u/1/folders/19epArmIPsgr5Tb2omchZ1ttjHHbw5AQo)
+- [Our Story](https://www.youtube.com/watch?v=D6KgNQpWynY)
 - [Current “As Is” infographic](As%20Is%20InfoGraphic.png)
 - [Habitiat Use Data Sheet, example of the most frequently used form on boat excurtions](HabitatUseDataSheet.JPG)
 - [Encounter Sighting Data Sheet](EncounterSightingDataSheet.JPG)
@@ -142,6 +144,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Strawb99"><img src="https://avatars.githubusercontent.com/u/96117207?v=4" width="100px;" alt=""/><br /><sub><b>Sophie Strawbridge</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=Strawb99" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/romanecastera"><img src="https://avatars.githubusercontent.com/u/100352571?v=4" width="100px;" alt=""/><br /><sub><b>Romane Castera</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=romanecastera" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/josh-simpson-TW"><img src="https://avatars.githubusercontent.com/u/100127157?s=400&u=781b8a2304b960140267ac4d21836826ad85452a&v=4" width="100px;" alt=""/><br /><sub><b>Josh Simpson</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=josh-simpson-TW" title="Business Development">💼</a></td>
+     <td align="center"><a href="https://github.com/JamesGoodThoughtworks"><img src="https://avatars.githubusercontent.com/u/101573096?s=400&v=4" width="100px;" alt=""/><br /><sub><b>James Goodman</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=JamesGoodThoughtworks" title="Code">💻</a></td>
+     <td align="center"><a href="https://github.com/njktw"><img src="https://avatars.githubusercontent.com/u/100933291?v=4" width="100px;" alt=""/><br /><sub><b>Nick Kelly</b></sub></a><br /><a href="#" title="Business development">💼</a</td>
+     <td align="center"><a href="https://github.com/ksidhuTWs"><img src="https://avatars.githubusercontent.com/u/107918764?v=4" width="100px;" alt=""/><br /><sub><b>Karan Sidhu</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=ksidhuTWs" title="Code">💻</a></td>
+  </tr>
+  <tr>
+   <td align="center"><a href="https://github.com/zeingowie"><img src="https://avatars.githubusercontent.com/u/82781176?v=4" width="100px;" alt=""/><br /><sub><b>Zein Gowie</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=zeingowie" title="Code">💻</a></td>
+     <td align="center"><a href="https://github.com/FallRi"><img src="https://avatars.githubusercontent.com/u/104824292?v=4" width="100px;" alt=""/><br /><sub><b>Fallon RiShiva</b></sub></a><br /><a href="https://github.com/BMMRO-tech/BMMRO/commits?author=FallRi" title="Code">💻</a></td>
   </tr>
 </table>
 
@@ -150,4 +159,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!!!

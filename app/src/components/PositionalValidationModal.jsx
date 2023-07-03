@@ -11,7 +11,11 @@ import "@reach/dialog/styles.css";
 import Button from "../components/Button";
 import utilities from "../materials/utilities";
 
-const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
+const PositionalValidationModal = ({
+  handleLeavePage,
+  closeModal,
+  pageName,
+}) => {
   const cancelRef = useRef();
 
   const styles = {
@@ -45,7 +49,7 @@ const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
             No positional data present!
           </AlertDialogLabel>
           <AlertDialogDescription css={styles.description}>
-            End habitat without positional data?
+            End {pageName} without positional data?
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
             <Button
@@ -54,7 +58,7 @@ const PositionalValidationModal = ({ handleLeavePage, closeModal }) => {
               isMedium={true}
               testId={"saveAnyway"}
             >
-              End habitat
+              End {pageName}
             </Button>
             <StayButton />
           </div>

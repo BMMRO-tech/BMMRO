@@ -1,7 +1,7 @@
 import * as firebaseTesting from "@firebase/testing";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react-hooks";
 
-import useEncountersByMonth from "../useEncountersByMonth";
+import { useEncountersByMonth } from "../useEncountersByMonth";
 import testEncounters from "../__fixtures__/testEncounters";
 import { Datastore } from "../../datastore/datastore";
 
