@@ -1,6 +1,8 @@
 export const CollectionNames = {
   ENCOUNTER: "encounter",
   HABITAT_USE: "habitatUse",
+  BIOPSY: "biopsy",
+  SPECIMEN: "specimen",
 };
 
 export const generateEncounterPath = (id) => {
@@ -9,6 +11,14 @@ export const generateEncounterPath = (id) => {
 
 export const generateHabitatUsePath = (encounterId, habitatUseId) => {
   return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`;
+};
+
+export const generateBiopsyPath = (encounterId, biopsyId) => {
+  return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.BIOPSY}/${biopsyId}`;
+};
+
+export const generateSpecimenPath = (encounterId, biopsyId, specimenId) => {
+  return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.BIOPSY}/${biopsyId}/${CollectionNames.SPECIMEN}/${specimenId}`;
 };
 
 export const DatastoreErrorType = {

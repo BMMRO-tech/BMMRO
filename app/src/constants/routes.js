@@ -7,6 +7,9 @@ export const ROUTES = {
   newHabitatUse: "/encounters/:encounterId/habitat-uses/new",
   editHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/edit",
   viewHabitatUse: "/encounters/:encounterId/habitat-uses/:habitatUseId/view",
+  newBiopsy: "/encounters/:encounterId/biopsies/new",
+  editBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/edit",
+  viewBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/view",
   login: "/login",
 };
 
@@ -32,4 +35,16 @@ export const generateEditHabitatURL = (encounterId, habitatUseId) => {
 
 export const generateViewHabitatURL = (encounterId, habitatUseId) => {
   return `/encounters/${encounterId}/habitat-uses/${habitatUseId}/view`;
+};
+
+export const generateNewBiopsyURL = (encounterId) => {
+  return `/encounters/${encounterId}/biopsies/new`;
+};
+
+export const generateEditBiopsyURL = (encounterId, biopsyId) => {
+  return `/encounters/${encounterId}/biopsies/${biopsyId}/edit`;
+};
+
+export const generateViewBiopsyURL = (encounterId, biopsyId) => {
+  return `/encounters/${encounterId}/biopsies/${biopsyId}/view`;
 };
