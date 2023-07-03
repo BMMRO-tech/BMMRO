@@ -12,10 +12,10 @@ jobs:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12"
+          node-version: "18"
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
@@ -45,6 +45,5 @@ jobs:
           REACT_APP_API_KEY: ${{secrets.FIREBASE_DEV_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_DEV_AUTH_DOMAIN}}
           REACT_APP_VERSION: ${{env.NEW_VERSION}}
-          REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE: ${{secrets.BIOPSY_FORM_FEATURE_TOGGLE_DEV}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
