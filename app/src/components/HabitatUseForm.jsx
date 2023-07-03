@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { css, jsx } from "@emotion/core";
 import { navigate } from "@reach/router";
@@ -30,14 +30,29 @@ import habitatUseDefaults from "../constants/habitatUseDefaultValues";
 import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
 import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
+import PositionalValidationModal from "./PositionalValidationModal";
+import fieldStyles from "./formFields/fieldStyles";
+import { getPosition } from "./formFields/PositionInput/getPosition";
+
+import { Refresh } from "./icons/Refresh";
 
 const HabitatUseForm = ({
   initialValues,
   handleSubmit,
   isViewOnly,
   encounterId,
+  pageHasPositionalValues,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showPositionalModal, setShowPositionalModal] = useState({
+    boolean: false,
+    values: "",
+  });
+  const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  const [refreshLatLong, setRefreshLatLong] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState({ latitude: "", longitude: "" });
+  const [error, setError] = useState(null);
 
   const styles = {
     cancelButton: css`
@@ -48,6 +63,22 @@ const HabitatUseForm = ({
     `,
   };
 
+  const checkingValidation = (isPositionalData) => {
+    setClosedPositionalModal(isPositionalData);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const tempPosition = await getPosition();
+
+      if (tempPosition.position !== null) {
+        setPosition(tempPosition.position);
+      }
+      setError(tempPosition.error);
+      setIsLoading(false);
+    })();
+  }, [refreshLatLong]);
+
   const renderConfirmationModal = () => {
     return (
       <CancelFormConfirmationModal
@@ -57,12 +88,41 @@ const HabitatUseForm = ({
     );
   };
 
+  const renderPositionalValidationModal = () => {
+    return (
+      <PositionalValidationModal
+        closeModal={() => {
+          const elementValue = document.getElementsByName("latitude")[0];
+          window.setTimeout(() => elementValue.focus(), 0);
+          setShowPositionalModal((prevState) => {
+            return {
+              ...prevState,
+              boolean: false,
+            };
+          });
+        }}
+        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
+        pageName="habitat"
+      />
+    );
+  };
+
   const initValues = initialValues || habitatUseDefaults;
 
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
-        <Formik initialValues={initValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initValues}
+          async
+          onSubmit={(values) => {
+            values.hasEnded ||
+            (values.longitude && values.latitude) ||
+            values.gpsMark
+              ? handleSubmit(values)
+              : setShowPositionalModal({ boolean: true, values: values });
+          }}
+        >
           {({ values }) => (
             <Form>
               <section css={styles.section}>
@@ -87,23 +147,37 @@ const HabitatUseForm = ({
                   />
                 </FormSection>
                 <br />
-                <FormSection isOneLine>
+                <FormSection isOneLine4Elements>
                   <PositionInput
                     name="latitude"
                     type="latitude"
                     labelText="Lat"
                     isShort
-                    autofill={!initialValues}
+                    autofill={!initialValues || refreshLatLong !== 0}
                     isDisabled={isViewOnly}
+                    position={position?.latitude}
                   />
-                  <PositionInput
-                    name="longitude"
-                    type="longitude"
-                    labelText="Long"
-                    isShort
-                    autofill={!initialValues}
-                    isDisabled={isViewOnly}
-                  />
+
+                  <div style={{ display: "flex" }}>
+                    <PositionInput
+                      name="longitude"
+                      type="longitude"
+                      labelText="Long"
+                      isShort
+                      autofill={!initialValues || refreshLatLong !== 0}
+                      isDisabled={isViewOnly}
+                      position={position?.longitude}
+                    />
+                    {!isViewOnly && (
+                      <Refresh
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        setRefreshLatLong={setRefreshLatLong}
+                        refreshLatLong={refreshLatLong}
+                        testId="Refresh"
+                      />
+                    )}
+                  </div>
                   <TextInput
                     name="gpsMark"
                     labelText="GPS mark"
@@ -111,6 +185,24 @@ const HabitatUseForm = ({
                     isShort
                     isDisabled={isViewOnly}
                   />
+                  {closedPositionalModal && (
+                    <label
+                      css={fieldStyles.longRequired}
+                      data-testid={"positional-data-validation"}
+                    >
+                      {" "}
+                      Please add either latitude and longitude, or a GPS mark.{" "}
+                    </label>
+                  )}
+                  {error && (
+                    <label
+                      css={fieldStyles.longRequired}
+                      data-testid={"refreshError"}
+                    >
+                      {" "}
+                      Geolocation could not be retrieved.{" "}
+                    </label>
+                  )}
                 </FormSection>
               </section>
               <section css={styles.section}>
@@ -120,7 +212,7 @@ const HabitatUseForm = ({
                     name="numberOfAnimals"
                     labelText="Number of animals"
                     minValue={0}
-                    maxValue={99}
+                    maxValue={999}
                     isInteger
                     isShort
                     isDisabled={isViewOnly}
@@ -153,7 +245,7 @@ const HabitatUseForm = ({
                   <TextAreaInput
                     name="comments"
                     labelText="Comments"
-                    maxLength={500}
+                    maxLength={1000}
                     isDisabled={isViewOnly}
                     isDouble
                   />
@@ -302,18 +394,22 @@ const HabitatUseForm = ({
                   >
                     Cancel
                   </Button>
-                  <Button type="submit">
+                  <Button type="submit" testId={"saveHabitat"}>
                     {!!initialValues ? "Save" : "End Habitat"}
                   </Button>
                 </div>
               )}
 
-              <InputFocusOnError />
+              <InputFocusOnError
+                hasTriedToSubmit={checkingValidation}
+                pageHasPositionalValues={pageHasPositionalValues}
+              />
             </Form>
           )}
         </Formik>
       </div>
 
+      {showPositionalModal.boolean && renderPositionalValidationModal()}
       {showConfirmationModal && renderConfirmationModal()}
     </div>
   );

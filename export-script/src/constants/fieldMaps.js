@@ -2,10 +2,14 @@ const convertUnixTimestampToMDY = require("../mappings/convertUnixTimestampToMDY
 const convertWaveHeightOption = require("../mappings/convertWaveHeightOption");
 const convertEmptyToNotNoted = require("../mappings/convertEmptyToNotNoted");
 const convertToDecimal = require("../mappings/convertToDecimal");
-const prependFromFirestore = require("../mappings/prependFromFirestore");
 const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
 const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
 const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
+const updateComment = require("../updateComment");
+const convertSkinToBool = require("../mappings/convertSkinToBool");
+const convertSkinAndBlubberToBool = require("../mappings/convertSkinAndBlubberToBool");
+const convertAgeToInitial = require("../mappings/convertAgeToInitial");
+const convertSexToInitials = require("../mappings/convertSexToInitials")
 
 module.exports = {
   encounter: {
@@ -40,7 +44,7 @@ module.exports = {
     "Biopsy sheet #": { key: "" },
     "Tag Attempt": { key: "tagAttempt" },
     "Tag Success": { key: "tagSuccess", transform: convertNotNotedToNo },
-    Comments: { key: "comments", transform: prependFromFirestore },
+    Comments: { key: "comments" },
     "End of search effort": { key: "endOfSearchEffort" },
     "End time": { key: "endTime" },
     "Elapsed time": { key: "elapsedTime" },
@@ -115,17 +119,112 @@ module.exports = {
     "Group Composition": { key: "groupComposition" },
     "# animals": { key: "numberOfAnimals" },
     Comment: {
-      key: "comments",
-      transform: prependFromFirestore,
+      key: "gpsMark",
+      transform: updateComment,
     },
     "Non-Tagged Surfacing Counts": { key: "" },
     "Tagged Whale?": { key: "" },
     "Tagged Surfacing Counts": { key: "" },
     Area: { key: "area" },
   },
-  habitatUseToEncounter: {
+  biopsy: {
+    Area: { key: "area" },
+    Date: { key: "dateTaken", transform: convertUnixTimestampToMDY },
+    "Sequence #": { key: "encSeqNo" },
+    Time: { key: "timeTaken" },
+    Latitude: { key: "latitude" },
+    Longitude: { key: "longitude" },
+    "Attempt #": { key: "attempt" },
+    "Sampler's name": { key: "samplerName" },
+    "Sample #": { key: "sampleNumber" },
+    "Total specimens": { key: "totalSpecimens" },
+    "Area Hit": { key: "areaHit" },
+    "Side Hit": { key: "whaleSide" },
+    "Dart hit?": { key: "dartHit" },
+    "Dart stuck?": { key: "dartStuck" },
+    "Retrieved?": { key: "dartRetrieved" },
+    "Skin sample?": { key: "sampleType", transform: convertSkinToBool },
+    "Blub sample?": {
+      key: "sampleType",
+      transform: convertSkinAndBlubberToBool,
+    },
+    "Target Strength Reaction": {key: "reactionStrength"},
+    "Non Target Reaction Extent": {key: "extent"},
+    "Target Accelerated": {key: "targetAnimalBehaviour.accelerated"},
+    "Target Shake": {key: "targetAnimalBehaviour.shake"},
+    "Target Startle": {key: "targetAnimalBehaviour.startle"},
+    "Target Tail Splash": {key: "targetAnimalBehaviour.tailSplash"},
+    "Target Tail Slap": {key: "targetAnimalBehaviour.tailSlap"},
+    "Target Lunge": {key: "targetAnimalBehaviour.lunge"},
+    "Target Breach": {key: "targetAnimalBehaviour.breach"},
+    "Target Dive": {key: "targetAnimalBehaviour.dive"},
+    "Target Porpoising": {key: "targetAnimalBehaviour.porpoising"},
+    "Target Flight": {key: "targetAnimalBehaviour.flight"},
+    "Target Prolonged Flight": {key: "targetAnimalBehaviour.prolongedFlight"},
+    "Target Direction Change": {key: "targetAnimalBehaviour.directionChange"},
+    "NonTarget accelerated": {key: "nonTargetAnimalBehaviour.accelerated"},
+    "NonTarget Shake": {key: "nonTargetAnimalBehaviour.shake"},
+    "NonTarget Startle": {key: "nonTargetAnimalBehaviour.startle"},
+    "NonTarget Tail Splash": {key: "nonTargetAnimalBehaviour.tailSplash"},
+    "NonTarget Tail Slap": {key: "nonTargetAnimalBehaviour.tailSlap"},
+    "NonTarget Lunge": {key: "nonTargetAnimalBehaviour.lunge"},
+    "NonTarget Breach": {key: "nonTargetAnimalBehaviour.breach"},
+    "NonTarget Dive": {key: "nonTargetAnimalBehaviour.dive"},
+    "NonTarget Porpoising": {key: "nonTargetAnimalBehaviour.porpoising"},
+    "NonTarget Flight": {key: "nonTargetAnimalBehaviour.flight"},
+    "NonTarget Prolonged Flight": {key: "nonTargetAnimalBehaviour.prolongedFlight"},
+    "NonTarget Direction Change": {key: "nonTargetAnimalBehaviour.directionChange"},
+    "Whale ID": { key: "whaleID" },
+    Sex: { key: "sex" },
+    Age: { key: "age" },
+    "Projector Type": { key: "projectorType"},
+    "Projector Model": { key: "model"},
+    "Tip dimensions (mm)": { key: "tipLength"},
+    "Range (m)": { key: "range"},
+    Angle: { key: "angle"},
+    "Photographer a" : { key : "photographerInitials"},
+    "Video details a" : {key: "video"},
+    "Group behaviour before biopsy" : { key : "groupBehaviourBeforeBiopsy"},
+    "Group behaviour after biopsy" : {key : "groupBehaviourAfterBiopsy"},
+    "Other observations" : {key : "otherObservations"}
+  },
+  specimen: {
+    Area: { key: "area" },
+    Date: { key: "dateTaken", transform: convertUnixTimestampToMDY },
+    Species: { key: "species" },
+    "Sample #": { key: "sampleNumber" },
+    "Sequence #": { key: "encSeqNo" },
+    Latitude: { key: "latitude" },
+    Longitude: { key: "longitude" },
+    Time: { key: "timeTaken" },
+    "Attempt #": { key: "attempt" },
+    "Collection Type": { key: "collectionType" },
+    "Specimen #": { key: "specimenNumber" },
+    Type: { key: "sampleType" },
+    Storage: { key: "storageType" },
+    "Whale ID": { key: "whaleID" },
+    Sex: { key: "sex", transform: convertSexToInitials },
+    "Age Class": { key: "age", transform: convertAgeToInitial },
+    "Other observations" : { key : "otherObservations"}
+  },
+  subCollectionToEncounter: {
     area: "area",
     encSeqNo: "sequenceNumber",
     date: "startTimestamp",
+  },
+  biopsyToSpecimen: {
+    species: "species",
+    sampleNumber: "sampleNumber",
+    encSeqNo: "encSeqNo",
+    dateTaken: "dateTaken",
+    latitude: "latitude",
+    longitude: "longitude",
+    area: "area",
+    timeTaken: "timeTaken",
+    attempt: "attempt",
+    whaleID: "whaleID",
+    sex: "sex",
+    age: "age",
+    otherObservations: "otherObservations"
   },
 };

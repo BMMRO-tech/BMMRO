@@ -17,10 +17,16 @@ const utilities = {
         grid-column-gap: 10%;
       }
     `,
-    oneLineFieldsGrid: css`
+    oneLine3ElementsFieldsGrid: css`
       @media (min-width: ${breakPoints.maxPhone}) {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+      }
+    `,
+    oneLine4ElementsFieldsGrid: css`
+      @media (min-width: ${breakPoints.maxPhone}) {
+        display: grid;
+        grid-template-columns: 2.5fr 3fr 2.5fr;
       }
     `,
     title: css`
@@ -164,7 +170,7 @@ const utilities = {
     `,
     modalButtons: css`
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
     `,
   },
   header: {

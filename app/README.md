@@ -48,20 +48,44 @@ For all persistence-related things, we're using firebase. Submitted forms are al
 
 ## Running and Building the app
 
-To run the app locally you need to setup your own Firebase project:
+### To run the app locally either you need to set up your own Firebase project, or you can use the development environment project:
 
 1. Create a Firebase account [here](https://console.firebase.google.com/) if you don't have one.
 2. Create a new project.
 3. Add a web app to your project (register web app without setting up Firebase Hosting). This will generate firebaseConfig.
-4. Create `.env` file in `app` directory. It will be ignored in version control.
-5. Add the following properties to `.env` file and set them to values that can be found in project settings inside firebaseConfig object in Firebase console:
+4. Create `.env` file in `app` directory. It will be ignored in version control. Add the authDomain, apikey and projectId to the `.env` file. 
+5. To run the app locally you requires `apiKey`, `authDomain`, `projectId` to initialize the app. apikey and projectId can be found in the project settings in the firebase console and authDomain can be found in the Authorization settings in the firebase console.
+6. Set those values found from the Firebase Console as shown in the below example into the `.env` file 
+
+e.g
+```
+REACT_APP_PROJECT_ID="bmmro-xxxx"
+REACT_APP_API_KEY="AIzp-xxxxxxxxxxxxxxxxxxxxx"
+REACT_APP_AUTH_DOMAIN="bmmro-xxxx"
+```
 
 - set `REACT_APP_PROJECT_ID` to `projectId`
 - set `REACT_APP_API_KEY` to `apiKey`
 - set `REACT_APP_AUTH_DOMAIN` to `authDomain`
 
-6.  Go to Authentication tab in Firebase console and setup sign-in method to email/password.
-7.  Go to Users tab and add new user. You will be able to login locally with these credentials.
+
+6.  In the main Firebase console, navigate to the Build tab on the left-hand side and then to Authentication, and set up sign-in method to email/password.
+7.  Go to Users tab and add new user. You will be able to log in locally with these credentials.
+
+## Setting up your database
+
+With `npm start` running, you will be able to see the BMMRO webapp at localhost. However, it is not connected to a database.
+
+1. Open the JavaScript console in Chrome and follow the link to set up the Cloud Firestore API.
+2. Accept the T&Cs and click 'enable'.
+3. Go back to your Fire*base* console. Select the Build tab, then Firestore Database. Click create database, and select to start in test mode then choose your region.
+4. Go to the 'Rules' tab, delete lines 5 AND 6 and replace with `allow read, write: if true;`. Click publish.
+5. Refresh localhost and follow the link in the error after 'You can create it here:'. Click Save.
+6. Once the wheels have stopped spinning, your database is set up and your app is ready to use! XD
+
+### Setting up your database emulator
+
+The app uses a Firestore emulator for running tests against. To authenticate this, run `npx firestore login` and follow the commands.
 
 In the `app` directory, install all dependencies:
 
@@ -111,3 +135,7 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+```
+
+```

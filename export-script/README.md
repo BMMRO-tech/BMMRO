@@ -34,13 +34,15 @@ Please replace `123` with the correct values which can be found inside the fireb
 
 The script can be executed in this manner: `node index.js <start date> <end date> [options]`.
 
+The first time the script is run, there will be a prompt in the command line to index your database. Follow the link; this will take a few minutes.
+
 You will need to specify a date range to export the data entries from. First argument passed to the command is a start date (entries from this date will be included) and second argument is an end date (entries from this date will be excluded). Dates need to be in `dd/mm/yyyy` format, for example:
 
 ```
 node index.js 01/06/2020 01/07/2020
 ```
 
-This will generate two files inside a folder called `exported`. One file will contain `habitatUse` entries and the other will contain `encounter` entries.
+This will generate four files inside a folder called `exported`. These files will contain `habitatUse`, `biopsy` and `specimen` entries. The final file will contain `encounter` entries.
 
 By default, the script will only export entries that have not previously been exported (`exported` field set as false). To get _all_ entries in the specified date range, regardless of whether they've previously been exported, you may specify a `--all` flag for the command, for example:
 

@@ -133,6 +133,8 @@ describe("OpenEncounter", () => {
     const endedEncounter = (
       await firestoreEmulator.doc("encounter/abcd1234").get()
     ).data();
-    expect(endedEncounter.hasEnded).toBe(true);
+    await waitFor(() => {
+      expect(endedEncounter.hasEnded).toBe(true);
+    });
   });
 });

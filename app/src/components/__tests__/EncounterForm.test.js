@@ -143,67 +143,60 @@ describe("EncounterForm", () => {
   it("shows an error when best estimate is lower than low estimate", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByRole, getByRole, getByLabelText } = render(
+    const { getByRole, getByText } = render(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
       />
     );
 
-    await act(async () => {
-      const lowEstimateInput = getByRole("spinbutton", {
-        name: "Low estimate",
-      });
-      await userEvent.type(lowEstimateInput, "123", { delay: 1 });
-      const bestEstimateInput = getByRole("spinbutton", {
-        name: "Best estimate",
-      });
-      await userEvent.type(bestEstimateInput, "122", { delay: 1 });
+    const lowEstimateInput = getByRole("spinbutton", {
+      name: "Low estimate",
+    });
+    await userEvent.type(lowEstimateInput, "200", { delay: 1 });
 
-      const [submitButton] = getAllByRole("button");
-      userEvent.click(submitButton);
+    const bestEstimateInput = getByRole("spinbutton", {
+      name: "Best estimate",
+    });
+    await userEvent.type(bestEstimateInput, "100", { delay: 1 });
 
-      await waitFor(() => {
-        const errorMessage = getByLabelText("Low estimate", {
-          selector: '[role="alert"]',
-        });
-        expect(errorMessage).not.toBeNull();
-        expect(mockHandleSubmit).not.toHaveBeenCalled();
-      });
+    userEvent.tab();
+
+    await waitFor(() => {
+      const errorMessage = getByText("Value must be less than or equal to 100");
+
+      expect(errorMessage).toBeInTheDocument();
+      expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
   });
 
   it("shows an error when high estimate is lower than best estimate", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByRole, getByRole, getByLabelText } = render(
+    const { getByRole, getByText } = render(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
       />
     );
 
-    await act(async () => {
-      const bestEstimateInput = getByRole("spinbutton", {
-        name: "Best estimate",
-      });
-      await userEvent.type(bestEstimateInput, "122", { delay: 1 });
+    const bestEstimateInput = getByRole("spinbutton", {
+      name: "Best estimate",
+    });
+    await userEvent.type(bestEstimateInput, "200", { delay: 1 });
 
-      const highEstimateInput = getByRole("spinbutton", {
-        name: "High estimate",
-      });
-      await userEvent.type(highEstimateInput, "121", { delay: 1 });
+    const highEstimateInput = getByRole("spinbutton", {
+      name: "High estimate",
+    });
+    await userEvent.type(highEstimateInput, "100", { delay: 1 });
 
-      const [submitButton] = getAllByRole("button");
-      userEvent.click(submitButton);
+    userEvent.tab();
 
-      await waitFor(() => {
-        const errorMessage = getByLabelText("Best estimate", {
-          selector: '[role="alert"]',
-        });
-        expect(errorMessage).not.toBeNull();
-        expect(mockHandleSubmit).not.toHaveBeenCalled();
-      });
+    await waitFor(() => {
+      const errorMessage = getByText("Value must be less than or equal to 100");
+
+      expect(errorMessage).toBeInTheDocument();
+      expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
   });
 
@@ -310,5 +303,15 @@ describe("EncounterForm", () => {
     expect(
       queryByRole("button", { name: "Save & End" })
     ).not.toBeInTheDocument();
+  });
+
+  it("has a comment field with maxlength 1000 chars", async () => {
+    await act(async () => {
+      const { getByRole } = render(<EncounterForm />);
+      const commentsInput = getByRole("textbox", {
+        name: "Comments / Observations (names of underwater observers)",
+      });
+      expect(commentsInput.maxLength).toBe(1000);
+    });
   });
 });

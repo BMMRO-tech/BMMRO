@@ -21,12 +21,13 @@ const NewHabitatUse = ({ encounterId }) => {
   const [isEncounterValid, setIsEncounterValid] = useState(false);
   const navigate = useNavigate();
   const encounterPath = generateEncounterPath(encounterId);
-
+  const pageHasPositionalValues = true;
   const handleSubmit = (values) => {
     values.hasEnded = true;
     if (!values.endTime) {
       values.endTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
     }
+
     datastore.createSubDoc(encounterPath, CollectionNames.HABITAT_USE, values);
     navigate(generateOpenEncounterURL(encounterId));
   };
@@ -59,6 +60,7 @@ const NewHabitatUse = ({ encounterId }) => {
           <HabitatUseForm
             handleSubmit={handleSubmit}
             encounterId={encounterId}
+            pageHasPositionalValues={pageHasPositionalValues}
           />
         </Fragment>
       )}
