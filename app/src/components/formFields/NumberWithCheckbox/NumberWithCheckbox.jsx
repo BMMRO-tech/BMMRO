@@ -70,6 +70,7 @@ const NumberWithCheckbox = ({
         touched={meta.touched}
         errorMessage={meta.error}
         labelText={labelText}
+        isRequired={isRequired}
       />
     </div>
   );

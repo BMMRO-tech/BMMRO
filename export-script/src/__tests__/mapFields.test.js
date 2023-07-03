@@ -108,4 +108,17 @@ describe("mapFields", () => {
 
     expect(mappedFields).toEqual([{ A: 1, B: 1, C: 3 }]);
   });
+
+  it("maps fields according to passed config for nested field", () => {
+    const testData = [
+      { a: {x: 1, y: 2, z: 3}}
+    ];
+    const config = { X: { key: "a.x" }, Y: { key: "a.y" }, Z: { key: "a.z" } };
+
+    const mappedFields = mapFields(testData, config);
+
+    expect(mappedFields).toEqual([
+      { X: 1, Y: 2, Z: 3 },
+    ]);
+  });
 });

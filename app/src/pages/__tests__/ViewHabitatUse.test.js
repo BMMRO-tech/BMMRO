@@ -53,7 +53,7 @@ describe("ViewHabitatUse", () => {
     });
   });
 
-  it("navigates to habitat edit page if habitat has been exported", async () => {
+  it("navigates to habitat edit page if habitat has not been exported", async () => {
     const { id: encounterId } = await firestoreEmulator
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });

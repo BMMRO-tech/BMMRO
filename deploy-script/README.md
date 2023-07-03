@@ -48,7 +48,8 @@ A developer will need to investigate the deployment issue.
 
 There could be several reasons for this failure:
 
-- The firebase token is invalid and a new one will need to be generated and set in GitHub secrets.
+- The firebase token is invalid and a new one will need to be generated and set in GitHub secrets. 
+  - To refresh the firebase token, run firebase cli locally and run `firebase login:ci`
 - Firebase maybe down and the action can be rerun.
 - The project id may be incorrect. To fix this the GitHub secret for project Id should be updated.
 
