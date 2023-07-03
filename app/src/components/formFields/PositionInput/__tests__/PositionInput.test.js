@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { act } from "@testing-library/react";
+import { act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import PositionInput from "../PositionInput";
@@ -8,6 +8,8 @@ import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("PositionInput", () => {
+  const mockFn = jest.fn();
+
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
@@ -161,20 +163,7 @@ describe("PositionInput", () => {
   });
 
   it("autofills position if set as autofilled", async () => {
-    const latitude = 1.123456;
-    const longitude = 1.123456;
-
-    const mockGeolocation = {
-      getCurrentPosition: jest.fn().mockImplementation((success) =>
-        success({
-          coords: {
-            latitude,
-            longitude,
-          },
-        })
-      ),
-    };
-    global.navigator.geolocation = mockGeolocation;
+    const latitude = "1.123456";
 
     const { getFormValues } = renderWithinFormik(
       <PositionInput
@@ -182,6 +171,7 @@ describe("PositionInput", () => {
         labelText="Default latitude"
         type="latitude"
         autofill
+        position={latitude}
       />,
       { defaultLat: "" }
     );
@@ -192,6 +182,8 @@ describe("PositionInput", () => {
   });
 
   it("does not allow input when field is disabled", async () => {
+    const latitude = "1.123456";
+
     const { getFormValues, getByRole } = renderWithinFormik(
       <PositionInput
         name="lat"
@@ -199,6 +191,7 @@ describe("PositionInput", () => {
         type="latitude"
         autofill={false}
         isDisabled
+        position={latitude}
       />,
       { lat: "" }
     );
@@ -207,5 +200,28 @@ describe("PositionInput", () => {
     await userEvent.type(positionInput, "10.123450", { delay: 1 });
 
     expect(getFormValues().lat).toEqual("");
+  });
+
+  it.each([
+    ["1.123451", "-1.123451"],
+    ["-3.125456", "-3.125456"],
+    ["", ""],
+  ])("the longitude defaults to negative value", async (val, expected) => {
+    const { getByRole } = renderWithinFormik(
+      <PositionInput
+        name="longitude"
+        labelText="Your longitude"
+        type="longitude"
+      />,
+      { longitude: "" }
+    );
+
+    let longitudeInput = getByRole("spinbutton", { name: "Your longitude" });
+    await userEvent.type(longitudeInput, val, { delay: 1 });
+    longitudeInput = getByRole("spinbutton", { name: "Your longitude" });
+
+    await waitFor(() => {
+      expect(longitudeInput.value).toEqual(expected);
+    });
   });
 });

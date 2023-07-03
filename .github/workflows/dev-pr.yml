@@ -3,7 +3,7 @@ name: Build Test Bundle in Dev
 on:
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   build-test-bundle:
@@ -12,15 +12,17 @@ jobs:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12"
+          node-version: "18"
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
           npm install
       - name: Run frontend tests
+        env:
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: npm run test-ci
       - name: Run firestore tests

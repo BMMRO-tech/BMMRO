@@ -1,3 +1,4 @@
 module.exports = {
-  transform: {},
+  //transform: {},
+  transformIgnorePatterns: ["node_modules/(?!\@?lit)"],
 };

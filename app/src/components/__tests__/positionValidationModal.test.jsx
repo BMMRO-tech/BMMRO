@@ -13,6 +13,7 @@ describe("Positional Validation Modal", () => {
       <PositionalValidationModal
         handleLeavePage={mockHandleLeavePage}
         closeModal={mockCloseModal}
+        pageName="habitat"
       />
     );
 
@@ -31,6 +32,7 @@ describe("Positional Validation Modal", () => {
       <PositionalValidationModal
         handleLeavePage={mockHandleLeavePage}
         closeModal={mockCloseModal}
+        pageName="habitat"
       />
     );
 
