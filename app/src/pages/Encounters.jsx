@@ -8,7 +8,7 @@ import Layout from "../components/Layout";
 import EncounterList from "../components/EncounterList";
 import Button from "../components/Button";
 import { ROUTES } from "../constants/routes";
-import useEncountersByMonth from "../hooks/useEncountersByMonth";
+import { useEncountersByMonth } from "../hooks/useEncountersByMonth";
 import typography from "../materials/typography";
 
 const Encounters = () => {

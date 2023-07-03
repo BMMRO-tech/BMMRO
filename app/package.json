@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "TZ=UTC firebase emulators:exec --only firestore 'react-scripts test'",
     "test-ci": "TZ=UTC CI=true firebase emulators:exec --only firestore 'react-scripts test --runInBand'",
     "test-nowatch": "TZ=UTC firebase emulators:exec --only firestore 'react-scripts test --watchAll=false'",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@firebase/testing": "^0.20.7",
     "@testing-library/react-hooks": "^3.4.1",
-    "firebase-tools": "^8.10.0",
+    "firebase-tools": "^12.4.2",
     "husky": "^4.2.5",
     "mutationobserver-shim": "^0.3.7",
     "prettier": "^2.5.1",
