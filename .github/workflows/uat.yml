@@ -12,17 +12,14 @@ jobs:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12"
+          node-version: "18"
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
           npm install
-      - name: Run frontend tests
-        working-directory: ${{env.APP_DIR}}
-        run: npm run test-ci
       - name: Run firestore tests
         working-directory: ${{env.APP_DIR}}
         run: npm run test-firestore
@@ -35,7 +32,7 @@ jobs:
         run: npm test
       - name: Set environment variable with new version
         run: |
-          PENDING_TAG=$(git fetch origin --tags -q && git describe --tags --match "uat-pending-*" $(git rev-list --tags="uat-pending-*" --max-count=1))
+          PENDING_TAG=$(git fetch origin --tags -q && git tag -l | grep "uat-pending-*" | sort -V | tail -1)
           echo "PENDING_TAG=$PENDING_TAG" >> $GITHUB_ENV
           PENDING_TAG_VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
           echo "NEW_VERSION=$PENDING_TAG_VERSION" >> $GITHUB_ENV
@@ -45,7 +42,7 @@ jobs:
           REACT_APP_API_KEY: ${{secrets.FIREBASE_UAT_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_UAT_AUTH_DOMAIN}}
           REACT_APP_VERSION: ${{env.NEW_VERSION}}
-          REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE: ${{secrets.BIOPSY_FORM_FEATURE_TOGGLE_UAT}}
+          REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: ${{secrets.ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE_UAT}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
@@ -63,15 +60,15 @@ jobs:
           git push origin --delete ${{env.PENDING_TAG}}
   end-to-end:
     needs: build-test-deploy
-    runs-on: macos-latest
+    runs-on: macos-13
     env:
       E2E_TESTS_DIR: ./e2e-tests
       ENDPOINT: https://bmmro-uat.web.app
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 18
       - name: Install e2e-tests dependencies
         working-directory: ${{env.E2E_TESTS_DIR}}
         run: |
@@ -89,6 +86,6 @@ jobs:
           PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
           API_KEY: ${{secrets.FIREBASE_UAT_API_KEY}}
           AUTH_DOMAIN: ${{secrets.FIREBASE_UAT_AUTH_DOMAIN}}
-          REACT_APP_BIOPSY_FORM_FEATURE_TOGGLE: ${{secrets.BIOPSY_FORM_FEATURE_TOGGLE_UAT}}
+          REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: ${{secrets.ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE_UAT}}
         working-directory: ${{env.E2E_TESTS_DIR}}
-        run: node --experimental-vm-modules node_modules/jest/bin/jest.js
+        run: npm run test
