@@ -45,7 +45,7 @@ const AppWithoutContext = () => {
   );
 };
 
-export default () => {
+const App = () => {
   return (
     <FirebaseContextProvider>
       <LocationProvider>
@@ -56,3 +56,5 @@ export default () => {
     </FirebaseContextProvider>
   );
 };
+
+export default App;

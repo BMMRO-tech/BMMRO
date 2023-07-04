@@ -1,4 +1,4 @@
-export default [
+const project = [
   "ABPF - Dolphin Decline",
   "ABPF - Stranding",
   "ABPF - research",
@@ -38,3 +38,5 @@ export default [
   "Whale Camp",
   "Wild Dolphin Project",
 ];
+
+export default project;

@@ -1,4 +1,4 @@
-export default [
+const swellWaveHeight = [
   "0",
   "0.5",
   "1",
@@ -13,3 +13,5 @@ export default [
   "5.5",
   "6+",
 ];
+
+export default swellWaveHeight;

@@ -1,4 +1,4 @@
-export default [
+const species = [
   "Bottlenose dolphin - coastal",
   "Blainville's beaked whale",
   "Dwarf sperm whale",
@@ -38,3 +38,4 @@ export default [
   "Unknown ziphiid species",
   "West Indian manatee",
 ];
+export default species;

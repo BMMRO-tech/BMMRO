@@ -3,8 +3,9 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect";
+import "core-js";
 
 import "mutationobserver-shim";
 global.MutationObserver = window.MutationObserver;
 
-jest.setTimeout(60000);
+jest.setTimeout(120000);

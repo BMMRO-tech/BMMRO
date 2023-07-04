@@ -1,6 +1,6 @@
 import { RESEARCH_ASSISTANT } from "./formOptions/roles";
 
-export default {
+const encounterDefaultValues = {
   sequenceNumber: "",
   startTimestamp: "",
   area: "",
@@ -50,3 +50,5 @@ export default {
   exported: false,
   hasEnded: false,
 };
+
+export default encounterDefaultValues;

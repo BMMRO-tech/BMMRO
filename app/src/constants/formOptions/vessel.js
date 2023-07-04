@@ -1,4 +1,4 @@
-export default [
+const vessel = [
   "Steno",
   "Chimo",
   "Dolphin Dream",
@@ -24,3 +24,5 @@ export default [
   "Zemi",
   "Zip",
 ];
+
+export default vessel;

@@ -1,4 +1,4 @@
-export default {
+const biopsyFormDefaultValues = {
   areaHit: "",
   dorsalHit: "",
   whaleSide: "",
@@ -69,3 +69,5 @@ export default {
     },
   ],
 };
+
+export default biopsyFormDefaultValues;

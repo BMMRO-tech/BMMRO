@@ -1,1 +1,3 @@
-export default ["Tight", "Moderate", "Loose", "Not Noted"];
+const groupCohesion = ["Tight", "Moderate", "Loose", "Not Noted"];
+
+export default groupCohesion;

@@ -1,4 +1,4 @@
-export default [
+const bottomSubstrate = [
   "Rock",
   "Rubble",
   "Coral",
@@ -8,3 +8,5 @@ export default [
   "Unknown",
   "Not Noted",
 ];
+
+export default bottomSubstrate;

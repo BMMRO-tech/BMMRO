@@ -1,4 +1,5 @@
-export default [
+
+const tideState = [
   "High",
   "Ebb",
   "Low",
@@ -7,3 +8,4 @@ export default [
   "Low Slack",
   "Not Noted",
 ];
+export default  tideState

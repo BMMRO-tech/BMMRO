@@ -1,1 +1,2 @@
-export default ["DMSO/NaCl", "-80", "-20"];
+const tissueStorages = ["DMSO/NaCl", "-80", "-20"];
+export default tissueStorages;
