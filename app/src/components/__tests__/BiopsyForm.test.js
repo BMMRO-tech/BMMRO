@@ -46,7 +46,7 @@ describe("BiopsyForm", () => {
       expect(formValues.dateTaken).toEqual(
         new Date("2020-05-04T11:30:12.000Z")
       );
-      expect(formValues.timeTaken).toEqual("12:30:12");
+      expect(formValues.timeTaken).toEqual("11:30:12");
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
     });
@@ -208,7 +208,7 @@ describe("BiopsyForm", () => {
       expect(formValues.dateTaken).toEqual(
         new Date("2020-05-04T11:30:12.000Z")
       );
-      expect(formValues.timeTaken).toEqual("12:30:12");
+      expect(formValues.timeTaken).toEqual("11:30:12");
       expect(formValues.attempt).toEqual("1");
       expect(formValues.samplerName).toEqual("Test Name");
       expect(formValues.latitude).toEqual("15.123456");
