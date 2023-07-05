@@ -9,12 +9,13 @@ import TimeInput from "../TimeInput";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 import { changeInputMaskValue } from "../../../../utils/test/changeInputMaskValue";
+import * as time from "../../../../utils/time";
 
 describe("TimeInput", () => {
-  beforeAll(() => {
-    global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:43.000Z").getTime()
-    );
+  beforeEach(() => {
+    jest
+      .spyOn(time, "getCurrentDate")
+      .mockReturnValue(new Date("2020-05-04T11:30:12.000"));
   });
 
   it("synchronizes field value with form state", async () => {
@@ -111,8 +112,8 @@ describe("TimeInput", () => {
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
-        notBefore={new Date(Date.now())}
-        associatedDate={new Date(Date.now())}
+        notBefore={new Date("2020-05-04T11:30:12.000")}
+        associatedDate={new Date("2020-05-04T11:30:12.000")}
         timeWithSeconds
       />,
       { defaultTime: "11:29:11" }
@@ -138,8 +139,8 @@ describe("TimeInput", () => {
       <TimeInput
         name="defaultTime"
         labelText="Your favorite time"
-        notAfter={new Date(Date.now())}
-        associatedDate={new Date(Date.now())}
+        notAfter={new Date("2020-05-04T11:30:12.000")}
+        associatedDate={new Date("2020-05-04T11:30:12.000")}
         timeWithSeconds
       />,
       { defaultTime: "11:31:13" }
@@ -206,7 +207,7 @@ describe("TimeInput", () => {
     expect(getFormValues().defaultTime).toEqual("11:30");
   });
 
-  it("autofills time without seconds when timeWithSeconds is false", () => {
+  it("autofills time with seconds when timeWithSeconds is true", () => {
     const { getFormValues } = renderWithinFormik(
       <TimeInput
         name="defaultTime"
@@ -217,7 +218,7 @@ describe("TimeInput", () => {
       { defaultTime: "" }
     );
 
-    expect(getFormValues().defaultTime).toEqual("11:30:43");
+    expect(getFormValues().defaultTime).toEqual("11:30:12");
   });
 
   it("does not allow input when field is disabled", async () => {
