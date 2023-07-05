@@ -5,12 +5,19 @@ import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 import DateInput from "../DateInput";
+import * as time from "../../../../utils/time";
 
 describe("DateInput", () => {
-  beforeAll(() => {
-    global.Date.now = jest.fn(() =>
-      new Date("2020-08-04T11:30:00.000Z").getTime()
-    );
+  beforeEach(() => {
+    jest
+      .spyOn(time, "getCurrentDate")
+      .mockReturnValue(
+        new Date(
+          new Date(
+            new Date("2020-08-04T11:30:00.000Z").getTime()
+          ).setMilliseconds(0)
+        )
+      );
   });
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
