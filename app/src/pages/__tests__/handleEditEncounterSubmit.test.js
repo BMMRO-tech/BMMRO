@@ -1,5 +1,6 @@
 import handleEditEncounterSubmit from "../handleEncounterSubmit";
 import { FormSubmitType } from "../../constants/forms";
+import * as time from "../../utils/time";
 
 describe("handleEditEncounterSubmit", () => {
   describe("SAVE", () => {
@@ -25,10 +26,16 @@ describe("handleEditEncounterSubmit", () => {
     });
   });
   describe("SAVE AND END", () => {
-    beforeAll(() => {
-      global.Date.now = jest.fn(() =>
-        new Date("2020-01-05T11:30:00.000Z").getTime()
-      );
+    beforeEach(() => {
+      jest
+        .spyOn(time, "getCurrentDate")
+        .mockReturnValue(
+          new Date(
+            new Date(
+              new Date("2020-01-05T11:30:00.000Z").getTime()
+            ).setMilliseconds(0)
+          )
+        );
     });
 
     it("saves encounter if under 72 hours, ends it and navigates to encounters", () => {
