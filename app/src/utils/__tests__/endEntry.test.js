@@ -1,11 +1,12 @@
 import endEntry from "../endEntry";
 import { TIME_WITH_SECONDS_FORMAT } from "../../constants/forms";
+import * as time from "../time";
 
 describe("endEntry", () => {
-  beforeAll(() => {
-    global.Date.now = jest.fn(() =>
-      new Date("2010-06-07T12:34:56.000Z").getTime()
-    );
+  beforeEach(() => {
+    jest
+      .spyOn(time, "getCurrentDate")
+      .mockReturnValue(new Date("2010-06-07T12:34:56.000"));
   });
 
   it("flips the hasEnded property to true", () => {
