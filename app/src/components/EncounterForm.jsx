@@ -27,6 +27,7 @@ import { THREE_DAYS_IN_HOURS, FormSubmitType } from "../constants/forms";
 import area from "../constants/formOptions/area";
 import species from "../constants/formOptions/species";
 import project from "../constants/formOptions/project";
+import projectDb from "../constants/formOptions/projectDb";
 import cue from "../constants/formOptions/cue";
 import vessel from "../constants/formOptions/vessel";
 import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
@@ -80,7 +81,7 @@ const EncounterForm = ({
   const initValues = initialValues || encounterDefaults;
   const hasEnded = initialValues ? initialValues.hasEnded : false;
 
-  const ProjectList = () => {
+  // const ProjectList = () => {
     const bmmroSelfManagedDropdownsToggle
         = process.env.BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE === "TRUE";
   // }
@@ -195,12 +196,25 @@ const EncounterForm = ({
                   <br/>
                   <section css={styles.section}>
                     <FormSection>
-                      <Select
-                          name="project"
-                          labelText="Project"
-                          options={project}
-                          isDisabled={isViewOnly}
-                      />
+
+                      {bmmroSelfManagedDropdownsToggle ? (
+                        <Select
+                        name="project"
+                        labelText="Project"
+                        options={project}
+                      isDisabled={isViewOnly}
+                    />
+                       ) : (
+                    <Select
+                        name="projectDb"
+                        labelText="Project DB"
+                        options={projectDb}
+                        isDisabled={isViewOnly}
+                    />
+                       )
+                      }
+
+
                       <Select
                           name="vessel"
                           labelText="Vessel"
@@ -607,7 +621,7 @@ const EncounterForm = ({
         {showConfirmationModal && renderConfirmationModal()}
       </div>
   );
-}
+// }
 };
 
 export default EncounterForm;
