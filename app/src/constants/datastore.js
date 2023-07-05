@@ -3,6 +3,7 @@ export const CollectionNames = {
   HABITAT_USE: "habitatUse",
   BIOPSY: "biopsy",
   SPECIMEN: "specimen",
+  PROJECT: "project"
 };
 
 export const generateEncounterPath = (id) => {
