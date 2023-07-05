@@ -2,12 +2,13 @@ import { act, render, waitFor, queryAllByRole } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import NewEncounterForm from "../NewEncounterForm";
+import * as time from "../../utils/time";
 
 describe("NewEncounterForm", () => {
-  beforeAll(() => {
-    global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
-    );
+  beforeEach(() => {
+    jest
+      .spyOn(time, "getCurrentDate")
+      .mockReturnValue(new Date("2020-05-04T11:30:12.000"));
   });
 
   it("submits the form with correct values if all required fields are completed", async () => {
@@ -37,7 +38,7 @@ describe("NewEncounterForm", () => {
     expect(formValues.area).toEqual("Central Andros");
     expect(formValues.sequenceNumber).toEqual("123");
     expect(formValues.startTimestamp).toEqual(
-      new Date("2020-05-04T00:00:00.000Z")
+      new Date("2020-05-04T00:00:00.000")
     );
     expect(formValues.startTime).toEqual("11:30");
   });
