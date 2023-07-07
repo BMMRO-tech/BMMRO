@@ -42,7 +42,6 @@ jobs:
           REACT_APP_API_KEY: ${{secrets.FIREBASE_PROD_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_PROD_AUTH_DOMAIN}}
           REACT_APP_VERSION: ${{env.NEW_VERSION}}
-          REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE: ${{secrets.ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE_PROD}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase

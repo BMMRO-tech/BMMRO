@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import { useContext } from "react";
 
@@ -26,7 +26,7 @@ const Encounters = () => {
   };
 
   const { datastore } = useContext(FirebaseContext);
-  const { todaysEncounters, previousEncounters, loadPreviousMonth, isLoading } =
+  const { todaysEncounters, previousEncounters } =
     useEncountersByMonth(datastore);
 
   return (
@@ -46,8 +46,6 @@ const Encounters = () => {
         <EncounterList
           title="Previous encounters"
           encounters={previousEncounters}
-          loadMore={loadPreviousMonth}
-          isLoading={isLoading}
         />
       </div>
     </Layout>
