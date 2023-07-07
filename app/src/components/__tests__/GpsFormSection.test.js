@@ -1,6 +1,6 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
-import { waitFor } from "@testing-library/react";
+import {act, waitFor} from "@testing-library/react";
 import { configure } from "@testing-library/dom";
 import GpsFormSection from "../GpsFormSection";
 import renderWithinFormik from "../../utils/test/renderWithinFormik";
@@ -10,6 +10,8 @@ configure({ asyncUtilTimeout: 18000 });
 jest.mock("../formFields/PositionInput/getPosition.js");
 
 describe("GpsFormSection", () => {
+  afterEach(() => jest.resetAllMocks())
+
   it("refresh long & lat on click of the refresh button and disables button", async () => {
     const expectedCoordsOnLoad = {
       latitude: "1.123456",
@@ -38,7 +40,7 @@ describe("GpsFormSection", () => {
       );
     });
 
-    userEvent.click(getByTestId("Refresh"));
+    act(() => userEvent.click(getByTestId("Refresh")));
 
     await waitFor(async () => {
       expect(getByTestId("Refresh")).toHaveAttribute("disabled");
@@ -73,13 +75,15 @@ describe("GpsFormSection", () => {
   });
 
   it("shows info label if isRenderInfoLabel is true", async () => {
+    getPosition.mockReturnValue({ position: null, error: true });
+
     const { getByText } = renderWithinFormik(
-      <GpsFormSection isRenderInfoLabel={true} />
+        <GpsFormSection isRenderInfoLabel={true} />
     );
 
     await waitFor(async () => {
       expect(
-        getByText("Please add either latitude and longitude, or a GPS mark.")
+          getByText("Please add either latitude and longitude, or a GPS mark.")
       ).toBeInTheDocument();
     });
   });
