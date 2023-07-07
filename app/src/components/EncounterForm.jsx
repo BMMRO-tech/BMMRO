@@ -37,6 +37,7 @@ import {
 } from "../constants/formOptions/roles";
 import encounterDefaults from "../constants/encounterDefaultValues";
 import { generateOpenEncounterURL } from "../constants/routes";
+import {generateEncounterPath, generateProjectPath} from "../constants/datastore";
 
 const EncounterForm = ({
   initialValues,

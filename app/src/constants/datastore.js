@@ -22,6 +22,10 @@ export const generateSpecimenPath = (encounterId, biopsyId, specimenId) => {
   return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.BIOPSY}/${biopsyId}/${CollectionNames.SPECIMEN}/${specimenId}`;
 };
 
+export const generateProjectPath = (id) => {
+  return `${CollectionNames.PROJECT}/${id}`;
+};
+
 export const DatastoreErrorType = {
   INITIALIZATION: "initialization",
   UNKNOWN_OFFLINE_SUPPORT: "unknown-offline-support",
