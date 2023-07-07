@@ -1,40 +1,30 @@
-import {useState, useContext} from "react";
-import {FirebaseContext} from "../../firebaseContext/firebaseContext";
-import {CollectionNames, generateProjectPath} from "../datastore";
+import { CollectionNames } from "../datastore";
 
-const ProjectDb = async () => {
-
-
-    const {datastore} = useContext(FirebaseContext);
-    const extractProjectProperties = (project) => {
-        const {projectName} =
-            project.data;
-        return {
-            id: project.id,
-            data: {
-                projectName,
-            },
-        };
+const ProjectDb = async (datastore) => {
+  const extractProjectProperties = (project) => {
+    const { projectName } = project.data;
+    return {
+      id: project.id,
+      data: {
+        projectName,
+      },
     };
+  };
 
+  const projects = await datastore.readDocByPath(CollectionNames.PROJECT).name;
 
-    const projects = await datastore.readDocByPath(
-        CollectionNames.PROJECT
-    );
+  if (!projects.length) {
+    return [{ entries: [] }];
+  }
 
-    if (!projects.length) {
-        return [{entries: []}];
-    }
-
-    const extractedProjects = projects.map((project) =>
-        extractProjectProperties(project)
-    );
-    return extractedProjects;
-
+  const extractedProjects = projects.map((project) =>
+    extractProjectProperties(project)
+  );
+  return extractedProjects;
 };
 
 export default ProjectDb;
 
 // export default [
-//     extracted(),
+//     "Sabrina",
 // ];
