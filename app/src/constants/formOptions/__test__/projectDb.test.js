@@ -1,37 +1,51 @@
-// import * as firebaseTesting from "@firebase/testing";
-// import { act, renderHook } from "@testing-library/react-hooks";
-// import { Datastore } from "../../datastore/datastore";
-// import projectDb from "../projectDb";
-//
-// describe("projectDb", () => {
-//   const projectId = "projectDb-test";
-//   let firestoreEmulator;
-//   let datastore;
-//
-//   beforeAll(async () => {
-//     firestoreEmulator = firebaseTesting
-//       .initializeTestApp({
-//         projectId,
-//         auth: { uid: "test-researcher" },
-//       })
-//       .firestore();
-//
-//     datastore = new Datastore(firestoreEmulator);
-//     firestoreEmulator = await firestoreEmulator.collection("project");
-//
-//     // for (const testEntry of testProjects) {
-//     //   const id = testEntry.sequenceNumber;
-//     //   await firestoreEmulator.collection("project").doc(id).set(testEntry);
-//     // }
-//   });
-//
-//   afterAll(async () => {
-//     await firebaseTesting.clearFirestoreData({ projectId });
-//     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
-//   });
-//
-//   it("reads project data from datastore", async () => {
-//     const { result, waitFor } = renderHook(() => projectDb(datastore));
+import * as firebaseTesting from "@firebase/testing";
+import { act, renderHook } from "@testing-library/react-hooks";
+import { Datastore } from "../../../datastore/datastore";
+import { projectDb } from "../projectDb";
+import {auth} from "firebase";
+
+describe("projectDb", () => {
+  const projectId = "projectDb-test";
+  let firestoreEmulator;
+  let datastore;
+
+  beforeAll(async () => {
+    firestoreEmulator = firebaseTesting
+      .initializeTestApp({
+        projectId,
+        auth: { uid: "test-researcher" },
+      })
+      .firestore();
+
+    datastore = new Datastore(firestoreEmulator, auth);
+    firestoreEmulator = await firestoreEmulator.collection("project");
+
+    // for (const testEntry of testProjects) {
+    //   const id = testEntry.sequenceNumber;
+    //   await firestoreEmulator.collection("project").doc(id).set(testEntry);
+    // }
+  });
+
+  afterAll(async () => {
+    await firebaseTesting.clearFirestoreData({ projectId });
+    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+  });
+
+  it("reads project data from datastore", async () => {
+    const { result, waitFor } = renderHook(() =>
+        projectDb(datastore)
+    );
+
+
+    await act(async () => {
+      await waitFor(() => {
+        expect(result.current)
+      });
+    });
+
+  });
+});
+
 //
 //     await act(async () => {
 //       await waitFor(() => {
@@ -134,5 +148,3 @@
 //     expect(previousEncounters[2].month).toEqual("November");
 //     expect(previousEncounters[2].year).toEqual(1999);
 //     expect(previousEncounters[2].entries).toEqual([]);
-//   });
-// });

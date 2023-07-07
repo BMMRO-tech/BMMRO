@@ -1,29 +1,27 @@
-import { CollectionNames } from "../datastore";
+import {CollectionNames} from "../datastore";
 
-const ProjectDb = async (datastore) => {
-  const extractProjectProperties = (project) => {
-    const { projectName } = project.data;
-    return {
-      id: project.id,
-      data: {
-        projectName,
-      },
+const projectDb = async (datastore) => {
+    const extractProjectProperties = (project) => {
+        const {projectName} = project.data;
+        return projectName;
     };
-  };
 
-  const projects = await datastore.readDocByPath(CollectionNames.PROJECT).name;
+    const projects = await datastore.readDocsFromCollection(CollectionNames.PROJECT);
 
-  if (!projects.length) {
-    return [{ entries: [] }];
-  }
+    console.log(projects)
 
-  const extractedProjects = projects.map((project) =>
-    extractProjectProperties(project)
-  );
-  return extractedProjects;
+    if (!projects.length) {
+        return [{entries: []}];
+    }
+
+    const extractedProjects = projects.map((project) =>
+        extractProjectProperties(project)
+    );
+    return extractedProjects;
 };
 
-export default ProjectDb;
+// export  projectDb;
+export default projectDb;
 
 // export default [
 //     "Sabrina",
