@@ -9,7 +9,6 @@ import { generateOpenEncounterURL } from "../constants/routes";
 import ListItem from "./list/ListItem";
 import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
-import LoadMoreButton from "./list/LoadMoreButton";
 import { monthNames } from "../constants/monthNames";
 import fieldStyles from "./formFields/fieldStyles";
 import { getEncountersByTimeRange } from "../hooks/useEncountersByMonth";
@@ -85,7 +84,7 @@ const MonthDropdown = ({
   );
 };
 
-const EncountersByMonth = (encountersByMonth) => {
+const EncountersByMonth = () => {
   const { datastore } = useContext(FirebaseContext);
   const { encounterMonth, setEncounterMonth } = useContext(
     EncounterMonthContext
@@ -159,39 +158,8 @@ const EncountersByMonth = (encountersByMonth) => {
     </Fragment>
   );
 };
-const PreviousEncountersByMonth = (i, encounters) => {
-  return (
-    <Fragment>
-      <ul key={`encounterList-${i}`} css={utilities.list.items}>
-        <ListSubheader title={`${encounters.month} ${encounters.year}`} />
-
-        {!encounters.entries.length ? (
-          <div css={utilities.list.noEntries}>
-            No encounters in {encounters.month}
-          </div>
-        ) : (
-          <Fragment>
-            {encounters.entries.map((encounter, i) => (
-              <EncounterListItem
-                key={`previous-encounter-${i}`}
-                encounter={encounter}
-                isToday={false}
-              />
-            ))}
-          </Fragment>
-        )}
-      </ul>
-    </Fragment>
-  );
-};
-
-const PreviousEncounters = ({ encounters, enableDropdown }) => {
-  const previousEncountersView = !enableDropdown
-    ? encounters.map((encountersByMonth, i) =>
-        PreviousEncountersByMonth(i, encountersByMonth, enableDropdown)
-      )
-    : EncountersByMonth(encounters[0]);
-  return previousEncountersView;
+const PreviousEncounters = () => {
+  return EncountersByMonth();
 };
 
 const TodaysEncounters = ({ encounters }) => {
@@ -214,10 +182,7 @@ const TodaysEncounters = ({ encounters }) => {
   ));
 };
 
-const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
-  const encountersByMonthDropDownFeatureToggle =
-    process.env.REACT_APP_ENCOUNTERS_BY_MONTH_DROPDOWN_FEATURE_TOGGLE ===
-    "TRUE";
+const EncounterList = ({ title, encounters, isToday }) => {
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
@@ -226,17 +191,7 @@ const EncounterList = ({ title, encounters, loadMore, isToday, isLoading }) => {
       ) : isToday ? (
         <TodaysEncounters encounters={encounters} />
       ) : (
-        <PreviousEncounters
-          encounters={encounters}
-          enableDropdown={encountersByMonthDropDownFeatureToggle}
-        />
-      )}
-      {!!loadMore && !encountersByMonthDropDownFeatureToggle && (
-        <LoadMoreButton
-          text="Load previous month"
-          handleClick={loadMore}
-          isLoading={isLoading}
-        />
+        <PreviousEncounters />
       )}
     </div>
   );
