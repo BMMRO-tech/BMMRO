@@ -350,4 +350,15 @@ describe("datastore", () => {
       });
     });
   });
+
+  describe("readDocsByCollection", () => {
+    it("should read a collection", async () => {
+      const firestoreEmulator = getFirestore();
+      const projectCollection = { projectName: "testProject" };
+      await firestoreEmulator.collection("projects").add(projectCollection);
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsFromCollection("projects");
+      expect(results[0].data).toEqual(projectCollection);
+    });
+  });
 });
