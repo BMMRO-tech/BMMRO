@@ -1,4 +1,4 @@
-import { CollectionNames } from "../datastore";
+import { CollectionNames } from "../constants/datastore";
 
 const projectDb = async (datastore) => {
   const extractProjectProperties = (project) => {
@@ -9,8 +9,6 @@ const projectDb = async (datastore) => {
   const projects = await datastore.readDocsFromCollection(
     CollectionNames.PROJECT
   );
-
-  console.log(projects);
 
   if (!projects.length) {
     return [{ entries: [] }];
