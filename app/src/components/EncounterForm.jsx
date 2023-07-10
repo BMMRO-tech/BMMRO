@@ -82,16 +82,18 @@ const EncounterForm = ({
   const initValues = initialValues || encounterDefaults;
   const hasEnded = initialValues ? initialValues.hasEnded : false;
 
-  // const ProjectList = () => {
   const bmmroSelfManagedDropdownsToggle =
     process.env.BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE === "TRUE";
-  // }
-  const { datastore } = useContext(FirebaseContext);
+
+  let datastore;
+
+  if (bmmroSelfManagedDropdownsToggle) {
+    datastore = useContext(FirebaseContext).datastore;
+  }
   const [projectsList, setProjectsList] = useState();
 
-  // projectDb(datastore).then((data) => setProjectsList(data));
   useEffect(() => {
-    getProjects(datastore).then((data) => setProjectsList(data));
+    bmmroSelfManagedDropdownsToggle && getProjects(datastore).then((data) => setProjectsList(data));
   });
 
   return (
@@ -204,7 +206,7 @@ const EncounterForm = ({
               <br />
               <section css={styles.section}>
                 <FormSection>
-                  {bmmroSelfManagedDropdownsToggle ? (
+                  {!bmmroSelfManagedDropdownsToggle ? (
                     <Select
                       name="project"
                       labelText="Project"
