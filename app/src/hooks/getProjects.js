@@ -1,6 +1,6 @@
 import { CollectionNames } from "../constants/datastore";
 
-const projectDb = async (datastore) => {
+const getProjects = async (datastore) => {
   const extractProjectProperties = (project) => {
     const { projectName } = project.data;
     return projectName;
@@ -14,10 +14,7 @@ const projectDb = async (datastore) => {
     return [{ entries: [] }];
   }
 
-  const extractedProjects = projects.map((project) =>
-    extractProjectProperties(project)
-  );
-  return extractedProjects;
+  return projects.map((project) => extractProjectProperties(project));
 };
 
-export default projectDb;
+export default getProjects;

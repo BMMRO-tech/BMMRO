@@ -1,7 +1,7 @@
 import { Datastore } from "../../datastore/datastore";
-import projectDb from "../projectDb";
+import getProjects from "../getProjects";
 
-describe("projectDb", () => {
+describe("getProjects", () => {
   const testProjects = [
     {
       data: {
@@ -31,7 +31,7 @@ describe("projectDb", () => {
     jest
       .spyOn(datastore, "readDocsFromCollection")
       .mockResolvedValue(testProjects);
-    const result = await projectDb(datastore);
+    const result = await getProjects(datastore);
     expect(result.current).not.toEqual([]);
     expect(result[0]).toEqual("testProject1");
     expect(result[1]).toEqual("testProject2");
