@@ -37,7 +37,7 @@ import {
 import encounterDefaults from "../constants/encounterDefaultValues";
 import { generateOpenEncounterURL } from "../constants/routes";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import projectDb from "../hooks/projectDb";
+import getProjects from "../hooks/getProjects";
 
 const EncounterForm = ({
   initialValues,
@@ -91,8 +91,8 @@ const EncounterForm = ({
 
   // projectDb(datastore).then((data) => setProjectsList(data));
   useEffect(() => {
-    projectDb(datastore).then((data) => setProjectsList(data));
-  }, []);
+    getProjects(datastore).then((data) => setProjectsList(data));
+  });
 
   return (
     <div css={utilities.sticky.contentContainer}>
