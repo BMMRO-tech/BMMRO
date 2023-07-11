@@ -1,6 +1,6 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
-import { act, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import { configure } from "@testing-library/dom";
 import GpsFormSection from "../GpsFormSection";
 import renderWithinFormik from "../../utils/test/renderWithinFormik";
@@ -39,9 +39,10 @@ describe("GpsFormSection", () => {
         expectedCoordsOnLoad.longitude
       );
     });
-
-    act(() => userEvent.click(getByTestId("Refresh")));
-
+    userEvent.click(getByTestId("Refresh"));
+    await waitFor(async () => {
+      expect(getByTestId("Refresh")).toHaveAttribute("disabled");
+    });
     expect(getPosition).toHaveBeenCalledTimes(2);
     await waitFor(async () => {
       expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
