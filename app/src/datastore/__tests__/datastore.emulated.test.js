@@ -350,4 +350,24 @@ describe("datastore", () => {
       });
     });
   });
+
+  describe("readDocsByCollection", () => {
+    const firestoreEmulator = getFirestore();
+    const projectCollection = { projectName: "testProject" };
+    beforeEach(async () => {
+      await firebaseTesting.clearFirestoreData({ projectId });
+    });
+    it("should read a collection", async () => {
+      await firestoreEmulator.collection("projects").add(projectCollection);
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsFromCollection("projects");
+      expect(results[0].data).toEqual(projectCollection);
+    });
+
+    it("should return an empty array if collection does not exist", async () => {
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsFromCollection("projects");
+      expect(results).toEqual([]);
+    });
+  });
 });

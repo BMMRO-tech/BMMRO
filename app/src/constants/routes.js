@@ -1,5 +1,6 @@
 export const ROUTES = {
   encounters: "/encounters",
+  project: "/project",
   newEncounter: "/encounters/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   editEncounter: "/encounters/:encounterId/edit",
@@ -23,6 +24,9 @@ export const generateEditEncounterURL = (encounterId) => {
 
 export const generateViewEncounterURL = (encounterId) => {
   return `/encounters/${encounterId}/view`;
+};
+export const generateViewProjectURL = (projectId) => {
+  return `/project/${projectId}`;
 };
 
 export const generateNewHabitatUseURL = (encounterId) => {
