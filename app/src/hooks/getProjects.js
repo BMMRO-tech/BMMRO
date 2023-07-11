@@ -17,4 +17,4 @@ const getProjects = async (datastore) => {
   return projects.map((project) => extractProjectProperties(project));
 };
 
-export default getProjects;
+export { getProjects };

@@ -42,6 +42,7 @@ jobs:
           REACT_APP_API_KEY: ${{secrets.FIREBASE_PROD_API_KEY}}
           REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_PROD_AUTH_DOMAIN}}
           REACT_APP_VERSION: ${{env.NEW_VERSION}}
+          REACT_APP_BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE: ${{secrets.SELF_MANAGED_DROPDOWNS_TOGGLE}}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
