@@ -358,15 +358,15 @@ describe("datastore", () => {
       await firebaseTesting.clearFirestoreData({ projectId });
     });
     it("should read a collection", async () => {
-      await firestoreEmulator.collection("projects").add(projectCollection);
+      await firestoreEmulator.collection("project").add(projectCollection);
       const datastore = new Datastore(firestoreEmulator);
-      const results = await datastore.readDocsFromCollection("projects");
+      const results = await datastore.readDocsFromCollection("project");
       expect(results[0].data).toEqual(projectCollection);
     });
 
     it("should return an empty array if collection does not exist", async () => {
       const datastore = new Datastore(firestoreEmulator);
-      const results = await datastore.readDocsFromCollection("projects");
+      const results = await datastore.readDocsFromCollection("project");
       expect(results).toEqual([]);
     });
   });
