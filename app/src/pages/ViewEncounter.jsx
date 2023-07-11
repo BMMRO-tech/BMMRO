@@ -67,7 +67,7 @@ const ViewEncounter = ({ encounterId }) => {
             This encounter has been exported and can no longer be edited in the
             app.
           </p>
-          <EncounterForm initialValues={initialValues} isViewOnly />
+          <EncounterForm initialValues={initialValues} datastore={datastore} isViewOnly />
           <div css={utilities.backLinkContainer.bottom}>
             <BackLink
               text="Return to encounter overview"

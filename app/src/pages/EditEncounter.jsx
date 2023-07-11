@@ -70,6 +70,7 @@ const EditEncounter = ({ encounterId }) => {
             initialValues={initialValues}
             encounterId={encounterId}
             autofillEnd={autofillEnd}
+            datastore={datastore}
           />
         </Fragment>
       )}
