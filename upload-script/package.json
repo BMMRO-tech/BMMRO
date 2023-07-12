@@ -1,0 +1,8 @@
+{
+  "name": "upload-script",
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase-admin": "^11.9.0"
+  },
+  "type":"module"
+}
