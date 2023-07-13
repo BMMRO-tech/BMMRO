@@ -5,19 +5,19 @@ describe("getProjects", () => {
   const testProjects = [
     {
       data: {
-        projectName: "testProject1",
+        projectName: "CtestProjectb",
       },
       id: "test1",
     },
     {
       data: {
-        projectName: "testProject2",
+        projectName: "ZtestProjectc",
       },
       id: "test2",
     },
     {
       data: {
-        projectName: "testProject3",
+        projectName: "BtestProjecta",
       },
       id: "test3",
     },
@@ -33,8 +33,8 @@ describe("getProjects", () => {
       .mockResolvedValue(testProjects);
     const result = await getProjects(datastore);
     expect(result.current).not.toEqual([]);
-    expect(result[0]).toEqual("testProject1");
-    expect(result[1]).toEqual("testProject2");
-    expect(result[2]).toEqual("testProject3");
+    expect(result[0]).toEqual("BtestProjecta");
+    expect(result[1]).toEqual("CtestProjectb");
+    expect(result[2]).toEqual("ZtestProjectc");
   });
 });
