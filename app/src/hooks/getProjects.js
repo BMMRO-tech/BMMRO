@@ -14,7 +14,7 @@ const getProjects = async (datastore) => {
     return [{ entries: [] }];
   }
 
-  return projects.map((project) => extractProjectProperties(project));
+  return projects.map((project) => extractProjectProperties(project)).sort();
 };
 
 export { getProjects };
