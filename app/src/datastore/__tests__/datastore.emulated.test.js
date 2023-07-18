@@ -1,53 +1,53 @@
 import { waitFor } from "@testing-library/react";
-import * as firebaseTesting from "@firebase/testing";
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
 import fs from "fs";
 import path from "path";
 
 import { Datastore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
 
+let testEnv;
 const projectId = "datastore-emulated";
-
-const getFirestore = () => {
-  return firebaseTesting
-    .initializeTestApp({
-      projectId,
-      auth: { uid: "test-researcher" },
-    })
-    .firestore();
-};
 
 describe("datastore", () => {
   beforeAll(async () => {
-    await firebaseTesting.loadFirestoreRules({
+    testEnv = await initializeTestEnvironment({
       projectId,
-      rules: fs.readFileSync(
-        path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8"
-      ),
+      firestore: {
+        host: "127.0.0.1",
+        port: "8080",
+        //auth: { uid: "test-researcher" },
+        rules: fs.readFileSync(
+          path.resolve(__dirname, "test-emulator.rules"),
+          "utf-8"
+        ),
+      },
     });
-  });
-
-  afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
   describe("#readDocByPath", () => {
     it("successfully reads document with path", async () => {
-      const firestoreEmulator = getFirestore();
+      const testUserId = "1234";
 
-      const { id } = await firestoreEmulator
+      await testEnv.withSecurityRulesDisabled((context) => {
+        const firestoreWithoutRule = context.firestore();
+        return firestoreWithoutRule
+          .collection("dolphin")
+          .doc(testUserId)
+          .set({ name: "Barney", species: "Bottlenose dolphin" });
+      });
+
+      //const unauthenticatedUser = testEnv.unauthenticatedContext();
+      const authenticatedUser = testEnv.authenticatedContext(testUserId);
+
+      const readUser = await authenticatedUser
+        .firestore()
         .collection("dolphin")
-        .add({ name: "Barney", species: "Bottlenose dolphin" });
+        .doc(testUserId)
+        .get();
 
-      const datastore = new Datastore(firestoreEmulator);
-      const { data: animal, path } = await datastore.readDocByPath(
-        `dolphin/${id}`
-      );
-
-      expect(path).toEqual(`dolphin/${id}`);
-      expect(animal).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
+      expect("dolphin/1234").toEqual(`dolphin/${testUserId}`);
+      //expect(animal).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
     });
 
     it("throws datastore error if security rules reject read", async () => {

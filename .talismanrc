@@ -1,10 +1,8 @@
 fileignoreconfig:
-- filename: app/package-lock.json
-  checksum: 668fff5d4ef0cc276ad6516b63e1c50cbea3cf23951cb9e97915394fbb19ac88
-- filename: export-script/package-lock.json
-  checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
 - filename: .github/workflows/backup.yml
   checksum: 774329aa26a96c3c5d5431e82bc49c200c521fc55455d3648fd3fb771d94b42e
+- filename: app/package-lock.json
+  checksum: 172bfc5baca18f0b6b7e9e52e81f02755bd4fd856c48f7d2c8831d3a686ff14f
 - filename: app/src/components/EncounterList.jsx
   checksum: f5ff111202a15cc70c93dc74fd523a1e6be5a9ae9108cea23368dd92e62ae582
 - filename: app/src/components/formFields/Select/Select.jsx
@@ -13,4 +11,6 @@ fileignoreconfig:
   checksum: b74ed91a09ae5482395cb7e51aa4414049706e6b7ed5216ddcd637cdc8201d8f
 - filename: e2e-tests/index.test.js
   checksum: 1293335d4efadfc043fc95956dfe673c76bd26ab2b27b7aac2422fdb922c8130
+- filename: export-script/package-lock.json
+  checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
 version: "1.0"
