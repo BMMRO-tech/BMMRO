@@ -40,14 +40,13 @@ describe("datastore", () => {
       //const unauthenticatedUser = testEnv.unauthenticatedContext();
       const authenticatedUser = testEnv.authenticatedContext(testUserId);
 
-      const readUser = await authenticatedUser
-        .firestore()
-        .collection("dolphin")
-        .doc(testUserId)
-        .get();
+      const datastore = new Datastore(authenticatedUser.firestore());
+      const { data: animal, path } = await datastore.readDocByPath(
+        `dolphin/${testUserId}`
+      );
 
-      expect("dolphin/1234").toEqual(`dolphin/${testUserId}`);
-      //expect(animal).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
+      expect(path).toEqual(`dolphin/${testUserId}`);
+      expect(animal).toEqual({ species: "Bottlenose dolphin", name: "Barney" });
     });
 
     it("throws datastore error if security rules reject read", async () => {
