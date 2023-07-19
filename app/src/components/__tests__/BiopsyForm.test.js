@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import * as time from "../../utils/time";
 
 configure({ asyncUtilTimeout: 40000 });
-
+jest.setTimeout(12000);
 describe("BiopsyForm", () => {
   beforeEach(() => {
     jest

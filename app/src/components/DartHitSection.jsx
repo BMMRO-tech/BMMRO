@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { useState } from "react";
 import WhaleSvg from "./WhaleSvg";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";

@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import animalReactions from "../constants/formOptions/animalReactions";
 import Checkbox from "./formFields/Checkbox/Checkbox";
 import fieldStyles from "./formFields/fieldStyles";

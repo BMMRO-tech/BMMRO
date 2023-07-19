@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 const BMMROLogoStyles = {
   headerLogo: css`
     height: 40px;

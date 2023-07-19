@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import colors from "../materials/colors";
 import containers from "../materials/containers";
 import { Avatar } from "./icons/Avatar";
