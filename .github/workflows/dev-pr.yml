@@ -22,7 +22,7 @@ jobs:
           npm install
       - name: Run frontend tests
         env:
-          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
         working-directory: ${{env.APP_DIR}}
         run: npm run test-ci
       - name: Run firestore tests
