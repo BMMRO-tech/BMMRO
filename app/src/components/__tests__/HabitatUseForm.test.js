@@ -3,7 +3,7 @@ import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import HabitatUseForm from "../HabitatUseForm";
-//import { it } from "date-fns/locale";
+import "@testing-library/jest-dom/extend-expect";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),

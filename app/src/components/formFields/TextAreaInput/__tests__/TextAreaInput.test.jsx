@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -7,7 +7,7 @@ import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import TextAreaInput from "../TextAreaInput";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
-
+import "@testing-library/jest-dom/extend-expect";
 describe("TextAreaInput", () => {
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(

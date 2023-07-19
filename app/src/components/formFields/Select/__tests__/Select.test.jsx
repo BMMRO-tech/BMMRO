@@ -1,11 +1,12 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import Select from "../Select";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
+import "@testing-library/jest-dom/extend-expect";
 
 const htmlColors = ["teal", "tomato", "fuchsia", "lime", "moccasin", "linen"];
 
@@ -92,7 +93,7 @@ describe("Select", () => {
     const select = getByRole("combobox", { name: "Your favorite color" });
     await act(async () => userEvent.selectOptions(select, "teal"));
 
-    expect(select).toHaveDisplayValue("");
+    expect(select).toBeDisabled();
     expect(getFormValues().favoriteColor).toEqual("");
   });
 });

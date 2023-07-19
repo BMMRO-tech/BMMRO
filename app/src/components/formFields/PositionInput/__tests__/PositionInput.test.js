@@ -1,11 +1,12 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import PositionInput from "../PositionInput";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("PositionInput", () => {
   const mockFn = jest.fn();

@@ -1,10 +1,11 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import NumberWithCheckbox from "../NumberWithCheckbox";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("NumberWithCheckbox", () => {
   it("disables number input & sets default value when checkbox is checked", async () => {

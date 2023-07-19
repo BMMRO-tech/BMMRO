@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { useState, Fragment } from "react";
 import { navigate } from "@reach/router";

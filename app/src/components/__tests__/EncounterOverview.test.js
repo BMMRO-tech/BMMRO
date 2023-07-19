@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import EncounterOverview from "../EncounterOverview";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("EncounterOverview", () => {
   const defaultEncounter = {

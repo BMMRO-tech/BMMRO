@@ -1,11 +1,12 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import ElapsedTime from "../ElapsedTime";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("ElapsedTime", () => {
   it("displays elapsed time and synchronizes it with form state", async () => {

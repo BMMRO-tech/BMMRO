@@ -1,8 +1,6 @@
 fileignoreconfig:
 - filename: app/package-lock.json
-  checksum: 668fff5d4ef0cc276ad6516b63e1c50cbea3cf23951cb9e97915394fbb19ac88
-- filename: export-script/package-lock.json
-  checksum: 348f8a7cc58fa818cd1174a13b95c96a5e68d19e847238d9e1138709d258d832
+  checksum: 0596fc16d265c7f0f3e7e6e9878c52f13c070ba8b22a95184681599e5197b572
 - filename: .github/workflows/backup.yml
   checksum: 774329aa26a96c3c5d5431e82bc49c200c521fc55455d3648fd3fb771d94b42e
 - filename: app/src/components/EncounterList.jsx
@@ -13,4 +11,13 @@ fileignoreconfig:
   checksum: b74ed91a09ae5482395cb7e51aa4414049706e6b7ed5216ddcd637cdc8201d8f
 - filename: e2e-tests/index.test.js
   checksum: 1293335d4efadfc043fc95956dfe673c76bd26ab2b27b7aac2422fdb922c8130
+- filename: e2e-tests/package-lock.json
+  checksum: fd105e1ec70eb42253c463b137cd8ec03705dcc2b133b0846ae742535aeaa863
+- filename: upload-script/package-lock.json
+  checksum: aa4915f46919c86b67d74bd52bcaab8e1601fc44f8c0d30f1846b918ad547ecc
+- filename: export-script/package-lock.json
+  checksum: e78df3b29174683bfcecb97168b9991294ecb865462a7f6c1ad2f0e6d76a51cf
+- filename: upload-script/uploadScript.js
+  checksum: 92cac0a4718c5c1271615482ca5050116dd64fd9939ee8c00c429f59fc9b9982
+
 version: "1.0"

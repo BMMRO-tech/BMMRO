@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import utilities from "../materials/utilities";
 import colors from "../materials/colors";
 import { useFormikContext } from "formik";

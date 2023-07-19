@@ -1,7 +1,7 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
-import { css, jsx } from "@emotion/core";
 import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";

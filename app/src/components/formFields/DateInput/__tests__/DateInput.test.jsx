@@ -1,11 +1,12 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act, fireEvent } from "@testing-library/react";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 import DateInput from "../DateInput";
 import * as time from "../../../../utils/time";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("DateInput", () => {
   beforeEach(() => {

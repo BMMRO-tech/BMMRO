@@ -1,8 +1,9 @@
-import { act, render, waitFor, queryAllByRole } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import NewEncounterForm from "../NewEncounterForm";
 import * as time from "../../utils/time";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("NewEncounterForm", () => {
   beforeEach(() => {

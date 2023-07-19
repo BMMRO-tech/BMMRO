@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TestUtils from "react-dom/test-utils";
@@ -10,6 +10,7 @@ import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 import { changeInputMaskValue } from "../../../../utils/test/changeInputMaskValue";
 import * as time from "../../../../utils/time";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("TimeInput", () => {
   beforeEach(() => {
