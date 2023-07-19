@@ -15,5 +15,9 @@ service cloud.firestore {
     match /{path=**}/whale/{whaleId} {
       allow write, read: if request.auth != null;
     }
+
+    match /project/{projectId} {
+      allow read, write: if true;
+    }
   }
 }
