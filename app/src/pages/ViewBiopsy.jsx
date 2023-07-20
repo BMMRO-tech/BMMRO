@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from "@emotion/react";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 

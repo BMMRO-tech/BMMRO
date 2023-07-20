@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 import add from "date-fns/add";

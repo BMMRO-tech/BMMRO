@@ -2,6 +2,7 @@
 import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom/extend-expect";
 
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import NumberInput from "../NumberInput";

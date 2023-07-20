@@ -1,5 +1,6 @@
 import { render, waitFor } from "@testing-library/react/pure";
 import React from "react";
+import "@testing-library/jest-dom/extend-expect";
 
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Login from "../../pages/Login";
