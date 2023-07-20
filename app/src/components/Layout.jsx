@@ -1,6 +1,6 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 import { Fragment, useContext } from "react";
-import { Global, css, jsx } from "@emotion/core";
+import { Global, css, jsx } from "@emotion/react";
 
 import containers from "../materials/containers";
 import breakPoints from "../materials/breakPoints";

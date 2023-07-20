@@ -42,7 +42,8 @@
     "jest": "^27.5.1",
     "mutationobserver-shim": "^0.3.7",
     "prettier": "^2.5.1",
-    "react-test-renderer": "^16.14.0"
+    "react-test-renderer": "^16.14.0",
+    "setimmediate": "^1.0.5"
   },
   "husky": {
     "hooks": {
