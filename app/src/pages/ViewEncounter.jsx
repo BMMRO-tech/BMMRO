@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from "@emotion/react";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 
@@ -67,7 +67,11 @@ const ViewEncounter = ({ encounterId }) => {
             This encounter has been exported and can no longer be edited in the
             app.
           </p>
-          <EncounterForm initialValues={initialValues} datastore={datastore} isViewOnly />
+          <EncounterForm
+            initialValues={initialValues}
+            datastore={datastore}
+            isViewOnly
+          />
           <div css={utilities.backLinkContainer.bottom}>
             <BackLink
               text="Return to encounter overview"

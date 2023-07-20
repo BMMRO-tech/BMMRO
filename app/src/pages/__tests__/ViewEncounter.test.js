@@ -2,6 +2,7 @@ import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts"
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
 import { waitFor } from "@testing-library/react";
+import "setimmediate";
 
 import { Datastore } from "../../datastore/datastore";
 import ViewEncounter from "../ViewEncounter";
