@@ -22,7 +22,7 @@ jobs:
           npm install
       - name: Run frontend tests
         env:
-          GCP_SA_KEY: ${{secrets.GCP_SA_KEY}}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
         working-directory: ${{env.APP_DIR}}
         run: npm run test-ci
       - name: Run firestore tests
