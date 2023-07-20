@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import UserMenu from "../UserMenu";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("UserMenu", () => {
   it("renders the menu popup when you click on the menu button", () => {
