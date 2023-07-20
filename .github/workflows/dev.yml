@@ -48,12 +48,9 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
-        steps:
-        - id: 'auth'
-          name: 'Authenticate to google cloud'
-          uses: google-github-actions/auth@v1
-          with:
-            credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
         working-directory: ${{env.APP_DIR}}
         run: |
           npx firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
