@@ -8,6 +8,7 @@ import getErrorMessage from "../../utils/getErrorMessage";
 import { FormErrorType } from "../../constants/forms";
 import { changeInputMaskValue } from "../../utils/test/changeInputMaskValue";
 import * as getProjects from "../../hooks/getProjects";
+import "@testing-library/jest-dom/extend-expect";
 
 jest.mock("@reach/router", () => ({
   navigate: jest.fn(),
