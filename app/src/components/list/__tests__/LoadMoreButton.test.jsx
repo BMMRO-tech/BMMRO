@@ -1,7 +1,8 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom/extend-expect";
 
 import LoadMoreButton from "../LoadMoreButton";
 
