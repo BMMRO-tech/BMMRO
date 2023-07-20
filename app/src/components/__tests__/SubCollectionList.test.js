@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import SubCollectionList from "../SubCollectionList";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("SubCollectionList", () => {
   describe("HabitatUse List", () => {
