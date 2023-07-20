@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { useNavigate } from "@reach/router";
 import { useContext, useEffect, Fragment } from "react";
 import { format } from "date-fns";

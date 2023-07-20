@@ -3,7 +3,7 @@ import React from "react";
 import * as firebaseTesting from "@firebase/testing";
 import { waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
+import "setimmediate";
 import { Datastore } from "../../datastore/datastore";
 import NewHabitatUse from "../NewHabitatUse";
 
