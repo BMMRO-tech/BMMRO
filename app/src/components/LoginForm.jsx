@@ -1,7 +1,7 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { useState, useContext, Fragment } from "react";
 import { Formik, Form } from "formik";
-import { jsx, css } from "@emotion/core";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import firebase from "firebase/app";
 import { useLoginRedirect } from "../hooks/useLoginRedirect";
