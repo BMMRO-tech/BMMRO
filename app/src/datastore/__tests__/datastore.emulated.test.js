@@ -1,10 +1,11 @@
-import { waitFor } from "@testing-library/react";
+/** * @jest-environment node */
 import * as firebaseTesting from "@firebase/testing";
 import fs from "fs";
 import path from "path";
 
 import { Datastore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
+import "setimmediate";
 
 const projectId = "datastore-emulated";
 
@@ -224,7 +225,7 @@ describe("datastore", () => {
 
       const datastore = new Datastore(firestoreEmulator, null, false);
 
-      const id = datastore.createDoc("dolphin", {
+      const id = await datastore.createDoc("dolphin", {
         name: "Sally",
         species: "Killer Whale",
       });
@@ -240,7 +241,9 @@ describe("datastore", () => {
     it("triggers delayed error callback when creating document fails", async () => {
       const firestoreEmulator = getFirestore();
 
+      //const handleDelayedError = jest.fn();
       const handleDelayedError = jest.fn();
+
       const datastore = new Datastore(
         firestoreEmulator,
         null,
@@ -248,15 +251,13 @@ describe("datastore", () => {
         handleDelayedError
       );
 
-      datastore.createDoc("fake-name", {
+      await datastore.createDoc("fake-name", {
         name: "Sally",
         species: "Killer Whale",
       });
 
-      await waitFor(() => {
-        const callArg = handleDelayedError.mock.calls[0][0];
-        expect(callArg.name).toEqual("FirebaseError");
-      });
+      const callArg = handleDelayedError.mock.calls[0][0];
+      expect(callArg.name).toEqual("FirebaseError");
     });
   });
 
@@ -270,10 +271,14 @@ describe("datastore", () => {
         .collection("animal")
         .add({ location: "Pacific" });
 
-      const subDocId = datastore.createSubDoc(`animal/${parentId}`, "whale", {
-        name: "Sally",
-        species: "Killer Whale",
-      });
+      const subDocId = await datastore.createSubDoc(
+        `animal/${parentId}`,
+        "whale",
+        {
+          name: "Sally",
+          species: "Killer Whale",
+        }
+      );
 
       const subDoc = await firestoreEmulator
         .doc(`animal/${parentId}/whale/${subDocId}`)
@@ -300,15 +305,13 @@ describe("datastore", () => {
         .collection("animal")
         .add({ location: "Pacific" });
 
-      datastore.createSubDoc(`animal/${parentId}`, "fake-name", {
+      await datastore.createSubDoc(`animal/${parentId}`, "fake-name", {
         name: "Sally",
         species: "Killer Whale",
       });
 
-      await waitFor(() => {
-        const callArg = handleDelayedError.mock.calls[0][0];
-        expect(callArg.name).toEqual("FirebaseError");
-      });
+      const callArg = handleDelayedError.mock.calls[0][0];
+      expect(callArg.name).toEqual("FirebaseError");
     });
   });
 
@@ -342,12 +345,11 @@ describe("datastore", () => {
         handleDelayedError
       );
 
-      datastore.updateDocByPath(`invalid-collection/123`, { location: "UK" });
-
-      await waitFor(() => {
-        const callArg = handleDelayedError.mock.calls[0][0];
-        expect(callArg.name).toEqual("FirebaseError");
+      await datastore.updateDocByPath(`invalid-collection/123`, {
+        location: "UK",
       });
+      const callArg = handleDelayedError.mock.calls[0][0];
+      expect(callArg.name).toEqual("FirebaseError");
     });
   });
 

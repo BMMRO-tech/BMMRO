@@ -134,19 +134,27 @@ export class Datastore {
     }
   }
 
-  createDoc(collectionPath, values) {
+  async createDoc(collectionPath, values) {
     const docRef = this.firestore.collection(collectionPath).doc();
-    docRef.set(values).catch(this.handleDelayedError);
+    try {
+      await docRef.set(values);
+    } catch (e) {
+      this.handleDelayedError(e);
+    }
     return docRef.id;
   }
 
-  createSubDoc(parentPath, subcollectionName, values) {
+  async createSubDoc(parentPath, subcollectionName, values) {
     return this.createDoc(`${parentPath}/${subcollectionName}`, values);
   }
 
-  updateDocByPath(path, values) {
+  async updateDocByPath(path, values) {
     const docRef = this.firestore.doc(path);
-    docRef.update(values).catch(this.handleDelayedError);
+    try {
+      await docRef.update(values);
+    } catch (e) {
+      this.handleDelayedError(e);
+    }
   }
 
   async enableOfflineStorage() {
