@@ -16,6 +16,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
+      - uses: google-github-actions/auth@v1
+        with:
+            credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+            service_account: firebase-deploy@bmmro-164ec.iam.gserviceaccount.com
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
@@ -46,8 +50,6 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
-        env:
-          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: ${{env.APP_DIR}}
         run: |
           npx firebase use ${{secrets.FIREBASE_UAT_PROJECT_ID}}
