@@ -26,7 +26,6 @@ import InputFocusOnError from "./formFields/InputFocusOnError";
 import {FormSubmitType, THREE_DAYS_IN_HOURS} from "../constants/forms";
 import area from "../constants/formOptions/area";
 import species from "../constants/formOptions/species";
-import project from "../constants/formOptions/project";
 import cue from "../constants/formOptions/cue";
 import vessel from "../constants/formOptions/vessel";
 import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
