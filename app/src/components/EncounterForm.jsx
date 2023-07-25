@@ -26,7 +26,6 @@ import InputFocusOnError from "./formFields/InputFocusOnError";
 import {FormSubmitType, THREE_DAYS_IN_HOURS} from "../constants/forms";
 import area from "../constants/formOptions/area";
 import species from "../constants/formOptions/species";
-import project from "../constants/formOptions/project";
 import cue from "../constants/formOptions/cue";
 import vessel from "../constants/formOptions/vessel";
 import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
@@ -79,13 +78,10 @@ const EncounterForm = ({
   const initValues = initialValues || encounterDefaults;
   const hasEnded = initialValues ? initialValues.hasEnded : false;
 
-  const bmmroSelfManagedDropdownsToggle =
-    process.env.REACT_APP_BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE === "TRUE";
-
   const [projectsList, setProjectsList] = useState();
 
   useEffect(() => {
-    bmmroSelfManagedDropdownsToggle && getProjects(datastore).then((data) => setProjectsList(data));
+    getProjects(datastore).then((data) => setProjectsList(data));
   });
 
   return (
@@ -198,21 +194,12 @@ const EncounterForm = ({
               <br />
               <section css={styles.section}>
                 <FormSection>
-                  {!bmmroSelfManagedDropdownsToggle ? (
-                    <Select
-                      name="project"
-                      labelText="Project"
-                      options={project}
-                      isDisabled={isViewOnly}
-                    />
-                  ) : (
                     <Select
                       name="project"
                       labelText="Project"
                       options={projectsList || []}
                       isDisabled={isViewOnly}
                     />
-                  )}
 
                   <Select
                     name="vessel"
