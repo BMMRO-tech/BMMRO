@@ -24,11 +24,8 @@ describe("EncounterForm", () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    const originalEnv = process.env;
-    process.env = {
-      ...originalEnv,
-      REACT_APP_BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE: "FALSE",
-    };
+    const mockProjectList = ["project1", "project2"];
+    jest.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
   });
 
   it("submits the form with correct values if all required fields are completed", async () => {
@@ -325,19 +322,11 @@ describe("EncounterForm", () => {
     });
   });
 
-  it("Should retrieve the project list from firestore when toggle is on", async () => {
+  it("Should retrieve the project list from firestore", async () => {
     let formValues;
     const mockHandleSubmit = (_, values) => {
       formValues = values;
     };
-
-    const originalEnv = process.env;
-    process.env = {
-      ...originalEnv,
-      REACT_APP_BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE: "TRUE",
-    };
-    const mockProjectList = ["project1", "project2"];
-    jest.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
 
     const { getByRole } = render(
       <EncounterForm
@@ -364,56 +353,14 @@ describe("EncounterForm", () => {
 
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(speciesInput, "Fin whale");
-      userEvent.selectOptions(project, "project1");
+      userEvent.selectOptions(project, "project2");
       userEvent.click(submitButton);
     });
 
     expect(formValues.area).toEqual("Central Andros");
     expect(formValues.species).toEqual("Fin whale");
     expect(formValues.sequenceNumber).toEqual("123");
-    expect(formValues.project).toEqual("project1");
+    expect(formValues.project).toEqual("project2");
   });
 
-  it("Should retrieve the project list from the hardcoded list when toggle is off", async () => {
-    let formValues;
-    const mockHandleSubmit = (_, values) => {
-      formValues = values;
-    };
-
-    const { getByRole } = render(
-      <EncounterForm
-        handleSubmit={mockHandleSubmit}
-        initialValues={{
-          ...mockEncounterValues,
-          sequenceNumber: "",
-          area: "",
-          species: "",
-        }}
-      />
-    );
-
-    await act(async () => {
-      const project = getByRole("combobox", { name: "Project" });
-      const areaInput = getByRole("combobox", { name: "Area *" });
-      const speciesInput = getByRole("combobox", { name: "Species *" });
-      const encounterSequenceInput = getByRole("textbox", {
-        name: "Encounter sequence *",
-      });
-      await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
-
-      const submitButton = getByRole("button", { name: "Save" });
-
-      userEvent.selectOptions(areaInput, "Central Andros");
-      userEvent.selectOptions(speciesInput, "Fin whale");
-      userEvent.selectOptions(project, "BMMRO");
-      userEvent.click(submitButton);
-    });
-
-    await waitFor(() => {
-      expect(formValues.area).toEqual("Central Andros");
-      expect(formValues.species).toEqual("Fin whale");
-      expect(formValues.sequenceNumber).toEqual("123");
-      expect(formValues.project).toEqual("BMMRO");
-    });
-  });
 });

@@ -79,13 +79,10 @@ const EncounterForm = ({
   const initValues = initialValues || encounterDefaults;
   const hasEnded = initialValues ? initialValues.hasEnded : false;
 
-  const bmmroSelfManagedDropdownsToggle =
-    process.env.REACT_APP_BMMRO_SELF_MANAGED_DROPDOWNS_TOGGLE === "TRUE";
-
   const [projectsList, setProjectsList] = useState();
 
   useEffect(() => {
-    bmmroSelfManagedDropdownsToggle && getProjects(datastore).then((data) => setProjectsList(data));
+    getProjects(datastore).then((data) => setProjectsList(data));
   });
 
   return (
@@ -198,21 +195,12 @@ const EncounterForm = ({
               <br />
               <section css={styles.section}>
                 <FormSection>
-                  {!bmmroSelfManagedDropdownsToggle ? (
-                    <Select
-                      name="project"
-                      labelText="Project"
-                      options={project}
-                      isDisabled={isViewOnly}
-                    />
-                  ) : (
                     <Select
                       name="project"
                       labelText="Project"
                       options={projectsList || []}
                       isDisabled={isViewOnly}
                     />
-                  )}
 
                   <Select
                     name="vessel"
