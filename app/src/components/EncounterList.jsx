@@ -43,7 +43,7 @@ const getMonthList = () => {
   const today = new Date();
   let monthList = [];
   let date, month, year;
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 24; i++) {
     date = new Date(today.getUTCFullYear(), today.getMonth() - i, 1);
     year = date.getFullYear();
     month = monthNames[date.getMonth()];
