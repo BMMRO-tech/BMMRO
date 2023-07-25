@@ -84,8 +84,9 @@ describe("EncounterList", () => {
     expect(screen.getByLabelText("Month")).toBeInTheDocument();
   });
 
-  it("Should list the previous 12 months when user clicks on the 'Dropdown", async () => {
+  it("Should list the previous 24 months when user clicks on the 'Dropdown", async () => {
     const today = new Date();
+    today.setMonth(today.getMonth() - 13);
     const dropDownValue =
       monthNames[today.getMonth()] + " " + today.getFullYear();
     jest
