@@ -17,10 +17,10 @@ describe('convert csv to json', function () {
     it('should read and write external csv file', async function () {
 
         const path = process.cwd();
-        var buffer = fs.readFileSync(path + "/src/__tests__/Encounter_csv.csv");
+        var buffer = fs.readFileSync(path + "/src/__tests__/Habitat_csv.csv");
         const json = csvJSON(buffer.toString());
 
-        fs.writeFileSync( path + "/src/__tests__/Encounter.json", JSON.stringify(json), function(err) {
+        fs.writeFileSync( path + "/src/__tests__/Habitat.json", JSON.stringify(json), function(err) {
             if (err) throw err;
             console.log('DONE!');
         });
