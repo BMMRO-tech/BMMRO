@@ -4,5 +4,9 @@
   "dependencies": {
     "firebase-admin": "^11.9.0"
   },
-  "type":"module"
+  "type": "module",
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "jest": "^29.6.1"
+  }
 }
