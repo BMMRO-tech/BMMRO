@@ -1,0 +1,21 @@
+Area,Date,Sequence #,Collection Time,Latitude,Longitude,Species,Comments,Specimen Type,Animal identification,Specimen #,Disposition,Preservative,How collected,Specimen Description,Alive?
+SA,01-Sep-21,1,00-Jan-00,,,Blainville's beaked whale,,Skin,Md135,210901_Md01a,,DMSO & Freezer,Biopsy,,TRUE
+SA,01-Sep-21,1,00-Jan-00,,,Blainville's beaked whale,-80 freezer,Skin&Blubber,Md135,210901_Md01b,,Freezer,Biopsy,,TRUE
+SA,07-Sep-21,2,00-Jan-00,,,Blainville's beaked whale,,Skin,Md322,210907_Md01a,,DMSO & Freezer,Biopsy,,TRUE
+SA,07-Sep-21,2,00-Jan-00,,,Blainville's beaked whale,-80 freezer,Skin&Blubber,Md322,210907_Md01b,,Freezer,Biopsy,,TRUE
+SA,07-Sep-21,2,00-Jan-00,,,Blainville's beaked whale,,Skin,,210907_Md02a,,DMSO & Freezer,Biopsy,,TRUE
+SA,07-Sep-21,2,00-Jan-00,,,Blainville's beaked whale,-80 freezer,Skin&Blubber,,210907_Md02b,,Freezer,Biopsy,,TRUE
+SA,16-Jun-22,3,00-Jan-00,,,Blainville's beaked whale,,Skin,,220616_Md01a,,DMSO & Freezer,Biopsy,,TRUE
+SA,16-Jun-22,3,00-Jan-00,,,Blainville's beaked whale,-80 freezer,Skin&Blubber,,220616_Md01b,,Freezer,Biopsy,,TRUE
+SA,18-Jun-22,2,00-Jan-00,,,Blainville's beaked whale,,Skin,Md094,220618_Md01a,,DMSO & Freezer,Biopsy,,TRUE
+SA,18-Jun-22,2,00-Jan-00,,,Blainville's beaked whale,-80,Skin&Blubber,,220618_Md01b,,Freezer,Biopsy,,TRUE
+SA,18-Jun-22,3,00-Jan-00,,,Blainville's beaked whale,,Skin,,220618_Md02a,,DMSO & Freezer,Biopsy,,TRUE
+SA,18-Jun-22,3,00-Jan-00,,,Blainville's beaked whale,-80,Skin&Blubber,,220618_Md02b,,DMSO & Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,00-Jan-00,,,Blainville's beaked whale,,Skin,,220620_Md03a,,DMSO & Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,00-Jan-00,,,Blainville's beaked whale,-80,Skin&Blubber,,220620_Md03b,,Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,00-Jan-00,,,Blainville's beaked whale,,Skin,,220620_Md01a,,DMSO & Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,00-Jan-00,,,Blainville's beaked whale,-80 freezer,Skin&Blubber,,220620_Md01b,,Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,00-Jan-00,,,Blainville's beaked whale,-80 freezer only,Skin,,220620_Md02a,,DMSO & Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,00-Jan-00,,,Blainville's beaked whale,-80 freezer only,Skin&Blubber,,220620_Md02b,,Freezer,Biopsy,,TRUE
+SA,20-Jun-22,1,,,,,,,,,,,,,TRUE
+SA,20-Jun-22,2,00-Jan-00,,,Blainville's beaked whale,,Skin,,220620_Md04a,,DMSO & Freezer,Biopsy,,TRUE

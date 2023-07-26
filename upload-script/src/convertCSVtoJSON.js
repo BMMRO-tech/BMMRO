@@ -17,7 +17,7 @@ function csvJSON(csv){
         var currentline=lines[i].split(",");
 
         for(var j=0;j<headers.length;j++){
-            currentline[j]=currentline[j]?.replace("KOMMMA", ",");
+            currentline[j]=currentline[j]?.replaceAll("KOMMMA", ",");
             obj[headers[j]] = currentline[j];
         }
 
