@@ -18,7 +18,7 @@ jobs:
           node-version: "18"
       - uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          credentials_json: ${{ secrets.DEV_DEPLOY_SERVICE_ACCOUNT }}
           service_account: firebase-deploy@bmmro-164ec.iam.gserviceaccount.com
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
