@@ -4,11 +4,11 @@ import * as fs from "fs";
 
 describe('convert csv to json', function () {
     it('should csv to json', function () {
-        const csv = "encounterNo,date,name\n123,20Aug2023,testUserKOMMMAvlada";
+        const csv = "encounterNo,date,name\n123,20Aug2023,testUserKOMMMAvladaKOMMMArameez";
         const expectedJson = [{
             encounterNo: "123",
             date: "20Aug2023",
-            name: "testUser,vlada"
+            name: "testUser,vlada,rameez"
         }]
         const json = csvJSON(csv);
         expect(json).toEqual(expectedJson);
