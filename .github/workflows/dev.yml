@@ -19,7 +19,7 @@ jobs:
       - uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.DEV_DEPLOY_SERVICE_ACCOUNT }}
-          service_account: firebase-deploy@bmmro-164ec.iam.gserviceaccount.com
+          service_account: ${{ secrets.DEV_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
