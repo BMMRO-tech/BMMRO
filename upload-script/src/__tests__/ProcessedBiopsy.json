@@ -1,8 +1,8 @@
 [
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "26-Nov-22",
-    "Sequence #": "1",
+    "sequenceNumber": "1",
     "whaleID": "Md121",
     "sampleNumber": "221126_Md01",
     "attempt": "1",
@@ -54,12 +54,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Travel",
-    "groupBehaviourAfterBiopsy\r": "Travel"
+    "groupBehaviourAfterBiopsy": "Travel"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "20-Jun-22",
-    "Sequence #": "1",
+    "sequenceNumber": "1",
     "whaleID": "smallest whale",
     "sampleNumber": "220620_Md03",
     "attempt": "1",
@@ -111,12 +111,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "travel, evasive",
-    "groupBehaviourAfterBiopsy\r": "travel, evasive"
+    "groupBehaviourAfterBiopsy": "travel, evasive"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "20-Jun-22",
-    "Sequence #": "1",
+    "sequenceNumber": "1",
     "whaleID": "Subadult 1",
     "sampleNumber": "220620_Md01",
     "attempt": "2",
@@ -168,12 +168,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
-    "groupBehaviourAfterBiopsy\r": "Foraging dive"
+    "groupBehaviourAfterBiopsy": "Foraging dive"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "20-Jun-22",
-    "Sequence #": "1",
+    "sequenceNumber": "1",
     "whaleID": "Ind with most CC scars",
     "sampleNumber": "220620_Md02",
     "attempt": "2",
@@ -225,12 +225,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Travel, evasive",
-    "groupBehaviourAfterBiopsy\r": "Travel, evasive"
+    "groupBehaviourAfterBiopsy": "Travel, evasive"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "20-Jun-22",
-    "Sequence #": "2",
+    "sequenceNumber": "2",
     "whaleID": "",
     "sampleNumber": "220620_Md04",
     "attempt": "1",
@@ -282,12 +282,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Travel",
-    "groupBehaviourAfterBiopsy\r": "Foraging dive"
+    "groupBehaviourAfterBiopsy": "Foraging dive"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "20-Jun-22",
-    "Sequence #": "2",
+    "sequenceNumber": "2",
     "whaleID": "",
     "sampleNumber": "",
     "attempt": "",
@@ -339,12 +339,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "",
-    "groupBehaviourAfterBiopsy\r": ""
+    "groupBehaviourAfterBiopsy": ""
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "16-Jun-22",
-    "Sequence #": "3",
+    "sequenceNumber": "3",
     "whaleID": "",
     "sampleNumber": "200616_Md01",
     "attempt": "1",
@@ -396,12 +396,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
-    "groupBehaviourAfterBiopsy\r": "Foraging dive"
+    "groupBehaviourAfterBiopsy": "Foraging dive"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "01-Sep-21",
-    "Sequence #": "1",
+    "sequenceNumber": "1",
     "whaleID": "Md135",
     "sampleNumber": "210901_Md01",
     "attempt": "1",
@@ -453,12 +453,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
-    "groupBehaviourAfterBiopsy\r": "Milling"
+    "groupBehaviourAfterBiopsy": "Milling"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "07-Sep-21",
-    "Sequence #": "2",
+    "sequenceNumber": "2",
     "whaleID": "Md322",
     "sampleNumber": "210907_Md01",
     "attempt": "1",
@@ -510,12 +510,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Travel",
-    "groupBehaviourAfterBiopsy\r": "Travel"
+    "groupBehaviourAfterBiopsy": "Travel"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "07-Sep-21",
-    "Sequence #": "2",
+    "sequenceNumber": "2",
     "whaleID": "",
     "sampleNumber": "210907_Md02",
     "attempt": "1",
@@ -567,12 +567,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
-    "groupBehaviourAfterBiopsy\r": "Milling"
+    "groupBehaviourAfterBiopsy": "Milling"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "18-Jun-22",
-    "Sequence #": "2",
+    "sequenceNumber": "2",
     "whaleID": "Md094",
     "sampleNumber": "220618_Md01",
     "attempt": "1",
@@ -624,12 +624,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
-    "groupBehaviourAfterBiopsy\r": "Dove"
+    "groupBehaviourAfterBiopsy": "Dove"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "18-Jun-22",
-    "Sequence #": "3",
+    "sequenceNumber": "3",
     "whaleID": "",
     "sampleNumber": "220618_Md02",
     "attempt": "2",
@@ -681,12 +681,12 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Travel",
-    "groupBehaviourAfterBiopsy\r": "Travel"
+    "groupBehaviourAfterBiopsy": "Travel"
   },
   {
-    "Area": "SA",
+    "area": "SA",
     "dateTaken": "18-Jun-22",
-    "Sequence #": "3",
+    "sequenceNumber": "3",
     "whaleID": "Md107",
     "sampleNumber": "",
     "attempt": "1",
@@ -738,6 +738,9 @@
     "nonTargetAnimalBehaviour.prolongedFlight": "FALSE",
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
-    "groupBehaviourAfterBiopsy\r": "Foraging dive"
+    "groupBehaviourAfterBiopsy": "Foraging dive"
+  },
+  {
+    "area": ""
   }
 ]

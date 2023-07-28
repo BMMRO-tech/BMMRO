@@ -14,6 +14,7 @@ export function processJson(obj) {
 function replaceSpecialCharacters(key) {
   let replacedKey = key.trim().replace(" ", "");
   replacedKey = replacedKey.replace("?", "");
+  replacedKey = replacedKey.replace("/", "");
   replacedKey = replacedKey.replace("#", "number");
   replacedKey = _.camelCase(replacedKey);
   return replacedKey;
