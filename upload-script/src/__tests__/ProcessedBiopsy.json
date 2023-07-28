@@ -2,7 +2,7 @@
   {
     "area": "SA",
     "dateTaken": "26-Nov-22",
-    "sequenceNumber": "1",
+    "encSeqNo": "1",
     "whaleID": "Md121",
     "sampleNumber": "221126_Md01",
     "attempt": "1",
@@ -59,7 +59,7 @@
   {
     "area": "SA",
     "dateTaken": "20-Jun-22",
-    "sequenceNumber": "1",
+    "encSeqNo": "1",
     "whaleID": "smallest whale",
     "sampleNumber": "220620_Md03",
     "attempt": "1",
@@ -116,7 +116,7 @@
   {
     "area": "SA",
     "dateTaken": "20-Jun-22",
-    "sequenceNumber": "1",
+    "encSeqNo": "1",
     "whaleID": "Subadult 1",
     "sampleNumber": "220620_Md01",
     "attempt": "2",
@@ -173,7 +173,7 @@
   {
     "area": "SA",
     "dateTaken": "20-Jun-22",
-    "sequenceNumber": "1",
+    "encSeqNo": "1",
     "whaleID": "Ind with most CC scars",
     "sampleNumber": "220620_Md02",
     "attempt": "2",
@@ -230,7 +230,7 @@
   {
     "area": "SA",
     "dateTaken": "20-Jun-22",
-    "sequenceNumber": "2",
+    "encSeqNo": "2",
     "whaleID": "",
     "sampleNumber": "220620_Md04",
     "attempt": "1",
@@ -287,7 +287,7 @@
   {
     "area": "SA",
     "dateTaken": "20-Jun-22",
-    "sequenceNumber": "2",
+    "encSeqNo": "2",
     "whaleID": "",
     "sampleNumber": "",
     "attempt": "",
@@ -344,7 +344,7 @@
   {
     "area": "SA",
     "dateTaken": "16-Jun-22",
-    "sequenceNumber": "3",
+    "encSeqNo": "3",
     "whaleID": "",
     "sampleNumber": "200616_Md01",
     "attempt": "1",
@@ -401,7 +401,7 @@
   {
     "area": "SA",
     "dateTaken": "01-Sep-21",
-    "sequenceNumber": "1",
+    "encSeqNo": "1",
     "whaleID": "Md135",
     "sampleNumber": "210901_Md01",
     "attempt": "1",
@@ -458,7 +458,7 @@
   {
     "area": "SA",
     "dateTaken": "07-Sep-21",
-    "sequenceNumber": "2",
+    "encSeqNo": "2",
     "whaleID": "Md322",
     "sampleNumber": "210907_Md01",
     "attempt": "1",
@@ -515,7 +515,7 @@
   {
     "area": "SA",
     "dateTaken": "07-Sep-21",
-    "sequenceNumber": "2",
+    "encSeqNo": "2",
     "whaleID": "",
     "sampleNumber": "210907_Md02",
     "attempt": "1",
@@ -572,7 +572,7 @@
   {
     "area": "SA",
     "dateTaken": "18-Jun-22",
-    "sequenceNumber": "2",
+    "encSeqNo": "2",
     "whaleID": "Md094",
     "sampleNumber": "220618_Md01",
     "attempt": "1",
@@ -629,7 +629,7 @@
   {
     "area": "SA",
     "dateTaken": "18-Jun-22",
-    "sequenceNumber": "3",
+    "encSeqNo": "3",
     "whaleID": "",
     "sampleNumber": "220618_Md02",
     "attempt": "2",
@@ -686,7 +686,7 @@
   {
     "area": "SA",
     "dateTaken": "18-Jun-22",
-    "sequenceNumber": "3",
+    "encSeqNo": "3",
     "whaleID": "Md107",
     "sampleNumber": "",
     "attempt": "1",
