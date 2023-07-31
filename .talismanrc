@@ -13,4 +13,6 @@ fileignoreconfig:
   checksum: b74ed91a09ae5482395cb7e51aa4414049706e6b7ed5216ddcd637cdc8201d8f
 - filename: e2e-tests/index.test.js
   checksum: 1293335d4efadfc043fc95956dfe673c76bd26ab2b27b7aac2422fdb922c8130
+- filename: upload-script/src/uploadCollectionData.js
+  checksum: 85d2ac4b9a293c9f814758431e4a4995ece4ea245a2f4dd3a13013325b371f8b
 version: "1.0"
