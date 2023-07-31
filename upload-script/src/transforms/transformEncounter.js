@@ -3,13 +3,14 @@ import convertZeroToNotNoted from "../mappings/convertZeroToNotNoted.js";
 import convertNoToNotNoted from "../mappings/convertNoToNotNoted.js";
 
 const transformEncounter = (encounters) => {
-    encounters.map((encounter)=> {
-        encounter.startTimestamp = convertDateToTimestamp(encounter.startTimestamp);
-        encounter.biopsySuccess = convertZeroToNotNoted(encounter.biopsySuccess);
-        encounter.tagSuccess = convertNoToNotNoted(encounter.tagSuccess);
-    });
+  encounters.map((encounter) => {
+    encounter.startTimestamp = convertDateToTimestamp(encounter.startTimestamp);
+    encounter.biopsySuccess = convertZeroToNotNoted(encounter.biopsySuccess);
+    encounter.tagSuccess = convertNoToNotNoted(encounter.tagSuccess);
+    biopsy.exported = true;
+  });
 
-    return encounters;
-}
+  return encounters;
+};
 
 export default transformEncounter;

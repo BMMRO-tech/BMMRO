@@ -1,11 +1,11 @@
 import convertDateToTimestamp from "../mappings/convertDateToTimestamp.js";
 
 const transformSpecimen = (specimens) => {
-    specimens.map((specimen)=> {
-        specimen.dateTaken = convertDateToTimestamp(specimen.dateTaken);
-    })
+  specimens.map((specimen) => {
+    specimen.dateTaken = convertDateToTimestamp(specimen.dateTaken);
+  });
 
-    return specimens;
-}
+  return specimens;
+};
 
 export default transformSpecimen;
