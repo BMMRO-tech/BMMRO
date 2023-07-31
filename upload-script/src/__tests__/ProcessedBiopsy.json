@@ -739,8 +739,5 @@
     "nonTargetAnimalBehaviour.directionChange": "FALSE",
     "groupBehaviourBeforeBiopsy": "Milling",
     "groupBehaviourAfterBiopsy": "Foraging dive"
-  },
-  {
-    "area": ""
   }
 ]
