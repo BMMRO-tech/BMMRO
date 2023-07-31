@@ -48,8 +48,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "9",
@@ -59,6 +57,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "10:43",
+    "lowTide": "16:40",
     "photographerFrame": "FLK 76"
   },
   {
@@ -110,8 +110,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "12",
@@ -121,6 +119,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "10:40",
+    "lowTide": "16:40",
     "photographerFrame": ""
   },
   {
@@ -172,8 +172,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "3",
@@ -183,6 +181,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "12:44",
+    "lowTide": "19:00",
     "photographerFrame": "73 FLK"
   },
   {
@@ -234,8 +234,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "",
@@ -245,6 +243,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -296,8 +296,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "2",
@@ -307,6 +305,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "16:38",
+    "lowTide": "10:08",
     "photographerFrame": ""
   },
   {
@@ -358,8 +358,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -369,6 +367,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7476 --- -77.86",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -420,8 +420,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "",
@@ -431,6 +429,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -482,8 +482,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "3",
@@ -493,6 +491,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "19:36",
+    "lowTide": "13:15",
     "photographerFrame": ""
   },
   {
@@ -544,8 +544,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "1",
@@ -555,6 +553,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "19:36",
+    "lowTide": "13:15",
     "photographerFrame": ""
   },
   {
@@ -606,8 +606,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "",
@@ -617,6 +615,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -668,8 +668,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "",
@@ -679,6 +677,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -730,8 +730,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "",
@@ -741,6 +739,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -792,8 +792,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -803,6 +801,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7476 --- -77.86",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -854,8 +854,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -865,6 +863,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.8214 --- -77.9498",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -916,8 +916,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -927,6 +925,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9732 --- -77.7776",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -978,8 +978,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -989,6 +987,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "13:53",
+    "lowTide": "07:25",
     "photographerFrame": "CAD"
   },
   {
@@ -1040,8 +1040,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -1051,6 +1049,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9945 --- -77.7013",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -1102,8 +1102,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -1113,6 +1111,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "13:53",
+    "lowTide": "07:25",
     "photographerFrame": ""
   },
   {
@@ -1164,8 +1164,6 @@
     "numUnknown": "60",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "90",
@@ -1175,6 +1173,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "13:53",
+    "lowTide": "07:25",
     "photographerFrame": "CAD"
   },
   {
@@ -1226,8 +1226,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "17",
@@ -1237,6 +1235,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "13:53",
+    "lowTide": "07:25",
     "photographerFrame": "CAD"
   },
   {
@@ -1288,8 +1288,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -1299,6 +1297,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9994 --- -77.5168",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -1350,8 +1350,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -1361,6 +1359,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "13:53",
+    "lowTide": "07:25",
     "photographerFrame": "CAD, MG"
   },
   {
@@ -1412,8 +1412,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "18",
@@ -1423,6 +1421,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "14:59",
+    "lowTide": "08:34",
     "photographerFrame": "CAD"
   },
   {
@@ -1474,8 +1474,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -1485,6 +1483,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9071 --- -77.2967",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -1536,8 +1536,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -1547,6 +1545,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "14:59",
+    "lowTide": "08:34",
     "photographerFrame": "CAD"
   },
   {
@@ -1598,8 +1598,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -1609,6 +1607,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9345 --- -77.3951",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -1660,8 +1660,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -1671,6 +1669,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.016 --- -77.4847",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -1722,8 +1722,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "6",
@@ -1733,6 +1731,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "15:27",
+    "lowTide": "09:28",
     "photographerFrame": "CAD, Mike Gould"
   },
   {
@@ -1784,8 +1784,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -1795,6 +1793,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "15:27",
+    "lowTide": "09:28",
     "photographerFrame": ""
   },
   {
@@ -1846,8 +1846,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -1857,6 +1855,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "15:27",
+    "lowTide": "09:28",
     "photographerFrame": ""
   },
   {
@@ -1908,8 +1908,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -1919,6 +1917,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0006 --- -77.5058",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -1970,8 +1970,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -1981,6 +1979,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "15:27",
+    "lowTide": "09:28",
     "photographerFrame": "CAD, MG"
   },
   {
@@ -2032,8 +2032,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2043,6 +2041,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9233 --- -77.3437",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2094,8 +2094,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2105,6 +2103,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9057 --- -77.3177",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2156,8 +2156,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2167,6 +2165,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9069 --- -77.3119",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2218,8 +2218,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "7",
@@ -2229,6 +2227,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "16:54",
+    "lowTide": "10:25",
     "photographerFrame": "CAD"
   },
   {
@@ -2280,8 +2280,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2291,6 +2289,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9418 --- -77.3655",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2342,8 +2342,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2353,6 +2351,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.857 --- -77.8894",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2404,8 +2404,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2415,6 +2413,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0171 --- -77.4162",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2466,8 +2466,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2477,6 +2475,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0035 --- -77.5038",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2528,8 +2528,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -2539,6 +2537,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "09:04",
+    "lowTide": "15:21",
     "photographerFrame": ""
   },
   {
@@ -2590,8 +2590,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -2601,6 +2599,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "09:04",
+    "lowTide": "15:21",
     "photographerFrame": "CAD"
   },
   {
@@ -2652,8 +2652,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -2663,6 +2661,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "09:04",
+    "lowTide": "15:21",
     "photographerFrame": "CAD"
   },
   {
@@ -2714,8 +2714,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2725,6 +2723,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9967 --- -77.695",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2776,8 +2776,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2787,6 +2785,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0111 --- -77.5012",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2838,8 +2838,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2849,6 +2847,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9833 --- -77.4439",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2900,8 +2900,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2911,6 +2909,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9472 --- -77.4115",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -2962,8 +2962,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -2973,6 +2971,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.6769 --- -77.8131",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3024,8 +3024,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3035,6 +3033,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.4807 --- -77.6138",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3086,8 +3086,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3097,6 +3095,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7683 --- -77.8933",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3148,8 +3148,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -3159,6 +3157,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:24",
+    "lowTide": "13:51",
     "photographerFrame": "CAD"
   },
   {
@@ -3210,8 +3210,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -3221,6 +3219,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:12",
+    "lowTide": "14:42",
     "photographerFrame": ""
   },
   {
@@ -3272,8 +3272,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -3283,6 +3281,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:36",
+    "lowTide": "18:16",
     "photographerFrame": "CAD"
   },
   {
@@ -3334,8 +3334,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -3345,6 +3343,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "15:48",
+    "lowTide": "09:44",
     "photographerFrame": "CAD"
   },
   {
@@ -3396,8 +3396,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -3407,6 +3405,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:43",
+    "lowTide": "10:46",
     "photographerFrame": "CAD"
   },
   {
@@ -3458,8 +3458,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -3469,6 +3467,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:43",
+    "lowTide": "10:46",
     "photographerFrame": "CAD"
   },
   {
@@ -3520,8 +3520,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3531,6 +3529,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7867 --- -77.957",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3582,8 +3582,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -3593,6 +3591,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:32",
+    "lowTide": "11:40",
     "photographerFrame": "CAD"
   },
   {
@@ -3644,8 +3644,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -3655,6 +3653,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:32",
+    "lowTide": "11:40",
     "photographerFrame": "CAD"
   },
   {
@@ -3706,8 +3706,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -3717,6 +3715,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "06:03",
+    "lowTide": "12:28",
     "photographerFrame": "CAD"
   },
   {
@@ -3768,8 +3768,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3779,6 +3777,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8419 --- -76.5297",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3830,8 +3830,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3841,6 +3839,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8503 --- -76.5462",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3892,8 +3892,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3903,6 +3901,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8439 --- -76.5418",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -3954,8 +3954,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -3965,6 +3963,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.3324 --- -76.6107",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4016,8 +4016,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4027,6 +4025,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.5408 --- -76.7567",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4078,8 +4078,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4089,6 +4087,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.3789 --- -76.7431",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4140,8 +4140,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4151,6 +4149,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.0498 --- -76.2249",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4202,8 +4202,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4213,6 +4211,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8535 --- -76.5404",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4264,8 +4264,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -4275,6 +4273,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:15",
+    "lowTide": "16:18",
     "photographerFrame": "CAD"
   },
   {
@@ -4326,8 +4326,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4337,6 +4335,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8382 --- -76.5328",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4388,8 +4388,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4399,6 +4397,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8139 --- -77.3865",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4450,8 +4450,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "7",
@@ -4461,6 +4459,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "13:24",
+    "lowTide": "19:36",
     "photographerFrame": "CAD"
   },
   {
@@ -4512,8 +4512,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -4523,6 +4521,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "13:24",
+    "lowTide": "19:36",
     "photographerFrame": "CAD"
   },
   {
@@ -4574,8 +4574,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -4585,6 +4583,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "13:24",
+    "lowTide": "19:36",
     "photographerFrame": "CAD"
   },
   {
@@ -4636,8 +4636,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4647,6 +4645,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8358 --- -76.5304",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4698,8 +4698,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4709,6 +4707,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.85 --- -76.1643",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4760,8 +4760,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -4771,6 +4769,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8734 --- -76.7421",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -4822,8 +4822,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -4833,6 +4831,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "17:57",
     "photographerFrame": "CAD"
   },
   {
@@ -4884,8 +4884,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -4895,6 +4893,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "16:57",
     "photographerFrame": ""
   },
   {
@@ -4946,8 +4946,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -4957,6 +4955,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "16:57",
     "photographerFrame": "CAD"
   },
   {
@@ -5008,8 +5008,6 @@
     "numUnknown": "5",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "12",
@@ -5019,6 +5017,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "16:57",
     "photographerFrame": "CAD"
   },
   {
@@ -5070,8 +5070,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -5081,6 +5079,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:52",
+    "lowTide": "16:17",
     "photographerFrame": "CAD"
   },
   {
@@ -5132,8 +5132,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "7",
@@ -5143,6 +5141,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:52",
+    "lowTide": "16:17",
     "photographerFrame": "CAD"
   },
   {
@@ -5194,8 +5194,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -5205,6 +5203,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "06:09",
+    "lowTide": "12:43",
     "photographerFrame": "CAD"
   },
   {
@@ -5256,8 +5256,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -5267,6 +5265,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:37",
+    "lowTide": "05:56",
     "photographerFrame": "CAD"
   },
   {
@@ -5318,8 +5318,6 @@
     "numUnknown": "",
     "reasonForLeaving": "",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -5329,6 +5327,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.87 --- -76.1683",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -5380,8 +5380,6 @@
     "numUnknown": "",
     "reasonForLeaving": "",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -5391,6 +5389,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9138 --- -78.3047",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -5442,8 +5442,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -5453,6 +5451,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:19",
+    "lowTide": "13:39",
     "photographerFrame": ""
   },
   {
@@ -5504,8 +5504,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -5515,6 +5513,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.9163 --- -76.2597",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -5566,8 +5566,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -5577,6 +5575,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "08:06",
+    "lowTide": "14:19",
     "photographerFrame": "CAD"
   },
   {
@@ -5628,8 +5628,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -5639,6 +5637,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "22:16",
+    "lowTide": "15:55",
     "photographerFrame": "CAD"
   },
   {
@@ -5690,8 +5690,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -5701,6 +5699,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.5408 --- -76.7567",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -5752,8 +5752,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "6",
@@ -5763,6 +5761,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": "CAD"
   },
   {
@@ -5814,8 +5814,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -5825,6 +5823,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": ""
   },
   {
@@ -5876,8 +5876,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -5887,6 +5885,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": "CAD"
   },
   {
@@ -5938,8 +5938,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -5949,6 +5947,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": "CAD"
   },
   {
@@ -6000,8 +6000,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Group not approachable",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "12",
@@ -6011,6 +6009,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": "CAD"
   },
   {
@@ -6062,8 +6062,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "6",
@@ -6073,6 +6071,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": "CAD"
   },
   {
@@ -6124,8 +6124,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -6135,6 +6133,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:37",
+    "lowTide": "16:47",
     "photographerFrame": "CAD"
   },
   {
@@ -6186,8 +6186,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -6197,6 +6195,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.5408 --- -76.7567",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -6248,8 +6248,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "7",
@@ -6259,6 +6257,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "11:33",
+    "lowTide": "05:48",
     "photographerFrame": "CAD"
   },
   {
@@ -6310,8 +6310,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -6321,6 +6319,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "11:33",
+    "lowTide": "17:43",
     "photographerFrame": "CAD"
   },
   {
@@ -6372,8 +6372,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -6383,6 +6381,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "11:33",
+    "lowTide": "17:43",
     "photographerFrame": "CAD"
   },
   {
@@ -6434,8 +6434,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -6445,6 +6443,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8483 --- -76.1767",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -6496,8 +6496,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -6507,6 +6505,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8705 --- -76.7375",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -6558,8 +6558,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "6",
@@ -6569,6 +6567,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:17",
+    "lowTide": "14:25",
     "photographerFrame": "CAD"
   },
   {
@@ -6620,8 +6620,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -6631,6 +6629,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:15",
+    "lowTide": "16:18",
     "photographerFrame": "CAD"
   },
   {
@@ -6682,8 +6682,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -6693,6 +6691,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "17:57",
     "photographerFrame": "CAD"
   },
   {
@@ -6744,8 +6744,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -6755,6 +6753,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "16:57",
     "photographerFrame": ""
   },
   {
@@ -6806,8 +6806,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -6817,6 +6815,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "16:57",
     "photographerFrame": "CAD"
   },
   {
@@ -6868,8 +6868,6 @@
     "numUnknown": "5",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "12",
@@ -6879,6 +6877,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1a",
     "gpsFileName": "",
+    "highTide": "10:55",
+    "lowTide": "16:57",
     "photographerFrame": "CAD"
   },
   {
@@ -6930,8 +6930,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -6941,6 +6939,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:37",
+    "lowTide": "05:56",
     "photographerFrame": "CAD"
   },
   {
@@ -6992,8 +6992,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -7003,6 +7001,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2A",
     "gpsFileName": "",
+    "highTide": "14:00",
+    "lowTide": "08:08",
     "photographerFrame": "CAD"
   },
   {
@@ -7054,8 +7054,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -7065,6 +7063,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2A",
     "gpsFileName": "",
+    "highTide": "16:44",
+    "lowTide": "10:29",
     "photographerFrame": "Charlotte"
   },
   {
@@ -7116,8 +7116,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -7127,6 +7125,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "05:51",
+    "lowTide": "12:06",
     "photographerFrame": "Charlotte"
   },
   {
@@ -7178,8 +7178,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7189,6 +7187,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.9817 --- -77.4617",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7240,8 +7240,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -7251,6 +7249,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:28",
+    "lowTide": "15:38",
     "photographerFrame": "CAD"
   },
   {
@@ -7302,8 +7302,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7313,6 +7311,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.8697 --- -77.2754",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7364,8 +7364,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7375,6 +7373,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0445 --- -77.5374",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7426,8 +7426,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -7437,6 +7435,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:24",
+    "lowTide": "04:39",
     "photographerFrame": "CAD"
   },
   {
@@ -7488,8 +7488,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group not approachable",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -7499,6 +7497,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:24",
+    "lowTide": "04:39",
     "photographerFrame": "CAD"
   },
   {
@@ -7550,8 +7550,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7561,6 +7559,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0215 --- -77.4989",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7612,8 +7612,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -7623,6 +7621,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:24",
+    "lowTide": "16:34",
     "photographerFrame": "CAD, DEC"
   },
   {
@@ -7674,8 +7674,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -7685,6 +7683,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:24",
+    "lowTide": "16:34",
     "photographerFrame": ""
   },
   {
@@ -7736,8 +7736,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -7747,6 +7745,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:21",
+    "lowTide": "17:31",
     "photographerFrame": "CAD"
   },
   {
@@ -7798,8 +7798,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7809,6 +7807,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9165 --- -77.3539",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7860,8 +7860,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7871,6 +7869,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9663 --- -77.3913",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7922,8 +7922,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -7933,6 +7931,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9457 --- -77.3778",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -7984,8 +7984,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -7995,6 +7993,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:21",
+    "lowTide": "17:21",
     "photographerFrame": "CAD"
   },
   {
@@ -8046,8 +8046,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -8057,6 +8055,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9507 --- -77.3874",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -8108,8 +8108,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -8119,6 +8117,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9918 --- -77.4142",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -8170,8 +8170,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -8181,6 +8179,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "12:21",
+    "lowTide": "06:29",
     "photographerFrame": "CAD"
   },
   {
@@ -8232,8 +8232,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -8243,6 +8241,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "12:21",
+    "lowTide": "06:29",
     "photographerFrame": "CAD, DEC"
   },
   {
@@ -8294,8 +8294,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -8305,6 +8303,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "12:21",
+    "lowTide": "18:31",
     "photographerFrame": "CAD, DEC"
   },
   {
@@ -8356,8 +8356,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -8367,6 +8365,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "14:25",
+    "lowTide": "08:21",
     "photographerFrame": "CAD DEC"
   },
   {
@@ -8418,8 +8418,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -8429,6 +8427,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "14:25",
+    "lowTide": "08:21",
     "photographerFrame": ""
   },
   {
@@ -8480,8 +8480,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -8491,6 +8489,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "14:25",
+    "lowTide": "08:21",
     "photographerFrame": "CAD"
   },
   {
@@ -8542,8 +8542,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -8553,6 +8551,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.3989 --- -76.7761",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -8604,8 +8604,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -8615,6 +8613,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8889 --- -76.6105",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -8666,8 +8666,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -8677,6 +8675,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8673 --- -76.2259",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -8728,8 +8728,6 @@
     "numUnknown": "0",
     "reasonForLeaving": "Continuing search - all Ids",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Jalen",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -8739,6 +8737,8 @@
     "bmmroData": "TRUE",
     "vesselLogNumber": "211A",
     "gpsFileName": "",
+    "highTide": "12:58",
+    "lowTide": "19:14",
     "photographerFrame": "FLK 57"
   },
   {
@@ -8790,8 +8790,6 @@
     "numUnknown": "0",
     "reasonForLeaving": "Continuing search - all Ids",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Jalen",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -8801,6 +8799,8 @@
     "bmmroData": "TRUE",
     "vesselLogNumber": "211A",
     "gpsFileName": "",
+    "highTide": "13:55",
+    "lowTide": "20:14",
     "photographerFrame": "FLK 77"
   },
   {
@@ -8852,8 +8852,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -8863,6 +8861,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.289 --- -76.9782",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -8914,8 +8914,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "14",
@@ -8925,6 +8923,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "13:55",
+    "lowTide": "20:14",
     "photographerFrame": "Felice 320"
   },
   {
@@ -8976,8 +8976,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "3",
@@ -8987,6 +8985,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -9038,8 +9038,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "9",
@@ -9049,6 +9047,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "17:40",
+    "lowTide": "11:13",
     "photographerFrame": "Felice"
   },
   {
@@ -9100,8 +9100,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "9",
@@ -9111,6 +9109,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "18:29",
+    "lowTide": "12:02",
     "photographerFrame": "Felice 344"
   },
   {
@@ -9162,8 +9162,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "7",
@@ -9173,6 +9171,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-1A",
     "gpsFileName": "",
+    "highTide": "08:09",
+    "lowTide": "14:14",
     "photographerFrame": "FLK 97"
   },
   {
@@ -9224,8 +9224,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -9235,6 +9233,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "12:07",
+    "lowTide": "18:19",
     "photographerFrame": ""
   },
   {
@@ -9286,8 +9286,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -9297,6 +9295,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.8913 --- -77.2927",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -9348,8 +9348,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -9359,6 +9357,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9679 --- -77.3954",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -9410,8 +9410,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -9421,6 +9419,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "12:19",
+    "lowTide": "05:59",
     "photographerFrame": "CAD"
   },
   {
@@ -9472,8 +9472,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -9483,6 +9481,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "12:19",
+    "lowTide": "18:39",
     "photographerFrame": "CAD"
   },
   {
@@ -9534,8 +9534,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -9545,6 +9543,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "15:09",
+    "lowTide": "21:48",
     "photographerFrame": "CAD"
   },
   {
@@ -9596,8 +9596,6 @@
     "numUnknown": "0",
     "reasonForLeaving": "Continuing search - higher priority species seen",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -9607,6 +9605,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -9658,8 +9658,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -9669,6 +9667,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "13:08",
+    "lowTide": "06:42",
     "photographerFrame": "CAD, Mike"
   },
   {
@@ -9720,8 +9720,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -9731,6 +9729,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8325 --- -76.538",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -9782,8 +9782,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -9793,6 +9791,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:04",
+    "lowTide": "09:59",
     "photographerFrame": "CAD"
   },
   {
@@ -9844,8 +9844,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -9855,6 +9853,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:04",
+    "lowTide": "09:59",
     "photographerFrame": "CAD, Mike"
   },
   {
@@ -9906,8 +9906,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -9917,6 +9915,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:04",
+    "lowTide": "09:59",
     "photographerFrame": "CAD, Mike"
   },
   {
@@ -9968,8 +9968,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -9979,6 +9977,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8713 --- -76.5792",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -10030,8 +10030,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -10041,6 +10039,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:04",
+    "lowTide": "14:26",
     "photographerFrame": "CAD"
   },
   {
@@ -10092,8 +10092,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -10103,6 +10101,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:04",
+    "lowTide": "14:26",
     "photographerFrame": "CAD"
   },
   {
@@ -10154,8 +10154,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -10165,6 +10163,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:04",
+    "lowTide": "14:26",
     "photographerFrame": "CAD"
   },
   {
@@ -10216,8 +10216,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -10227,6 +10225,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8475 --- -76.5298",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -10278,8 +10278,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -10289,6 +10287,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:51",
+    "lowTide": "15:13",
     "photographerFrame": "CAD, Mike"
   },
   {
@@ -10340,8 +10340,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -10351,6 +10349,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.9012 --- -76.597",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -10402,8 +10402,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -10413,6 +10411,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:34",
+    "lowTide": "15:56",
     "photographerFrame": ""
   },
   {
@@ -10464,8 +10464,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -10475,6 +10473,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:34",
+    "lowTide": "15:56",
     "photographerFrame": "CAD"
   },
   {
@@ -10526,8 +10526,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -10537,6 +10535,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:14",
+    "lowTide": "16:37",
     "photographerFrame": "CAD"
   },
   {
@@ -10588,8 +10588,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -10599,6 +10597,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:32",
+    "lowTide": "17:54",
     "photographerFrame": "CAD"
   },
   {
@@ -10650,8 +10650,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -10661,6 +10659,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7476 --- -77.86",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -10712,8 +10712,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -10723,6 +10721,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:29",
+    "lowTide": "09:57",
     "photographerFrame": "CAD"
   },
   {
@@ -10774,8 +10774,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -10785,6 +10783,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:07",
+    "lowTide": "17:35",
     "photographerFrame": "CAD"
   },
   {
@@ -10836,8 +10836,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -10847,6 +10845,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:07",
+    "lowTide": "17:35",
     "photographerFrame": "CAD"
   },
   {
@@ -10898,8 +10898,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -10909,6 +10907,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:35",
+    "lowTide": "11:07",
     "photographerFrame": "CAD"
   },
   {
@@ -10960,8 +10960,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -10971,6 +10969,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9439 --- -77.8005",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -11022,8 +11022,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -11033,6 +11031,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:35",
+    "lowTide": "11:07",
     "photographerFrame": "CAD"
   },
   {
@@ -11084,8 +11084,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -11095,6 +11093,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:35",
+    "lowTide": "11:07",
     "photographerFrame": "CAD"
   },
   {
@@ -11146,8 +11146,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -11157,6 +11155,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:35",
+    "lowTide": "11:07",
     "photographerFrame": "CAD"
   },
   {
@@ -11208,8 +11208,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -11219,6 +11217,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:35",
+    "lowTide": "11:07",
     "photographerFrame": ""
   },
   {
@@ -11270,8 +11270,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -11281,6 +11279,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:36",
+    "lowTide": "11:07",
     "photographerFrame": "CAD"
   },
   {
@@ -11332,8 +11332,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -11343,6 +11341,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:35",
+    "lowTide": "11:07",
     "photographerFrame": ""
   },
   {
@@ -11394,8 +11394,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -11405,6 +11403,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9807 --- -77.4333",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -11456,8 +11456,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -11467,6 +11465,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "06:05",
+    "lowTide": "12:08",
     "photographerFrame": ""
   },
   {
@@ -11518,8 +11518,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -11529,6 +11527,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "06:05",
+    "lowTide": "12:08",
     "photographerFrame": "CAD"
   },
   {
@@ -11580,8 +11580,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -11591,6 +11589,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9944 --- -77.507",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -11642,8 +11642,6 @@
     "numUnknown": "5",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -11653,6 +11651,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:05",
+    "lowTide": "13:10",
     "photographerFrame": ""
   },
   {
@@ -11704,8 +11704,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -11715,6 +11713,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:05",
+    "lowTide": "13:10",
     "photographerFrame": "CAD"
   },
   {
@@ -11766,8 +11766,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -11777,6 +11775,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:05",
+    "lowTide": "13:10",
     "photographerFrame": "CAD"
   },
   {
@@ -11828,8 +11828,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -11839,6 +11837,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9981 --- -77.6657",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -11890,8 +11890,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -11901,6 +11899,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:33",
+    "lowTide": "15:53",
     "photographerFrame": "CAD"
   },
   {
@@ -11952,8 +11952,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -11963,6 +11961,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:33",
+    "lowTide": "15:53",
     "photographerFrame": "CAD"
   },
   {
@@ -12014,8 +12014,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -12025,6 +12023,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:20",
+    "lowTide": "16:37",
     "photographerFrame": "CAD"
   },
   {
@@ -12076,8 +12076,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -12087,6 +12085,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:20",
+    "lowTide": "16:37",
     "photographerFrame": "CAD"
   },
   {
@@ -12138,8 +12138,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -12149,6 +12147,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:20",
+    "lowTide": "16:37",
     "photographerFrame": ""
   },
   {
@@ -12200,8 +12200,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "14",
@@ -12211,6 +12209,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:20",
+    "lowTide": "16:37",
     "photographerFrame": "CAD"
   },
   {
@@ -12262,8 +12262,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -12273,6 +12271,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:20",
+    "lowTide": "16:37",
     "photographerFrame": "CAD"
   },
   {
@@ -12324,8 +12324,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "6",
@@ -12335,6 +12333,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "10:20",
+    "lowTide": "16:37",
     "photographerFrame": "CAD"
   },
   {
@@ -12386,8 +12386,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -12397,6 +12395,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:05",
+    "lowTide": "17:30",
     "photographerFrame": "CAD"
   },
   {
@@ -12448,8 +12448,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -12459,6 +12457,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:05",
+    "lowTide": "17:30",
     "photographerFrame": ""
   },
   {
@@ -12510,8 +12510,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -12521,6 +12519,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:05",
+    "lowTide": "17:30",
     "photographerFrame": "CAD"
   },
   {
@@ -12572,8 +12572,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -12583,6 +12581,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:05",
+    "lowTide": "17:30",
     "photographerFrame": "CAD"
   },
   {
@@ -12634,8 +12634,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -12645,6 +12643,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:05",
+    "lowTide": "17:30",
     "photographerFrame": "CAD"
   },
   {
@@ -12696,8 +12696,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -12707,6 +12705,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7476 --- -77.86",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -12758,8 +12758,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -12769,6 +12767,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:13",
+    "lowTide": "13:46",
     "photographerFrame": "CAD"
   },
   {
@@ -12820,8 +12820,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "1",
@@ -12831,6 +12829,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "07:13",
+    "lowTide": "13:46",
     "photographerFrame": ""
   },
   {
@@ -12882,8 +12882,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -12893,6 +12891,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9648 --- -77.8031",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -12944,8 +12944,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -12955,6 +12953,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:49",
+    "lowTide": "15:26",
     "photographerFrame": "CAD"
   },
   {
@@ -13006,8 +13006,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13017,6 +13015,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9355 --- -77.367",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13068,8 +13068,6 @@
     "numUnknown": "15",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "12",
@@ -13079,6 +13077,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:49",
+    "lowTide": "15:26",
     "photographerFrame": "CAD"
   },
   {
@@ -13130,8 +13130,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -13141,6 +13139,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "08:49",
+    "lowTide": "15:26",
     "photographerFrame": "CAD"
   },
   {
@@ -13192,8 +13192,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13203,6 +13201,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9537 --- -77.385",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13254,8 +13254,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -13265,6 +13263,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:40",
+    "lowTide": "16:18",
     "photographerFrame": "CAD, MG"
   },
   {
@@ -13316,8 +13316,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -13327,6 +13325,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:38",
+    "lowTide": "16:13",
     "photographerFrame": ""
   },
   {
@@ -13378,8 +13378,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -13389,6 +13387,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "09:38",
+    "lowTide": "16:13",
     "photographerFrame": "CAD"
   },
   {
@@ -13440,8 +13440,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13451,6 +13449,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9846 --- -77.4359",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13502,8 +13502,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13513,6 +13511,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0133 --- -77.415",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13564,8 +13564,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13575,6 +13573,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0117 --- -77.4175",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13626,8 +13626,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13637,6 +13635,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9431 --- -77.3585",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13688,8 +13688,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "10",
@@ -13699,6 +13697,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:31",
+    "lowTide": "18:12",
     "photographerFrame": "CAD"
   },
   {
@@ -13750,8 +13750,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13761,6 +13759,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8764 --- -76.5734",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13812,8 +13812,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13823,6 +13821,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.824 --- -76.5424",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13874,8 +13874,6 @@
     "numUnknown": "",
     "reasonForLeaving": "",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13885,6 +13883,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.1367 --- -76.1967",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13936,8 +13936,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -13947,6 +13945,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.375 --- -76.6967",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -13998,8 +13998,6 @@
     "numUnknown": "",
     "reasonForLeaving": "",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14009,6 +14007,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.0042 --- -77.5174",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14060,8 +14060,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14071,6 +14069,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9871 --- -77.4933",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14122,8 +14122,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14133,6 +14131,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9818 --- -77.5016",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14184,8 +14184,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14195,6 +14193,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9857 --- -77.5128",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14246,8 +14246,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14257,6 +14255,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9977 --- -77.5091",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14308,8 +14308,6 @@
     "numUnknown": "",
     "reasonForLeaving": "",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14319,6 +14317,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9995 --- -77.513",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14370,8 +14370,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14381,6 +14379,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0401 --- -77.5713",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14432,8 +14432,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -14443,6 +14441,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "16:01",
+    "lowTide": "10:24",
     "photographerFrame": "DEC, CAD"
   },
   {
@@ -14494,8 +14494,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14505,6 +14503,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.8641 --- -77.8649",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14556,8 +14556,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14567,6 +14565,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9278 --- -77.7738",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14618,8 +14618,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14629,6 +14627,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9599 --- -77.7341",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14680,8 +14680,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14691,6 +14689,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0103 --- -77.4962",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14742,8 +14742,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Unknown",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14753,6 +14751,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0106 --- -77.527",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14804,8 +14804,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -14815,6 +14813,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "14:48",
+    "lowTide": "09:09",
     "photographerFrame": "CAD"
   },
   {
@@ -14866,8 +14866,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "9",
@@ -14877,6 +14875,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "11:10",
+    "lowTide": "17:42",
     "photographerFrame": "CAD"
   },
   {
@@ -14928,8 +14928,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -14939,6 +14937,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.4155 --- -76.8016",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -14990,8 +14990,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15001,6 +14999,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.1427 --- -76.2253",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15052,8 +15052,6 @@
     "numUnknown": "8",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "19",
@@ -15063,6 +15061,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": "CAD"
   },
   {
@@ -15114,8 +15114,6 @@
     "numUnknown": "14",
     "reasonForLeaving": "Continuing search - some samples, some ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "18",
@@ -15125,6 +15123,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": "CAD"
   },
   {
@@ -15176,8 +15176,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -15187,6 +15185,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": ""
   },
   {
@@ -15238,8 +15238,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -15249,6 +15247,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": "CAD"
   },
   {
@@ -15300,8 +15300,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -15311,6 +15309,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": ""
   },
   {
@@ -15362,8 +15362,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -15373,6 +15371,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": ""
   },
   {
@@ -15424,8 +15424,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Not Noted",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Assistant",
     "needsToBeChecked": "TRUE",
     "numberOfAnimalsLow": "1",
@@ -15435,6 +15433,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "21-2a",
     "gpsFileName": "",
+    "highTide": "17:25",
+    "lowTide": "11:51",
     "photographerFrame": ""
   },
   {
@@ -15486,8 +15486,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "Some IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15497,6 +15495,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.0031 --- -76.2047",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15548,8 +15548,6 @@
     "numUnknown": "2",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15559,6 +15557,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.994 --- -76.1782",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15610,8 +15610,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15621,6 +15619,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.9926 --- -76.1678",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15672,8 +15672,6 @@
     "numUnknown": "5",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15683,6 +15681,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.867 --- -76.5686",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15734,8 +15734,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15745,6 +15743,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.4662 --- -76.869",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15796,8 +15796,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15807,6 +15805,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9579 --- -77.398",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15858,8 +15858,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15869,6 +15867,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9529 --- -77.3725",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15920,8 +15920,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15931,6 +15929,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9594 --- -77.3851",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -15982,8 +15982,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -15993,6 +15991,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9894 --- -77.4894",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16044,8 +16044,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16055,6 +16053,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9512 --- -77.4272",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16106,8 +16106,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16117,6 +16115,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9354 --- -77.3901",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16168,8 +16168,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16179,6 +16177,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9446 --- -77.3832",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16230,8 +16230,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16241,6 +16239,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9341 --- -77.3552",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16292,8 +16292,6 @@
     "numUnknown": "8",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16303,6 +16301,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9334 --- -77.3693",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16354,8 +16354,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16365,6 +16363,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0562 --- -77.5618",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16416,8 +16416,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Continue Search",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16427,6 +16425,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0562 --- -77.5618",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16478,8 +16478,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -16489,6 +16487,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "13:56",
+    "lowTide": "08:16",
     "photographerFrame": "CAD"
   },
   {
@@ -16540,8 +16540,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16551,6 +16549,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7712 --- -77.776",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16602,8 +16602,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "",
@@ -16613,6 +16611,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "",
+    "highTide": "16:59",
+    "lowTide": "11:20",
     "photographerFrame": "DEC"
   },
   {
@@ -16664,8 +16664,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "",
@@ -16675,6 +16673,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "16:59",
+    "lowTide": "11:20",
     "photographerFrame": "CAD, DEC"
   },
   {
@@ -16726,8 +16726,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "",
@@ -16737,6 +16735,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "",
+    "highTide": "19:13",
+    "lowTide": "13:26",
     "photographerFrame": "DEC"
   },
   {
@@ -16788,8 +16788,6 @@
     "numUnknown": "5",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Asia Butler",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -16799,6 +16797,8 @@
     "bmmroData": "TRUE",
     "vesselLogNumber": "231a",
     "gpsFileName": "",
+    "highTide": "06:57",
+    "lowTide": "13:26",
     "photographerFrame": ""
   },
   {
@@ -16850,8 +16850,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16861,6 +16859,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.7476 --- -77.86",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16912,8 +16912,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16923,6 +16921,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "26.0173 --- -77.5274",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -16974,8 +16974,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -16985,6 +16983,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8517 --- -76.1683",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17036,8 +17036,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17047,6 +17045,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8267 --- -76.1817",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17098,8 +17098,6 @@
     "numUnknown": "",
     "reasonForLeaving": "All IDs",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17109,6 +17107,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.1383 --- -76.18",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17160,8 +17160,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17171,6 +17169,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.1374 --- -76.1779",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17222,8 +17222,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17233,6 +17231,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8389 --- -76.5416",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17284,8 +17284,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Lost",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17295,6 +17293,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.8714 --- -76.5829",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17346,8 +17346,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -17357,6 +17355,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "",
+    "highTide": "11:19",
+    "lowTide": "17:46",
     "photographerFrame": "CAD"
   },
   {
@@ -17408,8 +17408,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -17419,6 +17417,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "11:19",
+    "lowTide": "17:46",
     "photographerFrame": "CAD"
   },
   {
@@ -17470,8 +17470,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17481,6 +17479,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "24.9944 --- -76.1766",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17532,8 +17532,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -17543,6 +17541,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "07:57",
+    "lowTide": "14:10",
     "photographerFrame": "CAD"
   },
   {
@@ -17594,8 +17594,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "5",
@@ -17605,6 +17603,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "08:38",
+    "lowTide": "14:48",
     "photographerFrame": "CAD"
   },
   {
@@ -17656,8 +17656,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "1",
@@ -17667,6 +17665,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "08:38",
+    "lowTide": "14:48",
     "photographerFrame": ""
   },
   {
@@ -17718,8 +17718,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Weather",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17729,6 +17727,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9697 --- -77.3827",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17780,8 +17780,6 @@
     "numUnknown": "1",
     "reasonForLeaving": "Not Approachable",
     "autecRange": "FALSE",
-    "highTide": "",
-    "lowTide": "",
     "enteredBy": "",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "0",
@@ -17791,6 +17789,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "",
     "gpsFileName": "25.9412 --- -77.3859",
+    "highTide": "",
+    "lowTide": "",
     "photographerFrame": ""
   },
   {
@@ -17842,8 +17842,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "2",
@@ -17853,6 +17851,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "09:20",
+    "lowTide": "15:28",
     "photographerFrame": "CAD, MGG"
   },
   {
@@ -17904,8 +17904,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -17915,6 +17913,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "09:20",
+    "lowTide": "15:28",
     "photographerFrame": "CAD"
   },
   {
@@ -17966,8 +17966,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "8",
@@ -17977,6 +17975,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "09:20",
+    "lowTide": "15:38",
     "photographerFrame": "CAD"
   },
   {
@@ -18028,8 +18028,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -18039,6 +18037,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1A",
     "gpsFileName": "",
+    "highTide": "11:41",
+    "lowTide": "17:49",
     "photographerFrame": "CAD"
   },
   {
@@ -18090,8 +18090,6 @@
     "numUnknown": "4",
     "reasonForLeaving": "Other",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -18101,6 +18099,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1A",
     "gpsFileName": "",
+    "highTide": "11:21",
+    "lowTide": "17:49",
     "photographerFrame": "CAD"
   },
   {
@@ -18152,8 +18152,6 @@
     "numUnknown": "15",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "24",
@@ -18163,6 +18161,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1A",
     "gpsFileName": "",
+    "highTide": "12:38",
+    "lowTide": "06:54",
     "photographerFrame": "CAD"
   },
   {
@@ -18214,8 +18214,6 @@
     "numUnknown": "6",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "11",
@@ -18225,6 +18223,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "06:54",
+    "lowTide": "12:38",
     "photographerFrame": "CAD"
   },
   {
@@ -18276,8 +18276,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Continuing search - all animals ID'd",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "3",
@@ -18287,6 +18285,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "12:38",
+    "lowTide": "06:54",
     "photographerFrame": "CAD"
   },
   {
@@ -18338,8 +18338,6 @@
     "numUnknown": "3",
     "reasonForLeaving": "Low Priority species",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -18349,6 +18347,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "12:38",
+    "lowTide": "18:47",
     "photographerFrame": "CAD"
   },
   {
@@ -18400,8 +18400,6 @@
     "numUnknown": "",
     "reasonForLeaving": "Group lost",
     "autecRange": "FALSE",
-    "highTide": "00-Jan-00",
-    "lowTide": "00-Jan-00",
     "enteredBy": "Research Scientist",
     "needsToBeChecked": "FALSE",
     "numberOfAnimalsLow": "4",
@@ -18411,6 +18409,8 @@
     "bmmroData": "FALSE",
     "vesselLogNumber": "23-1a",
     "gpsFileName": "",
+    "highTide": "12:38",
+    "lowTide": "18:47",
     "photographerFrame": "CAD"
   }
 ]

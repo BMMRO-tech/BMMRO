@@ -32,11 +32,11 @@ describe("convert csv to json", function () {
 
   it("should read and write external csv file", async function () {
     const path = process.cwd();
-    const buffer = fs.readFileSync(path + "/src/__tests__/Habitat_csv.csv");
+    const buffer = fs.readFileSync(path + "/src/__tests__/Encounter_csv.csv");
     const encounters = csvJSON(buffer.toString());
     encounters.map((encounter) => processJson(encounter));
     fs.writeFileSync(
-      path + "/src/__tests__/ProcessedHabitat.json",
+      path + "/src/__tests__/ProcessedEncounter.json",
       JSON.stringify(encounters),
       function (err) {
         if (err) throw err;
@@ -102,7 +102,7 @@ describe("convert csv to json", function () {
     expect(encounters.length).not.toEqual(0)
   });
 
-    it('should nest subcategories into further json objects', function () {
+    it('should nest animal behaviour into further json objects', function () {
 
         const buffer = fs.readFileSync(path + "/src/__tests__/transformed/biopsy.json").toString();
         const resultJson = seperateAnimalBehaviourJson(JSON.parse(buffer));
