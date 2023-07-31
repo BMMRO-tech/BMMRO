@@ -10,13 +10,14 @@ const db = getFirestore();
 const batch = db.batch();
 
 function uploadCollectionData(collectionPath, collection) {
-  collection.forEach((proj) => {
+
+  collection.forEach((record) => {
     const docRef = db.collection(collectionPath).doc();
-    batch.set(docRef, { collectionJson: collection });
+    batch.set(docRef, record );
   });
 
   batch.commit();
   return;
 }
 
-export { uploadCollectionData };
+export default uploadCollectionData ;
