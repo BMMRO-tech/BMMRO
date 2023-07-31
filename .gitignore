@@ -100,7 +100,7 @@ firebase-debug.log*
 ## dependencies
 /app/node_modules
 /app/.pnp
-/app/.pnp.js
+"/app/.pnp.js
 
 ## testing
 /app/coverage
@@ -123,3 +123,7 @@ firebase-debug.log*
 
 ## Exported data
 /scripts/exported
+
+# Authentication
+auth/
+
