@@ -3,9 +3,8 @@ import * as fs from "fs";
 import convertDateToTimestamp from "../mappings/convertDateToTimestamp.js";
 import { processJson } from "../processJson.js";
 import transformSpecimen from "../transforms/transformSpecimen.js";
-import * as inspector from "inspector";
 import transformHabitat from "../transforms/transformHabitat.js";
-import transformBiopsy from "../transforms/transformBiopsy.js";
+import { transformBiopsy, seperateAnimalBehaviourJson } from "../transforms/transformBiopsy.js";
 import transformEncounter from "../transforms/transformEncounter.js";
 
 const path = process.cwd();
@@ -102,4 +101,20 @@ describe("convert csv to json", function () {
     );
     expect(encounters.length).not.toEqual(0)
   });
+
+    it('should nest subcategories into further json objects', function () {
+
+        const buffer = fs.readFileSync(path + "/src/__tests__/transformed/biopsy.json").toString();
+        const resultJson = seperateAnimalBehaviourJson(JSON.parse(buffer));
+
+        fs.writeFileSync(
+            path + "/src/__tests__/transformed/biopsy.json",
+            JSON.stringify(resultJson),
+            function (err) {
+                if (err) throw err;
+                console.log("DONE!");
+            }
+        );
+        expect(resultJson.length).not.toEqual(0)
+    });
 });
