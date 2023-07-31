@@ -58,7 +58,8 @@
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
       "directionChange": "FALSE"
-    }
+    },
+    "exported": true
   },
   {
     "area": "SA",
@@ -118,8 +119,9 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE"
-    }
+      "directionChange": "FALSE",
+    },
+    "exported": true
   },
   {
     "area": "SA",
@@ -179,8 +181,9 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE"
-    }
+      "directionChange": "FALSE",
+    },
+    "exported": true
   },
   {
     "area": "SA",
@@ -240,8 +243,9 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE"
-    }
+      "directionChange": "FALSE",
+    },
+    "exported": true
   },
   {
     "area": "SA",
@@ -301,8 +305,9 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE"
-    }
+      "directionChange": "FALSE",
+    },
+    "exported": true
   },
   {
     "area": "SA",
@@ -363,7 +368,8 @@
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
       "directionChange": "FALSE"
-    }
+    },
+    "exported": true
   },
   {
     "area": "SA",
@@ -397,6 +403,7 @@
     "extent": "Sub-Group",
     "groupBehaviourBeforeBiopsy": "Milling",
     "groupBehaviourAfterBiopsy": "Foraging dive",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
@@ -458,6 +465,7 @@
     "extent": "Sub-Group",
     "groupBehaviourBeforeBiopsy": "Milling",
     "groupBehaviourAfterBiopsy": "Milling",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
@@ -519,6 +527,7 @@
     "extent": "Sub-Group",
     "groupBehaviourBeforeBiopsy": "Travel",
     "groupBehaviourAfterBiopsy": "Travel",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
@@ -580,6 +589,7 @@
     "extent": "None",
     "groupBehaviourBeforeBiopsy": "Milling",
     "groupBehaviourAfterBiopsy": "Milling",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
@@ -641,6 +651,7 @@
     "extent": "None",
     "groupBehaviourBeforeBiopsy": "Milling",
     "groupBehaviourAfterBiopsy": "Dove",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
@@ -702,6 +713,7 @@
     "extent": "None",
     "groupBehaviourBeforeBiopsy": "Travel",
     "groupBehaviourAfterBiopsy": "Travel",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
@@ -763,6 +775,7 @@
     "extent": "None",
     "groupBehaviourBeforeBiopsy": "Milling",
     "groupBehaviourAfterBiopsy": "Foraging dive",
+    "exported": true,
     "targetAnimalBehaviour": {
       "shake": "FALSE",
       "startle": "TRUE",
