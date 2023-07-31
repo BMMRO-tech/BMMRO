@@ -7,7 +7,7 @@ const transformEncounter = (encounters) => {
     encounter.startTimestamp = convertDateToTimestamp(encounter.startTimestamp);
     encounter.biopsySuccess = convertZeroToNotNoted(encounter.biopsySuccess);
     encounter.tagSuccess = convertNoToNotNoted(encounter.tagSuccess);
-    biopsy.exported = true;
+    encounter.exported = true;
   });
 
   return encounters;
