@@ -1,4 +1,5 @@
 import uploadCollectionData from "../uploadCollectionData.js";
+import * as fs from "fs";
 
 describe("upload a collection to Firestore", function () {
     it("should upload a dummy JSON to Firestore", function () {
@@ -21,16 +22,14 @@ describe("upload a collection to Firestore", function () {
             },
         ];
         uploadCollectionData(path, exportedJson);
-        // expect(json).toEqual(expectedJson);
     });
-});
 
     it("should upload a valid JSON to Firestore", function () {
         const path = process.cwd();
         const buffer = fs.readFileSync(path + "/src/__tests__/Encounter_test.json");
         const data = buffer.toString();
         console.log(data);
-        const collection  = "/encounter";
+        const collection = "/encounter";
         const exportedJson = JSON.parse(data);
         uploadCollectionData(collection, exportedJson);
     });
