@@ -64,15 +64,17 @@ function uploadData(
 function uploadCollectionData() {
   const path = process.cwd();
   const encounterBuffer = fs.readFileSync(
-    path + "/src/__tests__/data/Encounter_test.json"
+    path + "/src/__tests__/transformed/encounter.json"
   );
   const habitatData = fs.readFileSync(
-    path + "/src/__tests__/data/habitat_test.json"
+    path + "/src/__tests__/transformed/habitat.json"
   );
-  const biopsy = fs.readFileSync(path + "/src/__tests__/data/biopsy_test.json");
+  const biopsy = fs.readFileSync(
+    path + "/src/__tests__/transformed/biopsy.json"
+  );
 
   const specimen = fs.readFileSync(
-    path + "/src/__tests__/data/specimen_test.json"
+    path + "/src/__tests__/transformed/encounterSpecimen.json"
   );
   const encounterJson = JSON.parse(encounterBuffer.toString());
   const habitatJson = JSON.parse(habitatData.toString());
