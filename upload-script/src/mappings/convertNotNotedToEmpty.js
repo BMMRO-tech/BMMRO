@@ -1,8 +1,8 @@
 const convertNotNotedToEmpty = (option) => {
-  if (option === "Not Noted" ) {
+  if (option === "Not Noted") {
     return "";
   }
   return option;
 };
 
-module.exports = convertNotNotedToEmpty;
+export default convertNotNotedToEmpty;

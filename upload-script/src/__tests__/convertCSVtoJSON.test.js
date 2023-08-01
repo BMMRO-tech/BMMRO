@@ -4,15 +4,18 @@ import convertDateToTimestamp from "../mappings/convertDateToTimestamp.js";
 import { processJson } from "../processJson.js";
 import transformSpecimen from "../transforms/transformSpecimen.js";
 import transformHabitat from "../transforms/transformHabitat.js";
-import { transformBiopsy, seperateAnimalBehaviourJson } from "../transforms/transformBiopsy.js";
+import {
+  transformBiopsy,
+  seperateAnimalBehaviourJson,
+} from "../transforms/transformBiopsy.js";
 import transformEncounter from "../transforms/transformEncounter.js";
+import { transformStringToBoolean } from "../transforms/transformStringToBoolean.js";
 
 const path = process.cwd();
 
 describe("convert csv to json", function () {
   it("should csv to json", function () {
-    const csv =
-      "encounterNo,name\n123,testUserKOMMMAvladaKOMMMArameez";
+    const csv = "encounterNo,name\n123,testUserKOMMMAvladaKOMMMArameez";
     const expectedJson = [
       {
         encounterNo: "123",
@@ -23,9 +26,8 @@ describe("convert csv to json", function () {
     expect(json).toEqual(expectedJson);
   });
 
-  it('should convert date to unix timestamp', function () {
-    const date =
-        "20-Aug-2023";
+  it("should convert date to unix timestamp", function () {
+    const date = "20-Aug-2023";
     const unixdate = convertDateToTimestamp(date);
     expect(unixdate).toEqual(1692529200);
   });
@@ -46,75 +48,101 @@ describe("convert csv to json", function () {
     expect(encounters.length).not.toEqual(0);
   });
 
-  it('should transform encounter specimen', function () {
-    const buffer = fs.readFileSync(path + "/src/__tests__/ProcessedEncounterSpecimen.json").toString();
+  it("should transform encounter specimen", function () {
+    const buffer = fs
+      .readFileSync(path + "/src/__tests__/ProcessedEncounterSpecimen.json")
+      .toString();
     const specimens = transformSpecimen(JSON.parse(buffer));
     fs.writeFileSync(
-        path + "/src/__tests__/transformed/encounterSpecimen.json",
-        JSON.stringify(specimens),
-        function (err) {
-          if (err) throw err;
-          console.log("DONE!");
-        }
+      path + "/src/__tests__/transformed/encounterSpecimen.json",
+      JSON.stringify(specimens),
+      function (err) {
+        if (err) throw err;
+        console.log("DONE!");
+      }
     );
-    expect(specimens.length).not.toEqual(0)
+    expect(specimens.length).not.toEqual(0);
   });
 
-  it('should transform habitat', function () {
-    const buffer = fs.readFileSync(path + "/src/__tests__/ProcessedHabitat.json").toString();
+  it("should transform habitat", function () {
+    const buffer = fs
+      .readFileSync(path + "/src/__tests__/ProcessedHabitat.json")
+      .toString();
     const habitats = transformHabitat(JSON.parse(buffer));
     fs.writeFileSync(
-        path + "/src/__tests__/transformed/habitat.json",
-        JSON.stringify(habitats),
-        function (err) {
-          if (err) throw err;
-          console.log("DONE!");
-        }
+      path + "/src/__tests__/transformed/habitat.json",
+      JSON.stringify(habitats),
+      function (err) {
+        if (err) throw err;
+        console.log("DONE!");
+      }
     );
-    expect(habitats.length).not.toEqual(0)
+    expect(habitats.length).not.toEqual(0);
   });
 
-  it('should transform biopsy', function () {
-    const buffer = fs.readFileSync(path + "/src/__tests__/ProcessedBiopsy.json").toString();
+  it("should transform biopsy", function () {
+    const buffer = fs
+      .readFileSync(path + "/src/__tests__/ProcessedBiopsy.json")
+      .toString();
     const biopsies = transformBiopsy(JSON.parse(buffer));
     fs.writeFileSync(
-        path + "/src/__tests__/transformed/biopsy.json",
-        JSON.stringify(biopsies),
-        function (err) {
-          if (err) throw err;
-          console.log("DONE!");
-        }
+      path + "/src/__tests__/transformed/biopsy.json",
+      JSON.stringify(biopsies),
+      function (err) {
+        if (err) throw err;
+        console.log("DONE!");
+      }
     );
-    expect(biopsies.length).not.toEqual(0)
+    expect(biopsies.length).not.toEqual(0);
   });
 
-  it('should transform encounter', function () {
-    const buffer = fs.readFileSync(path + "/src/__tests__/ProcessedEncounter.json").toString();
+  it("should transform encounter", function () {
+    const buffer = fs
+      .readFileSync(path + "/src/__tests__/ProcessedEncounter.json")
+      .toString();
     const encounters = transformEncounter(JSON.parse(buffer));
     fs.writeFileSync(
-        path + "/src/__tests__/transformed/encounter.json",
-        JSON.stringify(encounters),
-        function (err) {
-          if (err) throw err;
-          console.log("DONE!");
-        }
+      path + "/src/__tests__/transformed/encounter.json",
+      JSON.stringify(encounters),
+      function (err) {
+        if (err) throw err;
+        console.log("DONE!");
+      }
     );
-    expect(encounters.length).not.toEqual(0)
+    expect(encounters.length).not.toEqual(0);
   });
 
-    it('should nest animal behaviour into further json objects', function () {
+  it("should nest animal behaviour into further json objects", function () {
+    const buffer = fs
+      .readFileSync(path + "/src/__tests__/transformed/biopsy.json")
+      .toString();
+    const resultJson = seperateAnimalBehaviourJson(JSON.parse(buffer));
 
-        const buffer = fs.readFileSync(path + "/src/__tests__/transformed/biopsy.json").toString();
-        const resultJson = seperateAnimalBehaviourJson(JSON.parse(buffer));
+    fs.writeFileSync(
+      path + "/src/__tests__/transformed/biopsy.json",
+      JSON.stringify(resultJson),
+      function (err) {
+        if (err) throw err;
+        console.log("DONE!");
+      }
+    );
+    expect(resultJson.length).not.toEqual(0);
+  });
 
-        fs.writeFileSync(
-            path + "/src/__tests__/transformed/biopsy.json",
-            JSON.stringify(resultJson),
-            function (err) {
-                if (err) throw err;
-                console.log("DONE!");
-            }
-        );
-        expect(resultJson.length).not.toEqual(0)
-    });
+  it("should convert string to boolean", function () {
+    const buffer = fs
+      .readFileSync(path + "/src/__tests__/transformed/biopsy.json")
+      .toString();
+    const resultJson = transformStringToBoolean(JSON.parse(buffer));
+
+    fs.writeFileSync(
+      path + "/src/__tests__/transformed/biopsy.json",
+      JSON.stringify(resultJson),
+      function (err) {
+        if (err) throw err;
+        console.log("DONE!");
+      }
+    );
+    expect(resultJson.length).not.toEqual(0);
+  });
 });

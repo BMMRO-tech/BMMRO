@@ -5,4 +5,4 @@ const convertToInteger = (value) => {
   return 0;
 };
 
-module.exports = convertToInteger;
+export default convertToInteger;

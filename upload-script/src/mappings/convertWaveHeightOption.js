@@ -5,4 +5,4 @@ const convertWaveHeightOption = (option) => {
   return "";
 };
 
-module.exports = convertWaveHeightOption;
+export default convertWaveHeightOption;
