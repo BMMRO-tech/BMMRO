@@ -91,7 +91,7 @@ typings/
 # TernJS port file
 .tern-port
 
-# Frontend app 
+# Frontend app
 
 ## Logs
 npm-debug.log*
@@ -118,6 +118,7 @@ firebase-debug.log*
 .DS_Store
 .vscode
 .idea
+upload-script/auth/
 
 # Scripts
 
