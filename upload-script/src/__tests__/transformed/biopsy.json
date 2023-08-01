@@ -119,7 +119,7 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE",
+      "directionChange": "FALSE"
     },
     "exported": true
   },
@@ -181,7 +181,7 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE",
+      "directionChange": "FALSE"
     },
     "exported": true
   },
@@ -243,7 +243,7 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE",
+      "directionChange": "FALSE"
     },
     "exported": true
   },
@@ -305,7 +305,7 @@
       "porpoising": "FALSE",
       "flight": "FALSE",
       "prolongedFlight": "FALSE",
-      "directionChange": "FALSE",
+      "directionChange": "FALSE"
     },
     "exported": true
   },

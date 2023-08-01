@@ -1,0 +1,27 @@
+[  {
+  "area": "SA",
+  "dateTaken": 1631012400,
+  "encSeqNo": "2",
+  "timeTaken": "00-Jan-00",
+  "species": "Blainville's beaked whale",
+  "sampleType": "Skin",
+  "whaleID": "Md322",
+  "specimenNumber": "210907_Md01a",
+  "storageType": "DMSO/NaCl",
+  "collectionType": "Biopsy",
+  "alive": "TRUE"
+},
+  {
+    "area": "SA",
+    "dateTaken": 1631012400,
+    "encSeqNo": "2",
+    "timeTaken": "00-Jan-00",
+    "species": "Blainville's beaked whale",
+    "sampleType": "Skin/Blubber",
+    "whaleID": "Md322",
+    "specimenNumber": "210907_Md01b",
+    "storageType": "-80",
+    "collectionType": "Biopsy",
+    "alive": "TRUE"
+  }
+]
