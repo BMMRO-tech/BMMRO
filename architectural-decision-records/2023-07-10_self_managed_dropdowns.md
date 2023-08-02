@@ -22,14 +22,30 @@ BMMRO should be able to populate the dropdowns dynamically, yet securely.
 
 These were the different options considered for the dropdown management implementation:
 
-### Option 1 - Managed in Firestore
+Prior to implementing the new solution,  the dropdown list for Projects (within the Encounter form) was populated from the static JavaScript file `project.js` (in `app/src/constants/formOptions` folder).
+The client could not change the content of the dropdown when a project would expire or a new project was added. The process of changin the project list used to involve changes implemented by a Thoughtworks developer, and the whole cycle of development and deployment. Along with timezone difference of 5-6 hours, this meant a substantial delay between the time client would request change and the change taking place.
+
+
+
+### Option 1 - Dropdown Feed  Managed in Firestore
+This is the option that finally prevailed. With this option the client would login to Firebase console, access Firestore database, and add or remove projects so that the list reflects up-to-date status.
+The dropdown was implemented in a way similar to *Previous Month Encounter* dropdown.
+
 Pros:
 - Available both online and offline when set up
+- Easy to access with appropriate credentials
+- Data is fetched dynamically, so any changes are reflected immediately.
 
 Cons:
-- Requires a certain amount of technical skill for the user
+- Requires a certain amount of technical skill for the user. 
+  - Deleting a project in live database requires a skill to navigate the Firebase console. 
+  - Some understanding of Firestore database is needed.
+  - Up-to-date credentials in order to access the DB content are required.
+
 
 ### Option 2 - Create Management Page
+The client would log into an Admin page, where they would add or delete project names. 
+
 Pros:
 - Allows the greatest level of flexibility
 
@@ -38,6 +54,8 @@ Cons:
 - May have security implications
 
 ### Option 3 - Options pulled from MS Access database
+MS Access DB is only available while there is access to the local network. It was not possible to have the entries pulled while offline, and the nature of research is such that the BMMRO researchers spend a lot of time on the open seas.
+
 Pros:
 - MS access is the source of truth for projects in BMMRO
 
@@ -48,7 +66,7 @@ Cons:
 
 # Final Decision
 
-We decided to go with Option 1 it struck a good balance of offline access and availability to the app with time taken to implement.
+We decided to go with Option 1, it struck a good balance of offline access and availability to the app with time taken to implement.
 The list of projects will be stored in the firestore database. The values will be read from the Firestore database, and the projects will be added to and deleted from the database directly.
 
 Pros:
