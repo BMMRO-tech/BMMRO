@@ -28,15 +28,18 @@ The client could not change the content of the dropdown when a project would exp
 
 
 ### Option 1 - Dropdown Feed  Managed in Firestore
-This is the option that finally prevailed. With this option the client would login to Firebase console, access Firestore database, and add or remove projects so that the list reflects up-to-date status.
-The dropdown was implemented in a way similar to *Previous Month Encounter* dropdown.
+With this option the client would login to Firebase console, access Firestore database, and add or remove projects so that the list reflects up-to-date status.
+The app would then reflect these changes by reading the `project` collection from firestore, checking if the import has worked and then setting the project list utilizing a `useEffect` method.
 
 Pros:
 - Available both online and offline when set up
 - Easy to access with appropriate credentials
 - Data is fetched dynamically, so any changes are reflected immediately.
+- The querying of the database can be reused from the rest of the project and there is no need to reinvent the wheel.
+- This is the quickest solution given the timelines.
 
 Cons:
+- The maintenance of the list is still a bit cumbersome
 - Requires a certain amount of technical skill for the user. 
   - Deleting a project in live database requires a skill to navigate the Firebase console. 
   - Some understanding of Firestore database is needed.
@@ -44,17 +47,24 @@ Cons:
 
 
 ### Option 2 - Create Management Page
-The client would log into an Admin page, where they would add or delete project names. 
+In this option we would create an admin page to manage the projects.
+The client would log into an Admin page, where they could add or delete project names.
+This page could be accessed via a settings button if the user has admin rights.
+From this page the client could not only manage what projects were available, but also select what projects are visible on the encounter form, saving users from scrolling through all existing projects.
+This would protect the firestore database from client's direct use and would also allow users to add/edit projects while offline/on the sea rather than having to have an internet connection.
 
 Pros:
 - Allows the greatest level of flexibility
+- Protects firestore database from being directly edited by the client (who may not be technical)
 
 Cons:
 - Would take a long time to create
 - May have security implications
 
 ### Option 3 - Options pulled from MS Access database
-MS Access DB is only available while there is access to the local network. It was not possible to have the entries pulled while offline, and the nature of research is such that the BMMRO researchers spend a lot of time on the open seas.
+Another possibility was to pull the data straight from the MS Access DB.
+However, MS Access DB is only available while there is access to the local network.
+It was not possible to have the entries pulled while offline, and the nature of research is such that the BMMRO researchers spend a lot of time on the open seas.
 
 Pros:
 - MS access is the source of truth for projects in BMMRO
@@ -66,20 +76,7 @@ Cons:
 
 # Final Decision
 
-We decided to go with Option 1, it struck a good balance of offline access and availability to the app with time taken to implement.
-The list of projects will be stored in the firestore database. The values will be read from the Firestore database, and the projects will be added to and deleted from the database directly.
-
-Pros:
-- This is the quickest solution given the timelines.
-- The querying of the database can be reused from the rest of the project and there is no need to reinvent the wheel.
-- The data will be fetched dynamically, so any changes made to the database will reflect right away on the app.
-- Flexibility to BMMRO to change the list whenever they want to.
-
-Cons:
-- The maintenance of the list is still a bit cumbersome and it is never recommended to make direct changes on the database.
+We decided to go with Option 1, it struck a good balance of offline access and availability to the app with time taken to implement due to the short length of the project.
+The list of projects will be stored in the firestore database. The values will be read from the Firestore database, and the projects will be added to and deleted from the database directly by the client.
 
 
-# Implementation
-- We created a new collection of projects (`project`) in the Firestore database, importing the existing data from the MS access database.
-- We removed old hardcoded list of projects (`project.js`). We don't need a local copy of projects for offline use thanks to offline support detailed in [README.md](../app/README.md)
-- We changed the code in `EncounterForm.jsx` to pull the project list data from Firestore. (This is detailed in the commits linked to Stories #454, #428 and #456)
