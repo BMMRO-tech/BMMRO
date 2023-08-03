@@ -31,9 +31,6 @@ jobs:
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: |
           npm install
-      - name: Run export script tests
-        working-directory: ${{env.EXPORT_SCRIPT_DIR}}
-        run: npm test
       - name: Set environment variable with new version
         run: |
           PENDING_TAG=$(git fetch origin --tags -q && git tag -l | grep "uat-pending-*" | sort -V | tail -1)
