@@ -70,6 +70,17 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
+    "navigate to encounters overview",
+    async () => {
+      await driver.findElement(wd.By.css("#navigateToEncounters")).click();
+      let newUrl = await driver.getCurrentUrl();
+
+      expect(newUrl).toBe(`${process.env.ENDPOINT}/encounters`);
+    },
+    testTimeout
+  );
+
+  it(
     "user creates a new encounter",
     async () => {
       await driver.findElement(wd.By.css("#newEncounter")).click();
