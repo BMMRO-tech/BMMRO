@@ -29,6 +29,10 @@ const Trips = () => {
           </Button>
         </Link>
       </div>
+      <p>
+        Work in progress. Please click on the "ENCOUNTERS" tab to use the app as
+        usual.
+      </p>
     </Layout>
   );
 };

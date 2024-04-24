@@ -4,6 +4,7 @@ import { Link } from "@reach/router";
 import { ROUTES } from "../constants/routes";
 import { useLocation } from "@reach/router";
 import Button from "./Button";
+import colors from "../materials/colors";
 
 const Tabs = () => {
   const { pathname } = useLocation();
@@ -15,9 +16,9 @@ const Tabs = () => {
       justify-content: space-evenly;
     `,
     activeTab: css`
-      background: white;
+      background: ${colors.mediumTurquoise};
       padding: 10px 10px;
-      color: black;
+      color: ${colors.white};
       border: 0px;
       font-weight: bold;
       font-size: 18px;
