@@ -12,9 +12,7 @@ describe("Tabs", () => {
       </LocationProvider>
     );
 
-    await waitFor(() => expect(findByTestId("navigateToTrips")).toBeTruthy());
-    await waitFor(() =>
-      expect(findByTestId("navigateToEncounters")).toBeTruthy()
-    );
+    await waitFor(() => expect(findByTestId("tripsTab")).toBeTruthy());
+    await waitFor(() => expect(findByTestId("encountersTab")).toBeTruthy());
   });
 });

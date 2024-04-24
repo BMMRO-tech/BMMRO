@@ -3,6 +3,7 @@ import { css, jsx } from "@emotion/core";
 import { Link } from "@reach/router";
 import { ROUTES } from "../constants/routes";
 import { useLocation } from "@reach/router";
+import Button from "./Button";
 
 const Tabs = () => {
   const { pathname } = useLocation();
@@ -17,35 +18,37 @@ const Tabs = () => {
       background: white;
       padding: 10px 10px;
       color: black;
+      border: 0px;
+      font-weight: bold;
+      font-size: 18px;
     `,
     tab: css`
       padding: 10px 10px;
       color: black;
-      font-weight: 100;
+      background: transparent;
+      border: 0px;
+      font-size: 18px;
     `,
+  };
+
+  const Tab = ({ title }) => {
+    return (
+      <Link to={ROUTES[title]}>
+        <Button
+          role="tab"
+          testId={`${title}Tab`}
+          customCss={ROUTES[title] === pathname ? styles.activeTab : styles.tab}
+        >
+          {title.toUpperCase()}
+        </Button>
+      </Link>
+    );
   };
 
   return (
     <nav css={styles.tabs}>
-      <Link to={ROUTES.trips}>
-        <h2
-          role="tab"
-          testId={"navigateToTrips"}
-          css={ROUTES.trips === pathname ? styles.activeTab : styles.tab}
-        >
-          TRIPS
-        </h2>
-      </Link>
-
-      <Link to={ROUTES.encounters}>
-        <h2
-          role="tab"
-          testId={"navigateToEncounters"}
-          css={ROUTES.encounters === pathname ? styles.activeTab : styles.tab}
-        >
-          ENCOUNTERS
-        </h2>
-      </Link>
+      {Tab({ title: "trips" })}
+      {Tab({ title: "encounters" })}
     </nav>
   );
 };
