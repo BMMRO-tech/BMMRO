@@ -240,7 +240,7 @@ describe("create a new encounter user journey", () => {
 
       await driver.findElement(wd.By.css("#saveEndEncounter")).click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("h1")), pageTimeout);
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
       let homeUrl = await driver.getCurrentUrl();
 
