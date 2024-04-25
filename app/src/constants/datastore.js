@@ -4,7 +4,7 @@ export const CollectionNames = {
   BIOPSY: "biopsy",
   SPECIMEN: "specimen",
   PROJECT: "project",
-  TRIP: "trip"
+  TRIP: "trip",
 };
 
 export const generateEncounterPath = (id) => {
