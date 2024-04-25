@@ -4,6 +4,7 @@ import { Link } from "@reach/router";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
 import Tabs from "../components/Tabs";
+import { ROUTES } from "../constants/routes";
 
 const Trips = () => {
   const styles = {
@@ -23,7 +24,7 @@ const Trips = () => {
     <Layout hasDefaultPadding={false}>
       <div css={styles.tabContainer}>
         <Tabs />
-        <Link to={""}>
+        <Link to={ROUTES.newTrip}>
           <Button isSmall testId={"newTrips"}>
             + New
           </Button>
