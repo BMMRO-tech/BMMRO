@@ -9,7 +9,7 @@ import EncounterList from "../components/EncounterList";
 import Button from "../components/Button";
 import { ROUTES } from "../constants/routes";
 import { useEncountersByMonth } from "../hooks/useEncountersByMonth";
-import typography from "../materials/typography";
+import Tabs from "../components/Tabs";
 
 const Encounters = () => {
   const styles = {
@@ -32,7 +32,7 @@ const Encounters = () => {
   return (
     <Layout hasDefaultPadding={false}>
       <div css={styles.titleContainer}>
-        <h1 css={typography.largeTitle}>ENCOUNTERS</h1>
+        <Tabs />
         <Link to={ROUTES.newEncounter}>
           <Button isSmall testId={"newEncounter"}>
             + New

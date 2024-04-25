@@ -57,14 +57,27 @@ describe("create a new encounter user journey", () => {
 
       await driver.findElement(wd.By.css("button")).click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("h1")), pageTimeout);
-      let title = await driver.findElement(wd.By.css("h1")).getText();
-      let expectedTitle = "ENCOUNTERS";
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let title = await driver.findElement(wd.By.css("#tripsTab")).getText();
+
+      let expectedTitle = "TRIPS";
       expect(title).toBe(expectedTitle);
 
       let homeUrl = await driver.getCurrentUrl();
 
-      expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
+      expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips`);
+    },
+    testTimeout
+  );
+
+  it(
+    "navigate to encounters overview",
+    async () => {
+      await driver.findElement(wd.By.css("#encountersTab")).click();
+      let newUrl = await driver.getCurrentUrl();
+
+      expect(newUrl).toBe(`${process.env.ENDPOINT}/encounters`);
     },
     testTimeout
   );

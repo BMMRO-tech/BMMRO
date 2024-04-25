@@ -22,6 +22,7 @@ import NewBiopsy from "./pages/NewBiopsy";
 import EditBiopsy from "./pages/EditBiopsy";
 import ViewBiopsy from "./pages/ViewBiopsy";
 import { EncounterMonthProvider } from "./encounterMonthContext/encounterMonthContext";
+import Trips from "./pages/Trips";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -40,7 +41,8 @@ const AppWithoutContext = () => {
       <NewBiopsy path={ROUTES.newBiopsy} />
       <EditBiopsy path={ROUTES.editBiopsy} />
       <ViewBiopsy path={ROUTES.viewBiopsy} />
-      <Encounters default path={ROUTES.encounters} />
+      <Encounters path={ROUTES.encounters} />
+      <Trips default path={ROUTES.trips} />
     </Router>
   );
 };
