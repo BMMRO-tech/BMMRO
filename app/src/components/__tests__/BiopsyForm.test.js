@@ -102,6 +102,16 @@ describe("BiopsyForm", () => {
       "field-specimens.0.storageType"
     );
 
+    const specimenNumberInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.specimenNumber"
+    );
+    const sampleTypeInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.sampleType"
+    );
+    const storageTypeInputForSecondSpecimen = getByTestId(
+      "field-specimens.0.storageType"
+    );
+
     const reactionStrengthStrongRadio = getByTestId(
       "field-reactionStrength-Strong"
     );
@@ -125,25 +135,14 @@ describe("BiopsyForm", () => {
     userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
     userEvent.type(gpsMarkInput, "2");
-
-    const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
-    userEvent.click(addSpecimensInput);
-
     await userEvent.type(specimenNumberInputForFirstSpecimen, "4", {
       delay: 1,
     });
     userEvent.selectOptions(sampleTypeInputForFirstSpecimen, "Skin");
     userEvent.selectOptions(storageTypeInputForFirstSpecimen, "-80");
 
-    const specimenNumberInputForSecondSpecimen = getByTestId(
-      "field-specimens.1.specimenNumber"
-    );
-    const sampleTypeInputForSecondSpecimen = getByTestId(
-      "field-specimens.1.sampleType"
-    );
-    const storageTypeInputForSecondSpecimen = getByTestId(
-      "field-specimens.1.storageType"
-    );
+    const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
+    userEvent.click(addSpecimensInput);
 
     await userEvent.type(specimenNumberInputForSecondSpecimen, "5", {
       delay: 1,
@@ -234,12 +233,12 @@ describe("BiopsyForm", () => {
       expect(formValues.groupBehaviourBeforeBiopsy).toEqual("C");
       expect(formValues.groupBehaviourAfterBiopsy).toEqual("T");
       expect(formValues.otherObservations).toEqual("H");
-      expect(formValues.specimens[0].specimenNumber).toEqual("4");
-      expect(formValues.specimens[0].sampleType).toEqual("Skin");
-      expect(formValues.specimens[0].storageType).toEqual("-80");
-      expect(formValues.specimens[1].specimenNumber).toEqual("5");
-      expect(formValues.specimens[1].sampleType).toEqual("Skin/Blubber");
-      expect(formValues.specimens[1].storageType).toEqual("-20");
+      expect(formValues.specimens[1].specimenNumber).toEqual("4");
+      expect(formValues.specimens[1].sampleType).toEqual("Skin");
+      expect(formValues.specimens[1].storageType).toEqual("-80");
+      expect(formValues.specimens[0].specimenNumber).toEqual("5");
+      expect(formValues.specimens[0].sampleType).toEqual("Skin/Blubber");
+      expect(formValues.specimens[0].storageType).toEqual("-20");
     });
   });
 

@@ -152,11 +152,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     isRequired
                   />
 
-                  <TextInput
-                    name="gpsFileName"
-                    labelText="GPS file name"
-                    value={values.gpsFileName}
-                  />
+                  <TextInput name="gpsFileName" labelText="GPS file name" />
 
                   <TextInput name="observers" labelText="Observers" />
 
@@ -164,7 +160,6 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     name="numberOfObservers"
                     labelText="Number of Observers"
                     type={"number"}
-                    value={values.numberOfObservers}
                   />
 
                   <Select
