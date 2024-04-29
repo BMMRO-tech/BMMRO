@@ -1,10 +1,11 @@
 export default {
   tripId: "",
+  tripNumber: "",
   date: "",
   time: "",
+  area: "",
   vessel: "",
   gpsFileName: "",
-  area: "",
   project: "",
   observers: "",
   numberOfObservers: "",

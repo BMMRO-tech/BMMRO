@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Form, Formik } from "formik";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect, useRef } from "react";
 import { navigate } from "@reach/router";
+import { format } from "date-fns";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
@@ -20,9 +21,34 @@ import TimeInput from "./formFields/TimeInput/TimeInput";
 import area from "../constants/formOptions/area";
 import tripDefaults from "../constants/tripDefaultValues";
 import { ROUTES } from "../constants/routes";
+import vessel from "../constants/formOptions/vessel";
+import direction from "../constants/formOptions/direction";
+import { getProjects } from "../hooks/getProjects";
+import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 
-const NewTripForm = ({ handleSubmit }) => {
+const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const ref = useRef(null);
+
+  const [projectsList, setProjectsList] = useState();
+
+  useEffect(() => {
+    getProjects(datastore).then((data) => setProjectsList(data));
+  });
+
+  useEffect(() => {
+    handleSetFieldValue(
+      "gpsFileName",
+      generateGpsFileName(ref.current?.values)
+    );
+  }, [ref.current?.values.date, ref.current?.values.vessel]);
+
+  useEffect(() => {
+    handleSetFieldValue(
+      "numberOfObservers",
+      calculateObservers(ref.current?.values.observers)
+    );
+  }, [ref.current?.values.observers]);
 
   const styles = {
     cancelButton: css`
@@ -33,11 +59,27 @@ const NewTripForm = ({ handleSubmit }) => {
     `,
   };
 
+  const handleSetFieldValue = (field, value) => {
+    const setFieldValue = ref.current?.setFieldValue;
+    if (setFieldValue) setFieldValue(field, value);
+  };
+
   const transformSubmitValues = (values) => {
-    values.startTimestamp.setHours(0, 0, 0, 0);
-    if (values.endTimestamp) {
-      values.endTimestamp.setHours(0, 0, 0, 0);
-    }
+    values.date.setHours(0, 0, 0, 0);
+  };
+
+  const calculateObservers = (observers) => {
+    return observers?.split(",").filter((value) => value.trim()).length;
+  };
+
+  const generateGpsFileName = (values) => {
+    const date = values.date ? format(values.date, "yy_MMdd") : "";
+    const vessel = values.vessel ? values?.vessel.slice(0, 2) : "";
+
+    const filename =
+      date && vessel ? `${date}-${vessel}` : date || vessel || "";
+
+    return filename + ".txt";
   };
 
   const renderConfirmationModal = () => {
@@ -54,7 +96,10 @@ const NewTripForm = ({ handleSubmit }) => {
       <div css={utilities.form.container}>
         <Formik
           initialValues={tripDefaults}
+          innerRef={ref}
           onSubmit={(values) => {
+            values.tripId =
+              values.date + values?.vessel.slice(0, 2) + values.tripNumber;
             transformSubmitValues(values);
             handleSubmit(values);
           }}
@@ -64,34 +109,96 @@ const NewTripForm = ({ handleSubmit }) => {
               <section>
                 <ListHeader title="Trip details" />
                 <FormSection>
+                  <TextInput
+                    name="tripNumber"
+                    labelText="Trip number"
+                    isRequired
+                    type={"number"}
+                  />
+
                   <DateInput
-                    name="startTimestamp"
+                    name="date"
                     labelText="Date"
                     isRequired
-                    isShort
                     notAfter={new Date()}
                     autofill={true}
                   />
-                  <TextInput
-                    name="sequenceNumber"
-                    labelText="Trip sequence"
-                    maxLength={255}
+
+                  <TimeInput
+                    name="time"
+                    labelText="Time"
+                    autofill={true}
+                    notAfter={values.date}
                     isRequired
-                    isShort
                   />
+                </FormSection>
+              </section>
+              <br />
+
+              <section>
+                <FormSection>
                   <Select
                     name="area"
                     labelText="Area"
                     options={area}
                     isRequired
                   />
-                  <TimeInput
-                    name="startTime"
-                    labelText="Start time"
-                    isShort
-                    autofill={true}
-                    notAfter={values.startTimestamp}
+
+                  <Select
+                    name="vessel"
+                    labelText="Vessel"
+                    options={vessel}
+                    isDisabled={isViewOnly}
                     isRequired
+                  />
+
+                  <TextInput
+                    name="gpsFileName"
+                    labelText="GPS file name"
+                    value={values.gpsFileName}
+                  />
+
+                  <TextInput name="observers" labelText="Observers" />
+
+                  <TextInput
+                    name="numberOfObservers"
+                    labelText="Number of Observers"
+                    type={"number"}
+                    value={values.numberOfObservers}
+                  />
+
+                  <Select
+                    name="project"
+                    labelText="Project"
+                    options={projectsList || []}
+                    isDisabled={isViewOnly}
+                  />
+
+                  <TextInput
+                    name="engineHoursMeterReading"
+                    labelText="Engine hours meter reading"
+                    type={"number"}
+                  />
+
+                  <TextInput
+                    name="windSpeed"
+                    labelText="Wind speed"
+                    type={"number"}
+                  />
+
+                  <Select
+                    name="windDirection"
+                    labelText="Wind Direction"
+                    options={direction}
+                    isDisabled={isViewOnly}
+                  />
+
+                  <TextAreaInput
+                    name="comments"
+                    labelText="Comments"
+                    maxLength={1000}
+                    isDouble
+                    isDisabled={isViewOnly}
                   />
                 </FormSection>
               </section>
@@ -122,9 +229,9 @@ const NewTripForm = ({ handleSubmit }) => {
                     styles={styles.endButton}
                     width="200px"
                     type="submit"
-                    testId={"newHabitat"}
+                    testId={"newTrip"}
                   >
-                    + New Habitat Use
+                    Save & Start Logbook
                   </Button>
                 </div>
                 <InputFocusOnError />

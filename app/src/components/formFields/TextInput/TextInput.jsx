@@ -15,6 +15,7 @@ const TextInput = ({
   isRequired,
   isShort,
   isDisabled,
+  value,
 }) => {
   const validateText = (val) => {
     if (!val) {
@@ -39,6 +40,7 @@ const TextInput = ({
         <div css={fieldStyles.inputContainer}>
           <input
             {...field}
+            value={value}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             type={type ? type : "text"}
             maxLength={maxLength}

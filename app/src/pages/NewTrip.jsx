@@ -13,8 +13,6 @@ const NewTrip = () => {
   const { datastore } = useContext(FirebaseContext);
   const handleSubmit = (values) => {
     const id = datastore.createDoc(CollectionNames.TRIP, values);
-    console.log(values);
-    console.log(id);
     navigate(ROUTES.trips);
     //navigate(generateNewLogbookEntryURL(id));
   };
@@ -22,7 +20,7 @@ const NewTrip = () => {
   return (
     <Layout hasDefaultPadding={false}>
       <h1 css={utilities.form.title}>New Trip</h1>
-      <NewTripForm handleSubmit={handleSubmit} />
+      <NewTripForm handleSubmit={handleSubmit} datastore={datastore} />
     </Layout>
   );
 };
