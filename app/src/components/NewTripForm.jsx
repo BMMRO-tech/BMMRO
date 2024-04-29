@@ -99,7 +99,9 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
           innerRef={ref}
           onSubmit={(values) => {
             values.tripId =
-              values.date + values?.vessel.slice(0, 2) + values.tripNumber;
+              format(values.date, "yy_MMdd") +
+              values?.vessel.slice(0, 2) +
+              values.tripNumber;
             transformSubmitValues(values);
             handleSubmit(values);
           }}
@@ -177,7 +179,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
 
                   <TextInput
                     name="windSpeed"
-                    labelText="Wind speed"
+                    labelText="Wind speed (knots)"
                     type={"number"}
                   />
 
@@ -224,7 +226,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     styles={styles.endButton}
                     width="200px"
                     type="submit"
-                    testId={"newTrip"}
+                    testId={"newLogBook"}
                   >
                     Save & Start Logbook
                   </Button>

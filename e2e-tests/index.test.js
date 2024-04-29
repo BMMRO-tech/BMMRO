@@ -72,6 +72,49 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
+    "user navigate to creates a new trip",
+    async () => {
+      await driver.findElement(wd.By.css("#newTrips")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+
+      expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/new`);
+    },
+    testTimeout
+  );
+
+
+  it(
+    "user creates a new trip",
+    async () => {
+      let tripNumber = await driver.findElement(wd.By.name("tripNumber"));
+      await tripNumber.sendKeys("123");
+
+      //area
+      await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
+      //vessel
+      await driver.findElement(wd.By.css('select>option[value="Chimo"]')).click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogBook")),
+        pageTimeout
+      );
+
+      await driver.findElement(wd.By.css("#newLogBook")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+
+      // endpoint will change after creating logbook
+      expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips`);
+    },
+    testTimeout
+  );
+
+  it(
     "navigate to encounters overview",
     async () => {
       await driver.findElement(wd.By.css("#encountersTab")).click();
@@ -83,7 +126,7 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user creates a new encounter",
+    "user navigate to creates a new encounter",
     async () => {
       await driver.findElement(wd.By.css("#newEncounter")).click();
 
