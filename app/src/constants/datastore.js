@@ -5,6 +5,7 @@ export const CollectionNames = {
   SPECIMEN: "specimen",
   PROJECT: "project",
   TRIP: "trip",
+  LOGBOOK_ENTRY: "logbookEntry",
 };
 
 export const generateEncounterPath = (id) => {

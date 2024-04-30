@@ -4,6 +4,7 @@ export const ROUTES = {
   project: "/project",
   newEncounter: "/encounters/new",
   newTrip: "/trips/new",
+  newLogbookEntry: "/trips/:tripId/logbook-entry/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   editEncounter: "/encounters/:encounterId/edit",
   viewEncounter: "/encounters/:encounterId/view",

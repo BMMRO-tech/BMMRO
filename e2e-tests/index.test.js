@@ -24,6 +24,7 @@ async function startDriver() {
 describe("create a new encounter user journey", () => {
   let driver;
   let encounterId;
+  let tripId;
   let habitatId;
   let biopsyId;
   let pageTimeout = 10000;
@@ -72,7 +73,7 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user navigate to creates a new trip",
+    "user navigates to create a new trip",
     async () => {
       await driver.findElement(wd.By.css("#newTrips")).click();
 
@@ -84,7 +85,6 @@ describe("create a new encounter user journey", () => {
     },
     testTimeout
   );
-
 
   it(
     "user creates a new trip",
@@ -107,9 +107,9 @@ describe("create a new encounter user journey", () => {
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       let newTripUrl = await driver.getCurrentUrl();
-
-      // endpoint will change after creating logbook
-      expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips`);
+      tripId = newTripUrl.split("/")[4];
+      expect(newTripUrl).toBe(
+            `${process.env.ENDPOINT}/trips/${tripId}/logbook-entry/new`)
     },
     testTimeout
   );

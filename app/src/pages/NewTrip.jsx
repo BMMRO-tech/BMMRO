@@ -13,8 +13,7 @@ const NewTrip = () => {
   const { datastore } = useContext(FirebaseContext);
   const handleSubmit = (values) => {
     const id = datastore.createDoc(CollectionNames.TRIP, values);
-    navigate(ROUTES.trips);
-    //navigate(generateNewLogbookEntryURL(id));
+    navigate(generateNewLogbookEntryURL(id));
   };
 
   return (
