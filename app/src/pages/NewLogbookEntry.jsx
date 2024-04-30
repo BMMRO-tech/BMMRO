@@ -2,6 +2,8 @@
 import { css, jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import Tabs from "../components/Tabs";
+import { Link } from "@reach/router";
+import Button from "../components/Button";
 
 const NewLogbookEntry = ({ tripId }) => {
   const styles = {
