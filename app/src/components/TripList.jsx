@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import { Fragment, useContext, useEffect, useState } from "react";
 import usLocale from "date-fns/locale/en-US";
 import { endOfMonth, format, parse } from "date-fns";
@@ -15,7 +15,14 @@ import { getTripsByTimeRange } from "../hooks/useTripsByMonth";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { MonthContext } from "../providers/monthContext/MonthContext";
 
-const TripListItem = ({ trip, isToday }) => {
+const TripListItem = ({ trip }) => {
+  const styles = {
+    primaryContentLeftStyle: css`
+      width: 100px;
+      min-width: 100px;
+    `,
+  };
+
   const { date, tripId, area, time } = trip.data;
 
   const day = format(date, "dd", {
@@ -30,6 +37,7 @@ const TripListItem = ({ trip, isToday }) => {
       key={trip.id}
       destinationUrl={generateOpenTripURL(trip.id)}
       primaryContentLeft={tripId}
+      primaryContentLeftStyle={styles.primaryContentLeftStyle}
       secondaryContent={area}
     />
   );

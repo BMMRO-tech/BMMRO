@@ -38,7 +38,7 @@ const Trips = () => {
         </Link>
       </div>
       <div css={styles.list}>
-        <TripList title="Today" trips={todaysTrips} isToday />
+        <TripList title="Current trips" trips={todaysTrips} isToday />
       </div>
       <div css={styles.list}>
         <TripList title="Previous trips" trips={previousTrips} />
