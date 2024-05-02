@@ -5,35 +5,31 @@ import usLocale from "date-fns/locale/en-US";
 import { endOfMonth, format, parse } from "date-fns";
 
 import utilities from "../materials/utilities";
-import { generateOpenEncounterURL } from "../constants/routes";
+import { generateOpenTripURL } from "../constants/routes";
 import ListItem from "./list/ListItem";
 import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
 import { monthNames } from "../constants/monthNames";
 import fieldStyles from "./formFields/fieldStyles";
-import { getEncountersByTimeRange } from "../hooks/useEncountersByMonth";
+import { getTripsByTimeRange } from "../hooks/useTripsByMonth";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { MonthContext } from "../providers/monthContext/MonthContext";
 
-const EncounterListItem = ({ encounter, isToday }) => {
-  const { startTimestamp, sequenceNumber, species, area, startTime } =
-    encounter.data;
+const TripListItem = ({ trip, isToday }) => {
+  const { date, tripId, area, time } = trip.data;
 
-  const day = format(startTimestamp, "dd", {
+  const day = format(date, "dd", {
     locale: usLocale,
   });
-  const month = format(startTimestamp, "MMM", {
+  const month = format(date, "MMM", {
     locale: usLocale,
   });
 
   return (
     <ListItem
-      key={encounter.id}
-      destinationUrl={generateOpenEncounterURL(encounter.id)}
-      primaryTime={isToday ? startTime : day}
-      secondaryTime={!isToday && month}
-      primaryContentLeft={sequenceNumber}
-      primaryContentRight={species}
+      key={trip.id}
+      destinationUrl={generateOpenTripURL(trip.id)}
+      primaryContentLeft={tripId}
       secondaryContent={area}
     />
   );
@@ -84,48 +80,40 @@ const MonthDropdown = ({
   );
 };
 
-const EncountersByMonth = () => {
+const TripsByMonth = () => {
   const { datastore } = useContext(FirebaseContext);
   const { month, setMonth } = useContext(MonthContext);
 
   const [loading, setLoading] = useState(true);
-  const [encounters, setEncounters] = useState([]);
+  const [trips, setTrips] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const startDate = parse("1 " + month, "d MMMM yyyy", new Date());
       const endDate = endOfMonth(startDate);
-      const response = await getEncountersByTimeRange(
-        datastore,
-        startDate,
-        endDate
-      );
-      setEncounters(response[0]);
+      const response = await getTripsByTimeRange(datastore, startDate, endDate);
+      setTrips(response[0]);
       setLoading(false);
     };
     fetchData().then();
   });
 
-  async function getEncountersForTheMonth(monthOption) {
+  async function getTripsForTheMonth(monthOption) {
     setMonth(monthOption);
     const startDate = parse("1 " + monthOption, "d MMMM yyyy", new Date());
     const endDate = endOfMonth(startDate);
 
-    const encounterList = await getEncountersByTimeRange(
-      datastore,
-      startDate,
-      endDate
-    );
-    setEncounters(encounterList[0]);
+    const tripList = await getTripsByTimeRange(datastore, startDate, endDate);
+    setTrips(tripList[0]);
   }
 
   const getMonthData = async (event) => {
-    await getEncountersForTheMonth(event.target.value);
+    await getTripsForTheMonth(event.target.value);
   };
   return (
     <Fragment>
       <MonthDropdown
-        name="PreviousEncountersDropDown"
+        name="PreviousTripsDropDown"
         labelText="Month"
         options={getMonthList()}
         onChange={getMonthData}
@@ -133,19 +121,17 @@ const EncountersByMonth = () => {
         defaultValue={month}
       />{" "}
       {!loading && (
-        <ul key={`encounterList-1`} css={utilities.list.items}>
-          <ListSubheader title={`${encounters?.month} ${encounters?.year}`} />
+        <ul key={`tripList-1`} css={utilities.list.items}>
+          <ListSubheader title={`${trips?.month} ${trips?.year}`} />
 
-          {!encounters?.entries.length ? (
-            <div css={utilities.list.noEntries}>
-              No encounters in {encounters?.month}
-            </div>
+          {!trips?.entries.length ? (
+            <div css={utilities.list.noEntries}>No trips in {trips?.month}</div>
           ) : (
             <Fragment>
-              {encounters?.entries.map((encounter, i) => (
-                <EncounterListItem
-                  key={`previous-encounter-${i}`}
-                  encounter={encounter}
+              {trips?.entries.map((trip, i) => (
+                <TripListItem
+                  key={`previous-trip-${i}`}
+                  trip={trip}
                   isToday={false}
                 />
               ))}
@@ -156,23 +142,19 @@ const EncountersByMonth = () => {
     </Fragment>
   );
 };
-const PreviousEncounters = () => {
-  return EncountersByMonth();
+const PreviousTrips = () => {
+  return TripsByMonth();
 };
 
-const TodaysEncounters = ({ encounters }) => {
-  return encounters.map((encountersByMonth, i) => (
-    <Fragment key={`encounterList-${i}`}>
-      {!encountersByMonth.entries.length ? (
-        <div css={utilities.list.noEntries}>No encounters yet</div>
+const TodaysTrips = ({ trips }) => {
+  return trips.map((tripsByMonth, i) => (
+    <Fragment key={`tripList-${i}`}>
+      {!tripsByMonth.entries.length ? (
+        <div css={utilities.list.noEntries}>No trips yet</div>
       ) : (
         <ul css={utilities.list.items}>
-          {encountersByMonth.entries.map((encounter, i) => (
-            <EncounterListItem
-              key={`todays-encounter-${i}`}
-              encounter={encounter}
-              isToday={true}
-            />
+          {tripsByMonth.entries.map((trip, i) => (
+            <TripListItem key={`todays-trip-${i}`} trip={trip} isToday={true} />
           ))}
         </ul>
       )}
@@ -180,19 +162,19 @@ const TodaysEncounters = ({ encounters }) => {
   ));
 };
 
-const EncounterList = ({ title, encounters, isToday }) => {
+const TripList = ({ title, trips, isToday }) => {
   return (
     <div css={utilities.list.container}>
       <ListHeader title={title} />
-      {!encounters.length ? (
-        <div css={utilities.list.noEntries}>No encounters yet</div>
+      {!trips.length ? (
+        <div css={utilities.list.noEntries}>No trips yet</div>
       ) : isToday ? (
-        <TodaysEncounters encounters={encounters} />
+        <TodaysTrips trips={trips} />
       ) : (
-        <PreviousEncounters />
+        <PreviousTrips />
       )}
     </div>
   );
 };
 
-export default EncounterList;
+export default TripList;

@@ -5,6 +5,10 @@ import Layout from "../components/Layout";
 import Button from "../components/Button";
 import Tabs from "../components/Tabs";
 import { ROUTES } from "../constants/routes";
+import { useContext } from "react";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import TripList from "../components/TripList";
+import { useTripsByMonth } from "../hooks/useTripsByMonth";
 
 const Trips = () => {
   const styles = {
@@ -20,6 +24,9 @@ const Trips = () => {
     `,
   };
 
+  const { datastore } = useContext(FirebaseContext);
+  const { todaysTrips, previousTrips } = useTripsByMonth(datastore);
+
   return (
     <Layout hasDefaultPadding={false}>
       <div css={styles.tabContainer}>
@@ -30,10 +37,12 @@ const Trips = () => {
           </Button>
         </Link>
       </div>
-      <p>
-        Work in progress. Please click on the "ENCOUNTERS" tab to use the app as
-        usual.
-      </p>
+      <div css={styles.list}>
+        <TripList title="Today" trips={todaysTrips} isToday />
+      </div>
+      <div css={styles.list}>
+        <TripList title="Previous encounters" trips={previousTrips} />
+      </div>
     </Layout>
   );
 };

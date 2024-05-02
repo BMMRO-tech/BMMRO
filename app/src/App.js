@@ -21,9 +21,9 @@ import EditHabitatUse from "./pages/EditHabitatUse";
 import NewBiopsy from "./pages/NewBiopsy";
 import EditBiopsy from "./pages/EditBiopsy";
 import ViewBiopsy from "./pages/ViewBiopsy";
-import { EncounterMonthProvider } from "./encounterMonthContext/encounterMonthContext";
 import Trips from "./pages/Trips";
 import NewTrip from "./pages/NewTrip";
+import { MonthProvider } from "./providers/monthContext/MonthContext";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -53,9 +53,9 @@ export default () => {
   return (
     <FirebaseContextProvider>
       <LocationProvider>
-        <EncounterMonthProvider>
+        <MonthProvider>
           <AppWithoutContext />
-        </EncounterMonthProvider>
+        </MonthProvider>
       </LocationProvider>
     </FirebaseContextProvider>
   );
