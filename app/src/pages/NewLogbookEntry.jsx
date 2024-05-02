@@ -1,12 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { Link } from "@reach/router";
 import Layout from "../components/Layout";
-import Button from "../components/Button";
 import Tabs from "../components/Tabs";
-import { ROUTES } from "../constants/routes";
 
-const Trips = () => {
+const NewLogbookEntry = ({ tripId }) => {
   const styles = {
     tabContainer: css`
       display: flex;
@@ -15,27 +12,19 @@ const Trips = () => {
       align-items: center;
       padding: 0 10px;
     `,
-    list: css`
-      margin: 10px 10px 30px 10px;
-    `,
   };
-
   return (
     <Layout hasDefaultPadding={false}>
       <div css={styles.tabContainer}>
         <Tabs />
-        <Link to={ROUTES.newTrip}>
-          <Button isSmall testId={"newTrips"}>
-            + New
-          </Button>
-        </Link>
+        {/*<h1 css={utilities.form.title}>New Logbook Entry</h1>*/}
       </div>
       <p>
         Work in progress. Please click on the "ENCOUNTERS" tab to use the app as
         usual.
       </p>
+      <p>ENCOUNTERS</p>
     </Layout>
   );
 };
-
-export default Trips;
+export default NewLogbookEntry;

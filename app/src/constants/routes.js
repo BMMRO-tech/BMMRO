@@ -3,6 +3,8 @@ export const ROUTES = {
   trips: "/trips",
   project: "/project",
   newEncounter: "/encounters/new",
+  newTrip: "/trips/new",
+  newLogbookEntry: "/trips/:tripId/logbook-entry/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   editEncounter: "/encounters/:encounterId/edit",
   viewEncounter: "/encounters/:encounterId/view",
@@ -32,6 +34,10 @@ export const generateViewProjectURL = (projectId) => {
 
 export const generateNewHabitatUseURL = (encounterId) => {
   return `/encounters/${encounterId}/habitat-uses/new`;
+};
+
+export const generateNewLogbookEntryURL = (tripId) => {
+  return `/trips/${tripId}/logbook-entry/new`;
 };
 
 export const generateEditHabitatURL = (encounterId, habitatUseId) => {
