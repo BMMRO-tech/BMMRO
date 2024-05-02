@@ -38,7 +38,9 @@ const Tabs = () => {
         <Button
           role="tab"
           testId={`${title}Tab`}
-          customCss={ROUTES[title] === pathname ? styles.activeTab : styles.tab}
+          customCss={
+            pathname.startsWith(ROUTES[title]) ? styles.activeTab : styles.tab
+          }
         >
           {title.toUpperCase()}
         </Button>
