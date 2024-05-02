@@ -41,7 +41,7 @@ const Trips = () => {
         <TripList title="Today" trips={todaysTrips} isToday />
       </div>
       <div css={styles.list}>
-        <TripList title="Previous encounters" trips={previousTrips} />
+        <TripList title="Previous trips" trips={previousTrips} />
       </div>
     </Layout>
   );
