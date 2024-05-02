@@ -41,6 +41,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
       "gpsFileName",
       generateGpsFileName(ref.current?.values)
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref.current?.values.date, ref.current?.values.vessel]);
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
       "numberOfObservers",
       calculateObservers(ref.current?.values.observers)
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref.current?.values.observers]);
 
   const styles = {

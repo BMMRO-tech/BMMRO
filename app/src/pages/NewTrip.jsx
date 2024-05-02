@@ -5,7 +5,7 @@ import { navigate } from "@reach/router";
 
 import Layout from "../components/Layout";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import { generateNewLogbookEntryURL, ROUTES } from "../constants/routes";
+import { generateNewLogbookEntryURL } from "../constants/routes";
 import { CollectionNames } from "../constants/datastore";
 import utilities from "../materials/utilities";
 import NewTripForm from "../components/NewTripForm";
