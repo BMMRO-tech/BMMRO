@@ -1,27 +1,45 @@
 import React from "react";
-import { waitFor, render, screen, getByRole } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import NewLogbookEntry from "../NewLogbookEntry";
-import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
+import * as firebaseTesting from "@firebase/testing";
+import { Datastore } from "../../datastore/datastore";
+
 describe("NewLogbookEntry", () => {
-  // it('show logbook title', async () =>{
-  //     const { getByText } = renderWithMockContexts(
-  //           <NewLogbookEntry />
-  //     );
-  //
-  //     await waitFor(() => expect(getByText("New Logbook Entry")).toBeInTheDocument());
-  //   });
-  //   it('show encounter and trips tabs', async () =>{
-  //       renderWithMockContexts(
-  //
-  //           <NewLogbookEntry/>
-  //       );
-  //
-  //       //await waitFor(() => expect(getByText('ENCOUNTERS', { selector: 'button' })).toBeInTheDocument());
-  //       //console.log(screen.queryAllByRole('button'));
-  //       //expect(screen.getByTestId("tripsTab")).toHaveTextContent('TRIPS');
-  //       expect(screen.queryByTestId("tripsTab")?.textContent).toContain("TRIPS");
-  //       // await waitFor(() => expect(screen.getByRole('button',{data-testid: 'ENCOUNTERS'})).toBeInTheDocument());
-  //       //const submitButton = getByRole("button", { name: "ENCOUNTERS" });
-  //   });
+  const projectId = "new-logbook-entry-test-id";
+  let firestoreEmulator;
+  let datastore;
+
+  beforeEach(() => {
+    firestoreEmulator = firebaseTesting
+      .initializeTestApp({
+        projectId,
+        auth: { uid: "test-researcher" },
+      })
+      .firestore();
+
+    datastore = new Datastore(firestoreEmulator);
+  });
+
+  afterAll(async () => {
+    await firebaseTesting.clearFirestoreData({ projectId });
+    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+  });
+
+  it("show encounter and trips tabs", async () => {
+    renderWithMockContexts(<NewLogbookEntry />, {
+      datastore,
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.getByText("ENCOUNTERS", { selector: "button" })
+      ).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(
+        screen.getByText("TRIPS", { selector: "button" })
+      ).toBeInTheDocument()
+    );
+  });
 });
