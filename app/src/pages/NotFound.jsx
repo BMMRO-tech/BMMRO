@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import {css, jsx} from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import Tabs from "../components/Tabs";
 
