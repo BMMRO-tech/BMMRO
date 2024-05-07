@@ -1,15 +1,17 @@
 /** @jsx jsx */
-import { Fragment, useContext } from "react";
-import { Global, css, jsx } from "@emotion/core";
+import {Fragment, useContext} from "react";
+import {css, Global, jsx} from "@emotion/core";
 
 import containers from "../materials/containers";
 import breakPoints from "../materials/breakPoints";
 import colors from "../materials/colors";
-import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import {FirebaseContext} from "../firebaseContext/firebaseContext";
 import Header from "./Header";
 import Error from "./Error";
 import Loader from "./Loader";
 import Footer from "./Footer";
+import Tabs from "./Tabs";
+import {useLocation} from "@reach/router";
 
 const Layout = ({
   containerSize = containers.default,
@@ -18,6 +20,8 @@ const Layout = ({
   hasHeader = true,
 }) => {
   const { datastore, datastoreError } = useContext(FirebaseContext);
+  const pathname = useLocation();
+  const isLoginPage = pathname.pathname === "/login";
 
   const styles = {
     global: css`
@@ -61,6 +65,7 @@ const Layout = ({
       {hasHeader ? <Header /> : null}
       <main>
         <div css={styles.container}>
+          {!isLoginPage && <Tabs />}
           {!datastore && !datastoreError ? (
             <Loader />
           ) : !!datastoreError ? (

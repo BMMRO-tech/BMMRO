@@ -1,15 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Link } from "@reach/router";
-import { useContext } from "react";
+import {css, jsx} from "@emotion/core";
+import {useContext} from "react";
 
-import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import {FirebaseContext} from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterList from "../components/EncounterList";
-import Button from "../components/Button";
-import { ROUTES } from "../constants/routes";
-import { useEncountersByMonth } from "../hooks/useEncountersByMonth";
-import Tabs from "../components/Tabs";
+import {useEncountersByMonth} from "../hooks/useEncountersByMonth";
+import utilities from "../materials/utilities";
 
 const Encounters = () => {
   const styles = {
@@ -31,14 +28,7 @@ const Encounters = () => {
 
   return (
     <Layout hasDefaultPadding={false}>
-      <div css={styles.titleContainer}>
-        <Tabs />
-        <Link to={ROUTES.newEncounter}>
-          <Button isSmall testId={"newEncounter"}>
-            + New
-          </Button>
-        </Link>
-      </div>
+      <h1 css={utilities.form.title}>Encounters</h1>
       <div css={styles.list}>
         <EncounterList title="Today" encounters={todaysEncounters} isToday />
       </div>
