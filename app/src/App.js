@@ -47,9 +47,9 @@ const AppWithoutContext = () => {
       <ViewBiopsy path={ROUTES.viewBiopsy} />
       <Encounters path={ROUTES.encounters} />
       <Trips path={ROUTES.trips} />
-      <NotFound default path={ROUTES.notFound} />
       <NewTrip path={ROUTES.newTrip} />
       <NewLogbookEntry path={ROUTES.newLogbookEntry} />
+      <NotFound default path={ROUTES.notFound} />
     </Router>
   );
 };

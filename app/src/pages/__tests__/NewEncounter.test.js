@@ -3,10 +3,10 @@ import { screen, waitFor } from "@testing-library/react";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import * as firebaseTesting from "@firebase/testing";
 import { Datastore } from "../../datastore/datastore";
-import Trips from "../Trips";
+import NewEncounter from "../NewEncounter";
 
-describe("TripsOverviewPage", () => {
-  const projectId = "trips-overview-test-id";
+describe("NewEncounterPage", () => {
+  const projectId = "new-encounter-test-id";
   let firestoreEmulator;
   let datastore;
 
@@ -27,7 +27,7 @@ describe("TripsOverviewPage", () => {
   });
 
   it("show encounter and trips tabs", async () => {
-    renderWithMockContexts(<Trips />, {
+    renderWithMockContexts(<NewEncounter />, {
       datastore,
     });
 
@@ -42,14 +42,16 @@ describe("TripsOverviewPage", () => {
       ).toBeInTheDocument()
     );
   });
-  it("show new trips button", async () => {
-    renderWithMockContexts(<Trips />, {
+  it("don't show new encounters button", async () => {
+    renderWithMockContexts(<NewEncounter />, {
       datastore,
-      route: "/trips",
+      route: "/encounters/new",
     });
 
     await waitFor(() =>
-      expect(screen.getByTestId("new-trips-button")).toBeInTheDocument()
+      expect(
+        screen.queryByTestId("new-encounters-button")
+      ).not.toBeInTheDocument()
     );
   });
 });
