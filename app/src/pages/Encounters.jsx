@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import {css, jsx} from "@emotion/core";
-import {useContext} from "react";
+import { css, jsx } from "@emotion/core";
+import { useContext } from "react";
 
-import {FirebaseContext} from "../firebaseContext/firebaseContext";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import EncounterList from "../components/EncounterList";
-import {useEncountersByMonth} from "../hooks/useEncountersByMonth";
+import { useEncountersByMonth } from "../hooks/useEncountersByMonth";
 import utilities from "../materials/utilities";
 
 const Encounters = () => {

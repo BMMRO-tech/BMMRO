@@ -1,8 +1,8 @@
 import React from "react";
-import {screen, waitFor} from "@testing-library/react";
-import {renderWithMockContexts} from "../../utils/test/renderWithMockContexts";
+import { screen, waitFor } from "@testing-library/react";
+import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import * as firebaseTesting from "@firebase/testing";
-import {Datastore} from "../../datastore/datastore";
+import { Datastore } from "../../datastore/datastore";
 import NewTrip from "../NewTrip";
 
 describe("NewTripPage", () => {

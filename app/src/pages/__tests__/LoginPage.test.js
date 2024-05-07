@@ -1,9 +1,9 @@
-import {render, waitFor} from "@testing-library/react/pure";
+import { render, waitFor } from "@testing-library/react/pure";
 import React from "react";
 
-import {FirebaseContext} from "../../firebaseContext/firebaseContext";
+import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Login from "../../pages/Login";
-import {screen} from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 jest.mock("@reach/router", () => ({
   useLocation: () => ({ pathname: "/login" }),

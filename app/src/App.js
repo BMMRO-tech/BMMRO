@@ -1,11 +1,14 @@
 /** @jsx jsx */
-import {useContext} from "react";
-import {jsx} from "@emotion/core";
-import {LocationProvider, Redirect, Router} from "@reach/router";
+import { useContext } from "react";
+import { jsx } from "@emotion/core";
+import { LocationProvider, Redirect, Router } from "@reach/router";
 
-import {FirebaseContext, FirebaseContextProvider,} from "./firebaseContext/firebaseContext";
-import {useLogoutRedirect} from "./hooks/useLogoutRedirect";
-import {ROUTES} from "./constants/routes";
+import {
+  FirebaseContext,
+  FirebaseContextProvider,
+} from "./firebaseContext/firebaseContext";
+import { useLogoutRedirect } from "./hooks/useLogoutRedirect";
+import { ROUTES } from "./constants/routes";
 import Login from "./pages/Login";
 import Encounters from "./pages/Encounters";
 import NewEncounter from "./pages/NewEncounter";
@@ -18,7 +21,7 @@ import EditHabitatUse from "./pages/EditHabitatUse";
 import NewBiopsy from "./pages/NewBiopsy";
 import EditBiopsy from "./pages/EditBiopsy";
 import ViewBiopsy from "./pages/ViewBiopsy";
-import {EncounterMonthProvider} from "./encounterMonthContext/encounterMonthContext";
+import { EncounterMonthProvider } from "./encounterMonthContext/encounterMonthContext";
 import Trips from "./pages/Trips";
 import NewTrip from "./pages/NewTrip";
 import NewLogbookEntry from "./pages/NewLogbookEntry";

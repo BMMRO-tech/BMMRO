@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import {css, jsx} from "@emotion/core";
-import {Link, useLocation} from "@reach/router";
-import {ROUTES} from "../constants/routes";
+import { css, jsx } from "@emotion/core";
+import { Link, useLocation } from "@reach/router";
+import { ROUTES } from "../constants/routes";
 import Button from "./Button";
 import colors from "../materials/colors";
 

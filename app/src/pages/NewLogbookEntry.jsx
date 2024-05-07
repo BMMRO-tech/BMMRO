@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import {jsx} from "@emotion/core";
+import { jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 
