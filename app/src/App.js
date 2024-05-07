@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useContext } from "react";
 import { jsx } from "@emotion/core";
-import { LocationProvider, Router } from "@reach/router";
+import { LocationProvider, Redirect, Router } from "@reach/router";
 
 import {
   FirebaseContext,
@@ -25,6 +25,7 @@ import { EncounterMonthProvider } from "./encounterMonthContext/encounterMonthCo
 import Trips from "./pages/Trips";
 import NewTrip from "./pages/NewTrip";
 import NewLogbookEntry from "./pages/NewLogbookEntry";
+import NotFound from "./pages/NotFound";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -33,6 +34,7 @@ const AppWithoutContext = () => {
   return (
     <Router>
       <Login path={ROUTES.login} />
+      <Redirect from="/" to={ROUTES.trips} noThrow />
       <NewEncounter path={ROUTES.newEncounter} />
       <OpenEncounter path={ROUTES.openEncounter} />
       <EditEncounter path={ROUTES.editEncounter} />
@@ -44,7 +46,8 @@ const AppWithoutContext = () => {
       <EditBiopsy path={ROUTES.editBiopsy} />
       <ViewBiopsy path={ROUTES.viewBiopsy} />
       <Encounters path={ROUTES.encounters} />
-      <Trips default path={ROUTES.trips} />
+      <Trips path={ROUTES.trips} />
+      <NotFound default path={ROUTES.notFound} />
       <NewTrip path={ROUTES.newTrip} />
       <NewLogbookEntry path={ROUTES.newLogbookEntry} />
     </Router>
