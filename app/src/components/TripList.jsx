@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Fragment, useContext, useEffect, useState } from "react";
-import usLocale from "date-fns/locale/en-US";
-import { endOfMonth, format, parse } from "date-fns";
+import { endOfMonth, parse } from "date-fns";
 
 import utilities from "../materials/utilities";
 import { generateOpenTripURL } from "../constants/routes";
@@ -23,14 +22,7 @@ const TripListItem = ({ trip }) => {
     `,
   };
 
-  const { date, tripId, area, time } = trip.data;
-
-  const day = format(date, "dd", {
-    locale: usLocale,
-  });
-  const month = format(date, "MMM", {
-    locale: usLocale,
-  });
+  const { tripId, area } = trip.data;
 
   return (
     <ListItem

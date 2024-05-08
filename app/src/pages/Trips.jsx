@@ -18,12 +18,6 @@ const Trips = () => {
 
   return (
     <Layout hasDefaultPadding={false}>
-      <div css={styles.container}>
-        <p>
-          Work in progress. Please click on the "ENCOUNTERS" tab to use the app
-          as usual.
-        </p>
-      </div>
       <div css={styles.list}>
         <TripList title="Current trips" trips={todaysTrips} isToday />
       </div>
