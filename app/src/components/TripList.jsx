@@ -4,7 +4,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { endOfMonth, parse } from "date-fns";
 
 import utilities from "../materials/utilities";
-import { generateOpenTripURL } from "../constants/routes";
+import { generateViewTripURL } from "../constants/routes";
 import ListItem from "./list/ListItem";
 import ListSubheader from "./list/ListSubheader";
 import ListHeader from "./list/ListHeader";
@@ -14,7 +14,7 @@ import { getTripsByTimeRange } from "../hooks/useTripsByMonth";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { MonthContext } from "../providers/monthContext/MonthContext";
 
-const TripListItem = ({ trip }) => {
+const TripListItem = ({ trip, isToday }) => {
   const styles = {
     primaryContentLeftStyle: css`
       width: 100px;
@@ -22,12 +22,13 @@ const TripListItem = ({ trip }) => {
     `,
   };
 
-  const { tripId, area } = trip.data;
+  const { tripId, area, time } = trip.data;
 
   return (
     <ListItem
       key={trip.id}
-      destinationUrl={generateOpenTripURL(trip.id)}
+      destinationUrl={generateViewTripURL(trip.id)}
+      primaryTime={isToday && time}
       primaryContentLeft={tripId}
       primaryContentLeftStyle={styles.primaryContentLeftStyle}
       secondaryContent={area}

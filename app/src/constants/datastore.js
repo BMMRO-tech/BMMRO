@@ -12,6 +12,14 @@ export const generateEncounterPath = (id) => {
   return `${CollectionNames.ENCOUNTER}/${id}`;
 };
 
+export const generateTripPath = (id) => {
+  return `${CollectionNames.TRIP}/${id}`;
+};
+
+export const generateLogbookPath = (tripId, logbookEntryId) => {
+  return `${CollectionNames.TRIP}/${tripId}/${CollectionNames.LOGBOOK_ENTRY}/${logbookEntryId}`;
+};
+
 export const generateHabitatUsePath = (encounterId, habitatUseId) => {
   return `${CollectionNames.ENCOUNTER}/${encounterId}/${CollectionNames.HABITAT_USE}/${habitatUseId}`;
 };
