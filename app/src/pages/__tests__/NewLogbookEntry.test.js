@@ -1,12 +1,12 @@
 import React from "react";
 import { screen, waitFor } from "@testing-library/react";
+import NewLogbookEntry from "../NewLogbookEntry";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import * as firebaseTesting from "@firebase/testing";
 import { Datastore } from "../../datastore/datastore";
-import Tabs from "../Tabs.jsx";
 
-describe("Tabs", () => {
-  const projectId = "navigation-tabs-test-id";
+describe("NewLogbookEntry", () => {
+  const projectId = "new-logbook-entry-test-id";
   let firestoreEmulator;
   let datastore;
 
@@ -27,7 +27,7 @@ describe("Tabs", () => {
   });
 
   it("show encounter and trips tabs", async () => {
-    renderWithMockContexts(<Tabs />, {
+    renderWithMockContexts(<NewLogbookEntry />, {
       datastore,
     });
 

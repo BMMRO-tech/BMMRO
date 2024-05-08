@@ -14,6 +14,7 @@ export const ROUTES = {
   newBiopsy: "/encounters/:encounterId/biopsies/new",
   editBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/edit",
   viewBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/view",
+  notFound: "/404",
   login: "/login",
 };
 

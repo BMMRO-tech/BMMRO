@@ -1,4 +1,4 @@
-import { act, render, waitFor, queryAllByRole } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import NewTripForm from "../NewTripForm";
@@ -34,7 +34,7 @@ describe("NewTripForm", () => {
       const areaInput = getByRole("combobox", { name: "Area *" });
       const vesselInput = getByRole("combobox", { name: "Vessel *" });
       const tripNumberInput = getByRole("spinbutton", {
-        name: "Trip number *",
+        name: "Trip number (of this boat) *",
       });
       const submitButton = getByRole("button", {
         name: "Save & Start Logbook",
@@ -90,7 +90,7 @@ describe("NewTripForm", () => {
       userEvent.click(submitButton);
 
       const tripNumberInput = getByRole("spinbutton", {
-        name: "Trip number *",
+        name: "Trip number (of this boat) *",
       });
 
       await waitFor(() => {

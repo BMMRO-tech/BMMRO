@@ -1,8 +1,8 @@
 import * as webdriver from "selenium-webdriver";
 import "dotenv/config";
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore/lite";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {initializeApp} from "firebase/app";
+import {deleteDoc, doc, getDoc, getFirestore} from "firebase/firestore/lite";
+import {getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
 
 let wd = webdriver.default;
 
@@ -75,7 +75,7 @@ describe("create a new encounter user journey", () => {
   it(
     "user navigates to create a new trip",
     async () => {
-      await driver.findElement(wd.By.css("#newTrips")).click();
+      await driver.findElement(wd.By.css("#new-trips-button")).click();
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -128,7 +128,7 @@ describe("create a new encounter user journey", () => {
   it(
     "user navigate to creates a new encounter",
     async () => {
-      await driver.findElement(wd.By.css("#newEncounter")).click();
+      await driver.findElement(wd.By.css("#new-encounters-button")).click();
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Form, Formik } from "formik";
-import { useState, Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { navigate } from "@reach/router";
 import { format } from "date-fns";
 
@@ -24,7 +24,6 @@ import { ROUTES } from "../constants/routes";
 import vessel from "../constants/formOptions/vessel";
 import direction from "../constants/formOptions/direction";
 import { getProjects } from "../hooks/getProjects";
-import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 
 const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -115,7 +114,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                 <FormSection>
                   <TextInput
                     name="tripNumber"
-                    labelText="Trip number"
+                    labelText="Trip number (of this boat)"
                     isRequired
                     type={"number"}
                   />
@@ -189,14 +188,6 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     name="windDirection"
                     labelText="Wind Direction"
                     options={direction}
-                    isDisabled={isViewOnly}
-                  />
-
-                  <TextAreaInput
-                    name="comments"
-                    labelText="Comments"
-                    maxLength={1000}
-                    isDouble
                     isDisabled={isViewOnly}
                   />
                 </FormSection>
