@@ -12,6 +12,7 @@ const ListItem = ({
   primaryTime,
   secondaryTime,
   primaryContentLeft,
+  primaryContentLeftStyle,
   primaryContentRight,
   secondaryContent,
   isHabitatUse,
@@ -84,15 +85,19 @@ const ListItem = ({
       id={isHabitatUse ? "habitatUse" : "biopsy"}
     >
       <li css={styles.container}>
-        <div css={styles.leftContainer}>
-          <span>{primaryTime}</span>
-          {secondaryTime && <span>{secondaryTime}</span>}
-        </div>
+        {primaryTime && (
+          <div css={styles.leftContainer}>
+            <span>{primaryTime}</span>
+            {secondaryTime && <span>{secondaryTime}</span>}
+          </div>
+        )}
 
         <div css={styles.detailsContainer}>
           <div css={styles.centralContainer}>
             {primaryContentLeft && (
-              <span css={styles.primaryContentLeft}>{primaryContentLeft}</span>
+              <span css={styles.primaryContentLeft && primaryContentLeftStyle}>
+                {primaryContentLeft}
+              </span>
             )}
             {primaryContentRight && <span>{primaryContentRight}</span>}
           </div>

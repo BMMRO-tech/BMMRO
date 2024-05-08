@@ -26,6 +26,14 @@ export const generateEditEncounterURL = (encounterId) => {
   return `/encounters/${encounterId}/edit`;
 };
 
+export const generateOpenTripURL = (tripId) => {
+  return `/trips/${tripId}/logbook-entry`;
+};
+
+export const generateEditTripURL = (tripId) => {
+  return `/trips/${tripId}/edit`;
+};
+
 export const generateViewEncounterURL = (encounterId) => {
   return `/encounters/${encounterId}/view`;
 };
