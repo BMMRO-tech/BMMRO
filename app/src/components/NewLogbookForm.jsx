@@ -196,12 +196,12 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
                     labelText="Efforted"
                     options={[
                       {
-                        label: "Yes",
-                        value: "Yes",
+                        label: "On",
+                        value: "On",
                       },
                       {
-                        label: "No",
-                        value: "No",
+                        label: "Off",
+                        value: "Off",
                       },
                     ]}
                     isDisabled={isViewOnly}

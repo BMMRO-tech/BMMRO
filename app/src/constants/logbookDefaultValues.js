@@ -11,7 +11,7 @@ export default {
   beaufortSeaState: "",
   swellWaveHeight: "",
   hydrophoneChecked: "",
-  efforted: "",
+  efforted: "On",
   hydrophoneComments: "",
   logbookComments: "",
 };
