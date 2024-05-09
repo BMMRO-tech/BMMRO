@@ -27,6 +27,7 @@ const FirebaseContextProvider = ({ children }) => {
         firestore.disableNetworkIfOffline();
         firestore.registerCollection(CollectionNames.ENCOUNTER, false);
         firestore.registerCollection(CollectionNames.TRIP, false);
+        firestore.registerCollection(CollectionNames.LOGBOOK_ENTRY, true);
         firestore.registerCollection(CollectionNames.HABITAT_USE, true);
         firestore.registerCollection(CollectionNames.BIOPSY, true);
         firestore.registerCollection(CollectionNames.SPECIMEN, true);

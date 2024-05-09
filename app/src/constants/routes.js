@@ -4,6 +4,7 @@ export const ROUTES = {
   project: "/project",
   newEncounter: "/encounters/new",
   newTrip: "/trips/new",
+  viewTrip: "/trips/:tripId/view",
   newLogbookEntry: "/trips/:tripId/logbook-entry/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   editEncounter: "/encounters/:encounterId/edit",
@@ -26,8 +27,8 @@ export const generateEditEncounterURL = (encounterId) => {
   return `/encounters/${encounterId}/edit`;
 };
 
-export const generateOpenTripURL = (tripId) => {
-  return `/trips/${tripId}/logbook-entry`;
+export const generateViewTripURL = (tripId) => {
+  return `/trips/${tripId}/view`;
 };
 
 export const generateEditTripURL = (tripId) => {

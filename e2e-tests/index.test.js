@@ -115,6 +115,33 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
+    "user create a new logbook entry",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveLogBook")),
+        pageTimeout
+      );
+
+      await driver.findElement(wd.By.css("#saveLogBook")).click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveAnyway")),
+        pageTimeout
+      );
+
+      await driver.findElement(wd.By.css("#saveAnyway")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+      tripId = newTripUrl.split("/")[4];
+      expect(newTripUrl).toBe(
+            `${process.env.ENDPOINT}/trips/${tripId}/view`)
+    },
+    testTimeout
+  );
+
+  it(
     "navigate to encounters overview",
     async () => {
       await driver.findElement(wd.By.css("#encountersTab")).click();

@@ -1,0 +1,17 @@
+export default {
+  time: "",
+  latitude: "",
+  longitude: "",
+  gpsMark: "",
+  waterDepth: "",
+  waterDepthBeyondSoundings: false,
+  waterTemp: "",
+  bottomSubstrate: "",
+  cloudCover: "",
+  beaufortSeaState: "",
+  swellWaveHeight: "",
+  hydrophoneChecked: "",
+  efforted: "On",
+  hydrophoneComments: "",
+  logbookComments: "",
+};
