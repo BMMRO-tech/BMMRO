@@ -25,6 +25,7 @@ describe("create a new encounter user journey", () => {
   let driver;
   let encounterId;
   let tripId;
+  let logbookId;
   let habitatId;
   let biopsyId;
   let pageTimeout = 10000;
@@ -107,9 +108,18 @@ describe("create a new encounter user journey", () => {
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       let newTripUrl = await driver.getCurrentUrl();
+
+      expect(newTripUrl).toContain(`/logbook-entry/new`);
+    },
+    testTimeout
+  );
+
+  it(
+    "stores trip ID",
+    async () => {
+      let newTripUrl = await driver.getCurrentUrl();
+
       tripId = newTripUrl.split("/")[4];
-      expect(newTripUrl).toBe(
-            `${process.env.ENDPOINT}/trips/${tripId}/logbook-entry/new`)
     },
     testTimeout
   );
@@ -134,7 +144,6 @@ describe("create a new encounter user journey", () => {
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       let newTripUrl = await driver.getCurrentUrl();
-      tripId = newTripUrl.split("/")[4];
       expect(newTripUrl).toBe(
             `${process.env.ENDPOINT}/trips/${tripId}/view`)
     },

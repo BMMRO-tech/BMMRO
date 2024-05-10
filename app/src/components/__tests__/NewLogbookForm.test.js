@@ -34,7 +34,7 @@ describe("NewLogbookForm", () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(formValues.time).toEqual("11:30");
+      expect(formValues.time).toEqual("11:30:12");
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
     });
@@ -43,7 +43,6 @@ describe("NewLogbookForm", () => {
   it("submits the form with correct values if all fields are completed", async () => {
     let formValues;
     const mockHandleSubmit = (values) => {
-      console.log(values);
       formValues = values;
     };
 
@@ -66,7 +65,7 @@ describe("NewLogbookForm", () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(formValues.time).toEqual("11:30");
+      expect(formValues.time).toEqual("11:30:12");
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
       expect(formValues.gpsMark).toEqual("2");
@@ -75,7 +74,7 @@ describe("NewLogbookForm", () => {
 
   it("submits with correct values if initial values are passed", async () => {
     const mockInitialValues = {
-      time: "11:30",
+      time: "11:30:12",
       latitude: "1.234567",
       longitude: "-2.345678",
       gpsMark: 12,

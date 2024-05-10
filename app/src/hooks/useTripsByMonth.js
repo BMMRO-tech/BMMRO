@@ -50,11 +50,11 @@ const getTripsByTimeRange = async (datastore, startDate, endDate) => {
 const orderTripsByTimestamp = (trips) => {
   const sortedTrips = trips.sort((tripA, tripB) => {
     const tripAStartDateTime = constructDateTime(
-      tripA.data.time,
+      tripA.data.date,
       tripA.data.time
     );
     const tripBStartDateTime = constructDateTime(
-      tripB.data.time,
+      tripB.data.date,
       tripB.data.time
     );
 

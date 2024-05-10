@@ -6,7 +6,12 @@ import add from "date-fns/add";
 
 import utilities from "../materials/utilities";
 import breakPoints from "../materials/breakPoints";
-import { generateEditEncounterURL, ROUTES } from "../constants/routes";
+import {
+  generateEditEncounterURL,
+  generateNewBiopsyURL,
+  generateNewHabitatUseURL,
+  ROUTES,
+} from "../constants/routes";
 import { CollectionNames, generateEncounterPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
@@ -151,14 +156,16 @@ const OpenEncounter = ({ encounterId }) => {
           <div css={styles.list}>
             <SubCollectionList
               items={habitatUseEntries}
-              encounterId={encounterId}
-              encounterExported={encounter.exported}
-              isHabitatUse
+              parentId={encounterId}
+              isExported={encounter.exported}
+              type="habitat"
+              newUrl={generateNewHabitatUseURL(encounterId)}
             />
             <SubCollectionList
               items={biopsyEntries}
-              encounterId={encounterId}
-              encounterExported={encounter.exported}
+              parentId={encounterId}
+              isExported={encounter.exported}
+              newUrl={generateNewBiopsyURL(encounterId)}
             />
           </div>
           {renderButtons()}
