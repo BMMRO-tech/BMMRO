@@ -45,7 +45,7 @@ const ViewTrip = ({ tripId }) => {
   const navigate = useNavigate();
 
   const handleEndTrip = () => {
-    const tripPath = generateTripPath(tripId);
+    // const tripPath = generateTripPath(tripId);
 
     // datastore.updateDocByPath(tripPath, {});
     navigate(ROUTES.trips);
