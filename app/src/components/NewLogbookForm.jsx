@@ -45,6 +45,9 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
     endButton: css`
       margin-right: 10px;
     `,
+    section: css`
+      background-color: none;
+    `,
   };
 
   const renderConfirmationModal = () => {
@@ -107,6 +110,7 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
                     labelText="Time"
                     autofill={true}
                     isRequired
+                    timeWithSeconds
                   />
                 </FormSection>
               </section>
@@ -164,8 +168,8 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
                     isDisabled={isViewOnly}
                   />
                   <Select
-                    name="swellWaveHeight"
-                    labelText="Swell / Wave height (ft)"
+                    name="waveHeight"
+                    labelText="Wave height (ft)"
                     options={swellWaveHeight}
                     isShort
                     isDisabled={isViewOnly}
@@ -193,7 +197,7 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
                   />
                   <RadioGroup
                     name="efforted"
-                    labelText="Efforted"
+                    labelText="Effort"
                     options={[
                       {
                         label: "On",

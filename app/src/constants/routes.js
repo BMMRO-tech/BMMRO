@@ -69,3 +69,11 @@ export const generateEditBiopsyURL = (encounterId, biopsyId) => {
 export const generateViewBiopsyURL = (encounterId, biopsyId) => {
   return `/encounters/${encounterId}/biopsies/${biopsyId}/view`;
 };
+
+export const generateViewLogbookEntryURL = (tripId, logbookId) => {
+  return `/trips/${tripId}/logbook-entry/${logbookId}/view`;
+};
+
+export const generateEditLogbookEntryURL = (tripId, logbookId) => {
+  return `/trips/${tripId}/logbook-entry/${logbookId}/edit`;
+};
