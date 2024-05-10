@@ -65,7 +65,7 @@ const TripOverview = ({ trip }) => {
 
   return (
     <Fragment>
-      <section>
+      <section data-testid="trip-info">
         <ListHeader title="Trip Details" />
         <div css={styles.container}>
           <div css={styles.summaryContainer}>
