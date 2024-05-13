@@ -7,6 +7,7 @@ export const ROUTES = {
   viewTrip: "/trips/:tripId/view",
   newLogbookEntry: "/trips/:tripId/logbook-entry/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
+  openTrip: "/trips/:tripIdId/logbook-entry",
   editEncounter: "/encounters/:encounterId/edit",
   viewEncounter: "/encounters/:encounterId/view",
   newHabitatUse: "/encounters/:encounterId/habitat-uses/new",
@@ -21,6 +22,10 @@ export const ROUTES = {
 
 export const generateOpenEncounterURL = (encounterId) => {
   return `/encounters/${encounterId}/habitat-uses`;
+};
+
+export const generateOpenTripURL = (tripId) => {
+  return `/trips/${tripId}/logbook-entry`;
 };
 
 export const generateEditEncounterURL = (encounterId) => {

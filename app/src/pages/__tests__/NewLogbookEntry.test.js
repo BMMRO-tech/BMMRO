@@ -42,4 +42,23 @@ describe("NewLogbookEntry", () => {
       ).toBeInTheDocument()
     );
   });
+
+  it("navigates to /trips/new if no trip is found in firestore for a given ID", async () => {
+    await firestoreEmulator.collection("trip");
+
+    const entryPath = "/trips/123/logbook-entry";
+    const redirectPath = "/trips/new";
+
+    const { history } = renderWithMockContexts(
+      <NewLogbookEntry tripId={"123"} />,
+      {
+        datastore,
+        route: entryPath,
+      }
+    );
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual(redirectPath);
+    });
+  });
 });
