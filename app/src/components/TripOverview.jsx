@@ -83,7 +83,10 @@ const TripOverview = ({ trip }) => {
               title: "Number of observers",
               value: trip.numberOfObservers,
             })}
-            {renderItem({ title: "Engine hours", value: trip.engineHours })}
+            {renderItem({
+              title: "Engine hours",
+              value: trip.engineHoursMeterReading,
+            })}
             {renderItem({ title: "Wind speed", value: trip.windSpeed })}
             {renderItem({ title: "Wind direction", value: trip.windDirection })}
           </div>

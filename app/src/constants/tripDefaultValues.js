@@ -12,5 +12,4 @@ export default {
   engineHoursMeterReading: "",
   windSpeed: "",
   windDirection: "",
-  comments: "",
 };
