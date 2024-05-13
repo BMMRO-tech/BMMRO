@@ -16,7 +16,7 @@ import Select from "./formFields/Select/Select";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 
 import tripDefaults from "../constants/tripDefaultValues";
-import { generateOpenTripURL } from "../constants/routes";
+import { generateViewTripURL } from "../constants/routes";
 import GpsFormSection from "./GpsFormSection";
 import logbookDefaultValues from "../constants/logbookDefaultValues";
 import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
@@ -54,7 +54,7 @@ const NewLogbookForm = ({
     return (
       <CancelFormConfirmationModal
         closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(generateOpenTripURL(tripId))}
+        handleLeavePage={() => navigate(generateViewTripURL(tripId))}
       />
     );
   };
@@ -225,7 +225,7 @@ const NewLogbookForm = ({
                       );
 
                       Object.keys(modifiedFields).length === 0
-                        ? navigate(generateOpenTripURL(tripId))
+                        ? navigate(generateViewTripURL(tripId))
                         : setShowConfirmationModal(true);
                     }}
                   >

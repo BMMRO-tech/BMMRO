@@ -43,11 +43,11 @@ describe("NewLogbookEntry", () => {
     );
   });
 
-  it("navigates to /trips/new if no trip is found in firestore for a given ID", async () => {
+  it("navigates to /trips overview if no trip is found in firestore for a given ID", async () => {
     await firestoreEmulator.collection("trip");
 
-    const entryPath = "/trips/123/logbook-entry";
-    const redirectPath = "/trips/new";
+    const entryPath = "/trips/123/logbook-entry/new";
+    const redirectPath = "/trips";
 
     const { history } = renderWithMockContexts(
       <NewLogbookEntry tripId={"123"} />,

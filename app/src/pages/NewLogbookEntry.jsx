@@ -26,7 +26,7 @@ const NewLogbookEntry = ({ tripId }) => {
       const tripResult = await datastore.readDocByPath(tripPath);
 
       if (!tripResult.data) {
-        navigate(ROUTES.newTrip);
+        navigate(ROUTES.trips);
         return;
       } else {
         setIsTripValid(true);
