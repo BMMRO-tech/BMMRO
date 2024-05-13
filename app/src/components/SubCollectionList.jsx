@@ -15,12 +15,14 @@ import {
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
 import ListItem from "./list/ListItem";
+import { useMemo } from "react";
 
-const TYPES = {
+const COLLECTIONS = {
   habitat: {
     title: "Habitat Use",
     primaryTime: "startTime",
     buttonTestId: "newHabitat",
+    primaryContentRight: () => "Habitat Use",
     destinationUrl: (parentId, item) => {
       return item.data.exported
         ? generateViewHabitatURL(parentId, item.id)
@@ -31,6 +33,7 @@ const TYPES = {
     title: "Biopsy",
     primaryTime: "timeTaken",
     buttonTestId: "newBiopsy",
+    primaryContentRight: () => "Biopsy",
     destinationUrl: (parentId, item) => {
       return item.data.exported
         ? generateViewBiopsyURL(parentId, item.id)
@@ -41,6 +44,8 @@ const TYPES = {
     title: "Logbook",
     primaryTime: "time",
     buttonTestId: "newLogbook",
+    primaryContentRight: (totalItems, index) =>
+      `Logbook entry ${totalItems - index}`,
     destinationUrl: (parentId, item) => {
       return item.data.exported
         ? generateViewLogbookEntryURL(parentId, item.id)
@@ -56,39 +61,42 @@ const SubCollectionList = ({
   newUrl = generateNewBiopsyURL(parentId),
   type = "biopsy",
 }) => {
-  const currentType = TYPES[type];
+  const collection = COLLECTIONS[type];
 
-  const sortedItems = () => {
-    const sortedBy = currentType.primaryTime;
+  const list = useMemo(() => {
+    const sortedBy = collection.primaryTime;
 
     return items.sort((a, b) =>
       b.data[sortedBy].localeCompare(a.data[sortedBy])
     );
-  };
+  }, [collection, items]);
 
   return (
     <div css={utilities.list.container}>
-      <ListHeader title={currentType.title}>
+      <ListHeader title={collection.title}>
         {!isExported && (
           <Link to={newUrl}>
-            <Button isSmall testId={currentType.buttonTestId}>
+            <Button isSmall testId={collection.buttonTestId}>
               + New
             </Button>
           </Link>
         )}
       </ListHeader>
-      {sortedItems().length === 0 ? (
+      {list.length === 0 ? (
         <p css={utilities.list.noEntries}>
-          No {currentType.title.toLowerCase()} entries yet
+          No {collection.title.toLowerCase()} entries yet
         </p>
       ) : (
         <ul css={utilities.list.items}>
-          {sortedItems().map((item) => (
+          {list.map((item, index) => (
             <ListItem
               key={item.id}
-              destinationUrl={currentType.destinationUrl(parentId, item)}
-              primaryTime={item.data[currentType.primaryTime]}
-              primaryContentRight={currentType.title}
+              destinationUrl={collection.destinationUrl(parentId, item)}
+              primaryTime={item.data[collection.primaryTime]}
+              primaryContentRight={collection.primaryContentRight(
+                list.length,
+                index
+              )}
               isHabitatUse={type === "habitat"}
             />
           ))}

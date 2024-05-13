@@ -27,16 +27,11 @@ import bottomSubstrate from "../constants/formOptions/bottomSubstrate";
 import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
-import PositionalValidationModal from "./PositionalValidationModal";
 
 const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
-  const [showPositionalModal, setShowPositionalModal] = useState({
-    boolean: false,
-    values: "",
-  });
 
   const styles = {
     cancelButton: css`
@@ -63,28 +58,6 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
     setClosedPositionalModal(isPositionalData);
   };
 
-  const isValidPositionalData = (values) =>
-    (values.longitude && values.latitude) || values.gpsMark;
-
-  const renderPositionalValidationModal = () => {
-    return (
-      <PositionalValidationModal
-        closeModal={() => {
-          const elementValue = document.getElementsByName("latitude")[0];
-          window.setTimeout(() => elementValue.focus(), 0);
-          setShowPositionalModal((prevState) => {
-            return {
-              ...prevState,
-              boolean: false,
-            };
-          });
-        }}
-        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
-        pageName="logbook"
-      />
-    );
-  };
-
   const initValues = initialValues || logbookDefaultValues;
 
   return (
@@ -94,9 +67,7 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
           initialValues={initValues}
           innerRef={ref}
           onSubmit={(values) => {
-            isValidPositionalData(values)
-              ? handleSubmit(values)
-              : setShowPositionalModal({ boolean: true, values: values });
+            handleSubmit(values);
           }}
         >
           {({ values }) => (
@@ -276,7 +247,6 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
       </div>
 
       {showConfirmationModal && renderConfirmationModal()}
-      {showPositionalModal.boolean && renderPositionalValidationModal()}
     </div>
   );
 };
