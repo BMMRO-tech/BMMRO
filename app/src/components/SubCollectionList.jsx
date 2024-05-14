@@ -60,6 +60,7 @@ const SubCollectionList = ({
   isExported = false,
   newUrl = generateNewBiopsyURL(parentId),
   type = "biopsy",
+  hasEnded = false,
 }) => {
   const collection = COLLECTIONS[type];
 
@@ -76,7 +77,11 @@ const SubCollectionList = ({
       <ListHeader title={collection.title}>
         {!isExported && (
           <Link to={newUrl}>
-            <Button isSmall testId={collection.buttonTestId}>
+            <Button
+              disabled={hasEnded}
+              isSmall
+              testId={collection.buttonTestId}
+            >
               + New
             </Button>
           </Link>

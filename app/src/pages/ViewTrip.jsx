@@ -15,6 +15,7 @@ import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import SubCollectionList from "../components/SubCollectionList";
+import EndTripConfirmationModal from "../components/EndTripConfirmationModal";
 
 const ViewTrip = ({ tripId }) => {
   const styles = {
@@ -42,12 +43,34 @@ const ViewTrip = ({ tripId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [trip, setTrip] = useState({});
   const [logbookEntries, setLogbookEntries] = useState([]);
+  // const [enterEndDateManually, setEnterEndDateManually] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const navigate = useNavigate();
 
-  const handleEndTrip = () => {
-    // const tripPath = generateTripPath(tripId);
+  const confirmTripEnd = () => {
+    setShowConfirmationModal(true);
+  };
 
-    // datastore.updateDocByPath(tripPath, {});
+  const handleEndTrip = () => {
+    const tripPath = generateTripPath(tripId);
+    if (!trip.hasEnded) {
+      trip.hasEnded = true;
+    }
+
+    const sameDate = (date) => {
+      const now = new Date();
+
+      return (
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear()
+      );
+    };
+    // add the functionality where we can enter the data manually
+    //     if (!sameDate(trip.date)) {
+    // setEnterEndDateManually(true)
+    // };
+    datastore.updateDocByPath(tripPath, trip);
     navigate(ROUTES.trips);
   };
 
@@ -73,18 +96,29 @@ const ViewTrip = ({ tripId }) => {
     // eslint-disable-next-line
   }, [datastore]);
 
+  const renderConfirmationModal = () => {
+    return (
+      <EndTripConfirmationModal
+        closeModal={() => setShowConfirmationModal(false)}
+        handleLeavePage={handleEndTrip}
+      />
+    );
+  };
+
   const renderButtons = () => {
     if (trip.hasEnded || trip.exported) {
       return (
         <div css={utilities.backLinkContainer.bottom}>
-          <BackLink text="Return to trip list" to={ROUTES.encounters} />
+          <BackLink text="Return to trip overview" to={ROUTES.trips} />
         </div>
       );
     }
 
     return (
       <div css={styles.footerContainer}>
-        <Button onClick={handleEndTrip}>End trip</Button>
+        <Button testId={"saveEndTrip"} onClick={confirmTripEnd}>
+          End trip
+        </Button>
       </div>
     );
   };
@@ -100,6 +134,7 @@ const ViewTrip = ({ tripId }) => {
           <TripOverview trip={trip} />
           <div css={styles.list}>
             <SubCollectionList
+              hasEnded={trip.hasEnded}
               items={logbookEntries}
               parentId={tripId}
               isExported={trip?.exported}
@@ -108,6 +143,7 @@ const ViewTrip = ({ tripId }) => {
             />
           </div>
           {renderButtons()}
+          {showConfirmationModal && renderConfirmationModal()}
         </div>
       ) : (
         <Loader />
