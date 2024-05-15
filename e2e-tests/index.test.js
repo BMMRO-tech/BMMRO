@@ -125,7 +125,7 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user create a new logbook entry",
+    "user creates a new logbook entry",
     async () => {
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveLogBook")),
@@ -139,7 +139,9 @@ describe("create a new encounter user journey", () => {
       let newTripUrl = await driver.getCurrentUrl();
       expect(newTripUrl).toBe(
             `${process.env.ENDPOINT}/trips/${tripId}/view`)
+        await driver.findElement(wd.By.text("Logbook entry 1"));
     },
+
     testTimeout
   );
 

@@ -16,7 +16,7 @@ import Select from "./formFields/Select/Select";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 
 import tripDefaults from "../constants/tripDefaultValues";
-import { ROUTES } from "../constants/routes";
+import { generateViewTripURL } from "../constants/routes";
 import GpsFormSection from "./GpsFormSection";
 import logbookDefaultValues from "../constants/logbookDefaultValues";
 import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
@@ -28,7 +28,12 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 
-const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
+const NewLogbookForm = ({
+  handleSubmit,
+  initialValues,
+  isViewOnly,
+  tripId,
+}) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
@@ -49,7 +54,7 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
     return (
       <CancelFormConfirmationModal
         closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(ROUTES.trips)}
+        handleLeavePage={() => navigate(generateViewTripURL(tripId))}
       />
     );
   };
@@ -220,7 +225,7 @@ const NewLogbookForm = ({ handleSubmit, initialValues, isViewOnly }) => {
                       );
 
                       Object.keys(modifiedFields).length === 0
-                        ? navigate(ROUTES.trips)
+                        ? navigate(generateViewTripURL(tripId))
                         : setShowConfirmationModal(true);
                     }}
                   >
