@@ -8,8 +8,6 @@ import {
   generateViewHabitatURL,
   generateEditBiopsyURL,
   generateViewBiopsyURL,
-  generateEditLogbookEntryURL,
-  generateViewLogbookEntryURL,
   generateNewBiopsyURL,
 } from "../constants/routes";
 import ListHeader from "./list/ListHeader";
@@ -46,11 +44,13 @@ const COLLECTIONS = {
     buttonTestId: "newLogbook",
     primaryContentRight: (totalItems, index) =>
       `Logbook entry ${totalItems - index}`,
-    destinationUrl: (parentId, item) => {
-      return item.data.exported
-        ? generateViewLogbookEntryURL(parentId, item.id)
-        : generateEditLogbookEntryURL(parentId, item.id);
-    },
+    // TODO: make link clickable once view and edit logbook functionality is there
+    destinationUrl: (parentId, item) => "",
+    // {
+    //   return item.data.exported
+    //     ? generateViewLogbookEntryURL(parentId, item.id)
+    //     : generateEditLogbookEntryURL(parentId, item.id);
+    // },
   },
 };
 
@@ -75,7 +75,7 @@ const SubCollectionList = ({
   return (
     <div css={utilities.list.container}>
       <ListHeader title={collection.title}>
-        {!isExported && (
+        {!isExported && !hasEnded && (
           <Link to={newUrl}>
             <Button
               disabled={hasEnded}
