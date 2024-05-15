@@ -14,15 +14,40 @@ const updateInBatch = require("./src/updateInBatch");
 const getMessage = require("./src/constants/getMessage");
 const config = require("./src/constants/fieldMaps");
 const queryNestedSubcollectionByDocPath = require("./src/queryNestedSubcollectionByDocPath");
+const queryCollectionByConditions = require("./src/queryCollectionByConditions");
 
 const encounterCollection = "encounter";
+const tripCollection = "trip";
+const timestampTripFieldName = "date";
+const logbookSubcollection = "logbookEntry";
 const habitatUseSubcollection = "habitatUse";
 const biopsySubcollection = "biopsy";
 const specimenSubcollection = "specimen";
 const timestampFieldName = "startTimestamp";
+const exportedFieldName = "exported";
+const tripEndFieldName = "hasEnded";
 const dirName = "./exported";
 
+
+let habitatUseEntries = [];
+let biopsyEntries = [];
+let logbookEntries = [];
+let specimenEntries = [];
+
+let csvEncounters;
+let csvLogbook;
+let csvHabitatUse;
+let csvBiopsies;
+let csvSpecimen;
+
+let encountersFileName;
+let logbookFileName;
+let habitatUseFileName;
+let biopsyFileName;
+let specimenFileName;
+
 const exportData = async (startDateArg, endDateArg, options) => {
+  const exportedValue = !options.all ? [false] : [true, false]
   const configStatus = checkMissingConfig(
     process.env.PROJECT_ID,
     process.env.API_KEY,
@@ -47,6 +72,18 @@ const exportData = async (startDateArg, endDateArg, options) => {
     .catch((e) => logToStdErrAndExit(e.message));
 
   logSection("Fetching data from Firestore");
+  
+  const tripEntries = await queryCollectionByConditions(
+    firebase.firestore(),
+    tripCollection,
+    [
+      {key:timestampTripFieldName,value:startDate, operator:">="},
+      {key:timestampTripFieldName,value:endDate, operator:"<"},
+      {key:exportedFieldName,value: exportedValue, operator:"in"},
+      {key:tripEndFieldName, value: true, operator:"=="},
+    ],
+  ).catch((e) => logToStdErrAndExit(e.message));
+
   const encounterEntries = await queryCollectionByTimeRange(
     startDate,
     endDate,
@@ -55,10 +92,22 @@ const exportData = async (startDateArg, endDateArg, options) => {
     encounterCollection,
     !options.all
   ).catch((e) => logToStdErrAndExit(e.message));
-  if (encounterEntries.length === 0) logAndExit(getMessage("NO_DATA"));
 
-  let habitatUseEntries = [];
-  let biopsyEntries = [];
+  if (encounterEntries.length === 0 && tripEntries.length === 0) logAndExit(getMessage("NO_DATA"));
+
+  if (tripEntries.length === 0) logSection(getMessage("NO_DATA_SECTION", {section: "trip"}));
+
+  if (encounterEntries.length === 0) logSection(getMessage("NO_DATA_SECTION", {section: "encounter"}));
+
+  for (const trip of tripEntries) {
+    const logbook = await querySubcollectionByDocPath(
+      firebase.firestore(),
+      trip.path,
+      logbookSubcollection
+    );
+    logbookEntries.push(...logbook);
+  }
+
   for (const encounter of encounterEntries) {
     const habitatUse = await querySubcollectionByDocPath(
       firebase.firestore(),
@@ -75,7 +124,6 @@ const exportData = async (startDateArg, endDateArg, options) => {
     biopsyEntries.push(...biopsy);
   }
 
-  let specimenEntries = [];
   for (const biopsy of biopsyEntries){
     const specimen = await queryNestedSubcollectionByDocPath(
       firebase.firestore(),
@@ -89,6 +137,11 @@ const exportData = async (startDateArg, endDateArg, options) => {
   }
 
   logSection("Transforming to csv format");
+  const extendedLogbookEntries = populateCollectionValues(
+    tripEntries,
+    logbookEntries,
+    config.subCollectionToTrip
+  );
   const extendedHabitatUseEntries = populateCollectionValues(
     encounterEntries,
     habitatUseEntries,
@@ -107,9 +160,17 @@ const exportData = async (startDateArg, endDateArg, options) => {
     config.biopsyToSpecimen
   )
 
-  const csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
+  if (!!encounterEntries.length) {
+    csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
+  }
 
-  let csvHabitatUse;
+  if (!!logbookEntries.length) {
+    csvLogbook = transformJsonToCsv(
+      extendedLogbookEntries,
+      config.trip
+    );
+  }
+
   if (!!habitatUseEntries.length) {
     csvHabitatUse = transformJsonToCsv(
       extendedHabitatUseEntries,
@@ -117,12 +178,10 @@ const exportData = async (startDateArg, endDateArg, options) => {
     );
   }
 
-  let csvBiopsies;
   if (!!biopsyEntries.length) {
     csvBiopsies = transformJsonToCsv(extendedBiopsiesEntries, config.biopsy);
   }
 
-  let csvSpecimen;
   if(!!specimenEntries.length){
     csvSpecimen = transformJsonToCsv(extendedSpecimenEntries, config.specimen)
   } 
@@ -131,6 +190,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     logSection("Marking records as exported");
     const allEntries = [
       ...encounterEntries,
+      ...logbookEntries,
       ...habitatUseEntries,
       ...biopsyEntries,
       ...specimenEntries,
@@ -151,13 +211,22 @@ const exportData = async (startDateArg, endDateArg, options) => {
   }
 
   logSection("Writing csv data to files");
-  const encountersFileName = generateFilename(
+  if (!!encounterEntries.length) { 
+   encountersFileName = generateFilename(
     encounterCollection,
     startDate,
     endDate
   );
+  }
 
-  let habitatUseFileName;
+  if (!!logbookEntries.length) {
+    logbookFileName = generateFilename(
+      logbookSubcollection,
+      startDate,
+      endDate
+    );
+  }
+
   if (!!habitatUseEntries.length) {
     habitatUseFileName = generateFilename(
       habitatUseSubcollection,
@@ -166,17 +235,21 @@ const exportData = async (startDateArg, endDateArg, options) => {
     );
   }
 
-  let biopsyFileName;
   if (!!biopsyEntries.length) {
     biopsyFileName = generateFilename(biopsySubcollection, startDate, endDate);
   }
 
-  let specimenFileName;
   if (!!specimenEntries.length){
     specimenFileName = generateFilename(specimenSubcollection, startDate, endDate);
   }
 
-  writeDataToFile(dirName, encountersFileName, csvEncounters);
+  if (!!encounterEntries.length) { 
+    writeDataToFile(dirName, encountersFileName, csvEncounters);
+  }
+
+  if (!!logbookEntries.length) {
+    writeDataToFile(dirName, logbookFileName, csvLogbook);
+  }
 
   if (!!habitatUseEntries.length) {
     writeDataToFile(dirName, habitatUseFileName, csvHabitatUse);
