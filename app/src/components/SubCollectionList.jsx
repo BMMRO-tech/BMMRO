@@ -75,13 +75,9 @@ const SubCollectionList = ({
   return (
     <div css={utilities.list.container}>
       <ListHeader title={collection.title}>
-        {!isExported && !hasEnded && (
+        {!isExported && (
           <Link to={newUrl}>
-            <Button
-              disabled={hasEnded}
-              isSmall
-              testId={collection.buttonTestId}
-            >
+            <Button isSmall testId={collection.buttonTestId}>
               + New
             </Button>
           </Link>
