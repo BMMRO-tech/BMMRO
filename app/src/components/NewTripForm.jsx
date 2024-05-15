@@ -80,7 +80,9 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
     const filename =
       date && vessel ? `${date}-${vessel}` : date || vessel || "";
 
-    return filename + ".txt";
+    const fileExtension = filename !== "" ? ".txt" : "";
+
+    return filename + fileExtension;
   };
 
   const renderConfirmationModal = () => {
