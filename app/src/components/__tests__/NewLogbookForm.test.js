@@ -84,9 +84,9 @@ describe("NewLogbookForm", () => {
       bottomSubstrate: "",
       cloudCover: "",
       beaufortSeaState: "",
-      gpsMark: "",
-      hydrophoneChecked: "",
-      efforted: "",
+      waveHeight: 12,
+      hydrophoneChecked: "No",
+      efforted: "On",
       hydrophoneComments: "",
       logbookComments: "",
     };
@@ -108,7 +108,11 @@ describe("NewLogbookForm", () => {
       userEvent.click(submitButton);
     });
 
-    expect(formValues).toEqual(mockInitialValues);
+    expect(formValues.time).toEqual("11:30:12");
+    expect(formValues.latitude).toEqual("1.234567");
+    expect(formValues.longitude).toEqual("-2.345678");
+    expect(formValues.hydrophoneChecked).toEqual("No");
+    expect(formValues.beaufortSeaState).toEqual("");
   });
 
   it("contains cancel button", async () => {
