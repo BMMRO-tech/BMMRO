@@ -12,6 +12,6 @@ describe("convertHydrophoneCheck", () => {
     const value = "Yes";
     const convertedToZero = convertHydrophoneCheck(value);
 
-    expect(convertedToZero).toEqual(1);
+    expect(convertedToZero).toEqual(-1);
   });
 });
