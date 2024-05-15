@@ -14,4 +14,5 @@ export default {
   efforted: "On",
   hydrophoneComments: "",
   logbookComments: "",
+  exported: false,
 };

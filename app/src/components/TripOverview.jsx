@@ -12,6 +12,11 @@ import { RightArrow } from "./icons/RightArrow";
 
 const TripOverview = ({ trip }) => {
   const styles = {
+    exportedInfo: css`
+      font-style: italic;
+      padding-left: 10px;
+      margin-top: 0;
+    `,
     container: css`
       background-color: ${colors.white};
       padding: 15px 10px;
@@ -65,6 +70,11 @@ const TripOverview = ({ trip }) => {
 
   return (
     <Fragment>
+      {trip.exported && (
+        <p css={styles.exportedInfo} data-testid="exported-info">
+          This trip has been exported and can no longer be edited in the app.
+        </p>
+      )}
       <section data-testid="trip-info">
         <ListHeader title="Trip Details" />
         <div css={styles.container}>
