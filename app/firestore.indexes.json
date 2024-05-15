@@ -21,11 +21,12 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "hasEnded",
+          "order":  "ASCENDING"
+        },
+        {
           "fieldPath": "date",
           "order": "ASCENDING"
-        },
-        {"fieldPath": "hasEnded",
-        "order":  "ASCENDING"
         }
       ]
     }
