@@ -103,6 +103,8 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
               format(values.date, "yy_MMdd") +
               values?.vessel.slice(0, 2) +
               values.tripNumber;
+            values.exported = false;
+            values.hasEnded = false;
             transformSubmitValues(values);
             handleSubmit(values);
           }}

@@ -9,6 +9,22 @@ describe("TripsOverviewPage", () => {
   const projectId = "trips-overview-test-id";
   let firestoreEmulator;
   let datastore;
+  const mockTrip = {
+    area: "East Berry Islands",
+    engineHoursMeterReading: "",
+    gpsFileName: "24_0510-Od.txt",
+    numberOfObservers: 0,
+    observers: "",
+    project: "",
+    time: "10:29",
+    tripId: "24_0510Od123",
+    tripNumber: 123,
+    vessel: "Odyssey",
+    windDirection: "",
+    windSpeed: "",
+    date: new Date(),
+    hasEnded: false,
+  };
 
   beforeEach(() => {
     firestoreEmulator = firebaseTesting
@@ -50,6 +66,20 @@ describe("TripsOverviewPage", () => {
 
     await waitFor(() =>
       expect(screen.getByTestId("new-trips-button")).toBeInTheDocument()
+    );
+  });
+
+  it("show warning when a trip has not been ended yet", async () => {
+    await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
+
+    renderWithMockContexts(<Trips />, {
+      datastore,
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.getByText("please end trip before exporting")
+      ).toBeInTheDocument()
     );
   });
 });

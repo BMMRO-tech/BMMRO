@@ -53,9 +53,8 @@ const ViewTrip = ({ tripId }) => {
 
   const handleEndTrip = () => {
     const tripPath = generateTripPath(tripId);
-    if (!trip.hasEnded) {
-      trip.hasEnded = true;
-    }
+    trip.hasEnded = true;
+    setTrip(trip.hasEnded);
 
     // const sameDate = (date) => {
     //   const now = new Date();
@@ -134,7 +133,7 @@ const ViewTrip = ({ tripId }) => {
           <TripOverview trip={trip} />
           <div css={styles.list}>
             <SubCollectionList
-              hasEnded={trip.hasEnded}
+              hasEnded={trip?.hasEnded}
               items={logbookEntries}
               parentId={tripId}
               isExported={trip?.exported}
