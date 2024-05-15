@@ -6,6 +6,7 @@ import colors from "../../materials/colors";
 import typography from "../../materials/typography";
 import breakPoints from "../../materials/breakPoints";
 import { RightArrow } from "../icons/RightArrow";
+import Button from "../Button";
 
 const ListItem = ({
   destinationUrl,
@@ -16,6 +17,7 @@ const ListItem = ({
   primaryContentRight,
   secondaryContent,
   isHabitatUse,
+  middleContent,
 }) => {
   const styles = {
     link: css`
@@ -70,6 +72,14 @@ const ListItem = ({
       overflow: hidden;
       margin-right: 10px;
     `,
+
+    middleContentStyle: css`
+      background: ${colors.mediumTurquoise};
+      color: ${colors.white};
+      border: 1px solid ${colors.mediumTurquoise};
+      margin-left: 20px;
+    `,
+
     rightContainer: css`
       ${typography.smallText}
 
@@ -100,6 +110,13 @@ const ListItem = ({
               </span>
             )}
             {primaryContentRight && <span>{primaryContentRight}</span>}
+            {middleContent && (
+              <span css={styles.middleContentStyle}>
+                <Button isSmall variant="primary">
+                  {middleContent}
+                </Button>
+              </span>
+            )}
           </div>
 
           {secondaryContent && (

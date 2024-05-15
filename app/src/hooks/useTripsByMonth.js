@@ -13,7 +13,7 @@ import { CollectionNames } from "../constants/datastore";
 import { getCurrentDate, constructDateTime } from "../utils/time";
 
 const extractTripProperties = (trip) => {
-  const { date, area, tripId, time } = trip.data;
+  const { date, area, tripId, time, hasEnded, exported } = trip.data;
   return {
     id: trip.id,
     data: {
@@ -21,6 +21,8 @@ const extractTripProperties = (trip) => {
       area,
       tripId,
       time,
+      hasEnded,
+      exported,
     },
   };
 };
