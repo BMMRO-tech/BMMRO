@@ -12,6 +12,21 @@
           "fieldPath": "startTimestamp",
           "order": "ASCENDING"
         }
+      ],
+      "collectionGroup": "trip",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "exported",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        },
+        {"fieldPath": "hasEnded",
+        "order":  "ASCENDING"
+        }
       ]
     }
   ],
