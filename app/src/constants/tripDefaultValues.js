@@ -12,4 +12,6 @@ export default {
   engineHoursMeterReading: "",
   windSpeed: "",
   windDirection: "",
+  exported: false,
+  hasEnded: false,
 };
