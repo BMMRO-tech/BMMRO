@@ -139,7 +139,11 @@ describe("create a new encounter user journey", () => {
       let newTripUrl = await driver.getCurrentUrl();
       expect(newTripUrl).toBe(
             `${process.env.ENDPOINT}/trips/${tripId}/view`)
-        await driver.findElement(wd.By.text("Logbook entry 1"));
+
+      const logbook = await driver.findElement(wd.By.id("biopsy")).getText();
+
+      let expectedText = "Logbook entry 1";
+      expect(logbook).toContain(expectedText);;
     },
 
     testTimeout
