@@ -14,6 +14,7 @@ import ViewTrip from "../ViewTrip";
 import OpenEncounter from "../OpenEncounter";
 import userEvent from "@testing-library/user-event";
 import { useLocation } from "@reach/router";
+import Trips from "../Trips";
 
 describe("ViewTrip", () => {
   const projectId = "view-trip-test";
@@ -86,6 +87,30 @@ describe("ViewTrip", () => {
       expect(endedTrip.hasEnded).toBe(true);
     });
   });
+  it("show new logbook button when trip is not yet exported", async () => {
+    const trip = {
+      exported: false,
+      ...mockTrip,
+    };
+    await firestoreEmulator.collection("trip").doc("123").set(trip);
+    renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("newLogbook")).toBeInTheDocument()
+    );
+  });
+  it("don't show new logbook button when trip has been exported", async () => {
+    const trip = {
+      exported: true,
+      ...mockTrip,
+    };
+    await firestoreEmulator.collection("trip").doc("123").set(trip);
+    renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
+
+    await waitFor(() =>
+      expect(screen.queryByTestId("newLogbook")).not.toBeInTheDocument()
+    );
+  });
 
   it("end trip button disappears when the trip has already been exported", async () => {
     const trip = {
@@ -93,7 +118,7 @@ describe("ViewTrip", () => {
       ...mockTrip,
     };
     await firestoreEmulator.collection("trip").doc("123").set(trip);
-    const { findByRole } = renderWithMockContexts(<ViewTrip tripId={"123"} />, {
+    renderWithMockContexts(<ViewTrip tripId={"123"} />, {
       datastore,
     });
     const endButton = await screen.queryByRole("button", {

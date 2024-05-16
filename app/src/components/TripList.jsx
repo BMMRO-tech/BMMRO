@@ -22,7 +22,8 @@ const TripListItem = ({ trip, isToday }) => {
     `,
   };
 
-  const { tripId, area, time } = trip.data;
+  const { tripId, area, time, hasEnded } = trip.data;
+  const warning = hasEnded ? "" : "please end trip before exporting";
 
   return (
     <ListItem
@@ -31,6 +32,7 @@ const TripListItem = ({ trip, isToday }) => {
       primaryTime={isToday && time}
       primaryContentLeft={tripId}
       primaryContentLeftStyle={styles.primaryContentLeftStyle}
+      middleContent={warning}
       secondaryContent={area}
     />
   );
