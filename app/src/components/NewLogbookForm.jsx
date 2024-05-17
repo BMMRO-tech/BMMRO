@@ -86,7 +86,6 @@ const NewLogbookForm = ({
                     labelText="Time"
                     autofill={true}
                     isRequired
-                    timeWithSeconds
                   />
                 </FormSection>
               </section>

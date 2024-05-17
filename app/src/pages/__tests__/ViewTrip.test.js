@@ -11,10 +11,8 @@ import {
 
 import { Datastore } from "../../datastore/datastore";
 import ViewTrip from "../ViewTrip";
-import OpenEncounter from "../OpenEncounter";
 import userEvent from "@testing-library/user-event";
-import { useLocation } from "@reach/router";
-import Trips from "../Trips";
+import MockDate from "mockdate";
 
 describe("ViewTrip", () => {
   const projectId = "view-trip-test";
@@ -135,5 +133,42 @@ describe("ViewTrip", () => {
         })
       ).toHaveLength(2);
     });
+  });
+
+  it("last logbook entry is created with current time when ending a trip", async () => {
+    MockDate.set("2020-05-04T11:30:12.000Z");
+    await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
+    await firestoreEmulator
+      .doc("trip/123")
+      .collection("logbookEntry")
+      .add({ time: "10:29" });
+
+    renderWithMockContexts(<ViewTrip tripId={"123"} />, {
+      datastore,
+    });
+    const endButton = await waitFor(() => screen.getByText("End trip"));
+    await act(async () => {
+      userEvent.click(endButton);
+    });
+    await waitFor(() =>
+      screen.getByText("Are you sure you want to end this trip?")
+    );
+    const confirmButton = await waitFor(() =>
+      screen.getByText("Save & Continue")
+    );
+    await act(async () => {
+      userEvent.click(confirmButton);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("Logbook entry 1")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByText("Logbook entry 2")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByText("11:30")).toBeInTheDocument();
+    });
+    MockDate.reset();
   });
 });

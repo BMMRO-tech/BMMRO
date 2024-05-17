@@ -34,7 +34,7 @@ describe("NewLogbookForm", () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(formValues.time).toEqual("11:30:12");
+      expect(formValues.time).toEqual("11:30");
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
     });
@@ -65,7 +65,7 @@ describe("NewLogbookForm", () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(formValues.time).toEqual("11:30:12");
+      expect(formValues.time).toEqual("11:30");
       expect(formValues.latitude).toEqual("15.123456");
       expect(formValues.longitude).toEqual("-1.123456");
       expect(formValues.gpsMark).toEqual("2");
@@ -108,7 +108,7 @@ describe("NewLogbookForm", () => {
       userEvent.click(submitButton);
     });
 
-    expect(formValues.time).toEqual("11:30:12");
+    expect(formValues.time).toEqual("11:30");
     expect(formValues.latitude).toEqual("1.234567");
     expect(formValues.longitude).toEqual("-2.345678");
     expect(formValues.hydrophoneChecked).toEqual("No");

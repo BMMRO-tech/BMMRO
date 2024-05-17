@@ -4,7 +4,11 @@ import { jsx, css } from "@emotion/core";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BackLink from "../components/BackLink";
-import { ROUTES, generateNewLogbookEntryURL } from "../constants/routes";
+import {
+  ROUTES,
+  generateNewLogbookEntryURL,
+  generateViewTripURL,
+} from "../constants/routes";
 import TripOverview from "../components/TripOverview";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
 import { useNavigate } from "@reach/router";
@@ -16,6 +20,10 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import SubCollectionList from "../components/SubCollectionList";
 import EndTripConfirmationModal from "../components/EndTripConfirmationModal";
+import logbookDefaultValues from "../constants/logbookDefaultValues";
+import { format } from "date-fns";
+import { getCurrentDate } from "../utils/time";
+import { TIME_FORMAT } from "../constants/forms";
 
 const ViewTrip = ({ tripId }) => {
   const styles = {
@@ -55,6 +63,13 @@ const ViewTrip = ({ tripId }) => {
     const tripPath = generateTripPath(tripId);
     trip.hasEnded = true;
     setTrip(trip.hasEnded);
+    setShowConfirmationModal(false);
+    logbookDefaultValues.time = format(getCurrentDate(), TIME_FORMAT);
+    datastore.createSubDoc(
+      tripPath,
+      CollectionNames.LOGBOOK_ENTRY,
+      logbookDefaultValues
+    );
 
     // const sameDate = (date) => {
     //   const now = new Date();
@@ -70,7 +85,7 @@ const ViewTrip = ({ tripId }) => {
     // setEnterEndDateManually(true)
     // };
     datastore.updateDocByPath(tripPath, trip);
-    navigate(ROUTES.trips);
+    navigate(generateViewTripURL(tripId));
   };
 
   useEffect(() => {
@@ -93,7 +108,7 @@ const ViewTrip = ({ tripId }) => {
       getData(generateTripPath(tripId));
     }
     // eslint-disable-next-line
-  }, [datastore]);
+  }, [datastore, trip.tripId]);
 
   const renderConfirmationModal = () => {
     return (
@@ -130,7 +145,7 @@ const ViewTrip = ({ tripId }) => {
 
       {!!Object.keys(trip).length ? (
         <div css={utilities.sticky.contentContainer}>
-          <TripOverview trip={trip} />
+          <TripOverview trip={trip} tripId={tripId} />
           <div css={styles.list}>
             <SubCollectionList
               hasEnded={trip?.hasEnded}
