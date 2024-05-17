@@ -1,18 +1,11 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
 import * as firebaseTesting from "@firebase/testing";
-import {
-  act,
-  fireEvent,
-  queryByRole,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
 import ViewTrip from "../ViewTrip";
 import userEvent from "@testing-library/user-event";
-import MockDate from "mockdate";
 
 describe("ViewTrip", () => {
   const projectId = "view-trip-test";
@@ -49,6 +42,7 @@ describe("ViewTrip", () => {
   afterAll(async () => {
     await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    jest.clearAllMocks();
   });
 
   //todo: add the trip miles
@@ -136,7 +130,7 @@ describe("ViewTrip", () => {
   });
 
   it("last logbook entry is created with current time when ending a trip", async () => {
-    MockDate.set("2020-05-04T11:30:12.000Z");
+    Date.now = jest.fn(() => new Date("2020-05-04T11:30:12.000Z").getTime());
     await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
     await firestoreEmulator
       .doc("trip/123")
@@ -169,6 +163,5 @@ describe("ViewTrip", () => {
     await waitFor(() => {
       expect(screen.getByText("11:30")).toBeInTheDocument();
     });
-    MockDate.reset();
   });
 });
