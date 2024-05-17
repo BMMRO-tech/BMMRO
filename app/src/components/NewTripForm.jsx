@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Form, Formik } from "formik";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { navigate } from "@reach/router";
-import { format } from "date-fns";
+import {css, jsx} from "@emotion/core";
+import {Form, Formik} from "formik";
+import {Fragment, useEffect, useRef, useState} from "react";
+import {navigate} from "@reach/router";
+import {format} from "date-fns";
 
 import utilities from "../materials/utilities";
-import { getModifiedProperties } from "../utils/math";
+import {getModifiedProperties} from "../utils/math";
 import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
@@ -20,10 +20,10 @@ import TimeInput from "./formFields/TimeInput/TimeInput";
 
 import area from "../constants/formOptions/area";
 import tripDefaults from "../constants/tripDefaultValues";
-import { ROUTES } from "../constants/routes";
+import {ROUTES} from "../constants/routes";
 import vessel from "../constants/formOptions/vessel";
 import direction from "../constants/formOptions/direction";
-import { getProjects } from "../hooks/getProjects";
+import {getProjects} from "../hooks/getProjects";
 
 const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -33,7 +33,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
 
   useEffect(() => {
     getProjects(datastore).then((data) => setProjectsList(data));
-  });
+  }, [datastore]);
 
   useEffect(() => {
     handleSetFieldValue(
