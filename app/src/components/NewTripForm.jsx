@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Form, Formik } from "formik";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import { format } from "date-fns";
 
@@ -27,29 +27,12 @@ import { getProjects } from "../hooks/getProjects";
 
 const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const ref = useRef(null);
 
   const [projectsList, setProjectsList] = useState();
 
   useEffect(() => {
     getProjects(datastore).then((data) => setProjectsList(data));
   }, [datastore]);
-
-  useEffect(() => {
-    handleSetFieldValue(
-      "gpsFileName",
-      generateGpsFileName(ref.current?.values)
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref.current?.values.date, ref.current?.values.vessel]);
-
-  useEffect(() => {
-    handleSetFieldValue(
-      "numberOfObservers",
-      calculateObservers(ref.current?.values.observers)
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref.current?.values.observers]);
 
   const styles = {
     cancelButton: css`
@@ -58,11 +41,6 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
     endButton: css`
       margin-right: 10px;
     `,
-  };
-
-  const handleSetFieldValue = (field, value) => {
-    const setFieldValue = ref.current?.setFieldValue;
-    if (setFieldValue) setFieldValue(field, value);
   };
 
   const transformSubmitValues = (values) => {
@@ -93,12 +71,24 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
     );
   };
 
+  const handleOnChange = (e, values, setFieldValue) => {
+    const { value, name } = e.target;
+    if (name == "vessel")
+      setFieldValue(
+        "gpsFileName",
+        generateGpsFileName({ ...values, [name]: value })
+      );
+    else if (name === "date")
+      setFieldValue("gpsFileName", generateGpsFileName(values));
+    else if (name === "observers")
+      setFieldValue("numberOfObservers", calculateObservers(value));
+  };
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
           initialValues={tripDefaults}
-          innerRef={ref}
           onSubmit={(values) => {
             values.tripId =
               format(values.date, "yy_MMdd") +
@@ -110,8 +100,15 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
             handleSubmit(values);
           }}
         >
-          {({ values }) => (
-            <Form>
+          {({ values, setFieldValue }) => (
+            <Form
+              onChange={(e) => {
+                handleOnChange(e, values, setFieldValue);
+              }}
+              onSelect={(e) => {
+                handleOnChange(e, values, setFieldValue);
+              }}
+            >
               <section>
                 <ListHeader title="Trip details" />
                 <FormSection>
@@ -156,6 +153,12 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     options={vessel}
                     isDisabled={isViewOnly}
                     isRequired
+                    onChange={async (e) => {
+                      const { value } = e.target;
+
+                      console.log(value);
+                      setFieldValue("gpsFileName", generateGpsFileName(values));
+                    }}
                   />
 
                   <TextInput name="gpsFileName" labelText="GPS file name" />

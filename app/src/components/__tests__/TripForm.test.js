@@ -12,6 +12,12 @@ jest.mock("@reach/router", () => ({
 
 describe("TripForm", () => {
   beforeAll(() => {
+    window.getSelection = () => {
+      return {
+        removeAllRanges: () => {},
+      };
+    };
+
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime()
     );
