@@ -20,12 +20,20 @@ import TimeInput from "./formFields/TimeInput/TimeInput";
 
 import area from "../constants/formOptions/area";
 import tripDefaults from "../constants/tripDefaultValues";
-import { ROUTES } from "../constants/routes";
+import { ROUTES, generateViewTripURL } from "../constants/routes";
 import vessel from "../constants/formOptions/vessel";
 import direction from "../constants/formOptions/direction";
 import { getProjects } from "../hooks/getProjects";
+import { FormSubmitType } from "../constants/forms";
 
-const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
+const TripForm = ({
+  initialValues,
+  handleSubmit,
+  isViewOnly,
+  tripId,
+  autofillEnd,
+  datastore,
+}) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
 
@@ -93,21 +101,21 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
     );
   };
 
+  const initValues = initialValues || tripDefaults;
+
   return (
     <div css={utilities.sticky.contentContainer}>
       <div css={utilities.form.container}>
         <Formik
-          initialValues={tripDefaults}
+          initialValues={initValues}
           innerRef={ref}
           onSubmit={(values) => {
             values.tripId =
               format(values.date, "yy_MMdd") +
               values?.vessel.slice(0, 2) +
               values.tripNumber;
-            values.exported = false;
-            values.hasEnded = false;
             transformSubmitValues(values);
-            handleSubmit(values);
+            handleSubmit(FormSubmitType.SAVE, values);
           }}
         >
           {({ values }) => (
@@ -127,13 +135,12 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     labelText="Date"
                     isRequired
                     notAfter={new Date()}
-                    autofill={true}
+                    autofill={!initialValues}
                   />
 
                   <TimeInput
                     name="time"
                     labelText="Time"
-                    autofill={true}
                     notAfter={values.date}
                     isRequired
                   />
@@ -158,7 +165,11 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     isRequired
                   />
 
-                  <TextInput name="gpsFileName" labelText="GPS file name" />
+                  <TextInput
+                    value={values.gpsFileName}
+                    name="gpsFileName"
+                    labelText="GPS file name"
+                  />
 
                   <TextInput name="observers" labelText="Observers" />
 
@@ -208,23 +219,18 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     onClick={() => {
                       const modifiedFields = getModifiedProperties(
                         values,
-                        tripDefaults
+                        initValues
                       );
 
                       Object.keys(modifiedFields).length === 0
-                        ? navigate(ROUTES.trips)
+                        ? navigate(generateViewTripURL(tripId))
                         : setShowConfirmationModal(true);
                     }}
                   >
                     Cancel
                   </Button>
-                  <Button
-                    styles={styles.endButton}
-                    width="200px"
-                    type="submit"
-                    testId={"newLogBook"}
-                  >
-                    Save & Start Logbook
+                  <Button styles={styles.endButton} width="200px" type="submit">
+                    Save & Update
                   </Button>
                 </div>
                 <InputFocusOnError />
@@ -239,4 +245,4 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
   );
 };
 
-export default NewTripForm;
+export default TripForm;

@@ -9,8 +9,9 @@ import { DATE_FORMAT } from "../constants/forms";
 import { format } from "date-fns";
 import { Link } from "@reach/router";
 import { RightArrow } from "./icons/RightArrow";
+import { generateEditTripURL } from "../constants/routes";
 
-const TripOverview = ({ trip }) => {
+const TripOverview = ({ trip, tripId }) => {
   const styles = {
     exportedInfo: css`
       font-style: italic;
@@ -101,12 +102,18 @@ const TripOverview = ({ trip }) => {
             {renderItem({ title: "Wind direction", value: trip.windDirection })}
           </div>
 
-          <Link css={styles.link} to={""}>
-            <span id="editTripInformation">Edit Trip Information</span>
-            <span css={styles.arrow}>
-              <RightArrow />
-            </span>
-          </Link>
+          {!trip.exported && (
+            <Link
+              css={styles.link}
+              to={generateEditTripURL(tripId)}
+              data-testid="edit-link"
+            >
+              <span id="editTripInformation">Edit Trip Information</span>
+              <span css={styles.arrow}>
+                <RightArrow />
+              </span>
+            </Link>
+          )}
         </div>
       </section>
     </Fragment>

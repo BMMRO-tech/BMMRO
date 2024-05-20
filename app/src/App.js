@@ -27,6 +27,7 @@ import { MonthProvider } from "./providers/monthContext/MonthContext";
 import NewLogbookEntry from "./pages/NewLogbookEntry";
 import NotFound from "./pages/NotFound";
 import ViewTrip from "./pages/ViewTrip";
+import EditTrip from "./pages/EditTrip";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -49,6 +50,7 @@ const AppWithoutContext = () => {
       <Encounters path={ROUTES.encounters} />
       <Trips path={ROUTES.trips} />
       <NewTrip path={ROUTES.newTrip} />
+      <EditTrip path={ROUTES.editTrip} />
       <ViewTrip path={ROUTES.viewTrip} />
       <NewLogbookEntry path={ROUTES.newLogbookEntry} />
       <NotFound default path={ROUTES.notFound} />

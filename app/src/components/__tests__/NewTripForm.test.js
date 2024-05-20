@@ -49,7 +49,7 @@ describe("NewTripForm", () => {
     expect(formValues.area).toEqual("Central Andros");
     expect(formValues.vessel).toEqual("Chimo");
     expect(formValues.tripNumber).toEqual(123);
-    expect(formValues.gpsFileName).toEqual("20_0504-Ch.txt");
+    expect(formValues.gpsFileName).toEqual("20_0504Ch.txt");
 
     expect(formValues.date).toEqual(new Date("2020-05-04T00:00:00.000Z"));
     expect(formValues.time).toEqual("11:30");

@@ -5,6 +5,7 @@ export const ROUTES = {
   newEncounter: "/encounters/new",
   newTrip: "/trips/new",
   viewTrip: "/trips/:tripId/view",
+  editTrip: "/trips/:tripId/edit",
   newLogbookEntry: "/trips/:tripId/logbook-entry/new",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   openTrip: "/trips/:tripId/logbook-entry",

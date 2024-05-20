@@ -130,7 +130,7 @@ const ViewTrip = ({ tripId }) => {
 
       {!!Object.keys(trip).length ? (
         <div css={utilities.sticky.contentContainer}>
-          <TripOverview trip={trip} />
+          <TripOverview trip={trip} tripId={tripId} />
           <div css={styles.list}>
             <SubCollectionList
               hasEnded={trip?.hasEnded}
