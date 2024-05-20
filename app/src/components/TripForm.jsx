@@ -81,7 +81,7 @@ const TripForm = ({
 
   const handleOnChange = (e, values, setFieldValue) => {
     const { value, name } = e.target;
-    if (name == "vessel")
+    if (name === "vessel")
       setFieldValue(
         "gpsFileName",
         generateGpsFileName({ ...values, [name]: value })
