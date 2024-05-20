@@ -153,12 +153,6 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     options={vessel}
                     isDisabled={isViewOnly}
                     isRequired
-                    onChange={async (e) => {
-                      const { value } = e.target;
-
-                      console.log(value);
-                      setFieldValue("gpsFileName", generateGpsFileName(values));
-                    }}
                   />
 
                   <TextInput name="gpsFileName" labelText="GPS file name" />
