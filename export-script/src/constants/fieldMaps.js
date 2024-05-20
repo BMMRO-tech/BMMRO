@@ -12,6 +12,7 @@ const convertAgeToInitial = require("../mappings/convertAgeToInitial");
 const convertSexToInitials = require("../mappings/convertSexToInitials");
 const convertHydrophoneCheck = require("../mappings/convertHydrophoneCheck");
 const combineHydrophoneAndLogbookComments = require("../combineHydrophoneAndLogbookComments");
+const convertBeyondSoundingsToMinusOne = require("../mappings/convertBeyondSoundingsToMinusOne");
 
 module.exports = {
   encounter: {
@@ -97,14 +98,14 @@ module.exports = {
     "Engine hours":{key:"engineHoursMeterReading"},
     "Project":{key:"project"},
     "Water tempeature":{key:"waterTemp"},
-    "Water depth":{key:"waterDepth"},
+    "Water depth":{key:"waterDepth", transform: convertBeyondSoundingsToMinusOne},
     "Bottom substrate":{key:"bottomSubstrate"},
     "Cloud cover":{key:"cloudCover"},
     "Beaufort scale":{key:"beaufortSeaState"},
     "Hydrophone check":{key:"hydrophoneChecked", transform: convertHydrophoneCheck},
     "Comments":{key:"gpsMark", transform: combineHydrophoneAndLogbookComments},
     "Logbook #":{key:""},
-    "Wave Height":{key:"swellWaveHeight", transform: convertWaveHeightOption},
+    "Wave Height":{key:"waveHeight", transform: convertWaveHeightOption},
     "Weather":{key:""},
     "Glare":{key:""},
     "Sightability":{key:""},

@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import {css, jsx} from "@emotion/core";
-import {Fragment, useEffect, useState} from "react";
-import {Form, Formik} from "formik";
+import { css, jsx } from "@emotion/core";
+import { Fragment, useEffect, useState } from "react";
+import { Form, Formik } from "formik";
 import add from "date-fns/add";
-import {navigate} from "@reach/router";
+import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
-import {constructDateTime} from "../utils/time";
-import {getModifiedProperties} from "../utils/math";
+import { constructDateTime } from "../utils/time";
+import { getModifiedProperties } from "../utils/math";
 import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
 import Button from "./Button";
 import FormSection from "./FormSection";
@@ -23,16 +23,19 @@ import Select from "./formFields/Select/Select";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 import InputFocusOnError from "./formFields/InputFocusOnError";
 
-import {FormSubmitType, THREE_DAYS_IN_HOURS} from "../constants/forms";
+import { FormSubmitType, THREE_DAYS_IN_HOURS } from "../constants/forms";
 import area from "../constants/formOptions/area";
 import species from "../constants/formOptions/species";
 import cue from "../constants/formOptions/cue";
 import vessel from "../constants/formOptions/vessel";
 import reasonForLeaving from "../constants/formOptions/reasonForLeaving";
-import {RESEARCH_ASSISTANT, RESEARCH_SCIENTIST,} from "../constants/formOptions/roles";
+import {
+  RESEARCH_ASSISTANT,
+  RESEARCH_SCIENTIST,
+} from "../constants/formOptions/roles";
 import encounterDefaults from "../constants/encounterDefaultValues";
-import {generateOpenEncounterURL} from "../constants/routes";
-import {getProjects} from "../hooks/getProjects";
+import { generateOpenEncounterURL } from "../constants/routes";
+import { getProjects } from "../hooks/getProjects";
 
 const EncounterForm = ({
   initialValues,
