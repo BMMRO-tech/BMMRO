@@ -6,6 +6,12 @@ import * as getProjects from "../../hooks/getProjects";
 
 describe("NewTripForm", () => {
   beforeAll(() => {
+    window.getSelection = () => {
+      return {
+        removeAllRanges: () => {},
+      };
+    };
+
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime()
     );
@@ -33,6 +39,7 @@ describe("NewTripForm", () => {
     await act(async () => {
       const areaInput = getByRole("combobox", { name: "Area *" });
       const vesselInput = getByRole("combobox", { name: "Vessel *" });
+      const observersInput = getByRole("textbox", { name: "Observers" });
       const tripNumberInput = getByRole("spinbutton", {
         name: "Trip number (of this boat) *",
       });
@@ -42,6 +49,10 @@ describe("NewTripForm", () => {
 
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(vesselInput, "Chimo");
+      await userEvent.type(observersInput, "Kirsten, jeni, faisal", {
+        delay: 1,
+      });
+
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
       userEvent.click(submitButton);
     });
@@ -49,7 +60,9 @@ describe("NewTripForm", () => {
     expect(formValues.area).toEqual("Central Andros");
     expect(formValues.vessel).toEqual("Chimo");
     expect(formValues.tripNumber).toEqual(123);
-    expect(formValues.gpsFileName).toEqual("20_0504-Ch.txt");
+    expect(formValues.observers).toEqual("Kirsten, jeni, faisal");
+    expect(formValues.numberOfObservers).toEqual(3);
+    expect(formValues.gpsFileName).toEqual("20_0504Ch.txt");
 
     expect(formValues.date).toEqual(new Date("2020-05-04T00:00:00.000Z"));
     expect(formValues.time).toEqual("11:30");

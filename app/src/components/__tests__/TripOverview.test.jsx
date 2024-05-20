@@ -17,6 +17,7 @@ describe("TripOverview", () => {
     windDirection: "",
     windSpeed: "",
     date: new Date("2020-05-04T11:30:12.000Z"),
+    exported: false,
   };
 
   it("displays a trip details", () => {
@@ -34,9 +35,19 @@ describe("TripOverview", () => {
       ...defaultTrip,
     };
 
-    const { getByRole } = render(<TripOverview trip={trip} />);
+    const { getByRole } = render(<TripOverview trip={trip} tripId={"123"} />);
 
-    //TODO: editing trip link
-    expect(getByRole("link").href).toContain("");
+    expect(getByRole("link").href).toContain("trips/123/edit");
+  });
+
+  it("has not a link to the edit page for trip if exported", () => {
+    const trip = {
+      ...defaultTrip,
+      exported: true,
+    };
+
+    const { queryByTestId } = render(<TripOverview trip={trip} />);
+
+    expect(queryByTestId("edit-link")).not.toBeInTheDocument();
   });
 });

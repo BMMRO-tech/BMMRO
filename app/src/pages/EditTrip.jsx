@@ -5,31 +5,31 @@ import { useNavigate } from "@reach/router";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
-import EncounterForm from "../components/EncounterForm";
 import Loader from "../components/Loader";
-import { generateEncounterPath } from "../constants/datastore";
-import { ROUTES, generateViewEncounterURL } from "../constants/routes";
+import { generateTripPath } from "../constants/datastore";
+import { ROUTES, generateViewTripURL } from "../constants/routes";
 import utilities from "../materials/utilities";
 import DateInvalidModal from "../components/DateInvalidModal";
-import handleEditEncounterSubmit from "../utils/handleEncounterSubmit";
+import TripForm from "../components/TripForm";
+import handleEditTripSubmit from "../utils/handleTripSubmit";
 
-const EditEncounter = ({ encounterId }) => {
+const EditTrip = ({ tripId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
   const [showDateModal, setShowDateModal] = useState(false);
   const [autofillEnd, setAutofillEnd] = useState(false);
   const navigate = useNavigate();
-  const encounterPath = generateEncounterPath(encounterId);
+  const tripPath = generateTripPath(tripId);
 
   const handleSubmit = (submitType, values) => {
-    handleEditEncounterSubmit(values, {
+    handleEditTripSubmit(values, {
       datastore,
       setAutofillEnd,
       setShowDateModal,
       navigate,
       submitType,
       initialValues,
-      encounterId,
+      tripId,
     });
   };
 
@@ -39,16 +39,16 @@ const EditEncounter = ({ encounterId }) => {
 
       if (!!values.data) {
         if (values.data.exported) {
-          navigate(generateViewEncounterURL(encounterId));
+          navigate(generateViewTripURL(tripId));
         } else {
           setInitialValues(values.data);
         }
       } else {
-        navigate(ROUTES.newEncounter);
+        navigate(ROUTES.newTrip);
       }
     };
     if (!!datastore) {
-      getData(encounterPath);
+      getData(tripPath);
     }
     // eslint-disable-next-line
   }, [datastore]);
@@ -62,13 +62,11 @@ const EditEncounter = ({ encounterId }) => {
         <Loader />
       ) : (
         <Fragment>
-          <h1 css={utilities.form.title}>
-            {initialValues.hasEnded ? "Edit Encounter" : "New Encounter"}
-          </h1>
-          <EncounterForm
+          <h1 css={utilities.form.title}>Edit Trip</h1>
+          <TripForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
-            encounterId={encounterId}
+            tripId={tripId}
             autofillEnd={autofillEnd}
             datastore={datastore}
           />
@@ -78,4 +76,4 @@ const EditEncounter = ({ encounterId }) => {
   );
 };
 
-export default EditEncounter;
+export default EditTrip;
