@@ -190,6 +190,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     logSection("Marking records as exported");
     const allEntries = [
       ...encounterEntries,
+      ...tripEntries,
       ...logbookEntries,
       ...habitatUseEntries,
       ...biopsyEntries,

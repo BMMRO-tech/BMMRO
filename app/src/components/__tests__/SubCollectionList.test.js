@@ -92,4 +92,48 @@ describe("SubCollectionList", () => {
       expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
     });
   });
+  describe("logbook List", () => {
+    it("displays logbook forms sorted by start time", () => {
+      const items = [
+        { data: { time: "11:00:10" }, id: "123" },
+        { data: { time: "11:00:20" }, id: "456" },
+        { data: { time: "11:20:33" }, id: "789" },
+      ];
+      const { queryAllByRole } = render(
+        <SubCollectionList items={items} type="logbook" />
+      );
+
+      const actual = queryAllByRole("listitem");
+
+      expect(actual[0]).toHaveTextContent("11:20:33");
+      expect(actual[1]).toHaveTextContent("11:00:20");
+      expect(actual[2]).toHaveTextContent("11:00:10");
+    });
+
+    it("displays message when there are no list items", () => {
+      const { queryByText } = render(
+        <SubCollectionList items={[]} type="logbook" />
+      );
+
+      const noEntriesMessage = queryByText("No logbook entries yet");
+
+      expect(noEntriesMessage).not.toBeNull();
+    });
+
+    it("has a button to add logbook if the associated trip was not yet exported", () => {
+      const { queryByRole } = render(
+        <SubCollectionList items={[]} type="logbook" />
+      );
+
+      expect(queryByRole("button", { name: "+ New" })).toBeInTheDocument();
+    });
+
+    it("does not have a button to logbook if the associated trip was exported", () => {
+      const { queryByRole } = render(
+        <SubCollectionList items={[]} isExported type="logbook" />
+      );
+
+      expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
+    });
+  });
 });
