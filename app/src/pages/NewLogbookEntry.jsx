@@ -3,7 +3,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
-import NewLogbookForm from "../components/NewLogbookForm";
+import LogbookForm from "../components/LogbookForm";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { generateViewTripURL, ROUTES } from "../constants/routes";
@@ -46,7 +46,7 @@ const NewLogbookEntry = ({ tripId }) => {
       ) : (
         <Fragment>
           <h1 css={utilities.form.title}>New Logbook Entry</h1>
-          <NewLogbookForm handleSubmit={handleSubmit} tripId={tripId} />
+          <LogbookForm handleSubmit={handleSubmit} tripId={tripId} />
         </Fragment>
       )}
     </Layout>

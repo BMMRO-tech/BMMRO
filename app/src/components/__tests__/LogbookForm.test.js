@@ -1,12 +1,30 @@
 import React from "react";
 import { act, render, waitFor, fireEvent } from "@testing-library/react";
-import NewLogbookForm from "../NewLogbookForm";
+import LogbookForm from "../LogbookForm";
 import { configure } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 
 configure({ asyncUtilTimeout: 40000 });
 
-describe("NewLogbookForm", () => {
+describe("LogbookForm", () => {
+  const mockInitialValues = {
+    time: "11:30:12",
+    latitude: "1.234567",
+    longitude: "-2.345678",
+    gpsMark: 12,
+    waterDepth: 22,
+    waterDepthBeyondSoundings: false,
+    waterTemp: 17,
+    bottomSubstrate: "",
+    cloudCover: "",
+    beaufortSeaState: "",
+    waveHeight: 12,
+    hydrophoneChecked: "No",
+    efforted: "On",
+    hydrophoneComments: "",
+    logbookComments: "",
+  };
+
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime()
@@ -20,7 +38,7 @@ describe("NewLogbookForm", () => {
     };
 
     const { getByRole } = render(
-      <NewLogbookForm handleSubmit={mockHandleSubmit} />
+      <LogbookForm handleSubmit={mockHandleSubmit} />
     );
 
     const submitButton = getByRole("button", { name: "Save" });
@@ -47,7 +65,7 @@ describe("NewLogbookForm", () => {
     };
 
     const { getByRole, getByTestId, getByLabelText } = render(
-      <NewLogbookForm handleSubmit={mockHandleSubmit} />
+      <LogbookForm handleSubmit={mockHandleSubmit} />
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
@@ -73,31 +91,13 @@ describe("NewLogbookForm", () => {
   });
 
   it("submits with correct values if initial values are passed", async () => {
-    const mockInitialValues = {
-      time: "11:30:12",
-      latitude: "1.234567",
-      longitude: "-2.345678",
-      gpsMark: 12,
-      waterDepth: 22,
-      waterDepthBeyondSoundings: false,
-      waterTemp: 17,
-      bottomSubstrate: "",
-      cloudCover: "",
-      beaufortSeaState: "",
-      waveHeight: 12,
-      hydrophoneChecked: "No",
-      efforted: "On",
-      hydrophoneComments: "",
-      logbookComments: "",
-    };
-
     let formValues;
     const mockHandleSubmit = (values) => {
       formValues = values;
     };
 
     const { getByRole } = render(
-      <NewLogbookForm
+      <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
       />
@@ -116,7 +116,7 @@ describe("NewLogbookForm", () => {
   });
 
   it("contains cancel button", async () => {
-    const { queryByRole } = render(<NewLogbookForm />);
+    const { queryByRole } = render(<LogbookForm />);
 
     await waitFor(() => {
       expect(queryByRole("button", { name: "Cancel" })).toBeInTheDocument();
@@ -126,7 +126,7 @@ describe("NewLogbookForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole } = render(
-      <NewLogbookForm handleSubmit={mockHandleSubmit} />
+      <LogbookForm handleSubmit={mockHandleSubmit} />
     );
 
     const latInput = getByRole("spinbutton", {
@@ -143,5 +143,46 @@ describe("NewLogbookForm", () => {
       expect(submitButton).not.toHaveFocus();
       expect(latInput).toHaveFocus();
     });
+  });
+
+  it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <LogbookForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+      />
+    );
+
+    await act(async () => {
+      const latInput = getByRole("spinbutton", {
+        name: "Lat",
+      });
+      await userEvent.type(latInput, "0.111", { delay: 1 });
+
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
+  });
+
+  it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getByRole, queryByTestId } = render(
+      <LogbookForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+      />
+    );
+
+    await act(async () => {
+      const cancelButton = getByRole("button", { name: "Cancel" });
+      userEvent.click(cancelButton);
+    });
+
+    expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
   });
 });

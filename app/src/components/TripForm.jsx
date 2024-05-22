@@ -31,7 +31,6 @@ const TripForm = ({
   handleSubmit,
   isViewOnly,
   tripId,
-  autofillEnd,
   datastore,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -226,7 +225,12 @@ const TripForm = ({
                   >
                     Cancel
                   </Button>
-                  <Button styles={styles.endButton} width="200px" type="submit">
+                  <Button
+                    testId={"saveTrip"}
+                    styles={styles.endButton}
+                    width="200px"
+                    type="submit"
+                  >
                     Save & Update
                   </Button>
                 </div>
