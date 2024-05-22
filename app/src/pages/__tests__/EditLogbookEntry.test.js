@@ -7,6 +7,23 @@ import { Datastore } from "../../datastore/datastore";
 import EditLogbookEntry from "../EditLogbookEntry";
 
 describe("EditLogbookEntry", () => {
+  const defaultTrip = {
+    area: "Central Andros",
+    engineHoursMeterReading: "",
+    exported: true,
+    gpsFileName: "24_0517Mu.txt",
+    hasEnded: true,
+    numberOfObservers: 0,
+    observers: "",
+    project: "",
+    time: "12:43",
+    tripId: "24_0517Mu1",
+    tripNumber: 1,
+    vessel: "Multiple",
+    windDirection: "",
+    windSpeed: "",
+  };
+
   const projectId = "edit-logbook-entry-test-id";
   let firestoreEmulator;
   let datastore;
@@ -29,20 +46,7 @@ describe("EditLogbookEntry", () => {
 
   it("navigates to trip overview page if no logbook entry is found in firestore for a given ID", async () => {
     const { id } = await firestoreEmulator.collection("trip").add({
-      area: "Central Andros",
-      engineHoursMeterReading: "",
-      exported: true,
-      gpsFileName: "24_0517Mu.txt",
-      hasEnded: true,
-      numberOfObservers: 0,
-      observers: "",
-      project: "",
-      time: "12:43",
-      tripId: "24_0517Mu1",
-      tripNumber: 1,
-      vessel: "Multiple",
-      windDirection: "",
-      windSpeed: "",
+      ...defaultTrip,
     });
 
     await firestoreEmulator
@@ -68,20 +72,7 @@ describe("EditLogbookEntry", () => {
 
   it("navigates to logbook view page if logbook has been exported", async () => {
     const { id: tripId } = await firestoreEmulator.collection("trip").add({
-      area: "Central Andros",
-      engineHoursMeterReading: "",
-      exported: true,
-      gpsFileName: "24_0517Mu.txt",
-      hasEnded: true,
-      numberOfObservers: 0,
-      observers: "",
-      project: "",
-      time: "12:43",
-      tripId: "24_0517Mu1",
-      tripNumber: 1,
-      vessel: "Multiple",
-      windDirection: "",
-      windSpeed: "",
+      ...defaultTrip,
     });
 
     const { id: logbookId } = await firestoreEmulator

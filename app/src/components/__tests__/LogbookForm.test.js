@@ -185,4 +185,21 @@ describe("LogbookForm", () => {
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
   });
+
+  it("renders the Logbook form with all fields disabled", async () => {
+    const mockHandleSubmit = jest.fn();
+
+    const { getAllByTestId } = render(
+      <LogbookForm
+        handleSubmit={mockHandleSubmit}
+        initialValues={mockInitialValues}
+        isViewOnly
+      />
+    );
+
+    await waitFor(() => {
+      const fields = getAllByTestId(/^field-/);
+      fields.map((field) => expect(field).toHaveAttribute("disabled"));
+    });
+  });
 });
