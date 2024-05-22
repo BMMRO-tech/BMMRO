@@ -140,12 +140,81 @@ describe("create a new encounter user journey", () => {
       expect(newTripUrl).toBe(
             `${process.env.ENDPOINT}/trips/${tripId}/view`)
 
-      const logbook = await driver.findElement(wd.By.id("biopsy")).getText();
+      const logbook = await driver.findElement(wd.By.id("logbook")).getText();
 
       let expectedText = "Logbook entry 1";
       expect(logbook).toContain(expectedText);;
     },
 
+    testTimeout
+  );
+
+  it(
+    "user navigate to edits trip",
+    async () => {
+      await driver.findElement(wd.By.css("#editTripInformation")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let editTripUrl = await driver.getCurrentUrl();
+
+      expect(editTripUrl).toContain("/edit");
+    },
+    testTimeout
+  );
+
+  it(
+    "user edit trip",
+    async () => {
+      let tripNumber = await driver.findElement(wd.By.name("observers"));
+      await tripNumber.sendKeys("e2e");
+
+      await driver.findElement(wd.By.css("#saveTrip")).click();
+
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let homeUrl = await driver.getCurrentUrl();
+
+      expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+    },
+    testTimeout
+  );
+
+  it(
+    "user navigate to trip logbook",
+    async () => {
+      await driver.findElement(wd.By.css("#logbook-item")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let editLogbookUrl = await driver.getCurrentUrl();
+
+      logbookId = editLogbookUrl.split("/")[6];
+
+      expect(editLogbookUrl).toContain(`/trips/${tripId}/logbook-entry/${logbookId}`);
+    },
+    testTimeout
+  );
+
+  it(
+    "user ends editing logbook",
+    async () => {
+      let HydrophoneComment = await driver.findElement(wd.By.name("hydrophoneComments"));
+      let logbookComment = await driver.findElement(wd.By.name("logbookComments"));
+
+      await HydrophoneComment.sendKeys("e2e: hydrophone comment");
+      await logbookComment.sendKeys("e2e: logbook comment");
+
+      await driver.findElement(wd.By.css("#saveLogBook")).click();
+
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let url = await driver.getCurrentUrl();
+
+      expect(url).toBe(
+        `${process.env.ENDPOINT}/trips/${tripId}/view`
+      );    
+    },
     testTimeout
   );
 
@@ -334,6 +403,34 @@ describe("create a new encounter user journey", () => {
       const docSnapEncounter = await getDoc(docRefEncounter);
 
       expect(docSnapEncounter.exists()).toBeTruthy();
+    },
+    testTimeout
+  );
+
+  it(
+    "checks database for new trip",
+    async () => {
+      const docRefTrip = doc(db, "trip", tripId);
+      const docSnapTrip = await getDoc(docRefTrip);
+
+      expect(docSnapTrip.exists()).toBeTruthy();
+    },
+    testTimeout
+  );
+
+  it(
+    "checks database for new logbook entry",
+    async () => {
+      const docRefLogbook = doc(
+        db,
+        "trip",
+        tripId,
+        "logbookEntry",
+        logbookId
+      );
+      const docSnapLogbook = await getDoc(docRefLogbook);
+
+      expect(docSnapLogbook.exists()).toBeTruthy();
     },
     testTimeout
   );
