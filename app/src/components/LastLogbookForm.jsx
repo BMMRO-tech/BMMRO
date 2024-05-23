@@ -10,7 +10,6 @@ import FormSection from "./FormSection";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import logbookDefaultValues from "../constants/logbookDefaultValues";
 import NumberInput from "./formFields/NumberInput/NumberInput";
-import { RESEARCH_ASSISTANT } from "../constants/formOptions/roles";
 
 const LastLogbookForm = ({ handleSubmit, closeModal }) => {
   const ref = useRef(null);
