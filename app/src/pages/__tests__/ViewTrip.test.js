@@ -48,7 +48,7 @@ describe("ViewTrip", async () => {
     jest.clearAllMocks();
   });
 
-  it("end trip button opens a pop-up where people can add the trip miles", async () => {
+  it("end trip button opens a pop-up where the user can add the trip miles", async () => {
     await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
 
     renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
@@ -130,8 +130,8 @@ describe("ViewTrip", async () => {
         })
       ).toHaveLength(2);
     });
-    const endedTrip = (await firestoreEmulator.doc("trip/123").get()).data();
   });
+
   it("last logbook entry is created with current time when ending a trip", async () => {
     mockTrip.exported = false;
     Date.now = jest.fn(() => new Date("2020-05-04T11:30:12.000Z").getTime());
