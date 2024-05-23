@@ -97,7 +97,7 @@ module.exports = {
     "Observers":{key:"observers"},
     "Engine hours":{key:"engineHoursMeterReading"},
     "Project":{key:"project"},
-    "Water tempeature":{key:"waterTemp"},
+    "Water temperature":{key:"waterTemp"},
     "Water depth":{key:"waterDepth", transform: convertBeyondSoundingsToMinusOne},
     "Bottom substrate":{key:"bottomSubstrate"},
     "Cloud cover":{key:"cloudCover"},
