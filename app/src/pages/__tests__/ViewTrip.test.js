@@ -131,7 +131,6 @@ describe("ViewTrip", async () => {
       ).toHaveLength(2);
     });
     const endedTrip = (await firestoreEmulator.doc("trip/123").get()).data();
-    console.log(endedTrip);
   });
   it("last logbook entry is created with current time when ending a trip", async () => {
     mockTrip.exported = false;

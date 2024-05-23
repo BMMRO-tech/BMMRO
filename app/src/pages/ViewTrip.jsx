@@ -59,23 +59,9 @@ const ViewTrip = ({ tripId }) => {
     const tripPath = generateTripPath(tripId);
     trip.hasEnded = true;
 
-    // const sameDate = (date) => {
-    //   const now = new Date();
-    //
-    //   return (
-    //     date.getDate() === now.getDate() &&
-    //     date.getMonth() === now.getMonth() &&
-    //     date.getFullYear() === now.getFullYear()
-    //   );
-    // };
-    // add the functionality where we can enter the data manually
-    //     if (!sameDate(trip.date)) {
-    // setEnterEndDateManually(true)
-    // };
     datastore.updateDocByPath(tripPath, { hasEnded: trip.hasEnded });
     setShowConfirmationModal(false);
     setTrip(trip);
-    console.log(trip);
     navigate(generateViewTripURL(tripId));
   };
 
