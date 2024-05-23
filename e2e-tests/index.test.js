@@ -148,6 +148,34 @@ describe("create a new encounter user journey", () => {
 
     testTimeout
   );
+    it(
+        "user ends a trip",
+        async () => {
+            await driver.wait(
+                wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+                pageTimeout
+            );
+
+            await driver.findElement(wd.By.css("#saveEndTrip")).click();
+
+            await driver.manage().setTimeouts({ implicit: pageTimeout });
+            await driver.wait(
+                wd.until.elementLocated(wd.By.css("#confirmEndButton")),
+                pageTimeout
+            );
+
+            await driver.findElement(wd.By.css("#confirmEndButton")).click();
+
+            await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+            let newTripUrl = await driver.getCurrentUrl();
+            expect(newTripUrl).toBe(
+                `${process.env.ENDPOINT}/trips/${tripId}/view`)
+
+        },
+
+        testTimeout
+    );
 
   it(
     "navigate to encounters overview",

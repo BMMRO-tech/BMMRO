@@ -69,6 +69,7 @@ const LastLogbookForm = ({ handleSubmit, closeModal }) => {
               <div css={utilities.confirmationModal.modalButtons}>
                 <Button
                   data-testid="confirm-end-button"
+                  testId="confirmEndButton"
                   variant="primary"
                   type="submit"
                 >
