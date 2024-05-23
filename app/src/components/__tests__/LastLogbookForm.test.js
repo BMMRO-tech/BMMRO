@@ -20,7 +20,7 @@ describe("LastLogbookForm", () => {
       formValues = values;
     };
 
-    renderWithMockContexts(<LastLogbookForm handleSubmit={mockHandleSubmit} />);
+    renderWithMockContexts(<LastLogbookForm handleSubmit={mockHandleSubmit} tripDate={new Date("2020-05-04T11:30:12.000Z")}/>);
     const submitButton = await waitFor(() =>
       screen.getByText("Save & Continue")
     );

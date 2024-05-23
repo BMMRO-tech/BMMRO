@@ -31,7 +31,6 @@ const TripForm = ({
   handleSubmit,
   isViewOnly,
   tripId,
-  autofillEnd,
   datastore,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -140,6 +139,7 @@ const TripForm = ({
                     labelText="Time"
                     notAfter={values.date}
                     isRequired
+                    timeWithSeconds
                   />
                 </FormSection>
               </section>
