@@ -2,9 +2,9 @@
 import { css, jsx } from "@emotion/core";
 import { useContext, useRef } from "react";
 import {
-  AlertDialogOverlay,
-  AlertDialogLabel,
   AlertDialogDescription,
+  AlertDialogLabel,
+  AlertDialogOverlay,
 } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
 import utilities from "../materials/utilities";
@@ -23,7 +23,7 @@ const EndTripConfirmationModal = ({ closeModal, tripId, handleLeavePage }) => {
     const currentTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
     const tripPath = generateTripPath(tripId);
     const logbookValues = {
-      time: values.time ? values.time : currentTime,
+      time: values.time ? values.time + ":00" : currentTime,
       latitude: "",
       longitude: "",
       gpsMark: "",
@@ -37,7 +37,9 @@ const EndTripConfirmationModal = ({ closeModal, tripId, handleLeavePage }) => {
       hydrophoneChecked: "No",
       efforted: "On",
       hydrophoneComments: "",
-      logbookComments: values.logbookComments,
+      logbookComments: values.tripMiles
+        ? "trip miles: " + values.tripMiles
+        : "",
       exported: false,
       hasEnded: true,
     };
