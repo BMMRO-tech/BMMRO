@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx, css } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BackLink from "../components/BackLink";

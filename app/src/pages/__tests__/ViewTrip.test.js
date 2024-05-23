@@ -72,14 +72,6 @@ describe("ViewTrip", async () => {
     await waitFor(() =>
       screen.getByText("Are you sure you want to end this trip?")
     );
-    // const timeInput = await waitFor(() =>
-    //     screen.getByTestId("field-time")
-    //
-    // );
-    // await act(async () => {
-    //   await userEvent.type(timeInput, "11:40:00", { delay: 1 });
-    //   userEvent.tab();
-    // });
     const confirmButton = await waitFor(() =>
       screen.getByText("Save & Continue")
     );
@@ -88,7 +80,6 @@ describe("ViewTrip", async () => {
     });
 
     const endedTrip = (await firestoreEmulator.doc("trip/123").get()).data();
-    console.log(endedTrip);
     await waitFor(() => {
       expect(endedTrip.hasEnded).toBe(true);
     });
@@ -160,6 +151,9 @@ describe("ViewTrip", async () => {
     await act(async () => {
       userEvent.click(endButton);
     });
+    await waitFor(() =>
+      screen.getByText("Are you sure you want to end this trip?")
+    );
     const confirmButton = await waitFor(() =>
       screen.getByText("Save & Continue")
     );
