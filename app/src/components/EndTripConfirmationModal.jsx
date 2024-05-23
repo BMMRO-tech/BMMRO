@@ -1,31 +1,59 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { forwardRef, useRef } from "react";
+import { useContext, useRef } from "react";
 import {
   AlertDialogOverlay,
   AlertDialogLabel,
   AlertDialogDescription,
 } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
-
-import Button from "../components/Button";
 import utilities from "../materials/utilities";
+import { CollectionNames, generateTripPath } from "../constants/datastore";
+import { FirebaseContext } from "../firebaseContext/firebaseContext";
+import LastLogbookForm from "./LastLogbookForm";
+import { getCurrentDate } from "../utils/time";
+import { format } from "date-fns";
+import { TIME_WITH_SECONDS_FORMAT } from "../constants/forms";
 
-const EndTripConfirmationModal = ({ handleLeavePage, closeModal }) => {
+const EndTripConfirmationModal = ({ closeModal, tripId, handleLeavePage }) => {
   const cancelRef = useRef();
+  const { datastore } = useContext(FirebaseContext);
 
+  const handleSubmit = (values) => {
+    const currentTime = format(getCurrentDate(), TIME_WITH_SECONDS_FORMAT);
+    const tripPath = generateTripPath(tripId);
+    const logbookValues = {
+      time: values.time ? values.time : currentTime,
+      latitude: "",
+      longitude: "",
+      gpsMark: "",
+      waterDepth: "",
+      waterDepthBeyondSoundings: false,
+      waterTemp: "",
+      bottomSubstrate: "",
+      cloudCover: "",
+      beaufortSeaState: "",
+      waveHeight: "",
+      hydrophoneChecked: "No",
+      efforted: "On",
+      hydrophoneComments: "",
+      logbookComments: values.logbookComments,
+      exported: false,
+      hasEnded: true,
+    };
+    datastore.createSubDoc(
+      tripPath,
+      CollectionNames.LOGBOOK_ENTRY,
+      logbookValues
+    );
+    handleLeavePage();
+  };
   const styles = {
     description: css`
       ${utilities.confirmationModal.modalDescription}
       text-align: center;
     `,
   };
-
-  const StayButton = forwardRef((props, ref) => (
-    <Button variant="neutral" ref={ref} onClick={closeModal}>
-      Stay on this page
-    </Button>
-  ));
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
@@ -39,17 +67,14 @@ const EndTripConfirmationModal = ({ handleLeavePage, closeModal }) => {
             Are you sure you want to end this trip?
           </AlertDialogLabel>
           <AlertDialogDescription css={styles.description}>
-            You won't be able to change this trip anymore.
+            <p>If you leave the time field blank, the end</p>
+            <p>time will be set to the current time.</p>
           </AlertDialogDescription>
-          <div css={utilities.confirmationModal.modalButtons}>
-            <Button
-              data-testid="confirm-end-button"
-              variant="primary"
-              onClick={handleLeavePage}
-            >
-              Save & Continue
-            </Button>
-            <StayButton />
+          <div css={utilities.sticky.contentContainer}>
+            <LastLogbookForm
+              handleSubmit={handleSubmit}
+              closeModal={closeModal}
+            />
           </div>
         </div>
       </AlertDialogOverlay>
