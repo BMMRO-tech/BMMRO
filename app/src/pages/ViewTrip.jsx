@@ -1,10 +1,14 @@
 /** @jsx jsx */
 
-import { jsx, css } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BackLink from "../components/BackLink";
-import { ROUTES, generateNewLogbookEntryURL } from "../constants/routes";
+import {
+  generateNewLogbookEntryURL,
+  generateViewTripURL,
+  ROUTES,
+} from "../constants/routes";
 import TripOverview from "../components/TripOverview";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
 import { useNavigate } from "@reach/router";
@@ -54,7 +58,6 @@ const ViewTrip = ({ tripId }) => {
   const handleEndTrip = () => {
     const tripPath = generateTripPath(tripId);
     trip.hasEnded = true;
-    setTrip(trip.hasEnded);
 
     // const sameDate = (date) => {
     //   const now = new Date();
@@ -69,8 +72,11 @@ const ViewTrip = ({ tripId }) => {
     //     if (!sameDate(trip.date)) {
     // setEnterEndDateManually(true)
     // };
-    datastore.updateDocByPath(tripPath, trip);
-    navigate(ROUTES.trips);
+    datastore.updateDocByPath(tripPath, { hasEnded: trip.hasEnded });
+    setShowConfirmationModal(false);
+    setTrip(trip);
+    console.log(trip);
+    navigate(generateViewTripURL(tripId));
   };
 
   useEffect(() => {
@@ -93,11 +99,12 @@ const ViewTrip = ({ tripId }) => {
       getData(generateTripPath(tripId));
     }
     // eslint-disable-next-line
-  }, [datastore]);
+  }, [datastore, trip.id, trip.hasEnded]);
 
   const renderConfirmationModal = () => {
     return (
       <EndTripConfirmationModal
+        tripId={tripId}
         closeModal={() => setShowConfirmationModal(false)}
         handleLeavePage={handleEndTrip}
       />
