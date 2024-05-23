@@ -74,7 +74,7 @@ const EndTripConfirmationModal = ({
           <AlertDialogDescription css={styles.description}>
             <span>
               If you leave the time field blank, the end time will be set to the
-              current time.{" "}
+              current time.
             </span>
           </AlertDialogDescription>
           <div css={utilities.sticky.contentContainer}>
