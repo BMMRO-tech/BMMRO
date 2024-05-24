@@ -7,6 +7,7 @@ export const ROUTES = {
   viewTrip: "/trips/:tripId/view",
   editTrip: "/trips/:tripId/edit",
   newLogbookEntry: "/trips/:tripId/logbook-entry/new",
+  editLogbookEntry: "/trips/:tripId/logbook-entry/:logbookId/edit",
   openEncounter: "/encounters/:encounterId/habitat-uses",
   openTrip: "/trips/:tripId/logbook-entry",
   editEncounter: "/encounters/:encounterId/edit",
@@ -80,6 +81,6 @@ export const generateViewBiopsyURL = (encounterId, biopsyId) => {
 //   return `/trips/${tripId}/logbook-entry/${logbookId}/view`;
 // };
 
-// export const generateEditLogbookEntryURL = (tripId, logbookId) => {
-//   return `/trips/${tripId}/logbook-entry/${logbookId}/edit`;
-// };
+export const generateEditLogbookEntryURL = (tripId, logbookId) => {
+  return `/trips/${tripId}/logbook-entry/${logbookId}/edit`;
+};

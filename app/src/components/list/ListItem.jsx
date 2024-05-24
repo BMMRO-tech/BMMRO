@@ -16,7 +16,7 @@ const ListItem = ({
   primaryContentLeftStyle,
   primaryContentRight,
   secondaryContent,
-  isHabitatUse,
+  testId,
   middleContent,
 }) => {
   const styles = {
@@ -88,13 +88,10 @@ const ListItem = ({
       }
     `,
   };
+
   return (
-    <Link
-      css={styles.link}
-      to={destinationUrl}
-      id={isHabitatUse ? "habitatUse" : "biopsy"}
-    >
-      <li css={styles.container}>
+    <Link css={styles.link} to={destinationUrl} id={testId}>
+      <li css={styles.container} id={`${testId}-item`}>
         {primaryTime && (
           <div css={styles.leftContainer}>
             <span>{primaryTime}</span>

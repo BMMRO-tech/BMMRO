@@ -6,7 +6,7 @@ import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
-import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
+import CancelFormConfirmationModal from "./CancelFormConfirmationModal";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
 import FormSection from "./FormSection";
@@ -15,7 +15,6 @@ import InputFocusOnError from "./formFields/InputFocusOnError";
 import Select from "./formFields/Select/Select";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 
-import tripDefaults from "../constants/tripDefaultValues";
 import { generateViewTripURL } from "../constants/routes";
 import GpsFormSection from "./GpsFormSection";
 import logbookDefaultValues from "../constants/logbookDefaultValues";
@@ -28,12 +27,7 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 
-const NewLogbookForm = ({
-  handleSubmit,
-  initialValues,
-  isViewOnly,
-  tripId,
-}) => {
+const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
@@ -84,9 +78,10 @@ const NewLogbookForm = ({
                   <TimeInput
                     name="time"
                     labelText="Time"
-                    autofill={true}
+                    autofill={!initialValues}
                     isRequired
                     timeWithSeconds
+                    isDisabled={isViewOnly}
                   />
                 </FormSection>
               </section>
@@ -212,36 +207,38 @@ const NewLogbookForm = ({
                 <span>*</span>required fields
               </div>
 
-              <Fragment>
-                <div css={utilities.sticky.footerContainer}>
-                  <Button
-                    styles={styles.cancelButton}
-                    variant="secondary"
-                    type="button"
-                    onClick={() => {
-                      const modifiedFields = getModifiedProperties(
-                        values,
-                        tripDefaults
-                      );
+              {!isViewOnly && (
+                <Fragment>
+                  <div css={utilities.sticky.footerContainer}>
+                    <Button
+                      styles={styles.cancelButton}
+                      variant="secondary"
+                      type="button"
+                      onClick={() => {
+                        const modifiedFields = getModifiedProperties(
+                          values,
+                          initValues
+                        );
 
-                      Object.keys(modifiedFields).length === 0
-                        ? navigate(generateViewTripURL(tripId))
-                        : setShowConfirmationModal(true);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    styles={styles.endButton}
-                    width="200px"
-                    type="submit"
-                    testId={"saveLogBook"}
-                  >
-                    Save
-                  </Button>
-                </div>
-                <InputFocusOnError />
-              </Fragment>
+                        Object.keys(modifiedFields).length === 0
+                          ? navigate(generateViewTripURL(tripId))
+                          : setShowConfirmationModal(true);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      styles={styles.endButton}
+                      width="200px"
+                      type="submit"
+                      testId={"saveLogBook"}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  <InputFocusOnError />
+                </Fragment>
+              )}
               <InputFocusOnError
                 hasTriedToSubmit={checkingValidation}
                 pageHasPositionalValues={true}
@@ -256,4 +253,4 @@ const NewLogbookForm = ({
   );
 };
 
-export default NewLogbookForm;
+export default LogbookForm;
