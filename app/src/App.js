@@ -28,6 +28,7 @@ import NewLogbookEntry from "./pages/NewLogbookEntry";
 import NotFound from "./pages/NotFound";
 import ViewTrip from "./pages/ViewTrip";
 import EditTrip from "./pages/EditTrip";
+import EditLogbookEntry from "./pages/EditLogbookEntry";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -53,6 +54,7 @@ const AppWithoutContext = () => {
       <EditTrip path={ROUTES.editTrip} />
       <ViewTrip path={ROUTES.viewTrip} />
       <NewLogbookEntry path={ROUTES.newLogbookEntry} />
+      <EditLogbookEntry path={ROUTES.editLogbookEntry} />
       <NotFound default path={ROUTES.notFound} />
     </Router>
   );

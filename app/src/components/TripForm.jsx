@@ -226,7 +226,12 @@ const TripForm = ({
                   >
                     Cancel
                   </Button>
-                  <Button styles={styles.endButton} width="200px" type="submit">
+                  <Button
+                    testId={"saveTrip"}
+                    styles={styles.endButton}
+                    width="200px"
+                    type="submit"
+                  >
                     Save & Update
                   </Button>
                 </div>

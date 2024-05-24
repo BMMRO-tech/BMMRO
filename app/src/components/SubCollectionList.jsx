@@ -9,6 +9,7 @@ import {
   generateEditBiopsyURL,
   generateViewBiopsyURL,
   generateNewBiopsyURL,
+  generateEditLogbookEntryURL,
 } from "../constants/routes";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
@@ -26,6 +27,7 @@ const COLLECTIONS = {
         ? generateViewHabitatURL(parentId, item.id)
         : generateEditHabitatURL(parentId, item.id);
     },
+    testId: "habitatUse",
   },
   biopsy: {
     title: "Biopsy",
@@ -37,6 +39,7 @@ const COLLECTIONS = {
         ? generateViewBiopsyURL(parentId, item.id)
         : generateEditBiopsyURL(parentId, item.id);
     },
+    testId: "biopsy",
   },
   logbook: {
     title: "Logbook",
@@ -44,13 +47,10 @@ const COLLECTIONS = {
     buttonTestId: "newLogbook",
     primaryContentRight: (totalItems, index) =>
       `Logbook entry ${totalItems - index}`,
-    // TODO: make link clickable once view and edit logbook functionality is there
-    destinationUrl: (parentId, item) => "",
-    // {
-    //   return item.data.exported
-    //     ? generateViewLogbookEntryURL(parentId, item.id)
-    //     : generateEditLogbookEntryURL(parentId, item.id);
-    // },
+    destinationUrl: (parentId, item) => {
+      return generateEditLogbookEntryURL(parentId, item.id);
+    },
+    testId: "logbook",
   },
 };
 
@@ -91,6 +91,7 @@ const SubCollectionList = ({
         <ul css={utilities.list.items}>
           {list.map((item, index) => (
             <ListItem
+              testId={collection.testId}
               key={item.id}
               destinationUrl={collection.destinationUrl(parentId, item)}
               primaryTime={item.data[collection.primaryTime]}
@@ -98,7 +99,6 @@ const SubCollectionList = ({
                 list.length,
                 index
               )}
-              isHabitatUse={type === "habitat"}
             />
           ))}
         </ul>
