@@ -93,6 +93,7 @@ const ViewTrip = ({ tripId }) => {
         tripId={tripId}
         closeModal={() => setShowConfirmationModal(false)}
         handleLeavePage={handleEndTrip}
+        tripDate={trip.date}
       />
     );
   };

@@ -15,7 +15,12 @@ import { getCurrentDate } from "../utils/time";
 import { format } from "date-fns";
 import { TIME_WITH_SECONDS_FORMAT } from "../constants/forms";
 
-const EndTripConfirmationModal = ({ closeModal, tripId, handleLeavePage }) => {
+const EndTripConfirmationModal = ({
+  closeModal,
+  tripId,
+  handleLeavePage,
+  tripDate,
+}) => {
   const cancelRef = useRef();
   const { datastore } = useContext(FirebaseContext);
 
@@ -67,13 +72,16 @@ const EndTripConfirmationModal = ({ closeModal, tripId, handleLeavePage }) => {
             Are you sure you want to end this trip?
           </AlertDialogLabel>
           <AlertDialogDescription css={styles.description}>
-            <p>If you leave the time field blank, the end</p>
-            <p>time will be set to the current time.</p>
+            <span>
+              If you leave the time field blank, the end time will be set to the
+              current time.
+            </span>
           </AlertDialogDescription>
           <div css={utilities.sticky.contentContainer}>
             <LastLogbookForm
               handleSubmit={handleSubmit}
               closeModal={closeModal}
+              tripDate={tripDate}
             />
           </div>
         </div>
