@@ -1,5 +1,6 @@
 import React from "react";
 import { act, render, waitFor } from "@testing-library/react";
+import LogbookForm from "../LogbookForm";
 import { configure } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 
