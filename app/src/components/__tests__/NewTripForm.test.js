@@ -65,7 +65,7 @@ describe("NewTripForm", () => {
     expect(formValues.gpsFileName).toEqual("20_0504Ch.txt");
 
     expect(formValues.date).toEqual(new Date("2020-05-04T00:00:00.000Z"));
-    expect(formValues.time).toEqual("11:30");
+    expect(formValues.time).toEqual("11:30:12");
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {

@@ -133,6 +133,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     autofill={true}
                     notAfter={values.date}
                     isRequired
+                    timeWithSeconds
                   />
                 </FormSection>
               </section>

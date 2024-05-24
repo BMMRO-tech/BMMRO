@@ -139,6 +139,7 @@ const TripForm = ({
                     labelText="Time"
                     notAfter={values.date}
                     isRequired
+                    timeWithSeconds
                   />
                 </FormSection>
               </section>

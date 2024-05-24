@@ -99,7 +99,7 @@ const TripsByMonth = () => {
       setLoading(false);
     };
     fetchData().then();
-  });
+  }, [datastore, month]);
 
   async function getTripsForTheMonth(monthOption) {
     setMonth(monthOption);

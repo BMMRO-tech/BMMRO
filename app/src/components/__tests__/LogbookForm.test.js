@@ -1,6 +1,6 @@
 import React from "react";
-import { act, render, waitFor, fireEvent } from "@testing-library/react";
-import LogbookForm from "../LogbookForm";
+import { act, render, waitFor } from "@testing-library/react";
+import NewLogbookForm from "../NewLogbookForm";
 import { configure } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 
