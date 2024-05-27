@@ -71,12 +71,6 @@ const EndTripConfirmationModal = ({
           <AlertDialogLabel css={utilities.confirmationModal.modalHeader}>
             Are you sure you want to end this trip?
           </AlertDialogLabel>
-          <AlertDialogDescription css={styles.description}>
-            <span>
-              If you leave the time field blank, the end time will be set to the
-              current time.
-            </span>
-          </AlertDialogDescription>
           <div css={utilities.sticky.contentContainer}>
             <LastLogbookForm
               handleSubmit={handleSubmit}
