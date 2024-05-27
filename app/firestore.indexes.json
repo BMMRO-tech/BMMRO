@@ -13,16 +13,35 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "trip",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "exported",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "hasEnded",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [
     {
       "collectionGroup": "habitatUse",
       "fieldPath": "exported",
+      "ttl": false,
       "indexes": [
         {
-          "queryScope": "COLLECTION_GROUP",
-          "order": "ASCENDING"
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
         }
       ]
     }

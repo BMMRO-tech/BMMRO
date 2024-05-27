@@ -7,7 +7,7 @@ import {
 } from "@reach/router";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import "@testing-library/jest-dom/extend-expect";
-import { EncounterMonthContext } from "../../encounterMonthContext/encounterMonthContext";
+import { MonthContext } from "../../providers/monthContext/MonthContext";
 
 // modified from https://testing-library.com/docs/example-reach-router
 export const renderWithMockContexts = (
@@ -18,7 +18,7 @@ export const renderWithMockContexts = (
     loggedInUser,
     datastore,
     datastoreError,
-    encounterMonth,
+    month,
   } = {}
 ) => {
   return {
@@ -26,11 +26,9 @@ export const renderWithMockContexts = (
       <FirebaseContext.Provider
         value={{ loggedInUser, datastore, datastoreError }}
       >
-        <EncounterMonthContext.Provider
-          value={{ encounterMonth, setEncounterMonth: () => {} }}
-        >
-          <LocationProvider history={history}>{ui}</LocationProvider>)
-        </EncounterMonthContext.Provider>
+        <MonthContext.Provider value={{ month, setMonth: () => {} }}>
+          <LocationProvider history={history}>{ui}</LocationProvider>
+        </MonthContext.Provider>
       </FirebaseContext.Provider>
     ),
     history,

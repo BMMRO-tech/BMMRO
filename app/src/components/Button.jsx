@@ -14,6 +14,7 @@ const Button = ({
   styles,
   isSmall,
   isMedium,
+  customCss,
 }) => {
   const basicStyles = css`
     ${styles}
@@ -68,7 +69,7 @@ const Button = ({
   return (
     <button
       id={testId}
-      css={variantStyles[variant]}
+      css={[variantStyles[variant], customCss]}
       type={type}
       disabled={disabled}
       data-testid={testId}
