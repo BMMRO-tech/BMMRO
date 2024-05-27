@@ -4,10 +4,20 @@ export const CollectionNames = {
   BIOPSY: "biopsy",
   SPECIMEN: "specimen",
   PROJECT: "project",
+  TRIP: "trip",
+  LOGBOOK_ENTRY: "logbookEntry",
 };
 
 export const generateEncounterPath = (id) => {
   return `${CollectionNames.ENCOUNTER}/${id}`;
+};
+
+export const generateTripPath = (id) => {
+  return `${CollectionNames.TRIP}/${id}`;
+};
+
+export const generateLogbookPath = (tripId, logbookEntryId) => {
+  return `${CollectionNames.TRIP}/${tripId}/${CollectionNames.LOGBOOK_ENTRY}/${logbookEntryId}`;
 };
 
 export const generateHabitatUsePath = (encounterId, habitatUseId) => {
