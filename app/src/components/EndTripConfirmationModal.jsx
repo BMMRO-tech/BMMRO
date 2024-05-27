@@ -1,11 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import { useContext, useRef } from "react";
-import {
-  AlertDialogOverlay,
-  AlertDialogLabel,
-  AlertDialogDescription,
-} from "@reach/alert-dialog";
+import { AlertDialogLabel, AlertDialogOverlay } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
 import utilities from "../materials/utilities";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
@@ -52,12 +48,6 @@ const EndTripConfirmationModal = ({
       logbookValues
     );
     handleLeavePage();
-  };
-  const styles = {
-    description: css`
-      ${utilities.confirmationModal.modalDescription}
-      text-align: center;
-    `,
   };
 
   return (
