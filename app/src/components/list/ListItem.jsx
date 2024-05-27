@@ -6,15 +6,18 @@ import colors from "../../materials/colors";
 import typography from "../../materials/typography";
 import breakPoints from "../../materials/breakPoints";
 import { RightArrow } from "../icons/RightArrow";
+import Button from "../Button";
 
 const ListItem = ({
   destinationUrl,
   primaryTime,
   secondaryTime,
   primaryContentLeft,
+  primaryContentLeftStyle,
   primaryContentRight,
   secondaryContent,
-  isHabitatUse,
+  testId,
+  middleContent,
 }) => {
   const styles = {
     link: css`
@@ -69,6 +72,14 @@ const ListItem = ({
       overflow: hidden;
       margin-right: 10px;
     `,
+
+    middleContentStyle: css`
+      background: ${colors.mediumTurquoise};
+      color: ${colors.white};
+      border: 1px solid ${colors.mediumTurquoise};
+      margin-left: 20px;
+    `,
+
     rightContainer: css`
       ${typography.smallText}
 
@@ -77,24 +88,32 @@ const ListItem = ({
       }
     `,
   };
+
   return (
-    <Link
-      css={styles.link}
-      to={destinationUrl}
-      id={isHabitatUse ? "habitatUse" : "biopsy"}
-    >
-      <li css={styles.container}>
-        <div css={styles.leftContainer}>
-          <span>{primaryTime}</span>
-          {secondaryTime && <span>{secondaryTime}</span>}
-        </div>
+    <Link css={styles.link} to={destinationUrl} id={testId}>
+      <li css={styles.container} id={`${testId}-item`}>
+        {primaryTime && (
+          <div css={styles.leftContainer}>
+            <span>{primaryTime}</span>
+            {secondaryTime && <span>{secondaryTime}</span>}
+          </div>
+        )}
 
         <div css={styles.detailsContainer}>
           <div css={styles.centralContainer}>
             {primaryContentLeft && (
-              <span css={styles.primaryContentLeft}>{primaryContentLeft}</span>
+              <span css={styles.primaryContentLeft && primaryContentLeftStyle}>
+                {primaryContentLeft}
+              </span>
             )}
             {primaryContentRight && <span>{primaryContentRight}</span>}
+            {middleContent && (
+              <span css={styles.middleContentStyle}>
+                <Button isSmall variant="primary">
+                  {middleContent}
+                </Button>
+              </span>
+            )}
           </div>
 
           {secondaryContent && (

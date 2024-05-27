@@ -1,8 +1,8 @@
 import * as webdriver from "selenium-webdriver";
 import "dotenv/config";
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore/lite";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {initializeApp} from "firebase/app";
+import {deleteDoc, doc, getDoc, getFirestore} from "firebase/firestore/lite";
+import {getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
 
 let wd = webdriver.default;
 
@@ -24,6 +24,8 @@ async function startDriver() {
 describe("create a new encounter user journey", () => {
   let driver;
   let encounterId;
+  let tripId;
+  let logbookId;
   let habitatId;
   let biopsyId;
   let pageTimeout = 10000;
@@ -57,22 +59,208 @@ describe("create a new encounter user journey", () => {
 
       await driver.findElement(wd.By.css("button")).click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("h1")), pageTimeout);
-      let title = await driver.findElement(wd.By.css("h1")).getText();
-      let expectedTitle = "ENCOUNTERS";
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let title = await driver.findElement(wd.By.css("#tripsTab")).getText();
+
+      let expectedTitle = "TRIPS";
       expect(title).toBe(expectedTitle);
 
       let homeUrl = await driver.getCurrentUrl();
 
-      expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
+      expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips`);
     },
     testTimeout
   );
 
   it(
-    "user creates a new encounter",
+    "user navigates to create a new trip",
     async () => {
-      await driver.findElement(wd.By.css("#newEncounter")).click();
+      await driver.findElement(wd.By.css("#new-trips-button")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+
+      expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/new`);
+    },
+    testTimeout
+  );
+
+  it(
+    "user creates a new trip",
+    async () => {
+      let tripNumber = await driver.findElement(wd.By.name("tripNumber"));
+      await tripNumber.sendKeys("123");
+
+      //area
+      await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
+      //vessel
+      await driver.findElement(wd.By.css('select>option[value="Chimo"]')).click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogBook")),
+        pageTimeout
+      );
+
+      await driver.findElement(wd.By.css("#newLogBook")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+
+      expect(newTripUrl).toContain(`/logbook-entry/new`);
+    },
+    testTimeout
+  );
+
+  it(
+    "stores trip ID",
+    async () => {
+      let newTripUrl = await driver.getCurrentUrl();
+
+      tripId = newTripUrl.split("/")[4];
+    },
+    testTimeout
+  );
+
+  it(
+    "user creates a new logbook entry",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveLogBook")),
+        pageTimeout
+      );
+
+      await driver.findElement(wd.By.css("#saveLogBook")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+      expect(newTripUrl).toBe(
+            `${process.env.ENDPOINT}/trips/${tripId}/view`)
+
+      const logbook = await driver.findElement(wd.By.id("logbook")).getText();
+
+      let expectedText = "Logbook entry 1";
+      expect(logbook).toContain(expectedText);;
+    },
+
+    testTimeout
+  );
+    it(
+        "user ends a trip",
+        async () => {
+            await driver.wait(
+                wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+                pageTimeout
+            );
+
+            await driver.findElement(wd.By.css("#saveEndTrip")).click();
+
+            await driver.manage().setTimeouts({ implicit: pageTimeout });
+            await driver.wait(
+                wd.until.elementLocated(wd.By.css("#confirmEndButton")),
+                pageTimeout
+            );
+
+            await driver.findElement(wd.By.css("#confirmEndButton")).click();
+
+            await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+            let newTripUrl = await driver.getCurrentUrl();
+            expect(newTripUrl).toBe(
+                `${process.env.ENDPOINT}/trips/${tripId}/view`)
+
+        },
+
+        testTimeout
+    );
+
+  it(
+    "user navigate to edits trip",
+    async () => {
+      await driver.findElement(wd.By.css("#editTripInformation")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let editTripUrl = await driver.getCurrentUrl();
+
+      expect(editTripUrl).toContain("/edit");
+    },
+    testTimeout
+  );
+
+  it(
+    "user edit trip",
+    async () => {
+      let tripNumber = await driver.findElement(wd.By.name("observers"));
+      await tripNumber.sendKeys("e2e");
+
+      await driver.findElement(wd.By.css("#saveTrip")).click();
+
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let homeUrl = await driver.getCurrentUrl();
+
+      expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+    },
+    testTimeout
+  );
+
+  it(
+    "user navigate to trip logbook",
+    async () => {
+      await driver.findElement(wd.By.css("#logbook-item")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let editLogbookUrl = await driver.getCurrentUrl();
+
+      logbookId = editLogbookUrl.split("/")[6];
+
+      expect(editLogbookUrl).toContain(`/trips/${tripId}/logbook-entry/${logbookId}`);
+    },
+    testTimeout
+  );
+
+  it(
+    "user ends editing logbook",
+    async () => {
+      let HydrophoneComment = await driver.findElement(wd.By.name("hydrophoneComments"));
+      let logbookComment = await driver.findElement(wd.By.name("logbookComments"));
+
+      await HydrophoneComment.sendKeys("e2e: hydrophone comment");
+      await logbookComment.sendKeys("e2e: logbook comment");
+
+      await driver.findElement(wd.By.css("#saveLogBook")).click();
+
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let url = await driver.getCurrentUrl();
+
+      expect(url).toBe(
+        `${process.env.ENDPOINT}/trips/${tripId}/view`
+      );    
+    },
+    testTimeout
+  );
+
+  it(
+    "navigate to encounters overview",
+    async () => {
+      await driver.findElement(wd.By.css("#encountersTab")).click();
+      let newUrl = await driver.getCurrentUrl();
+
+      expect(newUrl).toBe(`${process.env.ENDPOINT}/encounters`);
+    },
+    testTimeout
+  );
+
+  it(
+    "user navigate to creates a new encounter",
+    async () => {
+      await driver.findElement(wd.By.css("#new-encounters-button")).click();
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -227,7 +415,7 @@ describe("create a new encounter user journey", () => {
 
       await driver.findElement(wd.By.css("#saveEndEncounter")).click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("h1")), pageTimeout);
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
       let homeUrl = await driver.getCurrentUrl();
 
@@ -243,6 +431,34 @@ describe("create a new encounter user journey", () => {
       const docSnapEncounter = await getDoc(docRefEncounter);
 
       expect(docSnapEncounter.exists()).toBeTruthy();
+    },
+    testTimeout
+  );
+
+  it(
+    "checks database for new trip",
+    async () => {
+      const docRefTrip = doc(db, "trip", tripId);
+      const docSnapTrip = await getDoc(docRefTrip);
+
+      expect(docSnapTrip.exists()).toBeTruthy();
+    },
+    testTimeout
+  );
+
+  it(
+    "checks database for new logbook entry",
+    async () => {
+      const docRefLogbook = doc(
+        db,
+        "trip",
+        tripId,
+        "logbookEntry",
+        logbookId
+      );
+      const docSnapLogbook = await getDoc(docRefLogbook);
+
+      expect(docSnapLogbook.exists()).toBeTruthy();
     },
     testTimeout
   );

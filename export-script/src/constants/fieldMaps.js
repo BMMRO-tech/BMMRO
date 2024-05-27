@@ -9,7 +9,10 @@ const updateComment = require("../updateComment");
 const convertSkinToBool = require("../mappings/convertSkinToBool");
 const convertSkinAndBlubberToBool = require("../mappings/convertSkinAndBlubberToBool");
 const convertAgeToInitial = require("../mappings/convertAgeToInitial");
-const convertSexToInitials = require("../mappings/convertSexToInitials")
+const convertSexToInitials = require("../mappings/convertSexToInitials");
+const convertHydrophoneCheck = require("../mappings/convertHydrophoneCheck");
+const combineHydrophoneAndLogbookComments = require("../combineHydrophoneAndLogbookComments");
+const convertBeyondSoundingsToMinusOne = require("../mappings/convertBeyondSoundingsToMinusOne");
 
 module.exports = {
   encounter: {
@@ -79,6 +82,35 @@ module.exports = {
     "High Tide": { key: "highTide" },
     "Low Tide": { key: "lowTide" },
     "Photographer-frame": { key: "photographerFrame" },
+  },
+  trip:{
+    "Trip ID":{key:"tripId"},
+    "GPS Filename":{key:"gpsFileName"},
+    "Area":{key:"area"},
+    "Vessel Name":{key:"vessel"},
+    "Date": { key: "date", transform: convertUnixTimestampToMDY },
+    "Time":{key:"time"},
+    "Effort":{key:"efforted"},
+    "Latitude":{key:"latitude"},
+    "Longitude":{key:"longitude"},
+    "# of Observers":{key:"numberOfObservers"},
+    "Observers":{key:"observers"},
+    "Engine hours":{key:"engineHoursMeterReading"},
+    "Project":{key:"project"},
+    "Water temperature":{key:"waterTemp"},
+    "Water depth":{key:"waterDepth", transform: convertBeyondSoundingsToMinusOne},
+    "Bottom substrate":{key:"bottomSubstrate"},
+    "Cloud cover":{key:"cloudCover"},
+    "Beaufort scale":{key:"beaufortSeaState"},
+    "Hydrophone check":{key:"hydrophoneChecked", transform: convertHydrophoneCheck},
+    "Comments":{key:"gpsMark", transform: combineHydrophoneAndLogbookComments},
+    "Logbook #":{key:""},
+    "Wave Height":{key:"waveHeight", transform: convertWaveHeightOption},
+    "Weather":{key:""},
+    "Glare":{key:""},
+    "Sightability":{key:""},
+    "Wind Speed":{key:"windSpeed"},
+    "Wind Direction":{key:"windDirection"},
   },
   habitatUse: {
     Date: { key: "date", transform: convertUnixTimestampToMDY },
@@ -211,6 +243,19 @@ module.exports = {
     area: "area",
     encSeqNo: "sequenceNumber",
     date: "startTimestamp",
+  },
+  subCollectionToTrip: {
+    area: "area",
+    tripId: "tripId",
+    vessel: "vessel",
+    date: "date",
+    gpsFileName: "gpsFileName",
+    numberOfObservers: "numberOfObservers",
+    observers: "observers",
+    engineHoursMeterReading: "engineHoursMeterReading",
+    project: "project",
+    windDirection:"windDirection",
+    windSpeed:"windSpeed"
   },
   biopsyToSpecimen: {
     species: "species",

@@ -11,7 +11,7 @@ import { generateEncounterPath } from "../constants/datastore";
 import { ROUTES, generateViewEncounterURL } from "../constants/routes";
 import utilities from "../materials/utilities";
 import DateInvalidModal from "../components/DateInvalidModal";
-import handleEditEncounterSubmit from "./handleEncounterSubmit";
+import handleEditEncounterSubmit from "../utils/handleEncounterSubmit";
 
 const EditEncounter = ({ encounterId }) => {
   const { datastore } = useContext(FirebaseContext);
