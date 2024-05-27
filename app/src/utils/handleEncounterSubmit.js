@@ -3,9 +3,9 @@ import { add } from "date-fns";
 import { generateEncounterPath } from "../constants/datastore";
 import { FormSubmitType, THREE_DAYS_IN_HOURS } from "../constants/forms";
 import { generateOpenEncounterURL, ROUTES } from "../constants/routes";
-import endEntry from "../utils/endEntry";
-import { getModifiedProperties } from "../utils/math";
-import { constructDateTime } from "../utils/time";
+import endEntry from "./endEntry";
+import { getModifiedProperties } from "./math";
+import { constructDateTime } from "./time";
 
 const handleEditEncounterSubmit = (values, args) => {
   const modifiedProperties = getModifiedProperties(values, args.initialValues);
