@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useContext } from "react";
 import { jsx } from "@emotion/core";
-import { LocationProvider, Router } from "@reach/router";
+import { LocationProvider, Redirect, Router } from "@reach/router";
 
 import {
   FirebaseContext,
@@ -21,7 +21,14 @@ import EditHabitatUse from "./pages/EditHabitatUse";
 import NewBiopsy from "./pages/NewBiopsy";
 import EditBiopsy from "./pages/EditBiopsy";
 import ViewBiopsy from "./pages/ViewBiopsy";
-import { EncounterMonthProvider } from "./encounterMonthContext/encounterMonthContext";
+import Trips from "./pages/Trips";
+import NewTrip from "./pages/NewTrip";
+import { MonthProvider } from "./providers/monthContext/MonthContext";
+import NewLogbookEntry from "./pages/NewLogbookEntry";
+import NotFound from "./pages/NotFound";
+import ViewTrip from "./pages/ViewTrip";
+import EditTrip from "./pages/EditTrip";
+import EditLogbookEntry from "./pages/EditLogbookEntry";
 
 const AppWithoutContext = () => {
   const { loggedInUser } = useContext(FirebaseContext);
@@ -30,6 +37,7 @@ const AppWithoutContext = () => {
   return (
     <Router>
       <Login path={ROUTES.login} />
+      <Redirect from="/" to={ROUTES.trips} noThrow />
       <NewEncounter path={ROUTES.newEncounter} />
       <OpenEncounter path={ROUTES.openEncounter} />
       <EditEncounter path={ROUTES.editEncounter} />
@@ -40,7 +48,14 @@ const AppWithoutContext = () => {
       <NewBiopsy path={ROUTES.newBiopsy} />
       <EditBiopsy path={ROUTES.editBiopsy} />
       <ViewBiopsy path={ROUTES.viewBiopsy} />
-      <Encounters default path={ROUTES.encounters} />
+      <Encounters path={ROUTES.encounters} />
+      <Trips path={ROUTES.trips} />
+      <NewTrip path={ROUTES.newTrip} />
+      <EditTrip path={ROUTES.editTrip} />
+      <ViewTrip path={ROUTES.viewTrip} />
+      <NewLogbookEntry path={ROUTES.newLogbookEntry} />
+      <EditLogbookEntry path={ROUTES.editLogbookEntry} />
+      <NotFound default path={ROUTES.notFound} />
     </Router>
   );
 };
@@ -49,9 +64,9 @@ export default () => {
   return (
     <FirebaseContextProvider>
       <LocationProvider>
-        <EncounterMonthProvider>
+        <MonthProvider>
           <AppWithoutContext />
-        </EncounterMonthProvider>
+        </MonthProvider>
       </LocationProvider>
     </FirebaseContextProvider>
   );

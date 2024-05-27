@@ -9,7 +9,9 @@ const getMessage = (type, params) => {
     case "END_DATE_BEFORE_START_DATE":
       return "End date must be after start date.";
     case "NO_DATA":
-      return "There were no entries within given time range, so no csv file will be created.";
+      return "There were no entries in encounter and trip within given time range, so no csv file will be created.";
+    case "NO_DATA_SECTION":
+      return `There were no entries in ${params.section}  within given time range, so no csv file will be created.`;
     case "BATCH_UPDATE_FAILED":
       return "There was an error when updating the docs. No records have been marked as exported. Please re-run the script with the same date range.";
     case "BATCH_UPDATE_SUCCESSFUL":

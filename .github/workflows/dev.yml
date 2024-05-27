@@ -54,6 +54,7 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: |
           npx firebase use ${{secrets.FIREBASE_DEV_PROJECT_ID}}
+          npx firebase firestore:indexes
           npx firebase deploy
       - name: Create dev-deployed-* tag
         env:
