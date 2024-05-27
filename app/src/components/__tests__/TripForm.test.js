@@ -43,8 +43,6 @@ describe("TripForm", () => {
   it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
     const mockHandleSubmit = (_, values) => {
-      console.log("mockHandleSubmit",values)
-
       formValues = values;
     };
 
@@ -73,23 +71,19 @@ describe("TripForm", () => {
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(vesselInput, "Chimo");
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
-      
+
       userEvent.click(submitButton);
     });
 
-
     await waitFor(() => {
+      expect(formValues.area).toEqual("Central Andros");
+      expect(formValues.vessel).toEqual("Chimo");
+      expect(formValues.tripNumber).toEqual(123);
+      expect(formValues.gpsFileName).toEqual("20_0504Ch.txt");
 
-      console.log("formValues",formValues)
-
-    expect(formValues.area).toEqual("Central Andros");
-    expect(formValues.vessel).toEqual("Chimo");
-    expect(formValues.tripNumber).toEqual(123);
-    expect(formValues.gpsFileName).toEqual("20_0504Ch.txt");
-
-    expect(formValues.date).toEqual(new Date("2020-05-04T00:00:00.000Z"));
-    expect(formValues.time).toEqual("09:44:30");
-    })
+      expect(formValues.date).toEqual(new Date("2020-05-04T00:00:00.000Z"));
+      expect(formValues.time).toEqual("09:44:30");
+    });
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {

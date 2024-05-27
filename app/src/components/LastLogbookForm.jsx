@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Form, Formik } from "formik";
-import { forwardRef, Fragment, useRef } from "react";
+import { forwardRef, Fragment } from "react";
 
 import utilities from "../materials/utilities";
 import Button from "./Button";
@@ -10,22 +10,21 @@ import FormSection from "./FormSection";
 import TimeInput from "./formFields/TimeInput/TimeInput";
 import logbookDefaultValues from "../constants/logbookDefaultValues";
 import NumberInput from "./formFields/NumberInput/NumberInput";
+import Attention from "../components/icons/Attention";
+import { getCurrentDate } from "../utils/time";
 
 const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
-  const ref = useRef(null);
-
-  const StayButton = forwardRef((props, ref) => (
+  const CancelButton = forwardRef((props, ref) => (
     <Button variant="neutral" ref={ref} onClick={closeModal}>
-      Stay on this page
+      Cancel
     </Button>
   ));
   const styles = {
     warning: css`
-      color: red;
+      color: darkRed;
     `,
   };
 
-  const initValues = { tripMiles: "", ...logbookDefaultValues };
   const transformSubmitValues = (values) => {
     values.logbookComments = values.tripMiles
       ? "trip miles: " + values.tripMiles
@@ -37,11 +36,16 @@ const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
       : tripDate.getMonth() < new Date().getMonth()
       ? true
       : tripDate.getDate() < new Date().getDate();
+
+  const initValues = {
+    tripMiles: "",
+    ...logbookDefaultValues,
+    time: getCurrentDate().getTime(),
+  };
   return (
     <div css={utilities.form.container}>
       <Formik
         initialValues={initValues}
-        innerRef={ref}
         onSubmit={(values) => {
           transformSubmitValues(values);
           handleSubmit(values);
@@ -49,53 +53,60 @@ const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
         validateOnChange={true}
         validateOnBlur={true}
       >
-        {({ values }) => (
-          <Form>
-            <section>
-              <FormSection>
-                <TimeInput
-                  name="time"
-                  labelText="Time"
-                  autofill={true}
-                  timeWithSeconds
-                  isShort
-                />
-                {anotherDay && (
-                  <span css={styles.warning}>
-                    You are ending your trip on a different day. Please make
-                    sure to put in the correct time.
-                  </span>
-                )}
-              </FormSection>
-            </section>
-            <br />
+        {({ values }) => {
+          return (
+            <Form>
+              <section>
+                <FormSection>
+                  <TimeInput
+                    name="time"
+                    labelText="Time"
+                    autofill={true}
+                    timeWithSeconds
+                    isShort
+                  />
+                  {anotherDay && (
+                    <span css={styles.warning}>
+                      <div>
+                        <Attention />
+                      </div>
+                      <div>
+                        You are ending your trip on a different day. Please make
+                        sure to put in the correct time.
+                      </div>
+                    </span>
+                  )}
+                </FormSection>
+              </section>
+              <br />
 
-            <section>
-              <FormSection>
-                <NumberInput
-                  name="tripMiles"
-                  labelText="Trip miles"
-                  decimalPrecision={2}
-                  maxLength={100}
-                  minValue={0}
-                />
-              </FormSection>
-            </section>
-            <Fragment>
-              <div css={utilities.confirmationModal.modalButtons}>
-                <Button
-                  data-testid="confirm-end-button"
-                  testId="confirmEndButton"
-                  variant="primary"
-                  type="submit"
-                >
-                  Save & Continue
-                </Button>
-                <StayButton />
-              </div>
-            </Fragment>
-          </Form>
-        )}
+              <section>
+                <FormSection>
+                  <NumberInput
+                    name="tripMiles"
+                    labelText="Trip miles"
+                    decimalPrecision={2}
+                    maxLength={100}
+                    minValue={0}
+                  />
+                </FormSection>
+              </section>
+              <Fragment>
+                <div css={utilities.confirmationModal.modalButtons}>
+                  <CancelButton />
+                  <Button
+                    data-testid="confirm-end-button"
+                    testId="confirmEndButton"
+                    variant="primary"
+                    type="submit"
+                  >
+                    Save & Continue
+                  </Button>
+                </div>
+              </Fragment>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
