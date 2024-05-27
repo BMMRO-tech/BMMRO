@@ -63,7 +63,6 @@ const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
                     labelText="Time"
                     autofill={true}
                     timeWithSeconds
-                    isShort
                   />
                   {anotherDay && (
                     <span css={styles.warning}>

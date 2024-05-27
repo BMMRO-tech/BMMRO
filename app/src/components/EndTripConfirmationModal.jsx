@@ -1,11 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import { useContext, useRef } from "react";
-import {
-  AlertDialogOverlay,
-  AlertDialogLabel,
-  AlertDialogDescription,
-} from "@reach/alert-dialog";
+import { AlertDialogLabel, AlertDialogOverlay } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
 import utilities from "../materials/utilities";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
@@ -53,12 +49,6 @@ const EndTripConfirmationModal = ({
     );
     handleLeavePage();
   };
-  const styles = {
-    description: css`
-      ${utilities.confirmationModal.modalDescription}
-      text-align: center;
-    `,
-  };
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
@@ -71,12 +61,6 @@ const EndTripConfirmationModal = ({
           <AlertDialogLabel css={utilities.confirmationModal.modalHeader}>
             Are you sure you want to end this trip?
           </AlertDialogLabel>
-          <AlertDialogDescription css={styles.description}>
-            <span>
-              If you leave the time field blank, the end time will be set to the
-              current time.
-            </span>
-          </AlertDialogDescription>
           <div css={utilities.sticky.contentContainer}>
             <LastLogbookForm
               handleSubmit={handleSubmit}
