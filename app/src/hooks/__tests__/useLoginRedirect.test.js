@@ -11,7 +11,7 @@ describe("useLoginRedirect", () => {
     return <div />;
   };
 
-  it("navigates to '/encounters' when user is logged in", async () => {
+  it("navigates to '/trips' when user is logged in", async () => {
     const {
       history: { location },
     } = renderWithMockContexts(<TestApp />, {
@@ -19,7 +19,7 @@ describe("useLoginRedirect", () => {
       route: "/initial-route",
     });
 
-    expect(location.pathname).toEqual("/encounters");
+    expect(location.pathname).toEqual("/trips");
   });
 
   it("has no effect when user is logged out", async () => {

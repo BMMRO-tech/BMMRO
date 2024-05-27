@@ -13,7 +13,7 @@ import { monthNames } from "../constants/monthNames";
 import fieldStyles from "./formFields/fieldStyles";
 import { getEncountersByTimeRange } from "../hooks/useEncountersByMonth";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import { EncounterMonthContext } from "../encounterMonthContext/encounterMonthContext";
+import { MonthContext } from "../providers/monthContext/MonthContext";
 
 const EncounterListItem = ({ encounter, isToday }) => {
   const { startTimestamp, sequenceNumber, species, area, startTime } =
@@ -86,16 +86,14 @@ const MonthDropdown = ({
 
 const EncountersByMonth = () => {
   const { datastore } = useContext(FirebaseContext);
-  const { encounterMonth, setEncounterMonth } = useContext(
-    EncounterMonthContext
-  );
+  const { month, setMonth } = useContext(MonthContext);
 
   const [loading, setLoading] = useState(true);
   const [encounters, setEncounters] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const startDate = parse("1 " + encounterMonth, "d MMMM yyyy", new Date());
+      const startDate = parse("1 " + month, "d MMMM yyyy", new Date());
       const endDate = endOfMonth(startDate);
       const response = await getEncountersByTimeRange(
         datastore,
@@ -109,7 +107,7 @@ const EncountersByMonth = () => {
   });
 
   async function getEncountersForTheMonth(monthOption) {
-    setEncounterMonth(monthOption);
+    setMonth(monthOption);
     const startDate = parse("1 " + monthOption, "d MMMM yyyy", new Date());
     const endDate = endOfMonth(startDate);
 
@@ -132,7 +130,7 @@ const EncountersByMonth = () => {
         options={getMonthList()}
         onChange={getMonthData}
         meta={""}
-        defaultValue={encounterMonth}
+        defaultValue={month}
       />{" "}
       {!loading && (
         <ul key={`encounterList-1`} css={utilities.list.items}>

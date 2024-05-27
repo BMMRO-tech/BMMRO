@@ -362,5 +362,4 @@ describe("EncounterForm", () => {
     expect(formValues.sequenceNumber).toEqual("123");
     expect(formValues.project).toEqual("project2");
   });
-
 });
