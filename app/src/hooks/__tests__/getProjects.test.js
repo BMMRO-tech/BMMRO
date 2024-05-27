@@ -1,5 +1,5 @@
 import { Datastore } from "../../datastore/datastore";
-import {getProjects} from "../getProjects";
+import { getProjects } from "../getProjects";
 
 describe("getProjects", () => {
   const testProjects = [
