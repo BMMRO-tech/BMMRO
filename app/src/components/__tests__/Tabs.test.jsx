@@ -1,7 +1,7 @@
 import React from "react";
 import { screen, waitFor } from "@testing-library/react";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
-import * as firebaseTesting from "@firebase/testing";
+import * as firebaseTesting from "@firebase/rules-unit-testing";
 import { Datastore } from "../../datastore/datastore";
 import Tabs from "../Tabs.jsx";
 

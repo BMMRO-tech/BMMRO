@@ -1,4 +1,4 @@
-import * as firebaseTesting from "@firebase/testing";
+import * as firebaseTesting from "@firebase/rules-unit-testing";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { useEncountersByMonth } from "../useEncountersByMonth";

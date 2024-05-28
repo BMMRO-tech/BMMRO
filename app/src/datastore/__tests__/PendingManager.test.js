@@ -1,5 +1,5 @@
 import { waitFor } from "@testing-library/react";
-import * as firebaseTesting from "@firebase/testing";
+import * as firebaseTesting from "@firebase/rules-unit-testing";
 import fs from "fs";
 import path from "path";
 
