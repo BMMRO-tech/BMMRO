@@ -1,4 +1,4 @@
-const firebaseTesting = require("@firebase/testing");
+const firebaseTesting = require("@firebase/rules-unit-testing");
 const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
 const { parse } = require("date-fns");
 const collectionData = require("../__fixtures__/collectionData");

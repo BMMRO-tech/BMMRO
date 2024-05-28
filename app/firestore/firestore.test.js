@@ -1,4 +1,4 @@
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
 const fs = require("fs");
 
 const projectId = "bmmro-app";

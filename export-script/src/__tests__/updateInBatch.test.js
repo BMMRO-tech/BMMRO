@@ -1,4 +1,4 @@
-const firebaseTesting = require("@firebase/testing");
+const firebaseTesting = require("@firebase/rules-unit-testing");
 const updateInBatch = require("../updateInBatch");
 const collectionData = require("../__fixtures__/collectionData");
 const subcollectionData = require("../__fixtures__/subCollectionData");
