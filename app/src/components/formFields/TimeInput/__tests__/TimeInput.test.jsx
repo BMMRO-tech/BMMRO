@@ -16,6 +16,9 @@ describe("TimeInput", () => {
       new Date("2020-05-04T11:30:43.000Z").getTime()
     );
   });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
 
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(

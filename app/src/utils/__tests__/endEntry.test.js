@@ -7,6 +7,9 @@ describe("endEntry", () => {
       new Date("2010-06-07T12:34:56.000Z").getTime()
     );
   });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
 
   it("flips the hasEnded property to true", () => {
     const input = { a: 1, b: 2 };

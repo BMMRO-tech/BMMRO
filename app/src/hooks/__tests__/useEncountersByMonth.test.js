@@ -33,6 +33,7 @@ describe("useEncountersByMonth", () => {
   afterAll(async () => {
     await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    jest.resetAllMocks();
   });
 
   it("reads data for this month in reverse chronological order", async () => {

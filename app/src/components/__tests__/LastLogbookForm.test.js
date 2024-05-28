@@ -13,6 +13,9 @@ describe("LastLogbookForm", () => {
       new Date("2020-05-04T11:30:12.000Z").getTime()
     );
   });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
 
   it("trip miles are saved as a logbook comment", async () => {
     let formValues;

@@ -29,6 +29,7 @@ describe("PendingManager ", () => {
 
   afterAll(async () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    jest.clearAllMocks();
   });
 
   afterEach(async () => {

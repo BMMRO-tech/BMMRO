@@ -15,6 +15,9 @@ describe("HabitatUseForm", () => {
       new Date("2020-05-04T11:30:12.000Z").getTime()
     );
   });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
 
   it("submits the form with correct values if all required fields are completed", async () => {
     const realGeolocation = global.navigator.geolocation;
