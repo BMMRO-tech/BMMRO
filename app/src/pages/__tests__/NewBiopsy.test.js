@@ -32,6 +32,7 @@ describe("NewBiopsy", () => {
   afterAll(async () => {
     await firebaseTesting.clearFirestoreData({ projectId });
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    jest.resetAllMocks();
   });
 
   it("firebase is called when form is submitted", async () => {
