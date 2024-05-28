@@ -12,6 +12,9 @@ describe("DateInput", () => {
       new Date("2020-08-04T11:30:00.000Z").getTime()
     );
   });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <DateInput name="favoriteDate" labelText="Your favorite date" />,

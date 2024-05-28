@@ -12,7 +12,7 @@
     "commander": "^6.0.0",
     "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
-    "firebase": "^7.16.1",
+    "firebase": "^8.0.0",
     "json2csv": "^5.0.1"
   },
   "devDependencies": {

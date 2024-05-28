@@ -7,7 +7,7 @@ import { Datastore } from "../../datastore/datastore";
 import ViewTrip from "../ViewTrip";
 import userEvent from "@testing-library/user-event";
 
-describe("ViewTrip", async () => {
+describe("ViewTrip", () => {
   const projectId = "view-trip-test";
   let firestoreEmulator;
   let datastore;
