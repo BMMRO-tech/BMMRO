@@ -1,7 +1,6 @@
 export const ROUTES = {
   encounters: "/encounters",
   trips: "/trips",
-  project: "/project",
   newEncounter: "/encounters/new",
   newTrip: "/trips/new",
   viewTrip: "/trips/:tripId/view",
@@ -9,7 +8,6 @@ export const ROUTES = {
   newLogbookEntry: "/trips/:tripId/logbook-entry/new",
   editLogbookEntry: "/trips/:tripId/logbook-entry/:logbookId/edit",
   openEncounter: "/encounters/:encounterId/habitat-uses",
-  openTrip: "/trips/:tripId/logbook-entry",
   editEncounter: "/encounters/:encounterId/edit",
   viewEncounter: "/encounters/:encounterId/view",
   newHabitatUse: "/encounters/:encounterId/habitat-uses/new",
@@ -18,7 +16,6 @@ export const ROUTES = {
   newBiopsy: "/encounters/:encounterId/biopsies/new",
   editBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/edit",
   viewBiopsy: "/encounters/:encounterId/biopsies/:biopsyId/view",
-  notFound: "/404",
   login: "/login",
 };
 
