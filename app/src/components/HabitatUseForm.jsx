@@ -298,8 +298,6 @@ const HabitatUseForm = ({
                   <NumberInput
                     name="waterTemp"
                     labelText="Water temp (°C)"
-                    minValue={15}
-                    maxValue={40}
                     isShort
                     decimalPrecision={5}
                     isDisabled={isViewOnly}

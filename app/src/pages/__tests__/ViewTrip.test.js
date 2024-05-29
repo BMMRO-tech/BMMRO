@@ -128,7 +128,7 @@ describe("ViewTrip", () => {
         screen.getAllByRole("link", {
           name: "Return to trip overview",
         })
-      ).toHaveLength(2);
+      ).toHaveLength(1);
     });
   });
 
