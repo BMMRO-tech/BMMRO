@@ -118,10 +118,6 @@ const ViewTrip = ({ tripId }) => {
 
   return (
     <Layout hasDefaultPadding={false}>
-      <div css={utilities.backLinkContainer.top}>
-        <BackLink text="Return to trip overview" to={ROUTES.trips} />
-      </div>
-
       {!!Object.keys(trip).length ? (
         <div css={utilities.sticky.contentContainer}>
           <TripOverview trip={trip} tripId={tripId} />

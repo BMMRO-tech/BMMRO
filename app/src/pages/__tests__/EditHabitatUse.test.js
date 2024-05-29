@@ -28,7 +28,7 @@ describe("EditHabitatUse", () => {
     await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
   });
 
-  it("navigates to encounter overview page if no habitat use is found in firestore for a given ID", async () => {
+  it("navigates to encounter  page if no habitat use is found in firestore for a given ID", async () => {
     const { id } = await firestoreEmulator
       .collection("encounter")
       .add({ name: "Barney", species: "Bottlenose dolphin" });

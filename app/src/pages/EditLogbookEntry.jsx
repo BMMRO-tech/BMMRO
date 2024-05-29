@@ -6,11 +6,12 @@ import { useNavigate } from "@reach/router";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";
 import Loader from "../components/Loader";
-import { generateViewTripURL } from "../constants/routes";
+import { ROUTES, generateViewTripURL } from "../constants/routes";
 import { generateLogbookPath } from "../constants/datastore";
 import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
 import LogbookForm from "../components/LogbookForm";
+import BackLink from "../components/BackLink";
 
 const EditLogbookEntry = ({ tripId, logbookId }) => {
   const styles = {
@@ -71,6 +72,11 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
             tripId={tripId}
             isViewOnly={isExported}
           />
+          {isExported && (
+            <div css={utilities.backLinkContainer.bottom}>
+              <BackLink text="Return to trip overview" to={ROUTES.trips} />
+            </div>
+          )}
         </Fragment>
       )}
     </Layout>

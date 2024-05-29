@@ -143,9 +143,6 @@ const OpenEncounter = ({ encounterId }) => {
           }}
         />
       )}
-      <div css={utilities.backLinkContainer.top}>
-        <BackLink text="Return to encounter list" to={ROUTES.encounters} />
-      </div>
       {!!Object.keys(encounter).length ? (
         <div css={utilities.sticky.contentContainer}>
           <EncounterOverview
