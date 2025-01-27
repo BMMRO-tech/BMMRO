@@ -107,10 +107,10 @@ This project has dedicated maintainers to keep this project running smoothly. We
 
 ## Primary Contacts:
 
-- James Brown, Technical Lead (TW): james.brown@thoughtworks.com / jameskinnahbrown@gmail.com
+- James Brown, Technical Lead (TW): @JBJamesBrownJB | jameskinnahbrown@gmail.com
 - Charlotte Dunn, PhD (BMMRO): cdunn@bahamaswhales.org
 - Thomas Brown, client Product Owner (BMMRO): motnworb@hotmail.com
-- Oktawia Kata, Technical Lead (TW): oktawia.kata@thoughtworks.com
+- Oktawia Kata, Technical Lead (TW): @aiwatko
 - Team: bahamas-marine-mammal-research-organization@thoughtworks.com
 
 ## Contributors ✨
