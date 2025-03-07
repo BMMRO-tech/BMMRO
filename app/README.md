@@ -35,6 +35,13 @@ Limitations of this method include:
 
 Since forms are the core component of the application we intend to test their functionality and validation extensively. The firebase datastore has been decoupled from the react application allowing it to be unit tested.
 
+## Milestones for the Trip and Logbook Entries
+
+- [Create Trips and Logbook Entries](https://github.com/BMMRO-tech/BMMRO/milestone/3) Trips can now be recorded in the app instead of being noted down on paper.
+- [Editing Trips and Logbooks](https://github.com/BMMRO-tech/BMMRO/milestone/4) After creating a trip or a logbook entry, they can still be edited.
+- [Ending a Trip](https://github.com/BMMRO-tech/BMMRO/milestone/5) Trips have to be ended before they can be exported.
+- [Exporting Logbook data to MS Access DB](https://github.com/BMMRO-tech/BMMRO/milestone/6) The logbook entries can now be exported to MS Access DB.
+
 ## Milestones for Habitat Use form
 
 - [User Testing](https://github.com/BMMRO-tech/BMMRO/milestone/2) - This is our first milestone allowing the application to be tested by real users in real conditions.
