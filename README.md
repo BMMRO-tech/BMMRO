@@ -64,21 +64,44 @@ We are passionate about technology. We understand that the system that protects 
 - Back-up strategy (Export to csv)
 - Production and test environments
 
-### Stage 2 🔄
+### Stage 2 ✅
 
 #### APP FUNCTIONALITY
 
-- View list of all encounters for preceding 12 months
-- View list of habitat forms within an encounter
-- Edit habitat use forms (prior to export)
-- Edit encounter forms (prior to export)
-- View habitat use forms (post export)
-- View encounter forms (post export)
-- Mark exported records as non-editable
-- Add version numbers to app
+- View list of habitat forms within an encounter 
+- Edit habitat use forms (prior to export) 
+- Edit encounter forms (prior to export) 
+- View habitat use forms (post export) 
+- View encounter forms (post export) 
+- Mark exported records as non-editable 
+- Add version numbers to app 
+- Create trips and corresponding logbook entries
+- Edit trips and logbook entries (prior to export)
+- End trips so that they contain all data for export
+- View trips and logbook entries (post export)
+- Export logbook entries
+- Edit projects dropdown in Firebase
+
+
+### Stage 3 🔄
+
+#### APP IMPROVEMENT
+
 - Improve usability for the webapp
 - Post-user testing changes to form fields
 - User friendly exporting
+- Upgrade react-script from v3.4 to v5.0 (or even better: replace it with another dependency that still gets updates)
+- Add more tests (e2e-tests: delete trips and logbook entries at the end, extend firestore.test.js with trip/ logbook data, add more tests for logbook entries)
+- Update dependencies in general (there used to be pull requests made by dependabot)
+- Create the effort form
+- Delete records from the app
+- Allow BMMRO to self-manage lists and dropdowns (just like projects dropdown in Firebase, the rest can only be [edited via PR](https://docs.google.com/document/d/1zFzHcWEdO8jby3W6a9eV5IuKUfDRd62f9-HU9lqdm5Q/edit?tab=t.0#heading=h.3ebuohi1b084))
+
+#### POSSIBLE BUGS TO CHECK
+
+- GPS is not working properly
+- cloud symbol might not show the current status when syncing trips
+- are tests flakey in the pipeline even though they work locally?
 
 ## Future ideas
 
