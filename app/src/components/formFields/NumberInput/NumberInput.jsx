@@ -28,7 +28,13 @@ const NumberInput = ({
   decimalPrecision,
   isDisabled,
   isChildInput,
+  componentClass,
 }) => {
+  const onKeyDown = (evt) => {
+    console.log(evt);
+    ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault();
+  };
+
   const validateNumber = (val) => {
     if (isDisabled) return "";
 
@@ -80,6 +86,7 @@ const NumberInput = ({
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
+            onKeyDown={onKeyDown}
           />
         </div>
       </label>
