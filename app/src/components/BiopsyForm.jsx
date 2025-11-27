@@ -407,6 +407,7 @@ const BiopsyForm = ({
                   <Button type="submit" testId={"saveBiopsy"}>
                     Save
                   </Button>
+                  console.log("test")
                 </div>
               )}
               <InputFocusOnError
