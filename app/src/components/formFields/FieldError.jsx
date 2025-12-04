@@ -20,6 +20,8 @@ const FieldError = ({ touched, errorMessage, labelText, isRequired }) => {
     `,
   };
 
+  console.log("testing deployment process");
+
   return (
     <div css={styles.container}>
       <div role="alert" aria-label={labelText} css={styles.error}>
