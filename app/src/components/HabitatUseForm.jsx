@@ -16,6 +16,7 @@ import TimeInput from "./formFields/TimeInput/TimeInput";
 import PositionInput from "./formFields/PositionInput/PositionInput";
 import Select from "./formFields/Select/Select";
 import InputFocusOnError from "./formFields/InputFocusOnError";
+import { constructDateTime } from "../utils/time";
 
 import direction from "../constants/formOptions/direction";
 import bottomSubstrate from "../constants/formOptions/bottomSubstrate";
@@ -108,6 +109,7 @@ const HabitatUseForm = ({
   };
 
   const initValues = initialValues || habitatUseDefaults;
+  const TEMP_DATE = "22 July 2020"; // Using a constant date as we only care about time
 
   return (
     <div css={utilities.sticky.contentContainer}>
@@ -136,14 +138,16 @@ const HabitatUseForm = ({
                     autofill={!initialValues}
                     timeWithSeconds
                     isDisabled={isViewOnly}
+                    associatedDate={TEMP_DATE}
                   />
                   <TimeInput
                     name="endTime"
                     labelText="End time (hh:mm:ss)"
-                    notBefore={values.startTime}
+                    notBefore={constructDateTime(TEMP_DATE, values.startTime)}
                     isShort
                     timeWithSeconds
                     isDisabled={isViewOnly}
+                    associatedDate={TEMP_DATE}
                   />
                 </FormSection>
                 <br />
