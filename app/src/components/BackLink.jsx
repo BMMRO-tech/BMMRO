@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Link } from "@reach/router";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
 
 import colors from "../materials/colors";
 import { LeftArrow } from "./icons/LeftArrow";

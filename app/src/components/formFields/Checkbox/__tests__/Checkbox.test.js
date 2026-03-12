@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "@testing-library/react";
 
@@ -10,7 +9,7 @@ describe("CheckBox", () => {
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <Checkbox name="testResult" labelText="BooleanTest" />,
-      { testResult: false }
+      { testResult: false },
     );
 
     const checkboxInput = getByRole("checkbox", { name: "BooleanTest" });

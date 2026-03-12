@@ -1,10 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useContext } from "react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BiopsyForm from "../components/BiopsyForm";
-import { useNavigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import {
   CollectionNames,
@@ -26,7 +25,7 @@ const NewBiopsy = ({ encounterId }) => {
     const id = datastore.createSubDoc(
       encounterPath,
       CollectionNames.BIOPSY,
-      valuesToSubmit
+      valuesToSubmit,
     );
     const biopsyPath = generateBiopsyPath(encounterId, id);
 

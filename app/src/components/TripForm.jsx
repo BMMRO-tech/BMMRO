@@ -1,8 +1,8 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { Fragment, useEffect, useState } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
 import utilities from "../materials/utilities";
@@ -36,6 +36,7 @@ const TripForm = ({
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const [projectsList, setProjectsList] = useState();
+  let navigate = useNavigate();
 
   useEffect(() => {
     getProjects(datastore).then((data) => setProjectsList(data));
@@ -83,7 +84,7 @@ const TripForm = ({
     if (name === "vessel")
       setFieldValue(
         "gpsFileName",
-        generateGpsFileName({ ...values, [name]: value })
+        generateGpsFileName({ ...values, [name]: value }),
       );
     else if (name === "date")
       setFieldValue("gpsFileName", generateGpsFileName(values));
@@ -216,7 +217,7 @@ const TripForm = ({
                     onClick={() => {
                       const modifiedFields = getModifiedProperties(
                         values,
-                        initValues
+                        initValues,
                       );
 
                       Object.keys(modifiedFields).length === 0

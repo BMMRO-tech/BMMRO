@@ -5,14 +5,14 @@ import userEvent from "@testing-library/user-event";
 import HabitatUseForm from "../HabitatUseForm";
 //import { it } from "date-fns/locale";
 
-jest.mock("@reach/router", () => ({
+jest.mock("react-router-dom", () => ({
   navigate: jest.fn(),
 }));
 
 describe("HabitatUseForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
@@ -29,7 +29,7 @@ describe("HabitatUseForm", () => {
             latitude: 1.123456,
             longitude: 1.123456,
           },
-        })
+        }),
       ),
     };
 
@@ -38,7 +38,7 @@ describe("HabitatUseForm", () => {
       formValues = values;
     };
     const { getByRole } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -99,7 +99,7 @@ describe("HabitatUseForm", () => {
       <HabitatUseForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -113,7 +113,7 @@ describe("HabitatUseForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -137,7 +137,7 @@ describe("HabitatUseForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, queryByTestId } = render(
-      <HabitatUseForm handleSubmit={mockHandleSubmit} />
+      <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -166,7 +166,7 @@ describe("HabitatUseForm", () => {
           waterTemp: 17,
           surfaceBout: 0,
         }}
-      />
+      />,
     );
 
     await act(async () => {
@@ -181,7 +181,7 @@ describe("HabitatUseForm", () => {
     const { findByRole, queryByRole } = render(<HabitatUseForm />);
 
     expect(
-      await findByRole("button", { name: "End Habitat" })
+      await findByRole("button", { name: "End Habitat" }),
     ).toBeInTheDocument();
     expect(queryByRole("button", { name: "Save" })).not.toBeInTheDocument();
   });
@@ -195,12 +195,12 @@ describe("HabitatUseForm", () => {
           waterTemp: 17,
           surfaceBout: 0,
         }}
-      />
+      />,
     );
 
     expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
     expect(
-      queryByRole("button", { name: "End Habitat" })
+      queryByRole("button", { name: "End Habitat" }),
     ).not.toBeInTheDocument();
   });
 
@@ -209,7 +209,7 @@ describe("HabitatUseForm", () => {
 
     await act(async () => {
       const { getByRole } = render(
-        <HabitatUseForm handleSubmit={mockHandleSubmit} />
+        <HabitatUseForm handleSubmit={mockHandleSubmit} />,
       );
       const commentsInput = getByRole("textbox", {
         name: "Comments",
@@ -258,7 +258,7 @@ describe("HabitatUseForm", () => {
       <HabitatUseForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
-      />
+      />,
     );
 
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
@@ -288,7 +288,7 @@ describe("HabitatUseForm", () => {
     });
 
     expect(
-      global.navigator.geolocation.getCurrentPosition
+      global.navigator.geolocation.getCurrentPosition,
     ).toHaveBeenCalledTimes(2);
 
     expect(refreshButton).toHaveAttribute("disabled");
@@ -326,7 +326,7 @@ describe("HabitatUseForm", () => {
             latitude: 1.293859,
             longitude: -23.049282,
           },
-        })
+        }),
       ),
     };
 

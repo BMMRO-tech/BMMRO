@@ -1,4 +1,5 @@
-import { css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import colors from "../../materials/colors";
 import typography from "../../materials/typography";
 

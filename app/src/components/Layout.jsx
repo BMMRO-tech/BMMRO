@@ -1,6 +1,7 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
+
 import { Fragment, useContext } from "react";
-import { css, Global, jsx } from "@emotion/core";
+import { css, Global, jsx } from "@emotion/react";
 
 import containers from "../materials/containers";
 import breakPoints from "../materials/breakPoints";
@@ -11,7 +12,7 @@ import Error from "./Error";
 import Loader from "./Loader";
 import Footer from "./Footer";
 import Tabs from "./Tabs";
-import { useLocation } from "@reach/router";
+import { useLocation } from "react-router-dom";
 
 const Layout = ({
   containerSize = containers.default,

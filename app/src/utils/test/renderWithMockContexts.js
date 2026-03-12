@@ -3,8 +3,8 @@ import { render } from "@testing-library/react";
 import {
   createHistory,
   createMemorySource,
-  LocationProvider,
-} from "@reach/router";
+  BrowserRouter,
+} from "react-router-dom";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import "@testing-library/jest-dom/extend-expect";
 import { MonthContext } from "../../providers/monthContext/MonthContext";
@@ -19,7 +19,7 @@ export const renderWithMockContexts = (
     datastore,
     datastoreError,
     month,
-  } = {}
+  } = {},
 ) => {
   return {
     ...render(
@@ -27,9 +27,9 @@ export const renderWithMockContexts = (
         value={{ loggedInUser, datastore, datastoreError }}
       >
         <MonthContext.Provider value={{ month, setMonth: () => {} }}>
-          <LocationProvider history={history}>{ui}</LocationProvider>
+          <BrowserRouter history={history}>{ui}</BrowserRouter>
         </MonthContext.Provider>
-      </FirebaseContext.Provider>
+      </FirebaseContext.Provider>,
     ),
     history,
   };

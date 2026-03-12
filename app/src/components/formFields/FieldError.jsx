@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import colors from "../../materials/colors";
 
 const FieldError = ({ touched, errorMessage, labelText, isRequired }) => {
@@ -19,8 +18,6 @@ const FieldError = ({ touched, errorMessage, labelText, isRequired }) => {
       min-height: 20px;
     `,
   };
-
-  console.log("testing deployment process");
 
   return (
     <div css={styles.container}>

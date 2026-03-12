@@ -1,13 +1,8 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { useState, forwardRef, useRef } from "react";
-import firebase from "firebase/app";
-import {
-  AlertDialogOverlay,
-  AlertDialogLabel,
-  AlertDialogDescription,
-} from "@reach/alert-dialog";
-import "@reach/dialog/styles.css";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
+import { useState, useRef } from "react";
+import firebase from "firebase/compat/app";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
 
 import { AuthenticationErrorType } from "../constants/authentication";
 import getErrorMessage from "../utils/getErrorMessage";
@@ -36,19 +31,19 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       .signOut()
       .catch(() =>
         setLogoutError(
-          getErrorMessage(AuthenticationErrorType.UNSUCCESSFUL_LOGOUT)
-        )
+          getErrorMessage(AuthenticationErrorType.UNSUCCESSFUL_LOGOUT),
+        ),
       );
   };
 
   const renderOnlineModalTitle = () => {
     return (
-      <AlertDialogLabel
+      <AlertDialog.Title
         css={utilities.confirmationModal.modalHeader}
         data-testid="online-modal-title"
       >
         Logout?
-      </AlertDialogLabel>
+      </AlertDialog.Title>
     );
   };
 
@@ -58,30 +53,30 @@ const LogoutConfirmationModal = ({ closeModal }) => {
         <div css={styles.attentionIcon}>
           <Attention />
         </div>
-        <AlertDialogLabel
+        <AlertDialog.Title
           css={utilities.confirmationModal.modalHeader}
           data-testid="offline-modal-title"
         >
           Logout while offline?
-        </AlertDialogLabel>
+        </AlertDialog.Title>
       </div>
     );
   };
 
   const renderOnlineModalDescription = () => {
     return (
-      <AlertDialogDescription
+      <AlertDialog.Description
         css={utilities.confirmationModal.modalDescription}
       >
         If you lose internet connection you will not be able to log back in
         until you are online again.
-      </AlertDialogDescription>
+      </AlertDialog.Description>
     );
   };
 
   const renderOfflineModalDescription = () => {
     return (
-      <AlertDialogDescription
+      <AlertDialog.Description
         css={utilities.confirmationModal.modalDescription}
       >
         <ul css={utilities.confirmationModal.modalDescriptionList}>
@@ -94,19 +89,19 @@ const LogoutConfirmationModal = ({ closeModal }) => {
             log in again.
           </li>
         </ul>
-      </AlertDialogDescription>
+      </AlertDialog.Description>
     );
   };
 
-  const CancelButton = forwardRef((props, ref) => (
+  const CancelButton = (ref) => (
     <Button variant="neutral" ref={ref} onClick={closeModal}>
       Stay logged in
     </Button>
-  ));
+  );
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
-      <AlertDialogOverlay
+      <AlertDialog.Overlay
         css={utilities.confirmationModal.overlay}
         leastDestructiveRef={cancelRef}
         data-testid="confirmation-modal"
@@ -137,7 +132,7 @@ const LogoutConfirmationModal = ({ closeModal }) => {
             </div>
           )}
         </div>
-      </AlertDialogOverlay>
+      </AlertDialog.Overlay>
     </div>
   );
 };

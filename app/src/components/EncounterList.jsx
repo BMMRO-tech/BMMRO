@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import usLocale from "date-fns/locale/en-US";
 import { endOfMonth, format, parse } from "date-fns";
@@ -98,7 +98,7 @@ const EncountersByMonth = () => {
       const response = await getEncountersByTimeRange(
         datastore,
         startDate,
-        endDate
+        endDate,
       );
       setEncounters(response[0]);
       setLoading(false);
@@ -114,7 +114,7 @@ const EncountersByMonth = () => {
     const encounterList = await getEncountersByTimeRange(
       datastore,
       startDate,
-      endDate
+      endDate,
     );
     setEncounters(encounterList[0]);
   }

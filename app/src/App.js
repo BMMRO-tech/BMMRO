@@ -1,7 +1,6 @@
-/** @jsx jsx */
 import { useContext } from "react";
-import { jsx } from "@emotion/core";
-import { LocationProvider, Redirect, Router } from "@reach/router";
+import { jsx } from "@emotion/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import {
   FirebaseContext,
@@ -35,39 +34,36 @@ const AppWithoutContext = () => {
   useLogoutRedirect(loggedInUser);
 
   return (
-    <Router>
-      <Login path={ROUTES.login} />
-      <Redirect from="/" to={ROUTES.trips} noThrow />
-      <NewEncounter path={ROUTES.newEncounter} />
-      <OpenEncounter path={ROUTES.openEncounter} />
-      <EditEncounter path={ROUTES.editEncounter} />
-      <ViewEncounter path={ROUTES.viewEncounter} />
-      <NewHabitatUse path={ROUTES.newHabitatUse} />
-      <EditHabitatUse path={ROUTES.editHabitatUse} />
-      <ViewHabitatUse path={ROUTES.viewHabitatUse} />
-      <NewBiopsy path={ROUTES.newBiopsy} />
-      <EditBiopsy path={ROUTES.editBiopsy} />
-      <ViewBiopsy path={ROUTES.viewBiopsy} />
-      <Encounters path={ROUTES.encounters} />
-      <Trips path={ROUTES.trips} />
-      <NewTrip path={ROUTES.newTrip} />
-      <EditTrip path={ROUTES.editTrip} />
-      <ViewTrip path={ROUTES.viewTrip} />
-      <NewLogbookEntry path={ROUTES.newLogbookEntry} />
-      <EditLogbookEntry path={ROUTES.editLogbookEntry} />
-      <NotFound default path={ROUTES.notFound} />
-    </Router>
+    <Routes>
+      <Route path={ROUTES.login} element={<Login />} />
+      <Route path={ROUTES.newEncounter} element={<NewEncounter />} />
+      <Route path={ROUTES.openEncounter} element={<OpenEncounter />} />
+      <Route path={ROUTES.editEncounter} element={<EditEncounter />} />
+      <Route path={ROUTES.viewEncounter} element={<ViewEncounter />} />
+      <Route path={ROUTES.newHabitatUse} element={<NewHabitatUse />} />
+      <Route path={ROUTES.editHabitatUse} element={<EditHabitatUse />} />
+      <Route path={ROUTES.viewHabitatUse} element={<ViewHabitatUse />} />
+      <Route path={ROUTES.newBiopsy} element={<NewBiopsy />} />
+      <Route path={ROUTES.editBiopsy} element={<EditBiopsy />} />
+      <Route path={ROUTES.viewBiopsy} element={<ViewBiopsy />} />
+      <Route path={ROUTES.encounters} element={<Encounters />} />
+      <Route path={ROUTES.trips} element={<Trips />} />
+      <Route path={ROUTES.newTrip} element={<NewTrip />} />
+      <Route path={ROUTES.editTrip} element={<EditTrip />} />
+      <Route path={ROUTES.viewTrip} element={<ViewTrip />} />
+      <Route path={ROUTES.newLogbookEntry} element={<NewLogbookEntry />} />
+      <Route path={ROUTES.editLogbookEntry} element={<EditLogbookEntry />} />
+      <Route path={ROUTES.notFound} element={<NotFound />} />
+    </Routes>
   );
 };
 
 export default () => {
   return (
     <FirebaseContextProvider>
-      <LocationProvider>
-        <MonthProvider>
-          <AppWithoutContext />
-        </MonthProvider>
-      </LocationProvider>
+      <MonthProvider>
+        <AppWithoutContext />
+      </MonthProvider>
     </FirebaseContextProvider>
   );
 };

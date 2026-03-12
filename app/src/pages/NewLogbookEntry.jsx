@@ -1,6 +1,5 @@
-/** @jsx jsx */
 import { Fragment, useContext, useEffect, useState } from "react";
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import LogbookForm from "../components/LogbookForm";
@@ -8,7 +7,7 @@ import { CollectionNames, generateTripPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { generateViewTripURL, ROUTES } from "../constants/routes";
 import Loader from "../components/Loader";
-import { useNavigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 const NewLogbookEntry = ({ tripId }) => {
   const { datastore } = useContext(FirebaseContext);

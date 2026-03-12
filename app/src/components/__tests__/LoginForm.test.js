@@ -13,7 +13,7 @@ import {
 } from "../../utils/test/firebase";
 import LoginForm from "../LoginForm";
 
-jest.mock("@reach/router", () => ({
+jest.mock("react-router-dom", () => ({
   useLocation: jest.fn(),
   useNavigate: jest.fn(),
 }));
@@ -36,13 +36,13 @@ describe("Login form", () => {
     const { queryByTestId } = render(
       <FirebaseContext.Provider value={{ datastore: "some-datastore" }}>
         <LoginForm />
-      </FirebaseContext.Provider>
+      </FirebaseContext.Provider>,
     );
 
     fireEvent.click(queryByTestId("submit"));
 
     await waitFor(() =>
-      expect(queryByTestId("login-error")).toBeInTheDocument()
+      expect(queryByTestId("login-error")).toBeInTheDocument(),
     );
   });
 });

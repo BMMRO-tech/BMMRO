@@ -1,8 +1,7 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import { useContext, useRef } from "react";
-import { AlertDialogLabel, AlertDialogOverlay } from "@reach/alert-dialog";
-import "@reach/dialog/styles.css";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
 import utilities from "../materials/utilities";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -45,22 +44,22 @@ const EndTripConfirmationModal = ({
     datastore.createSubDoc(
       tripPath,
       CollectionNames.LOGBOOK_ENTRY,
-      logbookValues
+      logbookValues,
     );
     handleLeavePage();
   };
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
-      <AlertDialogOverlay
+      <AlertDialog.Overlay
         css={utilities.confirmationModal.overlay}
         leastDestructiveRef={cancelRef}
         data-testid="end-trip-confirmation-modal"
       >
         <div css={utilities.confirmationModal.modal}>
-          <AlertDialogLabel css={utilities.confirmationModal.modalHeader}>
+          <AlertDialog.Title css={utilities.confirmationModal.modalHeader}>
             Are you sure you want to end this trip?
-          </AlertDialogLabel>
+          </AlertDialog.Title>
           <div css={utilities.sticky.contentContainer}>
             <LastLogbookForm
               handleSubmit={handleSubmit}
@@ -69,7 +68,7 @@ const EndTripConfirmationModal = ({
             />
           </div>
         </div>
-      </AlertDialogOverlay>
+      </AlertDialog.Overlay>
     </div>
   );
 };

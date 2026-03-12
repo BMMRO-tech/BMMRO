@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx, css } from "@emotion/react";
 import { useEffect, useContext, useState, Fragment } from "react";
-import { useNavigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Loader from "../components/Loader";
@@ -32,7 +31,7 @@ const ViewBiopsy = ({ encounterId, biopsyId }) => {
   const getSpecimens = async () => {
     const specimens = await datastore.readDocsByParentPath(
       biopsyPath,
-      CollectionNames.SPECIMEN
+      CollectionNames.SPECIMEN,
     );
     let specimensArray = [];
     for (const specimen of specimens) {

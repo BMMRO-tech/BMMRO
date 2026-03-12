@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Fragment } from "react";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
 
 import typography from "../materials/typography";
 import colors from "../materials/colors";

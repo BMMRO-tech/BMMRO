@@ -1,8 +1,8 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { useState, Fragment } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
@@ -39,6 +39,8 @@ const NewEncounterForm = ({ handleSubmit }) => {
       values.endTimestamp.setHours(0, 0, 0, 0);
     }
   };
+
+  let navigate = useNavigate();
 
   const renderConfirmationModal = () => {
     return (
@@ -108,7 +110,7 @@ const NewEncounterForm = ({ handleSubmit }) => {
                     onClick={() => {
                       const modifiedFields = getModifiedProperties(
                         values,
-                        encounterDefaults
+                        encounterDefaults,
                       );
 
                       Object.keys(modifiedFields).length === 0

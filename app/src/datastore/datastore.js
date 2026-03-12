@@ -1,4 +1,4 @@
-import "firebase/firestore";
+import "firebase/compat/firestore";
 import { fromUnixTime } from "date-fns";
 
 import { DatastoreErrorType } from "../constants/datastore";

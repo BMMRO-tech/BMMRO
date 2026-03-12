@@ -1,12 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { forwardRef, useRef } from "react";
-import {
-  AlertDialogDescription,
-  AlertDialogLabel,
-  AlertDialogOverlay,
-} from "@reach/alert-dialog";
-
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
+import { useRef } from "react";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
 import utilities from "../materials/utilities";
 import Attention from "./icons/Attention";
 import colors from "../materials/colors";
@@ -28,11 +23,11 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
     `,
   };
 
-  const CancelButton = forwardRef((_, ref) => (
+  const CancelButton = (ref) => (
     <Button variant="primary" ref={ref} onClick={closeModal}>
       Close
     </Button>
-  ));
+  );
 
   const modalText = !!navigateToEncounter
     ? "Encounter cannot be ended as end date and time is more than 72 hours after start date and time. Please update in the encounter data sheet."
@@ -40,7 +35,7 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
-      <AlertDialogOverlay
+      <AlertDialog.Overlay
         css={utilities.confirmationModal.overlay}
         leastDestructiveRef={cancelRef}
         data-testid="confirmation-modal"
@@ -51,19 +46,19 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
               <div css={styles.attentionIcon}>
                 <Attention />
               </div>
-              <AlertDialogLabel
+              <AlertDialog.Title
                 css={utilities.confirmationModal.modalHeader}
                 data-testid="offline-modal-title"
               >
                 Encounter is over 72 hours
-              </AlertDialogLabel>
+              </AlertDialog.Title>
             </div>
           </div>
-          <AlertDialogDescription
+          <AlertDialog.Description
             css={utilities.confirmationModal.modalDescription}
           >
             {modalText}
-          </AlertDialogDescription>
+          </AlertDialog.Description>
           <div css={utilities.confirmationModal.modalButtons}>
             {!!navigateToEncounter ? (
               <Button
@@ -80,7 +75,7 @@ const DateInvalidModal = ({ closeModal, navigateToEncounter }) => {
             )}
           </div>
         </div>
-      </AlertDialogOverlay>
+      </AlertDialog.Overlay>
     </div>
   );
 };

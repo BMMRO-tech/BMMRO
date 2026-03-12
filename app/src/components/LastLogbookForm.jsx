@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
-import { forwardRef, Fragment } from "react";
+import { Fragment } from "react";
 
 import utilities from "../materials/utilities";
 import Button from "./Button";
@@ -14,11 +14,11 @@ import Attention from "../components/icons/Attention";
 import { getCurrentDate } from "../utils/time";
 
 const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
-  const CancelButton = forwardRef((props, ref) => (
+  const CancelButton = (ref) => (
     <Button variant="neutral" ref={ref} onClick={closeModal}>
       Cancel
     </Button>
-  ));
+  );
   const styles = {
     warning: css`
       color: darkRed;
@@ -34,8 +34,8 @@ const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
     tripDate.getFullYear() < new Date().getFullYear()
       ? true
       : tripDate.getMonth() < new Date().getMonth()
-      ? true
-      : tripDate.getDate() < new Date().getDate();
+        ? true
+        : tripDate.getDate() < new Date().getDate();
 
   const initValues = {
     tripMiles: "",

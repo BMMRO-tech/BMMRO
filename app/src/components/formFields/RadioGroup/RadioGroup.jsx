@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useField } from "formik";
 import { Fragment } from "react";
 import getRadioGroupStyle from "./getRadioGroupStyle";

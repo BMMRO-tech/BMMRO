@@ -1,6 +1,4 @@
-/** @jsx jsx */
-
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BackLink from "../components/BackLink";
@@ -11,7 +9,7 @@ import {
 } from "../constants/routes";
 import TripOverview from "../components/TripOverview";
 import { CollectionNames, generateTripPath } from "../constants/datastore";
-import { useNavigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import typography from "../materials/typography";
 import breakPoints from "../materials/breakPoints";

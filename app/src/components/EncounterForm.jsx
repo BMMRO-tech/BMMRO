@@ -1,9 +1,9 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Fragment, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import add from "date-fns/add";
-import { navigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 import utilities from "../materials/utilities";
 import { constructDateTime } from "../utils/time";
@@ -68,6 +68,8 @@ const EncounterForm = ({
 
     values.needsToBeChecked = values.enteredBy === RESEARCH_ASSISTANT;
   };
+
+  let navigate = useNavigate();
 
   const renderConfirmationModal = () => {
     return (
@@ -497,7 +499,7 @@ const EncounterForm = ({
                     associatedDate={values.endTimestamp}
                     notBefore={constructDateTime(
                       values.startTimestamp,
-                      values.startTime
+                      values.startTime,
                     )}
                     isDisabled={isViewOnly}
                     autofill={autofillEnd}
@@ -506,9 +508,9 @@ const EncounterForm = ({
                     notAfter={add(
                       constructDateTime(
                         values.startTimestamp,
-                        values.startTime
+                        values.startTime,
                       ),
-                      { hours: THREE_DAYS_IN_HOURS }
+                      { hours: THREE_DAYS_IN_HOURS },
                     )}
                   />
                 </FormSection>
@@ -557,7 +559,7 @@ const EncounterForm = ({
                         onClick={() => {
                           const modifiedFields = getModifiedProperties(
                             values,
-                            initValues
+                            initValues,
                           );
 
                           Object.keys(modifiedFields).length === 0

@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -15,7 +14,7 @@ describe("TextAreaInput", () => {
         name="favoriteSentence"
         labelText="Your favorite sentence"
       />,
-      { favoriteSentence: "" }
+      { favoriteSentence: "" },
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite sentence" });
@@ -35,7 +34,7 @@ describe("TextAreaInput", () => {
         labelText="Your favorite sentence"
         isRequired
       />,
-      { favoriteSentence: "" }
+      { favoriteSentence: "" },
     );
 
     const textInput = getByRole("textbox", {
@@ -49,7 +48,7 @@ describe("TextAreaInput", () => {
     });
 
     expect(
-      queryByRole("alert", { name: "Your favorite sentence" })
+      queryByRole("alert", { name: "Your favorite sentence" }),
     ).not.toBeInTheDocument();
   });
 
@@ -60,7 +59,7 @@ describe("TextAreaInput", () => {
         labelText="Your favorite sentence"
         maxLength={10}
       />,
-      { favoriteSentence: "" }
+      { favoriteSentence: "" },
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite sentence" });
@@ -78,7 +77,7 @@ describe("TextAreaInput", () => {
         labelText="Your favorite sentence"
         isRequired
       />,
-      { favoriteSentence: "" }
+      { favoriteSentence: "" },
     );
 
     await act(async () => {
@@ -92,7 +91,7 @@ describe("TextAreaInput", () => {
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteSentence).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite sentence" })
+      getByRole("alert", { name: "Your favorite sentence" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -103,7 +102,7 @@ describe("TextAreaInput", () => {
         labelText="Your favorite sentence"
         isDisabled
       />,
-      { favoriteSentence: "" }
+      { favoriteSentence: "" },
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite sentence" });
