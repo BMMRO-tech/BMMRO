@@ -1,5 +1,5 @@
 import React from "react";
-import { act, getByRole, render, waitFor } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import EncounterForm from "../EncounterForm";
@@ -9,9 +9,15 @@ import { FormErrorType } from "../../constants/forms";
 import { changeInputMaskValue } from "../../utils/test/changeInputMaskValue";
 import * as getProjects from "../../hooks/getProjects";
 
-jest.mock("@reach/router", () => ({
+import { MemoryRouter } from "react-router-dom";
+
+jest.mock("react-router-dom", () => ({
   navigate: jest.fn(),
 }));
+
+// Helper to wrap components in MemoryRouter
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 describe("EncounterForm", () => {
   const mockEncounterValues = {
@@ -34,7 +40,7 @@ describe("EncounterForm", () => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -68,7 +74,7 @@ describe("EncounterForm", () => {
   it("contains four fieldsets with the correct associated names", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
@@ -99,7 +105,7 @@ describe("EncounterForm", () => {
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
@@ -112,9 +118,7 @@ describe("EncounterForm", () => {
       const submitButton = getByRole("button", { name: "Save" });
       userEvent.click(submitButton);
 
-      errorMessage = getByLabelText("Area", {
-        selector: '[role="alert"]',
-      });
+      errorMessage = getByLabelText("Area", { selector: '[role="alert"]' });
     });
 
     expect(errorMessage).not.toBeNull();
@@ -124,20 +128,17 @@ describe("EncounterForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{ ...mockEncounterValues, sequenceNumber: "" }}
       />
     );
 
-    let submitButton;
-    let encounterSequenceInput;
-
-    submitButton = getByRole("button", { name: "Save" });
+    const submitButton = getByRole("button", { name: "Save" });
     userEvent.click(submitButton);
 
-    encounterSequenceInput = getByRole("textbox", {
+    const encounterSequenceInput = getByRole("textbox", {
       name: "Encounter sequence *",
     });
 
@@ -150,28 +151,23 @@ describe("EncounterForm", () => {
   it("shows an error when best estimate is lower than low estimate", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, getByText } = render(
+    const { getByRole, getByText } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
       />
     );
 
-    const lowEstimateInput = getByRole("spinbutton", {
-      name: "Low estimate",
-    });
+    const lowEstimateInput = getByRole("spinbutton", { name: "Low estimate" });
     await userEvent.type(lowEstimateInput, "200", { delay: 1 });
 
-    const bestEstimateInput = getByRole("spinbutton", {
-      name: "Best estimate",
-    });
+    const bestEstimateInput = getByRole("spinbutton", { name: "Best estimate" });
     await userEvent.type(bestEstimateInput, "100", { delay: 1 });
 
     userEvent.tab();
 
     await waitFor(() => {
       const errorMessage = getByText("Value must be less than or equal to 100");
-
       expect(errorMessage).toBeInTheDocument();
       expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
@@ -180,28 +176,23 @@ describe("EncounterForm", () => {
   it("shows an error when high estimate is lower than best estimate", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, getByText } = render(
+    const { getByRole, getByText } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
       />
     );
 
-    const bestEstimateInput = getByRole("spinbutton", {
-      name: "Best estimate",
-    });
+    const bestEstimateInput = getByRole("spinbutton", { name: "Best estimate" });
     await userEvent.type(bestEstimateInput, "200", { delay: 1 });
 
-    const highEstimateInput = getByRole("spinbutton", {
-      name: "High estimate",
-    });
+    const highEstimateInput = getByRole("spinbutton", { name: "High estimate" });
     await userEvent.type(highEstimateInput, "100", { delay: 1 });
 
     userEvent.tab();
 
     await waitFor(() => {
       const errorMessage = getByText("Value must be less than or equal to 100");
-
       expect(errorMessage).toBeInTheDocument();
       expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
@@ -210,7 +201,7 @@ describe("EncounterForm", () => {
   it("shows an error when encounter is longer than 72 hours", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -228,14 +219,10 @@ describe("EncounterForm", () => {
       userEvent.click(saveAndEndButton);
     });
 
-    const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_END_TIME
-    );
+    const expectedErrorMessage = getErrorMessage(FormErrorType.INVALID_END_TIME);
 
     await waitFor(() => {
-      const errorMessage = getByLabelText("elapsedTime", {
-        selector: '[role="alert"]',
-      });
+      const errorMessage = getByLabelText("elapsedTime", { selector: '[role="alert"]' });
       expect(errorMessage).toHaveTextContent(expectedErrorMessage);
       expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
@@ -244,7 +231,7 @@ describe("EncounterForm", () => {
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
@@ -267,7 +254,7 @@ describe("EncounterForm", () => {
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
@@ -284,7 +271,7 @@ describe("EncounterForm", () => {
 
   it("displays 'Save & End' button if encounter hasn't ended", async () => {
     const mockHandleSubmit = jest.fn();
-    const { findByRole } = render(
+    const { findByRole } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
@@ -292,14 +279,12 @@ describe("EncounterForm", () => {
     );
 
     expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
-    expect(
-      await findByRole("button", { name: "Save & End" })
-    ).toBeInTheDocument();
+    expect(await findByRole("button", { name: "Save & End" })).toBeInTheDocument();
   });
 
   it("doesn't display 'save and end' button if encounter has already ended", async () => {
     const mockHandleSubmit = jest.fn();
-    const { findByRole, queryByRole } = render(
+    const { findByRole, queryByRole } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{ ...mockEncounterValues, hasEnded: true }}
@@ -307,14 +292,12 @@ describe("EncounterForm", () => {
     );
 
     expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
-    expect(
-      queryByRole("button", { name: "Save & End" })
-    ).not.toBeInTheDocument();
+    expect(queryByRole("button", { name: "Save & End" })).not.toBeInTheDocument();
   });
 
   it("has a comment field with maxlength 1000 chars", async () => {
     await act(async () => {
-      const { getByRole } = render(<EncounterForm />);
+      const { getByRole } = renderWithRouter(<EncounterForm />);
       const commentsInput = getByRole("textbox", {
         name: "Comments / Observations (names of underwater observers)",
       });
@@ -328,7 +311,7 @@ describe("EncounterForm", () => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{

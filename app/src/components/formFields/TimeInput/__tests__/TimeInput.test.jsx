@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TestUtils from "react-dom/test-utils";
@@ -13,7 +12,7 @@ import { changeInputMaskValue } from "../../../../utils/test/changeInputMaskValu
 describe("TimeInput", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:43.000Z").getTime()
+      new Date("2020-05-04T11:30:43.000Z").getTime(),
     );
   });
   afterAll(() => {
@@ -28,7 +27,7 @@ describe("TimeInput", () => {
         notBefore="15:00:00"
         timeWithSeconds
       />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
@@ -43,7 +42,7 @@ describe("TimeInput", () => {
   it("does not display an error when field value is correct", async () => {
     const { getByRole, queryByRole } = renderWithinFormik(
       <TimeInput name="favoriteTime" labelText="Your favorite time" />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
 
     const timeInput = getByRole("textbox", {
@@ -56,7 +55,7 @@ describe("TimeInput", () => {
     });
 
     expect(
-      queryByRole("alert", { name: "Your favorite time" })
+      queryByRole("alert", { name: "Your favorite time" }),
     ).not.toBeInTheDocument();
   });
 
@@ -67,7 +66,7 @@ describe("TimeInput", () => {
         labelText="Your favorite time"
         isRequired
       />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time *" });
@@ -79,7 +78,7 @@ describe("TimeInput", () => {
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite time" })
+      getByRole("alert", { name: "Your favorite time" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -90,7 +89,7 @@ describe("TimeInput", () => {
         labelText="Your favorite time"
         timeWithSeconds
       />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
@@ -102,7 +101,7 @@ describe("TimeInput", () => {
 
     const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_TIME_FORMAT,
-      { format: "hh:mm:ss" }
+      { format: "hh:mm:ss" },
     );
 
     expect(getFormErrors().favoriteTime).toEqual(expectedErrorMessage);
@@ -118,7 +117,7 @@ describe("TimeInput", () => {
         associatedDate={new Date(Date.now())}
         timeWithSeconds
       />,
-      { defaultTime: "11:29:11" }
+      { defaultTime: "11:29:11" },
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
@@ -129,7 +128,7 @@ describe("TimeInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.END_TIME_BEFORE_START_TIME
+      FormErrorType.END_TIME_BEFORE_START_TIME,
     );
 
     expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
@@ -145,7 +144,7 @@ describe("TimeInput", () => {
         associatedDate={new Date(Date.now())}
         timeWithSeconds
       />,
-      { defaultTime: "11:31:13" }
+      { defaultTime: "11:31:13" },
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
@@ -155,7 +154,7 @@ describe("TimeInput", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_END_TIME
+      FormErrorType.INVALID_END_TIME,
     );
 
     expect(getFormErrors().defaultTime).toEqual(expectedErrorMessage);
@@ -169,7 +168,7 @@ describe("TimeInput", () => {
         labelText="Your favorite time"
         timeWithSeconds
       />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
@@ -186,7 +185,7 @@ describe("TimeInput", () => {
   it("sets form field state to empty string when value is __:__ and timeWithSeconds is false", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <TimeInput name="favoriteTime" labelText="Your favorite time" />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
     const timeInput = getByRole("textbox", { name: "Your favorite time" });
 
@@ -203,7 +202,7 @@ describe("TimeInput", () => {
   it("autofills time without seconds when timeWithSeconds is false", () => {
     const { getFormValues } = renderWithinFormik(
       <TimeInput name="defaultTime" labelText="Your favorite time" autofill />,
-      { defaultTime: "" }
+      { defaultTime: "" },
     );
 
     expect(getFormValues().defaultTime).toEqual("11:30");
@@ -217,7 +216,7 @@ describe("TimeInput", () => {
         autofill
         timeWithSeconds
       />,
-      { defaultTime: "" }
+      { defaultTime: "" },
     );
 
     expect(getFormValues().defaultTime).toEqual("11:30:43");
@@ -232,7 +231,7 @@ describe("TimeInput", () => {
         timeWithSeconds
         isDisabled
       />,
-      { favoriteTime: "" }
+      { favoriteTime: "" },
     );
 
     const timeInput = getByRole("textbox", { name: "Your favorite time" });

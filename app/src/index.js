@@ -1,8 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import createRoot from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,11 +13,14 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+const root = createRoot.createRoot(document.getElementById("root"));
+
+root.render(
+  <BrowserRouter>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </BrowserRouter>,
 );
 
 // If you want your app to work offline and load faster, you can change

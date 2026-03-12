@@ -1,12 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { forwardRef, useRef } from "react";
-import {
-  AlertDialogOverlay,
-  AlertDialogLabel,
-  AlertDialogDescription,
-} from "@reach/alert-dialog";
-import "@reach/dialog/styles.css";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
+import { useRef } from "react";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
 
 import Button from "../components/Button";
 import utilities from "../materials/utilities";
@@ -25,7 +20,7 @@ const PositionalValidationModal = ({
     `,
   };
 
-  const StayButton = forwardRef((props, ref) => (
+  const StayButton = (ref) => (
     <Button
       variant="neutral"
       ref={ref}
@@ -35,22 +30,22 @@ const PositionalValidationModal = ({
     >
       Stay on this page
     </Button>
-  ));
+  );
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
-      <AlertDialogOverlay
+      <AlertDialog.Overlay
         css={utilities.confirmationModal.overlay}
         leastDestructiveRef={cancelRef}
         data-testid="positional-data-modal"
       >
         <div css={utilities.confirmationModal.modal}>
-          <AlertDialogLabel css={utilities.confirmationModal.modalHeader}>
+          <AlertDialog.Title css={utilities.confirmationModal.modalHeader}>
             No positional data present!
-          </AlertDialogLabel>
-          <AlertDialogDescription css={styles.description}>
+          </AlertDialog.Title>
+          <AlertDialog.Description css={styles.description}>
             End {pageName} without positional data?
-          </AlertDialogDescription>
+          </AlertDialog.Description>
           <div css={utilities.confirmationModal.modalButtons}>
             <Button
               variant="primary"
@@ -63,7 +58,7 @@ const PositionalValidationModal = ({
             <StayButton />
           </div>
         </div>
-      </AlertDialogOverlay>
+      </AlertDialog.Overlay>
     </div>
   );
 };

@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useContext } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -11,6 +10,7 @@ import utilities from "../materials/utilities";
 import NewTripForm from "../components/NewTripForm";
 const NewTrip = () => {
   const { datastore } = useContext(FirebaseContext);
+  let navigate = useNavigate();
   const handleSubmit = (values) => {
     const id = datastore.createDoc(CollectionNames.TRIP, values);
     navigate(generateNewLogbookEntryURL(id));

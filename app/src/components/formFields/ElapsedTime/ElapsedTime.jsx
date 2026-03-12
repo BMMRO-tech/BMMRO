@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useEffect } from "react";
 import { useField } from "formik";
 
@@ -24,7 +23,7 @@ const ElapsedTime = ({ notAfter }) => {
 
   const realEndTimestamp = constructDateTime(
     endTimestampField.value,
-    endTimeField.value
+    endTimeField.value,
   );
 
   const validateEndDateAndTime = () => {
@@ -55,12 +54,12 @@ const ElapsedTime = ({ notAfter }) => {
     ) {
       const startDateTime = constructDateTime(
         startTimestampField.value,
-        startTimeField.value
+        startTimeField.value,
       );
 
       const endDateTime = constructDateTime(
         endTimestampField.value,
-        endTimeField.value
+        endTimeField.value,
       );
 
       const elapsedTime = endDateTime - startDateTime;

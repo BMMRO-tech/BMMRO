@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Fragment } from "react";
 
 import typography from "../materials/typography";
@@ -7,7 +7,7 @@ import colors from "../materials/colors";
 import ListHeader from "./list/ListHeader";
 import { DATE_FORMAT } from "../constants/forms";
 import { format } from "date-fns";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
 import { RightArrow } from "./icons/RightArrow";
 import { generateEditTripURL } from "../constants/routes";
 

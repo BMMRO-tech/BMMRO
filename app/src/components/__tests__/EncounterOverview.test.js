@@ -1,6 +1,11 @@
 import { render } from "@testing-library/react";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import EncounterOverview from "../EncounterOverview";
+
+// helper wrapper
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 describe("EncounterOverview", () => {
   const defaultEncounter = {
@@ -15,7 +20,7 @@ describe("EncounterOverview", () => {
       exported: false,
     };
 
-    const { queryByTestId } = render(
+    const { queryByTestId } = renderWithRouter(
       <EncounterOverview encounter={encounter} encounterId={1} />
     );
 
@@ -28,7 +33,7 @@ describe("EncounterOverview", () => {
       exported: true,
     };
 
-    const { queryByTestId } = render(
+    const { queryByTestId } = renderWithRouter(
       <EncounterOverview encounter={exportedEncounter} encounterId={1} />
     );
 
@@ -41,7 +46,7 @@ describe("EncounterOverview", () => {
       exported: false,
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <EncounterOverview encounter={encounter} encounterId={1} />
     );
 
@@ -54,7 +59,7 @@ describe("EncounterOverview", () => {
       exported: true,
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <EncounterOverview encounter={encounter} encounterId={1} />
     );
 

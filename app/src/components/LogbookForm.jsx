@@ -1,8 +1,8 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { Fragment, useRef, useState } from "react";
-import { navigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
@@ -31,6 +31,7 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
+  let navigate = useNavigate();
 
   const styles = {
     cancelButton: css`
@@ -215,7 +216,7 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
                       onClick={() => {
                         const modifiedFields = getModifiedProperties(
                           values,
-                          initValues
+                          initValues,
                         );
 
                         Object.keys(modifiedFields).length === 0

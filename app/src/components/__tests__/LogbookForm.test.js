@@ -3,8 +3,13 @@ import { act, render, waitFor } from "@testing-library/react";
 import LogbookForm from "../LogbookForm";
 import { configure } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 
 configure({ asyncUtilTimeout: 40000 });
+
+// Helper to wrap components in MemoryRouter for routing context
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 describe("LogbookForm", () => {
   const mockInitialValues = {
@@ -40,7 +45,7 @@ describe("LogbookForm", () => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <LogbookForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -67,14 +72,13 @@ describe("LogbookForm", () => {
       formValues = values;
     };
 
-    const { getByRole, getByTestId, getByLabelText } = render(
+    const { getByRole, getByTestId, getByLabelText } = renderWithRouter(
       <LogbookForm handleSubmit={mockHandleSubmit} />
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
     const gpsMarkInput = getByRole("textbox", { name: "GPS mark" });
-
     const submitButton = getByRole("button", { name: "Save" });
 
     userEvent.clear(latitudeInput);
@@ -99,7 +103,7 @@ describe("LogbookForm", () => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
@@ -119,7 +123,7 @@ describe("LogbookForm", () => {
   });
 
   it("contains cancel button", async () => {
-    const { queryByRole } = render(<LogbookForm />);
+    const { queryByRole } = renderWithRouter(<LogbookForm />);
 
     await waitFor(() => {
       expect(queryByRole("button", { name: "Cancel" })).toBeInTheDocument();
@@ -128,18 +132,14 @@ describe("LogbookForm", () => {
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <LogbookForm handleSubmit={mockHandleSubmit} />
     );
 
-    const latInput = getByRole("spinbutton", {
-      name: "Lat",
-    });
-
+    const latInput = getByRole("spinbutton", { name: "Lat" });
     const submitButton = getByRole("button", { name: "Save" });
 
     await userEvent.type(latInput, "0.111", { delay: 1 });
-
     userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -151,7 +151,7 @@ describe("LogbookForm", () => {
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
@@ -159,9 +159,7 @@ describe("LogbookForm", () => {
     );
 
     await act(async () => {
-      const latInput = getByRole("spinbutton", {
-        name: "Lat",
-      });
+      const latInput = getByRole("spinbutton", { name: "Lat" });
       await userEvent.type(latInput, "0.111", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
@@ -174,7 +172,7 @@ describe("LogbookForm", () => {
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
@@ -192,7 +190,7 @@ describe("LogbookForm", () => {
   it("renders the Logbook form with all fields disabled", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getAllByTestId } = render(
+    const { getAllByTestId } = renderWithRouter(
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}

@@ -7,6 +7,13 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/trips",
+        "type": 301
+      }
     ]
   },
   "firestore": {

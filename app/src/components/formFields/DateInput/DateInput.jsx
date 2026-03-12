@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useEffect } from "react";
 import { useField } from "formik";
 import DatePicker from "react-datepicker";

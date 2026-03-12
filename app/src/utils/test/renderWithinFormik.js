@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { Formik, Form, useFormikContext } from "formik";
 import { render } from "@testing-library/react";
 
@@ -20,7 +19,7 @@ const renderWithinFormik = (uiNode, initialValues) => {
     ...render(
       <Formik initialValues={initialValues}>
         <PrintContextWrapper uiNode={uiNode} />
-      </Formik>
+      </Formik>,
     ),
   };
 

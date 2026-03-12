@@ -1,18 +1,26 @@
-import { render, waitFor } from "@testing-library/react/pure";
+import { render, waitFor, screen } from "@testing-library/react";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Login from "../../pages/Login";
-import { screen } from "@testing-library/react";
 
-jest.mock("@reach/router", () => ({
-  useLocation: () => ({ pathname: "/login" }),
-  useNavigate: jest.fn(),
-}));
+jest.mock("react-router-dom", () => {
+  const actual = jest.requireActual("react-router-dom");
+
+  return {
+    ...actual,
+    useLocation: () => ({ pathname: "/login" }),
+    useNavigate: jest.fn(),
+  };
+});
+
+const renderWithRouter = (ui) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>);
 
 describe("Login page", () => {
   it("should include the BMMRO logo", async () => {
-    const { queryByTitle } = render(
+    const { queryByTitle } = renderWithRouter(
       <FirebaseContext.Provider
         value={{ datastore: "some-datastore", route: "/login" }}
       >
@@ -20,11 +28,13 @@ describe("Login page", () => {
       </FirebaseContext.Provider>
     );
 
-    await waitFor(() => expect(queryByTitle("BMMRO Logo")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(queryByTitle("BMMRO Logo")).toBeInTheDocument()
+    );
   });
 
   it("should not include tabs", async () => {
-    render(
+    renderWithRouter(
       <FirebaseContext.Provider
         value={{ datastore: "some-datastore", route: "/login" }}
       >

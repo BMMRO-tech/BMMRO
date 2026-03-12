@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 
 import { FormErrorType } from "../../../../constants/forms";
@@ -77,14 +76,14 @@ describe("ElapsedTime", () => {
     const elapsedTimeText = await findByText("Elapsed time: -- minutes");
     const expectedErrorMessage = getErrorMessage(
       FormErrorType.CONDITIONALLY_REQUIRED,
-      { first: "end date", second: "end time" }
+      { first: "end date", second: "end time" },
     );
 
     expect(elapsedTimeText).toBeInTheDocument();
     expect(getFormValues().elapsedTime).toEqual("");
     expect(getFormErrors().elapsedTime).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "elapsedTime" })).toHaveTextContent(
-      expectedErrorMessage
+      expectedErrorMessage,
     );
   });
 });

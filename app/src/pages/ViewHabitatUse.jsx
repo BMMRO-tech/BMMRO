@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx, css } from "@emotion/react";
 import { useEffect, useContext, useState, Fragment } from "react";
-import { useNavigate } from "@reach/router";
+import { useNavigate } from "react-router-dom";
 
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import Layout from "../components/Layout";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "@reach/router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 
 export const useLoginRedirect = (loggedInUser) => {

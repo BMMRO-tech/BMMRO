@@ -1,6 +1,10 @@
 import { render } from "@testing-library/react";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import TripOverview from "../TripOverview";
+
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 describe("TripOverview", () => {
   const defaultTrip = {
@@ -25,7 +29,7 @@ describe("TripOverview", () => {
       ...defaultTrip,
     };
 
-    const { queryByTestId } = render(<TripOverview trip={trip} />);
+    const { queryByTestId } = renderWithRouter(<TripOverview trip={trip} />);
 
     expect(queryByTestId("trip-info")).toBeInTheDocument();
   });
@@ -35,7 +39,9 @@ describe("TripOverview", () => {
       ...defaultTrip,
     };
 
-    const { getByRole } = render(<TripOverview trip={trip} tripId={"123"} />);
+    const { getByRole } = renderWithRouter(
+      <TripOverview trip={trip} tripId={"123"} />
+    );
 
     expect(getByRole("link").href).toContain("trips/123/edit");
   });
@@ -46,7 +52,7 @@ describe("TripOverview", () => {
       exported: true,
     };
 
-    const { queryByTestId } = render(<TripOverview trip={trip} />);
+    const { queryByTestId } = renderWithRouter(<TripOverview trip={trip} />);
 
     expect(queryByTestId("edit-link")).not.toBeInTheDocument();
   });

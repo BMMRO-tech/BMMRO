@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import { useNavigate } from "@reach/router";
+import { jsx } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, Fragment } from "react";
 import { format } from "date-fns";
 

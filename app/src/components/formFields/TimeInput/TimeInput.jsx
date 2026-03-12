@@ -1,9 +1,8 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useEffect } from "react";
 import { useField } from "formik";
 import { format } from "date-fns";
-import InputMask from "react-input-mask";
+import { useMask } from "@react-input/mask";
 
 import FieldError from "../FieldError";
 import {
@@ -38,7 +37,9 @@ const TimeInput = ({
     ? TIME_WITH_SECONDS_PATTERN
     : TIME_PATTERN;
 
-  const timeFormat = timeWithSeconds ? TIME_WITH_SECONDS_FORMAT : TIME_FORMAT;
+  const timeFormat = timeWithSeconds
+    ? TIME_WITH_SECONDS_FORMAT
+    : TIME_FORMAT;
 
   const validateTime = (val) => {
     if (!val && isRequired) {
@@ -71,6 +72,12 @@ const TimeInput = ({
     validate: validateTime,
   });
 
+  // not allowing input of 0 char
+  const inputRef = useMask({
+    mask: timeWithSeconds ? "00:00:00" : "00:00",
+    replacement: { "0": /\d/ },
+  });
+
   useEffect(() => {
     if (autofill) helpers.setValue(format(getCurrentDate(), timeFormat));
     // eslint-disable-next-line
@@ -83,7 +90,6 @@ const TimeInput = ({
     ) {
       helpers.setValue("");
     }
-
     // eslint-disable-next-line
   }, [field.value]);
 
@@ -94,15 +100,16 @@ const TimeInput = ({
         {isRequired && <span css={fieldStyles.required}>*</span>}
 
         <div css={fieldStyles.inputContainer}>
-          <InputMask
+          <input
             {...field}
-            mask={timeWithSeconds ? "99:99:99" : "99:99"}
+            ref={inputRef}
             css={fieldStyles.getInputStyles(meta.error, meta.touched, isShort)}
             disabled={isDisabled}
             data-testid={`field-${name}`}
           />
         </div>
       </label>
+
       <FieldError
         touched={meta.touched}
         errorMessage={meta.error}

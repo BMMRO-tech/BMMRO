@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import { Link } from "@reach/router";
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
+import { Link } from "react-router-dom";
 
 import utilities from "../materials/utilities";
 import {
@@ -68,7 +68,7 @@ const SubCollectionList = ({
     const sortedBy = collection.primaryTime;
 
     return items.sort((a, b) =>
-      b.data[sortedBy].localeCompare(a.data[sortedBy])
+      b.data[sortedBy].localeCompare(a.data[sortedBy]),
     );
   }, [collection, items]);
 
@@ -97,7 +97,7 @@ const SubCollectionList = ({
               primaryTime={item.data[collection.primaryTime]}
               primaryContentRight={collection.primaryContentRight(
                 list.length,
-                index
+                index,
               )}
             />
           ))}

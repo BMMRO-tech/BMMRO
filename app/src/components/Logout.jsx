@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { useState, useContext } from "react";
 import Button from "../components/Button";

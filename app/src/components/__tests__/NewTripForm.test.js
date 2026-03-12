@@ -1,8 +1,12 @@
 import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import NewTripForm from "../NewTripForm";
 import * as getProjects from "../../hooks/getProjects";
+
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 describe("NewTripForm", () => {
   beforeAll(() => {
@@ -28,11 +32,12 @@ describe("NewTripForm", () => {
 
   it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
+
     const mockHandleSubmit = (values) => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <NewTripForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -49,11 +54,13 @@ describe("NewTripForm", () => {
 
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(vesselInput, "Chimo");
+
       await userEvent.type(observersInput, "Kirsten, jeni, faisal", {
         delay: 1,
       });
 
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
+
       userEvent.click(submitButton);
     });
 
@@ -71,7 +78,7 @@ describe("NewTripForm", () => {
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = renderWithRouter(
       <NewTripForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -79,11 +86,13 @@ describe("NewTripForm", () => {
       const submitButton = getByRole("button", {
         name: "Save & Start Logbook",
       });
+
       userEvent.click(submitButton);
 
       const errorMessage = getByLabelText("Area", {
         selector: '[role="alert"]',
       });
+
       expect(errorMessage).not.toBeNull();
       expect(mockHandleSubmit).not.toHaveBeenCalled();
     });
@@ -92,7 +101,7 @@ describe("NewTripForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <NewTripForm handleSubmit={mockHandleSubmit} />
     );
 
@@ -100,6 +109,7 @@ describe("NewTripForm", () => {
       const submitButton = getByRole("button", {
         name: "Save & Start Logbook",
       });
+
       userEvent.click(submitButton);
 
       const tripNumberInput = getByRole("spinbutton", {
@@ -116,12 +126,13 @@ describe("NewTripForm", () => {
   it("displays a confirmation modal when user presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <NewTripForm handleSubmit={mockHandleSubmit} />
     );
 
     await act(async () => {
       const areaInput = getByRole("combobox", { name: "Area *" });
+
       userEvent.selectOptions(areaInput, "Central Andros");
 
       const cancelButton = getByRole("button", { name: "Cancel" });

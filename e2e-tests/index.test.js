@@ -1,8 +1,8 @@
 import * as webdriver from "selenium-webdriver";
 import "dotenv/config";
-import {initializeApp} from "firebase/app";
-import {deleteDoc, doc, getDoc, getFirestore} from "firebase/firestore/lite";
-import {getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {initializeApp} from "firebase/compat/app";
+import {deleteDoc, doc, getDoc, getFirestore} from "firebase/compat/firestore/lite";
+import {getAuth, signInWithEmailAndPassword, signOut} from "firebase/compat/auth";
 
 let wd = webdriver.default;
 
