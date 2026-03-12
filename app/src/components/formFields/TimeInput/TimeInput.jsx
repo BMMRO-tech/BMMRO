@@ -72,6 +72,7 @@ const TimeInput = ({
     validate: validateTime,
   });
 
+  // not allowing input of 0 char
   const inputRef = useMask({
     mask: timeWithSeconds ? "00:00:00" : "00:00",
     replacement: { "0": /\d/ },
