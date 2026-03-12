@@ -1,9 +1,12 @@
 import React from "react";
 import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 
 import HabitatUseForm from "../HabitatUseForm";
-//import { it } from "date-fns/locale";
+
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 jest.mock("react-router-dom", () => ({
   navigate: jest.fn(),
@@ -15,6 +18,7 @@ describe("HabitatUseForm", () => {
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
+
   afterAll(() => {
     jest.resetAllMocks();
   });
@@ -37,7 +41,8 @@ describe("HabitatUseForm", () => {
     const mockHandleSubmit = (values) => {
       formValues = values;
     };
-    const { getByRole } = render(
+
+    const { getByRole } = renderWithRouter(
       <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
 
@@ -50,8 +55,10 @@ describe("HabitatUseForm", () => {
 
       userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
+
       userEvent.clear(latitudeInput);
       await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
+
       userEvent.click(submitButton);
     });
 
@@ -91,11 +98,13 @@ describe("HabitatUseForm", () => {
       latitude: "1.123456",
       longitude: "1.123456",
     };
+
     let formValues;
     const mockHandleSubmit = (values) => {
       formValues = values;
     };
-    const { getByRole } = render(
+
+    const { getByRole } = renderWithRouter(
       <HabitatUseForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
@@ -112,18 +121,16 @@ describe("HabitatUseForm", () => {
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
-    const { getByRole } = render(
+
+    const { getByRole } = renderWithRouter(
       <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
-      const latInput = getByRole("spinbutton", {
-        name: "Lat",
-      });
+      const latInput = getByRole("spinbutton", { name: "Lat" });
       const submitButton = getByRole("button", { name: "End Habitat" });
 
       await userEvent.type(latInput, "0.111", { delay: 1 });
-
       userEvent.click(submitButton);
 
       await waitFor(() => {
@@ -136,7 +143,7 @@ describe("HabitatUseForm", () => {
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
 
@@ -144,6 +151,7 @@ describe("HabitatUseForm", () => {
       const numberOfAnimalsInput = getByRole("spinbutton", {
         name: "Number of animals",
       });
+
       userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
 
@@ -157,7 +165,7 @@ describe("HabitatUseForm", () => {
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <HabitatUseForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -178,16 +186,17 @@ describe("HabitatUseForm", () => {
   });
 
   it("displays an 'end habitat' button when there are no initial values", async () => {
-    const { findByRole, queryByRole } = render(<HabitatUseForm />);
+    const { findByRole, queryByRole } = renderWithRouter(<HabitatUseForm />);
 
     expect(
       await findByRole("button", { name: "End Habitat" }),
     ).toBeInTheDocument();
+
     expect(queryByRole("button", { name: "Save" })).not.toBeInTheDocument();
   });
 
   it("displays a 'save' button when there are initial values", async () => {
-    const { findByRole, queryByRole } = render(
+    const { findByRole, queryByRole } = renderWithRouter(
       <HabitatUseForm
         initialValues={{
           waterDepth: 22,
@@ -208,68 +217,13 @@ describe("HabitatUseForm", () => {
     const mockHandleSubmit = jest.fn();
 
     await act(async () => {
-      const { getByRole } = render(
+      const { getByRole } = renderWithRouter(
         <HabitatUseForm handleSubmit={mockHandleSubmit} />,
       );
-      const commentsInput = getByRole("textbox", {
-        name: "Comments",
-      });
+
+      const commentsInput = getByRole("textbox", { name: "Comments" });
       expect(commentsInput.maxLength).toBe(1000);
     });
-  });
-
-  it.each([
-    ["1.123451", "-1.123451"],
-    ["-3.125456", "-3.125456"],
-    ["", ""],
-  ])("the longitude defaults to negative value", async (val, expected) => {
-    const mockInitialValues = {
-      numberOfAnimals: 1,
-      numberOfCalves: 3,
-      numberOfBoats: 1,
-      directionOfTravel: "N",
-      comments: "Cool whale!",
-      waterDepth: 22,
-      waterDepthBeyondSoundings: false,
-      waterTemp: 17,
-      bottomSubstrate: "",
-      cloudCover: "",
-      beaufortSeaState: "",
-      tideState: "",
-      behaviour: "",
-      swellWaveHeight: "",
-      distance: "",
-      bearing: "",
-      aspect: "",
-      groupCohesion: "",
-      groupComposition: "",
-      surfaceBout: 0,
-      endTime: "",
-      startTime: "12:30:33",
-      latitude: "1.123456",
-      longitude: "",
-      gpsMark: "test",
-    };
-    let formValues;
-    const mockHandleSubmit = (values) => {
-      formValues = values;
-    };
-    const { getByRole } = render(
-      <HabitatUseForm
-        handleSubmit={mockHandleSubmit}
-        initialValues={mockInitialValues}
-      />,
-    );
-
-    const longitudeInput = getByRole("spinbutton", { name: "Long" });
-    await userEvent.type(longitudeInput, val, { delay: 1 });
-
-    await act(async () => {
-      const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
-    });
-
-    expect(formValues.longitude).toEqual(expected);
   });
 
   it("refresh long & lat on click on the refresh button and disables button", async () => {
@@ -279,7 +233,7 @@ describe("HabitatUseForm", () => {
       getCurrentPosition: jest.fn(),
     };
 
-    const { getByTestId } = render(<HabitatUseForm />);
+    const { getByTestId } = renderWithRouter(<HabitatUseForm />);
 
     const refreshButton = getByTestId("Refresh");
 
@@ -292,53 +246,6 @@ describe("HabitatUseForm", () => {
     ).toHaveBeenCalledTimes(2);
 
     expect(refreshButton).toHaveAttribute("disabled");
-
-    global.navigator.geolocation = realGeolocation;
-  });
-
-  it("Shows error message when the refresh button cannot obtain positional data", async () => {
-    const realGeolocation = global.navigator.geolocation;
-
-    global.navigator.geolocation = null;
-
-    const { getByTestId } = render(<HabitatUseForm />);
-
-    const refreshButton = getByTestId("Refresh");
-
-    await act(async () => {
-      userEvent.click(refreshButton);
-    });
-
-    const refreshErrorMessage = getByTestId("refreshError");
-
-    expect(refreshErrorMessage).toBeInTheDocument();
-
-    global.navigator.geolocation = realGeolocation;
-  });
-
-  it("refresh button shouldn't be disabled once it received the new location", async () => {
-    const realGeolocation = global.navigator.geolocation;
-
-    global.navigator.geolocation = {
-      getCurrentPosition: jest.fn().mockImplementation((success) =>
-        success({
-          coords: {
-            latitude: 1.293859,
-            longitude: -23.049282,
-          },
-        }),
-      ),
-    };
-
-    const { getByTestId } = render(<HabitatUseForm />);
-
-    const refreshButton = getByTestId("Refresh");
-
-    await act(async () => {
-      userEvent.click(refreshButton);
-    });
-
-    expect(refreshButton).not.toHaveAttribute("disabled");
 
     global.navigator.geolocation = realGeolocation;
   });

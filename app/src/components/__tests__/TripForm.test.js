@@ -1,10 +1,14 @@
 import React from "react";
-import { act, getByRole, render, waitFor } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 
 import TripForm from "../TripForm";
 import * as getProjects from "../../hooks/getProjects";
 import tripDefaultValues from "../../constants/tripDefaultValues";
+
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 jest.mock("react-router-dom", () => ({
   navigate: jest.fn(),
@@ -42,11 +46,12 @@ describe("TripForm", () => {
 
   it("submits the form with correct values if all required fields are completed", async () => {
     let formValues;
+
     const mockHandleSubmit = (_, values) => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -64,12 +69,11 @@ describe("TripForm", () => {
       const tripNumberInput = getByRole("spinbutton", {
         name: "Trip number (of this boat) *",
       });
-      const submitButton = getByRole("button", {
-        name: "Save & Update",
-      });
+      const submitButton = getByRole("button", { name: "Save & Update" });
 
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(vesselInput, "Chimo");
+
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
 
       userEvent.click(submitButton);
@@ -89,7 +93,7 @@ describe("TripForm", () => {
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = renderWithRouter(
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -104,9 +108,7 @@ describe("TripForm", () => {
     let errorMessage;
 
     await act(async () => {
-      const submitButton = getByRole("button", {
-        name: "Save & Update",
-      });
+      const submitButton = getByRole("button", { name: "Save & Update" });
       userEvent.click(submitButton);
 
       errorMessage = getByLabelText("Trip number (of this boat)", {
@@ -121,22 +123,17 @@ describe("TripForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{ ...mockTripValues, tripNumber: "" }}
       />,
     );
 
-    let submitButton;
-    let tripNumberInput;
-
-    submitButton = getByRole("button", {
-      name: "Save & Update",
-    });
+    const submitButton = getByRole("button", { name: "Save & Update" });
     userEvent.click(submitButton);
 
-    tripNumberInput = getByRole("spinbutton", {
+    const tripNumberInput = getByRole("spinbutton", {
       name: "Trip number (of this boat) *",
     });
 
@@ -149,7 +146,7 @@ describe("TripForm", () => {
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockTripValues}
@@ -160,6 +157,7 @@ describe("TripForm", () => {
       const tripNumberInput = getByRole("spinbutton", {
         name: "Trip number (of this boat) *",
       });
+
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
@@ -172,7 +170,7 @@ describe("TripForm", () => {
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
     const mockHandleSubmit = jest.fn();
 
-    const { getByRole, queryByTestId } = render(
+    const { getByRole, queryByTestId } = renderWithRouter(
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -192,11 +190,12 @@ describe("TripForm", () => {
 
   it("Should retrieve the project list from firestore", async () => {
     let formValues;
+
     const mockHandleSubmit = (_, values) => {
       formValues = values;
     };
 
-    const { getByRole } = render(
+    const { getByRole } = renderWithRouter(
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
@@ -215,15 +214,14 @@ describe("TripForm", () => {
       const tripNumberInput = getByRole("spinbutton", {
         name: "Trip number (of this boat) *",
       });
-      const submitButton = getByRole("button", {
-        name: "Save & Update",
-      });
+      const submitButton = getByRole("button", { name: "Save & Update" });
 
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
 
       userEvent.selectOptions(areaInput, "Central Andros");
       userEvent.selectOptions(vesselInput, "Chimo");
       userEvent.selectOptions(project, "project2");
+
       userEvent.click(submitButton);
     });
 

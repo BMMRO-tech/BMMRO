@@ -1,6 +1,10 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import SubCollectionList from "../SubCollectionList";
+
+const renderWithRouter = (ui, options) =>
+  render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
 describe("SubCollectionList", () => {
   describe("HabitatUse List", () => {
@@ -10,7 +14,8 @@ describe("SubCollectionList", () => {
         { data: { startTime: "11:00:20" }, id: "456" },
         { data: { startTime: "11:20:33" }, id: "789" },
       ];
-      const { queryAllByRole } = render(
+
+      const { queryAllByRole } = renderWithRouter(
         <SubCollectionList items={items} type="habitat" />
       );
 
@@ -22,7 +27,7 @@ describe("SubCollectionList", () => {
     });
 
     it("displays message when there are no list items", () => {
-      const { queryByText } = render(
+      const { queryByText } = renderWithRouter(
         <SubCollectionList items={[]} type="habitat" />
       );
 
@@ -32,7 +37,7 @@ describe("SubCollectionList", () => {
     });
 
     it("has a button to add habitat uses if the associated encounter was not yet exported", () => {
-      const { queryByRole } = render(
+      const { queryByRole } = renderWithRouter(
         <SubCollectionList items={[]} type="habitat" />
       );
 
@@ -40,11 +45,13 @@ describe("SubCollectionList", () => {
     });
 
     it("does not have a button to add habitat uses if the associated encounter was exported", () => {
-      const { queryByRole } = render(
+      const { queryByRole } = renderWithRouter(
         <SubCollectionList items={[]} isExported type="habitat" />
       );
 
-      expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
+      expect(
+        queryByRole("button", { name: "+ New" })
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -55,7 +62,8 @@ describe("SubCollectionList", () => {
         { data: { timeTaken: "11:00:20" }, id: "456" },
         { data: { timeTaken: "11:20:33" }, id: "789" },
       ];
-      const { queryAllByRole } = render(
+
+      const { queryAllByRole } = renderWithRouter(
         <SubCollectionList items={items} type="biopsy" />
       );
 
@@ -67,7 +75,7 @@ describe("SubCollectionList", () => {
     });
 
     it("displays message when there are no list items", () => {
-      const { queryByText } = render(
+      const { queryByText } = renderWithRouter(
         <SubCollectionList items={[]} type="biopsy" />
       );
 
@@ -77,7 +85,7 @@ describe("SubCollectionList", () => {
     });
 
     it("has a button to add biopsy if the associated encounter was not yet exported", () => {
-      const { queryByRole } = render(
+      const { queryByRole } = renderWithRouter(
         <SubCollectionList items={[]} type="biopsy" />
       );
 
@@ -85,13 +93,16 @@ describe("SubCollectionList", () => {
     });
 
     it("does not have a button to biopsy if the associated encounter was exported", () => {
-      const { queryByRole } = render(
+      const { queryByRole } = renderWithRouter(
         <SubCollectionList items={[]} isExported type="biopsy" />
       );
 
-      expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
+      expect(
+        queryByRole("button", { name: "+ New" })
+      ).not.toBeInTheDocument();
     });
   });
+
   describe("logbook List", () => {
     it("displays logbook forms sorted by start time", () => {
       const items = [
@@ -99,7 +110,8 @@ describe("SubCollectionList", () => {
         { data: { time: "11:00:20" }, id: "456" },
         { data: { time: "11:20:33" }, id: "789" },
       ];
-      const { queryAllByRole } = render(
+
+      const { queryAllByRole } = renderWithRouter(
         <SubCollectionList items={items} type="logbook" />
       );
 
@@ -111,7 +123,7 @@ describe("SubCollectionList", () => {
     });
 
     it("displays message when there are no list items", () => {
-      const { queryByText } = render(
+      const { queryByText } = renderWithRouter(
         <SubCollectionList items={[]} type="logbook" />
       );
 
@@ -121,7 +133,7 @@ describe("SubCollectionList", () => {
     });
 
     it("has a button to add logbook if the associated trip was not yet exported", () => {
-      const { queryByRole } = render(
+      const { queryByRole } = renderWithRouter(
         <SubCollectionList items={[]} type="logbook" />
       );
 
@@ -129,11 +141,13 @@ describe("SubCollectionList", () => {
     });
 
     it("does not have a button to logbook if the associated trip was exported", () => {
-      const { queryByRole } = render(
+      const { queryByRole } = renderWithRouter(
         <SubCollectionList items={[]} isExported type="logbook" />
       );
 
-      expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
+      expect(
+        queryByRole("button", { name: "+ New" })
+      ).not.toBeInTheDocument();
     });
   });
 });

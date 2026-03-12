@@ -12,6 +12,7 @@ import { monthNames } from "../../constants/monthNames";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import * as useEncountersByMonth from "../../hooks/useEncountersByMonth";
 import { getEncountersByTimeRange } from "../../hooks/useEncountersByMonth";
+import { MemoryRouter } from "react-router";
 
 describe("EncounterList", () => {
   const originalEnv = process.env;
@@ -63,7 +64,9 @@ describe("EncounterList", () => {
 
   it("displays message when no encounters in a month", () => {
     const { queryByText } = render(
-      <EncounterList title="Previous Encounters" encounters={[]} />
+      <MemoryRouter>
+        <EncounterList title="Previous Encounters" encounters={[]} />
+      </MemoryRouter>
     );
 
     const actual = queryByText("No encounters yet");

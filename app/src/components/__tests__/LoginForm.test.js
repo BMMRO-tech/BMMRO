@@ -12,6 +12,7 @@ import {
   buildFirestoreMock,
 } from "../../utils/test/firebase";
 import LoginForm from "../LoginForm";
+import { MemoryRouter } from "react-router";
 
 jest.mock("react-router-dom", () => ({
   useLocation: jest.fn(),
@@ -34,9 +35,11 @@ describe("Login form", () => {
     buildFirebaseAuthMock(signInResult);
 
     const { queryByTestId } = render(
+      <MemoryRouter>
       <FirebaseContext.Provider value={{ datastore: "some-datastore" }}>
         <LoginForm />
-      </FirebaseContext.Provider>,
+      </FirebaseContext.Provider>
+      </MemoryRouter>,
     );
 
     fireEvent.click(queryByTestId("submit"));
