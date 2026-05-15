@@ -46,7 +46,7 @@ describe("EditHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -72,7 +72,7 @@ describe("EditHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

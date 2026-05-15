@@ -19,7 +19,7 @@ describe("TripForm", () => {
     };
 
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
 
@@ -55,7 +55,7 @@ describe("TripForm", () => {
           vessel: "",
           gpsFileName: "",
         }}
-      />
+      />,
     );
 
     await act(async () => {
@@ -98,7 +98,7 @@ describe("TripForm", () => {
           vessel: "",
           gpsFileName: "",
         }}
-      />
+      />,
     );
 
     let errorMessage;
@@ -125,7 +125,7 @@ describe("TripForm", () => {
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{ ...mockTripValues, tripNumber: "" }}
-      />
+      />,
     );
 
     let submitButton;
@@ -153,7 +153,7 @@ describe("TripForm", () => {
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockTripValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -179,7 +179,7 @@ describe("TripForm", () => {
           mockTripValues,
           vessel: "",
         }}
-      />
+      />,
     );
 
     await act(async () => {
@@ -205,7 +205,7 @@ describe("TripForm", () => {
           vessel: "",
           gpsFileName: "",
         }}
-      />
+      />,
     );
 
     await act(async () => {

@@ -37,7 +37,7 @@ describe("Datastore with firestore", () => {
       const datastore = buildDatastoreMock(collectionReturnMock);
 
       await expect(datastore.enableOfflineStorage()).rejects.toThrow(
-        new DatastoreError(DatastoreErrorType.MULTIPLE_TABS)
+        new DatastoreError(DatastoreErrorType.MULTIPLE_TABS),
       );
     });
 
@@ -50,7 +50,7 @@ describe("Datastore with firestore", () => {
       const datastore = buildDatastoreMock(collectionReturnMock);
 
       await expect(datastore.enableOfflineStorage()).rejects.toThrow(
-        new DatastoreError(DatastoreErrorType.BROWSER_NOT_SUPPORTED)
+        new DatastoreError(DatastoreErrorType.BROWSER_NOT_SUPPORTED),
       );
     });
 
@@ -61,7 +61,7 @@ describe("Datastore with firestore", () => {
       const datastore = buildDatastoreMock(collectionReturnMock);
 
       await expect(datastore.enableOfflineStorage()).rejects.toThrow(
-        new DatastoreError(DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT)
+        new DatastoreError(DatastoreErrorType.UNKNOWN_OFFLINE_SUPPORT),
       );
     });
   });
@@ -75,7 +75,7 @@ describe("initFirestore", () => {
 
   it("should throw 'DatastoreError' with code INITIALIZATION when Firebase initialization fails", () => {
     expect(() => initFirestore({})).toThrow(
-      new DatastoreError(DatastoreErrorType.INITIALIZATION)
+      new DatastoreError(DatastoreErrorType.INITIALIZATION),
     );
   });
 });

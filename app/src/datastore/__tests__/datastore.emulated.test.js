@@ -23,7 +23,7 @@ describe("datastore", () => {
       projectId,
       rules: fs.readFileSync(
         path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8"
+        "utf-8",
       ),
     });
   });
@@ -43,7 +43,7 @@ describe("datastore", () => {
 
       const datastore = new Datastore(firestoreEmulator);
       const { data: animal, path } = await datastore.readDocByPath(
-        `dolphin/${id}`
+        `dolphin/${id}`,
       );
 
       expect(path).toEqual(`dolphin/${id}`);
@@ -100,7 +100,7 @@ describe("datastore", () => {
         "dolphin",
         "timestamp",
         new Date("2020-01-03:01:00:00.000Z"),
-        new Date("2020-12-11:23:00:00.000Z")
+        new Date("2020-12-11:23:00:00.000Z"),
       );
 
       expect(results).toHaveLength(2);
@@ -126,11 +126,11 @@ describe("datastore", () => {
         "dolphin",
         "date",
         new Date("2000-01-10:01:00:00.000Z"),
-        new Date("2000-12-11:23:00:00.000Z")
+        new Date("2000-12-11:23:00:00.000Z"),
       );
 
       expect(results[0].data.date).toEqual(
-        new Date("2000-01-15:00:00:00.000Z")
+        new Date("2000-01-15:00:00:00.000Z"),
       );
     });
   });
@@ -188,7 +188,7 @@ describe("datastore", () => {
       const datastore = new Datastore(firestoreEmulator, null, false);
       const animals = await datastore.readDocsByParentPath(
         "animal/invalid-id",
-        "whale"
+        "whale",
       );
 
       expect(animals).toEqual([]);
@@ -213,7 +213,7 @@ describe("datastore", () => {
       const animals = await datastore.readDocsByParentPath(parentPath, "whale");
 
       expect(animals[0].data.date).toEqual(
-        new Date("2000-01-10:01:00:00.000Z")
+        new Date("2000-01-10:01:00:00.000Z"),
       );
     });
   });
@@ -245,7 +245,7 @@ describe("datastore", () => {
         firestoreEmulator,
         null,
         false,
-        handleDelayedError
+        handleDelayedError,
       );
 
       datastore.createDoc("fake-name", {
@@ -293,7 +293,7 @@ describe("datastore", () => {
         firestoreEmulator,
         null,
         false,
-        handleDelayedError
+        handleDelayedError,
       );
 
       const { id: parentId } = await firestoreEmulator
@@ -339,7 +339,7 @@ describe("datastore", () => {
         firestoreEmulator,
         null,
         false,
-        handleDelayedError
+        handleDelayedError,
       );
 
       datastore.updateDocByPath(`invalid-collection/123`, { location: "UK" });

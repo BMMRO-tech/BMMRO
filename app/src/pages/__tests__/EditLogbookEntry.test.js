@@ -62,7 +62,7 @@ describe("EditLogbookEntry", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -93,7 +93,7 @@ describe("EditLogbookEntry", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
     await waitFor(() => {
       expect(queryByTestId("exported-info")).toBeInTheDocument();

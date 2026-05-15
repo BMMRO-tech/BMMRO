@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
@@ -11,7 +12,7 @@ describe("TextInput", () => {
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <TextInput name="favoriteColor" labelText="Your favorite color" />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite color" });
@@ -27,7 +28,7 @@ describe("TextInput", () => {
         labelText="Your favorite color"
         isRequired
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const textInput = getByRole("textbox", {
@@ -39,7 +40,7 @@ describe("TextInput", () => {
     });
 
     expect(
-      queryByRole("alert", { name: "Your favorite color" })
+      queryByRole("alert", { name: "Your favorite color" }),
     ).not.toBeInTheDocument();
   });
 
@@ -50,7 +51,7 @@ describe("TextInput", () => {
         labelText="Your favorite color"
         maxLength={5}
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite color" });
@@ -69,7 +70,7 @@ describe("TextInput", () => {
         labelText="Your favorite color"
         isRequired
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     await act(async () => {
@@ -81,7 +82,7 @@ describe("TextInput", () => {
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteColor).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite color" })
+      getByRole("alert", { name: "Your favorite color" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -92,7 +93,7 @@ describe("TextInput", () => {
         labelText="Your favorite color"
         isDisabled
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const textInput = getByRole("textbox", { name: "Your favorite color" });

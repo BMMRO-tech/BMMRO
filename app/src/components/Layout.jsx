@@ -1,6 +1,7 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { Fragment, useContext } from "react";
-import { css, Global, jsx } from "@emotion/core";
+import { css, Global, jsx } from "@emotion/react";
 
 import containers from "../materials/containers";
 import breakPoints from "../materials/breakPoints";

@@ -19,7 +19,7 @@ export const renderWithMockContexts = (
     datastore,
     datastoreError,
     month,
-  } = {}
+  } = {},
 ) => {
   return {
     ...render(
@@ -29,7 +29,7 @@ export const renderWithMockContexts = (
         <MonthContext.Provider value={{ month, setMonth: () => {} }}>
           <LocationProvider history={history}>{ui}</LocationProvider>
         </MonthContext.Provider>
-      </FirebaseContext.Provider>
+      </FirebaseContext.Provider>,
     ),
     history,
   };

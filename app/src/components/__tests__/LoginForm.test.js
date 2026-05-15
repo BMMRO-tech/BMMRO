@@ -36,13 +36,13 @@ describe("Login form", () => {
     const { queryByTestId } = render(
       <FirebaseContext.Provider value={{ datastore: "some-datastore" }}>
         <LoginForm />
-      </FirebaseContext.Provider>
+      </FirebaseContext.Provider>,
     );
 
     fireEvent.click(queryByTestId("submit"));
 
     await waitFor(() =>
-      expect(queryByTestId("login-error")).toBeInTheDocument()
+      expect(queryByTestId("login-error")).toBeInTheDocument(),
     );
   });
 });

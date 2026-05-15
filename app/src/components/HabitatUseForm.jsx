@@ -1,7 +1,8 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
@@ -195,7 +196,8 @@ const HabitatUseForm = ({
                       data-testid={"positional-data-validation"}
                     >
                       {" "}
-                      Please add either latitude and longitude, or a GPS mark.{" "}
+                      Please add either latitude and longitude, or a GPS
+                      mark.{" "}
                     </label>
                   )}
                   {error && (
@@ -386,7 +388,7 @@ const HabitatUseForm = ({
                     onClick={() => {
                       const modifiedFields = getModifiedProperties(
                         values,
-                        initValues
+                        initValues,
                       );
 
                       Object.keys(modifiedFields).length === 0

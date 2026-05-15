@@ -28,15 +28,15 @@ describe("GpsFormSection", () => {
 
     const { getByRole, getByTestId } = renderWithinFormik(
       <GpsFormSection isViewOnly={false} />,
-      { latitude: "", longitude: "" }
+      { latitude: "", longitude: "" },
     );
 
     await waitFor(() => {
       expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
-        expectedCoordsOnLoad.latitude
+        expectedCoordsOnLoad.latitude,
       );
       expect(getByRole("spinbutton", { name: "Long" }).value).toEqual(
-        expectedCoordsOnLoad.longitude
+        expectedCoordsOnLoad.longitude,
       );
     });
     userEvent.click(getByTestId("Refresh"));
@@ -46,10 +46,10 @@ describe("GpsFormSection", () => {
     expect(getPosition).toHaveBeenCalledTimes(2);
     await waitFor(async () => {
       expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
-        expectedCoordsOnRefresh.latitude
+        expectedCoordsOnRefresh.latitude,
       );
       expect(getByRole("spinbutton", { name: "Long" }).value).toEqual(
-        expectedCoordsOnRefresh.longitude
+        expectedCoordsOnRefresh.longitude,
       );
       expect(getByTestId("Refresh")).not.toHaveAttribute("disabled");
     });
@@ -66,7 +66,7 @@ describe("GpsFormSection", () => {
 
     await waitFor(async () => {
       expect(
-        getByText("Geolocation could not be retrieved.")
+        getByText("Geolocation could not be retrieved."),
       ).toBeInTheDocument();
     });
   });
@@ -75,12 +75,12 @@ describe("GpsFormSection", () => {
     getPosition.mockReturnValue({ position: null, error: true });
 
     const { getByText } = renderWithinFormik(
-      <GpsFormSection isRenderInfoLabel={true} />
+      <GpsFormSection isRenderInfoLabel={true} />,
     );
 
     await waitFor(async () => {
       expect(
-        getByText("Please add either latitude and longitude, or a GPS mark.")
+        getByText("Please add either latitude and longitude, or a GPS mark."),
       ).toBeInTheDocument();
     });
   });

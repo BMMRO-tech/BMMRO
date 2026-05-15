@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { Fragment, useEffect, useState } from "react";
 import { navigate } from "@reach/router";
@@ -76,7 +77,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
     if (name === "vessel")
       setFieldValue(
         "gpsFileName",
-        generateGpsFileName({ ...values, [name]: value })
+        generateGpsFileName({ ...values, [name]: value }),
       );
     else if (name === "date")
       setFieldValue("gpsFileName", generateGpsFileName(values));
@@ -206,7 +207,7 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
                     onClick={() => {
                       const modifiedFields = getModifiedProperties(
                         values,
-                        tripDefaults
+                        tripDefaults,
                       );
 
                       Object.keys(modifiedFields).length === 0

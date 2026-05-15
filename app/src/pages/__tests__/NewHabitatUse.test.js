@@ -41,7 +41,7 @@ describe("NewHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -59,7 +59,7 @@ describe("NewHabitatUse", () => {
       <NewHabitatUse encounterId={"789"} />,
       {
         datastore,
-      }
+      },
     );
 
     const endHabitatButton = await findByRole("button", {
@@ -100,7 +100,7 @@ describe("NewHabitatUse", () => {
       <NewHabitatUse encounterId={id} />,
       {
         datastore,
-      }
+      },
     );
 
     const endHabitatButton = await findByRole("button", {
@@ -124,7 +124,7 @@ describe("NewHabitatUse", () => {
         <NewHabitatUse encounterId={id} />,
         {
           datastore,
-        }
+        },
       );
 
       await act(async () => {
@@ -150,7 +150,7 @@ describe("NewHabitatUse", () => {
         <NewHabitatUse encounterId={id} />,
         {
           datastore,
-        }
+        },
       );
 
       await act(async () => {
@@ -168,7 +168,7 @@ describe("NewHabitatUse", () => {
         <NewHabitatUse encounterId={id} />,
         {
           datastore,
-        }
+        },
       );
 
       await act(async () => {
@@ -189,7 +189,7 @@ describe("NewHabitatUse", () => {
         <NewHabitatUse encounterId={id} />,
         {
           datastore,
-        }
+        },
       );
 
       await act(async () => {
@@ -210,7 +210,7 @@ describe("NewHabitatUse", () => {
         <NewHabitatUse encounterId={id} />,
         {
           datastore,
-        }
+        },
       );
 
       await act(async () => {
@@ -230,7 +230,7 @@ describe("NewHabitatUse", () => {
         <NewHabitatUse encounterId={id} />,
         {
           datastore,
-        }
+        },
       );
 
       await act(async () => {

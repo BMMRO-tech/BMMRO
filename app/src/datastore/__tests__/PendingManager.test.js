@@ -22,7 +22,7 @@ describe("PendingManager ", () => {
       projectId,
       rules: fs.readFileSync(
         path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8"
+        "utf-8",
       ),
     });
   });
@@ -41,7 +41,7 @@ describe("PendingManager ", () => {
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("animal", {
@@ -66,7 +66,7 @@ describe("PendingManager ", () => {
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("animal", {
@@ -90,7 +90,7 @@ describe("PendingManager ", () => {
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("whale", {
@@ -115,7 +115,7 @@ describe("PendingManager ", () => {
     const mockPendingCallback = jest.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("animal", {

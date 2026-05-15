@@ -55,7 +55,7 @@ describe("ViewTrip", () => {
     const endButton = await waitFor(() => screen.getByText("End trip"));
     fireEvent.click(endButton);
     expect(
-      screen.getByText("Are you sure you want to end this trip?")
+      screen.getByText("Are you sure you want to end this trip?"),
     ).toBeInTheDocument();
     expect(screen.getByText("Trip miles")).toBeInTheDocument();
   });
@@ -70,10 +70,10 @@ describe("ViewTrip", () => {
     });
 
     await waitFor(() =>
-      screen.getByText("Are you sure you want to end this trip?")
+      screen.getByText("Are you sure you want to end this trip?"),
     );
     const confirmButton = await waitFor(() =>
-      screen.getByText("Save & Continue")
+      screen.getByText("Save & Continue"),
     );
     await act(async () => {
       userEvent.click(confirmButton);
@@ -94,7 +94,7 @@ describe("ViewTrip", () => {
     renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
 
     await waitFor(() =>
-      expect(screen.getByTestId("newLogbook")).toBeInTheDocument()
+      expect(screen.getByTestId("newLogbook")).toBeInTheDocument(),
     );
   });
   it("don't show new logbook button when trip has been exported", async () => {
@@ -106,7 +106,7 @@ describe("ViewTrip", () => {
     renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
 
     await waitFor(() =>
-      expect(screen.queryByTestId("newLogbook")).not.toBeInTheDocument()
+      expect(screen.queryByTestId("newLogbook")).not.toBeInTheDocument(),
     );
   });
 
@@ -127,7 +127,7 @@ describe("ViewTrip", () => {
       expect(
         screen.getAllByRole("link", {
           name: "Return to trip overview",
-        })
+        }),
       ).toHaveLength(1);
     });
   });
@@ -152,10 +152,10 @@ describe("ViewTrip", () => {
       userEvent.click(endButton);
     });
     await waitFor(() =>
-      screen.getByText("Are you sure you want to end this trip?")
+      screen.getByText("Are you sure you want to end this trip?"),
     );
     const confirmButton = await waitFor(() =>
-      screen.getByText("Save & Continue")
+      screen.getByText("Save & Continue"),
     );
     await act(async () => {
       userEvent.click(confirmButton);

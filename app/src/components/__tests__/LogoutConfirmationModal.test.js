@@ -9,7 +9,7 @@ describe("Logout Confirmation Modal", () => {
     jest.spyOn(navigator, "onLine", "get").mockReturnValueOnce(true);
 
     const { queryByTestId } = renderWithMockContexts(
-      <LogoutConfirmationModal />
+      <LogoutConfirmationModal />,
     );
 
     expect(queryByTestId("online-modal-title")).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("Logout Confirmation Modal", () => {
     jest.spyOn(navigator, "onLine", "get").mockReturnValueOnce(false);
 
     const { queryByTestId } = renderWithMockContexts(
-      <LogoutConfirmationModal />
+      <LogoutConfirmationModal />,
     );
 
     expect(queryByTestId("offline-modal-title")).toBeInTheDocument();
@@ -33,12 +33,12 @@ describe("Logout Confirmation Modal", () => {
     };
     buildFirebaseAuthMock(signOutResult);
     const { queryByTestId } = renderWithMockContexts(
-      <LogoutConfirmationModal />
+      <LogoutConfirmationModal />,
     );
     fireEvent.click(queryByTestId("confirm-logout-button"));
 
     await waitFor(() =>
-      expect(queryByTestId("logout-error")).toBeInTheDocument()
+      expect(queryByTestId("logout-error")).toBeInTheDocument(),
     );
   });
 });

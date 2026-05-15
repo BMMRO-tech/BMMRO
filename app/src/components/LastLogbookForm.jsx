@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { forwardRef, Fragment } from "react";
 
@@ -34,8 +35,8 @@ const LastLogbookForm = ({ handleSubmit, closeModal, tripDate }) => {
     tripDate.getFullYear() < new Date().getFullYear()
       ? true
       : tripDate.getMonth() < new Date().getMonth()
-      ? true
-      : tripDate.getDate() < new Date().getDate();
+        ? true
+        : tripDate.getDate() < new Date().getDate();
 
   const initValues = {
     tripMiles: "",

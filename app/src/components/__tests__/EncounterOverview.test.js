@@ -16,7 +16,7 @@ describe("EncounterOverview", () => {
     };
 
     const { queryByTestId } = render(
-      <EncounterOverview encounter={encounter} encounterId={1} />
+      <EncounterOverview encounter={encounter} encounterId={1} />,
     );
 
     expect(queryByTestId("exported-info")).not.toBeInTheDocument();
@@ -29,7 +29,7 @@ describe("EncounterOverview", () => {
     };
 
     const { queryByTestId } = render(
-      <EncounterOverview encounter={exportedEncounter} encounterId={1} />
+      <EncounterOverview encounter={exportedEncounter} encounterId={1} />,
     );
 
     expect(queryByTestId("exported-info")).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("EncounterOverview", () => {
     };
 
     const { getByRole } = render(
-      <EncounterOverview encounter={encounter} encounterId={1} />
+      <EncounterOverview encounter={encounter} encounterId={1} />,
     );
 
     expect(getByRole("link").href).toContain("/encounters/1/edit");
@@ -55,7 +55,7 @@ describe("EncounterOverview", () => {
     };
 
     const { getByRole } = render(
-      <EncounterOverview encounter={encounter} encounterId={1} />
+      <EncounterOverview encounter={encounter} encounterId={1} />,
     );
 
     expect(getByRole("link").href).toContain("/encounters/1/view");

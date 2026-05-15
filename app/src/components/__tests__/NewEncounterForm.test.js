@@ -6,7 +6,7 @@ import NewEncounterForm from "../NewEncounterForm";
 describe("NewEncounterForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
@@ -20,7 +20,7 @@ describe("NewEncounterForm", () => {
     };
 
     const { getByRole } = render(
-      <NewEncounterForm handleSubmit={mockHandleSubmit} />
+      <NewEncounterForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -40,7 +40,7 @@ describe("NewEncounterForm", () => {
     expect(formValues.area).toEqual("Central Andros");
     expect(formValues.sequenceNumber).toEqual("123");
     expect(formValues.startTimestamp).toEqual(
-      new Date("2020-05-04T00:00:00.000Z")
+      new Date("2020-05-04T00:00:00.000Z"),
     );
     expect(formValues.startTime).toEqual("11:30");
   });
@@ -49,7 +49,7 @@ describe("NewEncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, getByLabelText } = render(
-      <NewEncounterForm handleSubmit={mockHandleSubmit} />
+      <NewEncounterForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -70,7 +70,7 @@ describe("NewEncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole } = render(
-      <NewEncounterForm handleSubmit={mockHandleSubmit} />
+      <NewEncounterForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -94,7 +94,7 @@ describe("NewEncounterForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, queryByTestId } = render(
-      <NewEncounterForm handleSubmit={mockHandleSubmit} />
+      <NewEncounterForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {

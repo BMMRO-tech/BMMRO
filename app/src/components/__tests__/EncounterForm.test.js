@@ -43,7 +43,7 @@ describe("EncounterForm", () => {
           area: "",
           species: "",
         }}
-      />
+      />,
     );
 
     await act(async () => {
@@ -72,7 +72,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     await waitFor(() => {
@@ -103,7 +103,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     let errorMessage;
@@ -128,7 +128,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{ ...mockEncounterValues, sequenceNumber: "" }}
-      />
+      />,
     );
 
     let submitButton;
@@ -154,7 +154,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     const lowEstimateInput = getByRole("spinbutton", {
@@ -184,7 +184,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     const bestEstimateInput = getByRole("spinbutton", {
@@ -217,7 +217,7 @@ describe("EncounterForm", () => {
           ...mockEncounterValues,
           endTimestamp: new Date("2020-05-10T00:00:00.000Z"),
         }}
-      />
+      />,
     );
 
     await act(async () => {
@@ -229,7 +229,7 @@ describe("EncounterForm", () => {
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_END_TIME
+      FormErrorType.INVALID_END_TIME,
     );
 
     await waitFor(() => {
@@ -248,7 +248,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -271,7 +271,7 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -288,12 +288,12 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockEncounterValues}
-      />
+      />,
     );
 
     expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
     expect(
-      await findByRole("button", { name: "Save & End" })
+      await findByRole("button", { name: "Save & End" }),
     ).toBeInTheDocument();
   });
 
@@ -303,12 +303,12 @@ describe("EncounterForm", () => {
       <EncounterForm
         handleSubmit={mockHandleSubmit}
         initialValues={{ ...mockEncounterValues, hasEnded: true }}
-      />
+      />,
     );
 
     expect(await findByRole("button", { name: "Save" })).toBeInTheDocument();
     expect(
-      queryByRole("button", { name: "Save & End" })
+      queryByRole("button", { name: "Save & End" }),
     ).not.toBeInTheDocument();
   });
 
@@ -337,7 +337,7 @@ describe("EncounterForm", () => {
           area: "",
           species: "",
         }}
-      />
+      />,
     );
 
     await act(async () => {

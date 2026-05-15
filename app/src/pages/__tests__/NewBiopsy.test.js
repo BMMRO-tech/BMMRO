@@ -14,7 +14,7 @@ describe("NewBiopsy", () => {
 
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
 
@@ -55,7 +55,7 @@ describe("NewBiopsy", () => {
       <NewBiopsy encounterId={id} />,
       {
         datastore,
-      }
+      },
     );
 
     const speciesInput = getByRole("combobox", { name: "Species *" });

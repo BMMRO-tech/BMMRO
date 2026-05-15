@@ -49,13 +49,13 @@ describe("TripsOverviewPage", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("ENCOUNTERS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("ENCOUNTERS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
       expect(
-        screen.getByText("TRIPS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("TRIPS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
   });
   it("show new trips button", async () => {
@@ -65,7 +65,7 @@ describe("TripsOverviewPage", () => {
     });
 
     await waitFor(() =>
-      expect(screen.getByTestId("new-trips-button")).toBeInTheDocument()
+      expect(screen.getByTestId("new-trips-button")).toBeInTheDocument(),
     );
   });
 
@@ -78,8 +78,8 @@ describe("TripsOverviewPage", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("please end trip before exporting")
-      ).toBeInTheDocument()
+        screen.getByText("please end trip before exporting"),
+      ).toBeInTheDocument(),
     );
   });
 });

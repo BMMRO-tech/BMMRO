@@ -13,7 +13,7 @@ describe("NewTripForm", () => {
     };
 
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
 
@@ -33,7 +33,7 @@ describe("NewTripForm", () => {
     };
 
     const { getByRole } = render(
-      <NewTripForm handleSubmit={mockHandleSubmit} />
+      <NewTripForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -72,7 +72,7 @@ describe("NewTripForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, getByLabelText } = render(
-      <NewTripForm handleSubmit={mockHandleSubmit} />
+      <NewTripForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -93,7 +93,7 @@ describe("NewTripForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole } = render(
-      <NewTripForm handleSubmit={mockHandleSubmit} />
+      <NewTripForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {
@@ -117,7 +117,7 @@ describe("NewTripForm", () => {
     const mockHandleSubmit = jest.fn();
 
     const { getByRole, queryByTestId } = render(
-      <NewTripForm handleSubmit={mockHandleSubmit} />
+      <NewTripForm handleSubmit={mockHandleSubmit} />,
     );
 
     await act(async () => {

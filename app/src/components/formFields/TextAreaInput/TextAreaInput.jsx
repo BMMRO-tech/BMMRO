@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useField } from "formik";
 
 import FieldError from "../FieldError";
@@ -41,7 +42,7 @@ const TextAreaInput = ({
             meta.error,
             meta.touched,
             false,
-            isDouble
+            isDouble,
           )}
           maxLength={maxLength}
           disabled={isDisabled}

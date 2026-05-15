@@ -1,9 +1,10 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { navigate } from "@reach/router";
 import { createContext, useState, useEffect } from "react";
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 import { ROUTES } from "../constants/routes";
 import { initFirestore, Datastore } from "../datastore/datastore";
 import clientPersistence from "../clientPersistence/clientPersistence";

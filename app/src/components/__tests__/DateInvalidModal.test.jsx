@@ -8,7 +8,7 @@ describe("Date Invalid Modal", () => {
   it("pressing close triggers close callback", () => {
     const mockCloseModal = jest.fn();
     const { getByRole } = renderWithMockContexts(
-      <DateInvalidModal closeModal={mockCloseModal} />
+      <DateInvalidModal closeModal={mockCloseModal} />,
     );
 
     const closeButton = getByRole("button", { name: "Close" });

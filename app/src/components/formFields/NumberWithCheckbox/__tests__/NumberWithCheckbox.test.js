@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -17,7 +18,7 @@ describe("NumberWithCheckbox", () => {
         checkboxName="noFavorite"
         checkboxLabel="No Favorite"
       />,
-      { favoriteNumber: "", noFavorite: false }
+      { favoriteNumber: "", noFavorite: false },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -45,7 +46,7 @@ describe("NumberWithCheckbox", () => {
         checkboxName="noFavorite"
         checkboxLabel="No Favorite"
       />,
-      { favoriteNumber: "", noFavorite: true }
+      { favoriteNumber: "", noFavorite: true },
     );
 
     const numberInput = await findByRole("spinbutton", {
@@ -69,7 +70,7 @@ describe("NumberWithCheckbox", () => {
         checkboxName="noFavorite"
         checkboxLabel="No Favorite"
       />,
-      { favoriteNumber: "", noFavorite: false }
+      { favoriteNumber: "", noFavorite: false },
     );
 
     const numberInput = getByRole("spinbutton", {

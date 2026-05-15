@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
@@ -13,7 +14,7 @@ describe("PositionInput", () => {
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
-      { lat: "" }
+      { lat: "" },
     );
 
     const positionInput = getByRole("spinbutton", { name: "Your latitude" });
@@ -30,7 +31,7 @@ describe("PositionInput", () => {
         type="latitude"
         isRequired
       />,
-      { lat: "" }
+      { lat: "" },
     );
 
     const positionInput = getByRole("spinbutton", {
@@ -42,14 +43,14 @@ describe("PositionInput", () => {
     });
 
     expect(
-      queryByRole("alert", { name: "Your latitude" })
+      queryByRole("alert", { name: "Your latitude" }),
     ).not.toBeInTheDocument();
   });
 
   it("validates min value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
-      { lat: "" }
+      { lat: "" },
     );
 
     await act(async () => {
@@ -64,14 +65,14 @@ describe("PositionInput", () => {
     });
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
-      expectedErrorMessage
+      expectedErrorMessage,
     );
   });
 
   it("validates max value", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
-      { lat: "" }
+      { lat: "" },
     );
 
     await act(async () => {
@@ -86,14 +87,14 @@ describe("PositionInput", () => {
     });
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
-      expectedErrorMessage
+      expectedErrorMessage,
     );
   });
 
   it("displays error for less than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
-      { lat: "" }
+      { lat: "" },
     );
 
     await act(async () => {
@@ -105,18 +106,18 @@ describe("PositionInput", () => {
 
     const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_DECIMAL_PLACES,
-      { decimalPlaces: 6 }
+      { decimalPlaces: 6 },
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
-      expectedErrorMessage
+      expectedErrorMessage,
     );
   });
 
   it("displays error for more than 6 decimal places", async () => {
     const { getFormErrors, getByRole } = renderWithinFormik(
       <PositionInput name="lat" labelText="Your latitude" type="latitude" />,
-      { lat: "" }
+      { lat: "" },
     );
 
     await act(async () => {
@@ -128,11 +129,11 @@ describe("PositionInput", () => {
 
     const expectedErrorMessage = getErrorMessage(
       FormErrorType.INVALID_DECIMAL_PLACES,
-      { decimalPlaces: 6 }
+      { decimalPlaces: 6 },
     );
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
-      expectedErrorMessage
+      expectedErrorMessage,
     );
   });
 
@@ -144,7 +145,7 @@ describe("PositionInput", () => {
         type="latitude"
         isRequired
       />,
-      { lat: "" }
+      { lat: "" },
     );
 
     await act(async () => {
@@ -158,7 +159,7 @@ describe("PositionInput", () => {
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().lat).toEqual(expectedErrorMessage);
     expect(getByRole("alert", { name: "Your latitude" })).toHaveTextContent(
-      expectedErrorMessage
+      expectedErrorMessage,
     );
   });
 
@@ -173,7 +174,7 @@ describe("PositionInput", () => {
         autofill
         position={latitude}
       />,
-      { defaultLat: "" }
+      { defaultLat: "" },
     );
 
     await act(async () => {
@@ -193,7 +194,7 @@ describe("PositionInput", () => {
         isDisabled
         position={latitude}
       />,
-      { lat: "" }
+      { lat: "" },
     );
 
     const positionInput = getByRole("spinbutton", { name: "Your latitude" });
@@ -213,7 +214,7 @@ describe("PositionInput", () => {
         labelText="Your longitude"
         type="longitude"
       />,
-      { longitude: "" }
+      { longitude: "" },
     );
 
     let longitudeInput = getByRole("spinbutton", { name: "Your longitude" });

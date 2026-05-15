@@ -14,7 +14,7 @@ describe("Positional Validation Modal", () => {
         handleLeavePage={mockHandleLeavePage}
         closeModal={mockCloseModal}
         pageName="habitat"
-      />
+      />,
     );
 
     const closeButton = getByRole("button", { name: "End habitat" });
@@ -33,7 +33,7 @@ describe("Positional Validation Modal", () => {
         handleLeavePage={mockHandleLeavePage}
         closeModal={mockCloseModal}
         pageName="habitat"
-      />
+      />,
     );
 
     const closeButton = getByRole("button", { name: "Stay on this page" });

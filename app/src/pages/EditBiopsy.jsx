@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -24,13 +25,13 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   const saveSpecimens = async (modifiedSpecimens) => {
     const specimens = await datastore.readDocsByParentPath(
       biopsyPath,
-      CollectionNames.SPECIMEN
+      CollectionNames.SPECIMEN,
     );
 
     for (const specimen of specimens.reverse()) {
       datastore.updateDocByPath(
         generateSpecimenPath(encounterId, biopsyId, specimen.id),
-        modifiedSpecimens[0]
+        modifiedSpecimens[0],
       );
       modifiedSpecimens.shift();
     }
@@ -44,7 +45,7 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
         datastore.createSubDoc(
           biopsyPath,
           CollectionNames.SPECIMEN,
-          modifiedSpecimen
+          modifiedSpecimen,
         );
       }
     }
@@ -67,7 +68,7 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
   const getSpecimens = async () => {
     const specimens = await datastore.readDocsByParentPath(
       biopsyPath,
-      CollectionNames.SPECIMEN
+      CollectionNames.SPECIMEN,
     );
     let specimensArray = [];
     for (const specimen of specimens) {

@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import FormSection from "./FormSection";
 import TextInput from "./formFields/TextInput/TextInput";
 import Select from "./formFields/Select/Select";

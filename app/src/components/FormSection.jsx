@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx, css } from "@emotion/react";
 import utilities from "../materials/utilities";
 import colors from "../materials/colors";
 import { useFormikContext } from "formik";
@@ -18,8 +19,8 @@ const FormSection = ({
   const fieldsLayout = isOneLine
     ? [utilities.form.subsection, utilities.form.oneLine3ElementsFieldsGrid]
     : isOneLine4Elements
-    ? [utilities.form.subsection, utilities.form.oneLine4ElementsFieldsGrid]
-    : [utilities.form.subsection, utilities.form.fieldsGrid];
+      ? [utilities.form.subsection, utilities.form.oneLine4ElementsFieldsGrid]
+      : [utilities.form.subsection, utilities.form.fieldsGrid];
 
   const styles = {
     legend: css`

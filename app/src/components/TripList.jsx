@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { endOfMonth, parse } from "date-fns";
 

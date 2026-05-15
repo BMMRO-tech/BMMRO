@@ -44,7 +44,7 @@ describe("ViewEncounter", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -70,7 +70,7 @@ describe("ViewEncounter", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -104,7 +104,7 @@ describe("ViewEncounter", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

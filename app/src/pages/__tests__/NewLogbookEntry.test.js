@@ -33,13 +33,13 @@ describe("NewLogbookEntry", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("ENCOUNTERS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("ENCOUNTERS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
       expect(
-        screen.getByText("TRIPS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("TRIPS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -54,7 +54,7 @@ describe("NewLogbookEntry", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

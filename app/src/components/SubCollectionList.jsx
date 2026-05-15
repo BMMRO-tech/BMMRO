@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { Link } from "@reach/router";
 
 import utilities from "../materials/utilities";
@@ -68,7 +69,7 @@ const SubCollectionList = ({
     const sortedBy = collection.primaryTime;
 
     return items.sort((a, b) =>
-      b.data[sortedBy].localeCompare(a.data[sortedBy])
+      b.data[sortedBy].localeCompare(a.data[sortedBy]),
     );
   }, [collection, items]);
 
@@ -97,7 +98,7 @@ const SubCollectionList = ({
               primaryTime={item.data[collection.primaryTime]}
               primaryContentRight={collection.primaryContentRight(
                 list.length,
-                index
+                index,
               )}
             />
           ))}

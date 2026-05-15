@@ -33,13 +33,13 @@ describe("EncountersOverviewPage", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("ENCOUNTERS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("ENCOUNTERS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
       expect(
-        screen.getByText("TRIPS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("TRIPS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
   });
   it("show new encounters button", async () => {
@@ -49,7 +49,7 @@ describe("EncountersOverviewPage", () => {
     });
 
     await waitFor(() =>
-      expect(screen.getByTestId("new-encounters-button")).toBeInTheDocument()
+      expect(screen.getByTestId("new-encounters-button")).toBeInTheDocument(),
     );
   });
 });

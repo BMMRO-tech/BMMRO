@@ -36,7 +36,7 @@ describe("EditEncounter", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -61,7 +61,7 @@ describe("EditEncounter", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

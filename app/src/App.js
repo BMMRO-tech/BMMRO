@@ -1,6 +1,7 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { useContext } from "react";
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { LocationProvider, Redirect, Router } from "@reach/router";
 
 import {

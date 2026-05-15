@@ -45,7 +45,7 @@ describe("ViewHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -71,7 +71,7 @@ describe("ViewHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -107,7 +107,7 @@ describe("ViewHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -151,7 +151,7 @@ describe("ViewHabitatUse", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

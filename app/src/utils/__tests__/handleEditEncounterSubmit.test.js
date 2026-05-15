@@ -27,7 +27,7 @@ describe("handleEditEncounterSubmit", () => {
   describe("SAVE AND END", () => {
     beforeAll(() => {
       global.Date.now = jest.fn(() =>
-        new Date("2020-01-05T11:30:00.000Z").getTime()
+        new Date("2020-01-05T11:30:00.000Z").getTime(),
       );
     });
 
@@ -54,7 +54,7 @@ describe("handleEditEncounterSubmit", () => {
 
       expect(datastore.updateDocByPath).toHaveBeenCalledWith(
         "encounter/123",
-        expectedSaveValues
+        expectedSaveValues,
       );
 
       expect(navigate).toHaveBeenCalledWith("/encounters");

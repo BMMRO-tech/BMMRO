@@ -27,7 +27,7 @@ describe("LogbookForm", () => {
 
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
@@ -41,7 +41,7 @@ describe("LogbookForm", () => {
     };
 
     const { getByRole } = render(
-      <LogbookForm handleSubmit={mockHandleSubmit} />
+      <LogbookForm handleSubmit={mockHandleSubmit} />,
     );
 
     const submitButton = getByRole("button", { name: "Save" });
@@ -68,7 +68,7 @@ describe("LogbookForm", () => {
     };
 
     const { getByRole, getByTestId, getByLabelText } = render(
-      <LogbookForm handleSubmit={mockHandleSubmit} />
+      <LogbookForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
@@ -103,7 +103,7 @@ describe("LogbookForm", () => {
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -129,7 +129,7 @@ describe("LogbookForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole } = render(
-      <LogbookForm handleSubmit={mockHandleSubmit} />
+      <LogbookForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latInput = getByRole("spinbutton", {
@@ -155,7 +155,7 @@ describe("LogbookForm", () => {
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -178,7 +178,7 @@ describe("LogbookForm", () => {
       <LogbookForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -197,7 +197,7 @@ describe("LogbookForm", () => {
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
         isViewOnly
-      />
+      />,
     );
 
     await waitFor(() => {

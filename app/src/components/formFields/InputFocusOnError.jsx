@@ -27,7 +27,7 @@ const InputFocusOnError = ({ pageHasPositionalValues, hasTriedToSubmit }) => {
         }
         if (!(typeof pageHasPositionalValues === "undefined")) {
           hasTriedToSubmit(
-            !(values.longitude && values.latitude) && !values.gpsMark
+            !(values.longitude && values.latitude) && !values.gpsMark,
           );
         }
       }

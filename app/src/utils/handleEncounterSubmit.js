@@ -15,7 +15,7 @@ const handleEditEncounterSubmit = (values, args) => {
     const endedEncounter = endEntry(values);
     const endDateTime = constructDateTime(
       endedEncounter.endTimestamp,
-      endedEncounter.endTime
+      endedEncounter.endTime,
     );
 
     const endDateLimit = add(new Date(endedEncounter.startTimestamp), {

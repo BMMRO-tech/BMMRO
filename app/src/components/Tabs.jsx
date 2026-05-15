@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Link, useLocation } from "@reach/router";
 import { ROUTES } from "../constants/routes";
 import Button from "./Button";

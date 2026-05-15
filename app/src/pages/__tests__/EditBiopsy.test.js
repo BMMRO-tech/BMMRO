@@ -43,7 +43,7 @@ describe("EditBiopsy", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

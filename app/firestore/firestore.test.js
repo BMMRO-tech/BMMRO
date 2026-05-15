@@ -25,7 +25,7 @@ describe("Habitat Use Collection", () => {
       .firestore();
 
     await firebase.assertSucceeds(
-      db.collection(collectionName).add(defaultValues)
+      db.collection(collectionName).add(defaultValues),
     );
   });
 
@@ -34,7 +34,7 @@ describe("Habitat Use Collection", () => {
     db = firebase.initializeTestApp({ projectId }).firestore();
 
     await firebase.assertFails(
-      db.collection(collectionName).add(defaultValues)
+      db.collection(collectionName).add(defaultValues),
     );
   });
 });
@@ -69,7 +69,7 @@ describe("Encounter collection with habitat use subcollection", () => {
       db = initializeFirestore({ uid: "testId" });
 
       await firebase.assertSucceeds(
-        db.collection(collectionName).add(defaultValues)
+        db.collection(collectionName).add(defaultValues),
       );
     });
 
@@ -77,7 +77,7 @@ describe("Encounter collection with habitat use subcollection", () => {
       db = initializeFirestore(null);
 
       await firebase.assertFails(
-        db.collection(collectionName).add(defaultValues)
+        db.collection(collectionName).add(defaultValues),
       );
     });
   });
@@ -92,7 +92,7 @@ describe("Encounter collection with habitat use subcollection", () => {
           .collection(collectionName)
           .doc(id)
           .collection(habitatUseSubcollectionName)
-          .add(defaultValues)
+          .add(defaultValues),
       );
     });
 
@@ -108,7 +108,7 @@ describe("Encounter collection with habitat use subcollection", () => {
           .collection(collectionName)
           .doc(id)
           .collection(habitatUseSubcollectionName)
-          .add(defaultValues)
+          .add(defaultValues),
       );
     });
   });
@@ -123,7 +123,7 @@ describe("Encounter collection with habitat use subcollection", () => {
           .collection(collectionName)
           .doc(id)
           .collection(biopsySubcollectionName)
-          .add(defaultValues)
+          .add(defaultValues),
       );
     });
 
@@ -139,7 +139,7 @@ describe("Encounter collection with habitat use subcollection", () => {
           .collection(collectionName)
           .doc(id)
           .collection(biopsySubcollectionName)
-          .add(defaultValues)
+          .add(defaultValues),
       );
     });
   });
@@ -162,7 +162,7 @@ describe("Encounter collection with habitat use subcollection", () => {
           .collection(biopsySubcollectionName)
           .doc(biopsy.id)
           .collection(specimenSubcollectionName)
-          .add(defaultValues)
+          .add(defaultValues),
       );
     });
 
@@ -186,7 +186,7 @@ describe("Encounter collection with habitat use subcollection", () => {
           .collection(biopsySubcollectionName)
           .doc(biopsy.id)
           .collection(specimenSubcollectionName)
-          .add(defaultValues)
+          .add(defaultValues),
       );
     });
   });

@@ -9,7 +9,7 @@ configure({ asyncUtilTimeout: 40000 });
 describe("BiopsyForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
@@ -23,7 +23,7 @@ describe("BiopsyForm", () => {
     };
 
     const { getByRole } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
@@ -41,7 +41,7 @@ describe("BiopsyForm", () => {
     await waitFor(() => {
       expect(formValues.species).toEqual("Fin whale");
       expect(formValues.dateTaken).toEqual(
-        new Date("2020-05-04T11:30:12.000Z")
+        new Date("2020-05-04T11:30:12.000Z"),
       );
       expect(formValues.timeTaken).toEqual("11:30:12");
       expect(formValues.latitude).toEqual("15.123456");
@@ -56,7 +56,7 @@ describe("BiopsyForm", () => {
     };
 
     const { getByRole, getByTestId, getByLabelText } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
@@ -78,7 +78,7 @@ describe("BiopsyForm", () => {
     const sexMaleRadio = getByTestId("field-sex-male");
     const whaleAgeRadio = getByTestId("field-age-juvenile");
     const projectorTypeCrossbowRadio = getByTestId(
-      "field-projectorType-Crossbow"
+      "field-projectorType-Crossbow",
     );
     const modelInput = getByRole("textbox", { name: "Model" });
     const tipLengthInput = getByTestId("field-tipLength");
@@ -96,35 +96,35 @@ describe("BiopsyForm", () => {
     });
 
     const specimenNumberInputForFirstSpecimen = getByTestId(
-      "field-specimens.0.specimenNumber"
+      "field-specimens.0.specimenNumber",
     );
     const sampleTypeInputForFirstSpecimen = getByTestId(
-      "field-specimens.0.sampleType"
+      "field-specimens.0.sampleType",
     );
     const storageTypeInputForFirstSpecimen = getByTestId(
-      "field-specimens.0.storageType"
+      "field-specimens.0.storageType",
     );
 
     const specimenNumberInputForSecondSpecimen = getByTestId(
-      "field-specimens.0.specimenNumber"
+      "field-specimens.0.specimenNumber",
     );
     const sampleTypeInputForSecondSpecimen = getByTestId(
-      "field-specimens.0.sampleType"
+      "field-specimens.0.sampleType",
     );
     const storageTypeInputForSecondSpecimen = getByTestId(
-      "field-specimens.0.storageType"
+      "field-specimens.0.storageType",
     );
 
     const reactionStrengthStrongRadio = getByTestId(
-      "field-reactionStrength-Strong"
+      "field-reactionStrength-Strong",
     );
     const extentAllAnimalsRadio = getByTestId("field-extent-All animals");
 
     const targetAnimalBreachCheckbox = getByTestId(
-      "field-targetAnimalBehaviour.breach"
+      "field-targetAnimalBehaviour.breach",
     );
     const nonTargetAnimalBreachCheckbox = getByTestId(
-      "field-nonTargetAnimalBehaviour.breach"
+      "field-nonTargetAnimalBehaviour.breach",
     );
 
     const submitButton = getByRole("button", { name: "Save" });
@@ -180,7 +180,7 @@ describe("BiopsyForm", () => {
       new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
-      })
+      }),
     );
 
     const sideHitRadio = getByLabelText("Right");
@@ -200,7 +200,7 @@ describe("BiopsyForm", () => {
     await waitFor(() => {
       expect(formValues.species).toEqual("Fin whale");
       expect(formValues.dateTaken).toEqual(
-        new Date("2020-05-04T11:30:12.000Z")
+        new Date("2020-05-04T11:30:12.000Z"),
       );
       expect(formValues.timeTaken).toEqual("11:30:12");
       expect(formValues.attempt).toEqual("1");
@@ -334,7 +334,7 @@ describe("BiopsyForm", () => {
       <BiopsyForm
         handleSubmit={mockHandleSubmit}
         initialValues={mockInitialValues}
-      />
+      />,
     );
 
     await act(async () => {
@@ -356,7 +356,7 @@ describe("BiopsyForm", () => {
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latInput = getByRole("spinbutton", {
@@ -378,7 +378,7 @@ describe("BiopsyForm", () => {
   it("displays the positionalValidationModal if no positional data is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, getByText } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
@@ -395,7 +395,7 @@ describe("BiopsyForm", () => {
     await waitFor(() => {
       expect(getByText("No positional data present!")).toBeInTheDocument();
       expect(
-        getByText("End biopsy without positional data?")
+        getByText("End biopsy without positional data?"),
       ).toBeInTheDocument();
       expect(getByText("End biopsy")).toBeInTheDocument();
     });
@@ -404,7 +404,7 @@ describe("BiopsyForm", () => {
   it("displays the positionalValidationModal if no latitide data is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, getByText } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
@@ -422,7 +422,7 @@ describe("BiopsyForm", () => {
     await waitFor(() => {
       expect(getByText("No positional data present!")).toBeInTheDocument();
       expect(
-        getByText("End biopsy without positional data?")
+        getByText("End biopsy without positional data?"),
       ).toBeInTheDocument();
       expect(getByText("End biopsy")).toBeInTheDocument();
     });
@@ -431,7 +431,7 @@ describe("BiopsyForm", () => {
   it("displays the positionalValidationModal if no longitide data is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, getByText } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
@@ -449,7 +449,7 @@ describe("BiopsyForm", () => {
     await waitFor(() => {
       expect(getByText("No positional data present!")).toBeInTheDocument();
       expect(
-        getByText("End biopsy without positional data?")
+        getByText("End biopsy without positional data?"),
       ).toBeInTheDocument();
       expect(getByText("End biopsy")).toBeInTheDocument();
     });
@@ -458,7 +458,7 @@ describe("BiopsyForm", () => {
   it("does not display the positionalValidationModal if GPS mark is entered", async () => {
     const mockHandleSubmit = jest.fn();
     const { getByRole, queryByText } = render(
-      <BiopsyForm handleSubmit={mockHandleSubmit} />
+      <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
@@ -476,10 +476,10 @@ describe("BiopsyForm", () => {
 
     await waitFor(() => {
       expect(
-        queryByText("No positional data present!")
+        queryByText("No positional data present!"),
       ).not.toBeInTheDocument();
       expect(
-        queryByText("End biopsy without positional data?")
+        queryByText("End biopsy without positional data?"),
       ).not.toBeInTheDocument();
       expect(queryByText("End biopsy")).not.toBeInTheDocument();
     });
@@ -503,13 +503,13 @@ describe("BiopsyForm", () => {
           new MouseEvent("click", {
             bubbles: true,
             cancelable: true,
-          })
+          }),
         );
 
         await waitFor(() => {
           expect(queryByText("Area Hit : " + val)).toBeInTheDocument();
         });
-      }
+      },
     );
 
     it("contains left and right radio buttons", async () => {
@@ -528,7 +528,7 @@ describe("BiopsyForm", () => {
         new MouseEvent("click", {
           bubbles: true,
           cancelable: true,
-        })
+        }),
       );
       await waitFor(() => {
         expect(queryByText("Did it hit the fin?")).toBeInTheDocument();
@@ -543,7 +543,7 @@ describe("BiopsyForm", () => {
         new MouseEvent("click", {
           bubbles: true,
           cancelable: true,
-        })
+        }),
       );
       await waitFor(() => {
         expect(queryByText("Did it hit the fin?")).not.toBeInTheDocument();

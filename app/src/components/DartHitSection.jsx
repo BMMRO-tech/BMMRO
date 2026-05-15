@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useState } from "react";
 import WhaleSvg from "./WhaleSvg";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
@@ -7,7 +8,7 @@ import FormSection from "./FormSection";
 
 const DartHitSection = ({ areaHitResult, setAreaHitResult, isViewOnly }) => {
   const [isUpperPeduncleSelected, setIsUpperPeduncleSelected] = useState(
-    areaHitResult === "Upper Dorsal"
+    areaHitResult === "Upper Dorsal",
   );
 
   return (

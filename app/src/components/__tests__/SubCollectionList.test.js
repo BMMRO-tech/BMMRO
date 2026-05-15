@@ -11,7 +11,7 @@ describe("SubCollectionList", () => {
         { data: { startTime: "11:20:33" }, id: "789" },
       ];
       const { queryAllByRole } = render(
-        <SubCollectionList items={items} type="habitat" />
+        <SubCollectionList items={items} type="habitat" />,
       );
 
       const actual = queryAllByRole("listitem");
@@ -23,7 +23,7 @@ describe("SubCollectionList", () => {
 
     it("displays message when there are no list items", () => {
       const { queryByText } = render(
-        <SubCollectionList items={[]} type="habitat" />
+        <SubCollectionList items={[]} type="habitat" />,
       );
 
       const noEntriesMessage = queryByText("No habitat use entries yet");
@@ -33,7 +33,7 @@ describe("SubCollectionList", () => {
 
     it("has a button to add habitat uses if the associated encounter was not yet exported", () => {
       const { queryByRole } = render(
-        <SubCollectionList items={[]} type="habitat" />
+        <SubCollectionList items={[]} type="habitat" />,
       );
 
       expect(queryByRole("button", { name: "+ New" })).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe("SubCollectionList", () => {
 
     it("does not have a button to add habitat uses if the associated encounter was exported", () => {
       const { queryByRole } = render(
-        <SubCollectionList items={[]} isExported type="habitat" />
+        <SubCollectionList items={[]} isExported type="habitat" />,
       );
 
       expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
@@ -56,7 +56,7 @@ describe("SubCollectionList", () => {
         { data: { timeTaken: "11:20:33" }, id: "789" },
       ];
       const { queryAllByRole } = render(
-        <SubCollectionList items={items} type="biopsy" />
+        <SubCollectionList items={items} type="biopsy" />,
       );
 
       const actual = queryAllByRole("listitem");
@@ -68,7 +68,7 @@ describe("SubCollectionList", () => {
 
     it("displays message when there are no list items", () => {
       const { queryByText } = render(
-        <SubCollectionList items={[]} type="biopsy" />
+        <SubCollectionList items={[]} type="biopsy" />,
       );
 
       const noEntriesMessage = queryByText("No biopsy entries yet");
@@ -78,7 +78,7 @@ describe("SubCollectionList", () => {
 
     it("has a button to add biopsy if the associated encounter was not yet exported", () => {
       const { queryByRole } = render(
-        <SubCollectionList items={[]} type="biopsy" />
+        <SubCollectionList items={[]} type="biopsy" />,
       );
 
       expect(queryByRole("button", { name: "+ New" })).toBeInTheDocument();
@@ -86,7 +86,7 @@ describe("SubCollectionList", () => {
 
     it("does not have a button to biopsy if the associated encounter was exported", () => {
       const { queryByRole } = render(
-        <SubCollectionList items={[]} isExported type="biopsy" />
+        <SubCollectionList items={[]} isExported type="biopsy" />,
       );
 
       expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();
@@ -100,7 +100,7 @@ describe("SubCollectionList", () => {
         { data: { time: "11:20:33" }, id: "789" },
       ];
       const { queryAllByRole } = render(
-        <SubCollectionList items={items} type="logbook" />
+        <SubCollectionList items={items} type="logbook" />,
       );
 
       const actual = queryAllByRole("listitem");
@@ -112,7 +112,7 @@ describe("SubCollectionList", () => {
 
     it("displays message when there are no list items", () => {
       const { queryByText } = render(
-        <SubCollectionList items={[]} type="logbook" />
+        <SubCollectionList items={[]} type="logbook" />,
       );
 
       const noEntriesMessage = queryByText("No logbook entries yet");
@@ -122,7 +122,7 @@ describe("SubCollectionList", () => {
 
     it("has a button to add logbook if the associated trip was not yet exported", () => {
       const { queryByRole } = render(
-        <SubCollectionList items={[]} type="logbook" />
+        <SubCollectionList items={[]} type="logbook" />,
       );
 
       expect(queryByRole("button", { name: "+ New" })).toBeInTheDocument();
@@ -130,7 +130,7 @@ describe("SubCollectionList", () => {
 
     it("does not have a button to logbook if the associated trip was exported", () => {
       const { queryByRole } = render(
-        <SubCollectionList items={[]} isExported type="logbook" />
+        <SubCollectionList items={[]} isExported type="logbook" />,
       );
 
       expect(queryByRole("button", { name: "+ New" })).not.toBeInTheDocument();

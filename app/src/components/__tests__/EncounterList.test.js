@@ -28,15 +28,15 @@ describe("EncounterList", () => {
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue(mockSingleDayData);
     const { queryAllByRole } = renderWithMockContexts(
-      <EncounterList title="Today" encounters={mockSingleDayData} />
+      <EncounterList title="Today" encounters={mockSingleDayData} />,
     );
 
     await waitFor(() => {
       expect(queryAllByRole("listitem")[0]).toHaveTextContent(
-        "13AugE777Bottlenose dolphin - oceanicBimini"
+        "13AugE777Bottlenose dolphin - oceanicBimini",
       );
       expect(queryAllByRole("listitem")[1]).toHaveTextContent(
-        "13AugE99Bottlenose dolphin - oceanicCat Island"
+        "13AugE99Bottlenose dolphin - oceanicCat Island",
       );
     });
   });
@@ -49,21 +49,21 @@ describe("EncounterList", () => {
       <EncounterList
         title="Previous Encounters"
         encounters={mockSingleMonthData}
-      />
+      />,
     );
     await waitFor(() => {
       expect(queryAllByRole("listitem")[0]).toHaveTextContent(
-        "02Jul5fBlainville's beaked whaleEA"
+        "02Jul5fBlainville's beaked whaleEA",
       );
       expect(queryAllByRole("listitem")[1]).toHaveTextContent(
-        "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal"
+        "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal",
       );
     });
   });
 
   it("displays message when no encounters in a month", () => {
     const { queryByText } = render(
-      <EncounterList title="Previous Encounters" encounters={[]} />
+      <EncounterList title="Previous Encounters" encounters={[]} />,
     );
 
     const actual = queryByText("No encounters yet");
@@ -79,7 +79,7 @@ describe("EncounterList", () => {
       <EncounterList
         title="Previous Encounters"
         encounters={[mockSingleMonthData]}
-      />
+      />,
     );
     expect(screen.getByLabelText("Month")).toBeInTheDocument();
   });
@@ -96,7 +96,7 @@ describe("EncounterList", () => {
       <EncounterList
         title="Previous Encounters"
         encounters={[mockSingleMonthData]}
-      />
+      />,
     );
     const monthDropdown = screen.getByLabelText("Month");
     expect(monthDropdown).toBeInTheDocument();
@@ -115,17 +115,17 @@ describe("EncounterList", () => {
       <EncounterList
         title="Previous Encounters"
         encounters={[mockSingleMonthData]}
-      />
+      />,
     );
     fireEvent.change(screen.getByTestId("field-PreviousEncountersDropDown"), {
       target: { value: dropDownValue },
     });
     await waitFor(() => {
       expect(queryAllByRole("list")[0]).toHaveTextContent(
-        "02Jul5fBlainville's beaked whaleEA"
+        "02Jul5fBlainville's beaked whaleEA",
       );
       expect(queryAllByRole("list")[0]).toHaveTextContent(
-        "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal"
+        "11Jul23dfsd23423fdsBottlenose dolphin - coastalCay Sal",
       );
     });
   });
@@ -138,7 +138,7 @@ describe("EncounterList", () => {
       <EncounterList
         title="Previous Encounters"
         encounters={[mockSingleMonthData]}
-      />
+      />,
     );
 
     await waitFor(() => {

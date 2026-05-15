@@ -32,7 +32,7 @@ const getEncountersByTimeRange = async (datastore, startDate, endDate) => {
     CollectionNames.ENCOUNTER,
     "startTimestamp",
     startDate,
-    endDate
+    endDate,
   );
 
   const month = format(startDate, "MMMM", { locale: usLocale });
@@ -43,7 +43,7 @@ const getEncountersByTimeRange = async (datastore, startDate, endDate) => {
   }
 
   const extractedEncounters = encounters.map((encounter) =>
-    extractEncounterProperties(encounter)
+    extractEncounterProperties(encounter),
   );
 
   const orderedEncounters = orderEncountersByTimestamp(extractedEncounters);
@@ -55,11 +55,11 @@ const orderEncountersByTimestamp = (encounters) => {
   const sortedEncounters = encounters.sort((encounterA, encounterB) => {
     const encounterAStartDateTime = constructDateTime(
       encounterA.data.startTimestamp,
-      encounterA.data.startTime
+      encounterA.data.startTime,
     );
     const encounterBStartDateTime = constructDateTime(
       encounterB.data.startTimestamp,
-      encounterB.data.startTime
+      encounterB.data.startTime,
     );
 
     return encounterAStartDateTime > encounterBStartDateTime ? -1 : 1;
@@ -82,10 +82,10 @@ const useEncountersByMonth = (datastore) => {
 
   const getInitialEncounters = async (today, tomorrow) => {
     await getEncountersByTimeRange(datastore, today, tomorrow).then(
-      setTodaysEncounters
+      setTodaysEncounters,
     );
     await getEncountersByTimeRange(datastore, startOfMonth(today), today).then(
-      setPreviousEncounters
+      setPreviousEncounters,
     );
 
     setIsLoading(false);
@@ -110,7 +110,7 @@ const useEncountersByMonth = (datastore) => {
     if (!timeRange) return;
     setIsLoading(true);
     await getEncountersByTimeRange(datastore, ...timeRange).then((data) =>
-      setPreviousEncounters([...previousEncounters, ...data])
+      setPreviousEncounters([...previousEncounters, ...data]),
     );
     setIsLoading(false);
 

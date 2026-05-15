@@ -45,7 +45,7 @@ describe("ViewBiopsy", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -75,7 +75,7 @@ describe("ViewBiopsy", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -115,7 +115,7 @@ describe("ViewBiopsy", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -184,7 +184,7 @@ describe("ViewBiopsy", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {

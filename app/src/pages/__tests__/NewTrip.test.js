@@ -33,13 +33,13 @@ describe("NewTripPage", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText("ENCOUNTERS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("ENCOUNTERS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
       expect(
-        screen.getByText("TRIPS", { selector: "button" })
-      ).toBeInTheDocument()
+        screen.getByText("TRIPS", { selector: "button" }),
+      ).toBeInTheDocument(),
     );
   });
   it("don't show new trips button", async () => {
@@ -49,7 +49,7 @@ describe("NewTripPage", () => {
     });
 
     await waitFor(() =>
-      expect(screen.queryByTestId("new-trips-button")).not.toBeInTheDocument()
+      expect(screen.queryByTestId("new-trips-button")).not.toBeInTheDocument(),
     );
   });
 });

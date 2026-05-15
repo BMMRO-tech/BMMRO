@@ -17,7 +17,7 @@ describe("Login page", () => {
         value={{ datastore: "some-datastore", route: "/login" }}
       >
         <Login />
-      </FirebaseContext.Provider>
+      </FirebaseContext.Provider>,
     );
 
     await waitFor(() => expect(queryByTitle("BMMRO Logo")).toBeInTheDocument());
@@ -29,13 +29,13 @@ describe("Login page", () => {
         value={{ datastore: "some-datastore", route: "/login" }}
       >
         <Login />
-      </FirebaseContext.Provider>
+      </FirebaseContext.Provider>,
     );
 
     await waitFor(() =>
       expect(
-        screen.queryByText("ENCOUNTERS", { selector: "button" })
-      ).not.toBeInTheDocument()
+        screen.queryByText("ENCOUNTERS", { selector: "button" }),
+      ).not.toBeInTheDocument(),
     );
   });
 });

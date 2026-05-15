@@ -41,7 +41,7 @@ describe("OpenEncounter", () => {
       {
         datastore,
         route: entryPath,
-      }
+      },
     );
 
     await waitFor(() => {
@@ -56,7 +56,7 @@ describe("OpenEncounter", () => {
     });
     const { findByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"a6789"} />,
-      { datastore }
+      { datastore },
     );
     const endButton = await findByRole("button", {
       name: "End encounter",
@@ -76,7 +76,7 @@ describe("OpenEncounter", () => {
     });
     const { findByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"123"} />,
-      { datastore }
+      { datastore },
     );
     const endButton = await findByRole("button", {
       name: "End encounter",
@@ -96,7 +96,7 @@ describe("OpenEncounter", () => {
     });
     const { getByText } = renderWithMockContexts(
       <OpenEncounter encounterId={"123"} />,
-      { datastore }
+      { datastore },
     );
 
     await waitFor(() => {
@@ -116,7 +116,7 @@ describe("OpenEncounter", () => {
     });
     const { findByRole } = renderWithMockContexts(
       <OpenEncounter encounterId={"abcd1234"} />,
-      { datastore }
+      { datastore },
     );
 
     const endEncounterButton = await findByRole("button", {

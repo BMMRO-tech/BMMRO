@@ -10,7 +10,7 @@ configure({ asyncUtilTimeout: 40000 });
 describe("LastLogbookForm", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2020-05-04T11:30:12.000Z").getTime()
+      new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
@@ -27,14 +27,14 @@ describe("LastLogbookForm", () => {
       <LastLogbookForm
         handleSubmit={mockHandleSubmit}
         tripDate={new Date("2020-05-04T11:30:12.000Z")}
-      />
+      />,
     );
     const submitButton = await waitFor(() =>
-      screen.getByText("Save & Continue")
+      screen.getByText("Save & Continue"),
     );
 
     const tripMilesInput = await waitFor(() =>
-      screen.getByRole("spinbutton", { name: "Trip miles" })
+      screen.getByRole("spinbutton", { name: "Trip miles" }),
     );
 
     userEvent.clear(tripMilesInput);

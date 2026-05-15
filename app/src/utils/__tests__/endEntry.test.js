@@ -4,7 +4,7 @@ import { TIME_WITH_SECONDS_FORMAT } from "../../constants/forms";
 describe("endEntry", () => {
   beforeAll(() => {
     global.Date.now = jest.fn(() =>
-      new Date("2010-06-07T12:34:56.000Z").getTime()
+      new Date("2010-06-07T12:34:56.000Z").getTime(),
     );
   });
   afterAll(() => {

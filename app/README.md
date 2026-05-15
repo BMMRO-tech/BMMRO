@@ -92,7 +92,7 @@ With `npm start` running, you will be able to see the BMMRO webapp at localhost.
 
 ### Setting up your database emulator
 
-The app uses a Firestore emulator for running tests against. To authenticate this, run `npx firestore login` and follow the commands.
+The app uses a Firestore emulator for running tests against. To authenticate this, run `npx firebase login` and follow the commands.
 
 In the `app` directory, install all dependencies:
 

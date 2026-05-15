@@ -8,7 +8,7 @@ describe("UserMenu", () => {
       <UserMenu
         menuButtonComponent={<div data-testid="menu-button" />}
         menuItems={[<div data-testid="menu-item" />]}
-      />
+      />,
     );
 
     expect(getByTestId("menu-button")).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe("UserMenu", () => {
       <UserMenu
         menuButtonComponent={<div data-testid="menu-button" />}
         menuItems={[<div data-testid="menu-item" />]}
-      />
+      />,
     );
 
     fireEvent.click(getByRole("button", { name: "Open menu" }));

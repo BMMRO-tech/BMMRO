@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { Fragment, useRef, useState } from "react";
 import { navigate } from "@reach/router";
@@ -215,7 +216,7 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
                       onClick={() => {
                         const modifiedFields = getModifiedProperties(
                           values,
-                          initValues
+                          initValues,
                         );
 
                         Object.keys(modifiedFields).length === 0

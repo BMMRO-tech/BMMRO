@@ -18,7 +18,7 @@ describe("Logout", () => {
     fireEvent.click(queryByTestId("logout-button"));
 
     await waitFor(() =>
-      expect(queryByTestId("confirmation-modal")).toBeInTheDocument()
+      expect(queryByTestId("confirmation-modal")).toBeInTheDocument(),
     );
   });
 });
