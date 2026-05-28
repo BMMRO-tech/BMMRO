@@ -6,7 +6,7 @@ import {
   LocationProvider,
 } from "@reach/router";
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 import { MonthContext } from "../../providers/monthContext/MonthContext";
 
 // modified from https://testing-library.com/docs/example-reach-router
