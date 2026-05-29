@@ -3,7 +3,7 @@
 import { jsx, css } from "@emotion/react";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
-import add from "date-fns/add";
+import { add } from "date-fns";
 
 import utilities from "../materials/utilities";
 import breakPoints from "../materials/breakPoints";

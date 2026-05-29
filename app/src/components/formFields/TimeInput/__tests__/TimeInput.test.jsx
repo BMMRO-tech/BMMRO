@@ -53,7 +53,7 @@ describe("TimeInput", () => {
 
     await act(async () => {
       await userEvent.type(timeInput, "15:00:21", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
@@ -73,8 +73,8 @@ describe("TimeInput", () => {
 
     const timeInput = getByRole("textbox", { name: "Your favorite time *" });
     await act(async () => {
-      await userEvent.type(timeInput, "", { delay: 1 });
-      userEvent.tab();
+      await userEvent.click(timeInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
@@ -98,7 +98,7 @@ describe("TimeInput", () => {
 
     await act(async () => {
       changeInputMaskValue(timeInput, "256111");
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(

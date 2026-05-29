@@ -19,7 +19,7 @@ describe("Positional Validation Modal", () => {
 
     const closeButton = getByRole("button", { name: "End habitat" });
 
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(mockHandleLeavePage).toHaveBeenCalledTimes(1);
   });
@@ -38,7 +38,7 @@ describe("Positional Validation Modal", () => {
 
     const closeButton = getByRole("button", { name: "Stay on this page" });
 
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(mockCloseModal).toHaveBeenCalledTimes(1);
   });

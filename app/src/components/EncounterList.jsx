@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 import { Fragment, useContext, useEffect, useState } from "react";
-import usLocale from "date-fns/locale/en-US";
+import { enUS as usLocale } from "date-fns/locale";
 import { endOfMonth, format, parse } from "date-fns";
 
 import utilities from "../materials/utilities";

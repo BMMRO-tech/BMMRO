@@ -1,6 +1,11 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { waitFor } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
@@ -11,20 +16,21 @@ describe("ViewEncounter", () => {
   let firestoreEmulator;
   let datastore;
 
-  beforeEach(() => {
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
+  beforeAll(async () => {
+    await initTestEnv(projectId);
+  });
 
+  beforeEach(() => {
+    firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
   });
 
+  afterEach(async () => {
+    await clearEmulatedData();
+  });
+
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
   });
 
   it("navigates to encounter edit page if encounter has not been exported", async () => {

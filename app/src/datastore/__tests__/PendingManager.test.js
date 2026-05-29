@@ -1,39 +1,34 @@
 import { waitFor } from "@testing-library/react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
 import fs from "fs";
 import path from "path";
 
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { PendingManager } from "../PendingManager";
 
 const projectId = "pending-emulated";
 
-const getFirestore = () => {
-  return firebaseTesting
-    .initializeTestApp({
-      projectId,
-      auth: { uid: "test-researcher" },
-    })
-    .firestore();
-};
+const getFirestore = () => getEmulatedFirestore();
 
 describe("PendingManager ", () => {
   beforeAll(async () => {
-    await firebaseTesting.loadFirestoreRules({
+    await initTestEnv(
       projectId,
-      rules: fs.readFileSync(
-        path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8",
-      ),
-    });
+      fs.readFileSync(path.resolve(__dirname, "test-emulator.rules"), "utf-8"),
+    );
   });
 
   afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
     jest.clearAllMocks();
   });
 
   afterEach(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
+    await clearEmulatedData();
   });
 
   it("sets pendingCount to 1, when one added while offline", async () => {

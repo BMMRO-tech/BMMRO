@@ -7,7 +7,7 @@ import {
   getYear,
   subMonths,
 } from "date-fns";
-import usLocale from "date-fns/locale/en-US";
+import { enUS as usLocale } from "date-fns/locale";
 
 import { CollectionNames } from "../constants/datastore";
 import { getCurrentDate, constructDateTime } from "../utils/time";

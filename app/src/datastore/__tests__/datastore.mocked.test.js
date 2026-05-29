@@ -68,11 +68,6 @@ describe("Datastore with firestore", () => {
 });
 
 describe("initFirestore", () => {
-  jest.mock("firebase", () => ({
-    initializeApp: () => new Error(),
-    firestore: () => {},
-  }));
-
   it("should throw 'DatastoreError' with code INITIALIZATION when Firebase initialization fails", () => {
     expect(() => initFirestore({})).toThrow(
       new DatastoreError(DatastoreErrorType.INITIALIZATION),

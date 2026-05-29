@@ -3,7 +3,7 @@
 import { css, jsx } from "@emotion/react";
 import { Fragment, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
-import add from "date-fns/add";
+import { add } from "date-fns";
 import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";

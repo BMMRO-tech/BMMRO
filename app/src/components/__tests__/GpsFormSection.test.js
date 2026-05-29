@@ -24,7 +24,15 @@ describe("GpsFormSection", () => {
 
     getPosition
       .mockReturnValueOnce({ position: expectedCoordsOnLoad, error: null })
-      .mockReturnValueOnce({ position: expectedCoordsOnRefresh, error: null });
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) =>
+            setTimeout(
+              () => resolve({ position: expectedCoordsOnRefresh, error: null }),
+              50,
+            ),
+          ),
+      );
 
     const { getByRole, getByTestId } = renderWithinFormik(
       <GpsFormSection isViewOnly={false} />,
@@ -39,10 +47,8 @@ describe("GpsFormSection", () => {
         expectedCoordsOnLoad.longitude,
       );
     });
-    userEvent.click(getByTestId("Refresh"));
-    await waitFor(async () => {
-      expect(getByTestId("Refresh")).toHaveAttribute("disabled");
-    });
+    await userEvent.click(getByTestId("Refresh"));
+    expect(getByTestId("Refresh")).toHaveAttribute("disabled");
     expect(getPosition).toHaveBeenCalledTimes(2);
     await waitFor(async () => {
       expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(

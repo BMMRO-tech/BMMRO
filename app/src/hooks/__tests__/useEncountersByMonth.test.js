@@ -1,4 +1,9 @@
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { useEncountersByMonth } from "../useEncountersByMonth";
@@ -15,12 +20,8 @@ describe("useEncountersByMonth", () => {
       new Date("2000-01-15:23:00:00.000Z").getTime(),
     );
 
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
+    await initTestEnv(projectId);
+    firestoreEmulator = getEmulatedFirestore();
 
     datastore = new Datastore(firestoreEmulator);
 
@@ -31,8 +32,7 @@ describe("useEncountersByMonth", () => {
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
     jest.resetAllMocks();
   });
 

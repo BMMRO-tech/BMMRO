@@ -48,11 +48,11 @@ describe("LogbookForm", () => {
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
 
-    userEvent.clear(latitudeInput);
+    await userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(formValues.time).toEqual("11:30:12");
@@ -77,13 +77,13 @@ describe("LogbookForm", () => {
 
     const submitButton = getByRole("button", { name: "Save" });
 
-    userEvent.clear(latitudeInput);
+    await userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
-    userEvent.type(gpsMarkInput, "2");
+    await userEvent.type(gpsMarkInput, "2");
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(formValues.time).toEqual("11:30:12");
@@ -108,7 +108,7 @@ describe("LogbookForm", () => {
 
     await act(async () => {
       const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.time).toEqual("11:30:12");
@@ -140,7 +140,7 @@ describe("LogbookForm", () => {
 
     await userEvent.type(latInput, "0.111", { delay: 1 });
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(submitButton).not.toHaveFocus();
@@ -165,7 +165,7 @@ describe("LogbookForm", () => {
       await userEvent.type(latInput, "0.111", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
@@ -183,7 +183,7 @@ describe("LogbookForm", () => {
 
     await act(async () => {
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();

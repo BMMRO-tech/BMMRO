@@ -46,7 +46,7 @@ describe("TextAreaInput", () => {
 
     await act(async () => {
       await userEvent.type(textInput, "I like the color mango.", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
@@ -86,8 +86,8 @@ describe("TextAreaInput", () => {
       const textInput = getByRole("textbox", {
         name: "Your favorite sentence *",
       });
-      userEvent.click(textInput);
-      userEvent.tab();
+      await userEvent.click(textInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);

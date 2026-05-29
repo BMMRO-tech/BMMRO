@@ -1,6 +1,11 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
@@ -30,21 +35,22 @@ describe("ViewTrip", () => {
     exported: false,
   };
 
+  beforeAll(async () => {
+    await initTestEnv(projectId);
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
-
+    firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
   });
 
+  afterEach(async () => {
+    await clearEmulatedData();
+  });
+
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
     jest.clearAllMocks();
   });
 
@@ -66,7 +72,7 @@ describe("ViewTrip", () => {
     renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
     const endButton = await waitFor(() => screen.getByText("End trip"));
     await act(async () => {
-      userEvent.click(endButton);
+      await userEvent.click(endButton);
     });
 
     await waitFor(() =>
@@ -76,7 +82,7 @@ describe("ViewTrip", () => {
       screen.getByText("Save & Continue"),
     );
     await act(async () => {
-      userEvent.click(confirmButton);
+      await userEvent.click(confirmButton);
     });
 
     const endedTrip = (await firestoreEmulator.doc("trip/123").get()).data();
@@ -149,7 +155,7 @@ describe("ViewTrip", () => {
     });
     const endButton = await waitFor(() => screen.getByText("End trip"));
     await act(async () => {
-      userEvent.click(endButton);
+      await userEvent.click(endButton);
     });
     await waitFor(() =>
       screen.getByText("Are you sure you want to end this trip?"),
@@ -158,7 +164,7 @@ describe("ViewTrip", () => {
       screen.getByText("Save & Continue"),
     );
     await act(async () => {
-      userEvent.click(confirmButton);
+      await userEvent.click(confirmButton);
     });
     await waitFor(() => {
       expect(screen.getByText("Logbook entry 2")).toBeInTheDocument();

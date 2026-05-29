@@ -1,6 +1,11 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -12,20 +17,21 @@ describe("OpenEncounter", () => {
   let firestoreEmulator;
   let datastore;
 
-  beforeAll(() => {
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
+  beforeAll(async () => {
+    await initTestEnv(projectId);
+  });
 
+  beforeEach(() => {
+    firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
   });
 
+  afterEach(async () => {
+    await clearEmulatedData();
+  });
+
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
   });
 
   it("navigates to /encounters/new if no encounter is found in firestore for a given ID", async () => {
@@ -123,7 +129,7 @@ describe("OpenEncounter", () => {
       name: "End encounter",
     });
     await act(async () => {
-      userEvent.click(endEncounterButton);
+      await userEvent.click(endEncounterButton);
     });
 
     const endedEncounter = (

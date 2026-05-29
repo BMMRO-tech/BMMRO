@@ -54,10 +54,10 @@ describe("EncounterForm", () => {
       });
       const submitButton = getByRole("button", { name: "Save" });
 
-      userEvent.selectOptions(areaInput, "Central Andros");
-      userEvent.selectOptions(speciesInput, "Fin whale");
+      await userEvent.selectOptions(areaInput, "Central Andros");
+      await userEvent.selectOptions(speciesInput, "Fin whale");
       await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.area).toEqual("Central Andros");
@@ -110,7 +110,7 @@ describe("EncounterForm", () => {
 
     await act(async () => {
       const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
 
       errorMessage = getByLabelText("Area", {
         selector: '[role="alert"]',
@@ -135,7 +135,7 @@ describe("EncounterForm", () => {
     let encounterSequenceInput;
 
     submitButton = getByRole("button", { name: "Save" });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     encounterSequenceInput = getByRole("textbox", {
       name: "Encounter sequence *",
@@ -167,7 +167,7 @@ describe("EncounterForm", () => {
     });
     await userEvent.type(bestEstimateInput, "100", { delay: 1 });
 
-    userEvent.tab();
+    await userEvent.tab();
 
     await waitFor(() => {
       const errorMessage = getByText("Value must be less than or equal to 100");
@@ -197,7 +197,7 @@ describe("EncounterForm", () => {
     });
     await userEvent.type(highEstimateInput, "100", { delay: 1 });
 
-    userEvent.tab();
+    await userEvent.tab();
 
     await waitFor(() => {
       const errorMessage = getByText("Value must be less than or equal to 100");
@@ -225,7 +225,7 @@ describe("EncounterForm", () => {
       changeInputMaskValue(timeInput, "1800");
 
       const saveAndEndButton = getByRole("button", { name: "Save & End" });
-      userEvent.click(saveAndEndButton);
+      await userEvent.click(saveAndEndButton);
     });
 
     const expectedErrorMessage = getErrorMessage(
@@ -258,7 +258,7 @@ describe("EncounterForm", () => {
       await userEvent.type(commentsInput, "Test comment", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
@@ -276,7 +276,7 @@ describe("EncounterForm", () => {
 
     await act(async () => {
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
@@ -351,10 +351,10 @@ describe("EncounterForm", () => {
 
       const submitButton = getByRole("button", { name: "Save" });
 
-      userEvent.selectOptions(areaInput, "Central Andros");
-      userEvent.selectOptions(speciesInput, "Fin whale");
-      userEvent.selectOptions(project, "project2");
-      userEvent.click(submitButton);
+      await userEvent.selectOptions(areaInput, "Central Andros");
+      await userEvent.selectOptions(speciesInput, "Fin whale");
+      await userEvent.selectOptions(project, "project2");
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.area).toEqual("Central Andros");

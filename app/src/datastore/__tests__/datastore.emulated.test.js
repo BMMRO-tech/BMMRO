@@ -1,36 +1,30 @@
 import { waitFor } from "@testing-library/react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
 import fs from "fs";
 import path from "path";
 
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { Datastore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
 
 const projectId = "datastore-emulated";
 
-const getFirestore = () => {
-  return firebaseTesting
-    .initializeTestApp({
-      projectId,
-      auth: { uid: "test-researcher" },
-    })
-    .firestore();
-};
+const getFirestore = () => getEmulatedFirestore();
 
 describe("datastore", () => {
   beforeAll(async () => {
-    await firebaseTesting.loadFirestoreRules({
+    await initTestEnv(
       projectId,
-      rules: fs.readFileSync(
-        path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8",
-      ),
-    });
+      fs.readFileSync(path.resolve(__dirname, "test-emulator.rules"), "utf-8"),
+    );
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
   });
 
   describe("#readDocByPath", () => {
@@ -352,10 +346,11 @@ describe("datastore", () => {
   });
 
   describe("readDocsByCollection", () => {
-    const firestoreEmulator = getFirestore();
+    let firestoreEmulator;
     const projectCollection = { projectName: "testProject" };
     beforeEach(async () => {
-      await firebaseTesting.clearFirestoreData({ projectId });
+      firestoreEmulator = getFirestore();
+      await clearEmulatedData();
     });
     it("should read a collection", async () => {
       await firestoreEmulator.collection("project").add(projectCollection);

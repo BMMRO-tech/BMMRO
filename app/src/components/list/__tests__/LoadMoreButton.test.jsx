@@ -19,7 +19,7 @@ describe("LoadMoreButton", () => {
     );
 
     const loadMoreButton = getByRole("button");
-    userEvent.click(loadMoreButton);
+    await userEvent.click(loadMoreButton);
 
     expect(loadMoreButton).toBeDisabled();
     expect(mockHandleClick).not.toHaveBeenCalled();

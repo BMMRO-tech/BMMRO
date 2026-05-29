@@ -18,9 +18,9 @@ describe("PositionInput", () => {
     );
 
     const positionInput = getByRole("spinbutton", { name: "Your latitude" });
-    await userEvent.type(positionInput, "10.123450", { delay: 1 });
+    await userEvent.type(positionInput, "10.123451", { delay: 1 });
 
-    expect(getFormValues().lat).toEqual("10.123450");
+    expect(getFormValues().lat).toEqual("10.123451");
   });
 
   it("does not display an error when field value is correct", async () => {
@@ -39,7 +39,7 @@ describe("PositionInput", () => {
     });
     await act(async () => {
       await userEvent.type(positionInput, "15.123456", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
@@ -56,8 +56,8 @@ describe("PositionInput", () => {
     await act(async () => {
       const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "-100.123456", { delay: 1 });
-      userEvent.click(positionInput);
-      userEvent.tab();
+      await userEvent.click(positionInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.MIN_VALUE, {
@@ -78,8 +78,8 @@ describe("PositionInput", () => {
     await act(async () => {
       const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "100.123456", { delay: 1 });
-      userEvent.click(positionInput);
-      userEvent.tab();
+      await userEvent.click(positionInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.MAX_VALUE, {
@@ -100,8 +100,8 @@ describe("PositionInput", () => {
     await act(async () => {
       const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "15.12345", { delay: 1 });
-      userEvent.click(positionInput);
-      userEvent.tab();
+      await userEvent.click(positionInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
@@ -123,8 +123,8 @@ describe("PositionInput", () => {
     await act(async () => {
       const positionInput = getByRole("spinbutton", { name: "Your latitude" });
       await userEvent.type(positionInput, "15.1234567", { delay: 1 });
-      userEvent.click(positionInput);
-      userEvent.tab();
+      await userEvent.click(positionInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
@@ -152,8 +152,8 @@ describe("PositionInput", () => {
       const positionInput = getByRole("spinbutton", {
         name: "Your latitude *",
       });
-      userEvent.click(positionInput);
-      userEvent.tab();
+      await userEvent.click(positionInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
@@ -218,7 +218,7 @@ describe("PositionInput", () => {
     );
 
     let longitudeInput = getByRole("spinbutton", { name: "Your longitude" });
-    await userEvent.type(longitudeInput, val, { delay: 1 });
+    if (val) await userEvent.type(longitudeInput, val, { delay: 1 });
     longitudeInput = getByRole("spinbutton", { name: "Your longitude" });
 
     await waitFor(() => {

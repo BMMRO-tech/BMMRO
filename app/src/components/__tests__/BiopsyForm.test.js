@@ -31,12 +31,12 @@ describe("BiopsyForm", () => {
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
 
-    userEvent.selectOptions(speciesInput, "Fin whale");
-    userEvent.clear(latitudeInput);
+    await userEvent.selectOptions(speciesInput, "Fin whale");
+    await userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(formValues.species).toEqual("Fin whale");
@@ -129,51 +129,51 @@ describe("BiopsyForm", () => {
 
     const submitButton = getByRole("button", { name: "Save" });
 
-    userEvent.selectOptions(speciesInput, "Fin whale");
+    await userEvent.selectOptions(speciesInput, "Fin whale");
     await userEvent.type(attemptInput, "1", { delay: 1 });
     await userEvent.type(sampleNumberInput, "md0397", { delay: 1 });
     await userEvent.type(samplerNameInput, "Test Name", { delay: 1 });
-    userEvent.clear(latitudeInput);
+    await userEvent.clear(latitudeInput);
     await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
-    userEvent.type(gpsMarkInput, "2");
+    await userEvent.type(gpsMarkInput, "2");
     await userEvent.type(specimenNumberInputForFirstSpecimen, "4", {
       delay: 1,
     });
-    userEvent.selectOptions(sampleTypeInputForFirstSpecimen, "Skin");
-    userEvent.selectOptions(storageTypeInputForFirstSpecimen, "-80");
+    await userEvent.selectOptions(sampleTypeInputForFirstSpecimen, "Skin");
+    await userEvent.selectOptions(storageTypeInputForFirstSpecimen, "-80");
 
     const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
-    userEvent.click(addSpecimensInput);
+    await userEvent.click(addSpecimensInput);
 
     await userEvent.type(specimenNumberInputForSecondSpecimen, "5", {
       delay: 1,
     });
-    userEvent.selectOptions(sampleTypeInputForSecondSpecimen, "Skin/Blubber");
-    userEvent.selectOptions(storageTypeInputForSecondSpecimen, "-20");
+    await userEvent.selectOptions(sampleTypeInputForSecondSpecimen, "Skin/Blubber");
+    await userEvent.selectOptions(storageTypeInputForSecondSpecimen, "-20");
 
-    userEvent.click(dartHitYesRadio);
-    userEvent.click(dartStuckYesRadio);
-    userEvent.click(dartRetrievedNoRadio);
-    userEvent.click(targetAnimalBreachCheckbox);
-    userEvent.click(reactionStrengthStrongRadio);
-    userEvent.click(extentAllAnimalsRadio);
-    userEvent.click(nonTargetAnimalBreachCheckbox);
-    userEvent.click(sampleTypeSkinAndBlubberRadio);
+    await userEvent.click(dartHitYesRadio);
+    await userEvent.click(dartStuckYesRadio);
+    await userEvent.click(dartRetrievedNoRadio);
+    await userEvent.click(targetAnimalBreachCheckbox);
+    await userEvent.click(reactionStrengthStrongRadio);
+    await userEvent.click(extentAllAnimalsRadio);
+    await userEvent.click(nonTargetAnimalBreachCheckbox);
+    await userEvent.click(sampleTypeSkinAndBlubberRadio);
 
     await userEvent.type(photographerInitialsInput, "Test Initials", {
       delay: 1,
     });
-    userEvent.click(videoTakenYesRadio);
+    await userEvent.click(videoTakenYesRadio);
 
     await userEvent.type(groupBehaviourBeforeBiopsyInput, "C", { delay: 1 });
     await userEvent.type(groupBehaviourAfterBiopsyInput, "T", { delay: 1 });
     await userEvent.type(otherObservationsInput, "H", { delay: 1 });
 
     await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
-    userEvent.click(sexMaleRadio);
-    userEvent.click(whaleAgeRadio);
+    await userEvent.click(sexMaleRadio);
+    await userEvent.click(whaleAgeRadio);
 
     fireEvent(
       getByTestId("Upper Dorsal"),
@@ -189,13 +189,13 @@ describe("BiopsyForm", () => {
     const dorsalHitRadio = getByTestId("field-dorsalHit-Yes");
     fireEvent.click(dorsalHitRadio);
 
-    userEvent.click(projectorTypeCrossbowRadio);
+    await userEvent.click(projectorTypeCrossbowRadio);
     await userEvent.type(modelInput, "15.12", { delay: 1 });
     await userEvent.type(tipLengthInput, "12.2", { delay: 1 });
     await userEvent.type(rangeInput, "20", { delay: 1 });
     await userEvent.type(angleInput, "90", { delay: 1 });
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(formValues.species).toEqual("Fin whale");
@@ -339,7 +339,7 @@ describe("BiopsyForm", () => {
 
     await act(async () => {
       const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues).toEqual(mockInitialValues);
@@ -367,7 +367,7 @@ describe("BiopsyForm", () => {
 
     await userEvent.type(latInput, "0.111", { delay: 1 });
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(submitButton).not.toHaveFocus();
@@ -383,14 +383,14 @@ describe("BiopsyForm", () => {
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
-    userEvent.clear(latitudeInput);
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(latitudeInput);
+    await userEvent.clear(longitudeInput);
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
-    userEvent.selectOptions(speciesInput, "Fin whale");
+    await userEvent.selectOptions(speciesInput, "Fin whale");
 
     const submitButton = getByRole("button", { name: "Save" });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(getByText("No positional data present!")).toBeInTheDocument();
@@ -409,15 +409,15 @@ describe("BiopsyForm", () => {
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
-    userEvent.clear(latitudeInput);
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(latitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(longitudeInput, "-1.530266", { delay: 1 });
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
-    userEvent.selectOptions(speciesInput, "Fin whale");
+    await userEvent.selectOptions(speciesInput, "Fin whale");
 
     const submitButton = getByRole("button", { name: "Save" });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(getByText("No positional data present!")).toBeInTheDocument();
@@ -436,15 +436,15 @@ describe("BiopsyForm", () => {
 
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
-    userEvent.clear(latitudeInput);
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(latitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(latitudeInput, "1.530266", { delay: 1 });
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
-    userEvent.selectOptions(speciesInput, "Fin whale");
+    await userEvent.selectOptions(speciesInput, "Fin whale");
 
     const submitButton = getByRole("button", { name: "Save" });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(getByText("No positional data present!")).toBeInTheDocument();
@@ -464,15 +464,15 @@ describe("BiopsyForm", () => {
     const latitudeInput = getByRole("spinbutton", { name: "Lat" });
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
     const gpsMark = getByRole("textbox", { name: "GPS mark" });
-    userEvent.clear(latitudeInput);
-    userEvent.clear(longitudeInput);
+    await userEvent.clear(latitudeInput);
+    await userEvent.clear(longitudeInput);
     await userEvent.type(gpsMark, "21", { delay: 1 });
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
-    userEvent.selectOptions(speciesInput, "Fin whale");
+    await userEvent.selectOptions(speciesInput, "Fin whale");
 
     const submitButton = getByRole("button", { name: "Save" });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(
@@ -564,7 +564,7 @@ describe("BiopsyForm", () => {
       const { getByTestId, queryByTestId, getByRole } = render(<BiopsyForm />);
 
       const addSpecimensInput = getByRole("button", { name: "Add Specimen +" });
-      userEvent.click(addSpecimensInput);
+      await userEvent.click(addSpecimensInput);
 
       const specimenField0 = queryByTestId("field-specimens.0.specimenNumber");
       const specimenField1 = queryByTestId("field-specimens.1.specimenNumber");

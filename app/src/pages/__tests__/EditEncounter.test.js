@@ -1,5 +1,10 @@
 import React from "react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { waitFor } from "@testing-library/react";
 
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
@@ -11,20 +16,21 @@ describe("EditEncounter", () => {
   let firestoreEmulator;
   let datastore;
 
-  beforeEach(() => {
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
+  beforeAll(async () => {
+    await initTestEnv(projectId);
+  });
 
+  beforeEach(() => {
+    firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
   });
 
+  afterEach(async () => {
+    await clearEmulatedData();
+  });
+
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
   });
 
   it("navigates to new encounter page if no encounter is found in firestore for a given ID", async () => {

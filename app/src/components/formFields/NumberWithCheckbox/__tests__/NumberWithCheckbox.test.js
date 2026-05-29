@@ -29,7 +29,7 @@ describe("NumberWithCheckbox", () => {
     });
 
     await act(async () => {
-      userEvent.click(checkbox);
+      await userEvent.click(checkbox);
     });
 
     expect(numberInput).toHaveAttribute("disabled");
@@ -82,7 +82,7 @@ describe("NumberWithCheckbox", () => {
 
     await act(async () => {
       await userEvent.type(numberInput, "12", { delay: 1 });
-      userEvent.dblClick(checkbox);
+      await userEvent.dblClick(checkbox);
     });
 
     expect(getFormValues().favoriteNumber).toBe(12);

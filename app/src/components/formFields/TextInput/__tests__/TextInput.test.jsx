@@ -36,7 +36,7 @@ describe("TextInput", () => {
     });
     await act(async () => {
       await userEvent.type(textInput, "mango", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
@@ -57,7 +57,7 @@ describe("TextInput", () => {
     const textInput = getByRole("textbox", { name: "Your favorite color" });
     await act(async () => {
       await userEvent.type(textInput, "tomato", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(getFormValues().favoriteColor).toEqual("tomat");
@@ -75,8 +75,8 @@ describe("TextInput", () => {
 
     await act(async () => {
       const textInput = getByRole("textbox", { name: "Your favorite color *" });
-      userEvent.click(textInput);
-      userEvent.tab();
+      await userEvent.click(textInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);

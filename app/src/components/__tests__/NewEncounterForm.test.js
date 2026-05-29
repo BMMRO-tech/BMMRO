@@ -32,9 +32,9 @@ describe("NewEncounterForm", () => {
         name: "+ New Habitat Use",
       });
 
-      userEvent.selectOptions(areaInput, "Central Andros");
+      await userEvent.selectOptions(areaInput, "Central Andros");
       await userEvent.type(encounterSequenceInput, "123", { delay: 1 });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.area).toEqual("Central Andros");
@@ -56,7 +56,7 @@ describe("NewEncounterForm", () => {
       const submitButton = getByRole("button", {
         name: "+ New Habitat Use",
       });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
 
       const errorMessage = getByLabelText("Area", {
         selector: '[role="alert"]',
@@ -77,7 +77,7 @@ describe("NewEncounterForm", () => {
       const submitButton = getByRole("button", {
         name: "+ New Habitat Use",
       });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
 
       const encounterSequenceInput = getByRole("textbox", {
         name: "Encounter sequence *",
@@ -99,10 +99,10 @@ describe("NewEncounterForm", () => {
 
     await act(async () => {
       const areaInput = getByRole("combobox", { name: "Area *" });
-      userEvent.selectOptions(areaInput, "Central Andros");
+      await userEvent.selectOptions(areaInput, "Central Andros");
 
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();

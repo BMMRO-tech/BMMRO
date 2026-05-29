@@ -1,6 +1,10 @@
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import React from "react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -12,20 +16,17 @@ describe("NewHabitatUse", () => {
   let firestoreEmulator;
   let datastore;
 
-  beforeEach(() => {
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
+  beforeAll(async () => {
+    await initTestEnv(projectId);
+  });
 
+  beforeEach(() => {
+    firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
   });
 
   it("navigates to /encounters/new if no encounter is found in firestore for a given ID", async () => {
@@ -72,7 +73,7 @@ describe("NewHabitatUse", () => {
       await userEvent.type(longField, "0.111111", { delay: 1 });
       await userEvent.type(latField, "0.111111", { delay: 1 });
 
-      userEvent.click(endHabitatButton);
+      await userEvent.click(endHabitatButton);
     });
 
     let habitatUses = [];
@@ -108,7 +109,7 @@ describe("NewHabitatUse", () => {
     });
 
     await act(async () => {
-      userEvent.click(endHabitatButton);
+      await userEvent.click(endHabitatButton);
     });
 
     expect(queryByTestId(ModalText)).toBeInTheDocument();
@@ -129,14 +130,14 @@ describe("NewHabitatUse", () => {
 
       await act(async () => {
         submitButton = await findByRole("button", { name: "End Habitat" });
-        userEvent.click(submitButton, { delay: 1 });
+        await userEvent.click(submitButton, { delay: 1 });
       });
 
       expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
       expect(queryByTestId("add-data-button")).toBeInTheDocument();
 
       const modalButton = queryByTestId("add-data-button");
-      userEvent.click(modalButton, { delay: 5 });
+      await userEvent.click(modalButton, { delay: 5 });
 
       const positionData = await queryByTestId("positional-data-validation");
 
@@ -155,7 +156,7 @@ describe("NewHabitatUse", () => {
 
       await act(async () => {
         submitButton = await findByRole("button", { name: "End Habitat" });
-        userEvent.click(submitButton);
+        await userEvent.click(submitButton);
       });
 
       expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
@@ -176,7 +177,7 @@ describe("NewHabitatUse", () => {
         submitButton = await findByRole("button", { name: "End Habitat" });
 
         await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-        userEvent.click(submitButton);
+        await userEvent.click(submitButton);
       });
 
       expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
@@ -196,7 +197,7 @@ describe("NewHabitatUse", () => {
         longInput = await findByRole("spinbutton", { name: "Long" });
         submitButton = await findByRole("button", { name: "End Habitat" });
         await userEvent.type(longInput, "15.123456", { delay: 1 });
-        userEvent.click(submitButton);
+        await userEvent.click(submitButton);
       });
 
       expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
@@ -217,7 +218,7 @@ describe("NewHabitatUse", () => {
         gps = await findByRole("textbox", { name: "GPS mark" });
         await userEvent.type(gps, "9", { delay: 1 });
         submitButton = await findByRole("button", { name: "End Habitat" });
-        userEvent.click(submitButton);
+        await userEvent.click(submitButton);
       });
 
       expect(queryByTestId("positional-data-modal")).not.toBeInTheDocument();
@@ -238,13 +239,13 @@ describe("NewHabitatUse", () => {
           name: "Lat",
         });
         submitButton = await findByRole("button", { name: "End Habitat" });
-        userEvent.click(submitButton, { delay: 1 });
+        await userEvent.click(submitButton, { delay: 1 });
       });
       expect(queryByTestId("positional-data-modal")).toBeInTheDocument();
       expect(queryByTestId("add-data-button")).toBeInTheDocument();
 
       const modalButton = queryByTestId("add-data-button");
-      userEvent.click(modalButton, { delay: 1 });
+      await userEvent.click(modalButton, { delay: 1 });
       expect(submitButton).not.toHaveFocus();
       expect(modalButton).not.toHaveFocus();
       await waitFor(() => {

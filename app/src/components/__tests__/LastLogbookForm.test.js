@@ -37,9 +37,9 @@ describe("LastLogbookForm", () => {
       screen.getByRole("spinbutton", { name: "Trip miles" }),
     );
 
-    userEvent.clear(tripMilesInput);
+    await userEvent.clear(tripMilesInput);
     await userEvent.type(tripMilesInput, "5", { delay: 1 });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(formValues.logbookComments).toEqual("trip miles: 5");

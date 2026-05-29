@@ -5,7 +5,7 @@ import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts"
 import DateInvalidModal from "../DateInvalidModal";
 
 describe("Date Invalid Modal", () => {
-  it("pressing close triggers close callback", () => {
+  it("pressing close triggers close callback", async () => {
     const mockCloseModal = jest.fn();
     const { getByRole } = renderWithMockContexts(
       <DateInvalidModal closeModal={mockCloseModal} />,
@@ -13,7 +13,7 @@ describe("Date Invalid Modal", () => {
 
     const closeButton = getByRole("button", { name: "Close" });
 
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(mockCloseModal).toHaveBeenCalledTimes(1);
   });

@@ -44,7 +44,7 @@ describe("Select", () => {
     });
     await act(async () => {
       await userEvent.selectOptions(select, "teal");
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
@@ -93,7 +93,7 @@ describe("Select", () => {
     const select = getByRole("combobox", { name: "Your favorite color" });
     await act(async () => userEvent.selectOptions(select, "teal"));
 
-    expect(select).toHaveDisplayValue("");
+    expect(select).toHaveValue("");
     expect(getFormValues().favoriteColor).toEqual("");
   });
 });

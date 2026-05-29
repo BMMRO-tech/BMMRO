@@ -144,7 +144,10 @@ const HabitatUseForm = ({
                   <TimeInput
                     name="endTime"
                     labelText="End time (hh:mm:ss)"
-                    notBefore={constructDateTime(TEMP_DATE, values.startTime)}
+                    notBefore={
+                      values.startTime &&
+                      constructDateTime(TEMP_DATE, values.startTime)
+                    }
                     isShort
                     timeWithSeconds
                     isDisabled={isViewOnly}

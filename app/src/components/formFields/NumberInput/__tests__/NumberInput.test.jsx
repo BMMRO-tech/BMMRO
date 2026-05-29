@@ -44,7 +44,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "100", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
@@ -67,7 +67,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "100", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.MAX_VALUE, {
@@ -95,7 +95,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "-5", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.MIN_VALUE, {
@@ -123,7 +123,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "10.345", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
@@ -151,7 +151,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "666.666", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
@@ -179,8 +179,8 @@ describe("NumberInput", () => {
       const textInput = getByRole("spinbutton", {
         name: "Your favorite number *",
       });
-      userEvent.click(textInput);
-      userEvent.tab();
+      await userEvent.click(textInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);

@@ -68,11 +68,11 @@ describe("TripForm", () => {
         name: "Save & Update",
       });
 
-      userEvent.selectOptions(areaInput, "Central Andros");
-      userEvent.selectOptions(vesselInput, "Chimo");
+      await userEvent.selectOptions(areaInput, "Central Andros");
+      await userEvent.selectOptions(vesselInput, "Chimo");
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
 
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     await waitFor(() => {
@@ -107,7 +107,7 @@ describe("TripForm", () => {
       const submitButton = getByRole("button", {
         name: "Save & Update",
       });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
 
       errorMessage = getByLabelText("Trip number (of this boat)", {
         selector: '[role="alert"]',
@@ -134,7 +134,7 @@ describe("TripForm", () => {
     submitButton = getByRole("button", {
       name: "Save & Update",
     });
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     tripNumberInput = getByRole("spinbutton", {
       name: "Trip number (of this boat) *",
@@ -163,7 +163,7 @@ describe("TripForm", () => {
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
@@ -176,7 +176,7 @@ describe("TripForm", () => {
       <TripForm
         handleSubmit={mockHandleSubmit}
         initialValues={{
-          mockTripValues,
+          ...mockTripValues,
           vessel: "",
         }}
       />,
@@ -184,7 +184,7 @@ describe("TripForm", () => {
 
     await act(async () => {
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
@@ -221,10 +221,10 @@ describe("TripForm", () => {
 
       await userEvent.type(tripNumberInput, "123", { delay: 1 });
 
-      userEvent.selectOptions(areaInput, "Central Andros");
-      userEvent.selectOptions(vesselInput, "Chimo");
-      userEvent.selectOptions(project, "project2");
-      userEvent.click(submitButton);
+      await userEvent.selectOptions(areaInput, "Central Andros");
+      await userEvent.selectOptions(vesselInput, "Chimo");
+      await userEvent.selectOptions(project, "project2");
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.area).toEqual("Central Andros");

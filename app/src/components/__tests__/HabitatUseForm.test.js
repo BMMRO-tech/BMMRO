@@ -48,11 +48,11 @@ describe("HabitatUseForm", () => {
       const latitudeInput = getByRole("spinbutton", { name: "Lat" });
       const submitButton = getByRole("button", { name: "End Habitat" });
 
-      userEvent.clear(numberOfAnimalsInput);
+      await userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
-      userEvent.clear(latitudeInput);
+      await userEvent.clear(latitudeInput);
       await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.latitude).toEqual("15.123456");
@@ -104,7 +104,7 @@ describe("HabitatUseForm", () => {
 
     await act(async () => {
       const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues).toEqual(mockInitialValues);
@@ -124,7 +124,7 @@ describe("HabitatUseForm", () => {
 
       await userEvent.type(latInput, "0.111", { delay: 1 });
 
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
 
       await waitFor(() => {
         expect(submitButton).not.toHaveFocus();
@@ -144,11 +144,11 @@ describe("HabitatUseForm", () => {
       const numberOfAnimalsInput = getByRole("spinbutton", {
         name: "Number of animals",
       });
-      userEvent.clear(numberOfAnimalsInput);
+      await userEvent.clear(numberOfAnimalsInput);
       await userEvent.type(numberOfAnimalsInput, "5", { delay: 1 });
 
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe("HabitatUseForm", () => {
 
     await act(async () => {
       const cancelButton = getByRole("button", { name: "Cancel" });
-      userEvent.click(cancelButton);
+      await userEvent.click(cancelButton);
     });
 
     expect(queryByTestId("cancel-confirmation-modal")).not.toBeInTheDocument();
@@ -262,11 +262,11 @@ describe("HabitatUseForm", () => {
     );
 
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
-    await userEvent.type(longitudeInput, val, { delay: 1 });
+    if (val) await userEvent.type(longitudeInput, val, { delay: 1 });
 
     await act(async () => {
       const submitButton = getByRole("button", { name: "Save" });
-      userEvent.click(submitButton);
+      await userEvent.click(submitButton);
     });
 
     expect(formValues.longitude).toEqual(expected);
@@ -284,7 +284,7 @@ describe("HabitatUseForm", () => {
     const refreshButton = getByTestId("Refresh");
 
     await act(async () => {
-      userEvent.click(refreshButton);
+      await userEvent.click(refreshButton);
     });
 
     expect(
@@ -306,7 +306,7 @@ describe("HabitatUseForm", () => {
     const refreshButton = getByTestId("Refresh");
 
     await act(async () => {
-      userEvent.click(refreshButton);
+      await userEvent.click(refreshButton);
     });
 
     const refreshErrorMessage = getByTestId("refreshError");
@@ -335,7 +335,7 @@ describe("HabitatUseForm", () => {
     const refreshButton = getByTestId("Refresh");
 
     await act(async () => {
-      userEvent.click(refreshButton);
+      await userEvent.click(refreshButton);
     });
 
     expect(refreshButton).not.toHaveAttribute("disabled");
