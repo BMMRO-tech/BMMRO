@@ -1,4 +1,4 @@
-const firebaseTesting = require("@firebase/rules-unit-testing");
+const { initializeTestEnvironment } = require("@firebase/rules-unit-testing");
 const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
 const { parse } = require("date-fns");
 const collectionData = require("../__fixtures__/collectionData");
@@ -10,6 +10,7 @@ describe("queryCollectionByTimeRange", () => {
   const DATE_FORMAT = "dd/MM/yyyy";
   const TIMESTAMP_FIELD_NAME = "date";
   const collectionName = "collection";
+  let testEnv;
   let firestoreEmulator;
 
   const addToDb = async (data) => {
@@ -22,19 +23,19 @@ describe("queryCollectionByTimeRange", () => {
   };
 
   beforeAll(async () => {
-    const firebaseMock = firebaseTesting.initializeTestApp({
+    testEnv = await initializeTestEnvironment({
       projectId,
-      auth: { uid },
+      firestore: { host: "127.0.0.1", port: 8080 },
     });
-    firestoreEmulator = firebaseMock.firestore();
+    firestoreEmulator = testEnv.authenticatedContext(uid).firestore();
   });
 
   afterEach(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
+    await testEnv.clearFirestore();
   });
 
   afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await testEnv.cleanup();
   });
 
   it("adds a correct path to the querying result", async () => {

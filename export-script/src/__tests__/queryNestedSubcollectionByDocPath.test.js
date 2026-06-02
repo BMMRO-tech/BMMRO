@@ -1,4 +1,4 @@
-const firebaseTesting = require("@firebase/rules-unit-testing");
+const { initializeTestEnvironment } = require("@firebase/rules-unit-testing");
 const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
 const querySubcollectionByDocPath = require("../querySubcollectionByDocPath");
 const { parse } = require("date-fns");
@@ -15,15 +15,16 @@ describe("queryNestedSubcollectionByDocPath", () => {
   const collectionName = "collection";
   const subCollectionName = "subcollection";
   const nestedSubcollectionName = "nestedSubCollection";
+  let testEnv;
   let firestoreEmulator;
   let collectionEntries;
 
   beforeAll(async () => {
-    const firebaseMock = firebaseTesting.initializeTestApp({
+    testEnv = await initializeTestEnvironment({
       projectId,
-      auth: { uid },
+      firestore: { host: "127.0.0.1", port: 8080 },
     });
-    firestoreEmulator = firebaseMock.firestore();
+    firestoreEmulator = testEnv.authenticatedContext(uid).firestore();
 
     for (const collectionEntry of collectionData) {
       const documentRef = firestoreEmulator
@@ -68,8 +69,8 @@ describe("queryNestedSubcollectionByDocPath", () => {
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await testEnv.clearFirestore();
+    await testEnv.cleanup();
   });
 
   it("adds a correct path to the querying result", async () => {
