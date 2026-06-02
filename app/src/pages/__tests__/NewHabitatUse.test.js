@@ -3,6 +3,7 @@ import React from "react";
 import {
   initTestEnv,
   getEmulatedFirestore,
+  clearEmulatedData,
   cleanupTestEnv,
 } from "../../utils/test/firestoreEmulator";
 import { waitFor, act } from "@testing-library/react";
@@ -23,6 +24,10 @@ describe("NewHabitatUse", () => {
   beforeEach(() => {
     firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
+  });
+
+  afterEach(async () => {
+    await clearEmulatedData();
   });
 
   afterAll(async () => {
@@ -119,6 +124,13 @@ describe("NewHabitatUse", () => {
   describe("positional data requirements and modal", () => {
     const id = "790";
     let submitButton;
+
+    beforeEach(async () => {
+      await firestoreEmulator.collection("encounter").doc(id).set({
+        name: "Barney",
+        species: "Bottlenose dolphin",
+      });
+    });
 
     it("shows an info message around location data boxes if user chooses to stay on page", async () => {
       const { findByRole, queryByTestId } = renderWithMockContexts(
