@@ -150,7 +150,10 @@ describe("BiopsyForm", () => {
     await userEvent.type(specimenNumberInputForSecondSpecimen, "5", {
       delay: 1,
     });
-    await userEvent.selectOptions(sampleTypeInputForSecondSpecimen, "Skin/Blubber");
+    await userEvent.selectOptions(
+      sampleTypeInputForSecondSpecimen,
+      "Skin/Blubber",
+    );
     await userEvent.selectOptions(storageTypeInputForSecondSpecimen, "-20");
 
     await userEvent.click(dartHitYesRadio);
