@@ -8,13 +8,15 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 import DateInput from "../DateInput";
 
 describe("DateInput", () => {
+  let originalDateNow;
   beforeAll(() => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-08-04T11:30:00.000Z").getTime(),
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(

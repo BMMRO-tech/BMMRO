@@ -25,10 +25,15 @@ describe("handleEditEncounterSubmit", () => {
     });
   });
   describe("SAVE AND END", () => {
+    let originalDateNow;
     beforeAll(() => {
+      originalDateNow = Date.now;
       global.Date.now = jest.fn(() =>
         new Date("2020-01-05T11:30:00.000Z").getTime(),
       );
+    });
+    afterAll(() => {
+      global.Date.now = originalDateNow;
     });
 
     it("saves encounter if under 72 hours, ends it and navigates to encounters", () => {

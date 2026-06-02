@@ -15,7 +15,9 @@ describe("useEncountersByMonth", () => {
   let firestoreEmulator;
   let datastore;
 
+  let originalDateNow;
   beforeAll(async () => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2000-01-15:23:00:00.000Z").getTime(),
     );
@@ -33,7 +35,7 @@ describe("useEncountersByMonth", () => {
 
   afterAll(async () => {
     await cleanupTestEnv();
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   it("reads data for this month in reverse chronological order", async () => {

@@ -10,13 +10,15 @@ jest.mock("@reach/router", () => ({
 }));
 
 describe("HabitatUseForm", () => {
+  let originalDateNow;
   beforeAll(() => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   it("submits the form with correct values if all required fields are completed", async () => {

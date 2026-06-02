@@ -11,6 +11,7 @@ jest.mock("@reach/router", () => ({
 }));
 
 describe("TripForm", () => {
+  let originalDateNow;
   beforeAll(() => {
     window.getSelection = () => {
       return {
@@ -18,13 +19,14 @@ describe("TripForm", () => {
       };
     };
 
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
 
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   beforeEach(() => {

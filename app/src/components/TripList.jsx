@@ -92,6 +92,7 @@ const TripsByMonth = () => {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
+    if (!month) return;
     const fetchData = async () => {
       const startDate = parse("1 " + month, "d MMMM yyyy", new Date());
       const endDate = endOfMonth(startDate);

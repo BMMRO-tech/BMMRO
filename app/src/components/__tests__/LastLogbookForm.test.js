@@ -8,13 +8,15 @@ import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts"
 configure({ asyncUtilTimeout: 40000 });
 
 describe("LastLogbookForm", () => {
+  let originalDateNow;
   beforeAll(() => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   it("trip miles are saved as a logbook comment", async () => {

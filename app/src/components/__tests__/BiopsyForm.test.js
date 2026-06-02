@@ -7,13 +7,15 @@ import userEvent from "@testing-library/user-event";
 configure({ asyncUtilTimeout: 40000 });
 
 describe("BiopsyForm", () => {
+  let originalDateNow;
   beforeAll(() => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   it("submits the form with correct values if all required fields are completed", async () => {
@@ -33,9 +35,13 @@ describe("BiopsyForm", () => {
 
     await userEvent.selectOptions(speciesInput, "Fin whale");
     await userEvent.clear(latitudeInput);
-    await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
+    await userEvent.type(latitudeInput, "15.123456", {
+      delay: 1,
+    });
     await userEvent.clear(longitudeInput);
-    await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
+    await userEvent.type(longitudeInput, "1.123456", {
+      delay: 1,
+    });
     await userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -130,13 +136,23 @@ describe("BiopsyForm", () => {
     const submitButton = getByRole("button", { name: "Save" });
 
     await userEvent.selectOptions(speciesInput, "Fin whale");
-    await userEvent.type(attemptInput, "1", { delay: 1 });
-    await userEvent.type(sampleNumberInput, "md0397", { delay: 1 });
-    await userEvent.type(samplerNameInput, "Test Name", { delay: 1 });
+    await userEvent.type(attemptInput, "1", {
+      delay: 1,
+    });
+    await userEvent.type(sampleNumberInput, "md0397", {
+      delay: 1,
+    });
+    await userEvent.type(samplerNameInput, "Test Name", {
+      delay: 1,
+    });
     await userEvent.clear(latitudeInput);
-    await userEvent.type(latitudeInput, "15.123456", { delay: 1 });
+    await userEvent.type(latitudeInput, "15.123456", {
+      delay: 1,
+    });
     await userEvent.clear(longitudeInput);
-    await userEvent.type(longitudeInput, "1.123456", { delay: 1 });
+    await userEvent.type(longitudeInput, "1.123456", {
+      delay: 1,
+    });
     await userEvent.type(gpsMarkInput, "2");
     await userEvent.type(specimenNumberInputForFirstSpecimen, "4", {
       delay: 1,
@@ -170,11 +186,19 @@ describe("BiopsyForm", () => {
     });
     await userEvent.click(videoTakenYesRadio);
 
-    await userEvent.type(groupBehaviourBeforeBiopsyInput, "C", { delay: 1 });
-    await userEvent.type(groupBehaviourAfterBiopsyInput, "T", { delay: 1 });
-    await userEvent.type(otherObservationsInput, "H", { delay: 1 });
+    await userEvent.type(groupBehaviourBeforeBiopsyInput, "C", {
+      delay: 1,
+    });
+    await userEvent.type(groupBehaviourAfterBiopsyInput, "T", {
+      delay: 1,
+    });
+    await userEvent.type(otherObservationsInput, "H", {
+      delay: 1,
+    });
 
-    await userEvent.type(whaleIdInput, "whale id", { delay: 1 });
+    await userEvent.type(whaleIdInput, "whale id", {
+      delay: 1,
+    });
     await userEvent.click(sexMaleRadio);
     await userEvent.click(whaleAgeRadio);
 
@@ -193,10 +217,18 @@ describe("BiopsyForm", () => {
     fireEvent.click(dorsalHitRadio);
 
     await userEvent.click(projectorTypeCrossbowRadio);
-    await userEvent.type(modelInput, "15.12", { delay: 1 });
-    await userEvent.type(tipLengthInput, "12.2", { delay: 1 });
-    await userEvent.type(rangeInput, "20", { delay: 1 });
-    await userEvent.type(angleInput, "90", { delay: 1 });
+    await userEvent.type(modelInput, "15.12", {
+      delay: 1,
+    });
+    await userEvent.type(tipLengthInput, "12.2", {
+      delay: 1,
+    });
+    await userEvent.type(rangeInput, "20", {
+      delay: 1,
+    });
+    await userEvent.type(angleInput, "90", {
+      delay: 1,
+    });
 
     await userEvent.click(submitButton);
 
@@ -368,7 +400,9 @@ describe("BiopsyForm", () => {
 
     const submitButton = getByRole("button", { name: "Save" });
 
-    await userEvent.type(latInput, "0.111", { delay: 1 });
+    await userEvent.type(latInput, "0.111", {
+      delay: 1,
+    });
 
     await userEvent.click(submitButton);
 
@@ -414,7 +448,9 @@ describe("BiopsyForm", () => {
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
     await userEvent.clear(latitudeInput);
     await userEvent.clear(longitudeInput);
-    await userEvent.type(longitudeInput, "-1.530266", { delay: 1 });
+    await userEvent.type(longitudeInput, "-1.530266", {
+      delay: 1,
+    });
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
     await userEvent.selectOptions(speciesInput, "Fin whale");
@@ -441,7 +477,9 @@ describe("BiopsyForm", () => {
     const longitudeInput = getByRole("spinbutton", { name: "Long" });
     await userEvent.clear(latitudeInput);
     await userEvent.clear(longitudeInput);
-    await userEvent.type(latitudeInput, "1.530266", { delay: 1 });
+    await userEvent.type(latitudeInput, "1.530266", {
+      delay: 1,
+    });
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
     await userEvent.selectOptions(speciesInput, "Fin whale");
@@ -469,7 +507,9 @@ describe("BiopsyForm", () => {
     const gpsMark = getByRole("textbox", { name: "GPS mark" });
     await userEvent.clear(latitudeInput);
     await userEvent.clear(longitudeInput);
-    await userEvent.type(gpsMark, "21", { delay: 1 });
+    await userEvent.type(gpsMark, "21", {
+      delay: 1,
+    });
 
     const speciesInput = getByRole("combobox", { name: "Species *" });
     await userEvent.selectOptions(speciesInput, "Fin whale");

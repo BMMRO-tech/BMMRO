@@ -17,7 +17,9 @@ describe("NewBiopsy", () => {
   let firestoreEmulator;
   let datastore;
 
+  let originalDateNow;
   beforeAll(() => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
@@ -38,7 +40,7 @@ describe("NewBiopsy", () => {
 
   afterAll(async () => {
     await cleanupTestEnv();
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   it("firebase is called when form is submitted", async () => {

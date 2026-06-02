@@ -140,6 +140,7 @@ describe("ViewTrip", () => {
 
   it("last logbook entry is created with current time when ending a trip", async () => {
     mockTrip.exported = false;
+    const originalDateNow = Date.now;
     Date.now = jest.fn(() => new Date("2020-05-04T11:30:12.000Z").getTime());
     await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
     await firestoreEmulator
@@ -173,5 +174,7 @@ describe("ViewTrip", () => {
     await waitFor(() => {
       expect(screen.getByText("11:30:12")).toBeInTheDocument();
     });
+
+    Date.now = originalDateNow;
   });
 });

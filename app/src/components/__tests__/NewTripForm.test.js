@@ -5,6 +5,7 @@ import NewTripForm from "../NewTripForm";
 import * as getProjects from "../../hooks/getProjects";
 
 describe("NewTripForm", () => {
+  let originalDateNow;
   beforeAll(() => {
     window.getSelection = () => {
       return {
@@ -12,13 +13,14 @@ describe("NewTripForm", () => {
       };
     };
 
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
 
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   beforeEach(() => {

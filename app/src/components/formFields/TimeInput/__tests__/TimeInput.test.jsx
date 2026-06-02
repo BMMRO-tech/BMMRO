@@ -12,13 +12,15 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 import { changeInputMaskValue } from "../../../../utils/test/changeInputMaskValue";
 
 describe("TimeInput", () => {
+  let originalDateNow;
   beforeAll(() => {
+    originalDateNow = Date.now;
     global.Date.now = jest.fn(() =>
       new Date("2020-05-04T11:30:43.000Z").getTime(),
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
 
   it("synchronizes field value with form state", async () => {
