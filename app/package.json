@@ -11,7 +11,7 @@
     "eject": "react-scripts eject",
     "format": "prettier --write src/ firestore/",
     "format-check": "prettier --check src/ firestore/",
-    "test-firestore": "firebase emulators:exec --only firestore 'jest firestore/'"
+    "test-firestore": "firebase emulators:exec --only firestore 'jest firestore/ --testEnvironment=./firestore/firestore.testEnvironment.js --testTimeout=30000'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

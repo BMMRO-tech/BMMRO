@@ -1,16 +1,39 @@
-const firebase = require("@firebase/rules-unit-testing");
+const {
+  initializeTestEnvironment,
+  assertSucceeds,
+  assertFails,
+} = require("@firebase/rules-unit-testing");
 const fs = require("fs");
 
 const projectId = "bmmro-app";
 const rules = fs.readFileSync(`${__dirname}/firestore.rules`, "utf8");
 
+let testEnv;
+
+beforeAll(async () => {
+  testEnv = await initializeTestEnvironment({
+    projectId,
+    firestore: {
+      rules,
+      host: "127.0.0.1",
+      port: 8080,
+    },
+  });
+});
+
+afterAll(async () => {
+  await testEnv.cleanup();
+});
+
+const authenticatedDb = () =>
+  testEnv.authenticatedContext("testId").firestore();
+const unauthenticatedDb = () => testEnv.unauthenticatedContext().firestore();
+
 describe("Habitat Use Collection", () => {
-  let db;
   const collectionName = "habitatUse";
 
-  afterAll(async () => {
-    await firebase.clearFirestoreData({ projectId });
-    await Promise.all(firebase.apps().map((app) => app.delete()));
+  afterEach(async () => {
+    await testEnv.clearFirestore();
   });
 
   const defaultValues = {
@@ -19,44 +42,26 @@ describe("Habitat Use Collection", () => {
   };
 
   it("should successfully submit data when user is authenticated", async () => {
-    await firebase.loadFirestoreRules({ projectId, rules });
-    db = firebase
-      .initializeTestApp({ projectId, auth: { uid: "testId" } })
-      .firestore();
+    const db = authenticatedDb();
 
-    await firebase.assertSucceeds(
-      db.collection(collectionName).add(defaultValues),
-    );
+    await assertSucceeds(db.collection(collectionName).add(defaultValues));
   });
 
   it("should fail to submit data when user is not authenticated", async () => {
-    await firebase.loadFirestoreRules({ projectId, rules });
-    db = firebase.initializeTestApp({ projectId }).firestore();
+    const db = unauthenticatedDb();
 
-    await firebase.assertFails(
-      db.collection(collectionName).add(defaultValues),
-    );
+    await assertFails(db.collection(collectionName).add(defaultValues));
   });
 });
 
 describe("Encounter collection with habitat use subcollection", () => {
-  let db;
   const collectionName = "encounter";
   const habitatUseSubcollectionName = "habitatUse";
   const biopsySubcollectionName = "biopsy";
   const specimenSubcollectionName = "specimen";
 
-  const initializeFirestore = (auth) => {
-    return firebase.initializeTestApp({ projectId, auth }).firestore();
-  };
-
   afterEach(async () => {
-    await firebase.clearFirestoreData({ projectId });
-    await Promise.all(firebase.apps().map((app) => app.delete()));
-  });
-
-  beforeEach(async () => {
-    await firebase.loadFirestoreRules({ projectId, rules });
+    await testEnv.clearFirestore();
   });
 
   const defaultValues = {
@@ -66,28 +71,24 @@ describe("Encounter collection with habitat use subcollection", () => {
 
   describe("Encounter collection", () => {
     it("should successfully submit data when user is authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      const db = authenticatedDb();
 
-      await firebase.assertSucceeds(
-        db.collection(collectionName).add(defaultValues),
-      );
+      await assertSucceeds(db.collection(collectionName).add(defaultValues));
     });
 
     it("should fail to submit data when user is not authenticated", async () => {
-      db = initializeFirestore(null);
+      const db = unauthenticatedDb();
 
-      await firebase.assertFails(
-        db.collection(collectionName).add(defaultValues),
-      );
+      await assertFails(db.collection(collectionName).add(defaultValues));
     });
   });
 
   describe("Habitat use subcollection", () => {
     it("should successfully submit data when user is authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      const db = authenticatedDb();
       const { id } = await db.collection(collectionName).add(defaultValues);
 
-      await firebase.assertSucceeds(
+      await assertSucceeds(
         db
           .collection(collectionName)
           .doc(id)
@@ -97,13 +98,13 @@ describe("Encounter collection with habitat use subcollection", () => {
     });
 
     it("should fail to submit data when user is not authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      let db = authenticatedDb();
       const { id } = await db.collection(collectionName).add(defaultValues);
 
       // Firebase emulator doesn't provide a way to sign the user out
-      db = initializeFirestore(null);
+      db = unauthenticatedDb();
 
-      await firebase.assertFails(
+      await assertFails(
         db
           .collection(collectionName)
           .doc(id)
@@ -115,10 +116,10 @@ describe("Encounter collection with habitat use subcollection", () => {
 
   describe("Biopsy subcollection", () => {
     it("should successfully submit data when user is authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      const db = authenticatedDb();
       const { id } = await db.collection(collectionName).add(defaultValues);
 
-      await firebase.assertSucceeds(
+      await assertSucceeds(
         db
           .collection(collectionName)
           .doc(id)
@@ -128,13 +129,13 @@ describe("Encounter collection with habitat use subcollection", () => {
     });
 
     it("should fail to submit data when user is not authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      let db = authenticatedDb();
       const { id } = await db.collection(collectionName).add(defaultValues);
 
       // Firebase emulator doesn't provide a way to sign the user out
-      db = initializeFirestore(null);
+      db = unauthenticatedDb();
 
-      await firebase.assertFails(
+      await assertFails(
         db
           .collection(collectionName)
           .doc(id)
@@ -146,16 +147,15 @@ describe("Encounter collection with habitat use subcollection", () => {
 
   describe("Specimen table subcollection", () => {
     it("should successfully submit data when user is authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      const db = authenticatedDb();
       const { id } = await db.collection(collectionName).add(defaultValues);
       const biopsy = await db
         .collection(collectionName)
         .doc(id)
         .collection(biopsySubcollectionName)
         .add(defaultValues);
-      console.log(biopsy.id);
 
-      await firebase.assertSucceeds(
+      await assertSucceeds(
         db
           .collection(collectionName)
           .doc(id)
@@ -167,19 +167,18 @@ describe("Encounter collection with habitat use subcollection", () => {
     });
 
     it("should fail to submit data when user is not authenticated", async () => {
-      db = initializeFirestore({ uid: "testId" });
+      let db = authenticatedDb();
       const { id } = await db.collection(collectionName).add(defaultValues);
       const biopsy = await db
         .collection(collectionName)
         .doc(id)
         .collection(biopsySubcollectionName)
         .add(defaultValues);
-      console.log(biopsy.id);
 
       // Firebase emulator doesn't provide a way to sign the user out
-      db = initializeFirestore(null);
+      db = unauthenticatedDb();
 
-      await firebase.assertFails(
+      await assertFails(
         db
           .collection(collectionName)
           .doc(id)
