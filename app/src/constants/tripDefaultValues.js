@@ -1,4 +1,4 @@
-export default {
+const tripDefaultValues = {
   tripId: "",
   tripNumber: "",
   date: "",
@@ -15,3 +15,5 @@ export default {
   exported: false,
   hasEnded: false,
 };
+
+export default tripDefaultValues;

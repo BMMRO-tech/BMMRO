@@ -1,4 +1,4 @@
-export default {
+const logbookDefaultValues = {
   time: "",
   latitude: "",
   longitude: "",
@@ -16,3 +16,5 @@ export default {
   logbookComments: "",
   exported: false,
 };
+
+export default logbookDefaultValues;

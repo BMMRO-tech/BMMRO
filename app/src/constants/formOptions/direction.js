@@ -1,4 +1,4 @@
-export default [
+const direction = [
   "E",
   "ENE",
   "ESE",
@@ -19,3 +19,5 @@ export default [
   "WNW",
   "WSW",
 ];
+
+export default direction;

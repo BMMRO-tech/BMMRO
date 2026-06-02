@@ -1,4 +1,4 @@
-export default [
+const animalReactions = [
   "accelerated",
   "shake",
   "startle",
@@ -12,3 +12,5 @@ export default [
   "prolonged Flight",
   "direction Change",
 ];
+
+export default animalReactions;
