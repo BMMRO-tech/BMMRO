@@ -5,9 +5,9 @@ import * as serviceWorker from "./serviceWorker";
 import firebase from "firebase/compat/app";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
+  apiKey: import.meta.env.REACT_APP_API_KEY,
+  authDomain: import.meta.env.REACT_APP_AUTH_DOMAIN,
+  projectId: import.meta.env.REACT_APP_PROJECT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);

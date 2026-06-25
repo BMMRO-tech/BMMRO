@@ -32,7 +32,7 @@ const Footer = () => {
   };
 
   const renderVersionNumber = () => {
-    const version = process.env.REACT_APP_VERSION;
+    const version = import.meta.env.REACT_APP_VERSION;
     return version ? <p css={styles.text}>Version {version}</p> : "";
   };
 
