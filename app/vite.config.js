@@ -16,4 +16,5 @@ export default defineConfig({
       inline: ["date-fns"],
     },
   },
+  server: { port: 3000 },
 });
