@@ -41,7 +41,7 @@ describe("PendingManager ", () => {
 
   it("sets pendingCount to 1, when one added while offline", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = vi.fn(()=>true);
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
@@ -66,7 +66,7 @@ describe("PendingManager ", () => {
 
   it("sets pendingCount to 0, when one added while online", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = vi.fn(()=>true);
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
@@ -90,7 +90,7 @@ describe("PendingManager ", () => {
 
   it("sets pending count to 1, when one subdoc is added while offline", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = vi.fn(()=>true);
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
@@ -115,7 +115,7 @@ describe("PendingManager ", () => {
 
   it("sets pending count to 1, when one collection has pending records and the other doesn't", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = vi.fn(()=>{});
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
