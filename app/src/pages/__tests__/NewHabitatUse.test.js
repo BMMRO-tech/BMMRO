@@ -100,7 +100,7 @@ describe("NewHabitatUse", () => {
       species: "Bottlenose dolphin",
     });
 
-    datastore.createSubDoc = jest.fn();
+    datastore.createSubDoc = vi.fn();
 
     const { findByRole, queryByTestId } = renderWithMockContexts(
       <NewHabitatUse encounterId={id} />,

@@ -40,7 +40,7 @@ describe("ViewTrip", () => {
   });
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     firestoreEmulator = getEmulatedFirestore();
     datastore = new Datastore(firestoreEmulator);
   });
@@ -51,7 +51,7 @@ describe("ViewTrip", () => {
 
   afterAll(async () => {
     await cleanupTestEnv();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("end trip button opens a pop-up where the user can add the trip miles", async () => {
@@ -141,7 +141,7 @@ describe("ViewTrip", () => {
   it("last logbook entry is created with current time when ending a trip", async () => {
     mockTrip.exported = false;
     const originalDateNow = Date.now;
-    Date.now = jest.fn(() => new Date("2020-05-04T11:30:12.000Z").getTime());
+    Date.now = vi.fn(() => new Date("2020-05-04T11:30:12.000Z").getTime());
     await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
     await firestoreEmulator
       .doc("trip/123")

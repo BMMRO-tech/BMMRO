@@ -4,8 +4,8 @@ import { FormSubmitType } from "../../constants/forms";
 describe("handleEditEncounterSubmit", () => {
   describe("SAVE", () => {
     it("saves values in datastore and navigates to open encounter", () => {
-      const datastore = { updateDocByPath: jest.fn() };
-      const navigate = jest.fn();
+      const datastore = { updateDocByPath: vi.fn() };
+      const navigate = vi.fn();
       const initialValues = { a: "2", b: "2" };
       const values = { a: "1", b: "2" };
 
@@ -28,7 +28,7 @@ describe("handleEditEncounterSubmit", () => {
     let originalDateNow;
     beforeAll(() => {
       originalDateNow = Date.now;
-      global.Date.now = jest.fn(() =>
+      global.Date.now = vi.fn(() =>
         new Date("2020-01-05T11:30:00.000Z").getTime(),
       );
     });
@@ -37,8 +37,8 @@ describe("handleEditEncounterSubmit", () => {
     });
 
     it("saves encounter if under 72 hours, ends it and navigates to encounters", () => {
-      const datastore = { updateDocByPath: jest.fn() };
-      const navigate = jest.fn();
+      const datastore = { updateDocByPath: vi.fn() };
+      const navigate = vi.fn();
       const initialValues = { a: "2", b: "2" };
       const values = { a: "1", b: "2" };
 
@@ -66,10 +66,10 @@ describe("handleEditEncounterSubmit", () => {
     });
 
     it("does not end encounter if longer than 72 hours and does not navigate", () => {
-      const datastore = { updateDocByPath: jest.fn() };
-      const navigate = jest.fn();
-      const setAutofillEnd = jest.fn();
-      const setShowDateModal = jest.fn();
+      const datastore = { updateDocByPath: vi.fn() };
+      const navigate = vi.fn();
+      const setAutofillEnd = vi.fn();
+      const setShowDateModal = vi.fn();
       const initialValues = {};
       const values = {
         startTimestamp: new Date("2020-01-01T00:00:00.000Z"),

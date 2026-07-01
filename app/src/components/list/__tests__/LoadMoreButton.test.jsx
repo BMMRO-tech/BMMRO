@@ -8,7 +8,7 @@ import LoadMoreButton from "../LoadMoreButton";
 
 describe("LoadMoreButton", () => {
   it("is disabled if isLoading prop is true", async () => {
-    const mockHandleClick = jest.fn();
+    const mockHandleClick = vi.fn();
 
     const { getByRole } = render(
       <LoadMoreButton

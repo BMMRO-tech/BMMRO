@@ -5,7 +5,7 @@ describe("endEntry", () => {
   let originalDateNow;
   beforeAll(() => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2010-06-07T12:34:56.000Z").getTime(),
     );
   });

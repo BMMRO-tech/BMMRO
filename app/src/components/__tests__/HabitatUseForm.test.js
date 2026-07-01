@@ -5,15 +5,15 @@ import userEvent from "@testing-library/user-event";
 import HabitatUseForm from "../HabitatUseForm";
 //import { it } from "date-fns/locale";
 
-jest.mock("@reach/router", () => ({
-  navigate: jest.fn(),
+vi.mock("@reach/router", () => ({
+  navigate: vi.fn(),
 }));
 
 describe("HabitatUseForm", () => {
   let originalDateNow;
   beforeAll(() => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
@@ -25,7 +25,7 @@ describe("HabitatUseForm", () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
-      getCurrentPosition: jest.fn().mockImplementation((success) =>
+      getCurrentPosition: vi.fn().mockImplementation((success) =>
         success({
           coords: {
             latitude: 1.123456,
@@ -113,7 +113,7 @@ describe("HabitatUseForm", () => {
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { getByRole } = render(
       <HabitatUseForm handleSubmit={mockHandleSubmit} />,
     );
@@ -136,7 +136,7 @@ describe("HabitatUseForm", () => {
   });
 
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <HabitatUseForm handleSubmit={mockHandleSubmit} />,
@@ -157,7 +157,7 @@ describe("HabitatUseForm", () => {
   });
 
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <HabitatUseForm
@@ -207,7 +207,7 @@ describe("HabitatUseForm", () => {
   });
 
   it("has a comment field with maxlength 1000 chars", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     await act(async () => {
       const { getByRole } = render(
@@ -278,7 +278,7 @@ describe("HabitatUseForm", () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
-      getCurrentPosition: jest.fn(),
+      getCurrentPosition: vi.fn(),
     };
 
     const { getByTestId } = render(<HabitatUseForm />);
@@ -322,7 +322,7 @@ describe("HabitatUseForm", () => {
     const realGeolocation = global.navigator.geolocation;
 
     global.navigator.geolocation = {
-      getCurrentPosition: jest.fn().mockImplementation((success) =>
+      getCurrentPosition: vi.fn().mockImplementation((success) =>
         success({
           coords: {
             latitude: 1.293859,

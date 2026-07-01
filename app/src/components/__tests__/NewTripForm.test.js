@@ -14,7 +14,7 @@ describe("NewTripForm", () => {
     };
 
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
@@ -25,7 +25,7 @@ describe("NewTripForm", () => {
 
   beforeEach(() => {
     const mockProjectList = ["project1", "project2"];
-    jest.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
+    vi.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
   });
 
   it("submits the form with correct values if all required fields are completed", async () => {
@@ -71,7 +71,7 @@ describe("NewTripForm", () => {
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByLabelText } = render(
       <NewTripForm handleSubmit={mockHandleSubmit} />,
@@ -92,7 +92,7 @@ describe("NewTripForm", () => {
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole } = render(
       <NewTripForm handleSubmit={mockHandleSubmit} />,
@@ -116,7 +116,7 @@ describe("NewTripForm", () => {
   });
 
   it("displays a confirmation modal when user presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <NewTripForm handleSubmit={mockHandleSubmit} />,

@@ -12,11 +12,12 @@ import { monthNames } from "../../constants/monthNames";
 import { renderWithMockContexts } from "../../utils/test/renderWithMockContexts";
 import * as useEncountersByMonth from "../../hooks/useEncountersByMonth";
 import { getEncountersByTimeRange } from "../../hooks/useEncountersByMonth";
+import { vi } from "vitest";
 
 describe("EncounterList", () => {
   const originalEnv = process.env;
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
   afterEach(() => {
@@ -24,7 +25,7 @@ describe("EncounterList", () => {
   });
 
   it("displays encounter forms for a single day", async () => {
-    jest
+    vi
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue(mockSingleDayData);
     const { queryAllByRole } = renderWithMockContexts(
@@ -42,7 +43,7 @@ describe("EncounterList", () => {
   });
 
   it("displays encounter forms over multiple days", async () => {
-    jest
+    vi
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue(mockSingleMonthData);
     const { queryAllByRole } = renderWithMockContexts(
@@ -72,7 +73,7 @@ describe("EncounterList", () => {
   });
 
   it("should have 'Previous encounters' as a dropdown", () => {
-    jest
+    vi
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
@@ -89,7 +90,7 @@ describe("EncounterList", () => {
     today.setMonth(today.getMonth() - 13);
     const dropDownValue =
       monthNames[today.getMonth()] + " " + today.getFullYear();
-    jest
+    vi
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
@@ -105,7 +106,7 @@ describe("EncounterList", () => {
   });
 
   it("Should list the encounters for the month when a month is chosen on the dropdown", async () => {
-    jest
+    vi
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue(mockSingleMonthData);
     const today = new Date();
@@ -131,7 +132,7 @@ describe("EncounterList", () => {
   });
 
   it("Should not print undefined undefined for Month and year if the encounter list call to firestore fails", async () => {
-    jest
+    vi
       .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
       .mockResolvedValue([]);
     renderWithMockContexts(

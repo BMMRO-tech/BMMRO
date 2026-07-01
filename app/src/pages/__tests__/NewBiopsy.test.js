@@ -20,7 +20,7 @@ describe("NewBiopsy", () => {
   let originalDateNow;
   beforeAll(() => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
@@ -57,7 +57,7 @@ describe("NewBiopsy", () => {
         longitude: "-1.123456",
       });
 
-    datastore.createSubDoc = jest.fn();
+    datastore.createSubDoc = vi.fn();
 
     const { findByRole, getByRole } = renderWithMockContexts(
       <NewBiopsy encounterId={id} />,

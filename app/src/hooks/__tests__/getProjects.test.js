@@ -23,12 +23,12 @@ describe("getProjects", () => {
     },
   ];
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it("reads project data from datastore", async () => {
     const datastore = new Datastore(undefined, undefined);
-    jest
+    vi
       .spyOn(datastore, "readDocsFromCollection")
       .mockResolvedValue(testProjects);
     const result = await getProjects(datastore);

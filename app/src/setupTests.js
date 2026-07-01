@@ -14,4 +14,3 @@ if (typeof global.setImmediate === "undefined") {
   global.clearImmediate = (id) => clearTimeout(id);
 }
 
-jest.setTimeout(60000);

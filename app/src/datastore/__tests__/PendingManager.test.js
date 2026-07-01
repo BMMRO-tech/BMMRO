@@ -9,11 +9,19 @@ import {
   cleanupTestEnv,
 } from "../../utils/test/firestoreEmulator";
 import { PendingManager } from "../PendingManager";
+import { vi } from "vitest";
 
 const projectId = "pending-emulated";
 
 const getFirestore = () => getEmulatedFirestore();
 
+/*vi.mock(import("../PendingManager.js"), async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    mockPendingCallback: vi.fn(),
+  }
+}) */
 describe("PendingManager ", () => {
   beforeAll(async () => {
     await initTestEnv(
@@ -24,7 +32,7 @@ describe("PendingManager ", () => {
 
   afterAll(async () => {
     await cleanupTestEnv();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   afterEach(async () => {
@@ -33,7 +41,7 @@ describe("PendingManager ", () => {
 
   it("sets pendingCount to 1, when one added while offline", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn(()=>true);
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
@@ -58,7 +66,7 @@ describe("PendingManager ", () => {
 
   it("sets pendingCount to 0, when one added while online", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn(()=>true);
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
@@ -82,7 +90,7 @@ describe("PendingManager ", () => {
 
   it("sets pending count to 1, when one subdoc is added while offline", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn(()=>true);
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,
@@ -107,7 +115,7 @@ describe("PendingManager ", () => {
 
   it("sets pending count to 1, when one collection has pending records and the other doesn't", async () => {
     const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn(()=>{});
     const pendingManager = new PendingManager(
       firestoreEmulator,
       mockPendingCallback,

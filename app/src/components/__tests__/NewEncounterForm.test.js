@@ -7,7 +7,7 @@ describe("NewEncounterForm", () => {
   let originalDateNow;
   beforeAll(() => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
@@ -48,7 +48,7 @@ describe("NewEncounterForm", () => {
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByLabelText } = render(
       <NewEncounterForm handleSubmit={mockHandleSubmit} />,
@@ -69,7 +69,7 @@ describe("NewEncounterForm", () => {
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole } = render(
       <NewEncounterForm handleSubmit={mockHandleSubmit} />,
@@ -93,7 +93,7 @@ describe("NewEncounterForm", () => {
   });
 
   it("displays a confirmation modal when user presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <NewEncounterForm handleSubmit={mockHandleSubmit} />,

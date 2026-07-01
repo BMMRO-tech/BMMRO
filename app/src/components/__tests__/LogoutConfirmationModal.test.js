@@ -6,7 +6,7 @@ import LogoutConfirmationModal from "../LogoutConfirmationModal";
 
 describe("Logout Confirmation Modal", () => {
   it("renders the correct modal title when user is online", () => {
-    jest.spyOn(navigator, "onLine", "get").mockReturnValueOnce(true);
+    vi.spyOn(navigator, "onLine", "get").mockReturnValueOnce(true);
 
     const { queryByTestId } = renderWithMockContexts(
       <LogoutConfirmationModal />,
@@ -17,7 +17,7 @@ describe("Logout Confirmation Modal", () => {
   });
 
   it("renders the correct modal title when user is offline", () => {
-    jest.spyOn(navigator, "onLine", "get").mockReturnValueOnce(false);
+    vi.spyOn(navigator, "onLine", "get").mockReturnValueOnce(false);
 
     const { queryByTestId } = renderWithMockContexts(
       <LogoutConfirmationModal />,
@@ -29,7 +29,7 @@ describe("Logout Confirmation Modal", () => {
 
   it("displays an error when logout is unsuccessful", async () => {
     const signOutResult = {
-      signOut: jest.fn().mockRejectedValue(new Error("some error")),
+      signOut: vi.fn().mockRejectedValue(new Error("some error")),
     };
     buildFirebaseAuthMock(signOutResult);
     const { queryByTestId } = renderWithMockContexts(

@@ -6,7 +6,7 @@ import DateInvalidModal from "../DateInvalidModal";
 
 describe("Date Invalid Modal", () => {
   it("pressing close triggers close callback", async () => {
-    const mockCloseModal = jest.fn();
+    const mockCloseModal = vi.fn();
     const { getByRole } = renderWithMockContexts(
       <DateInvalidModal closeModal={mockCloseModal} />,
     );

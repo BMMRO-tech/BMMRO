@@ -6,8 +6,8 @@ import PositionalValidationModal from "../PositionalValidationModal";
 
 describe("Positional Validation Modal", () => {
   it("navigates to '/encounters' when user selects end", async () => {
-    const mockCloseModal = jest.fn();
-    const mockHandleLeavePage = jest.fn();
+    const mockCloseModal = vi.fn();
+    const mockHandleLeavePage = vi.fn();
 
     const { getByRole } = renderWithMockContexts(
       <PositionalValidationModal
@@ -25,8 +25,8 @@ describe("Positional Validation Modal", () => {
   });
 
   it("stays on the page", async () => {
-    const mockCloseModal = jest.fn();
-    const mockHandleLeavePage = jest.fn();
+    const mockCloseModal = vi.fn();
+    const mockHandleLeavePage = vi.fn();
 
     const { getByRole } = renderWithMockContexts(
       <PositionalValidationModal

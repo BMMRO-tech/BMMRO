@@ -10,7 +10,7 @@ describe("BiopsyForm", () => {
   let originalDateNow;
   beforeAll(() => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
@@ -389,7 +389,7 @@ describe("BiopsyForm", () => {
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { getByRole } = render(
       <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
@@ -413,7 +413,7 @@ describe("BiopsyForm", () => {
   });
 
   it("displays the positionalValidationModal if no positional data is entered", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { getByRole, getByText } = render(
       <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
@@ -439,7 +439,7 @@ describe("BiopsyForm", () => {
   });
 
   it("displays the positionalValidationModal if no latitide data is entered", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { getByRole, getByText } = render(
       <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
@@ -468,7 +468,7 @@ describe("BiopsyForm", () => {
   });
 
   it("displays the positionalValidationModal if no longitide data is entered", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { getByRole, getByText } = render(
       <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );
@@ -497,7 +497,7 @@ describe("BiopsyForm", () => {
   });
 
   it("does not display the positionalValidationModal if GPS mark is entered", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { getByRole, queryByText } = render(
       <BiopsyForm handleSubmit={mockHandleSubmit} />,
     );

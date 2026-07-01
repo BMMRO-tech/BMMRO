@@ -5,9 +5,9 @@ import { FirebaseContext } from "../../firebaseContext/firebaseContext";
 import Login from "../../pages/Login";
 import { screen } from "@testing-library/react";
 
-jest.mock("@reach/router", () => ({
+vi.mock("@reach/router", () => ({
   useLocation: () => ({ pathname: "/login" }),
-  useNavigate: jest.fn(),
+  useNavigate: vi.fn(),
 }));
 
 describe("Login page", () => {

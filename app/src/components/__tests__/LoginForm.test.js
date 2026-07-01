@@ -13,9 +13,9 @@ import {
 } from "../../utils/test/firebase";
 import LoginForm from "../LoginForm";
 
-jest.mock("@reach/router", () => ({
-  useLocation: jest.fn(),
-  useNavigate: jest.fn(),
+vi.mock("@reach/router", () => ({
+  useLocation: vi.fn(),
+  useNavigate: vi.fn(),
 }));
 
 describe("Login form", () => {
@@ -27,7 +27,7 @@ describe("Login form", () => {
 
   it("should display an error when user fails to login", async () => {
     const signInResult = {
-      signInWithEmailAndPassword: jest
+      signInWithEmailAndPassword: vi
         .fn()
         .mockRejectedValue(new Error("some error")),
     };

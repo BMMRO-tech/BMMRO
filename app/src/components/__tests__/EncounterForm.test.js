@@ -9,8 +9,8 @@ import { FormErrorType } from "../../constants/forms";
 import { changeInputMaskValue } from "../../utils/test/changeInputMaskValue";
 import * as getProjects from "../../hooks/getProjects";
 
-jest.mock("@reach/router", () => ({
-  navigate: jest.fn(),
+vi.mock("@reach/router", () => ({
+  navigate: vi.fn(),
 }));
 
 describe("EncounterForm", () => {
@@ -23,9 +23,9 @@ describe("EncounterForm", () => {
   };
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
     const mockProjectList = ["project1", "project2"];
-    jest.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
+    vi.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
   });
 
   it("submits the form with correct values if all required fields are completed", async () => {
@@ -66,7 +66,7 @@ describe("EncounterForm", () => {
   });
 
   it("contains four fieldsets with the correct associated names", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole } = render(
       <EncounterForm
@@ -97,7 +97,7 @@ describe("EncounterForm", () => {
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByLabelText } = render(
       <EncounterForm
@@ -122,7 +122,7 @@ describe("EncounterForm", () => {
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole } = render(
       <EncounterForm
@@ -148,7 +148,7 @@ describe("EncounterForm", () => {
   });
 
   it("shows an error when best estimate is lower than low estimate", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByText } = render(
       <EncounterForm
@@ -178,7 +178,7 @@ describe("EncounterForm", () => {
   });
 
   it("shows an error when high estimate is lower than best estimate", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByText } = render(
       <EncounterForm
@@ -208,7 +208,7 @@ describe("EncounterForm", () => {
   });
 
   it("shows an error when encounter is longer than 72 hours", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByLabelText } = render(
       <EncounterForm
@@ -242,7 +242,7 @@ describe("EncounterForm", () => {
   });
 
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <EncounterForm
@@ -265,7 +265,7 @@ describe("EncounterForm", () => {
   });
 
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <EncounterForm
@@ -283,7 +283,7 @@ describe("EncounterForm", () => {
   });
 
   it("displays 'Save & End' button if encounter hasn't ended", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { findByRole } = render(
       <EncounterForm
         handleSubmit={mockHandleSubmit}
@@ -298,7 +298,7 @@ describe("EncounterForm", () => {
   });
 
   it("doesn't display 'save and end' button if encounter has already ended", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
     const { findByRole, queryByRole } = render(
       <EncounterForm
         handleSubmit={mockHandleSubmit}

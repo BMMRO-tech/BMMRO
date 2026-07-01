@@ -11,7 +11,7 @@ describe("DateInput", () => {
   let originalDateNow;
   beforeAll(() => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-08-04T11:30:00.000Z").getTime(),
     );
   });

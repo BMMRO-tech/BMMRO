@@ -7,10 +7,10 @@ import renderWithinFormik from "../../utils/test/renderWithinFormik";
 import { getPosition } from "../formFields/PositionInput/getPosition.js";
 
 configure({ asyncUtilTimeout: 18000 });
-jest.mock("../formFields/PositionInput/getPosition.js");
+vi.mock("../formFields/PositionInput/getPosition.js");
 
 describe("GpsFormSection", () => {
-  afterEach(() => jest.resetAllMocks());
+  afterEach(() => vi.resetAllMocks());
 
   it("refresh long & lat on click of the refresh button and disables button", async () => {
     const expectedCoordsOnLoad = {

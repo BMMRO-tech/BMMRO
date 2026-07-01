@@ -18,7 +18,7 @@ describe("useEncountersByMonth", () => {
   let originalDateNow;
   beforeAll(async () => {
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2000-01-15:23:00:00.000Z").getTime(),
     );
 

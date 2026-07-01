@@ -9,7 +9,7 @@ import { FormErrorType } from "../../../../constants/forms";
 import getErrorMessage from "../../../../utils/getErrorMessage";
 
 describe("PositionInput", () => {
-  const mockFn = jest.fn();
+  const mockFn = vi.fn();
 
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(

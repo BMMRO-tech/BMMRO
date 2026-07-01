@@ -6,8 +6,8 @@ import TripForm from "../TripForm";
 import * as getProjects from "../../hooks/getProjects";
 import tripDefaultValues from "../../constants/tripDefaultValues";
 
-jest.mock("@reach/router", () => ({
-  navigate: jest.fn(),
+vi.mock("@reach/router", () => ({
+  navigate: vi.fn(),
 }));
 
 describe("TripForm", () => {
@@ -20,7 +20,7 @@ describe("TripForm", () => {
     };
 
     originalDateNow = Date.now;
-    global.Date.now = jest.fn(() =>
+    global.Date.now = vi.fn(() =>
       new Date("2020-05-04T11:30:12.000Z").getTime(),
     );
   });
@@ -31,7 +31,7 @@ describe("TripForm", () => {
 
   beforeEach(() => {
     const mockProjectList = ["project1", "project2"];
-    jest.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
+    vi.spyOn(getProjects, "getProjects").mockResolvedValue(mockProjectList);
   });
 
   const mockTripValues = {
@@ -89,7 +89,7 @@ describe("TripForm", () => {
   });
 
   it("displays error and doesn't submit the form if required fields are not completed", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, getByLabelText } = render(
       <TripForm
@@ -121,7 +121,7 @@ describe("TripForm", () => {
   });
 
   it("if there is an error, after pressing submit button, will focus on that input", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole } = render(
       <TripForm
@@ -149,7 +149,7 @@ describe("TripForm", () => {
   });
 
   it("displays a confirmation modal when user makes changes to the form and presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <TripForm
@@ -172,7 +172,7 @@ describe("TripForm", () => {
   });
 
   it("does not display a confirmation modal when user doesn't do any changes in the form and presses the Cancel button", async () => {
-    const mockHandleSubmit = jest.fn();
+    const mockHandleSubmit = vi.fn();
 
     const { getByRole, queryByTestId } = render(
       <TripForm

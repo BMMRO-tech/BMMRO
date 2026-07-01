@@ -53,13 +53,6 @@
       "pre-commit": "npm run format-check && npm run test-ci"
     }
   },
-  "jest": {
-    "resetMocks": false,
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\](?!date-fns[/\\\\]).+\\.(js|jsx|mjs|cjs|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ]
-  },
   "eslintConfig": {
     "extends": ["react-app", "react-app/jest"],
     "globals": {

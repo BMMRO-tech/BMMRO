@@ -4,9 +4,9 @@ export const buildFirebaseAuthMock = ({
   signInWithEmailAndPassword = "",
   signOut = "",
 }) => {
-  jest.spyOn(firebase, "auth").mockImplementation(() => {
+  vi.spyOn(firebase, "auth").mockImplementation(() => {
     return {
-      onAuthStateChanged: jest.fn(),
+      onAuthStateChanged: vi.fn(),
       signInWithEmailAndPassword,
       signOut,
     };
@@ -14,9 +14,9 @@ export const buildFirebaseAuthMock = ({
 };
 
 export const buildFirestoreMock = () => {
-  jest.spyOn(firebase, "firestore").mockImplementation(() => {
+  vi.spyOn(firebase, "firestore").mockImplementation(() => {
     return {
-      enablePersistence: jest.fn(),
+      enablePersistence: vi.fn(),
     };
   });
 };

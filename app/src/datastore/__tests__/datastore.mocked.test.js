@@ -1,5 +1,6 @@
 import { Datastore, DatastoreError, initFirestore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
+import { vi } from "vitest";
 
 class FirebaseErrorMock extends Error {
   constructor(code) {
@@ -16,7 +17,7 @@ describe("Datastore with firestore", () => {
     enablePersistence = "",
   }) => {
     const firestoreMock = {
-      collection: jest.fn().mockReturnValue({
+      collection: vi.fn().mockReturnValue({
         add,
         doc,
         onSnapshot,
@@ -30,7 +31,7 @@ describe("Datastore with firestore", () => {
   describe("enableOfflineStorage", () => {
     it("should throw 'DatastoreError' with code MULTIPLE_TABS when user has app open in multiple tabs", async () => {
       const collectionReturnMock = {
-        enablePersistence: jest
+        enablePersistence: vi
           .fn()
           .mockRejectedValue(new FirebaseErrorMock("failed-precondition")),
       };
@@ -43,7 +44,7 @@ describe("Datastore with firestore", () => {
 
     it("should throw 'DatastoreError' with code BROWSER_NOT_SUPPORTED when Firestore offline storage is not implemented", async () => {
       const collectionReturnMock = {
-        enablePersistence: jest
+        enablePersistence: vi
           .fn()
           .mockRejectedValue(new FirebaseErrorMock("unimplemented")),
       };
@@ -56,7 +57,7 @@ describe("Datastore with firestore", () => {
 
     it("should throw 'DatastoreError' with code UNKNOWN_OFFLINE_SUPPORT when Firebase responds with unrecognised error", async () => {
       const collectionReturnMock = {
-        enablePersistence: jest.fn().mockRejectedValue(new Error()),
+        enablePersistence: vi.fn().mockRejectedValue(new Error()),
       };
       const datastore = buildDatastoreMock(collectionReturnMock);
 

@@ -234,7 +234,7 @@ describe("datastore", () => {
     it("triggers delayed error callback when creating document fails", async () => {
       const firestoreEmulator = getFirestore();
 
-      const handleDelayedError = jest.fn();
+      const handleDelayedError = vi.fn();
       const datastore = new Datastore(
         firestoreEmulator,
         null,
@@ -282,7 +282,7 @@ describe("datastore", () => {
     it("triggers delayed error callback when creating subdocument fails", async () => {
       const firestoreEmulator = getFirestore();
 
-      const handleDelayedError = jest.fn();
+      const handleDelayedError = vi.fn();
       const datastore = new Datastore(
         firestoreEmulator,
         null,
@@ -328,7 +328,7 @@ describe("datastore", () => {
 
     it("triggers delayed error callback when updating document fails", async () => {
       const firestoreEmulator = getFirestore();
-      const handleDelayedError = jest.fn();
+      const handleDelayedError = vi.fn();
       const datastore = new Datastore(
         firestoreEmulator,
         null,
