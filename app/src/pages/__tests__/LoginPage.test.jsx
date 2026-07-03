@@ -2,7 +2,7 @@ import { render, waitFor } from "@testing-library/react/pure";
 import React from "react";
 
 import { FirebaseContext } from "../../firebaseContext/firebaseContext";
-import Login from "../../pages/Login";
+import Login from "../Login";
 import { screen } from "@testing-library/react";
 
 vi.mock("@reach/router", () => ({

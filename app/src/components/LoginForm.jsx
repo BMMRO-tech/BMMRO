@@ -4,7 +4,7 @@ import { useState, useContext, Fragment } from "react";
 import { Formik, Form } from "formik";
 import { jsx, css } from "@emotion/react";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
-import firebase from "firebase/compat/app";
+import firebase from "firebase/app";
 import { useLoginRedirect } from "../hooks/useLoginRedirect";
 import { AuthenticationErrorType } from "../constants/authentication";
 import colors from "../materials/colors";

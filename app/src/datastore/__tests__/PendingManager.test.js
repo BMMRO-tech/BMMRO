@@ -15,13 +15,6 @@ const projectId = "pending-emulated";
 
 const getFirestore = () => getEmulatedFirestore();
 
-/*vi.mock(import("../PendingManager.js"), async (importOriginal) => {
-  const actual = await importOriginal()
-  return {
-    ...actual,
-    mockPendingCallback: vi.fn(),
-  }
-}) */
 describe("PendingManager ", () => {
   beforeAll(async () => {
     await initTestEnv(

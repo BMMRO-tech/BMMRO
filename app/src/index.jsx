@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import firebase from "firebase/compat/app";
+import firebase from "firebase/app";
 
 const firebaseConfig = {
   apiKey: import.meta.env.REACT_APP_API_KEY,
