@@ -96,7 +96,7 @@ const useEncountersByMonth = (datastore) => {
     const tomorrow = addDays(today, 1);
 
     if (!!datastore) {
-      getInitialEncounters(today, tomorrow);
+      getInitialEncounters(today, tomorrow).catch(() => {});
       setTimeRange(calculatePreviousMonthTimeRange(today));
       setCounter(counter + 1);
     }
