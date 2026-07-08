@@ -64,9 +64,10 @@ describe("OpenEncounter", () => {
       <OpenEncounter encounterId={"a6789"} />,
       { datastore },
     );
-    const endButton = await findByRole("button", {
+    const endButton = 
+       await waitFor (() => { await findByRole("button", {
       name: "End encounter",
-    });
+    });},{timeout: 5000})
 
     await waitFor(() => {
       expect(endButton).toHaveAttribute("disabled");

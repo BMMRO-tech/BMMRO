@@ -39,7 +39,9 @@ const TripForm = ({
   const [projectsList, setProjectsList] = useState();
 
   useEffect(() => {
-    getProjects(datastore).then((data) => setProjectsList(data)).catch(() => {});
+    getProjects(datastore)
+      .then((data) => setProjectsList(data))
+      .catch(() => {});
   }, [datastore]);
 
   const styles = {

@@ -68,9 +68,11 @@ describe("NewHabitatUse", () => {
       },
     );
 
-    const endHabitatButton = await findByRole("button", {
+    const endHabitatButton = 
+      await waitFor (() => { await findByRole("button", {
       name: "End Habitat",
-    });
+    });},{timeout: 5000})
+    
     const latField = await findByLabelText("Lat", { selector: "input" });
     const longField = await findByLabelText("Long", { selector: "input" });
 

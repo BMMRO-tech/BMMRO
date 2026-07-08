@@ -32,7 +32,9 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
   const [projectsList, setProjectsList] = useState();
 
   useEffect(() => {
-    getProjects(datastore).then((data) => setProjectsList(data)).catch(() => {});
+    getProjects(datastore)
+      .then((data) => setProjectsList(data))
+      .catch(() => {});
   }, [datastore]);
 
   const styles = {

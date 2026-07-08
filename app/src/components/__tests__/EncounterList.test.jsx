@@ -25,9 +25,10 @@ describe("EncounterList", () => {
   });
 
   it("displays encounter forms for a single day", async () => {
-    vi
-      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
-      .mockResolvedValue(mockSingleDayData);
+    vi.spyOn(
+      useEncountersByMonth,
+      "getEncountersByTimeRange",
+    ).mockResolvedValue(mockSingleDayData);
     const { queryAllByRole } = renderWithMockContexts(
       <EncounterList title="Today" encounters={mockSingleDayData} />,
     );
@@ -43,9 +44,10 @@ describe("EncounterList", () => {
   });
 
   it("displays encounter forms over multiple days", async () => {
-    vi
-      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
-      .mockResolvedValue(mockSingleMonthData);
+    vi.spyOn(
+      useEncountersByMonth,
+      "getEncountersByTimeRange",
+    ).mockResolvedValue(mockSingleMonthData);
     const { queryAllByRole } = renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"
@@ -73,9 +75,10 @@ describe("EncounterList", () => {
   });
 
   it("should have 'Previous encounters' as a dropdown", () => {
-    vi
-      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
-      .mockResolvedValue(mockSingleMonthData);
+    vi.spyOn(
+      useEncountersByMonth,
+      "getEncountersByTimeRange",
+    ).mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"
@@ -90,9 +93,10 @@ describe("EncounterList", () => {
     today.setMonth(today.getMonth() - 13);
     const dropDownValue =
       monthNames[today.getMonth()] + " " + today.getFullYear();
-    vi
-      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
-      .mockResolvedValue(mockSingleMonthData);
+    vi.spyOn(
+      useEncountersByMonth,
+      "getEncountersByTimeRange",
+    ).mockResolvedValue(mockSingleMonthData);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"
@@ -106,9 +110,10 @@ describe("EncounterList", () => {
   });
 
   it("Should list the encounters for the month when a month is chosen on the dropdown", async () => {
-    vi
-      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
-      .mockResolvedValue(mockSingleMonthData);
+    vi.spyOn(
+      useEncountersByMonth,
+      "getEncountersByTimeRange",
+    ).mockResolvedValue(mockSingleMonthData);
     const today = new Date();
     const dropDownValue =
       monthNames[today.getMonth() - 1] + " " + today.getFullYear();
@@ -132,9 +137,10 @@ describe("EncounterList", () => {
   });
 
   it("Should not print undefined undefined for Month and year if the encounter list call to firestore fails", async () => {
-    vi
-      .spyOn(useEncountersByMonth, "getEncountersByTimeRange")
-      .mockResolvedValue([]);
+    vi.spyOn(
+      useEncountersByMonth,
+      "getEncountersByTimeRange",
+    ).mockResolvedValue([]);
     renderWithMockContexts(
       <EncounterList
         title="Previous Encounters"

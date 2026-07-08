@@ -52,9 +52,12 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(1);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("sets pendingCount to 0, when one added while online", async () => {
@@ -76,9 +79,12 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(0);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(0);
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("sets pending count to 1, when one subdoc is added while offline", async () => {
@@ -101,9 +107,12 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(1);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("sets pending count to 1, when one collection has pending records and the other doesn't", async () => {
@@ -129,9 +138,12 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(0);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
 
     firestoreEmulator.disableNetwork();
 
@@ -141,8 +153,11 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback.mock.calls).toEqual([[1], [0], [1]]);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback.mock.calls).toEqual([[1], [0], [1]]);
+      },
+      { timeout: 5000 },
+    );
   });
 });

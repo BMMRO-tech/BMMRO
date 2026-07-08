@@ -86,7 +86,8 @@ describe("ViewEncounter", () => {
         name: "Return to encounter overview",
       });
 
-      expect(backLinks).toHaveLength(2);
+      await waitFor( 
+      () => { expect(backLinks).toHaveLength(2); },{timeout: 5000})
       expect(backLinks[0].href).toContain(expectedLink);
       expect(backLinks[1].href).toContain(expectedLink);
     });

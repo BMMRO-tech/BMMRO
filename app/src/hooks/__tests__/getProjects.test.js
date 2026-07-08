@@ -28,9 +28,9 @@ describe("getProjects", () => {
 
   it("reads project data from datastore", async () => {
     const datastore = new Datastore(undefined, undefined);
-    vi
-      .spyOn(datastore, "readDocsFromCollection")
-      .mockResolvedValue(testProjects);
+    vi.spyOn(datastore, "readDocsFromCollection").mockResolvedValue(
+      testProjects,
+    );
     const result = await getProjects(datastore);
     expect(result.current).not.toEqual([]);
     expect(result[0]).toEqual("BtestProjecta");
