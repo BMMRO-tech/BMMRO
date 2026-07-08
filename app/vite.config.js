@@ -12,7 +12,6 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setupTests.js",
     testTimeout: 60000,
-    hookTimeout: 60000,
     deps: {
       inline: ["date-fns"],
     },

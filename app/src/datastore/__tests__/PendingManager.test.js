@@ -13,9 +13,9 @@ import { vi } from "vitest";
 
 const projectId = "pending-emulated";
 
-const getFirestore = () => getEmulatedFirestore();
-
 describe("PendingManager ", () => {
+  let firestoreEmulator;
+
   beforeAll(async () => {
     await initTestEnv(
       projectId,
@@ -28,12 +28,19 @@ describe("PendingManager ", () => {
     vi.clearAllMocks();
   });
 
+  beforeEach(() => {
+    firestoreEmulator = getEmulatedFirestore();
+  });
+
   afterEach(async () => {
+    // Re-enable network before clearing data so any pending-write listeners
+    // don't fire against a disabled network, which corrupts the gRPC stream
+    // and causes the next test's Firestore instance to inherit broken state.
+    await firestoreEmulator.enableNetwork();
     await clearEmulatedData();
   });
 
   it("sets pendingCount to 1, when one added while offline", async () => {
-    const firestoreEmulator = getFirestore();
     const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
@@ -61,7 +68,6 @@ describe("PendingManager ", () => {
   });
 
   it("sets pendingCount to 0, when one added while online", async () => {
-    const firestoreEmulator = getFirestore();
     const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
@@ -88,7 +94,6 @@ describe("PendingManager ", () => {
   });
 
   it("sets pending count to 1, when one subdoc is added while offline", async () => {
-    const firestoreEmulator = getFirestore();
     const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
@@ -116,7 +121,6 @@ describe("PendingManager ", () => {
   });
 
   it("sets pending count to 1, when one collection has pending records and the other doesn't", async () => {
-    const firestoreEmulator = getFirestore();
     const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
