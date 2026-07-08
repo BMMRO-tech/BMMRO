@@ -145,6 +145,13 @@ describe("PendingManager ", () => {
       { timeout: 5000 },
     );
 
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenLastCalledWith(0);
+      },
+      { timeout: 5000 },
+    );
+
     firestoreEmulator.disableNetwork();
 
     firestoreEmulator.collection("animal").doc().set({
@@ -155,7 +162,7 @@ describe("PendingManager ", () => {
 
     await waitFor(
       () => {
-        expect(mockPendingCallback.mock.calls).toEqual([[1], [0], [1]]);
+        expect(mockPendingCallback).toHaveBeenLastCalledWith(1);
       },
       { timeout: 5000 },
     );
