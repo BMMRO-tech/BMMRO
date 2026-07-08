@@ -64,14 +64,16 @@ describe("OpenEncounter", () => {
       <OpenEncounter encounterId={"a6789"} />,
       { datastore },
     );
-    const endButton = 
-       await waitFor (() => { await findByRole("button", {
-      name: "End encounter",
-    });},{timeout: 5000})
 
-    await waitFor(() => {
-      expect(endButton).toHaveAttribute("disabled");
-    });
+    await waitFor(
+      async () => {
+        const endButton = await findByRole("button", {
+          name: "End encounter",
+        });
+        expect(endButton).toHaveAttribute("disabled");
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("shows a button to end the encounter if the encounter contains all required field and it was not yet exported", async () => {

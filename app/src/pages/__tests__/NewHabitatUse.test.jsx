@@ -68,11 +68,6 @@ describe("NewHabitatUse", () => {
       },
     );
 
-    const endHabitatButton = 
-      await waitFor (() => { await findByRole("button", {
-      name: "End Habitat",
-    });},{timeout: 5000})
-    
     const latField = await findByLabelText("Lat", { selector: "input" });
     const longField = await findByLabelText("Long", { selector: "input" });
 
@@ -80,7 +75,15 @@ describe("NewHabitatUse", () => {
       await userEvent.type(longField, "0.111111", { delay: 1 });
       await userEvent.type(latField, "0.111111", { delay: 1 });
 
-      await userEvent.click(endHabitatButton);
+      await waitFor(
+        async () => {
+          const endHabitatButton = await findByRole("button", {
+            name: "End Habitat",
+          });
+          await userEvent.click(endHabitatButton);
+        },
+        { timeout: 5000 },
+      );
     });
 
     let habitatUses = [];
