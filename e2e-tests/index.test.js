@@ -18,15 +18,23 @@ const db = getFirestore(app);
 const auth = getAuth();
 
 async function startDriver() {
+  console.log("process.env.DRIVER: ", process.env.DRIVER);
   const options = new ChromeOptions();
   // Prevent password leak detection from producing a popup
   options.setUserPreferences({
     "profile.password_manager_leak_detection": false,
   });
-  let driver = await new wd.Builder()
-    .forBrowser("chrome")
-    .setChromeOptions(options)
-    .build();
+  let driver;
+  if (process.env.DRIVER === "chrome") {
+    driver = await new wd.Builder()
+      .forBrowser("chrome")
+      .setChromeOptions(options)
+      .build();
+  } else if (process.env.DRIVER === "safari") {
+    driver = await new wd.Builder().forBrowser("safari").build();
+  } else {
+    throw new Error("process.env.DRIVER must be one of 'chrome' or 'safari'.");
+  }
   return driver;
 }
 
