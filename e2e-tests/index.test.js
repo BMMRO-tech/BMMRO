@@ -1,4 +1,5 @@
 import * as webdriver from "selenium-webdriver";
+import { Options as ChromeOptions } from "selenium-webdriver/chrome.js";
 import "dotenv/config";
 import { initializeApp } from "firebase/app";
 import { deleteDoc, doc, getDoc, getFirestore } from "firebase/firestore/lite";
@@ -17,7 +18,15 @@ const db = getFirestore(app);
 const auth = getAuth();
 
 async function startDriver() {
-  let driver = await new wd.Builder().forBrowser("safari").build();
+  const options = new ChromeOptions();
+  // Prevent password leak detection from producing a popup
+  options.setUserPreferences({
+    "profile.password_manager_leak_detection": false,
+  });
+  let driver = await new wd.Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(options)
+    .build();
   return driver;
 }
 
@@ -311,15 +320,12 @@ describe("create a new encounter user journey", () => {
     async () => {
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
-      await longitude.click();
-      await longitude.sendKeys(
-        wd.Key.chord(wd.Key.CONTROL, "a"),
-        wd.Key.DELETE,
-      );
+      await driver.executeScript("arguments[0].select()", longitude);
+      await longitude.sendKeys(wd.Key.DELETE);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
-      await latitude.click();
-      await latitude.sendKeys(wd.Key.chord(wd.Key.CONTROL, "a"), wd.Key.DELETE);
+      await driver.executeScript("arguments[0].select()", latitude);
+      await latitude.sendKeys(wd.Key.DELETE);
 
       await driver.findElement(wd.By.css("#saveHabitat")).click();
 
@@ -364,15 +370,12 @@ describe("create a new encounter user journey", () => {
 
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
-      await longitude.click();
-      await longitude.sendKeys(
-        wd.Key.chord(wd.Key.CONTROL, "a"),
-        wd.Key.DELETE,
-      );
+      await driver.executeScript("arguments[0].select()", longitude);
+      await longitude.sendKeys(wd.Key.DELETE);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
-      await latitude.click();
-      await latitude.sendKeys(wd.Key.chord(wd.Key.CONTROL, "a"), wd.Key.DELETE);
+      await driver.executeScript("arguments[0].select()", latitude);
+      await latitude.sendKeys(wd.Key.DELETE);
 
       await driver
         .findElement(

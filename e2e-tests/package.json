@@ -12,7 +12,7 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "firebase": "^12.14.0",
-    "selenium-webdriver": "^4.1.1"
+    "selenium-webdriver": "^4.45.0"
   },
   "devDependencies": {
     "vitest": "^3.2.7"
