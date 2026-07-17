@@ -9,7 +9,7 @@
     "test": "TZ=UTC firebase emulators:exec --only firestore 'vitest run'",
     "test-ci": "TZ=UTC firebase emulators:exec --only firestore 'vitest run --reporter=verbose'",
     "test-watch": "TZ=UTC firebase emulators:exec --only firestore 'vitest'",
-    "test-firestore": "firebase emulators:exec --only firestore 'vitest run --config firestore/vitest.config.js'",
+    "test-firestore": "firebase emulators:exec --only firestore 'vitest run firestore/ --config firestore/vitest.config.js'",
     "coverage": "TZ=UTC firebase emulators:exec --only firestore 'vitest run --coverage'",
     "format": "prettier --write src/ firestore/",
     "format-check": "prettier --check src/ firestore/"
