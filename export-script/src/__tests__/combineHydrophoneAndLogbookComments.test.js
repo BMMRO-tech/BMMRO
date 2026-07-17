@@ -1,4 +1,4 @@
-const combineHydrophoneAndLogbookComments = require("../combineHydrophoneAndLogbookComments");
+import combineHydrophoneAndLogbookComments from "../combineHydrophoneAndLogbookComments.js";
 
 describe("combineHydrophoneAndLogbookComments", () => {
   it("prepends GPS mark", () => {

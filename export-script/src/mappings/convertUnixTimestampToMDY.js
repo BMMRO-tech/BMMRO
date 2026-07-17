@@ -1,4 +1,4 @@
-const { format, fromUnixTime } = require("date-fns");
+import { format, fromUnixTime } from "date-fns";
 
 const convertTimestampToMDY = (timestampObject) => {
   const finalFormat = "M/d/yyyy";
@@ -7,4 +7,4 @@ const convertTimestampToMDY = (timestampObject) => {
   return format(date, finalFormat);
 };
 
-module.exports = convertTimestampToMDY;
+export default convertTimestampToMDY;

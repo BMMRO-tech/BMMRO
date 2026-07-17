@@ -23,4 +23,4 @@ const populateCollectionValues = (
   return populatedSubcollectionEntries;
 };
 
-module.exports = populateCollectionValues;
+export default populateCollectionValues;

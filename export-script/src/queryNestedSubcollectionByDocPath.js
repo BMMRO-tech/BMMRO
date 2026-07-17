@@ -28,5 +28,5 @@ const queryNestedSubcollectionByDocPath = async (
     return results;
   };
   
-  module.exports = queryNestedSubcollectionByDocPath;
+export default queryNestedSubcollectionByDocPath;
   

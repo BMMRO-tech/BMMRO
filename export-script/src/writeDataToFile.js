@@ -1,5 +1,5 @@
-const fs = require("fs");
-const logToStdErrAndExit = require("./helpers/logToStdErrAndExit");
+import fs from "fs";
+import logToStdErrAndExit from "./helpers/logToStdErrAndExit.js";
 
 const writeDataToFile = (dirName, fileName, data) => {
   if (!fs.existsSync(dirName)) {
@@ -16,4 +16,4 @@ const writeDataToFile = (dirName, fileName, data) => {
   }
 };
 
-module.exports = writeDataToFile;
+export default writeDataToFile;

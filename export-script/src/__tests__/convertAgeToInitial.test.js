@@ -1,4 +1,4 @@
-const convertAgeToInitial = require("../mappings/convertAgeToInitial");
+import convertAgeToInitial from "../mappings/convertAgeToInitial.js";
 
 describe("convertAgeToInitial", () => {
   it("converts 'calf' to 'C'", () => {

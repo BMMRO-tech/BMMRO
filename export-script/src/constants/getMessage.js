@@ -23,4 +23,4 @@ const getMessage = (type, params) => {
   }
 };
 
-module.exports = getMessage;
+export default getMessage;

@@ -1,11 +1,11 @@
+import fs from "fs";
+import writeDataToFile from "../writeDataToFile.js";
+import logAndExit from "../helpers/logAndExit.js";
+import logToStdErrAndExit from "../helpers/logToStdErrAndExit.js";
+
 vi.mock("fs");
-vi.mock("../helpers/logAndExit");
-vi.mock("../helpers/logToStdErrAndExit");
-const fs = require("fs");
-const writeDataToFile = require("../writeDataToFile");
-const logAndExit = require("../helpers/logAndExit");
-const logToStdErrAndExit = require("../helpers/logToStdErrAndExit");
-const { vi } = require("vitest");
+vi.mock("../helpers/logAndExit.js");
+vi.mock("../helpers/logToStdErrAndExit.js");
 
 describe("writeDataToFile", () => {
   beforeAll(() => {

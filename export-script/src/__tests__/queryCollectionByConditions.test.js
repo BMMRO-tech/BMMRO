@@ -1,8 +1,8 @@
-const { initializeTestEnvironment } = require("@firebase/rules-unit-testing");
-const queryCollectionByConditions = require("../queryCollectionByConditions");
-const { parse } = require("date-fns");
-const collectionData = require("../__fixtures__/collectionData");
-const collectionDataWithMixedExportStatus = require("../__fixtures__/collectionDataWithMixedExportStatus");
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
+import queryCollectionByConditions from "../queryCollectionByConditions.js";
+import { parse } from "date-fns";
+import collectionData from "../__fixtures__/collectionData.js";
+import collectionDataWithMixedExportStatus from "../__fixtures__/collectionDataWithMixedExportStatus.js";
 
 describe("queryCollectionByConditions", () => {
   const projectId = "project-id";
@@ -48,9 +48,9 @@ describe("queryCollectionByConditions", () => {
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -66,9 +66,9 @@ describe("queryCollectionByConditions", () => {
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -81,16 +81,16 @@ describe("queryCollectionByConditions", () => {
 
   it("includes entries on start date and excludes entries on end date", async () => {
     await addToDb(collectionData);
-    startDate = parse("23/05/2020", DATE_FORMAT, new Date());
-    endDate = parse("23/06/2020", DATE_FORMAT, new Date());
+    const startDate = parse("23/05/2020", DATE_FORMAT, new Date());
+    const endDate = parse("23/06/2020", DATE_FORMAT, new Date());
 
     const collectionEntries = await queryCollectionByConditions(
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -102,16 +102,16 @@ describe("queryCollectionByConditions", () => {
 
   it("returns an empty array when no entries fall within time range", async () => {
     await addToDb(collectionData);
-    startDate = parse("10/02/2009", DATE_FORMAT, new Date());
-    endDate = parse("28/02/2009", DATE_FORMAT, new Date());
+    const startDate = parse("10/02/2009", DATE_FORMAT, new Date());
+    const endDate = parse("28/02/2009", DATE_FORMAT, new Date());
 
     const collectionEntries = await queryCollectionByConditions(
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -127,9 +127,9 @@ describe("queryCollectionByConditions", () => {
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value: startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value: endDate, operator:"<"},
-        {key:exportedFieldName,value: [false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [false], operator: "in" },
       ],
     );
 

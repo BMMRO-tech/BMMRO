@@ -1,4 +1,4 @@
-const populateCollectionValues = require("../populateCollectionValues");
+import populateCollectionValues from "../populateCollectionValues.js";
 
 describe("populateCollectionValues", () => {
   it("populates values given one collection and one subcollection entry", () => {

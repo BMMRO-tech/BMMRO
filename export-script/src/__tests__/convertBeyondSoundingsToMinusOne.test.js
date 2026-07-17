@@ -1,4 +1,4 @@
-const convertBeyondSoundingsToMinusOne = require("../mappings/convertBeyondSoundingsToMinusOne");
+import convertBeyondSoundingsToMinusOne from "../mappings/convertBeyondSoundingsToMinusOne.js";
 
 describe("convertBeyondSoundingsToMinusOne", () => {
   it("converts the option to '-1' when waterDepthBeyondSoundings is true", () => {

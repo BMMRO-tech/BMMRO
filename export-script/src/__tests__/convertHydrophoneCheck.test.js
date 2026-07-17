@@ -1,4 +1,4 @@
-const convertHydrophoneCheck = require("../mappings/convertHydrophoneCheck");
+import convertHydrophoneCheck from "../mappings/convertHydrophoneCheck.js";
 
 describe("convertHydrophoneCheck", () => {
   it("converts the value to '0' when it's 'No'", () => {

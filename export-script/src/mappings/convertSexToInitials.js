@@ -11,4 +11,4 @@ const convertSexToInitials = (sexInput) => {
     }
 };
 
-module.exports = convertSexToInitials;
+export default convertSexToInitials;

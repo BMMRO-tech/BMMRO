@@ -1,9 +1,9 @@
-const { initializeTestEnvironment } = require("@firebase/rules-unit-testing");
-const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
-const querySubcollectionByDocPath = require("../querySubcollectionByDocPath");
-const { parse } = require("date-fns");
-const collectionData = require("../__fixtures__/collectionData");
-const subCollectionData = require("../__fixtures__/subCollectionData");
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
+import queryCollectionByTimeRange from "../queryCollectionByTimeRange.js";
+import querySubcollectionByDocPath from "../querySubcollectionByDocPath.js";
+import { parse } from "date-fns";
+import collectionData from "../__fixtures__/collectionData.js";
+import subCollectionData from "../__fixtures__/subCollectionData.js";
 
 describe("querySubcollectionByDocPath", () => {
   const projectId = "project-id";

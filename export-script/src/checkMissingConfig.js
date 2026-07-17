@@ -1,5 +1,5 @@
-const Status = require("./helpers/Status");
-const getMessage = require("./constants/getMessage");
+import Status from "./helpers/Status.js";
+import getMessage from "./constants/getMessage.js";
 
 const checkMissingConfig = (projectId, apiKey, authDomain, email, password) => {
   if (!projectId || !apiKey || !authDomain || !email || !password) {
@@ -9,4 +9,4 @@ const checkMissingConfig = (projectId, apiKey, authDomain, email, password) => {
   return new Status("SUCCESS");
 };
 
-module.exports = checkMissingConfig;
+export default checkMissingConfig;

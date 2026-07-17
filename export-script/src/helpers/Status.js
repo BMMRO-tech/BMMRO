@@ -9,4 +9,4 @@ class Status {
   }
 }
 
-module.exports = Status;
+export default Status;

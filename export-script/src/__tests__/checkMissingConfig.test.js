@@ -1,4 +1,4 @@
-const checkMissingConfig = require("../checkMissingConfig");
+import checkMissingConfig from "../checkMissingConfig.js";
 
 describe("checkMissingConfig", () => {
   const projectId = "dummy";

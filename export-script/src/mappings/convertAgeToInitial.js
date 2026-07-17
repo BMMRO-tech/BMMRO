@@ -15,4 +15,4 @@ const convertAgeToInitial = (ageInput) => {
     }
  }
 
- module.exports = convertAgeToInitial;
+export default convertAgeToInitial;

@@ -1,4 +1,4 @@
-const convertUnixTimestampToMDY = require("../mappings/convertUnixTimestampToMDY");
+import convertUnixTimestampToMDY from "../mappings/convertUnixTimestampToMDY.js";
 
 describe("convertUnixTimestampToMDY", () => {
   it("converts a date from unix timestamp object to MDY", () => {

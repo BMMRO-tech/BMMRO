@@ -79,12 +79,15 @@ const useTripsByMonth = (datastore) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getInitialTrips = async (today, tomorrow) => {
-    await getTripsByTimeRange(datastore, today, tomorrow).then(setTodaysTrips);
-    await getTripsByTimeRange(datastore, startOfMonth(today), today).then(
-      setPreviousTrips,
-    );
-
-    setIsLoading(false);
+    try {
+      await getTripsByTimeRange(datastore, today, tomorrow).then(setTodaysTrips);
+      await getTripsByTimeRange(datastore, startOfMonth(today), today).then(
+        setPreviousTrips,
+      );
+    } catch (_) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -104,14 +107,17 @@ const useTripsByMonth = (datastore) => {
   const loadPreviousMonth = async () => {
     if (!timeRange) return;
     setIsLoading(true);
-    await getTripsByTimeRange(datastore, ...timeRange).then((data) =>
-      setPreviousTrips([...previousTrips, ...data]),
-    );
-    setIsLoading(false);
-
-    const [currentStartOfMonth] = timeRange;
-    setTimeRange(calculatePreviousMonthTimeRange(currentStartOfMonth));
-    setCounter(counter + 1);
+    try {
+      await getTripsByTimeRange(datastore, ...timeRange).then((data) =>
+        setPreviousTrips([...previousTrips, ...data]),
+      );
+      const [currentStartOfMonth] = timeRange;
+      setTimeRange(calculatePreviousMonthTimeRange(currentStartOfMonth));
+      setCounter(counter + 1);
+    } catch (_) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return { todaysTrips, previousTrips, loadPreviousMonth, isLoading };

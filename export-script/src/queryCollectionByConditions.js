@@ -20,4 +20,4 @@ const queryCollectionByConditions = async (
   return results;
 };
 
-module.exports = queryCollectionByConditions;
+export default queryCollectionByConditions;

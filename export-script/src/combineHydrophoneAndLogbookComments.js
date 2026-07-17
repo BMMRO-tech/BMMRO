@@ -1,4 +1,4 @@
-const addGpsMarkToComments = require("./addGpsMarkToComments");
+import addGpsMarkToComments from "./addGpsMarkToComments.js";
 
 const combineHydrophoneAndLogbookComments = (gpsMark = "", values = "") => {
 
@@ -15,4 +15,4 @@ const combineHydrophoneAndLogbookComments = (gpsMark = "", values = "") => {
   }
 };
 
-module.exports = combineHydrophoneAndLogbookComments;
+export default combineHydrophoneAndLogbookComments;

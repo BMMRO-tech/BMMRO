@@ -24,4 +24,4 @@ const queryCollectionByTimeRange = async (
   return results;
 };
 
-module.exports = queryCollectionByTimeRange;
+export default queryCollectionByTimeRange;

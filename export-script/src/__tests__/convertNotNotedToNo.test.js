@@ -1,4 +1,4 @@
-const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
+import convertNotNotedToNo from "../mappings/convertNotNotedToNo.js";
 
 describe("convertNotNotedToNo", () => {
   it("converts the value to 'no' when it's 'not-noted'", () => {

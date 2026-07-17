@@ -1,8 +1,8 @@
-const { initializeTestEnvironment } = require("@firebase/rules-unit-testing");
-const updateInBatch = require("../updateInBatch");
-const collectionData = require("../__fixtures__/collectionData");
-const subcollectionData = require("../__fixtures__/subCollectionData");
-const getMessage = require("../constants/getMessage");
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
+import updateInBatch from "../updateInBatch.js";
+import collectionData from "../__fixtures__/collectionData.js";
+import subcollectionData from "../__fixtures__/subCollectionData.js";
+import getMessage from "../constants/getMessage.js";
 
 describe("updateInBatch", () => {
   const projectId = "project-id";

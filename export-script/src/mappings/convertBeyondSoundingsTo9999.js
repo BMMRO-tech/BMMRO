@@ -3,4 +3,4 @@ const convertBeyondSoundingsTo9999 = (val, data) => {
   else return val;
 };
 
-module.exports = convertBeyondSoundingsTo9999;
+export default convertBeyondSoundingsTo9999;
