@@ -1,4 +1,4 @@
-const convertSexToInitials = require("../mappings/convertSexToInitials");
+import convertSexToInitials from "../mappings/convertSexToInitials.js";
 
 describe("convertSexToInitials", () => {
   it("converts the option sex options to initials", () => {

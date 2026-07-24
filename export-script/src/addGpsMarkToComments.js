@@ -6,4 +6,4 @@ const addGpsMarkToComments = (gpsMark = "", comment = "") => {
   return final;
 };
 
-module.exports = addGpsMarkToComments;
+export default addGpsMarkToComments;

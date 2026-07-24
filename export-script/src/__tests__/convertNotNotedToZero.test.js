@@ -1,4 +1,4 @@
-const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
+import convertNotNotedToZero from "../mappings/convertNotNotedToZero.js";
 
 describe("convertNotNotedToZero", () => {
   it("converts the value to 0 when it's 'not-noted'", () => {

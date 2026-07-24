@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -17,7 +18,7 @@ describe("NumberInput", () => {
         minValue={1}
         maxValue={100}
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -35,7 +36,7 @@ describe("NumberInput", () => {
         labelText="Your favorite number"
         isRequired
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -43,11 +44,11 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "100", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
-      queryByRole("alert", { name: "Your favorite number" })
+      queryByRole("alert", { name: "Your favorite number" }),
     ).not.toBeInTheDocument();
   });
 
@@ -58,7 +59,7 @@ describe("NumberInput", () => {
         labelText="Your favorite number"
         maxValue={5}
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -66,7 +67,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "100", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.MAX_VALUE, {
@@ -75,7 +76,7 @@ describe("NumberInput", () => {
 
     expect(getFormErrors().favoriteNumber).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite number" })
+      getByRole("alert", { name: "Your favorite number" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -86,7 +87,7 @@ describe("NumberInput", () => {
         labelText="Your favorite number"
         minValue={0}
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -94,7 +95,7 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "-5", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.MIN_VALUE, {
@@ -103,7 +104,7 @@ describe("NumberInput", () => {
 
     expect(getFormErrors().favoriteNumber).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite number" })
+      getByRole("alert", { name: "Your favorite number" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -114,7 +115,7 @@ describe("NumberInput", () => {
         labelText="Your favorite number"
         isInteger
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -122,16 +123,16 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "10.345", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
-      FormErrorType.INVALID_NUMBER_FORMAT
+      FormErrorType.INVALID_NUMBER_FORMAT,
     );
 
     expect(getFormErrors().favoriteNumber).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite number" })
+      getByRole("alert", { name: "Your favorite number" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -142,7 +143,7 @@ describe("NumberInput", () => {
         labelText="Your favorite decimal number"
         decimalPrecision={2}
       />,
-      { favoriteDecimalNumber: "" }
+      { favoriteDecimalNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {
@@ -150,17 +151,17 @@ describe("NumberInput", () => {
     });
     await act(async () => {
       await userEvent.type(numberInput, "666.666", { delay: 1 });
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(
       FormErrorType.MAX_DECIMAL_PLACES,
-      { maxDecimalPlaces: 2 }
+      { maxDecimalPlaces: 2 },
     );
 
     expect(getFormErrors().favoriteDecimalNumber).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite decimal number" })
+      getByRole("alert", { name: "Your favorite decimal number" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -171,21 +172,21 @@ describe("NumberInput", () => {
         labelText="Your favorite number"
         isRequired
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     await act(async () => {
       const textInput = getByRole("spinbutton", {
         name: "Your favorite number *",
       });
-      userEvent.click(textInput);
-      userEvent.tab();
+      await userEvent.click(textInput);
+      await userEvent.tab();
     });
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteNumber).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite number" })
+      getByRole("alert", { name: "Your favorite number" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
@@ -198,7 +199,7 @@ describe("NumberInput", () => {
         maxValue={100}
         isDisabled
       />,
-      { favoriteNumber: "" }
+      { favoriteNumber: "" },
     );
 
     const numberInput = getByRole("spinbutton", {

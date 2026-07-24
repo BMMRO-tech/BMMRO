@@ -3,4 +3,4 @@ const convertBeyondSoundingsToMinusOne = (val, data) => {
   else return val;
 };
 
-module.exports = convertBeyondSoundingsToMinusOne;
+export default convertBeyondSoundingsToMinusOne;

@@ -24,4 +24,4 @@ const mapFields = (data, config) => {
   });
 };
 
-module.exports = mapFields;
+export default mapFields;

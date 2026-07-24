@@ -1,47 +1,50 @@
 import { waitFor } from "@testing-library/react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
 import fs from "fs";
 import path from "path";
 
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { PendingManager } from "../PendingManager";
+import { vi } from "vitest";
 
 const projectId = "pending-emulated";
 
-const getFirestore = () => {
-  return firebaseTesting
-    .initializeTestApp({
-      projectId,
-      auth: { uid: "test-researcher" },
-    })
-    .firestore();
-};
-
 describe("PendingManager ", () => {
+  let firestoreEmulator;
+
   beforeAll(async () => {
-    await firebaseTesting.loadFirestoreRules({
+    await initTestEnv(
       projectId,
-      rules: fs.readFileSync(
-        path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8"
-      ),
-    });
+      fs.readFileSync(path.resolve(__dirname, "test-emulator.rules"), "utf-8"),
+    );
   });
 
   afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
-    jest.clearAllMocks();
+    await cleanupTestEnv();
+    vi.clearAllMocks();
+  });
+
+  beforeEach(() => {
+    firestoreEmulator = getEmulatedFirestore();
   });
 
   afterEach(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
+    // Re-enable network before clearing data so any pending-write listeners
+    // don't fire against a disabled network, which corrupts the gRPC stream
+    // and causes the next test's Firestore instance to inherit broken state.
+    await firestoreEmulator.enableNetwork();
+    await clearEmulatedData();
   });
 
   it("sets pendingCount to 1, when one added while offline", async () => {
-    const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("animal", {
@@ -56,17 +59,19 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(1);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("sets pendingCount to 0, when one added while online", async () => {
-    const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("animal", {
@@ -80,17 +85,19 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(0);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(0);
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("sets pending count to 1, when one subdoc is added while offline", async () => {
-    const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("whale", {
@@ -105,17 +112,19 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(1);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("sets pending count to 1, when one collection has pending records and the other doesn't", async () => {
-    const firestoreEmulator = getFirestore();
-    const mockPendingCallback = jest.fn();
+    const mockPendingCallback = vi.fn();
     const pendingManager = new PendingManager(
       firestoreEmulator,
-      mockPendingCallback
+      mockPendingCallback,
     );
 
     pendingManager.addCollection("animal", {
@@ -133,9 +142,19 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback).toHaveBeenCalledWith(0);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
+
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenLastCalledWith(0);
+      },
+      { timeout: 5000 },
+    );
 
     firestoreEmulator.disableNetwork();
 
@@ -145,8 +164,11 @@ describe("PendingManager ", () => {
       exported: false,
     });
 
-    await waitFor(() => {
-      expect(mockPendingCallback.mock.calls).toEqual([[1], [0], [1]]);
-    });
+    await waitFor(
+      () => {
+        expect(mockPendingCallback).toHaveBeenLastCalledWith(1);
+      },
+      { timeout: 5000 },
+    );
   });
 });

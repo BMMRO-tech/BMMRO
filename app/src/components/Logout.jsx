@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
 import { useState, useContext } from "react";
 import Button from "../components/Button";

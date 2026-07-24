@@ -1,6 +1,7 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import BackLink from "../components/BackLink";

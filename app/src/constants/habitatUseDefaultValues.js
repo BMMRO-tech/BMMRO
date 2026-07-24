@@ -1,4 +1,4 @@
-export default {
+const habitatUseDefaultValues = {
   numberOfAnimals: 1,
   numberOfCalves: "",
   numberOfBoats: 1,
@@ -27,3 +27,5 @@ export default {
   exported: false,
   hasEnded: false,
 };
+
+export default habitatUseDefaultValues;

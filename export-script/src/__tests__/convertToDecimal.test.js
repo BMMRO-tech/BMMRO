@@ -1,4 +1,4 @@
-const convertToDecimal = require("../mappings/convertToDecimal");
+import convertToDecimal from "../mappings/convertToDecimal.js";
 
 describe("convertToDecimal", () => {
   it("converts the value to decimal when it's an integer", () => {

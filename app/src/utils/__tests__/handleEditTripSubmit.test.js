@@ -4,8 +4,8 @@ import { FormSubmitType } from "../../constants/forms";
 describe("handleEditTripSubmit", () => {
   describe("SAVE", () => {
     it("saves values in datastore and navigates to summary trip", () => {
-      const datastore = { updateDocByPath: jest.fn() };
-      const navigate = jest.fn();
+      const datastore = { updateDocByPath: vi.fn() };
+      const navigate = vi.fn();
       const initialValues = { a: "2", b: "2" };
       const values = { a: "1", b: "2" };
 

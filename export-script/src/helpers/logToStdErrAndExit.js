@@ -3,4 +3,4 @@ const logToStdErrAndExit = (stringToLog) => {
   process.exit(1);
 };
 
-module.exports = logToStdErrAndExit;
+export default logToStdErrAndExit;

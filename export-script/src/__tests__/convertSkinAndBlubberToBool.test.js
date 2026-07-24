@@ -1,4 +1,4 @@
-const convertSkinToBool = require("../mappings/convertSkinAndBlubberToBool");
+import convertSkinToBool from "../mappings/convertSkinAndBlubberToBool.js";
 
 describe("convertSkinAndBlubberToBool", () => {
   it("converts 'Skin & blubber' to true", () => {

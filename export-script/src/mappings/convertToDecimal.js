@@ -5,4 +5,4 @@ const convertToDecimal = (value) => {
   return value;
 };
 
-module.exports = convertToDecimal;
+export default convertToDecimal;

@@ -1,8 +1,9 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Fragment, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
-import add from "date-fns/add";
+import { add } from "date-fns";
 import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
@@ -84,7 +85,9 @@ const EncounterForm = ({
   const [projectsList, setProjectsList] = useState();
 
   useEffect(() => {
-    getProjects(datastore).then((data) => setProjectsList(data));
+    getProjects(datastore)
+      .then((data) => setProjectsList(data))
+      .catch(() => {});
   }, [datastore]);
 
   return (
@@ -497,7 +500,7 @@ const EncounterForm = ({
                     associatedDate={values.endTimestamp}
                     notBefore={constructDateTime(
                       values.startTimestamp,
-                      values.startTime
+                      values.startTime,
                     )}
                     isDisabled={isViewOnly}
                     autofill={autofillEnd}
@@ -506,9 +509,9 @@ const EncounterForm = ({
                     notAfter={add(
                       constructDateTime(
                         values.startTimestamp,
-                        values.startTime
+                        values.startTime,
                       ),
-                      { hours: THREE_DAYS_IN_HOURS }
+                      { hours: THREE_DAYS_IN_HOURS },
                     )}
                   />
                 </FormSection>
@@ -557,7 +560,7 @@ const EncounterForm = ({
                         onClick={() => {
                           const modifiedFields = getModifiedProperties(
                             values,
-                            initValues
+                            initValues,
                           );
 
                           Object.keys(modifiedFields).length === 0

@@ -1,4 +1,9 @@
-import * as firebaseTesting from "@firebase/rules-unit-testing";
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { useEncountersByMonth } from "../useEncountersByMonth";
@@ -10,17 +15,15 @@ describe("useEncountersByMonth", () => {
   let firestoreEmulator;
   let datastore;
 
+  let originalDateNow;
   beforeAll(async () => {
-    global.Date.now = jest.fn(() =>
-      new Date("2000-01-15:23:00:00.000Z").getTime()
+    originalDateNow = Date.now;
+    global.Date.now = vi.fn(() =>
+      new Date("2000-01-15:23:00:00.000Z").getTime(),
     );
 
-    firestoreEmulator = firebaseTesting
-      .initializeTestApp({
-        projectId,
-        auth: { uid: "test-researcher" },
-      })
-      .firestore();
+    await initTestEnv(projectId);
+    firestoreEmulator = getEmulatedFirestore();
 
     datastore = new Datastore(firestoreEmulator);
 
@@ -31,14 +34,13 @@ describe("useEncountersByMonth", () => {
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
-    jest.resetAllMocks();
+    await cleanupTestEnv();
+    global.Date.now = originalDateNow;
   });
 
   it("reads data for this month in reverse chronological order", async () => {
     const { result, waitFor } = renderHook(() =>
-      useEncountersByMonth(datastore)
+      useEncountersByMonth(datastore),
     );
 
     await act(async () => {
@@ -50,10 +52,10 @@ describe("useEncountersByMonth", () => {
 
     const { todaysEncounters, previousEncounters } = result.current;
     const todaysEntriesSeqNos = todaysEncounters[0].entries.map(
-      (entry) => entry.data.sequenceNumber
+      (entry) => entry.data.sequenceNumber,
     );
     const previousEntriesSeqNos = previousEncounters[0].entries.map(
-      (entry) => entry.data.sequenceNumber
+      (entry) => entry.data.sequenceNumber,
     );
     expect(todaysEncounters[0].month).toEqual("January");
     expect(previousEncounters[0].month).toEqual("January");
@@ -65,7 +67,7 @@ describe("useEncountersByMonth", () => {
 
   it("returns a callback to read previous month's data", async () => {
     const { result, waitFor } = renderHook(() =>
-      useEncountersByMonth(datastore)
+      useEncountersByMonth(datastore),
     );
     await waitFor(() => {
       expect(result.current.todaysEncounters).not.toEqual([]);
@@ -81,10 +83,10 @@ describe("useEncountersByMonth", () => {
 
     const { previousEncounters } = result.current;
     const currentMonthSeqNos = previousEncounters[0].entries.map(
-      (entry) => entry.data.sequenceNumber
+      (entry) => entry.data.sequenceNumber,
     );
     const previousMonthSeqNos = previousEncounters[1].entries.map(
-      (entry) => entry.data.sequenceNumber
+      (entry) => entry.data.sequenceNumber,
     );
     expect(previousEncounters[0].month).toEqual("January");
     expect(previousEncounters[1].month).toEqual("December");
@@ -96,7 +98,7 @@ describe("useEncountersByMonth", () => {
 
   it("returns an isLoading flag while encounters are being loaded", async () => {
     const { result, waitFor } = renderHook(() =>
-      useEncountersByMonth(datastore)
+      useEncountersByMonth(datastore),
     );
     await waitFor(() => {
       expect(result.current.todaysEncounters).not.toEqual([]);
@@ -109,7 +111,7 @@ describe("useEncountersByMonth", () => {
       await waitFor(() => expect(result.current.isLoading).toEqual(true));
 
       await waitFor(() =>
-        expect(result.current.previousEncounters[1]).toBeDefined()
+        expect(result.current.previousEncounters[1]).toBeDefined(),
       );
     });
 
@@ -118,7 +120,7 @@ describe("useEncountersByMonth", () => {
 
   it("returns empty entries if there are no entries for a month", async () => {
     const { result, waitFor } = renderHook(() =>
-      useEncountersByMonth(datastore)
+      useEncountersByMonth(datastore),
     );
     await waitFor(() => {
       expect(result.current.todaysEncounters).not.toEqual([]);

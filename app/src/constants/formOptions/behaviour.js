@@ -1,4 +1,4 @@
-export default [
+const behaviour = [
   "Rest",
   "Feed",
   "Social",
@@ -14,3 +14,5 @@ export default [
   "Travel-moderate",
   "Travel-fast",
 ];
+
+export default behaviour;

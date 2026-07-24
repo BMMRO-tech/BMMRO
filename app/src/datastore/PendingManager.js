@@ -49,7 +49,7 @@ export class PendingManager {
       },
       (e) => {
         console.log(e);
-      }
+      },
     );
   }
 }

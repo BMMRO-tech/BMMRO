@@ -1,8 +1,9 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx, css } from "@emotion/react";
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
-import add from "date-fns/add";
+import { add } from "date-fns";
 
 import utilities from "../materials/utilities";
 import breakPoints from "../materials/breakPoints";
@@ -62,7 +63,7 @@ const OpenEncounter = ({ encounterId }) => {
     const endedEncounter = endEntry(encounter);
     const endDateTime = constructDateTime(
       endedEncounter.endTimestamp,
-      endedEncounter.endTime
+      endedEncounter.endTime,
     );
 
     const endDateLimit = add(new Date(endedEncounter.startTimestamp), {
@@ -88,7 +89,7 @@ const OpenEncounter = ({ encounterId }) => {
           datastore.readDocByPath(encounterPath),
           datastore.readDocsByParentPath(
             encounterPath,
-            CollectionNames.HABITAT_USE
+            CollectionNames.HABITAT_USE,
           ),
           datastore.readDocsByParentPath(encounterPath, CollectionNames.BIOPSY),
         ]);

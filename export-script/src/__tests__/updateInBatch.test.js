@@ -1,22 +1,23 @@
-const firebaseTesting = require("@firebase/rules-unit-testing");
-const updateInBatch = require("../updateInBatch");
-const collectionData = require("../__fixtures__/collectionData");
-const subcollectionData = require("../__fixtures__/subCollectionData");
-const getMessage = require("../constants/getMessage");
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
+import updateInBatch from "../updateInBatch.js";
+import collectionData from "../__fixtures__/collectionData.js";
+import subcollectionData from "../__fixtures__/subCollectionData.js";
+import getMessage from "../constants/getMessage.js";
 
 describe("updateInBatch", () => {
   const projectId = "project-id";
   const uid = "testId";
   const collectionName = "collection";
   const subcollectionName = "subcollection";
+  let testEnv;
   let firestoreEmulator;
 
-  beforeAll(() => {
-    const firebaseMock = firebaseTesting.initializeTestApp({
+  beforeAll(async () => {
+    testEnv = await initializeTestEnvironment({
       projectId,
-      auth: { uid },
+      firestore: { host: "127.0.0.1", port: 8080 },
     });
-    firestoreEmulator = firebaseMock.firestore();
+    firestoreEmulator = testEnv.authenticatedContext(uid).firestore();
   });
 
   beforeEach(async () => {
@@ -34,12 +35,10 @@ describe("updateInBatch", () => {
       .set(subdoc.data);
   });
 
-  afterEach(
-    async () => await firebaseTesting.clearFirestoreData({ projectId })
-  );
+  afterEach(async () => await testEnv.clearFirestore());
 
   afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await testEnv.cleanup();
   });
 
   it("updates doc only for the passed doc refs", async () => {

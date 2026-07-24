@@ -1,4 +1,4 @@
-const convertEmptyToNotNoted = require("../mappings/convertEmptyToNotNoted");
+import convertEmptyToNotNoted from "../mappings/convertEmptyToNotNoted.js";
 
 describe("convertEmptyToNotNoted", () => {
   it("converts the option to 'Not Noted' when it's not empty", () => {

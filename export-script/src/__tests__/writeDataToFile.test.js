@@ -1,14 +1,15 @@
-jest.mock("fs");
-jest.mock("../helpers/logAndExit");
-jest.mock("../helpers/logToStdErrAndExit");
-const fs = require("fs");
-const writeDataToFile = require("../writeDataToFile");
-const logAndExit = require("../helpers/logAndExit");
-const logToStdErrAndExit = require("../helpers/logToStdErrAndExit");
+import fs from "fs";
+import writeDataToFile from "../writeDataToFile.js";
+import logAndExit from "../helpers/logAndExit.js";
+import logToStdErrAndExit from "../helpers/logToStdErrAndExit.js";
+
+vi.mock("fs");
+vi.mock("../helpers/logAndExit.js");
+vi.mock("../helpers/logToStdErrAndExit.js");
 
 describe("writeDataToFile", () => {
   beforeAll(() => {
-    fs.existsSync = jest.fn(() => true);
+    fs.existsSync = vi.fn(() => true);
   });
 
   it("writes data to file", () => {
@@ -18,7 +19,7 @@ describe("writeDataToFile", () => {
   });
 
   it("exits the script if writing to file fails", () => {
-    fs.writeFileSync = jest.fn(() => {
+    fs.writeFileSync = vi.fn(() => {
       throw new Error("🤬");
     });
     writeDataToFile("dummyDir", "dummyFile", "test");

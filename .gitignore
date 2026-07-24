@@ -118,6 +118,7 @@ firebase-debug.log*
 .DS_Store
 .vscode
 .idea
+.claude
 upload-script/auth/
 
 # Scripts

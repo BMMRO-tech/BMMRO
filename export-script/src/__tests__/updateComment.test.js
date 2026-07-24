@@ -1,4 +1,4 @@
-const updateComment = require("../updateComment");
+import updateComment from "../updateComment.js";
 
 describe("updateComment", () => {
   it("prepends GPS mark", () => {

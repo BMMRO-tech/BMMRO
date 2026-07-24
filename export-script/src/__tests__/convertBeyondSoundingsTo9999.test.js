@@ -1,4 +1,4 @@
-const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
+import convertBeyondSoundingsTo9999 from "../mappings/convertBeyondSoundingsTo9999.js";
 
 describe("convertBeyondSoundingsTo9999", () => {
   it("converts the option to '9999' when waterDepthBeyondSoundings is true", () => {

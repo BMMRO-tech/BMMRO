@@ -1,8 +1,8 @@
-const firebaseTesting = require("@firebase/rules-unit-testing");
-const queryCollectionByConditions = require("../queryCollectionByConditions");
-const { parse } = require("date-fns");
-const collectionData = require("../__fixtures__/collectionData");
-const collectionDataWithMixedExportStatus = require("../__fixtures__/collectionDataWithMixedExportStatus");
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
+import queryCollectionByConditions from "../queryCollectionByConditions.js";
+import { parse } from "date-fns";
+import collectionData from "../__fixtures__/collectionData.js";
+import collectionDataWithMixedExportStatus from "../__fixtures__/collectionDataWithMixedExportStatus.js";
 
 describe("queryCollectionByConditions", () => {
   const projectId = "project-id";
@@ -11,6 +11,7 @@ describe("queryCollectionByConditions", () => {
   const TIMESTAMP_FIELD_NAME = "date";
   const collectionName = "collection";
   const exportedFieldName = "exported";
+  let testEnv;
   let firestoreEmulator;
 
   const addToDb = async (data) => {
@@ -23,19 +24,19 @@ describe("queryCollectionByConditions", () => {
   };
 
   beforeAll(async () => {
-    const firebaseMock = firebaseTesting.initializeTestApp({
+    testEnv = await initializeTestEnvironment({
       projectId,
-      auth: { uid },
+      firestore: { host: "127.0.0.1", port: 8080 },
     });
-    firestoreEmulator = firebaseMock.firestore();
+    firestoreEmulator = testEnv.authenticatedContext(uid).firestore();
   });
 
   afterEach(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
+    await testEnv.clearFirestore();
   });
 
   afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await testEnv.cleanup();
   });
 
   it("adds a correct path to the querying result", async () => {
@@ -47,9 +48,9 @@ describe("queryCollectionByConditions", () => {
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -65,9 +66,9 @@ describe("queryCollectionByConditions", () => {
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -80,16 +81,16 @@ describe("queryCollectionByConditions", () => {
 
   it("includes entries on start date and excludes entries on end date", async () => {
     await addToDb(collectionData);
-    startDate = parse("23/05/2020", DATE_FORMAT, new Date());
-    endDate = parse("23/06/2020", DATE_FORMAT, new Date());
+    const startDate = parse("23/05/2020", DATE_FORMAT, new Date());
+    const endDate = parse("23/06/2020", DATE_FORMAT, new Date());
 
     const collectionEntries = await queryCollectionByConditions(
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -101,16 +102,16 @@ describe("queryCollectionByConditions", () => {
 
   it("returns an empty array when no entries fall within time range", async () => {
     await addToDb(collectionData);
-    startDate = parse("10/02/2009", DATE_FORMAT, new Date());
-    endDate = parse("28/02/2009", DATE_FORMAT, new Date());
+    const startDate = parse("10/02/2009", DATE_FORMAT, new Date());
+    const endDate = parse("28/02/2009", DATE_FORMAT, new Date());
 
     const collectionEntries = await queryCollectionByConditions(
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value:startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value:endDate, operator:"<"},
-        {key:exportedFieldName,value: [true, false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [true, false], operator: "in" },
       ],
     );
 
@@ -126,9 +127,9 @@ describe("queryCollectionByConditions", () => {
       firestoreEmulator,
       collectionName,
       [
-        {key:TIMESTAMP_FIELD_NAME,value: startDate, operator:">="},
-        {key:TIMESTAMP_FIELD_NAME,value: endDate, operator:"<"},
-        {key:exportedFieldName,value: [false], operator:"in"},
+        { key: TIMESTAMP_FIELD_NAME, value: startDate, operator: ">=" },
+        { key: TIMESTAMP_FIELD_NAME, value: endDate, operator: "<" },
+        { key: exportedFieldName, value: [false], operator: "in" },
       ],
     );
 

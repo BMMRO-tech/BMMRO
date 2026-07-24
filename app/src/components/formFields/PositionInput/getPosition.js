@@ -4,13 +4,13 @@ import { appendZeros, roundNumber } from "../../../utils/math";
 const formatCoordinate = (value) => {
   return appendZeros(
     roundNumber(value, POSITION_DECIMAL_PRECISION),
-    POSITION_DECIMAL_PRECISION
+    POSITION_DECIMAL_PRECISION,
   );
 };
 
 function currentPosition(options) {
   return new Promise((resolve, reject) =>
-    navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    navigator.geolocation.getCurrentPosition(resolve, reject, options),
   );
 }
 

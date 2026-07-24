@@ -1,8 +1,9 @@
 import * as webdriver from "selenium-webdriver";
+import { Options as ChromeOptions } from "selenium-webdriver/chrome.js";
 import "dotenv/config";
-import {initializeApp} from "firebase/app";
-import {deleteDoc, doc, getDoc, getFirestore} from "firebase/firestore/lite";
-import {getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { deleteDoc, doc, getDoc, getFirestore } from "firebase/firestore/lite";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 let wd = webdriver.default;
 
@@ -17,7 +18,23 @@ const db = getFirestore(app);
 const auth = getAuth();
 
 async function startDriver() {
-  let driver = await new wd.Builder().forBrowser("safari").build();
+  console.log("process.env.DRIVER: ", process.env.DRIVER);
+  const options = new ChromeOptions();
+  // Prevent password leak detection from producing a popup
+  options.setUserPreferences({
+    "profile.password_manager_leak_detection": false,
+  });
+  let driver;
+  if (process.env.DRIVER === "chrome") {
+    driver = await new wd.Builder()
+      .forBrowser("chrome")
+      .setChromeOptions(options)
+      .build();
+  } else if (process.env.DRIVER === "safari") {
+    driver = await new wd.Builder().forBrowser("safari").build();
+  } else {
+    throw new Error("process.env.DRIVER must be one of 'chrome' or 'safari'.");
+  }
   return driver;
 }
 
@@ -70,7 +87,7 @@ describe("create a new encounter user journey", () => {
 
       expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -84,7 +101,7 @@ describe("create a new encounter user journey", () => {
 
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/new`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -96,11 +113,13 @@ describe("create a new encounter user journey", () => {
       //area
       await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
       //vessel
-      await driver.findElement(wd.By.css('select>option[value="Chimo"]')).click();
+      await driver
+        .findElement(wd.By.css('select>option[value="Chimo"]'))
+        .click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#newLogBook")),
-        pageTimeout
+        pageTimeout,
       );
 
       await driver.findElement(wd.By.css("#newLogBook")).click();
@@ -111,7 +130,7 @@ describe("create a new encounter user journey", () => {
 
       expect(newTripUrl).toContain(`/logbook-entry/new`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -121,7 +140,7 @@ describe("create a new encounter user journey", () => {
 
       tripId = newTripUrl.split("/")[4];
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -129,7 +148,7 @@ describe("create a new encounter user journey", () => {
     async () => {
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveLogBook")),
-        pageTimeout
+        pageTimeout,
       );
 
       await driver.findElement(wd.By.css("#saveLogBook")).click();
@@ -137,45 +156,42 @@ describe("create a new encounter user journey", () => {
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       let newTripUrl = await driver.getCurrentUrl();
-      expect(newTripUrl).toBe(
-            `${process.env.ENDPOINT}/trips/${tripId}/view`)
+      expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
 
       const logbook = await driver.findElement(wd.By.id("logbook")).getText();
 
       let expectedText = "Logbook entry 1";
-      expect(logbook).toContain(expectedText);;
+      expect(logbook).toContain(expectedText);
     },
 
-    testTimeout
+    testTimeout,
   );
-    it(
-        "user ends a trip",
-        async () => {
-            await driver.wait(
-                wd.until.elementLocated(wd.By.css("#saveEndTrip")),
-                pageTimeout
-            );
+  it(
+    "user ends a trip",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+        pageTimeout,
+      );
 
-            await driver.findElement(wd.By.css("#saveEndTrip")).click();
+      await driver.findElement(wd.By.css("#saveEndTrip")).click();
 
-            await driver.manage().setTimeouts({ implicit: pageTimeout });
-            await driver.wait(
-                wd.until.elementLocated(wd.By.css("#confirmEndButton")),
-                pageTimeout
-            );
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#confirmEndButton")),
+        pageTimeout,
+      );
 
-            await driver.findElement(wd.By.css("#confirmEndButton")).click();
+      await driver.findElement(wd.By.css("#confirmEndButton")).click();
 
-            await driver.manage().setTimeouts({ implicit: pageTimeout });
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
 
-            let newTripUrl = await driver.getCurrentUrl();
-            expect(newTripUrl).toBe(
-                `${process.env.ENDPOINT}/trips/${tripId}/view`)
+      let newTripUrl = await driver.getCurrentUrl();
+      expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+    },
 
-        },
-
-        testTimeout
-    );
+    testTimeout,
+  );
 
   it(
     "user navigate to edits trip",
@@ -188,7 +204,7 @@ describe("create a new encounter user journey", () => {
 
       expect(editTripUrl).toContain("/edit");
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -205,7 +221,7 @@ describe("create a new encounter user journey", () => {
 
       expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -219,16 +235,22 @@ describe("create a new encounter user journey", () => {
 
       logbookId = editLogbookUrl.split("/")[6];
 
-      expect(editLogbookUrl).toContain(`/trips/${tripId}/logbook-entry/${logbookId}`);
+      expect(editLogbookUrl).toContain(
+        `/trips/${tripId}/logbook-entry/${logbookId}`,
+      );
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
     "user ends editing logbook",
     async () => {
-      let HydrophoneComment = await driver.findElement(wd.By.name("hydrophoneComments"));
-      let logbookComment = await driver.findElement(wd.By.name("logbookComments"));
+      let HydrophoneComment = await driver.findElement(
+        wd.By.name("hydrophoneComments"),
+      );
+      let logbookComment = await driver.findElement(
+        wd.By.name("logbookComments"),
+      );
 
       await HydrophoneComment.sendKeys("e2e: hydrophone comment");
       await logbookComment.sendKeys("e2e: logbook comment");
@@ -239,11 +261,9 @@ describe("create a new encounter user journey", () => {
 
       let url = await driver.getCurrentUrl();
 
-      expect(url).toBe(
-        `${process.env.ENDPOINT}/trips/${tripId}/view`
-      );    
+      expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -254,7 +274,7 @@ describe("create a new encounter user journey", () => {
 
       expect(newUrl).toBe(`${process.env.ENDPOINT}/encounters`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -268,7 +288,7 @@ describe("create a new encounter user journey", () => {
 
       expect(newEncounterUrl).toBe(`${process.env.ENDPOINT}/encounters/new`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -280,7 +300,7 @@ describe("create a new encounter user journey", () => {
       await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#newHabitat")),
-        pageTimeout
+        pageTimeout,
       );
       await driver.findElement(wd.By.css("#newHabitat")).click();
 
@@ -290,7 +310,7 @@ describe("create a new encounter user journey", () => {
 
       expect(newEncounterUrl).toContain(`/habitat-uses/new`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -300,17 +320,26 @@ describe("create a new encounter user journey", () => {
 
       encounterId = newEncounterUrl.split("/")[4];
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
     "user fills out and end habitat",
     async () => {
+      // Clear latitude and longitude in case it is autofilled by browser
+      const longitude = await driver.findElement(wd.By.name("longitude"));
+      await driver.executeScript("arguments[0].select()", longitude);
+      await longitude.sendKeys(wd.Key.DELETE);
+
+      const latitude = await driver.findElement(wd.By.name("latitude"));
+      await driver.executeScript("arguments[0].select()", latitude);
+      await latitude.sendKeys(wd.Key.DELETE);
+
       await driver.findElement(wd.By.css("#saveHabitat")).click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveAnyway")),
-        pageTimeout
+        pageTimeout,
       );
 
       await driver.findElement(wd.By.css("#saveAnyway")).click();
@@ -320,10 +349,10 @@ describe("create a new encounter user journey", () => {
       let newHabitatUrl = await driver.getCurrentUrl();
 
       expect(newHabitatUrl).toBe(
-        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`
+        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`,
       );
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -335,7 +364,7 @@ describe("create a new encounter user journey", () => {
 
       habitatId = newHabitatUrl.split("/")[6];
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -347,22 +376,31 @@ describe("create a new encounter user journey", () => {
 
       expect(newBiopsyUrl).toContain(`/biopsies/new`);
 
+      // Clear latitude and longitude in case it is autofilled by browser
+      const longitude = await driver.findElement(wd.By.name("longitude"));
+      await driver.executeScript("arguments[0].select()", longitude);
+      await longitude.sendKeys(wd.Key.DELETE);
+
+      const latitude = await driver.findElement(wd.By.name("latitude"));
+      await driver.executeScript("arguments[0].select()", latitude);
+      await latitude.sendKeys(wd.Key.DELETE);
+
       await driver
         .findElement(
-          wd.By.css('select>option[value="Atlantic spotted dolphin"]')
+          wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
         )
         .click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveBiopsy")),
-        pageTimeout
+        pageTimeout,
       );
 
       await driver.findElement(wd.By.css("#saveBiopsy")).click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveAnyway")),
-        pageTimeout
+        pageTimeout,
       );
 
       await driver.findElement(wd.By.css("#saveAnyway")).click();
@@ -372,10 +410,10 @@ describe("create a new encounter user journey", () => {
       let currentUrl = await driver.getCurrentUrl();
 
       expect(currentUrl).toBe(
-        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`
+        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`,
       );
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -387,7 +425,7 @@ describe("create a new encounter user journey", () => {
 
       biopsyId = newBiopsyUrl.split("/")[6];
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -401,7 +439,7 @@ describe("create a new encounter user journey", () => {
 
       expect(editEncouterUrl).toContain("/edit");
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -409,7 +447,7 @@ describe("create a new encounter user journey", () => {
     async () => {
       await driver
         .findElement(
-          wd.By.css('#species>option[value="Atlantic spotted dolphin"]')
+          wd.By.css('#species>option[value="Atlantic spotted dolphin"]'),
         )
         .click();
 
@@ -421,7 +459,7 @@ describe("create a new encounter user journey", () => {
 
       expect(homeUrl).toBe(`${process.env.ENDPOINT}/encounters`);
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -432,7 +470,7 @@ describe("create a new encounter user journey", () => {
 
       expect(docSnapEncounter.exists()).toBeTruthy();
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -443,24 +481,18 @@ describe("create a new encounter user journey", () => {
 
       expect(docSnapTrip.exists()).toBeTruthy();
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
     "checks database for new logbook entry",
     async () => {
-      const docRefLogbook = doc(
-        db,
-        "trip",
-        tripId,
-        "logbookEntry",
-        logbookId
-      );
+      const docRefLogbook = doc(db, "trip", tripId, "logbookEntry", logbookId);
       const docSnapLogbook = await getDoc(docRefLogbook);
 
       expect(docSnapLogbook.exists()).toBeTruthy();
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -471,13 +503,13 @@ describe("create a new encounter user journey", () => {
         "encounter",
         encounterId,
         "habitatUse",
-        habitatId
+        habitatId,
       );
       const docSnapHabitat = await getDoc(docRefHabitat);
 
       expect(docSnapHabitat.exists()).toBeTruthy();
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -488,13 +520,13 @@ describe("create a new encounter user journey", () => {
         "encounter",
         encounterId,
         "biopsy",
-        biopsyId
+        biopsyId,
       );
       const docSnapHabitat = await getDoc(docRefHabitat);
 
       expect(docSnapHabitat.exists()).toBeTruthy();
     },
-    testTimeout
+    testTimeout,
   );
 
   it(
@@ -506,7 +538,7 @@ describe("create a new encounter user journey", () => {
 
       if (habitatId) {
         await deleteDoc(
-          doc(db, "encounter", encounterId, "habitatUse", habitatId)
+          doc(db, "encounter", encounterId, "habitatUse", habitatId),
         );
       }
 
@@ -520,7 +552,7 @@ describe("create a new encounter user journey", () => {
 
       expect(deletedEncounter.exists()).toBeFalsy();
     },
-    testTimeout
+    testTimeout,
   );
 
   afterAll(async () => {

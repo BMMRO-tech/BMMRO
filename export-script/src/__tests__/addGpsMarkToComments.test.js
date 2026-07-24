@@ -1,4 +1,4 @@
-const addGpsMark = require("../addGpsMarkToComments");
+import addGpsMark from "../addGpsMarkToComments.js";
 
 describe("addGpsMarkToComments", () => {
   it("prepends GPS mark to comment section", () => {

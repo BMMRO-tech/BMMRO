@@ -1,4 +1,4 @@
-export default [
+const area = [
   "SA",
   "EA",
   "Central Andros",
@@ -37,3 +37,5 @@ export default [
   "West Andros",
   "West Grand Bahama",
 ];
+
+export default area;

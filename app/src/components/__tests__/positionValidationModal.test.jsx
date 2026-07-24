@@ -6,39 +6,39 @@ import PositionalValidationModal from "../PositionalValidationModal";
 
 describe("Positional Validation Modal", () => {
   it("navigates to '/encounters' when user selects end", async () => {
-    const mockCloseModal = jest.fn();
-    const mockHandleLeavePage = jest.fn();
+    const mockCloseModal = vi.fn();
+    const mockHandleLeavePage = vi.fn();
 
     const { getByRole } = renderWithMockContexts(
       <PositionalValidationModal
         handleLeavePage={mockHandleLeavePage}
         closeModal={mockCloseModal}
         pageName="habitat"
-      />
+      />,
     );
 
     const closeButton = getByRole("button", { name: "End habitat" });
 
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(mockHandleLeavePage).toHaveBeenCalledTimes(1);
   });
 
   it("stays on the page", async () => {
-    const mockCloseModal = jest.fn();
-    const mockHandleLeavePage = jest.fn();
+    const mockCloseModal = vi.fn();
+    const mockHandleLeavePage = vi.fn();
 
     const { getByRole } = renderWithMockContexts(
       <PositionalValidationModal
         handleLeavePage={mockHandleLeavePage}
         closeModal={mockCloseModal}
         pageName="habitat"
-      />
+      />,
     );
 
     const closeButton = getByRole("button", { name: "Stay on this page" });
 
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
 
     expect(mockCloseModal).toHaveBeenCalledTimes(1);
   });

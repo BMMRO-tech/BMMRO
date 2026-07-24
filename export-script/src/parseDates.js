@@ -1,6 +1,6 @@
-const { parse, isValid } = require("date-fns");
-const getMessage = require("./constants/getMessage");
-const Status = require("./helpers/Status");
+import { parse, isValid } from "date-fns";
+import getMessage from "./constants/getMessage.js";
+import Status from "./helpers/Status.js";
 const DATE_FORMAT = "dd/MM/yyyy";
 
 const parseArgs = (startDateArg, endDateArg) => {
@@ -25,4 +25,4 @@ const parseArgs = (startDateArg, endDateArg) => {
   return new Status("SUCCESS", { startDate, endDate });
 };
 
-module.exports = parseArgs;
+export default parseArgs;

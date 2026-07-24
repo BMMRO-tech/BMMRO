@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Form, Formik } from "formik";
 import { useState, Fragment } from "react";
 import { navigate } from "@reach/router";
@@ -108,7 +109,7 @@ const NewEncounterForm = ({ handleSubmit }) => {
                     onClick={() => {
                       const modifiedFields = getModifiedProperties(
                         values,
-                        encounterDefaults
+                        encounterDefaults,
                       );
 
                       Object.keys(modifiedFields).length === 0

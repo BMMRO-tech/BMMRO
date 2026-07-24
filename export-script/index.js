@@ -1,5 +1,5 @@
-require("dotenv").config();
-const exportData = require("./exportData");
-const run = require("./cli");
+import "dotenv/config";
+import exportData from "./exportData.js";
+import run from "./cli.js";
 
 run(exportData);

@@ -1,0 +1,93 @@
+import React from "react";
+import userEvent from "@testing-library/user-event";
+import { waitFor } from "@testing-library/react";
+import { configure } from "@testing-library/dom";
+import GpsFormSection from "../GpsFormSection.jsx";
+import renderWithinFormik from "../../utils/test/renderWithinFormik.jsx";
+import { getPosition } from "../formFields/PositionInput/getPosition.js";
+
+configure({ asyncUtilTimeout: 18000 });
+vi.mock("../formFields/PositionInput/getPosition.js");
+
+describe("GpsFormSection", () => {
+  afterEach(() => vi.resetAllMocks());
+
+  it("refresh long & lat on click of the refresh button and disables button", async () => {
+    const expectedCoordsOnLoad = {
+      latitude: "1.123456",
+      longitude: "-2.234567",
+    };
+    const expectedCoordsOnRefresh = {
+      latitude: "9.123456",
+      longitude: "-8.234567",
+    };
+
+    getPosition
+      .mockReturnValueOnce({ position: expectedCoordsOnLoad, error: null })
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) =>
+            setTimeout(
+              () => resolve({ position: expectedCoordsOnRefresh, error: null }),
+              50,
+            ),
+          ),
+      );
+
+    const { getByRole, getByTestId } = renderWithinFormik(
+      <GpsFormSection isViewOnly={false} />,
+      { latitude: "", longitude: "" },
+    );
+
+    await waitFor(() => {
+      expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
+        expectedCoordsOnLoad.latitude,
+      );
+      expect(getByRole("spinbutton", { name: "Long" }).value).toEqual(
+        expectedCoordsOnLoad.longitude,
+      );
+    });
+    await userEvent.click(getByTestId("Refresh"));
+    expect(getByTestId("Refresh")).toHaveAttribute("disabled");
+    expect(getPosition).toHaveBeenCalledTimes(2);
+    await waitFor(async () => {
+      expect(getByRole("spinbutton", { name: "Lat" }).value).toEqual(
+        expectedCoordsOnRefresh.latitude,
+      );
+      expect(getByRole("spinbutton", { name: "Long" }).value).toEqual(
+        expectedCoordsOnRefresh.longitude,
+      );
+      expect(getByTestId("Refresh")).not.toHaveAttribute("disabled");
+    });
+  });
+
+  it("Shows error message when the refresh button cannot obtain positional data", async () => {
+    getPosition.mockReturnValue({ position: null, error: true });
+
+    const { getByText } = renderWithinFormik(<GpsFormSection />);
+
+    await waitFor(async () => {
+      expect(getPosition).toHaveBeenCalled();
+    });
+
+    await waitFor(async () => {
+      expect(
+        getByText("Geolocation could not be retrieved."),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("shows info label if isRenderInfoLabel is true", async () => {
+    getPosition.mockReturnValue({ position: null, error: true });
+
+    const { getByText } = renderWithinFormik(
+      <GpsFormSection isRenderInfoLabel={true} />,
+    );
+
+    await waitFor(async () => {
+      expect(
+        getByText("Please add either latitude and longitude, or a GPS mark."),
+      ).toBeInTheDocument();
+    });
+  });
+});

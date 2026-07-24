@@ -1,5 +1,5 @@
-const getMessage = require("./constants/getMessage");
-const Status = require("./helpers/Status");
+import getMessage from "./constants/getMessage.js";
+import Status from "./helpers/Status.js";
 
 const updateInBatch = async (firestoreInstance, entries, update) => {
   const batch = firestoreInstance.batch();
@@ -17,4 +17,4 @@ const updateInBatch = async (firestoreInstance, entries, update) => {
   }
 };
 
-module.exports = updateInBatch;
+export default updateInBatch;

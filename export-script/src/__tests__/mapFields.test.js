@@ -1,4 +1,4 @@
-const mapFields = require("../mapFields");
+import mapFields from "../mapFields.js";
 
 describe("mapFields", () => {
   it("maps fields according to passed config", () => {

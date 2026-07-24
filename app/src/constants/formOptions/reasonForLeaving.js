@@ -1,4 +1,4 @@
-export default [
+const reasonForLeaving = [
   "Continuing search - all animals ID'd",
   "Continuing search - higher priority species seen",
   "Continuing search - some samples, some ID'd",
@@ -9,3 +9,5 @@ export default [
   "Other",
   "Weather",
 ];
+
+export default reasonForLeaving;

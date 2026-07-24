@@ -1,4 +1,4 @@
-const addGpsMarkToComments = require("./addGpsMarkToComments");
+import addGpsMarkToComments from "./addGpsMarkToComments.js";
 
 const updateComment = (gpsMark = "", comment = "") => {
   if (!comment.latitude || !comment.longitude) {
@@ -10,4 +10,4 @@ const updateComment = (gpsMark = "", comment = "") => {
   }
 };
 
-module.exports = updateComment;
+export default updateComment;

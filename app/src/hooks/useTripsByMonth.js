@@ -7,7 +7,7 @@ import {
   getYear,
   subMonths,
 } from "date-fns";
-import usLocale from "date-fns/locale/en-US";
+import { enUS as usLocale } from "date-fns/locale";
 
 import { CollectionNames } from "../constants/datastore";
 import { getCurrentDate, constructDateTime } from "../utils/time";
@@ -32,7 +32,7 @@ const getTripsByTimeRange = async (datastore, startDate, endDate) => {
     CollectionNames.TRIP,
     "date",
     startDate,
-    endDate
+    endDate,
   );
 
   const month = format(startDate, "MMMM", { locale: usLocale });
@@ -53,11 +53,11 @@ const orderTripsByTimestamp = (trips) => {
   const sortedTrips = trips.sort((tripA, tripB) => {
     const tripAStartDateTime = constructDateTime(
       tripA.data.date,
-      tripA.data.time
+      tripA.data.time,
     );
     const tripBStartDateTime = constructDateTime(
       tripB.data.date,
-      tripB.data.time
+      tripB.data.time,
     );
 
     return tripAStartDateTime > tripBStartDateTime ? -1 : 1;
@@ -79,12 +79,15 @@ const useTripsByMonth = (datastore) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getInitialTrips = async (today, tomorrow) => {
-    await getTripsByTimeRange(datastore, today, tomorrow).then(setTodaysTrips);
-    await getTripsByTimeRange(datastore, startOfMonth(today), today).then(
-      setPreviousTrips
-    );
-
-    setIsLoading(false);
+    try {
+      await getTripsByTimeRange(datastore, today, tomorrow).then(setTodaysTrips);
+      await getTripsByTimeRange(datastore, startOfMonth(today), today).then(
+        setPreviousTrips,
+      );
+    } catch (_) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -104,14 +107,17 @@ const useTripsByMonth = (datastore) => {
   const loadPreviousMonth = async () => {
     if (!timeRange) return;
     setIsLoading(true);
-    await getTripsByTimeRange(datastore, ...timeRange).then((data) =>
-      setPreviousTrips([...previousTrips, ...data])
-    );
-    setIsLoading(false);
-
-    const [currentStartOfMonth] = timeRange;
-    setTimeRange(calculatePreviousMonthTimeRange(currentStartOfMonth));
-    setCounter(counter + 1);
+    try {
+      await getTripsByTimeRange(datastore, ...timeRange).then((data) =>
+        setPreviousTrips([...previousTrips, ...data]),
+      );
+      const [currentStartOfMonth] = timeRange;
+      setTimeRange(calculatePreviousMonthTimeRange(currentStartOfMonth));
+      setCounter(counter + 1);
+    } catch (_) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return { todaysTrips, previousTrips, loadPreviousMonth, isLoading };

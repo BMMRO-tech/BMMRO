@@ -19,4 +19,4 @@ const querySubcollectionByDocPath = async (
   return results;
 };
 
-module.exports = querySubcollectionByDocPath;
+export default querySubcollectionByDocPath;

@@ -5,4 +5,4 @@ const convertEmptyToNotNoted = (option) => {
   return option;
 };
 
-module.exports = convertEmptyToNotNoted;
+export default convertEmptyToNotNoted;

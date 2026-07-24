@@ -5,19 +5,16 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "vitest run"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/preset-env": "^7.16.11",
-    "babel-jest": "^27.5.1",
     "dotenv": "^16.0.0",
-    "firebase": "^9.6.8",
-    "selenium-webdriver": "^4.1.1"
+    "firebase": "^12.14.0",
+    "selenium-webdriver": "^4.45.0"
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "vitest": "^3.2.7"
   }
 }

@@ -1,6 +1,7 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { Fragment, useContext, useEffect, useState } from "react";
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
 import LogbookForm from "../components/LogbookForm";

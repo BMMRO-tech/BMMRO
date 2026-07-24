@@ -7,11 +7,11 @@ const getProjects = async (datastore) => {
   };
 
   const projects = await datastore.readDocsFromCollection(
-    CollectionNames.PROJECT
+    CollectionNames.PROJECT,
   );
 
   if (!projects.length) {
-    return [{ entries: [] }];
+    return [];
   }
 
   return projects.map((project) => extractProjectProperties(project)).sort();

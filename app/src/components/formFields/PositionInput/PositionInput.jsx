@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useField } from "formik";
 import { useEffect } from "react";
 import getErrorMessage from "../../../utils/getErrorMessage";
@@ -96,7 +97,7 @@ const PositionInput = ({
             data-testid={`field-${name}`}
             onChange={(e) =>
               helpers.setValue(
-                defaultToNegativeValue(e.target.value.toString())
+                defaultToNegativeValue(e.target.value.toString()),
               )
             }
           />

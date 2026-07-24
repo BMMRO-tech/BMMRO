@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "@testing-library/react";
 
@@ -18,7 +19,7 @@ describe("RadioGroup", () => {
           { label: "Earth", value: "earth" },
         ]}
       />,
-      { favoritePlanet: "" }
+      { favoritePlanet: "" },
     );
 
     const radioOption = getByRole("radio", { name: "Moon" });
@@ -42,7 +43,7 @@ describe("RadioGroup", () => {
         ]}
         isDisabled
       />,
-      { favoritePlanet: "" }
+      { favoritePlanet: "" },
     );
 
     const radioOption = getByRole("radio", { name: "Moon" });

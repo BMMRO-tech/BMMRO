@@ -1,36 +1,30 @@
 import { waitFor } from "@testing-library/react";
-import * as firebaseTesting from "@firebase/rules-unit-testing";
 import fs from "fs";
 import path from "path";
 
+import {
+  initTestEnv,
+  getEmulatedFirestore,
+  clearEmulatedData,
+  cleanupTestEnv,
+} from "../../utils/test/firestoreEmulator";
 import { Datastore } from "../datastore";
 import { DatastoreErrorType } from "../../constants/datastore";
 
 const projectId = "datastore-emulated";
 
-const getFirestore = () => {
-  return firebaseTesting
-    .initializeTestApp({
-      projectId,
-      auth: { uid: "test-researcher" },
-    })
-    .firestore();
-};
+const getFirestore = () => getEmulatedFirestore();
 
 describe("datastore", () => {
   beforeAll(async () => {
-    await firebaseTesting.loadFirestoreRules({
+    await initTestEnv(
       projectId,
-      rules: fs.readFileSync(
-        path.resolve(__dirname, "test-emulator.rules"),
-        "utf-8"
-      ),
-    });
+      fs.readFileSync(path.resolve(__dirname, "test-emulator.rules"), "utf-8"),
+    );
   });
 
   afterAll(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await cleanupTestEnv();
   });
 
   describe("#readDocByPath", () => {
@@ -43,7 +37,7 @@ describe("datastore", () => {
 
       const datastore = new Datastore(firestoreEmulator);
       const { data: animal, path } = await datastore.readDocByPath(
-        `dolphin/${id}`
+        `dolphin/${id}`,
       );
 
       expect(path).toEqual(`dolphin/${id}`);
@@ -100,7 +94,7 @@ describe("datastore", () => {
         "dolphin",
         "timestamp",
         new Date("2020-01-03:01:00:00.000Z"),
-        new Date("2020-12-11:23:00:00.000Z")
+        new Date("2020-12-11:23:00:00.000Z"),
       );
 
       expect(results).toHaveLength(2);
@@ -126,11 +120,11 @@ describe("datastore", () => {
         "dolphin",
         "date",
         new Date("2000-01-10:01:00:00.000Z"),
-        new Date("2000-12-11:23:00:00.000Z")
+        new Date("2000-12-11:23:00:00.000Z"),
       );
 
       expect(results[0].data.date).toEqual(
-        new Date("2000-01-15:00:00:00.000Z")
+        new Date("2000-01-15:00:00:00.000Z"),
       );
     });
   });
@@ -188,7 +182,7 @@ describe("datastore", () => {
       const datastore = new Datastore(firestoreEmulator, null, false);
       const animals = await datastore.readDocsByParentPath(
         "animal/invalid-id",
-        "whale"
+        "whale",
       );
 
       expect(animals).toEqual([]);
@@ -213,7 +207,7 @@ describe("datastore", () => {
       const animals = await datastore.readDocsByParentPath(parentPath, "whale");
 
       expect(animals[0].data.date).toEqual(
-        new Date("2000-01-10:01:00:00.000Z")
+        new Date("2000-01-10:01:00:00.000Z"),
       );
     });
   });
@@ -240,12 +234,12 @@ describe("datastore", () => {
     it("triggers delayed error callback when creating document fails", async () => {
       const firestoreEmulator = getFirestore();
 
-      const handleDelayedError = jest.fn();
+      const handleDelayedError = vi.fn();
       const datastore = new Datastore(
         firestoreEmulator,
         null,
         false,
-        handleDelayedError
+        handleDelayedError,
       );
 
       datastore.createDoc("fake-name", {
@@ -288,12 +282,12 @@ describe("datastore", () => {
     it("triggers delayed error callback when creating subdocument fails", async () => {
       const firestoreEmulator = getFirestore();
 
-      const handleDelayedError = jest.fn();
+      const handleDelayedError = vi.fn();
       const datastore = new Datastore(
         firestoreEmulator,
         null,
         false,
-        handleDelayedError
+        handleDelayedError,
       );
 
       const { id: parentId } = await firestoreEmulator
@@ -334,12 +328,12 @@ describe("datastore", () => {
 
     it("triggers delayed error callback when updating document fails", async () => {
       const firestoreEmulator = getFirestore();
-      const handleDelayedError = jest.fn();
+      const handleDelayedError = vi.fn();
       const datastore = new Datastore(
         firestoreEmulator,
         null,
         false,
-        handleDelayedError
+        handleDelayedError,
       );
 
       datastore.updateDocByPath(`invalid-collection/123`, { location: "UK" });
@@ -352,10 +346,11 @@ describe("datastore", () => {
   });
 
   describe("readDocsByCollection", () => {
-    const firestoreEmulator = getFirestore();
+    let firestoreEmulator;
     const projectCollection = { projectName: "testProject" };
     beforeEach(async () => {
-      await firebaseTesting.clearFirestoreData({ projectId });
+      firestoreEmulator = getFirestore();
+      await clearEmulatedData();
     });
     it("should read a collection", async () => {
       await firestoreEmulator.collection("project").add(projectCollection);

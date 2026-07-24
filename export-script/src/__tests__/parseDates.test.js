@@ -1,4 +1,4 @@
-const parseDates = require("../parseDates");
+import parseDates from "../parseDates.js";
 
 describe("parseDates", () => {
   it("parses startDate and endDate", () => {

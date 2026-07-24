@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useContext } from "react";
 import Layout from "../components/Layout";
 import utilities from "../materials/utilities";
@@ -26,7 +27,7 @@ const NewBiopsy = ({ encounterId }) => {
     const id = datastore.createSubDoc(
       encounterPath,
       CollectionNames.BIOPSY,
-      valuesToSubmit
+      valuesToSubmit,
     );
     const biopsyPath = generateBiopsyPath(encounterId, id);
 

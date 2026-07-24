@@ -1,20 +1,22 @@
-const firebase = require("firebase");
-const logToStdErrAndExit = require("./src/helpers/logToStdErrAndExit");
-const checkMissingConfig = require("./src/checkMissingConfig");
-const parseDates = require("./src/parseDates");
-const queryCollectionByTimeRange = require("./src/queryCollectionByTimeRange");
-const querySubcollectionByDocPath = require("./src/querySubcollectionByDocPath");
-const populateCollectionValues = require("./src/populateCollectionValues");
-const transformJsonToCsv = require("./src/transformJsonToCsv");
-const writeDataToFile = require("./src/writeDataToFile");
-const logSection = require("./src/helpers/logSection");
-const logAndExit = require("./src/helpers/logAndExit");
-const generateFilename = require("./src/generateFilename");
-const updateInBatch = require("./src/updateInBatch");
-const getMessage = require("./src/constants/getMessage");
-const config = require("./src/constants/fieldMaps");
-const queryNestedSubcollectionByDocPath = require("./src/queryNestedSubcollectionByDocPath");
-const queryCollectionByConditions = require("./src/queryCollectionByConditions");
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import logToStdErrAndExit from "./src/helpers/logToStdErrAndExit.js";
+import checkMissingConfig from "./src/checkMissingConfig.js";
+import parseDates from "./src/parseDates.js";
+import queryCollectionByTimeRange from "./src/queryCollectionByTimeRange.js";
+import querySubcollectionByDocPath from "./src/querySubcollectionByDocPath.js";
+import populateCollectionValues from "./src/populateCollectionValues.js";
+import transformJsonToCsv from "./src/transformJsonToCsv.js";
+import writeDataToFile from "./src/writeDataToFile.js";
+import logSection from "./src/helpers/logSection.js";
+import logAndExit from "./src/helpers/logAndExit.js";
+import generateFilename from "./src/generateFilename.js";
+import updateInBatch from "./src/updateInBatch.js";
+import getMessage from "./src/constants/getMessage.js";
+import config from "./src/constants/fieldMaps.js";
+import queryNestedSubcollectionByDocPath from "./src/queryNestedSubcollectionByDocPath.js";
+import queryCollectionByConditions from "./src/queryCollectionByConditions.js";
 
 const encounterCollection = "encounter";
 const tripCollection = "trip";
@@ -267,4 +269,4 @@ const exportData = async (startDateArg, endDateArg, options) => {
   logAndExit("\nScript complete!");
 };
 
-module.exports = exportData;
+export default exportData;

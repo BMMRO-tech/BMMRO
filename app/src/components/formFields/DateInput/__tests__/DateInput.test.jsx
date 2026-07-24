@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act, fireEvent } from "@testing-library/react";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
 import { FormErrorType } from "../../../../constants/forms";
@@ -7,18 +8,20 @@ import getErrorMessage from "../../../../utils/getErrorMessage";
 import DateInput from "../DateInput";
 
 describe("DateInput", () => {
+  let originalDateNow;
   beforeAll(() => {
-    global.Date.now = jest.fn(() =>
-      new Date("2020-08-04T11:30:00.000Z").getTime()
+    originalDateNow = Date.now;
+    global.Date.now = vi.fn(() =>
+      new Date("2020-08-04T11:30:00.000Z").getTime(),
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    global.Date.now = originalDateNow;
   });
   it("synchronizes field value with form state", async () => {
     const { getFormValues, getByRole } = renderWithinFormik(
       <DateInput name="favoriteDate" labelText="Your favorite date" />,
-      { favoriteDate: "" }
+      { favoriteDate: "" },
     );
 
     const dateInput = getByRole("textbox", { name: "Your favorite date" });
@@ -29,7 +32,7 @@ describe("DateInput", () => {
     });
 
     expect(getFormValues().favoriteDate).toEqual(
-      new Date(2020, 6, 22).toISOString()
+      new Date(2020, 6, 22).toISOString(),
     );
   });
 
@@ -40,7 +43,7 @@ describe("DateInput", () => {
         labelText="Your favorite date"
         isRequired
       />,
-      { favoriteDate: "" }
+      { favoriteDate: "" },
     );
 
     const dateInput = getByRole("textbox", { name: "Your favorite date *" });
@@ -50,7 +53,7 @@ describe("DateInput", () => {
     });
 
     expect(
-      queryByRole("alert", { name: "Your favorite date" })
+      queryByRole("alert", { name: "Your favorite date" }),
     ).not.toBeInTheDocument();
   });
 
@@ -61,7 +64,7 @@ describe("DateInput", () => {
         labelText="Your favorite date"
         isRequired
       />,
-      { favoriteDate: "" }
+      { favoriteDate: "" },
     );
 
     const dateInput = getByRole("textbox", { name: "Your favorite date *" });
@@ -73,14 +76,14 @@ describe("DateInput", () => {
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(getFormErrors().favoriteDate).toEqual(expectedErrorMessage);
     expect(
-      getByRole("alert", { name: "Your favorite date" })
+      getByRole("alert", { name: "Your favorite date" }),
     ).toHaveTextContent(expectedErrorMessage);
   });
 
   it("autofills date", () => {
     const { getFormValues } = renderWithinFormik(
       <DateInput name="defaultDate" labelText="Your favorite date" autofill />,
-      { defaultDate: "" }
+      { defaultDate: "" },
     );
 
     expect(getFormValues().defaultDate).toEqual("2020-08-04T11:30:00.000Z");
@@ -94,7 +97,7 @@ describe("DateInput", () => {
         isRequired
         isDisabled
       />,
-      { favoriteDate: "" }
+      { favoriteDate: "" },
     );
 
     const dateInput = getByRole("textbox", { name: "Your favorite date *" });

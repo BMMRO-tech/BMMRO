@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "BMMRO scripts",
   "main": "export-data.js",
+  "type": "module",
   "scripts": {
-    "test": "firebase emulators:exec --only firestore 'jest ./src --runInBand'"
+    "test": "firebase emulators:exec --only firestore 'vitest run'"
   },
   "author": "",
   "license": "ISC",
@@ -12,12 +13,12 @@
     "commander": "^6.0.0",
     "date-fns": "^2.15.0",
     "dotenv": "^8.2.0",
-    "firebase": "^8.0.0",
+    "firebase": "^12.14.0",
     "json2csv": "^5.0.1"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.3.6",
-    "firebase-tools": "^13.6.0",
-    "jest": "^27.5.1"
+    "@firebase/rules-unit-testing": "^5.0.1",
+    "firebase-tools": "^15.19.0",
+    "vitest": "^4.1.10"
   }
 }

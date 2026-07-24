@@ -1,4 +1,4 @@
-const convertSkinToBool = require("../mappings/convertSkinToBool");
+import convertSkinToBool from "../mappings/convertSkinToBool.js";
 
 describe("convertSkinToBool", () => {
   it("converts 'Skin' to true", () => {

@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { endOfMonth, parse } from "date-fns";
 
@@ -91,6 +92,7 @@ const TripsByMonth = () => {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
+    if (!month) return;
     const fetchData = async () => {
       const startDate = parse("1 " + month, "d MMMM yyyy", new Date());
       const endDate = endOfMonth(startDate);

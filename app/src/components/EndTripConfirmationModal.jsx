@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { useContext, useRef } from "react";
 import { AlertDialogLabel, AlertDialogOverlay } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
@@ -45,7 +46,7 @@ const EndTripConfirmationModal = ({
     datastore.createSubDoc(
       tripPath,
       CollectionNames.LOGBOOK_ENTRY,
-      logbookValues
+      logbookValues,
     );
     handleLeavePage();
   };

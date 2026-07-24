@@ -12,10 +12,24 @@ export const appendZeros = (value, precision) => {
 
 export const getModifiedProperties = (modified, original) => {
   return Object.keys(original).reduce((diff, key) => {
-    if (modified[key] === original[key]) return diff;
+    const modifiedValue = modified[key];
+    const originalValue = original[key];
+
+    if (modifiedValue === originalValue) return diff;
+
+    // Dates representing the same instant are not modifications, even when they
+    // are different object references (e.g. re-created by react-datepicker).
+    if (
+      modifiedValue instanceof Date &&
+      originalValue instanceof Date &&
+      modifiedValue.getTime() === originalValue.getTime()
+    ) {
+      return diff;
+    }
+
     return {
       ...diff,
-      [key]: modified[key],
+      [key]: modifiedValue,
     };
   }, {});
 };

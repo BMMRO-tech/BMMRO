@@ -1,4 +1,4 @@
-import "firebase/firestore";
+import "firebase/compat/firestore";
 import { fromUnixTime } from "date-fns";
 
 import { DatastoreErrorType } from "../constants/datastore";
@@ -16,7 +16,7 @@ export class Datastore {
     firestore,
     pendingRecordsCallback,
     enableLogging = true,
-    handleDelayedError = console.error
+    handleDelayedError = console.error,
   ) {
     this.firestore = firestore;
     this.enableLogging = enableLogging;
@@ -91,7 +91,7 @@ export class Datastore {
     collectionName,
     timestampFieldName,
     startDate,
-    endDate
+    endDate,
   ) {
     try {
       const docsSnapshots = await this.firestore

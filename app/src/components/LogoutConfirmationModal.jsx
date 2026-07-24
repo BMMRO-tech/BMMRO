@@ -1,7 +1,8 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 import { useState, forwardRef, useRef } from "react";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import {
   AlertDialogOverlay,
   AlertDialogLabel,
@@ -36,8 +37,8 @@ const LogoutConfirmationModal = ({ closeModal }) => {
       .signOut()
       .catch(() =>
         setLogoutError(
-          getErrorMessage(AuthenticationErrorType.UNSUCCESSFUL_LOGOUT)
-        )
+          getErrorMessage(AuthenticationErrorType.UNSUCCESSFUL_LOGOUT),
+        ),
       );
   };
 

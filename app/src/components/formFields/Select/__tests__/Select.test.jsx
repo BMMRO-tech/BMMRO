@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import { act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithinFormik from "../../../../utils/test/renderWithinFormik";
@@ -17,7 +18,7 @@ describe("Select", () => {
         labelText="Your favorite color"
         options={htmlColors}
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const select = getByRole("combobox", { name: "Your favorite color" });
@@ -35,7 +36,7 @@ describe("Select", () => {
         options={htmlColors}
         isRequired
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const select = getByRole("combobox", {
@@ -43,11 +44,11 @@ describe("Select", () => {
     });
     await act(async () => {
       await userEvent.selectOptions(select, "teal");
-      userEvent.tab();
+      await userEvent.tab();
     });
 
     expect(
-      queryByRole("alert", { name: "Your favorite color" })
+      queryByRole("alert", { name: "Your favorite color" }),
     ).not.toBeInTheDocument();
   });
 
@@ -59,13 +60,13 @@ describe("Select", () => {
         options={htmlColors}
         isRequired
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
     const select = getByRole("combobox", { name: "Your favorite color *" });
     await act(async () => userEvent.selectOptions(select, ["teal"]));
     await act(async () => userEvent.tab());
     expect(
-      queryByRole("alert", { name: "Your favorite color" })
+      queryByRole("alert", { name: "Your favorite color" }),
     ).not.toBeInTheDocument();
 
     await act(async () => userEvent.selectOptions(select, ""));
@@ -73,7 +74,7 @@ describe("Select", () => {
 
     const expectedErrorMessage = getErrorMessage(FormErrorType.EMPTY);
     expect(
-      getByRole("alert", { name: "Your favorite color" })
+      getByRole("alert", { name: "Your favorite color" }),
     ).toBeInTheDocument();
     expect(getFormErrors().favoriteColor).toEqual(expectedErrorMessage);
   });
@@ -86,13 +87,13 @@ describe("Select", () => {
         isDisabled
         options={htmlColors}
       />,
-      { favoriteColor: "" }
+      { favoriteColor: "" },
     );
 
     const select = getByRole("combobox", { name: "Your favorite color" });
     await act(async () => userEvent.selectOptions(select, "teal"));
 
-    expect(select).toHaveDisplayValue("");
+    expect(select).toHaveValue("");
     expect(getFormValues().favoriteColor).toEqual("");
   });
 });

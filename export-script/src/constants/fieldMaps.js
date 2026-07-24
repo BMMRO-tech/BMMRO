@@ -1,20 +1,20 @@
-const convertUnixTimestampToMDY = require("../mappings/convertUnixTimestampToMDY");
-const convertWaveHeightOption = require("../mappings/convertWaveHeightOption");
-const convertEmptyToNotNoted = require("../mappings/convertEmptyToNotNoted");
-const convertToDecimal = require("../mappings/convertToDecimal");
-const convertNotNotedToZero = require("../mappings/convertNotNotedToZero");
-const convertNotNotedToNo = require("../mappings/convertNotNotedToNo");
-const convertBeyondSoundingsTo9999 = require("../mappings/convertBeyondSoundingsTo9999");
-const updateComment = require("../updateComment");
-const convertSkinToBool = require("../mappings/convertSkinToBool");
-const convertSkinAndBlubberToBool = require("../mappings/convertSkinAndBlubberToBool");
-const convertAgeToInitial = require("../mappings/convertAgeToInitial");
-const convertSexToInitials = require("../mappings/convertSexToInitials");
-const convertHydrophoneCheck = require("../mappings/convertHydrophoneCheck");
-const combineHydrophoneAndLogbookComments = require("../combineHydrophoneAndLogbookComments");
-const convertBeyondSoundingsToMinusOne = require("../mappings/convertBeyondSoundingsToMinusOne");
+import convertUnixTimestampToMDY from "../mappings/convertUnixTimestampToMDY.js";
+import convertWaveHeightOption from "../mappings/convertWaveHeightOption.js";
+import convertEmptyToNotNoted from "../mappings/convertEmptyToNotNoted.js";
+import convertToDecimal from "../mappings/convertToDecimal.js";
+import convertNotNotedToZero from "../mappings/convertNotNotedToZero.js";
+import convertNotNotedToNo from "../mappings/convertNotNotedToNo.js";
+import convertBeyondSoundingsTo9999 from "../mappings/convertBeyondSoundingsTo9999.js";
+import updateComment from "../updateComment.js";
+import convertSkinToBool from "../mappings/convertSkinToBool.js";
+import convertSkinAndBlubberToBool from "../mappings/convertSkinAndBlubberToBool.js";
+import convertAgeToInitial from "../mappings/convertAgeToInitial.js";
+import convertSexToInitials from "../mappings/convertSexToInitials.js";
+import convertHydrophoneCheck from "../mappings/convertHydrophoneCheck.js";
+import combineHydrophoneAndLogbookComments from "../combineHydrophoneAndLogbookComments.js";
+import convertBeyondSoundingsToMinusOne from "../mappings/convertBeyondSoundingsToMinusOne.js";
 
-module.exports = {
+export default {
   encounter: {
     "Sequence #": { key: "sequenceNumber" },
     Date: { key: "startTimestamp", transform: convertUnixTimestampToMDY },

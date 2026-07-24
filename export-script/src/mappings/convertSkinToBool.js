@@ -6,4 +6,4 @@ const convertSkinToBool = (skinOrSkinAndBlubInput) =>
     ? true
     : false;
 
-module.exports = convertSkinToBool;
+export default convertSkinToBool;

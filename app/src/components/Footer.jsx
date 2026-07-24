@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 
 import containers from "../materials/containers";
 import colors from "../materials/colors";
@@ -31,7 +32,7 @@ const Footer = () => {
   };
 
   const renderVersionNumber = () => {
-    const version = process.env.REACT_APP_VERSION;
+    const version = import.meta.env.REACT_APP_VERSION;
     return version ? <p css={styles.text}>Version {version}</p> : "";
   };
 

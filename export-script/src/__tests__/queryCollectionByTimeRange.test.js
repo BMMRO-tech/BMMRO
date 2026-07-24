@@ -1,8 +1,8 @@
-const firebaseTesting = require("@firebase/rules-unit-testing");
-const queryCollectionByTimeRange = require("../queryCollectionByTimeRange");
-const { parse } = require("date-fns");
-const collectionData = require("../__fixtures__/collectionData");
-const collectionDataWithMixedExportStatus = require("../__fixtures__/collectionDataWithMixedExportStatus");
+import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
+import queryCollectionByTimeRange from "../queryCollectionByTimeRange.js";
+import { parse } from "date-fns";
+import collectionData from "../__fixtures__/collectionData.js";
+import collectionDataWithMixedExportStatus from "../__fixtures__/collectionDataWithMixedExportStatus.js";
 
 describe("queryCollectionByTimeRange", () => {
   const projectId = "project-id";
@@ -10,6 +10,7 @@ describe("queryCollectionByTimeRange", () => {
   const DATE_FORMAT = "dd/MM/yyyy";
   const TIMESTAMP_FIELD_NAME = "date";
   const collectionName = "collection";
+  let testEnv;
   let firestoreEmulator;
 
   const addToDb = async (data) => {
@@ -22,19 +23,19 @@ describe("queryCollectionByTimeRange", () => {
   };
 
   beforeAll(async () => {
-    const firebaseMock = firebaseTesting.initializeTestApp({
+    testEnv = await initializeTestEnvironment({
       projectId,
-      auth: { uid },
+      firestore: { host: "127.0.0.1", port: 8080 },
     });
-    firestoreEmulator = firebaseMock.firestore();
+    firestoreEmulator = testEnv.authenticatedContext(uid).firestore();
   });
 
   afterEach(async () => {
-    await firebaseTesting.clearFirestoreData({ projectId });
+    await testEnv.clearFirestore();
   });
 
   afterAll(async () => {
-    await Promise.all(firebaseTesting.apps().map((app) => app.delete()));
+    await testEnv.cleanup();
   });
 
   it("adds a correct path to the querying result", async () => {
@@ -48,7 +49,7 @@ describe("queryCollectionByTimeRange", () => {
       TIMESTAMP_FIELD_NAME,
       firestoreEmulator,
       collectionName,
-      false
+      false,
     );
 
     expect(collectionEntries[0].path).toBe(`${collectionName}/1`);
@@ -65,7 +66,7 @@ describe("queryCollectionByTimeRange", () => {
       TIMESTAMP_FIELD_NAME,
       firestoreEmulator,
       collectionName,
-      false
+      false,
     );
 
     expect(collectionEntries.length).toEqual(2);
@@ -77,8 +78,8 @@ describe("queryCollectionByTimeRange", () => {
 
   it("includes entries on start date and excludes entries on end date", async () => {
     await addToDb(collectionData);
-    startDate = parse("23/05/2020", DATE_FORMAT, new Date());
-    endDate = parse("23/06/2020", DATE_FORMAT, new Date());
+    const startDate = parse("23/05/2020", DATE_FORMAT, new Date());
+    const endDate = parse("23/06/2020", DATE_FORMAT, new Date());
 
     const collectionEntries = await queryCollectionByTimeRange(
       startDate,
@@ -86,7 +87,7 @@ describe("queryCollectionByTimeRange", () => {
       TIMESTAMP_FIELD_NAME,
       firestoreEmulator,
       collectionName,
-      false
+      false,
     );
 
     expect(collectionEntries.length).toEqual(1);
@@ -97,8 +98,8 @@ describe("queryCollectionByTimeRange", () => {
 
   it("returns an empty array when no entries fall within time range", async () => {
     await addToDb(collectionData);
-    startDate = parse("10/02/2020", DATE_FORMAT, new Date());
-    endDate = parse("28/02/2020", DATE_FORMAT, new Date());
+    const startDate = parse("10/02/2020", DATE_FORMAT, new Date());
+    const endDate = parse("28/02/2020", DATE_FORMAT, new Date());
 
     const collectionEntries = await queryCollectionByTimeRange(
       startDate,
@@ -106,7 +107,7 @@ describe("queryCollectionByTimeRange", () => {
       TIMESTAMP_FIELD_NAME,
       firestoreEmulator,
       collectionName,
-      false
+      false,
     );
 
     expect(collectionEntries).toEqual([]);
@@ -123,7 +124,7 @@ describe("queryCollectionByTimeRange", () => {
       TIMESTAMP_FIELD_NAME,
       firestoreEmulator,
       collectionName,
-      true
+      true,
     );
 
     expect(collectionEntries.length).toEqual(2);

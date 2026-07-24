@@ -1,4 +1,4 @@
-const { program } = require("commander");
+import { program } from "commander";
 
 const run = async (action) => {
   program
@@ -25,4 +25,4 @@ const run = async (action) => {
   await program.parseAsync(process.argv);
 };
 
-module.exports = run;
+export default run;

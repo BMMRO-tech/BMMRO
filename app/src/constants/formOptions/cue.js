@@ -1,4 +1,4 @@
-export default [
+const cue = [
   "Fin",
   "Acoustic",
   "Bait Ball",
@@ -15,3 +15,5 @@ export default [
   "Splash",
   "Tail Stock",
 ];
+
+export default cue;
