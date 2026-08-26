@@ -151,6 +151,23 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
+      // Enter new time as CI may not have it autofilled
+      let timeInput = await driver.findElement(wd.By.name("time"));
+
+      console.log(
+        "TIME INPUT VALUE BEFORE: ",
+        timeInput.getAttribute("innerText"),
+      );
+
+      await timeInput.clear();
+
+      await timeInput.sendKeys("100000");
+
+      console.log(
+        "TIME INPUT VALUE AFTER: ",
+        timeInput.getAttribute("innerText"),
+      );
+
       await driver.findElement(wd.By.css("#saveLogBook")).click();
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
