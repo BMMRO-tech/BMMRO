@@ -72,11 +72,21 @@ Cons:
 
 We have decided to go with options 3 and 4. The flow is the following:
 
-- Push to master. Code auto deployed to development environment and 'dev-deployed-XX' tag added.
-- Trigger a UAT deployment from the GitHub UI. The developer inputs the version number.
-- Another developer reviews the deployment in the GitHub Environment. If approved, the workflow goes ahead as normal.
-- Trigger a production deployment from the GitHub UI. The developer inputs the version number.
-- Another developer reviews the deployment in the GitHub Environment. If approved, the workflow goes ahead as normal.
+1. **Development**
+
+    When a developer pushes to master, code is auto deployed to the development environment and a 'dev-deployed-XX' tag is added. If a developer makes many commits locally then pushes only the most recent commit is tagged.
+
+2. **UAT**
+
+    From the GitHub Actions UI, trigger a UAT deployment from the GitHub Actions UI. The developer inputs the build they want to deploy ('dev-deployed-XX').
+
+    Another developer reviews the deployment in the GitHub 'uat' Environment. If approved, the workflow goes ahead, creates a 'uat-deployed-XX' tag, and deploys to UAT.
+
+3. **Production**
+
+    From the GitHub Actions UI, trigger a production deployment from the GitHub Actions UI. The developer inputs the build they want to deploy ('uat-deployed-XX').
+
+    Another developer reviews the deployment in the GitHub 'production' Environment. If approved, the workflow goes ahead, creates a 'prod-deployed-XX' tag, and deploys to production.
 
 The rollback process is the same as the current solution, but the deployment is triggered from the GitHub UI and reviewed in the GitHub Environment.
 
