@@ -1,18 +1,32 @@
 name: Deployment to UAT environment
 
 on:
-  push:
-    tags:
-      - "uat-pending-*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Tag to deploy (must start with dev-deployed-)"
+        required: true
+        type: string
 
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
+    environment: production
     env:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
+      - name: Validate input and set version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [[ ! "$VERSION" =~ ^dev-deployed-[0-9]+$ ]]; then
+            echo "Error: version must be a dev-deployed-N tag (e.g. dev-deployed-123)"
+            exit 1
+          fi
+          echo "NEW_VERSION=$(echo "$VERSION" | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.version }}
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
@@ -35,12 +49,6 @@ jobs:
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: |
           npm install
-      - name: Set environment variable with new version
-        run: |
-          PENDING_TAG=$(git fetch origin --tags -q && git tag -l | grep "uat-pending-*" | sort -V | tail -1)
-          echo "PENDING_TAG=$PENDING_TAG" >> $GITHUB_ENV
-          PENDING_TAG_VERSION=$(echo $PENDING_TAG | sed 's/[^0-9]*//g')
-          echo "NEW_VERSION=$PENDING_TAG_VERSION" >> $GITHUB_ENV
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
@@ -54,12 +62,11 @@ jobs:
         run: |
           npx firebase use ${{secrets.FIREBASE_UAT_PROJECT_ID}}
           npx firebase deploy
-      - name: Update uat-pending-* tag to uat-deployed-*
+      - name: Create uat-deployed-* tag
         run: |
           TAG="uat-deployed-${{env.NEW_VERSION}}"
-          git tag $TAG ${{env.PENDING_TAG}} -f
-          git push origin $TAG -f
-          git push origin --delete ${{env.PENDING_TAG}}
+          git tag $TAG
+          git push origin $TAG
   end-to-end:
     needs: build-test-deploy
     runs-on: macos-latest

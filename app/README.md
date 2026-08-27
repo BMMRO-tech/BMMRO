@@ -143,6 +143,17 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-```
+## Deploying the app
 
-```
+The deployment flow is the following:
+
+- Push to master. Code auto deployed to development environment and 'dev-deployed-XX' tag added.
+- Trigger a UAT deployment from the GitHub Actions UI. The developer inputs the 'dev-deployed-XX' tag.
+- Another developer reviews the deployment in the GitHub Environment. If approved, the workflow goes ahead as normal, creates the 'uat-deployed-XX' tag, and deploys to UAT.
+- Trigger a production deployment from the GitHub Actions UI. The developer inputs the 'uat-deployed-XX' tag.
+- Another developer reviews the deployment in the GitHub Environment. If approved, the workflow goes ahead as normal, creates the 'prod-deployed-XX' tag, and deploys to production.
+
+In order to roll back a release, simply trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, input the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. 
+
+The only caveat is that, if deploying to production, the tag must start with 'uat-deployed-'. You cannot deploy a version that has not already been deployed to UAT.
+
