@@ -11,7 +11,7 @@ on:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: uat
     env:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
