@@ -153,21 +153,21 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 2. **UAT**
 
-    From the GitHub Actions UI, trigger a UAT deployment from the GitHub Actions UI. The developer inputs the build they want to deploy ('dev-deployed-XX').
+    From the GitHub Actions UI, trigger the 'Deployment' workflow from the GitHub Actions UI. Input the build you want to deploy (e.g. 'dev-deployed-XX') and the environment you want to deploy to (e.g. 'uat').
 
-    Another developer reviews the deployment in the GitHub 'uat' Environment. If approved, the workflow goes ahead, creates a 'uat-deployed-XX' tag, and deploys to UAT.
+    The workflow goes ahead, creates a 'uat-deployed-XX' tag, and deploys to UAT.
 
 3. **Production**
 
-    From the GitHub Actions UI, trigger a production deployment from the GitHub Actions UI. The developer inputs the build they want to deploy ('uat-deployed-XX').
+    From the GitHub Actions UI, trigger the 'Deployment' workflow from the GitHub Actions UI. Input the build you want to deploy (e.g. 'uat-deployed-XX') and the environment you want to deploy to (e.g. 'prod').
 
-    Another developer reviews the deployment in the GitHub 'production' Environment. If approved, the workflow goes ahead, creates a 'prod-deployed-XX' tag, and deploys to production.
+    Another developer reviews the deployment in the GitHub 'prod' Environment. If approved, the workflow goes ahead, creates a 'prod-deployed-XX' tag, and deploys to production.
 
 ### Rollback
 
-In order to roll back a release, simply trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, input the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. 
+In order to roll back a release, simply trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, input the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. A new tag is not created as it already exists.
 
-### Notes
+### Deployment notes
 
-If deploying to production, the tag must start with 'uat-deployed-'. You cannot deploy a build that has not already been deployed to UAT.
+You currently cannot deploy a tag that is not of the form '[dev|uat|prod]-deployed-XX' to UAT or production.
 

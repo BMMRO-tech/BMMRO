@@ -70,7 +70,7 @@ Cons:
 
 ## Final decision
 
-We have decided to go with options 3 and 4. The flow is the following:
+We have decided to go with a combination of options 3 and 4. The flow is the following:
 
 1. **Development**
 
@@ -78,17 +78,17 @@ We have decided to go with options 3 and 4. The flow is the following:
 
 2. **UAT**
 
-    From the GitHub Actions UI, trigger a UAT deployment from the GitHub Actions UI. The developer inputs the build they want to deploy ('dev-deployed-XX').
+    From the GitHub Actions UI, trigger the 'Deployment' workflow from the GitHub Actions UI. Input the build you want to deploy (e.g. 'dev-deployed-XX') and the environment you want to deploy to (e.g. 'uat').
 
-    Another developer reviews the deployment in the GitHub 'uat' Environment. If approved, the workflow goes ahead, creates a 'uat-deployed-XX' tag, and deploys to UAT.
+    The workflow goes ahead, creates a 'uat-deployed-XX' tag, and deploys to UAT.
 
 3. **Production**
 
-    From the GitHub Actions UI, trigger a production deployment from the GitHub Actions UI. The developer inputs the build they want to deploy ('uat-deployed-XX').
+    From the GitHub Actions UI, trigger the 'Deployment' workflow from the GitHub Actions UI. Input the build you want to deploy (e.g. 'uat-deployed-XX') and the environment you want to deploy to (e.g. 'prod').
 
-    Another developer reviews the deployment in the GitHub 'production' Environment. If approved, the workflow goes ahead, creates a 'prod-deployed-XX' tag, and deploys to production.
+    Another developer reviews the deployment in the GitHub 'prod' Environment. If approved, the workflow goes ahead, creates a 'prod-deployed-XX' tag, and deploys to production.
 
-The rollback process is the same as the current solution, but the deployment is triggered from the GitHub UI and reviewed in the GitHub Environment.
+In order to roll back a release, trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, input the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. A new tag is not created as it already exists.
 
 This solution avoids the downsides of running a local script that relies on a developer's local environment and reduces the possibility of deploying an incorrect version of the application thanks to the GitHub Environment review.
 

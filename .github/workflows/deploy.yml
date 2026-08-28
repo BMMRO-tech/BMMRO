@@ -1,32 +1,46 @@
-name: Deployment to UAT environment
+name: Deployment
 
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: "Tag to deploy (must start with dev-deployed-)"
+      tag:
+        description: "Tag to deploy"
         required: true
         type: string
+      environment:
+        description: "Environment to deploy to"
+        required: true
+        type: environment
 
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
-    environment: uat
+    environment: ${{ github.event.inputs.environment }}
     env:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
       - name: Validate input and set version
         run: |
-          VERSION="${{ github.event.inputs.version }}"
-          if [[ ! "$VERSION" =~ ^dev-deployed-[0-9]+$ ]]; then
-            echo "Error: version must be a dev-deployed-N tag (e.g. dev-deployed-123)"
+          TAG="${{ github.event.inputs.tag }}"
+          ENV="${{ github.event.inputs.environment }}"
+          if [[ ! "$TAG" =~ ^(dev|uat|prod)-deployed-[0-9]+$ ]]; then
+            echo "Error: tag must be a [dev|uat|prod]-deployed-N tag (e.g. dev-deployed-123)"
             exit 1
           fi
-          echo "NEW_VERSION=$(echo "$VERSION" | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
+          if [[ "$ENV" == "uat" ]]; then
+            OUTPUT_PREFIX="uat-deployed"
+          elif [[ "$ENV" == "production" ]]; then
+            OUTPUT_PREFIX="prod-deployed"
+          else
+            echo "Error: unknown environment '$ENV'"
+            exit 1
+          fi
+          echo "NEW_VERSION=$(echo "$TAG" | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
+          echo "OUTPUT_TAG_PREFIX=$OUTPUT_PREFIX" >> $GITHUB_ENV
       - uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.inputs.version }}
+          ref: ${{ github.event.inputs.tag }}
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
@@ -36,8 +50,8 @@ jobs:
           java-version: "25"
       - uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.UAT_DEPLOY_SERVICE_ACCOUNT }}
-          service_account: ${{ secrets.UAT_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
+          credentials_json: ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
+          service_account: ${{ secrets.DEPLOY_SERVICE_ACCOUNT_EMAIL }}
       - name: Install app dependencies
         working-directory: ${{env.APP_DIR}}
         run: |
@@ -51,25 +65,31 @@ jobs:
           npm install
       - name: Build production bundle
         env:
-          REACT_APP_PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
-          REACT_APP_API_KEY: ${{secrets.FIREBASE_UAT_API_KEY}}
-          REACT_APP_AUTH_DOMAIN: ${{secrets.FIREBASE_UAT_AUTH_DOMAIN}}
-          REACT_APP_VERSION: ${{env.NEW_VERSION}}
+          REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          REACT_APP_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          REACT_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_VERSION: ${{ env.NEW_VERSION }}
         working-directory: ${{env.APP_DIR}}
         run: npm run build
       - name: Deploy to firebase
         working-directory: ${{env.APP_DIR}}
         run: |
-          npx firebase use ${{secrets.FIREBASE_UAT_PROJECT_ID}}
+          npx firebase use ${{ secrets.FIREBASE_PROJECT_ID }}
           npx firebase deploy
-      - name: Create uat-deployed-* tag
+      - name: Create deployed tag
         run: |
-          TAG="uat-deployed-${{env.NEW_VERSION}}"
-          git tag $TAG
-          git push origin $TAG
+          NEW_TAG="${{ env.OUTPUT_TAG_PREFIX }}-${{ env.NEW_VERSION }}"
+          if [[ "$NEW_TAG" == "$TAG" ]]; then
+            echo "Tag $TAG already exists, skipping tag creation"
+          else
+            git tag $NEW_TAG
+            git push origin $NEW_TAG
+          fi
   end-to-end:
     needs: build-test-deploy
+    if: github.event.inputs.environment == 'uat'
     runs-on: macos-latest
+    environment: uat
     env:
       E2E_TESTS_DIR: ./e2e-tests
       ENDPOINT: https://bmmro-uat.web.app
@@ -91,10 +111,10 @@ jobs:
         env:
           ENDPOINT: ${{env.ENDPOINT}}
           EMAIL: "test@test.com"
-          PASSWORD: ${{secrets.FIREBASE_UAT_TEST_ACCOUNT_PASSWORD}}
-          PROJECT_ID: ${{secrets.FIREBASE_UAT_PROJECT_ID}}
-          API_KEY: ${{secrets.FIREBASE_UAT_API_KEY}}
-          AUTH_DOMAIN: ${{secrets.FIREBASE_UAT_AUTH_DOMAIN}}
+          PASSWORD: ${{ secrets.FIREBASE_TEST_ACCOUNT_PASSWORD }}
+          PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
           DRIVER: "safari"
         working-directory: ${{env.E2E_TESTS_DIR}}
         run: npm run test
