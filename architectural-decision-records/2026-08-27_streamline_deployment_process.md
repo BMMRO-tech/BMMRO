@@ -78,17 +78,25 @@ We have decided to go with a combination of options 3 and 4. The flow is the fol
 
 2. **UAT**
 
-    From the GitHub Actions UI, trigger the 'Deployment' workflow from the GitHub Actions UI. Input the build you want to deploy (e.g. 'dev-deployed-XX') and the environment you want to deploy to (e.g. 'uat').
-
-    The workflow goes ahead, creates a 'uat-deployed-XX' tag, and deploys to UAT.
+    1. From GitHub, select "Actions" from the bar along the top
+    2. From the list of workflows on the left, select "Deployment"
+    3. On the right side of the page, select the "Run workflow" button
+    4. Under "Use workflow from", select the dropdown. Click the "Tags" button, and select the tag you want to deploy
+    5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "UAT"
+    6. Underneath this, select the "Run workflow" button. This runs the workflow, which creates a 'uat-deployed-XX' tag and deploys to UAT
 
 3. **Production**
 
-    From the GitHub Actions UI, trigger the 'Deployment' workflow from the GitHub Actions UI. Input the build you want to deploy (e.g. 'uat-deployed-XX') and the environment you want to deploy to (e.g. 'prod').
+    1. From GitHub, select "Actions" from the bar along the top
+    2. From the list of workflows on the left, select "Deployment"
+    3. On the right side of the page, select the "Run workflow" button
+    4. Under "Use workflow from", select the dropdown. Click the "Tags" button, and select the tag you want to deploy
+    5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "Production"
+    6. Underneath this, select the "Run workflow" button. This sends a review request to the app contributors and maintainers. On approval, the workflow runs, which creates a 'prod-deployed-XX' tag and deploys to production
 
-    Another developer reviews the deployment in the GitHub 'prod' Environment. If approved, the workflow goes ahead, creates a 'prod-deployed-XX' tag, and deploys to production.
+In order to roll back a release, simply trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, choose the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. A new tag is not created as it already exists.
 
-In order to roll back a release, trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, input the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. A new tag is not created as it already exists.
+We will use GitHub Environments for UAT and production deployments. For both UAT and production, only tags of the form [dev|uat|prod]-deployed-* are allowed. Additionally, production deployments require a reviewer from the `bmmro-app-contributors` or `bmmro-app-maintainers` GitHub teams.
 
 This solution avoids the downsides of running a local script that relies on a developer's local environment and reduces the possibility of deploying an incorrect version of the application thanks to the GitHub Environment review.
 
