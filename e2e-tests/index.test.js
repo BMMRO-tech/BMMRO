@@ -153,6 +153,18 @@ describe("create a new encounter user journey", () => {
 
       console.log("ON LOGBOOK ENTRY PAGE");
 
+      // Wait until Formik's autofill useEffect has set a non-empty, non-placeholder time
+      await driver.wait(
+        async () => {
+          const val = await driver
+            .findElement(wd.By.name("time"))
+            .getAttribute("value");
+          return val && !val.includes("_") && val !== "";
+        },
+        pageTimeout,
+        "Time field autofill never completed",
+      );
+
       console.log("CLICKING SAVE");
 
       await driver.findElement(wd.By.css("#saveLogBook")).click();
