@@ -180,6 +180,12 @@ describe("create a new encounter user journey", () => {
       await driver.sleep(3000);
       console.log("URL 3s after save click:", await driver.getCurrentUrl());
 
+      await driver.sleep(500); // let React re-render with touched state
+      const pageText = await driver.executeScript(
+        "return document.body.innerText",
+      );
+      console.log("PAGE TEXT AFTER SAVE CLICK:", pageText.substring(0, 1500));
+
       console.log("WAITING FOR SAVE TRIP BUTTON");
 
       await driver.wait(
