@@ -151,39 +151,59 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      // Enter new time as CI may not have it autofilled
-      let timeInput = await driver.findElement(wd.By.name("time"));
+      console.log("ON LOGBOOK ENTRY PAGE");
 
-      console.log(
-        "TIME INPUT VALUE BEFORE: ",
-        await timeInput.getAttribute("value"),
-      );
-
-      await timeInput.clear();
-
-      await timeInput.sendKeys("10:00:00");
-
-      console.log(
-        "TIME INPUT VALUE AFTER: ",
-        await timeInput.getAttribute("value"),
-      );
+      console.log("CLICKING SAVE");
 
       await driver.findElement(wd.By.css("#saveLogBook")).click();
 
+      console.log("CLICKED SAVE");
+
+      console.log("SETTING TIMEOUTS");
+
       await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      console.log("SET TIMEOUTS");
+
+      console.log("CLICKING SAVE TRIP");
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveEndTrip")),
         pageTimeout,
       );
 
+      console.log("CLICKED SAVE TRIP");
+
       let newTripUrl = await driver.getCurrentUrl();
+
+      console.log("newTripUrl: ", `--${newTripUrl}--`);
+
+      console.log(
+        "expected URL: ",
+        `--${process.env.ENDPOINT}/trips/${tripId}/view--`,
+      );
+
+      console.log("RUNNING URL EQUALITY ASSERTION");
+
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+
+      console.log("URL EQUALITY ASSERTION PASSED");
+
+      console.log("GETTING LOGBOOK TEXT");
 
       const logbook = await driver.findElement(wd.By.id("logbook")).getText();
 
+      console.log("GOT LOGBOOK TEXT: ", logbook);
+
       let expectedText = "Logbook entry 1";
+
+      console.log("EXPECTED LOGBOOK TEXT: ", expectedText);
+
+      console.log("RUNNING LOGBOOK TEXT EQUALITY ASSERTION");
+
       expect(logbook).toContain(expectedText);
+
+      console.log("LOGBOOK TEXT EQUALITY ASSERTION PASSED");
     },
 
     testTimeout,
