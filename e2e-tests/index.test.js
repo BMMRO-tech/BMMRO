@@ -156,7 +156,7 @@ describe("create a new encounter user journey", () => {
 
       console.log(
         "TIME INPUT VALUE BEFORE: ",
-        timeInput.getAttribute("innerText"),
+        await timeInput.getAttribute("innerText"),
       );
 
       await timeInput.clear();
@@ -165,7 +165,7 @@ describe("create a new encounter user journey", () => {
 
       console.log(
         "TIME INPUT VALUE AFTER: ",
-        timeInput.getAttribute("innerText"),
+        await timeInput.getAttribute("innerText"),
       );
 
       await driver.findElement(wd.By.css("#saveLogBook")).click();
