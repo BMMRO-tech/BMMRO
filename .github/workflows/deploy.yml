@@ -1,6 +1,9 @@
 name: Deployment
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       environment:
@@ -11,32 +14,33 @@ on:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment || 'Development' }}
     env:
       APP_DIR: ./app
       EXPORT_SCRIPT_DIR: ./export-script
     steps:
-      - name: Validate input and set version
+      - name: Validate tag and set version (manual deploy to UAT or production)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment != 'Development'
         run: |
           TAG="${{ github.ref_name }}"
           ENV="${{ github.event.inputs.environment }}"
           if [[ ! "$TAG" =~ ^(dev|uat|prod)-deployed-[0-9]+$ ]]; then
-            echo "Error: tag must be a [dev|uat|prod]-deployed-N tag (e.g. dev-deployed-123)"
-            exit 1
-          fi
-          if [[ "$ENV" == "UAT" ]]; then
-            OUTPUT_PREFIX="uat-deployed"
-          elif [[ "$ENV" == "Production" ]]; then
-            OUTPUT_PREFIX="prod-deployed"
-          else
-            echo "Error: unknown environment '$ENV'"
+            echo "Error: UAT and production deployments must be run from a [dev|uat|prod]-deployed-N tag (e.g. dev-deployed-123)"
             exit 1
           fi
           echo "NEW_VERSION=$(echo "$TAG" | sed 's/[^0-9]*//g')" >> $GITHUB_ENV
-          echo "OUTPUT_TAG_PREFIX=$OUTPUT_PREFIX" >> $GITHUB_ENV
+          if [[ "$ENV" == "UAT" ]]; then
+            echo "OUTPUT_TAG_PREFIX=uat-deployed" >> $GITHUB_ENV
+          elif [[ "$ENV" == "Production" ]]; then
+            echo "OUTPUT_TAG_PREFIX=prod-deployed" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v6
-        with:
-          ref: ${{ github.ref_name }}
+      - name: Set version (auto-deploy to dev)
+        if: github.event_name == 'push'
+        run: |
+          PREVIOUS_VERSION=$(git fetch --tags -q && git tag -l | grep "dev-deployed-*" | sort -V | tail -1 | sed 's/[^0-9]*//g')
+          echo "NEW_VERSION=$(($PREVIOUS_VERSION+1))" >> $GITHUB_ENV
+          echo "OUTPUT_TAG_PREFIX=dev-deployed" >> $GITHUB_ENV
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
@@ -52,6 +56,10 @@ jobs:
         working-directory: ${{env.APP_DIR}}
         run: |
           npm install
+      - name: Run frontend tests
+        if: github.event_name == 'push' || github.event.inputs.environment == 'Development'
+        working-directory: ${{env.APP_DIR}}
+        run: npm run test-ci
       - name: Run firestore tests
         working-directory: ${{env.APP_DIR}}
         run: npm run test-firestore
@@ -59,6 +67,10 @@ jobs:
         working-directory: ${{env.EXPORT_SCRIPT_DIR}}
         run: |
           npm install
+      - name: Run export script tests
+        if: github.event_name == 'push' || github.event.inputs.environment == 'Development'
+        working-directory: ${{env.EXPORT_SCRIPT_DIR}}
+        run: npm test
       - name: Build production bundle
         env:
           REACT_APP_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
@@ -72,28 +84,45 @@ jobs:
         run: |
           npx firebase use ${{ secrets.FIREBASE_PROJECT_ID }}
           npx firebase deploy
-      - name: Create deployed tag
+      - name: Create dev-deployed-* tag (auto-deploy)
+        if: github.event_name == 'push'
+        env:
+          COMMIT_SHA: ${{ github.sha }}
         run: |
-          NEW_TAG="${{ env.OUTPUT_TAG_PREFIX }}-${{ env.NEW_VERSION }}"
-          if [[ "$NEW_TAG" == "$TAG" ]]; then
+          TAG="dev-deployed-${{ env.NEW_VERSION }}"
+          git fetch --unshallow origin
+          git tag $TAG $COMMIT_SHA
+          git push origin $TAG
+      - name: Create deployed tag (manual deploy to UAT or production)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment != 'Development'
+        run: |
+          TAG="${{ env.OUTPUT_TAG_PREFIX }}-${{ env.NEW_VERSION }}"
+          if [[ "$TAG" == "${{ github.ref_name }}" ]]; then
             echo "Tag $TAG already exists, skipping tag creation"
           else
-            git tag $NEW_TAG
-            git push origin $NEW_TAG
+            git tag $TAG
+            git push origin $TAG
           fi
   end-to-end:
     needs: build-test-deploy
-    if: github.event.inputs.environment == 'UAT'
+    if: github.event_name == 'push' || github.event.inputs.environment != 'Production'
     runs-on: macos-latest
-    environment: UAT
+    environment: ${{ github.event.inputs.environment || 'Development' }}
     env:
       E2E_TESTS_DIR: ./e2e-tests
-      ENDPOINT: https://bmmro-uat.web.app
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+      - name: Set E2E endpoint
+        run: |
+          ENV="${{ github.event.inputs.environment || 'Development' }}"
+          if [[ "$ENV" == "Development" ]]; then
+            echo "E2E_ENDPOINT=https://bmmro-164ec.web.app" >> $GITHUB_ENV
+          elif [[ "$ENV" == "UAT" ]]; then
+            echo "E2E_ENDPOINT=https://bmmro-uat.web.app" >> $GITHUB_ENV
+          fi
       - name: Install e2e-tests dependencies
         working-directory: ${{env.E2E_TESTS_DIR}}
         run: |
@@ -105,7 +134,7 @@ jobs:
           safaridriver -p 0 &
       - name: Run end to end tests
         env:
-          ENDPOINT: ${{env.ENDPOINT}}
+          ENDPOINT: ${{ env.E2E_ENDPOINT }}
           EMAIL: "test@test.com"
           PASSWORD: ${{ secrets.FIREBASE_TEST_ACCOUNT_PASSWORD }}
           PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
