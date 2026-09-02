@@ -147,13 +147,22 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### GitHub Environments
 
-We use GitHub Environments for UAT and production deployments. GitHub Environments allow you to set reviewers for deployments and restrict deployments to certain branches or tags. For both UAT and production, only tags of the form [dev|uat|prod]-deployed-* are allowed. Additionally, production deployments require a reviewer from the `bmmro-app-contributors` or `bmmro-app-maintainers` GitHub teams.
+We use GitHub Environments for deployments. GitHub Environments allow you to set reviewers for deployments and restrict deployments to certain branches or tags. For both UAT and production, only tags of the form [dev|uat|prod]-deployed-* are allowed. Additionally, production deployments require a reviewer from the `bmmro-app-contributors` or `bmmro-app-maintainers` GitHub teams.
 
 ### Deployment process
 
 1. **Development**
 
-    When a developer pushes to master, code is auto deployed to the development environment and a 'dev-deployed-XX' tag is added. If a developer makes many commits locally then pushes only the most recent commit is tagged.
+    When a developer pushes to master, code is auto deployed to the development environment and a 'dev-deployed-XX' tag is added. If a developer makes many commits locally then pushes, only the most recent commit is tagged.
+
+    Developers can also manually deploy their branch to development:
+
+    1. From GitHub, select "Actions" from the bar along the top
+    2. From the list of workflows on the left, select "Deployment"
+    3. On the right side of the page, select the "Run workflow" button
+    4. Under "Use workflow from", select the dropdown. Make sure "Branches" is selected, and choose the branch you want to deploy
+    5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "Development"
+    6. Underneath this, select the "Run workflow" button. This runs the workflow, which deploys to Development, creates a 'dev-deployed-XX' tag, and runs the end-to-end tests
 
 2. **UAT**
 
@@ -162,7 +171,7 @@ We use GitHub Environments for UAT and production deployments. GitHub Environmen
     3. On the right side of the page, select the "Run workflow" button
     4. Under "Use workflow from", select the dropdown. Click the "Tags" button, and select the tag you want to deploy
     5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "UAT"
-    6. Underneath this, select the "Run workflow" button. This runs the workflow, which creates a 'uat-deployed-XX' tag and deploys to UAT
+    6. Underneath this, select the "Run workflow" button. This runs the workflow, which deploys to UAT, creates a 'uat-deployed-XX' tag, and runs the end-to-end tests
 
 3. **Production**
 
@@ -171,7 +180,7 @@ We use GitHub Environments for UAT and production deployments. GitHub Environmen
     3. On the right side of the page, select the "Run workflow" button
     4. Under "Use workflow from", select the dropdown. Click the "Tags" button, and select the tag you want to deploy
     5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "Production"
-    6. Underneath this, select the "Run workflow" button. This sends a review request to the app contributors and maintainers. On approval, the workflow runs, which creates a 'prod-deployed-XX' tag and deploys to production
+    6. Underneath this, select the "Run workflow" button. This sends a review request to the app contributors and maintainers. On approval, the workflow runs, which deploys to production and creates a 'prod-deployed-XX' tag
 
 ### Rollback
 

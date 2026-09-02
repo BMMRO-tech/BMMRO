@@ -74,7 +74,16 @@ We have decided to go with a combination of options 3 and 4. The flow is the fol
 
 1. **Development**
 
-    When a developer pushes to master, code is auto deployed to the development environment and a 'dev-deployed-XX' tag is added. If a developer makes many commits locally then pushes only the most recent commit is tagged.
+    When a developer pushes to master, code is auto deployed to the development environment and a 'dev-deployed-XX' tag is added. If a developer makes many commits locally then pushes, only the most recent commit is tagged.
+
+    Developers can also manually deploy their branch to development:
+
+    1. From GitHub, select "Actions" from the bar along the top
+    2. From the list of workflows on the left, select "Deployment"
+    3. On the right side of the page, select the "Run workflow" button
+    4. Under "Use workflow from", select the dropdown. Make sure "Branches" is selected, and choose the branch you want to deploy
+    5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "Development"
+    6. Underneath this, select the "Run workflow" button. This runs the workflow, which deploys to Development, creates a 'dev-deployed-XX' tag, and runs the end-to-end tests
 
 2. **UAT**
 
@@ -83,7 +92,7 @@ We have decided to go with a combination of options 3 and 4. The flow is the fol
     3. On the right side of the page, select the "Run workflow" button
     4. Under "Use workflow from", select the dropdown. Click the "Tags" button, and select the tag you want to deploy
     5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "UAT"
-    6. Underneath this, select the "Run workflow" button. This runs the workflow, which creates a 'uat-deployed-XX' tag and deploys to UAT
+    6. Underneath this, select the "Run workflow" button. This runs the workflow, which deploys to UAT, creates a 'uat-deployed-XX' tag, and runs the end-to-end tests
 
 3. **Production**
 
@@ -92,7 +101,7 @@ We have decided to go with a combination of options 3 and 4. The flow is the fol
     3. On the right side of the page, select the "Run workflow" button
     4. Under "Use workflow from", select the dropdown. Click the "Tags" button, and select the tag you want to deploy
     5. Underneath this, select the dropdown labelled "Environment to deploy to". Choose "Production"
-    6. Underneath this, select the "Run workflow" button. This sends a review request to the app contributors and maintainers. On approval, the workflow runs, which creates a 'prod-deployed-XX' tag and deploys to production
+    6. Underneath this, select the "Run workflow" button. This sends a review request to the app contributors and maintainers. On approval, the workflow runs, which deploys to production and creates a 'prod-deployed-XX' tag
 
 In order to roll back a release, simply trigger a deployment for the environment you want to roll back from the GitHub Actions UI. For the tag, choose the tag you want to roll back to. Another developer can review this deployment in the GitHub Environment. On approval, the old tag is deployed to the desired environment. A new tag is not created as it already exists.
 
