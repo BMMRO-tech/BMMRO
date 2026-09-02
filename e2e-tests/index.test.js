@@ -165,14 +165,14 @@ describe("create a new encounter user journey", () => {
 
       console.log("SET TIMEOUTS");
 
-      console.log("CLICKING SAVE TRIP");
+      console.log("WAITING FOR SAVE TRIP BUTTON");
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveEndTrip")),
         pageTimeout,
       );
 
-      console.log("CLICKED SAVE TRIP");
+      console.log("SAVE TRIP BUTTON PRESENT");
 
       let newTripUrl = await driver.getCurrentUrl();
 
