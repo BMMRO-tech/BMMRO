@@ -165,6 +165,9 @@ describe("create a new encounter user journey", () => {
 
       console.log("SET TIMEOUTS");
 
+      await driver.sleep(3000);
+      console.log("URL 3s after save click:", await driver.getCurrentUrl());
+
       console.log("WAITING FOR SAVE TRIP BUTTON");
 
       await driver.wait(
