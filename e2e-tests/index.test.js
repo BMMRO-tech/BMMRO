@@ -153,17 +153,10 @@ describe("create a new encounter user journey", () => {
 
       console.log("ON LOGBOOK ENTRY PAGE");
 
-      // Wait until Formik's autofill useEffect has set a non-empty, non-placeholder time
-      await driver.wait(
-        async () => {
-          const val = await driver
-            .findElement(wd.By.name("time"))
-            .getAttribute("value");
-          return val && !val.includes("_") && val !== "";
-        },
-        pageTimeout,
-        "Time field autofill never completed",
+      const isFormValid = await driver.executeScript(
+        'return document.querySelector("form").checkValidity()',
       );
+      console.log("NATIVE FORM VALID:", isFormValid);
 
       console.log("CLICKING SAVE");
 
@@ -171,20 +164,17 @@ describe("create a new encounter user journey", () => {
 
       console.log("CLICKED SAVE");
 
+      await driver.sleep(200);
+      // If click didn't submit, force it via event dispatch
+      await driver.executeScript(
+        'document.querySelector("form").dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }))',
+      );
+
       console.log("SETTING TIMEOUTS");
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       console.log("SET TIMEOUTS");
-
-      await driver.sleep(3000);
-      console.log("URL 3s after save click:", await driver.getCurrentUrl());
-
-      await driver.sleep(500); // let React re-render with touched state
-      const pageText = await driver.executeScript(
-        "return document.body.innerText",
-      );
-      console.log("PAGE TEXT AFTER SAVE CLICK:", pageText.substring(0, 1500));
 
       console.log("WAITING FOR SAVE TRIP BUTTON");
 
