@@ -151,70 +151,28 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      console.log("ON LOGBOOK ENTRY PAGE");
-
-      const isFormValid = await driver.executeScript(
-        'return document.querySelector("form").checkValidity()',
+      // Safari's native click doesn't reliably fire React's submit handler when
+      // the button is inside a position:sticky container with no prior interactions.
+      // Using a JS click bypasses the pointer-based mechanism and fires directly.
+      const saveLogBookButton = await driver.findElement(
+        wd.By.css("#saveLogBook"),
       );
-      console.log("NATIVE FORM VALID:", isFormValid);
-
-      console.log("CLICKING SAVE");
-
-      await driver.findElement(wd.By.css("#saveLogBook")).click();
-
-      console.log("CLICKED SAVE");
-
-      await driver.sleep(200);
-      // If click didn't submit, force it via event dispatch
-      await driver.executeScript(
-        'document.querySelector("form").dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }))',
-      );
-
-      console.log("SETTING TIMEOUTS");
+      await driver.executeScript("arguments[0].click()", saveLogBookButton);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
-
-      console.log("SET TIMEOUTS");
-
-      console.log("WAITING FOR SAVE TRIP BUTTON");
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveEndTrip")),
         pageTimeout,
       );
 
-      console.log("SAVE TRIP BUTTON PRESENT");
-
       let newTripUrl = await driver.getCurrentUrl();
-
-      console.log("newTripUrl: ", `--${newTripUrl}--`);
-
-      console.log(
-        "expected URL: ",
-        `--${process.env.ENDPOINT}/trips/${tripId}/view--`,
-      );
-
-      console.log("RUNNING URL EQUALITY ASSERTION");
-
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
-
-      console.log("URL EQUALITY ASSERTION PASSED");
-
-      console.log("GETTING LOGBOOK TEXT");
 
       const logbook = await driver.findElement(wd.By.id("logbook")).getText();
 
-      console.log("GOT LOGBOOK TEXT: ", logbook);
-
       let expectedText = "Logbook entry 1";
-
-      console.log("EXPECTED LOGBOOK TEXT: ", expectedText);
-
-      console.log("RUNNING LOGBOOK TEXT EQUALITY ASSERTION");
-
       expect(logbook).toContain(expectedText);
-
-      console.log("LOGBOOK TEXT EQUALITY ASSERTION PASSED");
     },
 
     testTimeout,
@@ -323,8 +281,13 @@ describe("create a new encounter user journey", () => {
     "navigate to encounters overview",
     async () => {
       await driver.findElement(wd.By.css("#encountersTab")).click();
-      let newUrl = await driver.getCurrentUrl();
 
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#new-encounters-button")),
+        pageTimeout,
+      );
+
+      let newUrl = await driver.getCurrentUrl();
       expect(newUrl).toBe(`${process.env.ENDPOINT}/encounters`);
     },
     testTimeout,
