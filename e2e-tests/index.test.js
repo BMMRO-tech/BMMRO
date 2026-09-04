@@ -151,13 +151,10 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      // Safari's native click doesn't reliably fire React's submit handler when
-      // the button is inside a position:sticky container with no prior interactions.
-      // Using a JS click bypasses the pointer-based mechanism and fires directly.
       const saveLogBookButton = await driver.findElement(
         wd.By.css("#saveLogBook"),
       );
-      await driver.executeScript("arguments[0].click()", saveLogBookButton);
+      await driver.actions().move({ origin: saveLogBookButton }).click().perform();
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -185,9 +182,11 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveEndTrip")).click();
+      const saveEndTripButton = await driver.findElement(
+        wd.By.css("#saveEndTrip"),
+      );
+      await driver.actions().move({ origin: saveEndTripButton }).click().perform();
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#confirmEndButton")),
         pageTimeout,
