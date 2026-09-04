@@ -151,10 +151,7 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      const saveLogBookButton = await driver.findElement(
-        wd.By.css("#saveLogBook"),
-      );
-      await driver.actions().move({ origin: saveLogBookButton }).click().perform();
+      await driver.findElement(wd.By.css("#saveLogBook")).sendKeys(wd.Key.RETURN);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -182,10 +179,7 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      const saveEndTripButton = await driver.findElement(
-        wd.By.css("#saveEndTrip"),
-      );
-      await driver.actions().move({ origin: saveEndTripButton }).click().perform();
+      await driver.findElement(wd.By.css("#saveEndTrip")).sendKeys(wd.Key.RETURN);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#confirmEndButton")),
