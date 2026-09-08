@@ -13,6 +13,8 @@ import { getModifiedProperties } from "../utils/math";
 import utilities from "../materials/utilities";
 import LogbookForm from "../components/LogbookForm";
 import BackLink from "../components/BackLink";
+import Button from "../components/Button";
+import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
 
 const EditLogbookEntry = ({ tripId, logbookId }) => {
   const styles = {
@@ -26,6 +28,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
   const [isExported, setIsExported] = useState(false);
+  const [hasEnded, setHasEnded] = useState(false);
 
   const navigate = useNavigate();
   const logbookPath = generateLogbookPath(tripId, logbookId);
@@ -36,6 +39,12 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
     datastore.updateDocByPath(logbookPath, modifiedProperties);
     navigate(generateViewTripURL(tripId));
   };
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDelete = () => {
+    datastore.deleteDocByPath(logbookPath);
+    navigate(generateViewTripURL(tripId));
+  };
 
   useEffect(() => {
     const getData = async (path) => {
@@ -43,6 +52,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
 
       if (!!values.data) {
         setIsExported(values.data.exported);
+        setHasEnded(values.data.hasEnded);
         setInitialValues(values.data);
       } else {
         navigate(generateViewTripURL(tripId));
@@ -78,6 +88,23 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
               <BackLink text="Return to trip overview" to={ROUTES.trips} />
             </div>
           )}
+          {!isExported && !hasEnded && (
+            <Button
+              variant="warning"
+              onClick={() => setShowDeleteModal(true)}
+              testId="delete-entry-button"
+            >
+              Delete entry
+            </Button>
+          )}
+          {showDeleteModal && (
+            <DeleteConfirmationModal
+              entryLabel="logbook entry"
+              onConfirm={handleDelete}
+              onCancel={() => setShowDeleteModal(false)}
+            />
+          )}
+
         </Fragment>
       )}
     </Layout>
