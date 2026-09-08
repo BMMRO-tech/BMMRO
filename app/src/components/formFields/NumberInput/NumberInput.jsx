@@ -33,7 +33,7 @@ const NumberInput = ({
   const validateNumber = (val) => {
     if (isDisabled) return "";
 
-    if (val === "") {
+    if (val === "" || isNullOrUndefined(val)) {
       if (isRequired) return getErrorMessage(FormErrorType.EMPTY);
       else return "";
     }
