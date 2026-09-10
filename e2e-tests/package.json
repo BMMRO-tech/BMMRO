@@ -15,6 +15,6 @@
     "selenium-webdriver": "^4.45.0"
   },
   "devDependencies": {
-    "vitest": "^3.2.7"
+    "vitest": "^5.0.0"
   }
 }
