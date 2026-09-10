@@ -38,6 +38,8 @@ async function startDriver() {
   return driver;
 }
 
+// When running in the CI, sticky footer buttons are unable to be clicked on.
+// This function executes a script to click the button, rather than simulating a mouse in the CI.
 const click = async (element, driver) => {
   const isCi = process.env.CI;
   if (isCi) {
@@ -239,7 +241,7 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user edit trip",
+    "user edits trip",
     async () => {
       let tripNumber = await driver.findElement(wd.By.name("observers"));
       await tripNumber.sendKeys("e2e");
@@ -247,7 +249,10 @@ describe("create a new encounter user journey", () => {
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
       await click(saveTripButton, driver);
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#editTripInformation")),
+        pageTimeout,
+      );
 
       let homeUrl = await driver.getCurrentUrl();
 
