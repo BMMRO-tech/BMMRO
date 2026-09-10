@@ -29,6 +29,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
   const [initialValues, setInitialValues] = useState(null);
   const [isExported, setIsExported] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const navigate = useNavigate();
   const logbookPath = generateLogbookPath(tripId, logbookId);
@@ -39,7 +40,6 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
     datastore.updateDocByPath(logbookPath, modifiedProperties);
     navigate(generateViewTripURL(tripId));
   };
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleDelete = () => {
     datastore.deleteDocByPath(logbookPath);
