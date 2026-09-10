@@ -243,17 +243,20 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits trip",
     async () => {
+      console.log("DEBUG step 1: finding observers field");
       let tripNumber = await driver.findElement(wd.By.name("observers"));
+      console.log("DEBUG step 2: sending keys");
       await tripNumber.sendKeys("e2e");
-
+      console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
+      console.log("DEBUG step 4: clicking saveTrip");
       await saveTripButton.click();
-
+      console.log("DEBUG step 5: waiting for editTripInformation");
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#editTripInformation")),
         pageTimeout,
       );
-
+      console.log("DEBUG step 6: getting URL");
       let homeUrl = await driver.getCurrentUrl();
 
       expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
