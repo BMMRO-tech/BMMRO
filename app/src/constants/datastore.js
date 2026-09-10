@@ -45,4 +45,5 @@ export const DatastoreErrorType = {
   COLLECTION_READ: "collection-read",
   DOCUMENT_UPDATE: "document-update",
   UPDATES_SUBSCRIPTION: "updates-subscription",
+  DOCUMENT_DELETE: "document-delete",
 };

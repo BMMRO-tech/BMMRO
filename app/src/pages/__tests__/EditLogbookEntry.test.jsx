@@ -6,7 +6,7 @@ import {
   clearEmulatedData,
   cleanupTestEnv,
 } from "../../utils/test/firestoreEmulator";
-import { waitFor } from "@testing-library/react";
+import { waitFor, fireEvent } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
 import EditLogbookEntry from "../EditLogbookEntry";
@@ -107,6 +107,162 @@ describe("EditLogbookEntry", () => {
 
     await waitFor(() => {
       expect(history.location.pathname).toEqual(redirectPath);
+    });
+  });
+
+  describe("delete logbook entry", () => {
+    const addLogbookEntry = async (overrides = {}) => {
+      const { id: tripId } = await firestoreEmulator.collection("trip").add({
+        ...defaultTrip,
+        exported: false,
+        hasEnded: false,
+      });
+
+      const { id: logbookId } = await firestoreEmulator
+        .doc(`trip/${tripId}`)
+        .collection("logbookEntry")
+        .add({
+          time: "12:43",
+          waterDepth: "",
+          waterDepthBeyondSoundings: false,
+          exported: false,
+          hasEnded: false,
+          ...overrides,
+        });
+
+      return { tripId, logbookId };
+    };
+
+    const renderEditPage = (tripId, logbookId) => {
+      const entryPath = `/trips/${tripId}/logbook-entry/${logbookId}/edit`;
+
+      return renderWithMockContexts(
+        <EditLogbookEntry tripId={tripId} logbookId={logbookId} />,
+        {
+          datastore,
+          route: entryPath,
+        },
+      );
+    };
+
+    it("shows delete button when entry is not exported and not hasEnded", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+    });
+
+    it("hides delete button when entry is exported", async () => {
+      const { tripId, logbookId } = await addLogbookEntry({
+        exported: true,
+      });
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("exported-info")).toBeInTheDocument();
+      });
+      expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
+    });
+
+    it("hides delete button when entry has hasEnded", async () => {
+      const { tripId, logbookId } = await addLogbookEntry({
+        hasEnded: true,
+      });
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("saveLogBook")).toBeInTheDocument();
+      });
+      expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
+    });
+
+    it("shows confirmation modal when delete button clicked", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(
+          queryByTestId("delete-confirmation-modal"),
+        ).toBeInTheDocument();
+      });
+    });
+
+    it("calls deleteDocByPath with correct path on confirm", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+      const deleteDocByPathSpy = vi.spyOn(datastore, "deleteDocByPath");
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("confirm-delete-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("confirm-delete-button"));
+
+      await waitFor(() => {
+        expect(deleteDocByPathSpy).toHaveBeenCalledWith(
+          `trip/${tripId}/logbookEntry/${logbookId}`,
+        );
+      });
+    });
+
+    it("navigates to trip view after confirm", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+
+      const { queryByTestId, history } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("confirm-delete-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("confirm-delete-button"));
+
+      await waitFor(() => {
+        expect(history.location.pathname).toEqual(`/trips/${tripId}/view`);
+      });
+    });
+
+    it("does not call deleteDocByPath when cancelled", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+      const deleteDocByPathSpy = vi.spyOn(datastore, "deleteDocByPath");
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("cancel-delete-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("cancel-delete-button"));
+
+      await waitFor(() => {
+        expect(
+          queryByTestId("delete-confirmation-modal"),
+        ).not.toBeInTheDocument();
+      });
+      expect(deleteDocByPathSpy).not.toHaveBeenCalled();
     });
   });
 });

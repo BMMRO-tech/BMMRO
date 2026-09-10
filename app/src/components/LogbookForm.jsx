@@ -58,7 +58,7 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
     setClosedPositionalModal(isPositionalData);
   };
 
-  const initValues = initialValues || logbookDefaultValues;
+  const initValues = { ...logbookDefaultValues, ...initialValues };
 
   return (
     <div css={utilities.sticky.contentContainer}>

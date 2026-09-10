@@ -589,3 +589,211 @@ describe("create a new encounter user journey", () => {
       });
   }, testTimeout);
 });
+
+describe("delete a logbook entry user journey", () => {
+  let driver;
+  let tripId;
+  let logbookId;
+  let pageTimeout = 10000;
+  let testTimeout = 50000;
+
+  beforeAll(async () => {
+    signInWithEmailAndPassword(auth, process.env.EMAIL, process.env.PASSWORD)
+      .then(() => {
+        console.log("firebase authentication success");
+      })
+      .catch((error) => {
+        console.log("firebase authentication error: ", error);
+      });
+    driver = await startDriver();
+  }, testTimeout);
+
+  it(
+    "user successfully logs in",
+    async () => {
+      driver.manage().window().maximize();
+
+      await driver.get(process.env.ENDPOINT);
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let email = driver.findElement(wd.By.name("email"));
+      await email.sendKeys(process.env.EMAIL);
+
+      let password = driver.findElement(wd.By.name("password"));
+      await password.sendKeys(process.env.PASSWORD);
+
+      await driver.findElement(wd.By.css("button")).click();
+
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let homeUrl = await driver.getCurrentUrl();
+
+      expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips`);
+    },
+    testTimeout,
+  );
+
+  it(
+    "user creates a trip with a logbook entry to delete",
+    async () => {
+      await driver.findElement(wd.By.css("#new-trips-button")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let tripNumber = await driver.findElement(wd.By.name("tripNumber"));
+      await tripNumber.sendKeys("456");
+
+      //area
+      await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
+      //vessel
+      await driver
+        .findElement(wd.By.css('select>option[value="Chimo"]'))
+        .click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogBook")),
+        pageTimeout,
+      );
+
+      await driver.findElement(wd.By.css("#newLogBook")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let newTripUrl = await driver.getCurrentUrl();
+
+      expect(newTripUrl).toContain(`/logbook-entry/new`);
+
+      tripId = newTripUrl.split("/")[4];
+    },
+    testTimeout,
+  );
+
+  it(
+    "user saves the new logbook entry",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveLogBook")),
+        pageTimeout,
+      );
+
+      // Enter new time as CI may not have it autofilled
+      let timeInput = await driver.findElement(wd.By.name("time"));
+      await timeInput.clear();
+      await timeInput.sendKeys("110000");
+
+      await driver.findElement(wd.By.css("#saveLogBook")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+        pageTimeout,
+      );
+
+      let url = await driver.getCurrentUrl();
+      expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+
+      const logbook = await driver.findElement(wd.By.id("logbook")).getText();
+      expect(logbook).toContain("Logbook entry 1");
+    },
+    testTimeout,
+  );
+
+  it(
+    "user opens the logbook entry for editing",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#logbook-item")),
+        pageTimeout,
+      );
+
+      await driver.findElement(wd.By.css("#logbook-item")).click();
+
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      let editLogbookUrl = await driver.getCurrentUrl();
+
+      logbookId = editLogbookUrl.split("/")[6];
+
+      expect(editLogbookUrl).toBe(
+        `${process.env.ENDPOINT}/trips/${tripId}/logbook-entry/${logbookId}/edit`,
+      );
+    },
+    testTimeout,
+  );
+
+  it(
+    "user deletes the logbook entry via the confirmation modal",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#delete-entry-button")),
+        pageTimeout,
+      );
+
+      await driver.findElement(wd.By.css("#delete-entry-button")).click();
+
+      // Confirmation modal appears; confirm the deletion
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#confirm-delete-button")),
+        pageTimeout,
+      );
+
+      await driver.findElement(wd.By.css("#confirm-delete-button")).click();
+
+      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+
+      let url = await driver.getCurrentUrl();
+      expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+    },
+    testTimeout,
+  );
+
+  it(
+    "the deleted entry no longer appears in the logbook list",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogbook")),
+        pageTimeout,
+      );
+
+      // Negative assertion - drop the implicit wait so we don't block for its
+      // full duration looking for an element that should be gone
+      await driver.manage().setTimeouts({ implicit: 0 });
+      let items = await driver.findElements(wd.By.css("#logbook-item"));
+      await driver.manage().setTimeouts({ implicit: pageTimeout });
+
+      expect(items.length).toBe(0);
+    },
+    testTimeout,
+  );
+
+  it(
+    "the logbook entry has been removed from the database",
+    async () => {
+      const docRefLogbook = doc(db, "trip", tripId, "logbookEntry", logbookId);
+      const docSnapLogbook = await getDoc(docRefLogbook);
+
+      expect(docSnapLogbook.exists()).toBeFalsy();
+    },
+    testTimeout,
+  );
+
+  afterAll(async () => {
+    // Clean up the trip created for this journey (the logbook entry is
+    // already deleted by the test itself)
+    if (tripId) {
+      await deleteDoc(doc(db, "trip", tripId));
+    }
+
+    await driver.quit();
+
+    signOut(auth)
+      .then(() => {
+        console.log("firebase sign out success");
+      })
+      .catch((error) => {
+        console.log("firebase sign out error: ", error);
+      });
+  }, testTimeout);
+});
