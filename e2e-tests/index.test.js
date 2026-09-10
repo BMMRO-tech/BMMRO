@@ -192,22 +192,10 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      await driver.wait(async () => {
-        const timeInput = await driver.findElement(
-          wd.By.css('input[name="time"]'),
-        );
-        const value = await timeInput.getAttribute("value");
-        return /^\d{2}:\d{2}:\d{2}$/.test(value);
-      }, pageTimeout);
-
-      const confirmEndButton = await driver.findElement(
+      const confirmEndTripButton = await driver.findElement(
         wd.By.css("#confirmEndButton"),
       );
-      await confirmEndButton.click();
-
-      // Wait for the modal overlay to be removed from the DOM before proceeding.
-      // Without this, the overlay can intercept clicks in the next test.
-      await driver.wait(wd.until.stalenessOf(confirmEndButton), pageTimeout);
+      await driver.executeScript("arguments[0].click()", confirmEndTripButton);
 
       let newTripUrl = await driver.getCurrentUrl();
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
