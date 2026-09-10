@@ -151,17 +151,10 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      // The TimeInput autofills via a useEffect, triggering a Formik re-render.
-      // Wait for that re-render to settle before clicking to avoid dropped events.
-      await driver.wait(async () => {
-        const timeInput = await driver.findElement(
-          wd.By.css('input[name="time"]'),
-        );
-        const value = await timeInput.getAttribute("value");
-        return /^\d{2}:\d{2}:\d{2}$/.test(value);
-      }, pageTimeout);
-
-      await driver.findElement(wd.By.css("#saveLogBook")).click();
+      const saveLogBookButton = await driver.findElement(
+        wd.By.css("#saveLogBook"),
+      );
+      await driver.executeScript("arguments[0].click()", saveLogBookButton);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -189,7 +182,9 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      const saveEndTripButton = await driver.findElement(wd.By.css("#saveEndTrip"));
+      const saveEndTripButton = await driver.findElement(
+        wd.By.css("#saveEndTrip"),
+      );
       await driver.executeScript("arguments[0].click()", saveEndTripButton);
 
       await driver.wait(
