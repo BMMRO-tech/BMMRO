@@ -247,7 +247,7 @@ describe("create a new encounter user journey", () => {
       await tripNumber.sendKeys("e2e");
 
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
-      await click(saveTripButton, driver);
+      await saveTripButton.click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#editTripInformation")),
