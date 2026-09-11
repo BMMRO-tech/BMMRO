@@ -167,8 +167,6 @@ describe("create a new encounter user journey", () => {
       );
       await click(saveLogBookButton, driver);
 
-      // await driver.manage().setTimeouts({ implicit: pageTimeout });
-
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveEndTrip")),
         pageTimeout,
@@ -244,14 +242,14 @@ describe("create a new encounter user journey", () => {
     "user edits trip",
     async () => {
       console.log("DEBUG step 1: finding observers field");
-      let tripNumber = await driver.findElement(wd.By.name("observers"));
+      let tripNumber = await driver.findElement(wd.By.name("tripNumber"));
       console.log("DEBUG step 2: sending keys");
-      await tripNumber.click();
-      await tripNumber.sendKeys("e2e");
+      // await tripNumber.click();
+      await tripNumber.sendKeys("456");
       console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
       console.log("DEBUG step 4: clicking saveTrip");
-      await saveTripButton.click();
+      await click(saveTripButton, driver);
       console.log("DEBUG step 5: waiting for editTripInformation");
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#editTripInformation")),
