@@ -223,10 +223,7 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      const editTripInformationButton = await driver.findElement(
-        wd.By.css("#editTripInformation"),
-      );
-      await click(editTripInformationButton, driver);
+      await driver.findElement(wd.By.css("#editTripInformation")).click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveTrip")),
