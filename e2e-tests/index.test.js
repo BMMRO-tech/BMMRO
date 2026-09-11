@@ -242,10 +242,10 @@ describe("create a new encounter user journey", () => {
     "user edits trip",
     async () => {
       console.log("DEBUG step 1: finding observers field");
-      let tripNumber = await driver.findElement(wd.By.name("tripNumber"));
+      let observers = await driver.findElement(wd.By.name("observers"));
       console.log("DEBUG step 2: sending keys");
-      // await tripNumber.click();
-      await tripNumber.sendKeys("456");
+      await click(observers, driver);
+      await observers.sendKeys("e2e");
       console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
       console.log("DEBUG step 4: clicking saveTrip");
