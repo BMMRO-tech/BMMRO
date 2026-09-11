@@ -241,6 +241,10 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits trip",
     async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.name("observers")),
+        pageTimeout,
+      );
       console.log("DEBUG step 1: finding observers field");
       let observers = await driver.findElement(wd.By.name("observers"));
       console.log("DEBUG step 2: sending keys");
