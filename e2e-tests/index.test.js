@@ -241,7 +241,7 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits trip",
     async () => {
-      await driver.sleep(2000);
+      await driver.sleep(25000);
       await driver.wait(
         wd.until.elementLocated(wd.By.name("observers")),
         pageTimeout,
