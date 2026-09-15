@@ -241,7 +241,6 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits trip",
     async () => {
-      await driver.sleep(25000);
       await driver.wait(
         wd.until.elementLocated(wd.By.name("observers")),
         pageTimeout,
@@ -249,6 +248,7 @@ describe("create a new encounter user journey", () => {
       console.log("DEBUG step 1: finding observers field");
       let observers = await driver.findElement(wd.By.name("observers"));
       console.log("DEBUG step 2: sending keys");
+      await driver.executeScript("window.focus();");
       await observers.sendKeys("e2e");
       console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
