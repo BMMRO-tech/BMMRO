@@ -38,14 +38,29 @@ async function startDriver() {
   return driver;
 }
 
-// When running in the CI, sticky footer buttons are unable to be clicked on.
-// This function executes a script to click the button, rather than simulating a mouse in the CI.
+// In CI, clicks and keyboard input must go through executeScript because
+// Safari CI does not reliably handle WebDriver's native interaction commands
+// on a Reach Router SPA backed by Firestore.
 const click = async (element, driver) => {
-  const isCi = process.env.CI;
-  if (isCi) {
+  if (process.env.CI) {
     await driver.executeScript("arguments[0].click()", element);
   } else {
     await element.click();
+  }
+};
+
+const fillInput = async (element, value, driver) => {
+  if (process.env.CI) {
+    await driver.executeScript(
+      `var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+       setter.call(arguments[0], arguments[1]);
+       arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+       arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
+      element,
+      value,
+    );
+  } else {
+    await element.sendKeys(value);
   }
 };
 
@@ -217,14 +232,14 @@ describe("create a new encounter user journey", () => {
     "user navigates to edit trip",
     async () => {
       await driver.wait(
-        wd.until.elementLocated(wd.By.css('[data-testid="edit-link"]')),
+        wd.until.elementLocated(wd.By.css("#editTripInformation")),
         pageTimeout,
       );
 
-      const editTripLink = await driver.findElement(
-        wd.By.css('[data-testid="edit-link"]'),
+      const editTripInformationButton = await driver.findElement(
+        wd.By.css("#editTripInformation"),
       );
-      await editTripLink.click();
+      await click(editTripInformationButton, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveTrip")),
@@ -247,8 +262,8 @@ describe("create a new encounter user journey", () => {
       );
       console.log("DEBUG step 1: finding observers field");
       let observers = await driver.findElement(wd.By.name("observers"));
-      console.log("DEBUG step 2: sending keys");
-      await observers.sendKeys("e2e");
+      console.log("DEBUG step 2: filling observers field");
+      await fillInput(observers, "e2e", driver);
       console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
       console.log("DEBUG step 4: clicking saveTrip");
