@@ -217,14 +217,14 @@ describe("create a new encounter user journey", () => {
     "user navigates to edit trip",
     async () => {
       await driver.wait(
-        wd.until.elementLocated(wd.By.css("#editTripInformation")),
+        wd.until.elementLocated(wd.By.css('[data-testid="edit-link"]')),
         pageTimeout,
       );
 
-      const editTripInformationButton = await driver.findElement(
-        wd.By.css("#editTripInformation"),
+      const editTripLink = await driver.findElement(
+        wd.By.css('[data-testid="edit-link"]'),
       );
-      await editTripInformationButton.click();
+      await editTripLink.click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveTrip")),
