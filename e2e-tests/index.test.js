@@ -224,7 +224,7 @@ describe("create a new encounter user journey", () => {
       const editTripInformationButton = await driver.findElement(
         wd.By.css("#editTripInformation"),
       );
-      await click(editTripInformationButton, driver);
+      await editTripInformationButton.click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveTrip")),
@@ -248,7 +248,6 @@ describe("create a new encounter user journey", () => {
       console.log("DEBUG step 1: finding observers field");
       let observers = await driver.findElement(wd.By.name("observers"));
       console.log("DEBUG step 2: sending keys");
-      await driver.executeScript("window.focus();");
       await observers.sendKeys("e2e");
       console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
