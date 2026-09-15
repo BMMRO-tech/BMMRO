@@ -241,22 +241,15 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits trip",
     async () => {
+      await driver.sleep(2000);
       await driver.wait(
         wd.until.elementLocated(wd.By.name("observers")),
         pageTimeout,
       );
       console.log("DEBUG step 1: finding observers field");
       let observers = await driver.findElement(wd.By.name("observers"));
-      console.log("DEBUG step 2a: clicking observers via script");
-      await click(observers, driver);
-      console.log("DEBUG step 2b: setting observers value via script");
-      await driver.executeScript(
-        `var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-         setter.call(arguments[0], 'e2e');
-         arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
-         arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
-        observers,
-      );
+      console.log("DEBUG step 2: sending keys");
+      await observers.sendKeys("e2e");
       console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
       console.log("DEBUG step 4: clicking saveTrip");
