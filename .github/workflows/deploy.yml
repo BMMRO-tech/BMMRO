@@ -106,7 +106,7 @@ jobs:
   end-to-end:
     needs: build-test-deploy
     if: github.event_name == 'push' || github.event.inputs.environment != 'Production'
-    runs-on: macos-15
+    runs-on: macos-latest
     environment: ${{ github.event.inputs.environment || 'Development' }}
     env:
       E2E_TESTS_DIR: ./e2e-tests

@@ -52,7 +52,10 @@ const click = async (element, driver) => {
 const fillInput = async (element, value, driver) => {
   if (process.env.CI) {
     await driver.executeScript(
-      `var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+      `var proto = arguments[0].tagName === 'TEXTAREA'
+         ? window.HTMLTextAreaElement.prototype
+         : window.HTMLInputElement.prototype;
+       var setter = Object.getOwnPropertyDescriptor(proto, 'value').set;
        setter.call(arguments[0], arguments[1]);
        arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
        arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
