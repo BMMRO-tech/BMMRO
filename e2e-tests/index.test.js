@@ -304,10 +304,11 @@ describe("create a new encounter user journey", () => {
         wd.By.name("logbookComments"),
       );
 
-      await HydrophoneComment.sendKeys("e2e: hydrophone comment");
-      await logbookComment.sendKeys("e2e: logbook comment");
+      await fillInput(HydrophoneComment, "e2e: hydrophone comment", driver);
+      await fillInput(logbookComment, "e2e: logbook comment", driver);
 
-      await driver.findElement(wd.By.css("#saveLogBook")).click();
+      const saveLogBook = await driver.findElement(wd.By.css("#saveLogBook"));
+      await click(saveLogBook, driver);
 
       await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
