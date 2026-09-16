@@ -260,20 +260,14 @@ describe("create a new encounter user journey", () => {
         wd.until.elementLocated(wd.By.name("observers")),
         pageTimeout,
       );
-      console.log("DEBUG step 1: finding observers field");
-      let observers = await driver.findElement(wd.By.name("observers"));
-      console.log("DEBUG step 2: filling observers field");
+      const observers = await driver.findElement(wd.By.name("observers"));
       await fillInput(observers, "e2e", driver);
-      console.log("DEBUG step 3: finding saveTrip button");
       const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
-      console.log("DEBUG step 4: clicking saveTrip");
       await click(saveTripButton, driver);
-      console.log("DEBUG step 5: waiting for editTripInformation");
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#editTripInformation")),
         pageTimeout,
       );
-      console.log("DEBUG step 6: getting URL");
       let homeUrl = await driver.getCurrentUrl();
 
       expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
@@ -284,7 +278,8 @@ describe("create a new encounter user journey", () => {
   it(
     "user navigate to trip logbook",
     async () => {
-      await driver.findElement(wd.By.css("#logbook-item")).click();
+      const logbookItem = await driver.findElement(wd.By.css("#logbook-item"));
+      await click(logbookItem, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
