@@ -325,7 +325,10 @@ describe("create a new encounter user journey", () => {
   it(
     "navigate to encounters overview",
     async () => {
-      await driver.findElement(wd.By.css("#encountersTab")).click();
+      const encountersTab = await driver.findElement(
+        wd.By.css("#encountersTab"),
+      );
+      await click(encountersTab, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#new-encounters-button")),
@@ -341,7 +344,10 @@ describe("create a new encounter user journey", () => {
   it(
     "user navigate to creates a new encounter",
     async () => {
-      await driver.findElement(wd.By.css("#new-encounters-button")).click();
+      const newEncountersButton = await driver.findElement(
+        wd.By.css("#new-encounters-button"),
+      );
+      await click(newEncountersButton, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -357,13 +363,14 @@ describe("create a new encounter user journey", () => {
     async () => {
       let seqNum = await driver.findElement(wd.By.name("sequenceNumber"));
 
-      await seqNum.sendKeys("123");
+      await fillInput(seqNum, "123", driver);
       await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#newHabitat")),
         pageTimeout,
       );
-      await driver.findElement(wd.By.css("#newHabitat")).click();
+      const newHabitat = await driver.findElement(wd.By.css("#newHabitat"));
+      await click(newHabitat, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -396,14 +403,16 @@ describe("create a new encounter user journey", () => {
       await driver.executeScript("arguments[0].select()", latitude);
       await latitude.sendKeys(wd.Key.DELETE);
 
-      await driver.findElement(wd.By.css("#saveHabitat")).click();
+      const saveHabitat = await driver.findElement(wd.By.css("#saveHabitat"));
+      await click(saveHabitat, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveAnyway")),
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveAnyway")).click();
+      const saveAnyway = await driver.findElement(wd.By.css("#saveAnyway"));
+      await click(saveAnyway, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -431,7 +440,8 @@ describe("create a new encounter user journey", () => {
   it(
     "user creates a new biopsy",
     async () => {
-      await driver.findElement(wd.By.css("#newBiopsy")).click();
+      const newBiopsy = await driver.findElement(wd.By.css("#newBiopsy"));
+      await click(newBiopsy, driver);
 
       let newBiopsyUrl = await driver.getCurrentUrl();
 
@@ -457,14 +467,16 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveBiopsy")).click();
+      const saveBiopsy = await driver.findElement(wd.By.css("#saveBiopsy"));
+      await click(saveBiopsy, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveAnyway")),
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveAnyway")).click();
+      const saveAnyway = await driver.findElement(wd.By.css("#saveAnyway"));
+      await click(saveAnyway, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -492,7 +504,10 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits encounter",
     async () => {
-      await driver.findElement(wd.By.css("#encounterDataSheet")).click();
+      const encounterDataSheet = await driver.findElement(
+        wd.By.css("#encounterDataSheet"),
+      );
+      await click(encounterDataSheet, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -512,7 +527,10 @@ describe("create a new encounter user journey", () => {
         )
         .click();
 
-      await driver.findElement(wd.By.css("#saveEndEncounter")).click();
+      const saveEndEncounter = await driver.findElement(
+        wd.By.css("#saveEndEncounter"),
+      );
+      await click(saveEndEncounter, driver);
 
       await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
