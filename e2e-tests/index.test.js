@@ -376,7 +376,10 @@ describe("create a new encounter user journey", () => {
       const newHabitat = await driver.findElement(wd.By.css("#newHabitat"));
       await click(newHabitat, driver);
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveHabitat")),
+        pageTimeout,
+      );
 
       let newEncounterUrl = await driver.getCurrentUrl();
 
