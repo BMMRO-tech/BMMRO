@@ -460,16 +460,10 @@ describe("create a new encounter user journey", () => {
       await driver.executeScript("arguments[0].select()", latitude);
       await fillInput(latitude, wd.Key.DELETE, driver);
 
-      await driver.wait(
-        wd.until.elementLocated(wd.By.name("species")),
-        pageTimeout,
+      const speciesOption = await driver.findElement(
+        wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
       );
-
-      await driver
-        .findElement(
-          wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
-        )
-        .click();
+      await click(speciesOption, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveBiopsy")),
