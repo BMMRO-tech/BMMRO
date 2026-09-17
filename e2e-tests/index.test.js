@@ -364,7 +364,11 @@ describe("create a new encounter user journey", () => {
       let seqNum = await driver.findElement(wd.By.name("sequenceNumber"));
 
       await fillInput(seqNum, "123", driver);
-      await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
+      const location = await driver.findElement(
+        wd.By.css('select>option[value="EA"]'),
+      );
+      await click(location, driver);
+
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#newHabitat")),
         pageTimeout,
@@ -456,11 +460,10 @@ describe("create a new encounter user journey", () => {
       await driver.executeScript("arguments[0].select()", latitude);
       await fillInput(latitude, wd.Key.DELETE, driver);
 
-      await driver
-        .findElement(
-          wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
-        )
-        .click();
+      const atlanticSpottedDolphin = await driver.findElement(
+        wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
+      );
+      await click(atlanticSpottedDolphin, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveBiopsy")),
