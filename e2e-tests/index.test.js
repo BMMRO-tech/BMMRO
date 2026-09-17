@@ -364,9 +364,7 @@ describe("create a new encounter user journey", () => {
       let seqNum = await driver.findElement(wd.By.name("sequenceNumber"));
 
       await fillInput(seqNum, "123", driver);
-      await driver
-        .findElement(wd.By.css('select>option[value="EA"]'))
-        .click();
+      await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#newHabitat")),
@@ -461,6 +459,11 @@ describe("create a new encounter user journey", () => {
       const latitude = await driver.findElement(wd.By.name("latitude"));
       await driver.executeScript("arguments[0].select()", latitude);
       await fillInput(latitude, wd.Key.DELETE, driver);
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.name("species")),
+        pageTimeout,
+      );
 
       await driver
         .findElement(
