@@ -392,16 +392,16 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user fills out and end habitat",
+    "user fills out and ends habitat",
     async () => {
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
       await driver.executeScript("arguments[0].select()", longitude);
-      await longitude.sendKeys(wd.Key.DELETE);
+      await fillInput(longitude, wd.Key.DELETE, driver);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
       await driver.executeScript("arguments[0].select()", latitude);
-      await latitude.sendKeys(wd.Key.DELETE);
+      await fillInput(latitude, wd.Key.DELETE, driver);
 
       const saveHabitat = await driver.findElement(wd.By.css("#saveHabitat"));
       await click(saveHabitat, driver);
@@ -450,11 +450,11 @@ describe("create a new encounter user journey", () => {
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
       await driver.executeScript("arguments[0].select()", longitude);
-      await longitude.sendKeys(wd.Key.DELETE);
+      await fillInput(longitude, wd.Key.DELETE, driver);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
       await driver.executeScript("arguments[0].select()", latitude);
-      await latitude.sendKeys(wd.Key.DELETE);
+      await fillInput(latitude, wd.Key.DELETE, driver);
 
       await driver
         .findElement(
