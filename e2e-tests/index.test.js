@@ -400,12 +400,10 @@ describe("create a new encounter user journey", () => {
     async () => {
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
-      await driver.executeScript("arguments[0].select()", longitude);
-      await fillInput(longitude, wd.Key.DELETE, driver);
+      await fillInput(longitude, "", driver);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
-      await driver.executeScript("arguments[0].select()", latitude);
-      await fillInput(latitude, wd.Key.DELETE, driver);
+      await fillInput(latitude, "", driver);
 
       const saveHabitat = await driver.findElement(wd.By.css("#saveHabitat"));
       await click(saveHabitat, driver);
@@ -453,12 +451,10 @@ describe("create a new encounter user journey", () => {
 
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
-      await driver.executeScript("arguments[0].select()", longitude);
-      await fillInput(longitude, wd.Key.DELETE, driver);
+      await fillInput(longitude, "", driver);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
-      await driver.executeScript("arguments[0].select()", latitude);
-      await fillInput(latitude, wd.Key.DELETE, driver);
+      await fillInput(latitude, "", driver);
 
       const speciesOption = await driver.findElement(
         wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
