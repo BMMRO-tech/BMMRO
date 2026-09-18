@@ -64,6 +64,21 @@ const clearInput = async (element, driver) => {
   }
 };
 
+const selectOption = async (selectElement, value, driver) => {
+  if (process.env.CI) {
+    await driver.executeScript(
+      `arguments[0].value = arguments[1];
+       arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
+      selectElement,
+      value,
+    );
+  } else {
+    await selectElement
+      .findElement(wd.By.css(`option[value="${value}"]`))
+      .click();
+  }
+};
+
 const fillInput = async (element, value, driver) => {
   if (process.env.CI) {
     await driver.executeScript(
@@ -475,9 +490,8 @@ describe("create a new encounter user journey", () => {
       const latitude = await driver.findElement(wd.By.name("latitude"));
       await clearInput(latitude, driver);
 
-      await driver
-        .findElement(wd.By.css('select>option[value="Atlantic spotted dolphin"]'))
-        .click();
+      const speciesSelect = await driver.findElement(wd.By.name("species"));
+      await selectOption(speciesSelect, "Atlantic spotted dolphin", driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveBiopsy")),
