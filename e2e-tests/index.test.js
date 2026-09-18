@@ -38,6 +38,65 @@ async function startDriver() {
   return driver;
 }
 
+// In CI, clicks and keyboard input must go through executeScript because
+// Safari CI does not reliably handle WebDriver's native interaction commands
+// on a Reach Router SPA backed by Firestore.
+const click = async (element, driver) => {
+  if (process.env.CI) {
+    await driver.executeScript("arguments[0].click()", element);
+  } else {
+    await element.click();
+  }
+};
+
+const clearInput = async (element, driver) => {
+  if (process.env.CI) {
+    await driver.executeScript(
+      `var setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+       setter.call(arguments[0], '');
+       arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+       arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
+      element,
+    );
+  } else {
+    await driver.executeScript("arguments[0].select()", element);
+    await element.sendKeys(wd.Key.DELETE);
+  }
+};
+
+const selectOption = async (selectElement, value, driver) => {
+  if (process.env.CI) {
+    await driver.executeScript(
+      `arguments[0].value = arguments[1];
+       arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
+      selectElement,
+      value,
+    );
+  } else {
+    await selectElement
+      .findElement(wd.By.css(`option[value="${value}"]`))
+      .click();
+  }
+};
+
+const fillInput = async (element, value, driver) => {
+  if (process.env.CI) {
+    await driver.executeScript(
+      `var proto = arguments[0].tagName === 'TEXTAREA'
+         ? window.HTMLTextAreaElement.prototype
+         : window.HTMLInputElement.prototype;
+       var setter = Object.getOwnPropertyDescriptor(proto, 'value').set;
+       setter.call(arguments[0], arguments[1]);
+       arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+       arguments[0].dispatchEvent(new Event('change', { bubbles: true }));`,
+      element,
+      value,
+    );
+  } else {
+    await element.sendKeys(value);
+  }
+};
+
 describe("create a new encounter user journey", () => {
   let driver;
   let encounterId;
@@ -151,26 +210,10 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      // Enter new time as CI may not have it autofilled
-      let timeInput = await driver.findElement(wd.By.name("time"));
-
-      console.log(
-        "TIME INPUT VALUE BEFORE: ",
-        timeInput.getAttribute("innerText"),
+      const saveLogBookButton = await driver.findElement(
+        wd.By.css("#saveLogBook"),
       );
-
-      await timeInput.clear();
-
-      await timeInput.sendKeys("100000");
-
-      console.log(
-        "TIME INPUT VALUE AFTER: ",
-        timeInput.getAttribute("innerText"),
-      );
-
-      await driver.findElement(wd.By.css("#saveLogBook")).click();
-
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      await click(saveLogBookButton, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveEndTrip")),
@@ -196,17 +239,20 @@ describe("create a new encounter user journey", () => {
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveEndTrip")).click();
+      const saveEndTripButton = await driver.findElement(
+        wd.By.css("#saveEndTrip"),
+      );
+      await click(saveEndTripButton, driver);
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#confirmEndButton")),
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#confirmEndButton")).click();
-
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      const confirmEndTripButton = await driver.findElement(
+        wd.By.css("#confirmEndButton"),
+      );
+      await click(confirmEndTripButton, driver);
 
       let newTripUrl = await driver.getCurrentUrl();
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
@@ -216,11 +262,22 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user navigate to edits trip",
+    "user navigates to edit trip",
     async () => {
-      await driver.findElement(wd.By.css("#editTripInformation")).click();
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#editTripInformation")),
+        pageTimeout,
+      );
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      const editTripInformationButton = await driver.findElement(
+        wd.By.css("#editTripInformation"),
+      );
+      await click(editTripInformationButton, driver);
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveTrip")),
+        pageTimeout,
+      );
 
       let editTripUrl = await driver.getCurrentUrl();
 
@@ -230,15 +287,20 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user edit trip",
+    "user edits trip",
     async () => {
-      let tripNumber = await driver.findElement(wd.By.name("observers"));
-      await tripNumber.sendKeys("e2e");
-
-      await driver.findElement(wd.By.css("#saveTrip")).click();
-
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
-
+      await driver.wait(
+        wd.until.elementLocated(wd.By.name("observers")),
+        pageTimeout,
+      );
+      const observers = await driver.findElement(wd.By.name("observers"));
+      await fillInput(observers, "e2e", driver);
+      const saveTripButton = await driver.findElement(wd.By.css("#saveTrip"));
+      await click(saveTripButton, driver);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#editTripInformation")),
+        pageTimeout,
+      );
       let homeUrl = await driver.getCurrentUrl();
 
       expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
@@ -249,7 +311,8 @@ describe("create a new encounter user journey", () => {
   it(
     "user navigate to trip logbook",
     async () => {
-      await driver.findElement(wd.By.css("#logbook-item")).click();
+      const logbookItem = await driver.findElement(wd.By.css("#logbook-item"));
+      await click(logbookItem, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -274,10 +337,11 @@ describe("create a new encounter user journey", () => {
         wd.By.name("logbookComments"),
       );
 
-      await HydrophoneComment.sendKeys("e2e: hydrophone comment");
-      await logbookComment.sendKeys("e2e: logbook comment");
+      await fillInput(HydrophoneComment, "e2e: hydrophone comment", driver);
+      await fillInput(logbookComment, "e2e: logbook comment", driver);
 
-      await driver.findElement(wd.By.css("#saveLogBook")).click();
+      const saveLogBook = await driver.findElement(wd.By.css("#saveLogBook"));
+      await click(saveLogBook, driver);
 
       await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
@@ -291,18 +355,29 @@ describe("create a new encounter user journey", () => {
   it(
     "navigate to encounters overview",
     async () => {
-      await driver.findElement(wd.By.css("#encountersTab")).click();
-      let newUrl = await driver.getCurrentUrl();
+      const encountersTab = await driver.findElement(
+        wd.By.css("#encountersTab"),
+      );
+      await click(encountersTab, driver);
 
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#new-encounters-button")),
+        pageTimeout,
+      );
+
+      let newUrl = await driver.getCurrentUrl();
       expect(newUrl).toBe(`${process.env.ENDPOINT}/encounters`);
     },
     testTimeout,
   );
 
   it(
-    "user navigate to creates a new encounter",
+    "user navigates to create a new encounter",
     async () => {
-      await driver.findElement(wd.By.css("#new-encounters-button")).click();
+      const newEncountersButton = await driver.findElement(
+        wd.By.css("#new-encounters-button"),
+      );
+      await click(newEncountersButton, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -318,15 +393,20 @@ describe("create a new encounter user journey", () => {
     async () => {
       let seqNum = await driver.findElement(wd.By.name("sequenceNumber"));
 
-      await seqNum.sendKeys("123");
+      await fillInput(seqNum, "123", driver);
       await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
+
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#newHabitat")),
         pageTimeout,
       );
-      await driver.findElement(wd.By.css("#newHabitat")).click();
+      const newHabitat = await driver.findElement(wd.By.css("#newHabitat"));
+      await click(newHabitat, driver);
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveHabitat")),
+        pageTimeout,
+      );
 
       let newEncounterUrl = await driver.getCurrentUrl();
 
@@ -346,25 +426,25 @@ describe("create a new encounter user journey", () => {
   );
 
   it(
-    "user fills out and end habitat",
+    "user fills out and ends habitat",
     async () => {
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
-      await driver.executeScript("arguments[0].select()", longitude);
-      await longitude.sendKeys(wd.Key.DELETE);
+      await clearInput(longitude, driver);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
-      await driver.executeScript("arguments[0].select()", latitude);
-      await latitude.sendKeys(wd.Key.DELETE);
+      await clearInput(latitude, driver);
 
-      await driver.findElement(wd.By.css("#saveHabitat")).click();
+      const saveHabitat = await driver.findElement(wd.By.css("#saveHabitat"));
+      await click(saveHabitat, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveAnyway")),
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveAnyway")).click();
+      const saveAnyway = await driver.findElement(wd.By.css("#saveAnyway"));
+      await click(saveAnyway, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -380,6 +460,10 @@ describe("create a new encounter user journey", () => {
   it(
     "stores habitat ID",
     async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#habitatUse")),
+        pageTimeout,
+      );
       let newHabitatUrl = await driver
         .findElement(wd.By.css("#habitatUse"))
         .getAttribute("href");
@@ -392,7 +476,8 @@ describe("create a new encounter user journey", () => {
   it(
     "user creates a new biopsy",
     async () => {
-      await driver.findElement(wd.By.css("#newBiopsy")).click();
+      const newBiopsy = await driver.findElement(wd.By.css("#newBiopsy"));
+      await click(newBiopsy, driver);
 
       let newBiopsyUrl = await driver.getCurrentUrl();
 
@@ -400,32 +485,29 @@ describe("create a new encounter user journey", () => {
 
       // Clear latitude and longitude in case it is autofilled by browser
       const longitude = await driver.findElement(wd.By.name("longitude"));
-      await driver.executeScript("arguments[0].select()", longitude);
-      await longitude.sendKeys(wd.Key.DELETE);
+      await clearInput(longitude, driver);
 
       const latitude = await driver.findElement(wd.By.name("latitude"));
-      await driver.executeScript("arguments[0].select()", latitude);
-      await latitude.sendKeys(wd.Key.DELETE);
+      await clearInput(latitude, driver);
 
-      await driver
-        .findElement(
-          wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
-        )
-        .click();
+      const speciesSelect = await driver.findElement(wd.By.name("species"));
+      await selectOption(speciesSelect, "Atlantic spotted dolphin", driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveBiopsy")),
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveBiopsy")).click();
+      const saveBiopsy = await driver.findElement(wd.By.css("#saveBiopsy"));
+      await click(saveBiopsy, driver);
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveAnyway")),
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#saveAnyway")).click();
+      const saveAnyway = await driver.findElement(wd.By.css("#saveAnyway"));
+      await click(saveAnyway, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -441,6 +523,10 @@ describe("create a new encounter user journey", () => {
   it(
     "stores biopsy ID",
     async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#biopsy")),
+        pageTimeout,
+      );
       let newBiopsyUrl = await driver
         .findElement(wd.By.css("#biopsy"))
         .getAttribute("href");
@@ -453,13 +539,16 @@ describe("create a new encounter user journey", () => {
   it(
     "user edits encounter",
     async () => {
-      await driver.findElement(wd.By.css("#encounterDataSheet")).click();
+      const encounterDataSheet = await driver.findElement(
+        wd.By.css("#encounterDataSheet"),
+      );
+      await click(encounterDataSheet, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
-      let editEncouterUrl = await driver.getCurrentUrl();
+      let editEncounterUrl = await driver.getCurrentUrl();
 
-      expect(editEncouterUrl).toContain("/edit");
+      expect(editEncounterUrl).toContain("/edit");
     },
     testTimeout,
   );
@@ -473,7 +562,10 @@ describe("create a new encounter user journey", () => {
         )
         .click();
 
-      await driver.findElement(wd.By.css("#saveEndEncounter")).click();
+      const saveEndEncounter = await driver.findElement(
+        wd.By.css("#saveEndEncounter"),
+      );
+      await click(saveEndEncounter, driver);
 
       await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
