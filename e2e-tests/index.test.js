@@ -43,7 +43,13 @@ async function startDriver() {
 // on a Reach Router SPA backed by Firestore.
 const click = async (element, driver) => {
   if (process.env.CI) {
-    await driver.executeScript("arguments[0].click()", element);
+    await driver.executeScript(
+      `arguments[0].click();
+       if (arguments[0].tagName === 'OPTION') {
+         arguments[0].closest('select').dispatchEvent(new Event('change', { bubbles: true }));
+       }`,
+      element,
+    );
   } else {
     await element.click();
   }
