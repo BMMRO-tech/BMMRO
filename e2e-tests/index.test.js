@@ -43,13 +43,7 @@ async function startDriver() {
 // on a Reach Router SPA backed by Firestore.
 const click = async (element, driver) => {
   if (process.env.CI) {
-    await driver.executeScript(
-      `arguments[0].click();
-       if (arguments[0].tagName === 'OPTION') {
-         arguments[0].closest('select').dispatchEvent(new Event('change', { bubbles: true }));
-       }`,
-      element,
-    );
+    await driver.executeScript("arguments[0].click()", element);
   } else {
     await element.click();
   }
@@ -481,10 +475,9 @@ describe("create a new encounter user journey", () => {
       const latitude = await driver.findElement(wd.By.name("latitude"));
       await clearInput(latitude, driver);
 
-      const speciesOption = await driver.findElement(
-        wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
-      );
-      await click(speciesOption, driver);
+      await driver
+        .findElement(wd.By.css('select>option[value="Atlantic spotted dolphin"]'))
+        .click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveBiopsy")),
