@@ -445,6 +445,10 @@ describe("create a new encounter user journey", () => {
   it(
     "stores habitat ID",
     async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#habitatUse")),
+        pageTimeout,
+      );
       let newHabitatUrl = await driver
         .findElement(wd.By.css("#habitatUse"))
         .getAttribute("href");
@@ -506,6 +510,10 @@ describe("create a new encounter user journey", () => {
   it(
     "stores biopsy ID",
     async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#biopsy")),
+        pageTimeout,
+      );
       let newBiopsyUrl = await driver
         .findElement(wd.By.css("#biopsy"))
         .getAttribute("href");
