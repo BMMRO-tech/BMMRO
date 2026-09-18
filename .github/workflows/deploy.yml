@@ -131,7 +131,6 @@ jobs:
         working-directory: ${{env.E2E_TESTS_DIR}}
         run: |
           sudo safaridriver --enable
-          safaridriver --version
       - name: Run end to end tests
         env:
           ENDPOINT: ${{ env.E2E_ENDPOINT }}

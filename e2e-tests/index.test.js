@@ -546,9 +546,9 @@ describe("create a new encounter user journey", () => {
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
-      let editEncouterUrl = await driver.getCurrentUrl();
+      let editEncounterUrl = await driver.getCurrentUrl();
 
-      expect(editEncouterUrl).toContain("/edit");
+      expect(editEncounterUrl).toContain("/edit");
     },
     testTimeout,
   );
