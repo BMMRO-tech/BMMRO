@@ -162,6 +162,10 @@ const utilities = {
     modalDescription: css`
       padding: 20px 0;
     `,
+    modalDescriptionCentered: css`
+      padding: 20px 0;
+      text-align: center;
+    `,
     modalDescriptionList: css`
       margin: 0;
       li:not(:first-child) {

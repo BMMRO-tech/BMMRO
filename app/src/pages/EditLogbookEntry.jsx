@@ -82,20 +82,23 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
             initialValues={initialValues}
             tripId={tripId}
             isViewOnly={isExported}
+            deleteButton={
+              !isExported && !hasEnded ? (
+                <Button
+                  type="button"
+                  variant="warning"
+                  onClick={() => setShowDeleteModal(true)}
+                  testId="delete-entry-button"
+                >
+                  Delete logbook entry
+                </Button>
+              ) : null
+            }
           />
           {isExported && (
             <div css={utilities.backLinkContainer.bottom}>
               <BackLink text="Return to trip overview" to={ROUTES.trips} />
             </div>
-          )}
-          {!isExported && !hasEnded && (
-            <Button
-              variant="warning"
-              onClick={() => setShowDeleteModal(true)}
-              testId="delete-entry-button"
-            >
-              Delete entry
-            </Button>
           )}
           {showDeleteModal && (
             <DeleteConfirmationModal

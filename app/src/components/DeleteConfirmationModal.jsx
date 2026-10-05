@@ -36,10 +36,13 @@ const DeleteConfirmationModal = ({ entryLabel, onConfirm, onCancel }) => {
           <AlertDialogLabel css={utilities.confirmationModal.modalHeader}>
             Delete this {entryLabel}?
           </AlertDialogLabel>
-          <AlertDialogDescription>
+          <AlertDialogDescription
+            css={utilities.confirmationModal.modalDescriptionCentered}
+          >
             This action cannot be undone.
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
+            <CancelButton ref={cancelRef} />
             <Button
               variant="warning"
               onClick={onConfirm}
@@ -47,7 +50,6 @@ const DeleteConfirmationModal = ({ entryLabel, onConfirm, onCancel }) => {
             >
               Delete
             </Button>
-            <CancelButton ref={cancelRef} />
           </div>
         </div>
       </AlertDialogOverlay>
