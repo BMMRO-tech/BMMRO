@@ -28,7 +28,6 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
   const [isExported, setIsExported] = useState(false);
-  const [hasEnded, setHasEnded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const navigate = useNavigate();
@@ -52,7 +51,6 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
 
       if (!!values.data) {
         setIsExported(values.data.exported);
-        setHasEnded(values.data.hasEnded);
         setInitialValues(values.data);
       } else {
         navigate(generateViewTripURL(tripId));
@@ -83,7 +81,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
             tripId={tripId}
             isViewOnly={isExported}
             deleteButton={
-              !isExported && !hasEnded ? (
+              !isExported && (
                 <Button
                   type="button"
                   variant="warning"
@@ -92,7 +90,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
                 >
                   Delete logbook entry
                 </Button>
-              ) : null
+              )
             }
           />
           {isExported && (
