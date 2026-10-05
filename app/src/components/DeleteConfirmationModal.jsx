@@ -2,7 +2,11 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 import { forwardRef, useRef } from "react";
-import { AlertDialogOverlay, AlertDialogLabel, AlertDialogDescription } from "@reach/alert-dialog";
+import {
+  AlertDialogOverlay,
+  AlertDialogLabel,
+  AlertDialogDescription,
+} from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
 import Button from "./Button";
 import utilities from "../materials/utilities";

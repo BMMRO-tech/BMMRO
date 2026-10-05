@@ -192,9 +192,7 @@ describe("EditLogbookEntry", () => {
       fireEvent.click(queryByTestId("delete-entry-button"));
 
       await waitFor(() => {
-        expect(
-          queryByTestId("delete-confirmation-modal"),
-        ).toBeInTheDocument();
+        expect(queryByTestId("delete-confirmation-modal")).toBeInTheDocument();
       });
     });
 

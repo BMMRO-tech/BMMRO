@@ -104,7 +104,6 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
               onCancel={() => setShowDeleteModal(false)}
             />
           )}
-
         </Fragment>
       )}
     </Layout>

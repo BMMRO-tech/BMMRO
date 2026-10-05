@@ -682,7 +682,7 @@ describe("create a new encounter user journey", () => {
   }, testTimeout);
 });
 
-describe("delete a logbook entry user journey", () => {
+describe("delete entries", () => {
   let driver;
   let tripId;
   let logbookId;
@@ -800,7 +800,9 @@ describe("delete a logbook entry user journey", () => {
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#logbook-item")).click();
+      const logbookItem = await driver.findElement(wd.By.css("#logbook-item"));
+
+      await click(logbookItem, driver);
 
       await driver.manage().setTimeouts({ implicit: pageTimeout });
 
@@ -823,7 +825,11 @@ describe("delete a logbook entry user journey", () => {
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#delete-entry-button")).click();
+      const deleteEntryButton = await driver.findElement(
+        wd.By.css("#delete-entry-button"),
+      );
+
+      await click(deleteEntryButton, driver);
 
       // Confirmation modal appears; confirm the deletion
       await driver.wait(
@@ -831,7 +837,11 @@ describe("delete a logbook entry user journey", () => {
         pageTimeout,
       );
 
-      await driver.findElement(wd.By.css("#confirm-delete-button")).click();
+      const confirmDeleteButton = await driver.findElement(
+        wd.By.css("#confirm-delete-button"),
+      );
+
+      await click(confirmDeleteButton, driver);
 
       await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 

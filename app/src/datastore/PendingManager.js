@@ -31,7 +31,7 @@ export class PendingManager {
 
   _addCollectionListener(collectionName, collectionReference) {
     // NOTE: Pending *deletes* are not reflected in the pendingCount indicator.
-    // Firestore applies deletes to the local cache 
+    // Firestore applies deletes to the local cache
     // doc disappears from this snapshot immediately — before the delete has
     // actually reached the server. This is an accepted gap: worst case is a
     // deleted item reappearing if the delete never syncs (e.g. offline + app
