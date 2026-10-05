@@ -175,6 +175,7 @@ const utilities = {
     modalButtons: css`
       display: flex;
       justify-content: space-between;
+      gap: 10px;
     `,
   },
   header: {
