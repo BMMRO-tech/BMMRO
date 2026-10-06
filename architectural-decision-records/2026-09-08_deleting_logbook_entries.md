@@ -38,5 +38,4 @@ The `isExported` and `hasEnded` values are already fetched by the edit page's ex
 
 ## Links
 
-- [Implementation guide](../logbook-entries-delete-guide.md) — step-by-step breakdown of the implementation with file/line references
-- Issue #657 (inferred from branch name `feature/657-delete-logbook-entries` — confirm/replace with the actual issue link)
+- Issue #657 https://github.com/BMMRO-tech/BMMRO/issues/657
