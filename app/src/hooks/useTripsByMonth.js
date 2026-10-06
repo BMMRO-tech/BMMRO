@@ -80,7 +80,9 @@ const useTripsByMonth = (datastore) => {
 
   const getInitialTrips = async (today, tomorrow) => {
     try {
-      await getTripsByTimeRange(datastore, today, tomorrow).then(setTodaysTrips);
+      await getTripsByTimeRange(datastore, today, tomorrow).then(
+        setTodaysTrips,
+      );
       await getTripsByTimeRange(datastore, startOfMonth(today), today).then(
         setPreviousTrips,
       );

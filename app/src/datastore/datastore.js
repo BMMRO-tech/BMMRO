@@ -148,6 +148,10 @@ export class Datastore {
     const docRef = this.firestore.doc(path);
     docRef.update(values).catch(this.handleDelayedError);
   }
+  deleteDocByPath(path) {
+    const docRef = this.firestore.doc(path);
+    docRef.delete().catch(this.handleDelayedError);
+  }
 
   async enableOfflineStorage() {
     try {
