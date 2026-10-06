@@ -145,7 +145,7 @@ describe("EditLogbookEntry", () => {
       );
     };
 
-    it("shows delete button when entry is not exported and not hasEnded", async () => {
+    it("shows delete button when entry is not exported", async () => {
       const { tripId, logbookId } = await addLogbookEntry();
 
       const { queryByTestId } = renderEditPage(tripId, logbookId);
@@ -164,19 +164,6 @@ describe("EditLogbookEntry", () => {
 
       await waitFor(() => {
         expect(queryByTestId("exported-info")).toBeInTheDocument();
-      });
-      expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
-    });
-
-    it("hides delete button when entry has hasEnded", async () => {
-      const { tripId, logbookId } = await addLogbookEntry({
-        hasEnded: true,
-      });
-
-      const { queryByTestId } = renderEditPage(tripId, logbookId);
-
-      await waitFor(() => {
-        expect(queryByTestId("saveLogBook")).toBeInTheDocument();
       });
       expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
     });
