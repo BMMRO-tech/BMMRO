@@ -28,7 +28,13 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 
-const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId, deleteButton }) => {
+const LogbookForm = ({
+  handleSubmit,
+  initialValues,
+  isViewOnly,
+  tripId,
+  deleteButton,
+}) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);

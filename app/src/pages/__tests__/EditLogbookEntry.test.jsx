@@ -194,9 +194,9 @@ describe("EditLogbookEntry", () => {
       });
     });
 
-    it("calls deleteDocByPath with correct path on confirm", async () => {
+    it("marks the entry as deleted via updateDocByPath on confirm", async () => {
       const { tripId, logbookId } = await addLogbookEntry();
-      const deleteDocByPathSpy = vi.spyOn(datastore, "deleteDocByPath");
+      const updateDocByPathSpy = vi.spyOn(datastore, "updateDocByPath");
 
       const { queryByTestId } = renderEditPage(tripId, logbookId);
 
@@ -211,8 +211,9 @@ describe("EditLogbookEntry", () => {
       fireEvent.click(queryByTestId("confirm-delete-button"));
 
       await waitFor(() => {
-        expect(deleteDocByPathSpy).toHaveBeenCalledWith(
+        expect(updateDocByPathSpy).toHaveBeenCalledWith(
           `trip/${tripId}/logbookEntry/${logbookId}`,
+          { deleted: true },
         );
       });
     });
@@ -237,9 +238,9 @@ describe("EditLogbookEntry", () => {
       });
     });
 
-    it("does not call deleteDocByPath when cancelled", async () => {
+    it("does not call updateDocByPath when cancelled", async () => {
       const { tripId, logbookId } = await addLogbookEntry();
-      const deleteDocByPathSpy = vi.spyOn(datastore, "deleteDocByPath");
+      const updateDocByPathSpy = vi.spyOn(datastore, "updateDocByPath");
 
       const { queryByTestId } = renderEditPage(tripId, logbookId);
 
@@ -258,7 +259,7 @@ describe("EditLogbookEntry", () => {
           queryByTestId("delete-confirmation-modal"),
         ).not.toBeInTheDocument();
       });
-      expect(deleteDocByPathSpy).not.toHaveBeenCalled();
+      expect(updateDocByPathSpy).not.toHaveBeenCalled();
     });
   });
 });

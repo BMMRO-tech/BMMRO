@@ -42,7 +42,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
   };
 
   const handleDelete = () => {
-    datastore.deleteDocByPath(logbookPath);
+    datastore.updateDocByPath(logbookPath, { deleted: true });
     navigate(generateViewTripURL(tripId));
   };
 
@@ -83,7 +83,8 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
             tripId={tripId}
             isViewOnly={isExported}
             deleteButton={
-              !isExported && !hasEnded && (
+              !isExported &&
+              !hasEnded && (
                 <Button
                   type="button"
                   variant="warning"

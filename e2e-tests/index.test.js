@@ -871,20 +871,26 @@ describe("delete entries", () => {
   );
 
   it(
-    "the logbook entry has been removed from the database",
+    "the logbook entry has been soft-deleted in the database",
     async () => {
       const docRefLogbook = doc(db, "trip", tripId, "logbookEntry", logbookId);
       const docSnapLogbook = await getDoc(docRefLogbook);
 
-      expect(docSnapLogbook.exists()).toBeFalsy();
+      expect(docSnapLogbook.exists()).toBeTruthy();
+      expect(docSnapLogbook.data().deleted).toBe(true);
     },
     testTimeout,
   );
 
   afterAll(async () => {
-    // Clean up the trip created for this journey (the logbook entry is
-    // already deleted by the test itself)
+    // Clean up the trip created for this journey. The logbook entry is
+    // soft-deleted (not removed), so it must be cleaned up explicitly too -
+    // it lives in a subcollection of trip, which Firestore does not cascade
+    // delete.
     if (tripId) {
+      if (logbookId) {
+        await deleteDoc(doc(db, "trip", tripId, "logbookEntry", logbookId));
+      }
       await deleteDoc(doc(db, "trip", tripId));
     }
 
