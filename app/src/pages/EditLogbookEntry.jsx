@@ -50,7 +50,7 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
 
-      if (!!values.data) {
+      if (!!values.data && values.data.deleted !== true) {
         setIsExported(values.data.exported);
         setHasEnded(values.data.hasEnded);
         setInitialValues(values.data);

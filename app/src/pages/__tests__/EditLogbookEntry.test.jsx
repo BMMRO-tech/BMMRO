@@ -76,6 +76,29 @@ describe("EditLogbookEntry", () => {
     });
   });
 
+  it("navigates to trip overview page if the logbook entry has been deleted", async () => {
+    const { id: tripId } = await firestoreEmulator.collection("trip").add({
+      ...defaultTrip,
+    });
+
+    const { id: logbookId } = await firestoreEmulator
+      .doc(`trip/${tripId}`)
+      .collection("logbookEntry")
+      .add({ time: "12:43", exported: false, deleted: true });
+
+    const { history } = renderWithMockContexts(
+      <EditLogbookEntry tripId={tripId} logbookId={logbookId} />,
+      {
+        datastore,
+        route: `/trips/${tripId}/logbook-entry/${logbookId}/edit`,
+      },
+    );
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual(`/trips/${tripId}/view`);
+    });
+  });
+
   it("navigates to logbook view page if logbook has been exported", async () => {
     const { id: tripId } = await firestoreEmulator.collection("trip").add({
       ...defaultTrip,

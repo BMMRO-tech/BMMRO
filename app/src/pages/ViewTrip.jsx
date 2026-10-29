@@ -80,7 +80,7 @@ const ViewTrip = ({ tripId }) => {
 
       setTrip(tripResult.data);
       setLogbookEntries(
-        logbookResult.filter((entry) => entry.deleted !== true),
+        logbookResult.filter((entry) => entry.data.deleted !== true),
       );
     };
 

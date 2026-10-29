@@ -103,6 +103,23 @@ describe("ViewTrip", () => {
       expect(screen.getByTestId("newLogbook")).toBeInTheDocument(),
     );
   });
+  it("does not show deleted logbook entries", async () => {
+    await firestoreEmulator.collection("trip").doc("123").set(mockTrip);
+    const logbookCollection = firestoreEmulator
+      .doc("trip/123")
+      .collection("logbookEntry");
+    await logbookCollection.add({ time: "11:11", exported: false });
+    await logbookCollection.add({
+      time: "22:22",
+      exported: false,
+      deleted: true,
+    });
+
+    renderWithMockContexts(<ViewTrip tripId={"123"} />, { datastore });
+
+    await waitFor(() => expect(screen.getByText("11:11")).toBeInTheDocument());
+    expect(screen.queryByText("22:22")).not.toBeInTheDocument();
+  });
   it("don't show new logbook button when trip has been exported", async () => {
     const trip = {
       exported: true,
