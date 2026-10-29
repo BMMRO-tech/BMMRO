@@ -39,7 +39,7 @@ const DeleteConfirmationModal = ({ entryLabel, onConfirm, onCancel }) => {
           <AlertDialogDescription
             css={utilities.confirmationModal.modalDescriptionCentered}
           >
-            This action cannot be undone.
+            This entry will be removed from the trip.
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
             <CancelButton ref={cancelRef} />
