@@ -79,7 +79,9 @@ const ViewTrip = ({ tripId }) => {
       }
 
       setTrip(tripResult.data);
-      setLogbookEntries(logbookResult);
+      setLogbookEntries(
+        logbookResult.filter((entry) => entry.data.deleted !== true),
+      );
     };
 
     if (!!datastore) {

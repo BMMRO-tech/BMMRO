@@ -107,7 +107,8 @@ const exportData = async (startDateArg, endDateArg, options) => {
       trip.path,
       logbookSubcollection
     );
-    logbookEntries.push(...logbook);
+    // Soft-deleted entries are kept in Firestore but must not be exported
+    logbookEntries.push(...logbook.filter((entry) => entry.deleted !== true));
   }
 
   for (const encounter of encounterEntries) {
