@@ -8,8 +8,8 @@ Users had no way to remove a logbook entry created in error, such as a duplicate
 
 Two existing rules limit which entries can be deleted:
 
-- **Exported entries.** Once an entry's `exported` field is `true`, it has been written to a CSV the research team uses. Editing is already blocked for exported entries, and deletion follows the same rule so Firestore doesn't diverge from the exported data.
-- **The trip-end entry.** Ending a trip creates a logbook entry with `hasEnded: true` (`EndTripConfirmationModal.jsx`). Deleting it would leave the trip marked as ended with no matching entry, and would re-enable "New logbook entry" on a closed trip.
+- 1) Exported entries. Once an entry's `exported` field is `true`, it has been written to a CSV the research team uses. Editing is already blocked for exported entries, and deletion follows the same rule so Firestore doesn't diverge from the exported data.
+- 2) The trip-end entry. Ending a trip creates a logbook entry with `hasEnded: true` (`EndTripConfirmationModal.jsx`). Deleting it would leave the trip marked as ended with no matching entry, and would re-enable "New logbook entry" on a closed trip.
 
 ## Decision
 
