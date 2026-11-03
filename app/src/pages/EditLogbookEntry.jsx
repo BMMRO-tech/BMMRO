@@ -14,7 +14,7 @@ import utilities from "../materials/utilities";
 import LogbookForm from "../components/LogbookForm";
 import BackLink from "../components/BackLink";
 import Button from "../components/Button";
-import DeleteConfirmationModal from "../components/DeleteConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const EditLogbookEntry = ({ tripId, logbookId }) => {
   const styles = {
@@ -102,10 +102,16 @@ const EditLogbookEntry = ({ tripId, logbookId }) => {
             </div>
           )}
           {showDeleteModal && (
-            <DeleteConfirmationModal
-              entryLabel="logbook entry"
+            <ConfirmationModal
+              title="Delete this logbook entry?"
+              description="This entry will be removed from the trip."
+              confirmLabel="Delete"
+              variant="warning"
               onConfirm={handleDelete}
               onCancel={() => setShowDeleteModal(false)}
+              testId="delete-confirmation-modal"
+              confirmTestId="confirm-delete-button"
+              cancelTestId="cancel-delete-button"
             />
           )}
         </Fragment>

@@ -7,7 +7,7 @@ import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
-import CancelFormConfirmationModal from "./CancelFormConfirmationModal";
+import ConfirmationModal from "./ConfirmationModal";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
 import FormSection from "./FormSection";
@@ -53,9 +53,14 @@ const LogbookForm = ({
 
   const renderConfirmationModal = () => {
     return (
-      <CancelFormConfirmationModal
-        closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(generateViewTripURL(tripId))}
+      <ConfirmationModal
+        title="Leave without saving changes?"
+        description="Any changes made to this form will be lost."
+        confirmLabel="Leave"
+        cancelLabel="Stay on this page"
+        onConfirm={() => navigate(generateViewTripURL(tripId))}
+        onCancel={() => setShowConfirmationModal(false)}
+        testId="cancel-confirmation-modal"
       />
     );
   };

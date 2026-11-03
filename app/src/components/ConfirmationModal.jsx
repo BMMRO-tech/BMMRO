@@ -1,60 +1,77 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-import { forwardRef, useRef } from "react";
+import { useRef } from "react";
 import {
   AlertDialogOverlay,
   AlertDialogLabel,
   AlertDialogDescription,
 } from "@reach/alert-dialog";
 import "@reach/dialog/styles.css";
+
 import Button from "./Button";
 import utilities from "../materials/utilities";
 
-const DeleteConfirmationModal = ({ entryLabel, onConfirm, onCancel }) => {
+const ConfirmationModal = ({
+  title,
+  description,
+  confirmLabel,
+  cancelLabel = "Cancel",
+  variant = "primary",
+  onConfirm,
+  onCancel,
+  testId = "confirmation-modal",
+  confirmTestId,
+  cancelTestId,
+  centerDescription = true,
+  isMedium,
+  children,
+}) => {
   const cancelRef = useRef();
-
-  const CancelButton = forwardRef((props, ref) => (
-    <Button
-      variant="neutral"
-      ref={ref}
-      onClick={onCancel}
-      testId="cancel-delete-button"
-    >
-      Cancel
-    </Button>
-  ));
 
   return (
     <div css={utilities.confirmationModal.overlayBackground}>
       <AlertDialogOverlay
         css={utilities.confirmationModal.overlay}
         leastDestructiveRef={cancelRef}
-        data-testid="delete-confirmation-modal"
+        data-testid={testId}
       >
         <div css={utilities.confirmationModal.modal}>
           <AlertDialogLabel css={utilities.confirmationModal.modalHeader}>
-            Delete this {entryLabel}?
+            {title}
           </AlertDialogLabel>
           <AlertDialogDescription
-            css={utilities.confirmationModal.modalDescriptionCentered}
+            css={
+              centerDescription
+                ? utilities.confirmationModal.modalDescriptionCentered
+                : utilities.confirmationModal.modalDescription
+            }
           >
-            This entry will be removed from the trip.
+            {description}
           </AlertDialogDescription>
           <div css={utilities.confirmationModal.modalButtons}>
-            <CancelButton ref={cancelRef} />
             <Button
-              variant="warning"
+              variant={variant}
               onClick={onConfirm}
-              testId="confirm-delete-button"
+              testId={confirmTestId}
+              isMedium={isMedium}
             >
-              Delete
+              {confirmLabel}
+            </Button>
+            <Button
+              variant="neutral"
+              onClick={onCancel}
+              testId={cancelTestId}
+              isMedium={isMedium}
+            >
+              {cancelLabel}
             </Button>
           </div>
+          {children}
         </div>
       </AlertDialogOverlay>
     </div>
   );
 };
 
-export default DeleteConfirmationModal;
+export default ConfirmationModal;
