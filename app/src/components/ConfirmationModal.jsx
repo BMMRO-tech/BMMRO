@@ -59,6 +59,7 @@ const ConfirmationModal = ({
               {confirmLabel}
             </Button>
             <Button
+              ref={cancelRef}
               variant="neutral"
               onClick={onCancel}
               testId={cancelTestId}

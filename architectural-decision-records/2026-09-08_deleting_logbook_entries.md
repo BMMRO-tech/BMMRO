@@ -15,18 +15,18 @@ Two existing rules limit which entries can be deleted:
 
 Logbook entries are soft-deleted. A "Delete logbook entry" button on the edit page (`EditLogbookEntry.jsx`) opens a confirmation modal, and confirming sets `deleted: true` on the entry via `updateDocByPath`. The button is only shown when the entry is neither exported nor the trip-end entry.
 
-The document stays in Firestore. Code that reads logbook entries filters out `deleted === true`; currently that is `ViewTrip.jsx` and `export-script/exportData.js`.
+The document stays in Firestore and is filtered out on read. In the app this happens once, centrally, in `readDocsByParentPath` (`datastore.js`), so every subcollection read excludes `deleted === true` entries automatically. The export script (`export-script/exportData.js`) reads Firestore directly rather than through the datastore, so it applies its own equivalent filter.
 
 We chose soft delete over removing the document because:
 
 - A mistaken delete can be recovered by clearing the flag.
 - It is an ordinary update, so it works offline like every other write and is counted by the "unsynced changes" indicator until it syncs. A real Firestore delete disappears from the local cache immediately and would never show as pending.
 
-The confirmation modal (`DeleteConfirmationModal`) uses `@reach/alert-dialog`, like the app's other confirmation modals, with focus defaulting to Cancel.
+The confirmation modal uses the shared `ConfirmationModal` component (built on `@reach/alert-dialog`), which all of the app's confirmation modals now delegate to, with focus defaulting to Cancel.
 
 ## Consequences
 
-- Any new code that reads logbook entries (UI, export or scripts) must filter out `deleted` entries, or they will reappear.
+- App reads go through `readDocsByParentPath`, so they exclude `deleted` entries automatically. Any reader that bypasses the datastore (such as the export script or a standalone script) must filter out `deleted` entries itself, or they will reappear.
 - Deleted entries accumulate in Firestore. Firestore does not cascade-delete subcollections, so they are not removed when a trip is deleted; tests that create entries must clean them up explicitly.
 - Only logbook entries can be deleted. Extending this to habitat use, biopsy, trip or encounter records is a separate piece of work.
 
