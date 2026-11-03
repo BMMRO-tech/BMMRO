@@ -255,10 +255,10 @@ describe("create a new encounter user journey", () => {
         driver,
         wd.By.css("#saveLogBook"),
       );
-      await saveLogBook.sendKeys(wd.Key.ENTER);
+      await saveLogBook.click();
 
       console.log(
-        "[diagnostic] url immediately after saveLogBook submit:",
+        "[diagnostic] url immediately after saveLogBook click:",
         await driver.getCurrentUrl(),
       );
 
