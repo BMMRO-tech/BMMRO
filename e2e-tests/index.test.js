@@ -82,6 +82,25 @@ const clickOption = async (driver, locator) => {
   await driver.findElement(locator).click();
 };
 
+// Capture the live page state for debugging CI-only failures: the current URL,
+// the page's visible text (surfaces validation errors / modal copy), and how
+// many modals are open.
+const captureDiagnostics = async (driver, label) => {
+  try {
+    console.log(`[diagnostic] ${label} — url: ${await driver.getCurrentUrl()}`);
+
+    const bodyText = await driver.findElement(wd.By.css("body")).getText();
+    console.log(`[diagnostic] ${label} — page text:\n${bodyText}`);
+
+    const modals = await driver.findElements(
+      wd.By.css('[role="alertdialog"], [data-testid$="-modal"]'),
+    );
+    console.log(`[diagnostic] ${label} — open modals: ${modals.length}`);
+  } catch (e) {
+    console.log(`[diagnostic] ${label} — capture failed: ${e.message}`);
+  }
+};
+
 describe("create a new encounter user journey", () => {
   let driver;
   let encounterId;
@@ -204,10 +223,20 @@ describe("create a new encounter user journey", () => {
       );
       await saveLogBook.click();
 
-      await driver.wait(
-        wd.until.elementLocated(wd.By.css("#saveEndTrip")),
-        pageTimeout,
+      console.log(
+        "[diagnostic] url immediately after saveLogBook click:",
+        await driver.getCurrentUrl(),
       );
+
+      try {
+        await driver.wait(
+          wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+          pageTimeout,
+        );
+      } catch (e) {
+        await captureDiagnostics(driver, "saveLogBook timeout");
+        throw e;
+      }
 
       let newTripUrl = await driver.getCurrentUrl();
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
