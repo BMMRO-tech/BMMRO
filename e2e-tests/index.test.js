@@ -82,6 +82,24 @@ const clickOption = async (driver, locator) => {
   await driver.findElement(locator).click();
 };
 
+// Set a field's value via the native setter and fire input/change so React and
+// Formik pick it up. Used only for the masked Time input, whose autofill races
+// on the CI runner and which cannot be reliably typed into in Safari.
+const setFieldValue = async (driver, locator, value) => {
+  const element = await waitForStableElement(driver, locator);
+  await driver.executeScript(
+    `const setter = Object.getOwnPropertyDescriptor(
+       window.HTMLInputElement.prototype,
+       "value",
+     ).set;
+     setter.call(arguments[0], arguments[1]);
+     arguments[0].dispatchEvent(new Event("input", { bubbles: true }));
+     arguments[0].dispatchEvent(new Event("change", { bubbles: true }));`,
+    element,
+    value,
+  );
+};
+
 // Capture the live page state for debugging CI-only failures: the current URL,
 // the page's visible text (surfaces validation errors / modal copy), and how
 // many modals are open.
@@ -217,6 +235,8 @@ describe("create a new encounter user journey", () => {
   it(
     "user creates a new logbook entry",
     async () => {
+      await setFieldValue(driver, wd.By.name("time"), "10:00:00");
+
       const saveLogBook = await waitForStableElement(
         driver,
         wd.By.css("#saveLogBook"),
