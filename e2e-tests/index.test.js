@@ -198,11 +198,6 @@ describe("create a new encounter user journey", () => {
   it(
     "user creates a new logbook entry",
     async () => {
-      // Enter new time as CI may not have it autofilled
-      const timeInput = await waitForStableElement(driver, wd.By.name("time"));
-      await timeInput.clear();
-      await timeInput.sendKeys("100000");
-
       const saveLogBook = await waitForStableElement(
         driver,
         wd.By.css("#saveLogBook"),
