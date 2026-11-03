@@ -114,6 +114,15 @@ const captureDiagnostics = async (driver, label) => {
       wd.By.css('[role="alertdialog"], [data-testid$="-modal"]'),
     );
     console.log(`[diagnostic] ${label} — open modals: ${modals.length}`);
+
+    const timeEls = await driver.findElements(wd.By.name("time"));
+    if (timeEls.length) {
+      console.log(
+        `[diagnostic] ${label} — time field value: "${await timeEls[0].getAttribute(
+          "value",
+        )}"`,
+      );
+    }
   } catch (e) {
     console.log(`[diagnostic] ${label} — capture failed: ${e.message}`);
   }
@@ -236,6 +245,11 @@ describe("create a new encounter user journey", () => {
     "user creates a new logbook entry",
     async () => {
       await setFieldValue(driver, wd.By.name("time"), "10:00:00");
+
+      console.log(
+        "[diagnostic] time field value after setFieldValue:",
+        `"${await (await driver.findElement(wd.By.name("time"))).getAttribute("value")}"`,
+      );
 
       const saveLogBook = await waitForStableElement(
         driver,
