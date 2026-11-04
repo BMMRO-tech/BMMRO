@@ -40,92 +40,23 @@ async function startDriver() {
   return driver;
 }
 
-// Wait until an element is located, visible, enabled, and has stopped moving
-// (same position across a short interval), then return a fresh reference. The
-// SPA re-renders as Firestore data loads, so interacting with an element that
-// is still shifting (or momentarily detached) is what makes the tests flaky.
-// The poll re-finds the element each time, so a detach/reattach during a
-// re-render is tolerated rather than fatal. Callers then interact natively,
-// exactly as a real user would.
 const waitForStableElement = async (driver, locator) => {
   await driver.wait(wd.until.elementLocated(locator), pageTimeout);
-
-  let previousRect = null;
-  await driver.wait(async () => {
-    try {
-      const element = await driver.findElement(locator);
-      if (!(await element.isDisplayed()) || !(await element.isEnabled())) {
-        previousRect = null;
-        return false;
-      }
-      const { x, y, width, height } = await element.getRect();
-      const currentRect = `${x},${y},${width},${height}`;
-      const isStable = previousRect === currentRect;
-      previousRect = currentRect;
-      if (!isStable) await driver.sleep(100);
-      return isStable;
-    } catch {
-      // Element went stale / detached during a re-render; keep polling.
-      previousRect = null;
-      return false;
-    }
-  }, pageTimeout);
-
-  return driver.findElement(locator);
+  const element = await driver.findElement(locator);
+  await driver.wait(wd.until.elementIsVisible(element), pageTimeout);
+  await driver.wait(wd.until.elementIsEnabled(element), pageTimeout);
+  return element;
 };
 
-// <option> elements are not "displayed" until the native select is opened, so
-// they can't go through waitForStableElement. Wait for the option to exist
-// (its select has rendered) and click it as a user would.
 const clickOption = async (driver, locator) => {
   await driver.wait(wd.until.elementLocated(locator), pageTimeout);
   await driver.findElement(locator).click();
 };
 
-// Set a field's value via the native setter and fire input/change so React and
-// Formik pick it up. Used only for the masked Time input, whose autofill races
-// on the CI runner and which cannot be reliably typed into in Safari.
-const setFieldValue = async (driver, locator, value) => {
+const clearInput = async (driver, locator) => {
   const element = await waitForStableElement(driver, locator);
-  await driver.executeScript(
-    `const setter = Object.getOwnPropertyDescriptor(
-       window.HTMLInputElement.prototype,
-       "value",
-     ).set;
-     setter.call(arguments[0], arguments[1]);
-     arguments[0].dispatchEvent(new Event("input", { bubbles: true }));
-     arguments[0].dispatchEvent(new Event("change", { bubbles: true }));`,
-    element,
-    value,
-  );
-};
-
-// Capture the live page state for debugging CI-only failures: the current URL,
-// the page's visible text (surfaces validation errors / modal copy), and how
-// many modals are open.
-const captureDiagnostics = async (driver, label) => {
-  try {
-    console.log(`[diagnostic] ${label} — url: ${await driver.getCurrentUrl()}`);
-
-    const bodyText = await driver.findElement(wd.By.css("body")).getText();
-    console.log(`[diagnostic] ${label} — page text:\n${bodyText}`);
-
-    const modals = await driver.findElements(
-      wd.By.css('[role="alertdialog"], [data-testid$="-modal"]'),
-    );
-    console.log(`[diagnostic] ${label} — open modals: ${modals.length}`);
-
-    const timeEls = await driver.findElements(wd.By.name("time"));
-    if (timeEls.length) {
-      console.log(
-        `[diagnostic] ${label} — time field value: "${await timeEls[0].getAttribute(
-          "value",
-        )}"`,
-      );
-    }
-  } catch (e) {
-    console.log(`[diagnostic] ${label} — capture failed: ${e.message}`);
-  }
+  await driver.executeScript("arguments[0].select()", element);
+  await element.sendKeys(wd.Key.DELETE);
 };
 
 describe("create a new encounter user journey", () => {
@@ -146,8 +77,6 @@ describe("create a new encounter user journey", () => {
         console.log("firebase authentication error: ", error);
       });
     driver = await startDriver();
-    // Rely solely on the explicit waits in waitForStableElement; a non-zero
-    // implicit wait would compound with them and slow every re-find.
     await driver.manage().setTimeouts({ implicit: 0 });
   }, testTimeout);
 
@@ -167,10 +96,16 @@ describe("create a new encounter user journey", () => {
       );
       await password.sendKeys(process.env.PASSWORD);
 
-      const loginButton = await waitForStableElement(driver, wd.By.css("button"));
+      const loginButton = await waitForStableElement(
+        driver,
+        wd.By.css("button"),
+      );
       await loginButton.click();
 
-      const tripsTab = await waitForStableElement(driver, wd.By.css("#tripsTab"));
+      const tripsTab = await waitForStableElement(
+        driver,
+        wd.By.css("#tripsTab"),
+      );
       let title = await tripsTab.getText();
 
       let expectedTitle = "TRIPS";
@@ -244,12 +179,9 @@ describe("create a new encounter user journey", () => {
   it(
     "user creates a new logbook entry",
     async () => {
-      await setFieldValue(driver, wd.By.name("time"), "10:00:00");
-
-      console.log(
-        "[diagnostic] time field value after setFieldValue:",
-        `"${await (await driver.findElement(wd.By.name("time"))).getAttribute("value")}"`,
-      );
+      const timeInput = await waitForStableElement(driver, wd.By.name("time"));
+      await timeInput.clear();
+      await timeInput.sendKeys("100000");
 
       const saveLogBook = await waitForStableElement(
         driver,
@@ -257,25 +189,18 @@ describe("create a new encounter user journey", () => {
       );
       await saveLogBook.click();
 
-      console.log(
-        "[diagnostic] url immediately after saveLogBook click:",
-        await driver.getCurrentUrl(),
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+        pageTimeout,
       );
-
-      try {
-        await driver.wait(
-          wd.until.elementLocated(wd.By.css("#saveEndTrip")),
-          pageTimeout,
-        );
-      } catch (e) {
-        await captureDiagnostics(driver, "saveLogBook timeout");
-        throw e;
-      }
 
       let newTripUrl = await driver.getCurrentUrl();
       expect(newTripUrl).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
 
-      const logbookList = await waitForStableElement(driver, wd.By.id("logbook"));
+      const logbookList = await waitForStableElement(
+        driver,
+        wd.By.id("logbook"),
+      );
       const logbook = await logbookList.getText();
 
       let expectedText = "Logbook entry 1";
@@ -341,7 +266,10 @@ describe("create a new encounter user journey", () => {
       );
       await observers.sendKeys("e2e");
 
-      const saveTrip = await waitForStableElement(driver, wd.By.css("#saveTrip"));
+      const saveTrip = await waitForStableElement(
+        driver,
+        wd.By.css("#saveTrip"),
+      );
       await saveTrip.click();
 
       await driver.wait(
@@ -495,20 +423,8 @@ describe("create a new encounter user journey", () => {
   it(
     "user fills out and ends habitat",
     async () => {
-      // Clear latitude and longitude in case it is autofilled by browser
-      const longitude = await waitForStableElement(
-        driver,
-        wd.By.name("longitude"),
-      );
-      await driver.executeScript("arguments[0].select()", longitude);
-      await longitude.sendKeys(wd.Key.DELETE);
-
-      const latitude = await waitForStableElement(
-        driver,
-        wd.By.name("latitude"),
-      );
-      await driver.executeScript("arguments[0].select()", latitude);
-      await latitude.sendKeys(wd.Key.DELETE);
+      await clearInput(driver, wd.By.name("longitude"));
+      await clearInput(driver, wd.By.name("latitude"));
 
       const saveHabitat = await waitForStableElement(
         driver,
@@ -559,19 +475,8 @@ describe("create a new encounter user journey", () => {
       expect(newBiopsyUrl).toContain(`/biopsies/new`);
 
       // Clear latitude and longitude in case it is autofilled by browser
-      const longitude = await waitForStableElement(
-        driver,
-        wd.By.name("longitude"),
-      );
-      await driver.executeScript("arguments[0].select()", longitude);
-      await longitude.sendKeys(wd.Key.DELETE);
-
-      const latitude = await waitForStableElement(
-        driver,
-        wd.By.name("latitude"),
-      );
-      await driver.executeScript("arguments[0].select()", latitude);
-      await latitude.sendKeys(wd.Key.DELETE);
+      await clearInput(driver, wd.By.name("longitude"));
+      await clearInput(driver, wd.By.name("latitude"));
 
       await clickOption(
         driver,
