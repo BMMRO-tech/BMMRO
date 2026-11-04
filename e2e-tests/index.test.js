@@ -664,7 +664,6 @@ describe("delete entries", () => {
   let driver;
   let tripId;
   let logbookId;
-  let pageTimeout = 10000;
   let testTimeout = 50000;
 
   beforeAll(async () => {
@@ -676,6 +675,7 @@ describe("delete entries", () => {
         console.log("firebase authentication error: ", error);
       });
     driver = await startDriver();
+    await driver.manage().setTimeouts({ implicit: 0 });
   }, testTimeout);
 
   it(
@@ -685,17 +685,29 @@ describe("delete entries", () => {
 
       await driver.get(process.env.ENDPOINT);
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
-
-      let email = driver.findElement(wd.By.name("email"));
+      const email = await waitForStableElement(driver, wd.By.name("email"));
       await email.sendKeys(process.env.EMAIL);
 
-      let password = driver.findElement(wd.By.name("password"));
+      const password = await waitForStableElement(
+        driver,
+        wd.By.name("password"),
+      );
       await password.sendKeys(process.env.PASSWORD);
 
-      await driver.findElement(wd.By.css("button")).click();
+      const loginButton = await waitForStableElement(
+        driver,
+        wd.By.css("button"),
+      );
+      await loginButton.click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      const tripsTab = await waitForStableElement(
+        driver,
+        wd.By.css("#tripsTab"),
+      );
+      let title = await tripsTab.getText();
+
+      let expectedTitle = "TRIPS";
+      expect(title).toBe(expectedTitle);
 
       let homeUrl = await driver.getCurrentUrl();
 
@@ -707,28 +719,28 @@ describe("delete entries", () => {
   it(
     "user creates a trip with a logbook entry to delete",
     async () => {
-      await driver.findElement(wd.By.css("#new-trips-button")).click();
+      const newTripButton = await waitForStableElement(
+        driver,
+        wd.By.css("#new-trips-button"),
+      );
+      await newTripButton.click();
 
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
-
-      let tripNumber = await driver.findElement(wd.By.name("tripNumber"));
+      const tripNumber = await waitForStableElement(
+        driver,
+        wd.By.name("tripNumber"),
+      );
       await tripNumber.sendKeys("456");
 
       //area
-      await driver.findElement(wd.By.css('select>option[value="EA"]')).click();
+      await clickOption(driver, wd.By.css('select>option[value="EA"]'));
       //vessel
-      await driver
-        .findElement(wd.By.css('select>option[value="Chimo"]'))
-        .click();
+      await clickOption(driver, wd.By.css('select>option[value="Chimo"]'));
 
-      await driver.wait(
-        wd.until.elementLocated(wd.By.css("#newLogBook")),
-        pageTimeout,
+      const newLogBook = await waitForStableElement(
+        driver,
+        wd.By.css("#newLogBook"),
       );
-
-      await driver.findElement(wd.By.css("#newLogBook")).click();
-
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      await newLogBook.click();
 
       let newTripUrl = await driver.getCurrentUrl();
 
@@ -742,19 +754,15 @@ describe("delete entries", () => {
   it(
     "user saves the new logbook entry",
     async () => {
-      await driver.wait(
-        wd.until.elementLocated(wd.By.css("#saveLogBook")),
-        pageTimeout,
-      );
-
-      // Enter new time as CI may not have it autofilled
-      let timeInput = await driver.findElement(wd.By.name("time"));
+      const timeInput = await waitForStableElement(driver, wd.By.name("time"));
       await timeInput.clear();
       await timeInput.sendKeys("110000");
 
-      await driver.findElement(wd.By.css("#saveLogBook")).click();
-
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
+      const saveLogBook = await waitForStableElement(
+        driver,
+        wd.By.css("#saveLogBook"),
+      );
+      await saveLogBook.click();
 
       await driver.wait(
         wd.until.elementLocated(wd.By.css("#saveEndTrip")),
@@ -764,7 +772,12 @@ describe("delete entries", () => {
       let url = await driver.getCurrentUrl();
       expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
 
-      const logbook = await driver.findElement(wd.By.id("logbook")).getText();
+      const logbookList = await waitForStableElement(
+        driver,
+        wd.By.id("logbook"),
+      );
+      const logbook = await logbookList.getText();
+
       expect(logbook).toContain("Logbook entry 1");
     },
     testTimeout,
@@ -773,16 +786,16 @@ describe("delete entries", () => {
   it(
     "user opens the logbook entry for editing",
     async () => {
+      const logbookItem = await waitForStableElement(
+        driver,
+        wd.By.css("#logbook-item"),
+      );
+      await logbookItem.click();
+
       await driver.wait(
-        wd.until.elementLocated(wd.By.css("#logbook-item")),
+        wd.until.elementLocated(wd.By.css("#delete-entry-button")),
         pageTimeout,
       );
-
-      const logbookItem = await driver.findElement(wd.By.css("#logbook-item"));
-
-      await click(logbookItem, driver);
-
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       let editLogbookUrl = await driver.getCurrentUrl();
 
@@ -798,28 +811,18 @@ describe("delete entries", () => {
   it(
     "user deletes the logbook entry via the confirmation modal",
     async () => {
-      await driver.wait(
-        wd.until.elementLocated(wd.By.css("#delete-entry-button")),
-        pageTimeout,
-      );
-
-      const deleteEntryButton = await driver.findElement(
+      const deleteEntryButton = await waitForStableElement(
+        driver,
         wd.By.css("#delete-entry-button"),
       );
-
-      await click(deleteEntryButton, driver);
+      await deleteEntryButton.click();
 
       // Confirmation modal appears; confirm the deletion
-      await driver.wait(
-        wd.until.elementLocated(wd.By.css("#confirm-delete-button")),
-        pageTimeout,
-      );
-
-      const confirmDeleteButton = await driver.findElement(
+      const confirmDeleteButton = await waitForStableElement(
+        driver,
         wd.By.css("#confirm-delete-button"),
       );
-
-      await click(confirmDeleteButton, driver);
+      await confirmDeleteButton.click();
 
       await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
 
@@ -837,11 +840,7 @@ describe("delete entries", () => {
         pageTimeout,
       );
 
-      // Negative assertion - drop the implicit wait so we don't block for its
-      // full duration looking for an element that should be gone
-      await driver.manage().setTimeouts({ implicit: 0 });
       let items = await driver.findElements(wd.By.css("#logbook-item"));
-      await driver.manage().setTimeouts({ implicit: pageTimeout });
 
       expect(items.length).toBe(0);
     },
