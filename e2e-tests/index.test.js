@@ -83,7 +83,7 @@ describe("create a new encounter user journey", () => {
   it(
     "user successfully logs in",
     async () => {
-      driver.manage().window().maximize();
+      await driver.manage().window().setRect({ width: 1920, height: 1200 });
 
       await driver.get(process.env.ENDPOINT);
 
@@ -681,7 +681,7 @@ describe("delete entries", () => {
   it(
     "user successfully logs in",
     async () => {
-      driver.manage().window().maximize();
+      await driver.manage().window().setRect({ width: 1920, height: 1200 });
 
       await driver.get(process.env.ENDPOINT);
 
