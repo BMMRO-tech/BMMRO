@@ -9,7 +9,7 @@ import { navigate } from "@reach/router";
 import utilities from "../materials/utilities";
 import { constructDateTime } from "../utils/time";
 import { getModifiedProperties } from "../utils/math";
-import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 import Button from "./Button";
 import FormSection from "./FormSection";
 import ListHeader from "./list/ListHeader";
@@ -72,9 +72,14 @@ const EncounterForm = ({
 
   const renderConfirmationModal = () => {
     return (
-      <CancelFormConfirmationModal
-        closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
+      <ConfirmationModal
+        title="Leave without saving changes?"
+        description="Any changes made to this form will be lost."
+        confirmLabel="Leave"
+        cancelLabel="Stay on this page"
+        onConfirm={() => navigate(generateOpenEncounterURL(encounterId))}
+        onCancel={() => setShowConfirmationModal(false)}
+        testId="cancel-confirmation-modal"
       />
     );
   };

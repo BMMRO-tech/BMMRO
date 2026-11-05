@@ -1,22 +1,26 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import { forwardRef } from "react";
 import colors from "../materials/colors";
 import breakPoints from "../materials/breakPoints";
 
-const Button = ({
-  type,
-  disabled,
-  children,
-  testId,
-  onClick,
-  variant = "primary",
-  width = "auto",
-  styles,
-  isSmall,
-  isMedium,
-  customCss,
-}) => {
+const Button = forwardRef(function Button(
+  {
+    type,
+    disabled,
+    children,
+    testId,
+    onClick,
+    variant = "primary",
+    width = "auto",
+    styles,
+    isSmall,
+    isMedium,
+    customCss,
+  },
+  ref,
+) {
   const basicStyles = css`
     ${styles}
     display: block;
@@ -69,6 +73,7 @@ const Button = ({
 
   return (
     <button
+      ref={ref}
       id={testId}
       css={[variantStyles[variant], customCss]}
       type={type}
@@ -79,6 +84,6 @@ const Button = ({
       {children}
     </button>
   );
-};
+});
 
 export default Button;

@@ -42,10 +42,29 @@ async function startDriver() {
 
 const waitForStableElement = async (driver, locator) => {
   await driver.wait(wd.until.elementLocated(locator), pageTimeout);
-  const element = await driver.findElement(locator);
-  await driver.wait(wd.until.elementIsVisible(element), pageTimeout);
-  await driver.wait(wd.until.elementIsEnabled(element), pageTimeout);
-  return element;
+
+  let previousRect = null;
+  await driver.wait(async () => {
+    try {
+      const element = await driver.findElement(locator);
+      if (!(await element.isDisplayed()) || !(await element.isEnabled())) {
+        previousRect = null;
+        return false;
+      }
+      const { x, y, width, height } = await element.getRect();
+      const currentRect = `${x},${y},${width},${height}`;
+      const isStable = previousRect === currentRect;
+      previousRect = currentRect;
+      if (!isStable) await driver.sleep(100);
+      return isStable;
+    } catch {
+      // Element went stale / detached during a re-render; keep polling.
+      previousRect = null;
+      return false;
+    }
+  }, pageTimeout);
+
+  return driver.findElement(locator);
 };
 
 const clickOption = async (driver, locator) => {
@@ -330,7 +349,10 @@ describe("create a new encounter user journey", () => {
       );
       await saveLogBook.click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#editTripInformation")),
+        pageTimeout,
+      );
 
       let url = await driver.getCurrentUrl();
 
@@ -545,7 +567,10 @@ describe("create a new encounter user journey", () => {
       );
       await saveEndEncounter.click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#new-encounters-button")),
+        pageTimeout,
+      );
 
       let homeUrl = await driver.getCurrentUrl();
 
@@ -648,6 +673,239 @@ describe("create a new encounter user journey", () => {
   );
 
   afterAll(async () => {
+    await driver.quit();
+
+    signOut(auth)
+      .then(() => {
+        console.log("firebase sign out success");
+      })
+      .catch((error) => {
+        console.log("firebase sign out error: ", error);
+      });
+  }, testTimeout);
+});
+
+describe("delete entries", () => {
+  let driver;
+  let tripId;
+  let logbookId;
+  let testTimeout = 50000;
+
+  beforeAll(async () => {
+    signInWithEmailAndPassword(auth, process.env.EMAIL, process.env.PASSWORD)
+      .then(() => {
+        console.log("firebase authentication success");
+      })
+      .catch((error) => {
+        console.log("firebase authentication error: ", error);
+      });
+    driver = await startDriver();
+    await driver.manage().setTimeouts({ implicit: 0 });
+  }, testTimeout);
+
+  it(
+    "user successfully logs in",
+    async () => {
+      driver.manage().window().maximize();
+
+      await driver.get(process.env.ENDPOINT);
+
+      const email = await waitForStableElement(driver, wd.By.name("email"));
+      await email.sendKeys(process.env.EMAIL);
+
+      const password = await waitForStableElement(
+        driver,
+        wd.By.name("password"),
+      );
+      await password.sendKeys(process.env.PASSWORD);
+
+      const loginButton = await waitForStableElement(
+        driver,
+        wd.By.css("button"),
+      );
+      await loginButton.click();
+
+      const tripsTab = await waitForStableElement(
+        driver,
+        wd.By.css("#tripsTab"),
+      );
+      let title = await tripsTab.getText();
+
+      let expectedTitle = "TRIPS";
+      expect(title).toBe(expectedTitle);
+
+      let homeUrl = await driver.getCurrentUrl();
+
+      expect(homeUrl).toBe(`${process.env.ENDPOINT}/trips`);
+    },
+    testTimeout,
+  );
+
+  it(
+    "user creates a trip with a logbook entry to delete",
+    async () => {
+      const newTripButton = await waitForStableElement(
+        driver,
+        wd.By.css("#new-trips-button"),
+      );
+      await newTripButton.click();
+
+      const tripNumber = await waitForStableElement(
+        driver,
+        wd.By.name("tripNumber"),
+      );
+      await tripNumber.sendKeys("456");
+
+      //area
+      await clickOption(driver, wd.By.css('select>option[value="EA"]'));
+      //vessel
+      await clickOption(driver, wd.By.css('select>option[value="Chimo"]'));
+
+      const newLogBook = await waitForStableElement(
+        driver,
+        wd.By.css("#newLogBook"),
+      );
+      await newLogBook.click();
+
+      let newTripUrl = await driver.getCurrentUrl();
+
+      expect(newTripUrl).toContain(`/logbook-entry/new`);
+
+      tripId = newTripUrl.split("/")[4];
+    },
+    testTimeout,
+  );
+
+  it(
+    "user saves the new logbook entry",
+    async () => {
+      const timeInput = await waitForStableElement(driver, wd.By.name("time"));
+      await timeInput.clear();
+      await timeInput.sendKeys("110000");
+
+      const saveLogBook = await waitForStableElement(
+        driver,
+        wd.By.css("#saveLogBook"),
+      );
+      await saveLogBook.click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveEndTrip")),
+        pageTimeout,
+      );
+
+      let url = await driver.getCurrentUrl();
+      expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+
+      const logbookList = await waitForStableElement(
+        driver,
+        wd.By.id("logbook"),
+      );
+      const logbook = await logbookList.getText();
+
+      expect(logbook).toContain("Logbook entry 1");
+    },
+    testTimeout,
+  );
+
+  it(
+    "user opens the logbook entry for editing",
+    async () => {
+      const logbookItem = await waitForStableElement(
+        driver,
+        wd.By.css("#logbook-item"),
+      );
+      // The trip is still active, so the sticky "End trip" footer overlays the
+      // bottom of the logbook list. Scroll the entry to the middle of the
+      // viewport so the footer button can't intercept the click.
+      await driver.executeScript(
+        "arguments[0].scrollIntoView({ block: 'center' })",
+        logbookItem,
+      );
+      await logbookItem.click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#delete-entry-button")),
+        pageTimeout,
+      );
+
+      let editLogbookUrl = await driver.getCurrentUrl();
+
+      logbookId = editLogbookUrl.split("/")[6];
+
+      expect(editLogbookUrl).toBe(
+        `${process.env.ENDPOINT}/trips/${tripId}/logbook-entry/${logbookId}/edit`,
+      );
+    },
+    testTimeout,
+  );
+
+  it(
+    "user deletes the logbook entry via the confirmation modal",
+    async () => {
+      const deleteEntryButton = await waitForStableElement(
+        driver,
+        wd.By.css("#delete-entry-button"),
+      );
+      await deleteEntryButton.click();
+
+      // Confirmation modal appears; confirm the deletion
+      const confirmDeleteButton = await waitForStableElement(
+        driver,
+        wd.By.css("#confirm-delete-button"),
+      );
+      await confirmDeleteButton.click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogbook")),
+        pageTimeout,
+      );
+
+      let url = await driver.getCurrentUrl();
+      expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
+    },
+    testTimeout,
+  );
+
+  it(
+    "the deleted entry no longer appears in the logbook list",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogbook")),
+        pageTimeout,
+      );
+
+      let items = await driver.findElements(wd.By.css("#logbook-item"));
+
+      expect(items.length).toBe(0);
+    },
+    testTimeout,
+  );
+
+  it(
+    "the logbook entry has been soft-deleted in the database",
+    async () => {
+      const docRefLogbook = doc(db, "trip", tripId, "logbookEntry", logbookId);
+      const docSnapLogbook = await getDoc(docRefLogbook);
+
+      expect(docSnapLogbook.exists()).toBeTruthy();
+      expect(docSnapLogbook.data().deleted).toBe(true);
+    },
+    testTimeout,
+  );
+
+  afterAll(async () => {
+    // Clean up the trip created for this journey. The logbook entry is
+    // soft-deleted (not removed), so it must be cleaned up explicitly too -
+    // it lives in a subcollection of trip, which Firestore does not cascade
+    // delete.
+    if (tripId) {
+      if (logbookId) {
+        await deleteDoc(doc(db, "trip", tripId, "logbookEntry", logbookId));
+      }
+      await deleteDoc(doc(db, "trip", tripId));
+    }
+
     await driver.quit();
 
     signOut(auth)
