@@ -83,7 +83,7 @@ describe("create a new encounter user journey", () => {
   it(
     "user successfully logs in",
     async () => {
-      await driver.manage().window().setRect({ width: 1920, height: 1200 });
+      driver.manage().window().maximize();
 
       await driver.get(process.env.ENDPOINT);
 
@@ -681,7 +681,7 @@ describe("delete entries", () => {
   it(
     "user successfully logs in",
     async () => {
-      await driver.manage().window().setRect({ width: 1920, height: 1200 });
+      driver.manage().window().maximize();
 
       await driver.get(process.env.ENDPOINT);
 
@@ -789,6 +789,13 @@ describe("delete entries", () => {
       const logbookItem = await waitForStableElement(
         driver,
         wd.By.css("#logbook-item"),
+      );
+      // The trip is still active, so the sticky "End trip" footer overlays the
+      // bottom of the logbook list. Scroll the entry to the middle of the
+      // viewport so the footer button can't intercept the click.
+      await driver.executeScript(
+        "arguments[0].scrollIntoView({ block: 'center' })",
+        logbookItem,
       );
       await logbookItem.click();
 
