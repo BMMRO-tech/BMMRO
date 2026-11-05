@@ -330,7 +330,10 @@ describe("create a new encounter user journey", () => {
       );
       await saveLogBook.click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#editTripInformation")),
+        pageTimeout,
+      );
 
       let url = await driver.getCurrentUrl();
 
@@ -545,7 +548,10 @@ describe("create a new encounter user journey", () => {
       );
       await saveEndEncounter.click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#new-encounters-button")),
+        pageTimeout,
+      );
 
       let homeUrl = await driver.getCurrentUrl();
 
@@ -831,7 +837,10 @@ describe("delete entries", () => {
       );
       await confirmDeleteButton.click();
 
-      await driver.wait(wd.until.elementLocated(wd.By.css("nav")), pageTimeout);
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newLogbook")),
+        pageTimeout,
+      );
 
       let url = await driver.getCurrentUrl();
       expect(url).toBe(`${process.env.ENDPOINT}/trips/${tripId}/view`);
