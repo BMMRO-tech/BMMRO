@@ -42,10 +42,29 @@ async function startDriver() {
 
 const waitForStableElement = async (driver, locator) => {
   await driver.wait(wd.until.elementLocated(locator), pageTimeout);
-  const element = await driver.findElement(locator);
-  await driver.wait(wd.until.elementIsVisible(element), pageTimeout);
-  await driver.wait(wd.until.elementIsEnabled(element), pageTimeout);
-  return element;
+
+  let previousRect = null;
+  await driver.wait(async () => {
+    try {
+      const element = await driver.findElement(locator);
+      if (!(await element.isDisplayed()) || !(await element.isEnabled())) {
+        previousRect = null;
+        return false;
+      }
+      const { x, y, width, height } = await element.getRect();
+      const currentRect = `${x},${y},${width},${height}`;
+      const isStable = previousRect === currentRect;
+      previousRect = currentRect;
+      if (!isStable) await driver.sleep(100);
+      return isStable;
+    } catch {
+      // Element went stale / detached during a re-render; keep polling.
+      previousRect = null;
+      return false;
+    }
+  }, pageTimeout);
+
+  return driver.findElement(locator);
 };
 
 const clickOption = async (driver, locator) => {
