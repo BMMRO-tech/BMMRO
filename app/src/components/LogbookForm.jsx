@@ -7,7 +7,7 @@ import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
-import CancelFormConfirmationModal from "./CancelFormConfirmationModal";
+import ConfirmationModal from "./ConfirmationModal";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
 import FormSection from "./FormSection";
@@ -28,7 +28,13 @@ import swellWaveHeight from "../constants/formOptions/swellWaveHeight";
 import TextAreaInput from "./formFields/TextAreaInput/TextAreaInput";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
 
-const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
+const LogbookForm = ({
+  handleSubmit,
+  initialValues,
+  isViewOnly,
+  tripId,
+  deleteButton,
+}) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const ref = useRef(null);
   const [closedPositionalModal, setClosedPositionalModal] = useState(false);
@@ -47,9 +53,14 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
 
   const renderConfirmationModal = () => {
     return (
-      <CancelFormConfirmationModal
-        closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(generateViewTripURL(tripId))}
+      <ConfirmationModal
+        title="Leave without saving changes?"
+        description="Any changes made to this form will be lost."
+        confirmLabel="Leave"
+        cancelLabel="Stay on this page"
+        onConfirm={() => navigate(generateViewTripURL(tripId))}
+        onCancel={() => setShowConfirmationModal(false)}
+        testId="cancel-confirmation-modal"
       />
     );
   };
@@ -58,7 +69,7 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
     setClosedPositionalModal(isPositionalData);
   };
 
-  const initValues = initialValues || logbookDefaultValues;
+  const initValues = { ...logbookDefaultValues, ...initialValues };
 
   return (
     <div css={utilities.sticky.contentContainer}>
@@ -73,7 +84,7 @@ const LogbookForm = ({ handleSubmit, initialValues, isViewOnly, tripId }) => {
           {({ values }) => (
             <Form>
               <section>
-                <ListHeader title="Logbook Details" />
+                <ListHeader title="Logbook Details">{deleteButton}</ListHeader>
                 <ListHeader title="Time & position" />
                 <FormSection>
                   <TimeInput

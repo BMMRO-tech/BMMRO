@@ -7,7 +7,7 @@ import { navigate } from "@reach/router";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
-import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 import Button from "./Button";
 
 import NumberInput from "./formFields/NumberInput/NumberInput";
@@ -32,7 +32,6 @@ import habitatUseDefaults from "../constants/habitatUseDefaultValues";
 import NumberWithCheckbox from "./formFields/NumberWithCheckbox/NumberWithCheckbox";
 import ListHeader from "./list/ListHeader";
 import FormSection from "./FormSection";
-import PositionalValidationModal from "./PositionalValidationModal";
 import fieldStyles from "./formFields/fieldStyles";
 import { getPosition } from "./formFields/PositionInput/getPosition";
 
@@ -83,17 +82,27 @@ const HabitatUseForm = ({
 
   const renderConfirmationModal = () => {
     return (
-      <CancelFormConfirmationModal
-        closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(generateOpenEncounterURL(encounterId))}
+      <ConfirmationModal
+        title="Leave without saving changes?"
+        description="Any changes made to this form will be lost."
+        confirmLabel="Leave"
+        cancelLabel="Stay on this page"
+        onConfirm={() => navigate(generateOpenEncounterURL(encounterId))}
+        onCancel={() => setShowConfirmationModal(false)}
+        testId="cancel-confirmation-modal"
       />
     );
   };
 
   const renderPositionalValidationModal = () => {
     return (
-      <PositionalValidationModal
-        closeModal={() => {
+      <ConfirmationModal
+        title="No positional data present!"
+        description="End habitat without positional data?"
+        confirmLabel="End habitat"
+        cancelLabel="Stay on this page"
+        onConfirm={() => handleSubmit(showPositionalModal.values)}
+        onCancel={() => {
           const elementValue = document.getElementsByName("latitude")[0];
           window.setTimeout(() => elementValue.focus(), 0);
           setShowPositionalModal((prevState) => {
@@ -103,8 +112,10 @@ const HabitatUseForm = ({
             };
           });
         }}
-        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
-        pageName="habitat"
+        testId="positional-data-modal"
+        confirmTestId="saveAnyway"
+        cancelTestId="add-data-button"
+        isMedium
       />
     );
   };
