@@ -76,6 +76,8 @@ export class Datastore {
       docsSnapshots.forEach((doc) => {
         const docData = doc.data();
 
+        if (docData.deleted === true) return;
+
         this.convertTimeObjectToDate(docData);
 
         results.push({ data: docData, id: doc.id });

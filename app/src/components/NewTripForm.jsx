@@ -8,7 +8,7 @@ import { format } from "date-fns";
 
 import utilities from "../materials/utilities";
 import { getModifiedProperties } from "../utils/math";
-import CancelFormConfirmationModal from "../components/CancelFormConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 import ListHeader from "./list/ListHeader";
 import Button from "./Button";
 import FormSection from "./FormSection";
@@ -67,9 +67,14 @@ const NewTripForm = ({ handleSubmit, datastore, isViewOnly }) => {
 
   const renderConfirmationModal = () => {
     return (
-      <CancelFormConfirmationModal
-        closeModal={() => setShowConfirmationModal(false)}
-        handleLeavePage={() => navigate(ROUTES.trips)}
+      <ConfirmationModal
+        title="Leave without saving changes?"
+        description="Any changes made to this form will be lost."
+        confirmLabel="Leave"
+        cancelLabel="Stay on this page"
+        onConfirm={() => navigate(ROUTES.trips)}
+        onCancel={() => setShowConfirmationModal(false)}
+        testId="cancel-confirmation-modal"
       />
     );
   };
