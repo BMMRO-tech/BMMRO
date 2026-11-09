@@ -15,9 +15,9 @@ import Select from "./formFields/Select/Select";
 import species from "../constants/formOptions/species";
 import { generateOpenEncounterURL } from "../constants/routes";
 import GpsFormSection from "./GpsFormSection";
+import ConfirmationModal from "./ConfirmationModal";
 import InputFocusOnError from "./formFields/InputFocusOnError";
 import { useState } from "react";
-import PositionalValidationModal from "./PositionalValidationModal";
 import utilities from "../materials/utilities";
 import DartHitSection from "./DartHitSection";
 import RadioGroup from "./formFields/RadioGroup/RadioGroup";
@@ -74,8 +74,13 @@ const BiopsyForm = ({
 
   const renderPositionalValidationModal = () => {
     return (
-      <PositionalValidationModal
-        closeModal={() => {
+      <ConfirmationModal
+        title="No positional data present!"
+        description="End biopsy without positional data?"
+        confirmLabel="End biopsy"
+        cancelLabel="Stay on this page"
+        onConfirm={() => handleSubmit(showPositionalModal.values)}
+        onCancel={() => {
           const elementValue = document.getElementsByName("latitude")[0];
           window.setTimeout(() => elementValue.focus(), 0);
           setShowPositionalModal((prevState) => {
@@ -85,8 +90,10 @@ const BiopsyForm = ({
             };
           });
         }}
-        handleLeavePage={() => handleSubmit(showPositionalModal.values)}
-        pageName="biopsy"
+        testId="positional-data-modal"
+        confirmTestId="saveAnyway"
+        cancelTestId="add-data-button"
+        isMedium
       />
     );
   };

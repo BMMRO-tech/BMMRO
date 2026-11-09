@@ -159,6 +159,31 @@ describe("datastore", () => {
       expect(animalIds).toContain(secondAnimalId);
     });
 
+    it("excludes subdocuments marked as deleted", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const { path: parentPath } = await firestoreEmulator
+        .collection("animal")
+        .add({ location: "Pacific" });
+
+      await firestoreEmulator
+        .doc(parentPath)
+        .collection("whale")
+        .add({ name: "Bill", species: "Blue" });
+
+      await firestoreEmulator
+        .doc(parentPath)
+        .collection("whale")
+        .add({ name: "Bob", species: "Narwal", deleted: true });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const animals = await datastore.readDocsByParentPath(parentPath, "whale");
+
+      expect(animals.map((animal) => animal.data)).toEqual([
+        { name: "Bill", species: "Blue" },
+      ]);
+    });
+
     it("throws datastore error if security rules reject read", async () => {
       const firestoreEmulator = getFirestore();
 

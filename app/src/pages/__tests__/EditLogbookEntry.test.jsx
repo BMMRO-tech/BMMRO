@@ -6,7 +6,7 @@ import {
   clearEmulatedData,
   cleanupTestEnv,
 } from "../../utils/test/firestoreEmulator";
-import { waitFor } from "@testing-library/react";
+import { waitFor, fireEvent } from "@testing-library/react";
 
 import { Datastore } from "../../datastore/datastore";
 import EditLogbookEntry from "../EditLogbookEntry";
@@ -76,6 +76,29 @@ describe("EditLogbookEntry", () => {
     });
   });
 
+  it("navigates to trip overview page if the logbook entry has been deleted", async () => {
+    const { id: tripId } = await firestoreEmulator.collection("trip").add({
+      ...defaultTrip,
+    });
+
+    const { id: logbookId } = await firestoreEmulator
+      .doc(`trip/${tripId}`)
+      .collection("logbookEntry")
+      .add({ time: "12:43", exported: false, deleted: true });
+
+    const { history } = renderWithMockContexts(
+      <EditLogbookEntry tripId={tripId} logbookId={logbookId} />,
+      {
+        datastore,
+        route: `/trips/${tripId}/logbook-entry/${logbookId}/edit`,
+      },
+    );
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual(`/trips/${tripId}/view`);
+    });
+  });
+
   it("navigates to logbook view page if logbook has been exported", async () => {
     const { id: tripId } = await firestoreEmulator.collection("trip").add({
       ...defaultTrip,
@@ -107,6 +130,159 @@ describe("EditLogbookEntry", () => {
 
     await waitFor(() => {
       expect(history.location.pathname).toEqual(redirectPath);
+    });
+  });
+
+  describe("delete logbook entry", () => {
+    const addLogbookEntry = async (overrides = {}) => {
+      const { id: tripId } = await firestoreEmulator.collection("trip").add({
+        ...defaultTrip,
+        exported: false,
+        hasEnded: false,
+      });
+
+      const { id: logbookId } = await firestoreEmulator
+        .doc(`trip/${tripId}`)
+        .collection("logbookEntry")
+        .add({
+          time: "12:43",
+          waterDepth: "",
+          waterDepthBeyondSoundings: false,
+          exported: false,
+          hasEnded: false,
+          ...overrides,
+        });
+
+      return { tripId, logbookId };
+    };
+
+    const renderEditPage = (tripId, logbookId) => {
+      const entryPath = `/trips/${tripId}/logbook-entry/${logbookId}/edit`;
+
+      return renderWithMockContexts(
+        <EditLogbookEntry tripId={tripId} logbookId={logbookId} />,
+        {
+          datastore,
+          route: entryPath,
+        },
+      );
+    };
+
+    it("shows delete button when entry is not exported and not hasEnded", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+    });
+
+    it("hides delete button when entry has hasEnded", async () => {
+      const { tripId, logbookId } = await addLogbookEntry({ hasEnded: true });
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("saveLogBook")).toBeInTheDocument();
+      });
+      expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
+    });
+
+    it("hides delete button when entry is exported", async () => {
+      const { tripId, logbookId } = await addLogbookEntry({
+        exported: true,
+      });
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("exported-info")).toBeInTheDocument();
+      });
+      expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
+    });
+
+    it("shows confirmation modal when delete button clicked", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-confirmation-modal")).toBeInTheDocument();
+      });
+    });
+
+    it("marks the entry as deleted via updateDocByPath on confirm", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+      const updateDocByPathSpy = vi.spyOn(datastore, "updateDocByPath");
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("confirm-delete-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("confirm-delete-button"));
+
+      await waitFor(() => {
+        expect(updateDocByPathSpy).toHaveBeenCalledWith(
+          `trip/${tripId}/logbookEntry/${logbookId}`,
+          { deleted: true },
+        );
+      });
+    });
+
+    it("navigates to trip view after confirm", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+
+      const { queryByTestId, history } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("confirm-delete-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("confirm-delete-button"));
+
+      await waitFor(() => {
+        expect(history.location.pathname).toEqual(`/trips/${tripId}/view`);
+      });
+    });
+
+    it("does not call updateDocByPath when cancelled", async () => {
+      const { tripId, logbookId } = await addLogbookEntry();
+      const updateDocByPathSpy = vi.spyOn(datastore, "updateDocByPath");
+
+      const { queryByTestId } = renderEditPage(tripId, logbookId);
+
+      await waitFor(() => {
+        expect(queryByTestId("delete-entry-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("delete-entry-button"));
+
+      await waitFor(() => {
+        expect(queryByTestId("cancel-delete-button")).toBeInTheDocument();
+      });
+      fireEvent.click(queryByTestId("cancel-delete-button"));
+
+      await waitFor(() => {
+        expect(
+          queryByTestId("delete-confirmation-modal"),
+        ).not.toBeInTheDocument();
+      });
+      expect(updateDocByPathSpy).not.toHaveBeenCalled();
     });
   });
 });
