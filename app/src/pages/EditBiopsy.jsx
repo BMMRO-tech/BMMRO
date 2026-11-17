@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 import { useEffect, useContext, useState, Fragment } from "react";
 import { useNavigate } from "@reach/router";
 import { FirebaseContext } from "../firebaseContext/firebaseContext";
@@ -10,15 +10,21 @@ import {
   generateBiopsyPath,
   generateSpecimenPath,
 } from "../constants/datastore";
-import { generateOpenEncounterURL } from "../constants/routes";
+import {
+  generateOpenEncounterURL,
+  generateViewEncounterURL,
+} from "../constants/routes";
 import Layout from "../components/Layout";
 import BiopsyForm from "../components/BiopsyForm";
 import Loader from "../components/Loader";
 import utilities from "../materials/utilities";
+import Button from "../components/Button";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const EditBiopsy = ({ encounterId, biopsyId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
   const biopsyPath = generateBiopsyPath(encounterId, biopsyId);
 
@@ -65,6 +71,32 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
     navigate(generateOpenEncounterURL(encounterId));
   };
 
+  const handleDelete = () => {
+    datastore.updateDocByPath(biopsyPath, { deleted: true });
+    navigate(generateOpenEncounterURL(encounterId));
+  };
+
+  const styles = {
+    biopsyHeader: css`
+      display: flex;
+    `,
+    deleteButton: css`
+      margin-left: auto;
+    `,
+  };
+
+  const deleteButton = (
+    <Button
+      type="button"
+      variant="warning"
+      onClick={() => setShowDeleteModal(true)}
+      testId="delete-entry-button"
+      styles={styles.deleteButton}
+    >
+      Delete biopsy
+    </Button>
+  );
+
   const getSpecimens = async () => {
     const specimens = await datastore.readDocsByParentPath(
       biopsyPath,
@@ -82,7 +114,7 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
 
-      if (!!values.data) {
+      if (!!values.data && values.data.deleted !== true) {
         values.data.specimens = await getSpecimens();
         setInitialValues(values.data);
       } else {
@@ -101,12 +133,29 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
         <Loader />
       ) : (
         <Fragment>
-          <h1 css={utilities.form.title}>Edit Biopsy</h1>
+          <div css={styles.biopsyHeader}>
+            {" "}
+            <h1 css={utilities.form.title}>Edit Biopsy</h1>
+            {deleteButton}
+          </div>
           <BiopsyForm
             handleSubmit={handleSubmit}
             initialValues={initialValues}
             encounterId={encounterId}
           />
+          {showDeleteModal && (
+            <ConfirmationModal
+              title="Delete this biopsy?"
+              description="This entry will be removed from the encounter."
+              confirmLabel="Delete"
+              variant="warning"
+              onConfirm={handleDelete}
+              onCancel={() => setShowDeleteModal(false)}
+              testId="delete-confirmation-modal"
+              confirmTestId="confirm-delete-button"
+              cancelTestId="cancel-delete-button"
+            />
+          )}
         </Fragment>
       )}
     </Layout>

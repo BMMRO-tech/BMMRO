@@ -30,7 +30,6 @@ const exportedFieldName = "exported";
 const tripEndFieldName = "hasEnded";
 const dirName = "./exported";
 
-
 let habitatUseEntries = [];
 let biopsyEntries = [];
 let logbookEntries = [];
@@ -49,13 +48,13 @@ let biopsyFileName;
 let specimenFileName;
 
 const exportData = async (startDateArg, endDateArg, options) => {
-  const exportedValue = !options.all ? [false] : [true, false]
+  const exportedValue = !options.all ? [false] : [true, false];
   const configStatus = checkMissingConfig(
     process.env.PROJECT_ID,
     process.env.API_KEY,
     process.env.AUTH_DOMAIN,
     process.env.EMAIL,
-    process.env.PASSWORD
+    process.env.PASSWORD,
   );
   if (!configStatus.isSuccessful()) logToStdErrAndExit(configStatus.value);
 
@@ -74,15 +73,15 @@ const exportData = async (startDateArg, endDateArg, options) => {
     .catch((e) => logToStdErrAndExit(e.message));
 
   logSection("Fetching data from Firestore");
-  
+
   const tripEntries = await queryCollectionByConditions(
     firebase.firestore(),
     tripCollection,
     [
-      {key:timestampTripFieldName,value:startDate, operator:">="},
-      {key:timestampTripFieldName,value:endDate, operator:"<"},
-      {key:exportedFieldName,value: exportedValue, operator:"in"},
-      {key:tripEndFieldName, value: true, operator:"=="},
+      { key: timestampTripFieldName, value: startDate, operator: ">=" },
+      { key: timestampTripFieldName, value: endDate, operator: "<" },
+      { key: exportedFieldName, value: exportedValue, operator: "in" },
+      { key: tripEndFieldName, value: true, operator: "==" },
     ],
   ).catch((e) => logToStdErrAndExit(e.message));
 
@@ -92,20 +91,23 @@ const exportData = async (startDateArg, endDateArg, options) => {
     timestampFieldName,
     firebase.firestore(),
     encounterCollection,
-    !options.all
+    !options.all,
   ).catch((e) => logToStdErrAndExit(e.message));
 
-  if (encounterEntries.length === 0 && tripEntries.length === 0) logAndExit(getMessage("NO_DATA"));
+  if (encounterEntries.length === 0 && tripEntries.length === 0)
+    logAndExit(getMessage("NO_DATA"));
 
-  if (tripEntries.length === 0) logSection(getMessage("NO_DATA_SECTION", {section: "trip"}));
+  if (tripEntries.length === 0)
+    logSection(getMessage("NO_DATA_SECTION", { section: "trip" }));
 
-  if (encounterEntries.length === 0) logSection(getMessage("NO_DATA_SECTION", {section: "encounter"}));
+  if (encounterEntries.length === 0)
+    logSection(getMessage("NO_DATA_SECTION", { section: "encounter" }));
 
   for (const trip of tripEntries) {
     const logbook = await querySubcollectionByDocPath(
       firebase.firestore(),
       trip.path,
-      logbookSubcollection
+      logbookSubcollection,
     );
     // Soft-deleted entries are kept in Firestore but must not be exported
     logbookEntries.push(...logbook.filter((entry) => entry.deleted !== true));
@@ -115,27 +117,27 @@ const exportData = async (startDateArg, endDateArg, options) => {
     const habitatUse = await querySubcollectionByDocPath(
       firebase.firestore(),
       encounter.path,
-      habitatUseSubcollection
+      habitatUseSubcollection,
     );
     habitatUseEntries.push(...habitatUse);
 
     const biopsy = await querySubcollectionByDocPath(
       firebase.firestore(),
       encounter.path,
-      biopsySubcollection
+      biopsySubcollection,
     );
-    biopsyEntries.push(...biopsy);
+    biopsyEntries.push(...biopsy.filter((entry) => entry.deleted !== true));
   }
 
-  for (const biopsy of biopsyEntries){
+  for (const biopsy of biopsyEntries) {
     const specimen = await queryNestedSubcollectionByDocPath(
       firebase.firestore(),
       biopsy.path,
       biopsySubcollection,
-      specimenSubcollection
+      specimenSubcollection,
     );
 
-    specimen.forEach(specimen => specimen.collectionType = "biopsy");
+    specimen.forEach((specimen) => (specimen.collectionType = "biopsy"));
     specimenEntries.push(...specimen);
   }
 
@@ -143,41 +145,38 @@ const exportData = async (startDateArg, endDateArg, options) => {
   const extendedLogbookEntries = populateCollectionValues(
     tripEntries,
     logbookEntries,
-    config.subCollectionToTrip
+    config.subCollectionToTrip,
   );
   const extendedHabitatUseEntries = populateCollectionValues(
     encounterEntries,
     habitatUseEntries,
-    config.subCollectionToEncounter
+    config.subCollectionToEncounter,
   );
 
   const extendedBiopsiesEntries = populateCollectionValues(
     encounterEntries,
     biopsyEntries,
-    config.subCollectionToEncounter
+    config.subCollectionToEncounter,
   );
 
   const extendedSpecimenEntries = populateCollectionValues(
     extendedBiopsiesEntries,
     specimenEntries,
-    config.biopsyToSpecimen
-  )
+    config.biopsyToSpecimen,
+  );
 
   if (!!encounterEntries.length) {
     csvEncounters = transformJsonToCsv(encounterEntries, config.encounter);
   }
 
   if (!!logbookEntries.length) {
-    csvLogbook = transformJsonToCsv(
-      extendedLogbookEntries,
-      config.trip
-    );
+    csvLogbook = transformJsonToCsv(extendedLogbookEntries, config.trip);
   }
 
   if (!!habitatUseEntries.length) {
     csvHabitatUse = transformJsonToCsv(
       extendedHabitatUseEntries,
-      config.habitatUse
+      config.habitatUse,
     );
   }
 
@@ -185,9 +184,9 @@ const exportData = async (startDateArg, endDateArg, options) => {
     csvBiopsies = transformJsonToCsv(extendedBiopsiesEntries, config.biopsy);
   }
 
-  if(!!specimenEntries.length){
-    csvSpecimen = transformJsonToCsv(extendedSpecimenEntries, config.specimen)
-  } 
+  if (!!specimenEntries.length) {
+    csvSpecimen = transformJsonToCsv(extendedSpecimenEntries, config.specimen);
+  }
 
   if (options.mark) {
     logSection("Marking records as exported");
@@ -203,7 +202,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
       logToStdErrAndExit(
         getMessage("BATCH_UPDATE_LIMIT_EXCEEDED", {
           numberOfEntries: allEntries.length,
-        })
+        }),
       );
     }
 
@@ -215,19 +214,19 @@ const exportData = async (startDateArg, endDateArg, options) => {
   }
 
   logSection("Writing csv data to files");
-  if (!!encounterEntries.length) { 
-   encountersFileName = generateFilename(
-    encounterCollection,
-    startDate,
-    endDate
-  );
+  if (!!encounterEntries.length) {
+    encountersFileName = generateFilename(
+      encounterCollection,
+      startDate,
+      endDate,
+    );
   }
 
   if (!!logbookEntries.length) {
     logbookFileName = generateFilename(
       logbookSubcollection,
       startDate,
-      endDate
+      endDate,
     );
   }
 
@@ -235,7 +234,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
     habitatUseFileName = generateFilename(
       habitatUseSubcollection,
       startDate,
-      endDate
+      endDate,
     );
   }
 
@@ -243,11 +242,15 @@ const exportData = async (startDateArg, endDateArg, options) => {
     biopsyFileName = generateFilename(biopsySubcollection, startDate, endDate);
   }
 
-  if (!!specimenEntries.length){
-    specimenFileName = generateFilename(specimenSubcollection, startDate, endDate);
+  if (!!specimenEntries.length) {
+    specimenFileName = generateFilename(
+      specimenSubcollection,
+      startDate,
+      endDate,
+    );
   }
 
-  if (!!encounterEntries.length) { 
+  if (!!encounterEntries.length) {
     writeDataToFile(dirName, encountersFileName, csvEncounters);
   }
 

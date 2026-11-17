@@ -70,7 +70,7 @@ const BiopsyForm = ({
     return total;
   };
 
-  const initValues = initialValues || biopsyFormDefaults;
+  const initValues = { ...biopsyFormDefaults, ...initialValues };
 
   const renderPositionalValidationModal = () => {
     return (
