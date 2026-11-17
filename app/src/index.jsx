@@ -1,8 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import { registerSW } from "virtual:pwa-register";
 import firebase from "firebase/compat/app";
+// Self-hosted so the fonts are precached by the service worker and look the
+// same offline. latin-ext covers accented characters.
+import "@fontsource/open-sans/latin-400.css";
+import "@fontsource/open-sans/latin-600.css";
+import "@fontsource/open-sans/latin-700.css";
+import "@fontsource/open-sans/latin-400-italic.css";
+import "@fontsource/open-sans/latin-ext-400.css";
+import "@fontsource/open-sans/latin-ext-600.css";
+import "@fontsource/open-sans/latin-ext-700.css";
+import "@fontsource/open-sans/latin-ext-400-italic.css";
 
 const firebaseConfig = {
   apiKey: import.meta.env.REACT_APP_API_KEY,
@@ -19,7 +29,5 @@ ReactDOM.render(
   document.getElementById("root"),
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
+// Registers the generated service worker (production builds only).
+registerSW();
