@@ -21,7 +21,24 @@
 ## Running the tests
 
 - Start the application
-- In a separate terminal, run `npm test`
+- In a separate terminal, run `npm test` (this excludes the offline tests, see below)
+
+## Offline tests
+
+The `offline support` journey checks that the app loads when refreshed offline and that changes made offline sync once the user is back online. It uses Chrome's network emulation, so:
+
+- It only runs with `DRIVER="chrome"` and is skipped on Safari.
+- The service worker only exists in production builds, so it can't run against the Vite dev server (`npm start`). Serve a production build instead, and point `ENDPOINT` at it:
+  ```
+  cd ../app
+  npm run build
+  npm run preview
+  ```
+  Then, in `e2e-tests`, with `ENDPOINT="http://localhost:4173"` and `DRIVER="chrome"` in `.env`:
+  ```
+  npm run test:offline
+  ```
+- In GitHub Actions it runs as its own step after the main tests, against the deployed environment, which is a production build, so no extra setup is needed.
 
 ## GitHub Actions CI
 
