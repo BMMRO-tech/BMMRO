@@ -8,10 +8,8 @@ Users had no way to remove a biopsy created in error, such as a duplicate or one
 
 Two things differ from logbook entries:
 
-- 1. No equivalent of the trip-end entry. A logbook entry can be created by another action (ending a trip), which makes deleting it unsafe. A biopsy is only created by the user, and no other record in the encounter depends on it.
-- 2. Specimens. A biopsy has a `specimen` subcollection. Firestore does not cascade-delete subcollections, so the specimens of a deleted biopsy are left in place.
-
-The exported rule is not covered by this change. Editing exported biopsies is not blocked in `EditBiopsy.jsx`: the encounter overview links exported biopsies to the read-only `ViewBiopsy.jsx`, but opening the edit URL directly still shows the editable form. This is existing behaviour, so the delete button is reachable for an exported biopsy by URL. Blocking this is a separate piece of work.
+1. No equivalent of the trip-end entry. A logbook entry can be created by another action (ending a trip), which makes deleting it unsafe. A biopsy is only created by the user, and no other record in the encounter depends on it.
+2. Specimens. A biopsy has a `specimen` subcollection. Firestore does not cascade-delete subcollections, so the specimens of a deleted biopsy are left in place.
 
 ## Decision
 
@@ -25,11 +23,11 @@ The document stays in Firestore and is filtered out on read:
 
 We chose soft delete over removing the document for the same reasons as logbook entries: a mistaken delete can be recovered by clearing the flag, and it is an ordinary update, so it works offline and is counted by the "unsynced changes" indicator until it syncs.
 
-We chose not to delete the specimens when a biopsy is deleted. The extra writes would need to be batched with the biopsy update and would make a recovery by clearing the flag incomplete. Specimens are only ever read through their parent biopsy, so they are not visible once it is filtered out.
+We chose not to delete the specimens when a biopsy is deleted. The extra writes would need to be batched with the biopsy update and would make a recovery by clearing the flag incomplete. The app only reads specimens through their parent biopsy, so they are not visible once it is filtered out. Anything that queries specimens directly (for example a collection-group query) would still return them and must check the parent biopsy.
 
 ## Consequences
 
-- Any reader that bypasses `readDocsByParentPath` must filter out `deleted` biopsies itself. `readDocByPath` is one (`EditBiopsy.jsx` handles it). `ViewBiopsy.jsx` does not currently check `deleted`; this only matters for an exported biopsy that was deleted, which is the exported gap described above.
+- Any reader that bypasses `readDocsByParentPath` must filter out `deleted` biopsies itself. `readDocByPath` is one (`EditBiopsy.jsx` handles it). `ViewBiopsy.jsx` checks `deleted` and redirects to the encounter overview, in the same way as `EditBiopsy.jsx`.
 
 ## Links
 

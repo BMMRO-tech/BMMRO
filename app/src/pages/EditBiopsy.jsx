@@ -21,6 +21,15 @@ import utilities from "../materials/utilities";
 import Button from "../components/Button";
 import ConfirmationModal from "../components/ConfirmationModal";
 
+const styles = {
+  biopsyHeader: css`
+    display: flex;
+  `,
+  deleteButton: css`
+    margin-left: auto;
+  `,
+};
+
 const EditBiopsy = ({ encounterId, biopsyId }) => {
   const { datastore } = useContext(FirebaseContext);
   const [initialValues, setInitialValues] = useState(null);
@@ -76,27 +85,6 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
     navigate(generateOpenEncounterURL(encounterId));
   };
 
-  const styles = {
-    biopsyHeader: css`
-      display: flex;
-    `,
-    deleteButton: css`
-      margin-left: auto;
-    `,
-  };
-
-  const deleteButton = (
-    <Button
-      type="button"
-      variant="warning"
-      onClick={() => setShowDeleteModal(true)}
-      testId="delete-entry-button"
-      styles={styles.deleteButton}
-    >
-      Delete biopsy
-    </Button>
-  );
-
   const getSpecimens = async () => {
     const specimens = await datastore.readDocsByParentPath(
       biopsyPath,
@@ -134,9 +122,18 @@ const EditBiopsy = ({ encounterId, biopsyId }) => {
       ) : (
         <Fragment>
           <div css={styles.biopsyHeader}>
-            {" "}
             <h1 css={utilities.form.title}>Edit Biopsy</h1>
-            {deleteButton}
+            {!initialValues.exported && (
+              <Button
+                type="button"
+                variant="warning"
+                onClick={() => setShowDeleteModal(true)}
+                testId="delete-entry-button"
+                styles={styles.deleteButton}
+              >
+                Delete biopsy
+              </Button>
+            )}
           </div>
           <BiopsyForm
             handleSubmit={handleSubmit}

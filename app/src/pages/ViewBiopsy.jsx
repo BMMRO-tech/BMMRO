@@ -47,7 +47,7 @@ const ViewBiopsy = ({ encounterId, biopsyId }) => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
 
-      if (!!values.data) {
+      if (!!values.data && values.data.deleted !== true) {
         values.data.specimens = await getSpecimens();
         if (!values.data.exported) {
           navigate(generateEditBiopsyURL(encounterId, biopsyId));

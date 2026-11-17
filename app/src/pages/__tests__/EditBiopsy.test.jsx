@@ -138,6 +138,17 @@ describe("EditBiopsy", () => {
       });
     });
 
+    it("does not show delete button if the biopsy has been exported", async () => {
+      const { encounterId, biopsyId } = await addBiopsy({ exported: true });
+
+      const { queryByTestId } = renderEditPage(encounterId, biopsyId);
+
+      await waitFor(() => {
+        expect(queryByTestId("field-species")).toBeInTheDocument();
+      });
+      expect(queryByTestId("delete-entry-button")).not.toBeInTheDocument();
+    });
+
     it("shows confirmation modal when delete button clicked", async () => {
       const { encounterId, biopsyId } = await addBiopsy();
 

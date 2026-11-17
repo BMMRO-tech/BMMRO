@@ -59,6 +59,31 @@ describe("ViewBiopsy", () => {
     });
   });
 
+  it("navigates to encounter overview page if the biopsy has been deleted", async () => {
+    const { id: encounterId } = await firestoreEmulator
+      .collection("encounter")
+      .add({ name: "Barney", species: "Bottlenose dolphin" });
+
+    const { id: biopsyId } = await firestoreEmulator
+      .doc(`encounter/${encounterId}`)
+      .collection("biopsy")
+      .add({ species: "Bottlenose dolphin", exported: true, deleted: true });
+
+    const { history } = renderWithMockContexts(
+      <ViewBiopsy encounterId={encounterId} biopsyId={biopsyId} />,
+      {
+        datastore,
+        route: `/encounters/${encounterId}/biopsies/${biopsyId}/view`,
+      },
+    );
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual(
+        `/encounters/${encounterId}/habitat-uses`,
+      );
+    });
+  });
+
   it("navigates to biopsy edit page if biopsy has not been exported", async () => {
     const { id: encounterId } = await firestoreEmulator
       .collection("encounter")
