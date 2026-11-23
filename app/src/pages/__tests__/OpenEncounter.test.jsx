@@ -6,7 +6,7 @@ import {
   clearEmulatedData,
   cleanupTestEnv,
 } from "../../utils/test/firestoreEmulator";
-import { waitFor, act } from "@testing-library/react";
+import { waitFor, act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Datastore } from "../../datastore/datastore";
@@ -141,5 +141,53 @@ describe("OpenEncounter", () => {
     await waitFor(() => {
       expect(endedEncounter.hasEnded).toBe(true);
     });
+  });
+
+  it("does not show deleted biopsies", async () => {
+    await firestoreEmulator.collection("encounter").doc("123").set({
+      species: "some species",
+      area: "some area",
+      exported: false,
+    });
+    const biopsyCollection = firestoreEmulator
+      .doc("encounter/123")
+      .collection("biopsy");
+    await biopsyCollection.add({ timeTaken: "10:14:00", exported: false });
+    await biopsyCollection.add({
+      timeTaken: "10:15:00",
+      exported: false,
+      deleted: true,
+    });
+
+    renderWithMockContexts(<OpenEncounter encounterId={"123"} />, {
+      datastore,
+    });
+
+    await waitFor(() =>
+      expect(screen.getByText("10:14:00")).toBeInTheDocument(),
+    );
+    expect(screen.queryByText("10:15:00")).not.toBeInTheDocument();
+  });
+
+  it("shows the empty biopsy list message when all biopsies have been deleted", async () => {
+    await firestoreEmulator.collection("encounter").doc("123").set({
+      species: "some species",
+      area: "some area",
+      exported: false,
+    });
+    await firestoreEmulator.doc("encounter/123").collection("biopsy").add({
+      timeTaken: "10:15:00",
+      exported: false,
+      deleted: true,
+    });
+
+    renderWithMockContexts(<OpenEncounter encounterId={"123"} />, {
+      datastore,
+    });
+
+    await waitFor(() =>
+      expect(screen.getByText("No biopsy entries yet")).toBeInTheDocument(),
+    );
+    expect(screen.queryByText("10:15:00")).not.toBeInTheDocument();
   });
 });

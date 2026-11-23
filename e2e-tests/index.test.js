@@ -696,6 +696,9 @@ describe("delete entries", () => {
   let driver;
   let tripId;
   let logbookId;
+  let encounterId;
+  let habitatId;
+  let biopsyId;
   let testTimeout = 50000;
 
   beforeAll(async () => {
@@ -901,16 +904,237 @@ describe("delete entries", () => {
     testTimeout,
   );
 
+  it(
+    "user navigates to create an encounter with a biopsy to delete",
+    async () => {
+      const encountersTab = await waitForStableElement(
+        driver,
+        wd.By.css("#encountersTab"),
+      );
+      await encountersTab.click();
+
+      const newEncountersButton = await waitForStableElement(
+        driver,
+        wd.By.css("#new-encounters-button"),
+      );
+      await newEncountersButton.click();
+
+      const seqNum = await waitForStableElement(
+        driver,
+        wd.By.name("sequenceNumber"),
+      );
+      await seqNum.sendKeys("789");
+
+      await clickOption(driver, wd.By.css('select>option[value="EA"]'));
+
+      const newHabitat = await waitForStableElement(
+        driver,
+        wd.By.css("#newHabitat"),
+      );
+      await newHabitat.click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#saveHabitat")),
+        pageTimeout,
+      );
+
+      let newHabitatUrl = await driver.getCurrentUrl();
+
+      expect(newHabitatUrl).toContain(`/habitat-uses/new`);
+
+      encounterId = newHabitatUrl.split("/")[4];
+    },
+    testTimeout,
+  );
+
+  it(
+    "user saves the habitat so the encounter overview is shown",
+    async () => {
+      await clearInput(driver, wd.By.name("longitude"));
+      await clearInput(driver, wd.By.name("latitude"));
+
+      const saveHabitat = await waitForStableElement(
+        driver,
+        wd.By.css("#saveHabitat"),
+      );
+      await saveHabitat.click();
+
+      const saveAnyway = await waitForStableElement(
+        driver,
+        wd.By.css("#saveAnyway"),
+      );
+      await saveAnyway.click();
+
+      const habitatUse = await waitForStableElement(
+        driver,
+        wd.By.css("#habitatUse"),
+      );
+      habitatId = (await habitatUse.getAttribute("href")).split("/")[6];
+
+      let url = await driver.getCurrentUrl();
+
+      expect(url).toBe(
+        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`,
+      );
+    },
+    testTimeout,
+  );
+
+  it(
+    "user creates a biopsy to delete",
+    async () => {
+      const newBiopsy = await waitForStableElement(
+        driver,
+        wd.By.css("#newBiopsy"),
+      );
+      await newBiopsy.click();
+
+      // Clear latitude and longitude in case it is autofilled by browser
+      await clearInput(driver, wd.By.name("longitude"));
+      await clearInput(driver, wd.By.name("latitude"));
+
+      await clickOption(
+        driver,
+        wd.By.css('select>option[value="Atlantic spotted dolphin"]'),
+      );
+
+      const saveBiopsy = await waitForStableElement(
+        driver,
+        wd.By.css("#saveBiopsy"),
+      );
+      await saveBiopsy.click();
+
+      const saveAnyway = await waitForStableElement(
+        driver,
+        wd.By.css("#saveAnyway"),
+      );
+      await saveAnyway.click();
+
+      const biopsyItem = await waitForStableElement(
+        driver,
+        wd.By.css("#biopsy-item"),
+      );
+      expect(await biopsyItem.getText()).toContain("Biopsy");
+
+      let url = await driver.getCurrentUrl();
+
+      expect(url).toBe(
+        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`,
+      );
+    },
+    testTimeout,
+  );
+
+  it(
+    "user opens the biopsy for editing",
+    async () => {
+      const biopsyItem = await waitForStableElement(
+        driver,
+        wd.By.css("#biopsy-item"),
+      );
+      // The encounter is still open, so the sticky footer overlays the bottom
+      // of the page. Scroll the entry to the middle of the viewport so the
+      // footer buttons can't intercept the click.
+      await driver.executeScript(
+        "arguments[0].scrollIntoView({ block: 'center' })",
+        biopsyItem,
+      );
+      await biopsyItem.click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#delete-entry-button")),
+        pageTimeout,
+      );
+
+      let editBiopsyUrl = await driver.getCurrentUrl();
+
+      biopsyId = editBiopsyUrl.split("/")[6];
+
+      expect(editBiopsyUrl).toBe(
+        `${process.env.ENDPOINT}/encounters/${encounterId}/biopsies/${biopsyId}/edit`,
+      );
+    },
+    testTimeout,
+  );
+
+  it(
+    "user deletes the biopsy via the confirmation modal",
+    async () => {
+      const deleteEntryButton = await waitForStableElement(
+        driver,
+        wd.By.css("#delete-entry-button"),
+      );
+      await deleteEntryButton.click();
+
+      const confirmDeleteButton = await waitForStableElement(
+        driver,
+        wd.By.css("#confirm-delete-button"),
+      );
+      await confirmDeleteButton.click();
+
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newBiopsy")),
+        pageTimeout,
+      );
+
+      let url = await driver.getCurrentUrl();
+      expect(url).toBe(
+        `${process.env.ENDPOINT}/encounters/${encounterId}/habitat-uses`,
+      );
+    },
+    testTimeout,
+  );
+
+  it(
+    "the deleted biopsy no longer appears in the biopsy list",
+    async () => {
+      await driver.wait(
+        wd.until.elementLocated(wd.By.css("#newBiopsy")),
+        pageTimeout,
+      );
+
+      let items = await driver.findElements(wd.By.css("#biopsy-item"));
+
+      expect(items.length).toBe(0);
+    },
+    testTimeout,
+  );
+
+  it(
+    "the biopsy has been soft-deleted in the database",
+    async () => {
+      const docRefBiopsy = doc(
+        db,
+        "encounter",
+        encounterId,
+        "biopsy",
+        biopsyId,
+      );
+      const docSnapBiopsy = await getDoc(docRefBiopsy);
+
+      expect(docSnapBiopsy.exists()).toBeTruthy();
+      expect(docSnapBiopsy.data().deleted).toBe(true);
+    },
+    testTimeout,
+  );
+
   afterAll(async () => {
-    // Clean up the trip created for this journey. The logbook entry is
-    // soft-deleted (not removed), so it must be cleaned up explicitly too -
-    // it lives in a subcollection of trip, which Firestore does not cascade
-    // delete.
     if (tripId) {
       if (logbookId) {
         await deleteDoc(doc(db, "trip", tripId, "logbookEntry", logbookId));
       }
       await deleteDoc(doc(db, "trip", tripId));
+    }
+    if (encounterId) {
+      if (biopsyId) {
+        await deleteDoc(doc(db, "encounter", encounterId, "biopsy", biopsyId));
+      }
+      if (habitatId) {
+        await deleteDoc(
+          doc(db, "encounter", encounterId, "habitatUse", habitatId),
+        );
+      }
+      await deleteDoc(doc(db, "encounter", encounterId));
     }
 
     await driver.quit();
