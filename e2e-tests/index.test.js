@@ -2,7 +2,14 @@ import * as webdriver from "selenium-webdriver";
 import { Options as ChromeOptions } from "selenium-webdriver/chrome.js";
 import "dotenv/config";
 import { initializeApp } from "firebase/app";
-import { deleteDoc, doc, getDoc, getFirestore } from "firebase/firestore/lite";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore/lite";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 let wd = webdriver.default;
@@ -1128,6 +1135,187 @@ describe("delete entries", () => {
         );
       }
       await deleteDoc(doc(db, "encounter", encounterId));
+    }
+
+    await driver.quit();
+
+    signOut(auth)
+      .then(() => {
+        console.log("firebase sign out success");
+      })
+      .catch((error) => {
+        console.log("firebase sign out error: ", error);
+      });
+  }, testTimeout);
+});
+
+// Offline support relies on a service worker, which only exists in production
+// builds. Run these against a deployed environment or `npm run preview`, not
+// the Vite dev server. Network emulation is only available via chromedriver.
+describe.skipIf(process.env.DRIVER !== "chrome")("offline support", () => {
+  let driver;
+  let tripId;
+  let testTimeout = 50000;
+
+  const setOffline = (offline) =>
+    driver.setNetworkConditions({
+      offline,
+      latency: 0,
+      download_throughput: -1,
+      upload_throughput: -1,
+    });
+
+  beforeAll(async () => {
+    signInWithEmailAndPassword(auth, process.env.EMAIL, process.env.PASSWORD)
+      .then(() => {
+        console.log("firebase authentication success");
+      })
+      .catch((error) => {
+        console.log("firebase authentication error: ", error);
+      });
+    driver = await startDriver();
+    await driver.manage().setTimeouts({ implicit: 0 });
+  }, testTimeout);
+
+  it(
+    "user successfully logs in",
+    async () => {
+      driver.manage().window().maximize();
+
+      await driver.get(process.env.ENDPOINT);
+
+      const email = await waitForStableElement(driver, wd.By.name("email"));
+      await email.sendKeys(process.env.EMAIL);
+
+      const password = await waitForStableElement(
+        driver,
+        wd.By.name("password"),
+      );
+      await password.sendKeys(process.env.PASSWORD);
+
+      const loginButton = await waitForStableElement(
+        driver,
+        wd.By.css("button"),
+      );
+      await loginButton.click();
+
+      await waitForStableElement(driver, wd.By.css("#tripsTab"));
+    },
+    testTimeout,
+  );
+
+  it(
+    "the app loads when refreshed offline",
+    async () => {
+      // Wait for the service worker to become ready before going offline.
+      await driver.executeAsyncScript(
+        "const done = arguments[arguments.length - 1];" +
+          "navigator.serviceWorker.ready.then(() => done());",
+      );
+
+      await setOffline(true);
+      await driver.navigate().refresh();
+
+      const tripsTab = await waitForStableElement(
+        driver,
+        wd.By.css("#tripsTab"),
+      );
+      expect(await tripsTab.getText()).toBe("TRIPS");
+    },
+    testTimeout,
+  );
+
+  it(
+    "user creates a trip and logbook entry while offline",
+    async () => {
+      const newTripButton = await waitForStableElement(
+        driver,
+        wd.By.css("#new-trips-button"),
+      );
+      await newTripButton.click();
+
+      const tripNumber = await waitForStableElement(
+        driver,
+        wd.By.name("tripNumber"),
+      );
+      await tripNumber.sendKeys("789");
+
+      //area
+      await clickOption(driver, wd.By.css('select>option[value="EA"]'));
+      //vessel
+      await clickOption(driver, wd.By.css('select>option[value="Chimo"]'));
+
+      const newLogBook = await waitForStableElement(
+        driver,
+        wd.By.css("#newLogBook"),
+      );
+      await newLogBook.click();
+
+      tripId = (await driver.getCurrentUrl()).split("/")[4];
+
+      const timeInput = await waitForStableElement(driver, wd.By.name("time"));
+      await timeInput.clear();
+      await timeInput.sendKeys("110000");
+
+      const saveLogBook = await waitForStableElement(
+        driver,
+        wd.By.css("#saveLogBook"),
+      );
+      await saveLogBook.click();
+
+      const logbookList = await waitForStableElement(
+        driver,
+        wd.By.id("logbook"),
+      );
+      expect(await logbookList.getText()).toContain("Logbook entry 1");
+    },
+    testTimeout,
+  );
+
+  it(
+    "the offline changes have not reached the database yet",
+    async () => {
+      // This test process has its own connection, unaffected by the browser
+      // being offline, so it sees what the server actually has.
+      const tripSnap = await getDoc(doc(db, "trip", tripId));
+
+      expect(tripSnap.exists()).toBe(false);
+    },
+    testTimeout,
+  );
+
+  it(
+    "the changes sync to the database when the user comes back online",
+    async () => {
+      await setOffline(false);
+
+      await vi.waitFor(
+        async () => {
+          const tripSnap = await getDoc(doc(db, "trip", tripId));
+          const logbookSnap = await getDocs(
+            collection(db, "trip", tripId, "logbookEntry"),
+          );
+
+          expect(tripSnap.exists()).toBe(true);
+          expect(logbookSnap.size).toBe(1);
+        },
+        { timeout: 30000, interval: 1000 },
+      );
+    },
+    testTimeout,
+  );
+
+  afterAll(async () => {
+    await setOffline(false);
+
+    // Clean up the trip created for this journey. Logbook entries live in a
+    // subcollection, which Firestore does not cascade delete.
+    if (tripId) {
+      const logbookSnap = await getDocs(
+        collection(db, "trip", tripId, "logbookEntry"),
+      );
+      await Promise.all(logbookSnap.docs.map((entry) => deleteDoc(entry.ref)));
+      await deleteDoc(doc(db, "trip", tripId));
     }
 
     await driver.quit();
