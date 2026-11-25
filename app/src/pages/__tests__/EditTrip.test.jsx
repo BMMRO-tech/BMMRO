@@ -66,4 +66,22 @@ describe("EditTrip", () => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
   });
+
+  it("navigates to trips overview if trip has been deleted", async () => {
+    const { id: tripId } = await firestoreEmulator.collection("trip").add({
+      exported: false,
+      deleted: true,
+      date: new Date("2020-08-13T23:00:00.000Z"),
+      time: "10:14",
+    });
+
+    const { history } = renderWithMockContexts(<EditTrip tripId={tripId} />, {
+      datastore,
+      route: `/trips/${tripId}/edit`,
+    });
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual("/trips");
+    });
+  });
 });

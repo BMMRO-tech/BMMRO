@@ -127,6 +127,31 @@ describe("datastore", () => {
         new Date("2000-01-15:00:00:00.000Z"),
       );
     });
+
+    it("excludes documents marked as deleted", async () => {
+      const firestoreEmulator = getFirestore();
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Delphine",
+        timestamp: new Date("1990-01-01:15:00:00.000Z"),
+      });
+
+      await firestoreEmulator.collection("dolphin").add({
+        name: "Dorian",
+        timestamp: new Date("1990-01-02:15:00:00.000Z"),
+        deleted: true,
+      });
+
+      const datastore = new Datastore(firestoreEmulator);
+      const results = await datastore.readDocsByTimeRange(
+        "dolphin",
+        "timestamp",
+        new Date("1990-01-01:00:00:00.000Z"),
+        new Date("1990-01-31:00:00:00.000Z"),
+      );
+
+      expect(results.map((result) => result.data.name)).toEqual(["Delphine"]);
+    });
   });
 
   describe("#readDocsByParentPath", () => {
@@ -362,6 +387,92 @@ describe("datastore", () => {
       );
 
       datastore.updateDocByPath(`invalid-collection/123`, { location: "UK" });
+
+      await waitFor(() => {
+        const callArg = handleDelayedError.mock.calls[0][0];
+        expect(callArg.name).toEqual("FirebaseError");
+      });
+    });
+  });
+
+  describe("#softDeleteDocWithSubcollections", () => {
+    it("marks the document and every document in its subcollections as deleted", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const { path: parentPath } = await firestoreEmulator
+        .collection("animal")
+        .add({ location: "Atlantic" });
+      const { path: firstWhalePath } = await firestoreEmulator
+        .doc(parentPath)
+        .collection("whale")
+        .add({ name: "Moby" });
+      const { path: secondWhalePath } = await firestoreEmulator
+        .doc(parentPath)
+        .collection("whale")
+        .add({ name: "Willy" });
+
+      const datastore = new Datastore(firestoreEmulator);
+      await datastore.softDeleteDocWithSubcollections(parentPath, ["whale"]);
+
+      await waitFor(async () => {
+        const docs = await Promise.all(
+          [parentPath, firstWhalePath, secondWhalePath].map((path) =>
+            firestoreEmulator.doc(path).get(),
+          ),
+        );
+        docs.forEach((doc) => expect(doc.data().deleted).toBe(true));
+      });
+
+      const parentDoc = await firestoreEmulator.doc(parentPath).get();
+      expect(parentDoc.data()).toEqual({ location: "Atlantic", deleted: true });
+    });
+
+    it("marks only the document as deleted when no subcollections are given", async () => {
+      const firestoreEmulator = getFirestore();
+
+      const { path: parentPath } = await firestoreEmulator
+        .collection("animal")
+        .add({ location: "Indian" });
+      const { path: whalePath } = await firestoreEmulator
+        .doc(parentPath)
+        .collection("whale")
+        .add({ name: "Shamu" });
+
+      const datastore = new Datastore(firestoreEmulator);
+      await datastore.softDeleteDocWithSubcollections(parentPath);
+
+      await waitFor(async () => {
+        const parentDoc = await firestoreEmulator.doc(parentPath).get();
+        expect(parentDoc.data().deleted).toBe(true);
+      });
+
+      const whaleDoc = await firestoreEmulator.doc(whalePath).get();
+      expect(whaleDoc.data().deleted).toBeUndefined();
+    });
+
+    it("throws datastore error if security rules reject the subcollection read", async () => {
+      const firestoreEmulator = getFirestore();
+      const datastore = new Datastore(firestoreEmulator, null, false);
+
+      const thrownError = await datastore
+        .softDeleteDocWithSubcollections("invalid-collection/123", ["snail"])
+        .catch((err) => err);
+
+      expect(thrownError.name).toEqual("DatastoreError");
+      expect(thrownError.message).toEqual(DatastoreErrorType.COLLECTION_READ);
+    });
+
+    it("triggers delayed error callback when the write fails", async () => {
+      const firestoreEmulator = getFirestore();
+      const handleDelayedError = vi.fn();
+      const datastore = new Datastore(
+        firestoreEmulator,
+        null,
+        false,
+        handleDelayedError,
+      );
+
+      await datastore.softDeleteDocWithSubcollections("invalid-collection/123");
 
       await waitFor(() => {
         const callArg = handleDelayedError.mock.calls[0][0];

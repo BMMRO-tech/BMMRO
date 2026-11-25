@@ -194,4 +194,105 @@ describe("ViewTrip", () => {
 
     Date.now = originalDateNow;
   });
+
+  describe("delete trip", () => {
+    const addTrip = async (overrides = {}) => {
+      const { id: tripId } = await firestoreEmulator
+        .collection("trip")
+        .add({ ...mockTrip, exported: false, hasEnded: false, ...overrides });
+      return tripId;
+    };
+
+    const renderViewPage = (tripId) =>
+      renderWithMockContexts(<ViewTrip tripId={tripId} />, {
+        datastore,
+        route: `/trips/${tripId}/view`,
+      });
+
+    it.each([
+      ["an open trip", { exported: false, hasEnded: false }],
+      ["an ended trip", { exported: false, hasEnded: true }],
+      ["an exported trip", { exported: true, hasEnded: true }],
+    ])("shows the delete button for %s", async (_, overrides) => {
+      const tripId = await addTrip(overrides);
+
+      renderViewPage(tripId);
+
+      await waitFor(() =>
+        expect(screen.getByTestId("delete-entry-button")).toBeInTheDocument(),
+      );
+    });
+
+    it("opens a confirmation modal when the delete button is clicked", async () => {
+      const tripId = await addTrip();
+
+      renderViewPage(tripId);
+      fireEvent.click(
+        await waitFor(() => screen.getByTestId("delete-entry-button")),
+      );
+
+      expect(screen.getByText("Delete this trip?")).toBeInTheDocument();
+    });
+
+    it("closes the modal without deleting when cancel is clicked", async () => {
+      const tripId = await addTrip();
+
+      renderViewPage(tripId);
+      fireEvent.click(
+        await waitFor(() => screen.getByTestId("delete-entry-button")),
+      );
+      fireEvent.click(screen.getByTestId("cancel-delete-button"));
+
+      await waitFor(() =>
+        expect(
+          screen.queryByTestId("delete-confirmation-modal"),
+        ).not.toBeInTheDocument(),
+      );
+      const trip = (await firestoreEmulator.doc(`trip/${tripId}`).get()).data();
+      expect(trip.deleted).toBeUndefined();
+    });
+
+    it("marks the trip and its logbook entries as deleted and navigates to the trips overview", async () => {
+      const tripId = await addTrip();
+      const logbookCollection = firestoreEmulator
+        .doc(`trip/${tripId}`)
+        .collection("logbookEntry");
+      const { path: firstEntryPath } = await logbookCollection.add({
+        time: "11:11",
+        exported: false,
+      });
+      const { path: secondEntryPath } = await logbookCollection.add({
+        time: "22:22",
+        exported: false,
+      });
+
+      const { history } = renderViewPage(tripId);
+      fireEvent.click(
+        await waitFor(() => screen.getByTestId("delete-entry-button")),
+      );
+      fireEvent.click(screen.getByTestId("confirm-delete-button"));
+
+      await waitFor(() => {
+        expect(history.location.pathname).toEqual("/trips");
+      });
+      await waitFor(async () => {
+        const docs = await Promise.all(
+          [`trip/${tripId}`, firstEntryPath, secondEntryPath].map((path) =>
+            firestoreEmulator.doc(path).get(),
+          ),
+        );
+        docs.forEach((doc) => expect(doc.data().deleted).toBe(true));
+      });
+    });
+
+    it("navigates to the trips overview if the trip has been deleted", async () => {
+      const tripId = await addTrip({ deleted: true });
+
+      const { history } = renderViewPage(tripId);
+
+      await waitFor(() => {
+        expect(history.location.pathname).toEqual("/trips");
+      });
+    });
+  });
 });
