@@ -67,4 +67,25 @@ describe("NewLogbookEntry", () => {
       expect(history.location.pathname).toEqual(redirectPath);
     });
   });
+
+  it("navigates to /trips overview if the trip has been deleted", async () => {
+    const { id: tripId } = await firestoreEmulator.collection("trip").add({
+      exported: false,
+      deleted: true,
+      date: new Date("2020-08-13T23:00:00.000Z"),
+      time: "10:14",
+    });
+
+    const { history } = renderWithMockContexts(
+      <NewLogbookEntry tripId={tripId} />,
+      {
+        datastore,
+        route: `/trips/${tripId}/logbook-entry/new`,
+      },
+    );
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual("/trips");
+    });
+  });
 });

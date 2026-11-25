@@ -74,7 +74,7 @@ const exportData = async (startDateArg, endDateArg, options) => {
 
   logSection("Fetching data from Firestore");
 
-  const tripEntries = await queryCollectionByConditions(
+  const tripResults = await queryCollectionByConditions(
     firebase.firestore(),
     tripCollection,
     [
@@ -84,6 +84,8 @@ const exportData = async (startDateArg, endDateArg, options) => {
       { key: tripEndFieldName, value: true, operator: "==" },
     ],
   ).catch((e) => logToStdErrAndExit(e.message));
+  // skip deleted trips
+  const tripEntries = tripResults.filter((trip) => trip.deleted !== true);
 
   const encounterEntries = await queryCollectionByTimeRange(
     startDate,

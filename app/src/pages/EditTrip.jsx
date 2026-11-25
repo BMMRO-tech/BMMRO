@@ -38,7 +38,9 @@ const EditTrip = ({ tripId }) => {
     const getData = async (path) => {
       const values = await datastore.readDocByPath(path);
 
-      if (!!values.data) {
+      if (values.data?.deleted === true) {
+        navigate(ROUTES.trips);
+      } else if (!!values.data) {
         if (values.data.exported) {
           navigate(generateViewTripURL(tripId));
         } else {

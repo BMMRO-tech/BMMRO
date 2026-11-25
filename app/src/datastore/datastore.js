@@ -106,6 +106,8 @@ export class Datastore {
       docsSnapshots.forEach((doc) => {
         const docData = doc.data();
 
+        if (docData.deleted === true) return;
+
         this.convertTimeObjectToDate(docData);
 
         results.push({ data: docData, id: doc.id });
@@ -149,6 +151,27 @@ export class Datastore {
   updateDocByPath(path, values) {
     const docRef = this.firestore.doc(path);
     docRef.update(values).catch(this.handleDelayedError);
+  }
+
+  async softDeleteDocWithSubcollections(path, subcollectionNames = []) {
+    const docRef = this.firestore.doc(path);
+    const batch = this.firestore.batch();
+    batch.update(docRef, { deleted: true });
+
+    try {
+      for (const subcollectionName of subcollectionNames) {
+        const docsSnapshots = await docRef.collection(subcollectionName).get();
+        docsSnapshots.forEach((doc) =>
+          batch.update(doc.ref, { deleted: true }),
+        );
+      }
+    } catch (e) {
+      this.enableLogging && console.error(e);
+      throw new DatastoreError(DatastoreErrorType.COLLECTION_READ);
+    }
+
+    // not awaited as it only resolves once synced when offline
+    batch.commit().catch(this.handleDelayedError);
   }
 
   async enableOfflineStorage() {
