@@ -21,6 +21,7 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import SubCollectionList from "../components/SubCollectionList";
 import EndTripConfirmationModal from "../components/EndTripConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const ViewTrip = ({ tripId }) => {
   const styles = {
@@ -36,6 +37,11 @@ const ViewTrip = ({ tripId }) => {
         margin: 0;
       }
     `,
+    deleteButtonContainer: css`
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+    `,
     disabledButtonMessage: css`
       ${typography.smallText}
       font-style: italic;
@@ -50,7 +56,20 @@ const ViewTrip = ({ tripId }) => {
   const [logbookEntries, setLogbookEntries] = useState([]);
   // const [enterEndDateManually, setEnterEndDateManually] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      await datastore.softDeleteDocWithSubcollections(
+        generateTripPath(tripId),
+        [CollectionNames.LOGBOOK_ENTRY],
+      );
+      navigate(ROUTES.trips);
+    } catch (_) {
+      setShowDeleteModal(false);
+    }
+  };
 
   const confirmTripEnd = () => {
     setShowConfirmationModal(true);
@@ -73,7 +92,7 @@ const ViewTrip = ({ tripId }) => {
         datastore.readDocsByParentPath(tripPath, CollectionNames.LOGBOOK_ENTRY),
       ]);
 
-      if (!tripResult.data) {
+      if (!tripResult.data || tripResult.data.deleted === true) {
         navigate(ROUTES.trips);
         return;
       }
@@ -121,6 +140,16 @@ const ViewTrip = ({ tripId }) => {
     <Layout hasDefaultPadding={false}>
       {!!Object.keys(trip).length ? (
         <div css={utilities.sticky.contentContainer}>
+          <div css={styles.deleteButtonContainer}>
+            <Button
+              type="button"
+              variant="warning"
+              onClick={() => setShowDeleteModal(true)}
+              testId="delete-entry-button"
+            >
+              Delete trip
+            </Button>
+          </div>
           <TripOverview trip={trip} tripId={tripId} />
           <div css={styles.list}>
             <SubCollectionList
@@ -134,6 +163,19 @@ const ViewTrip = ({ tripId }) => {
           </div>
           {renderButtons()}
           {showConfirmationModal && renderConfirmationModal()}
+          {showDeleteModal && (
+            <ConfirmationModal
+              title="Delete this trip?"
+              description="This trip and all of its logbook entries will be removed."
+              confirmLabel="Delete"
+              variant="warning"
+              onConfirm={handleDelete}
+              onCancel={() => setShowDeleteModal(false)}
+              testId="delete-confirmation-modal"
+              confirmTestId="confirm-delete-button"
+              cancelTestId="cancel-delete-button"
+            />
+          )}
         </div>
       ) : (
         <Loader />

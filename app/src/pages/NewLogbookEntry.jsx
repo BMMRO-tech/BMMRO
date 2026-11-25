@@ -26,7 +26,7 @@ const NewLogbookEntry = ({ tripId }) => {
     const getTripData = async (tripPath) => {
       const tripResult = await datastore.readDocByPath(tripPath);
 
-      if (!tripResult.data) {
+      if (!tripResult.data || tripResult.data.deleted === true) {
         navigate(ROUTES.trips);
         return;
       } else {
